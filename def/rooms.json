@@ -172,7 +172,7 @@
         "name": "East end of dojo",
         "description": "You stand in a small alcove at the eastern end of the dojo. A window is here, placed to allow the first rays of the rising sun to illuminate the alcove, and then the rest of the dojo. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=32$": {
         "exits": {
@@ -217,7 +217,7 @@
         "name": "The Gate of the Kami",
         "description": "You stand below a massive wooden gateway, carved and painted with designs to protect from evil spirits. In older times the monks would stand here to greet the weary traveller, but now all seems deserted. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=46$": {
         "name": "Monk's Cell",
@@ -294,7 +294,7 @@
         "name": "Hidden Garden",
         "description": "The walls of this hidden garden are almost obscured by the riotous spread of crazy rosebushes and brambles. They encircle a lawn of short grass patchworked with daisies, marigolds and crocuses. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=67$": {
         "name": "Mighty Wall",
@@ -320,7 +320,7 @@
         "name": "Limbo...",
         "description": "You are in an empty place, devoid of all matter. A pale light fills the room, showing the endless vastness all around you. There is Nothing Above, Nothing on Either Side, and Nothing Below you. Such was the world before the first Word was spoken. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=71$": {
         "name": "The Holy Anteroom",
@@ -335,13 +335,13 @@
         "name": "Temple of the Zen Priests",
         "description": "You stand awestruck in mystical place. The atmosphere is thick with the smell of a strange incense. Through the peaceful, quiet darkness of the temple, lit by gently glowing lamps, you see a statue of the Buddha, towering above you, arms outstretched as if in welcome.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=73$": {
         "name": "The Narrow Pass",
         "description": "You are trudging along a narrow pass between high rocky cliffs. Above you you can see a hawk circling, the only sign of life in this desolate place. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=79$": {
         "exits": {
@@ -376,7 +376,7 @@
         "name": "Suspended above the Island",
         "description": "You are suspended in mid-air, above the island.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=84$": {
         "exits": {
@@ -393,7 +393,7 @@
         "name": "The old observatory",
         "description": "This was once a small observatory, set high in the cliff, where the scientist owner could sit at night and gaze at the stars. The remains of a pair of old, wooden shutters lie broken on the floor. The wind and rain have between them ruined the interior, which must once have been quite comfortable. A low passage leads north, but after only a couple of yards it is completely blocked by a pile of fallen rocks. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=86$": {
         "exits": {
@@ -776,13 +776,13 @@
         "name": "Across the Chasm.",
         "description": "This is the western end of the storeroom. You are standing on the brink of a deep chasm to the east, its near vertical sides lined with jagged rocks. Your light does not penetrate the inky blackness at the bottom. A staircase cut into the rock descends westwards. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=161$": {
         "name": "Below Bridge",
         "description": "You are hanging onto the framework of the bridge, with ice cold water crashing and foaming only a few feet below you.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=167$": {
         "name": "Western Tower",
@@ -963,13 +963,13 @@
         "name": "SYS$LIBRARY",
         "description": "You stand in the creators' library. It is in this hallowed and quiet chamber that the great planning decisions of the world are taken. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=266$": {
         "name": "Hobbit's Hole",
         "description": "This room is small and friendly. A large bed stands to one side, with a grotty anorak thrown at the base of it. An old record player is half-hidden under candlesticks, juggling balls and clubs and a large pile of books. The light comes from a globe glowing brightly from its less than illustrious position on the floor. The smell of herbs permeates the room, the strongest being those of cinnamon and apple-mint. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=267$": {
         "exits": {
@@ -1366,7 +1366,7 @@
         "name": "The Sooty Chimney.",
         "description": "You are standing on a small ledge inside a very sooty chimney. The grimy, black walls could certainly do with a good sweeping. The bricks of the chimney are still quite warm to the touch. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=357$": {
         "exits": {
@@ -1392,7 +1392,7 @@
         "name": "The Pavillion",
         "description": "You are standing inside a knights pavillion.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=382$": {
         "name": "Wooded Clearing",
@@ -1436,7 +1436,7 @@
         "name": "The Bunny Store",
         "description": "You appear in a large rabbit burrow. Unfortunately it is way too small for you to fit into and you die messily.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=396$": {
         "name": "The Pleasant Lane",
@@ -1562,7 +1562,7 @@
         "name": "The Meeting Room",
         "description": "You are fairly suprised to find yourself standing in a well furnished chamber, with a large ornate fireplace set into the north wall. Several comfortable chairs lurk in the corner of the room, while a bookcase and a large ornate table adorn the south wall. A narrow doorway leads west.  ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=428$": {
         "name": "The Cellars",
@@ -1648,7 +1648,7 @@
         "name": "The Magic Study",
         "description": "You are in a large study. Bookshelves line three walls, and are tightly packed with books of all sizes. The floor is covered by a thick carpet, which is decorated with a colourful, but tasteful design. There is a polished, wooden table in the middle of the room. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=446$": {
         "exits": {
@@ -1781,19 +1781,19 @@
         "name": ".",
         "description": "You are crouched in a strange area of fuzzy darkness and shadows. A single hole leads out. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=477$": {
         "name": ".",
         "description": "You are staring at solid walls on every side.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=478$": {
         "name": ".",
         "description": "You are in a vertical shaft, lined with smooth wooden panels. Looking out of the shaft, you can see what looks like a laboratory. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=480$": {
         "exits": {
@@ -1809,7 +1809,7 @@
         "name": "The Dumb Waiter.",
         "description": "You are in the dumb waiter. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=482$": {
         "exits": {
@@ -1825,7 +1825,7 @@
         "name": "The Tin Bath.",
         "description": "You are in a small tin bath. It is fairly dirty and unpleasant. The bottom of the bath is very bright and shiny, as if it has just been polished. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=495$": {
         "name": "The Anteroom",
@@ -1840,13 +1840,13 @@
         "name": "The Iron Maiden.",
         "description": "You are in the iron maiden. It is a good job the door is open, because the room is adorned with several long, intermeshing, steel spikes. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=501$": {
         "name": "the Old Cupboard.",
         "description": "You are in the old cupboard. It is quite cramped in here, and very dusty. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=514$": {
         "name": "The Torture Chamber.",
@@ -1954,7 +1954,7 @@
         "name": "The Iron Grating",
         "description": "A huge rusted iron grating partially bars the stream. Time and the action of the water have rusted a small hole through the grating. Beyond the grating the stream plunges into a dark underground passage. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=542$": {
         "name": "The Underground Passage.",
@@ -1979,7 +1979,7 @@
         "name": "The West End of the Low Passage.",
         "description": "You are in a low passage which runs east. There is a hole in the west wall. The floor is fairly wet and muddy. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=550$": {
         "exits": {
@@ -1994,7 +1994,7 @@
         "name": "The Narrow Ledge.",
         "description": "You are on a narrow ledge at the edge of a large underground lake. You can't walk along the ledge for more than two yards in either direction without falling off. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=556$": {
         "name": "The Low Tunnel.",
@@ -2366,7 +2366,7 @@
         "name": "The Bronze Sarcophagus",
         "description": "You are standing in a large sarcophagus. The walls are covered in scorch marks, obviously from some powerful magick. There is a small notice attached to the back wall.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=638$": {
         "exits": {
@@ -2755,7 +2755,7 @@
         "name": "Bonzo's room",
         "description": "A fairly large, dimly lit room littered with dusty books full of arcane knowledge. A comfortable, well-cushioned armchair is situated on one side of the room, the other side is taken up by a huge bed.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=759$": {
         "exits": {
@@ -2844,7 +2844,7 @@
         "name": "The calm stream",
         "description": "The water is much deeper here. In fact it is far too deep to wade, and as you try to, the water closes in over your head and you drown.  ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=768$": {
         "name": "The shallow stream",
@@ -2961,15 +2961,6 @@
             "west": "$rid=771$"
         }
     },
-    "$rid=778$": {
-        "exits": {
-            "east": "$rid=779$",
-            "west": "$rid=787$"
-        },
-    "$rid=779$": {
-        "exits": {
-            "east": "$rid=783$"
-        },
     "$rid=783$": {
         "exits": {
             "west": "$rid=712$"
@@ -3023,13 +3014,13 @@
         "name": "Under the icy pool",
         "description": "Under Pool2.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=791$": {
         "name": "Under icy pool",
         "description": "Under Pool 1.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=792$": {
         "exits": {
@@ -3064,7 +3055,7 @@
         "name": "System Support",
         "description": "You stand in system support. A total mess of a junkhead where archwizards leave piles of objects detailing problems etc.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=806$": {
         "exits": {
@@ -3223,7 +3214,7 @@
         "name": "You crash to your doom....",
         "description": "As you attempt to scramble down the precipitous mountainside you slip and fall to your death thousands of feet below. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=832$": {
         "exits": {
@@ -3260,7 +3251,7 @@
         "name": "Icy Path",
         "description": "You are scrambling frantically up a steep icy path. The path rises sharply eastwards out of the main valley far below, and strikes off eastwards still climbing sharply as it rises towards the mountain peaks.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=841$": {
         "name": "The Old Trees",
@@ -3602,12 +3593,8 @@
         "name": "The Bog",
         "description": "The soft ground gives way underfoot, and you sink beneath the mud with an unceremonious slurp.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
-    "$rid=885$": {
-        "exits": {
-            "west": "$rid=884$"
-        },
     "$rid=886$": {
         "exits": {
             "north": "$rid=889$",
@@ -3655,7 +3642,7 @@
         "name": "The Treasure Chamber",
         "description": "You are in a treasure storage room. The high ceiling ensures that no thief will ever escape without help. There is a grille in the ceiling, far beyond your despairing reach.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=894$": {
         "exits": {
@@ -3670,7 +3657,7 @@
         "name": "In The Chest",
         "description": "You are sitting inside a large very solid chest.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=909$": {
         "name": "Under The Cart",
@@ -4035,7 +4022,7 @@
         "name": "Ian's Room",
         "description": "You stand in Ian's rather chaotic room. Piles of usenet dumps and floppy disks lie all over the floor. The room seems to have no door, or maybe its just behind one of those printouts...",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=998$": {
         "name": "Low Secret Passage",
@@ -4059,7 +4046,7 @@
         "name": "All At Sea",
         "description": "You are rowing past high and treacherous rocks, which prevent any attempt at landing. To the north and south the waters are calm and sheltered, but to the east the water becomes rougher and looks likely to upset small boats.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1001$": {
         "exits": {
@@ -4093,19 +4080,19 @@
         "name": "All At Sea",
         "description": "As you get further from the shore the seas get rougher. To the east the sea gets very choppy. To the north, south and west the waters are fairly calm.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1006$": {
         "name": "In The Wooden Boat",
         "description": "You are sitting in a wooden boat. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1007$": {
         "name": "The Dead End",
         "description": "The passage closes up to a dead end, leaving no other exits but back eastwards. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1008$": {
         "name": "The Sandy Beach",
@@ -4209,19 +4196,19 @@
         "name": "The Twisting Passage",
         "description": "Iron rungs are set into the wall, leading up a vertical shaft above you. A twisting passage leads westwards.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1028$": {
         "name": "The Lords Chamber",
         "description": "The Lords Chamber is a huge elegant hall, flanked by mighty pillars and carvings which flow together as a single grandiose image of power and stability. At one end of the hall a huge emerald throne stands on a broad dais. Huge images of the scales of justice and an axe are carved above the throne. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1029$": {
         "name": "The Dark Junction",
         "description": "Passages from all points of the compass cross here.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1030$": {
         "exits": {
@@ -4268,19 +4255,19 @@
         "name": "Waters Base",
         "description": "knee deep in the icy cold waters of a large underground lake. In the distance you can see the shores of the cavern, but in the icy cold it would not be safe to swim that way. Some twenty feet from you is a large rock protruding from the water.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1038$": {
         "name": "Limestone Cavern",
         "description": "dangling above a large underground pool. The cavern walls arch down on either side of you towards gravel banks, out of reach from your present position. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1039$": {
         "name": "Hanging Onto A Rope",
         "description": "You are hanging onto a long rope ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1041$": {
         "name": "Hanging On A Rope",
@@ -4304,7 +4291,7 @@
         "name": "Down The Well",
         "description": "near the top of the well shaft. Large stone blocks line the wellshaft walls for about sixty feet down before the well suddenely opens up into a huge underground space. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1046$": {
         "exits": {
@@ -4598,7 +4585,7 @@
         "name": "Below The Snow",
         "description": "You are trapped beneath the snow unable to escape being frozen asphyxiated and crushed to death.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1099$": {
         "name": "The Temple",
@@ -5190,13 +5177,13 @@
         "name": "The Wild Rapids",
         "description": "The water foams crazily about numerous pillars of sharp rock, swirling between them, boiling and sucking as it gathers even more pace. Low trees close in overhead seeking the spray from the rocks.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1180$": {
         "name": "The Foaming Torrent",
         "description": "The waters run eastwards at a tremendous rate, foaming over rocks, and crashing up the sides of the gorge. Everything is swaying and out of control, drawn along by the current.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1181$": {
         "name": "The Dark Shaft",
@@ -5242,7 +5229,7 @@
         "name": "All At Sea",
         "description": "The waters wash gently around you here, as you are sheltered by high cliffs to the south, and a natural rocky breakwater to the north. Eastwards the water stretches endlessly out towards the horizon, while for the seasick there is a gently shelving beach to the west.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1186$": {
         "name": "The Gently Shelving Beach",
@@ -5373,7 +5360,7 @@
         "name": "In The Wooden Crate",
         "description": "You are crouched inside a large, stoutly built wooden crate. The crate is damp and rotting, as your somewhat overloaded nostrils are keen to point out.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1225$": {
         "name": "The Stone Breakwater",
@@ -5593,10 +5580,6 @@
             "south": "$rid=1265$"
         }
     },
-    "$rid=1269$": {
-        "exits": {
-            "up": "$rid=1265$"
-        },
     "$rid=1270$": {
         "name": "The Large Cavern",
         "description": "You are standing in a large cavern. Huge stalagmites have grown up almost to the ceiling, in places merging with the multi-coloured stalactites above. A small low walled well occupies the centre of the cavern. ",
@@ -5612,7 +5595,7 @@
         "name": "In The Stone Coffin",
         "description": "You are lying inside a large foul smelling coffin. The coffin sides are stone, dank and mouldy, making you flinch at every touch. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1275$": {
         "exits": {
@@ -5650,7 +5633,7 @@
         "name": "The Seadog Inn",
         "description": "All is warmth and merriment in the Seadog Inn. A mighty fire roars in the hearth sending sparks and smoke pouring up towards the long low beamed ceiling. Log benches are jammed in up against long low tables, all up close to the fire. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1292$": {
         "exits": {
@@ -5843,7 +5826,7 @@
         "name": "Under The Water",
         "description": "You suddenely appear deep underwater, gurgling and choking you rapidly drown...",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1323$": {
         "name": "The Rough Copse",
@@ -5858,13 +5841,13 @@
         "name": "In The Hole",
         "description": "You are crouched in a strange area of fuzzy darkness and shadows. A single hole leads out. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1325$": {
         "name": "In An Old Sack",
         "description": "You are crouched in a large old sack. The thick canvas makes it uncomfortable, and also prevents you from seeing out. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1326$": {
         "name": "The Stone Chamber",
@@ -5879,7 +5862,7 @@
         "name": "In The Large Tomb",
         "description": "You are lying inside a large stone tomb. Although the tomb is large you have little freedom to move about. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1330$": {
         "name": "Under The Burial Mound",
@@ -5936,19 +5919,19 @@
         "name": "Below The Falls",
         "description": "Everything around you is a wall of water and spray, from the falls above your head. You can see nothing apart from the rocks the water is beating down upon. The current runs rapidly eastwards tugging at you. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1338$": {
         "name": "Rough Water",
         "description": "The rough waters are eddying past the boat tugging it remorselessly downstream. To your south the is a wide sandbank. To the north a narrow gravel strip offers a place to beach the boat, while to the west the water is a seething mass of foam pounded by a waterfall. Looking downstream to the east the water seems even wilder.",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1340$": {
         "name": "In The Wooden Boat",
         "description": "You are sitting in a wooden boat. ",
         "eventOnEnter": "",
-        "eventOnLeave": "",
+        "eventOnLeave": ""
     },
     "$rid=1341$": {
         "exits": {
