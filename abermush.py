@@ -835,7 +835,7 @@ while True:
                         break
 
                 # if the player hasn't given their name yet, use this first command as
-        # their name and move them to the starting room.
+                # their name and move them to the starting room.
                 if players[id]['name'] is None and players[id]['exAttribute0'] == None:
                         if command.lower() != "new":
                                 players[id]['idleStart'] = int(time.time())
@@ -949,12 +949,8 @@ while True:
                                                         mud.send_message(pid, '{} has materialised out of thin air nearby.'.format(players[id]['name']))
 
                                         # send the new player a welcome message
-                                        mud.send_message(id, '\n<f220>Welcome to DUM!, {}. '.format(players[id]['name']))
-                                        mud.send_message(id, '\n<f255>Hello there traveller! You have connected to a DUM development server, which currently consists of a few test rooms, npcs, items and environment actors. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the github repo for further info, make sure to check out the CHANGELOG. Thanks for your interest in DUM, high five!')
-                                        mud.send_message(id, "\n<f220>Some feature highlights in v0.6.2:")
-                                        mud.send_message(id, "<f255> * STILL Preparing for full Grapevine integration and major Webclient overhaul")
-                                        mud.send_message(id, "<f255> * Connection to Grapevine is now monitored and will be re-established automatically following Grapevine downtime")
-                                        mud.send_message(id, "<f255> * Number of bugfixes")
+                                        mud.send_message(id, '\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
+                                        mud.send_message(id, '\n<f255>Hello there traveller! You have connected to an AberMUSH development server. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the repo for further info, make sure to check out the CHANGELOG. Thanks for your interest in AberMUSH')
                                         mud.send_message(id, "\n<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions. Have fun!")
                                 else:
                                         mud.send_message(id, '<f202>This character is already in the world!')
