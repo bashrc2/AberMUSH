@@ -1080,7 +1080,8 @@
         "eventOnLeave": "",
         "exits": {
             "east": "$rid=396$",
-            "west": "$rid=289$"
+            "west": "$rid=289$",
+            "out": "$rid=396$"
         }
     },
     "$rid=298$": {
@@ -1392,7 +1393,10 @@
         "name": "The Pavillion",
         "description": "You are standing inside a knights pavillion.",
         "eventOnEnter": "",
-        "eventOnLeave": ""
+        "eventOnLeave": "",
+        "exits": {
+            "out": "$rid=382$"
+        }
     },
     "$rid=382$": {
         "name": "Wooded Clearing",
@@ -1631,7 +1635,8 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "exits": {
-            "down": "$rid=386$"
+            "down": "$rid=386$",
+            "out": "$rid=440$"
         }
     },
     "$rid=442$": {
@@ -1648,7 +1653,10 @@
         "name": "The Magic Study",
         "description": "You are in a large study. Bookshelves line three walls, and are tightly packed with books of all sizes. The floor is covered by a thick carpet, which is decorated with a colourful, but tasteful design. There is a polished, wooden table in the middle of the room. ",
         "eventOnEnter": "",
-        "eventOnLeave": ""
+        "eventOnLeave": "",
+        "exits": {
+            "in": "$rid=439$"
+        }
     },
     "$rid=446$": {
         "exits": {
@@ -1674,7 +1682,8 @@
             "north": "$rid=457$",
             "east": "$rid=462$",
             "south": "$rid=457$",
-            "west": "$rid=458$"
+            "west": "$rid=458$",
+            "in": "$rid=448$"
         },
         "name": "Neverland",
         "description": "You stand in the place that is not. The skies are dark and turbid, swathed with luminous clouds of cosmic gas. The sun seems oddly brighter than you remember it, and the land is black and barren. ",
@@ -1774,7 +1783,8 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "exits": {
-            "east": "$rid=480$"
+            "east": "$rid=480$",
+            "out": "$rid=480$"
         }
     },
     "$rid=476$": {
@@ -1790,6 +1800,9 @@
         "eventOnLeave": ""
     },
     "$rid=478$": {
+        "exits": {
+            "out": "$rid=482$"
+        },
         "name": ".",
         "description": "You are in a vertical shaft, lined with smooth wooden panels. Looking out of the shaft, you can see what looks like a laboratory. ",
         "eventOnEnter": "",
@@ -1798,7 +1811,8 @@
     "$rid=480$": {
         "exits": {
             "east": "$rid=530$",
-            "west": "$rid=473$"
+            "west": "$rid=473$",
+            "in": "$rid=473$"
         },
         "name": "The Small Kitchen.",
         "description": "You are in a small kitchen. There is a hole in the west wall. ",
@@ -1814,7 +1828,8 @@
     "$rid=482$": {
         "exits": {
             "east": "$rid=514$",
-            "west": "$rid=478$"
+            "west": "$rid=478$",
+            "in": "$rid=478$"
         },
         "name": "Birfle's Research Lab.",
         "description": "You are in a laboratory which was once used for research into unearthly magics. The majority of the equipment is in a state of disrepair, showing that this lab hasn't been used in ages. There is a row of shelves along the north wall, ",
@@ -1825,7 +1840,10 @@
         "name": "The Tin Bath.",
         "description": "You are in a small tin bath. It is fairly dirty and unpleasant. The bottom of the bath is very bright and shiny, as if it has just been polished. ",
         "eventOnEnter": "",
-        "eventOnLeave": ""
+        "eventOnLeave": "",
+        "exits": {
+            "out": "$rid=495$"
+        }
     },
     "$rid=495$": {
         "name": "The Anteroom",
@@ -1840,7 +1858,10 @@
         "name": "The Iron Maiden.",
         "description": "You are in the iron maiden. It is a good job the door is open, because the room is adorned with several long, intermeshing, steel spikes. ",
         "eventOnEnter": "",
-        "eventOnLeave": ""
+        "eventOnLeave": "",
+        "exits": {
+            "out": "$rid=497$"
+        }
     },
     "$rid=501$": {
         "name": "the Old Cupboard.",
@@ -1856,7 +1877,8 @@
         "exits": {
             "north": "$rid=495$",
             "south": "$rid=513$",
-            "west": "$rid=482$"
+            "west": "$rid=482$",
+            "in": "$rid=496$"
         }
     },
     "$rid=519$": {
@@ -2363,6 +2385,9 @@
         }
     },
     "$rid=637$": {
+        "exits": {
+            "out": "$rid=638$"
+        },
         "name": "The Bronze Sarcophagus",
         "description": "You are standing in a large sarcophagus. The walls are covered in scorch marks, obviously from some powerful magick. There is a small notice attached to the back wall.",
         "eventOnEnter": "",
@@ -2371,7 +2396,8 @@
     "$rid=638$": {
         "exits": {
             "east": "$rid=158$",
-            "west": "$rid=618$"
+            "west": "$rid=618$",
+            "in": "$rid=637$"
         },
         "name": "The Smoke-filled Cavern",
         "description": "You are standing in a large oval cavern. Plumes of noxious smoke billow in from a gap in the far eastern corner, and leave through a small hole in the roof. You can hear shouts in a strange tongue, which seem to come from all directions. There is a door in the west wall. ",
@@ -2752,6 +2778,9 @@
         "eventOnLeave": ""
     },
     "$rid=756$": {
+        "exits": {
+            "out": "$rid=772$"
+        },
         "name": "Bonzo's room",
         "description": "A fairly large, dimly lit room littered with dusty books full of arcane knowledge. A comfortable, well-cushioned armchair is situated on one side of the room, the other side is taken up by a huge bed.",
         "eventOnEnter": "",
@@ -3691,7 +3720,8 @@
     },
     "$rid=920$": {
         "exits": {
-            "up": "$rid=923$"
+            "up": "$rid=923$",
+            "out": "$rid=923$"
         },
         "name": "The Smelly Pit",
         "description": "You are in a smelly pit, which once was full of slime. The horrible rotting smell is so strong that you can hardly keep your stomach under control. ",
@@ -4275,7 +4305,8 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "exits": {
-            "up": "$rid=1248$"
+            "up": "$rid=1248$",
+            "out": "$rid=1248$"
         }
     },
     "$rid=1042$": {
@@ -4284,7 +4315,8 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "exits": {
-            "up": "$rid=1248$"
+            "up": "$rid=1248$",
+            "out": "$rid=1248$"
         }
     },
     "$rid=1043$": {
@@ -5324,7 +5356,8 @@
         "exits": {
             "east": "$rid=1208$",
             "west": "$rid=1265$",
-            "up": "$rid=1265$"
+            "up": "$rid=1265$",
+            "out": "$rid=1265$"
         }
     },
     "$rid=1212$": {
@@ -5343,7 +5376,8 @@
         "eventOnLeave": "",
         "exits": {
             "north": "$rid=1219$",
-            "up": "$rid=1212$"
+            "up": "$rid=1212$",
+            "out": "$rid=1219$"
         }
     },
     "$rid=1221$": {
@@ -5353,7 +5387,8 @@
         "eventOnLeave": "",
         "exits": {
             "east": "$rid=1226$",
-            "south": "$rid=1218$"
+            "south": "$rid=1218$",
+            "in": "$rid=1218$"
         }
     },
     "$rid=1224$": {
@@ -5626,14 +5661,19 @@
         "eventOnLeave": "",
         "exits": {
             "north": "$rid=1226$",
-            "south": "$rid=1248$"
+            "south": "$rid=1248$",
+            "in": "$rid=1286$",
+            "out": "$rid=1248$"
         }
     },
     "$rid=1290$": {
         "name": "The Seadog Inn",
         "description": "All is warmth and merriment in the Seadog Inn. A mighty fire roars in the hearth sending sparks and smoke pouring up towards the long low beamed ceiling. Log benches are jammed in up against long low tables, all up close to the fire. ",
         "eventOnEnter": "",
-        "eventOnLeave": ""
+        "eventOnLeave": "",
+        "exits": {
+            "out": "$rid=1280$"
+        }
     },
     "$rid=1292$": {
         "exits": {
@@ -5649,7 +5689,8 @@
             "north": "$rid=1292$",
             "east": "$rid=1312$",
             "south": "$rid=1277$",
-            "down": "$rid=1312$"
+            "down": "$rid=1312$",
+            "out": "$rid=1312$"
         },
         "name": "Behind The Window",
         "description": "You are standing in a long north-south passage beside a large unglazed window roughly hewn in the rock. Ice and snow howls in through the window piling up in drifts on the far side. ",
@@ -5671,7 +5712,8 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "exits": {
-            "south": "$rid=1302$"
+            "south": "$rid=1302$",
+            "out": "$rid=1302$"
         }
     },
     "$rid=1305$": {
@@ -5683,7 +5725,8 @@
             "north": "$rid=1303$",
             "east": "$rid=1184$",
             "west": "$rid=1306$",
-            "up": "$rid=1306$"
+            "up": "$rid=1306$",
+            "in": "$rid=1303$"
         }
     },
     "$rid=1306$": {
@@ -5859,6 +5902,9 @@
         }
     },
     "$rid=1329$": {
+        "exits": {
+            "out": "$rid=1330$"
+        },
         "name": "In The Large Tomb",
         "description": "You are lying inside a large stone tomb. Although the tomb is large you have little freedom to move about. ",
         "eventOnEnter": "",
@@ -5966,7 +6012,8 @@
     "$rid=1350$": {
         "exits": {
             "east": "$rid=1352$",
-            "south": "$rid=1343$"
+            "south": "$rid=1343$",
+            "out": "$rid=1352$"
         },
         "name": "The Mountain Cave",
         "description": "You are standing in a long narrow cave, walled with huge piles of ice and snow. The floor too is knee deep. ",
@@ -5977,7 +6024,8 @@
         "exits": {
             "north": "$rid=1313$",
             "south": "$rid=1354$",
-            "west": "$rid=1350$"
+            "west": "$rid=1350$",
+            "in": "$rid=1350$"
         },
         "name": "The Icy Pass",
         "description": "You are struggling along a cold icy pass, following a narrow snowy trail. Even on the trail the snow is almost knee deep, making progress slow and exhausting. As far as you can see in either direction, the path just winds on and on. To your west through the snow you can see a narrow opening in the side of the pass. From the east comes the gurgle of the mountain river which has cut the pass over time. ",
