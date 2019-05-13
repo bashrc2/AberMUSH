@@ -1,10 +1,10 @@
-__filename__ = "dumserver.py"
-__author__ = "Bartek Radwanski"
+__filename__ = "abermush.py"
+__author__ = "Bob Mottram"
 __credits__ = ["Bartek Radwanski", "Mark Frimston"]
 __license__ = "MIT"
-__version__ = "0.6.2"
-__maintainer__ = "Bartek Radwanski"
-__email__ = "bartek.radwanski@gmail.com"
+__version__ = "0.0.1"
+__maintainer__ = "Bob Mottram"
+__email__ = "bob@freedombone.net"
 __status__ = "Production"
 
 #!/usr/bin/python
