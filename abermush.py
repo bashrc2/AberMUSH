@@ -288,8 +288,6 @@ playerList = []
 # start the server
 mud = MudServer()
 
-
-
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
         # print(int(time.time()))
@@ -355,7 +353,6 @@ while True:
                         grapevineReconnecting = True
                         useGrapevine = False
                         timeDisconnected = int(time.time())
-
 
 
         # print("useGrapevine: " + str(useGrapevine))
@@ -487,7 +484,8 @@ while True:
         for (nid, pl) in list(npcs.items()):
                 # Check if any player is in the same room, then send a random message to them
                 now = int(time.time())
-                if now > npcs[nid]['timeTalked'] + npcs[nid]['talkDelay'] + npcs[nid]['randomizer']:
+                if npcs[nid]['vocabulary'][0]:
+                    if now > npcs[nid]['timeTalked'] + npcs[nid]['talkDelay'] + npcs[nid]['randomizer']:
                         rnd = randint(0, len(npcs[nid]['vocabulary']) - 1)
                         while rnd is npcs[nid]['lastSaid']:
                                 rnd = randint(0, len(npcs[nid]['vocabulary']) - 1)
@@ -572,6 +570,7 @@ while True:
                                                 msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][rnd]
                                                 mud.send_message(pid, msg)
                                                 env[eid]['lastSaid'] = rnd
+                                                env[eid]['timeTalked'] = now
                                         else:
                                                 msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][0]
                                                 mud.send_message(pid, msg)
@@ -635,8 +634,6 @@ while True:
                                                 mud.send_message(p, "[<f191>" + ch[m]['channel'] + "<r>] <f32>" + ch[m]['sender'] + "<r>: " + ch[m]['message'])
                                                 # del channels[m]
         channels.clear()
-
-
 
         # go through any newly connected players
         for id in mud.get_new_players():
@@ -921,7 +918,9 @@ while True:
                                         players[id]['imp_feet'] = dbResponse[33]
                                         players[id]['hp'] = dbResponse[34]
                                         players[id]['charge'] = dbResponse[35]
-                                        players[id]['lookDescription'] = dbResponse[36]
+                                        players[id]['inDescription'] = dbResponse[36]
+                                        players[id]['outDescription'] = dbResponse[37]
+                                        players[id]['lookDescription'] = dbResponse[38]
                                         players[id]['isInCombat'] = 0
                                         players[id]['lastCombatAction'] = int(time.time())
                                         players[id]['isAttackable'] = 1
@@ -932,11 +931,11 @@ while True:
                                         players[id]['canAttack'] = 1
                                         players[id]['canDirectMessage'] = 1
                                         players[id]['idleStart'] = int(time.time())
-                                        players[id]['channels'] = dbResponse[37]
-                                        players[id]['permissionLevel'] = dbResponse[38]
-                                        players[id]['exAttribute0'] = dbResponse[39]
-                                        players[id]['exAttribute1'] = dbResponse[40]
-                                        players[id]['exAttribute2'] = dbResponse[41]
+                                        players[id]['channels'] = dbResponse[39]
+                                        players[id]['permissionLevel'] = dbResponse[40]
+                                        players[id]['exAttribute0'] = dbResponse[41]
+                                        players[id]['exAttribute1'] = dbResponse[42]
+                                        players[id]['exAttribute2'] = dbResponse[43]
 
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")

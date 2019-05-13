@@ -6,8 +6,8 @@
     // --- Actor definition ---
         "name": "innkeeper",
         "vocabulary": "The innkeeper says 'Drink up!'|The innkeeper says 'Quieten down you lot!'",
-    "talkDelay": "30",
-    "randomFactor": "50",
+    "talkDelay": "300",
+    "randomFactor": "10",
     // --- End of Actor definition ---
 
     // --- Do not modify below this line ---
