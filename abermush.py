@@ -22,6 +22,8 @@ from functions import loadPlayer
 from functions import savePlayer
 from functions import loadPlayersDB
 from functions import sendToChannel
+from functions import hash_password
+from functions import verify_password
 
 from events import evaluateEvent
 
@@ -729,7 +731,7 @@ while True:
 
                         # Make required changes to template before saving again into <Name>.player
                         template['name'] = players[id]['exAttribute1']
-                        template['pwd'] = players[id]['exAttribute2']
+                        template['pwd'] = hash_password(players[id]['exAttribute2'])
 
                         # Save template into a new player file
                         # print(template)
@@ -790,7 +792,7 @@ while True:
                                 if players[id]['name'] != None and players[pl]['name'] != None and players[id]['name'] == players[pl]['name'] and pl != id:
                                         playerFound = True
 
-                        if dbPass == command:
+                        if verify_password(dbPass, command):
                                 if playerFound == False:
                                         players[id]['authenticated'] = True
                                         players[id]['prefix'] = "None"
