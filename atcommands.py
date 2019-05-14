@@ -1,10 +1,10 @@
 __filename__ = "atcommands.py"
-__author__ = "Bartek Radwanski"
+__author__ = "Bob Mottram"
 __credits__ = ["Bartek Radwanski"]
-__license__ = "MIT"
-__version__ = "0.6.2"
-__maintainer__ = "Bartek Radwanski"
-__email__ = "bartek.radwanski@gmail.com"
+__license__ = "AGPL3+"
+__version__ = "1.0.0"
+__maintainer__ = "Bob Mottram"
+__email__ = "bob@freedombone.net"
 __status__ = "Production"
 
 from functions import addToScheduler

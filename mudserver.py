@@ -1,10 +1,10 @@
 __filename__ = "mudserver.py"
-__author__ = "Mark Frimston"
+__author__ = "Bob Mottram"
 __credits__ = ["Bartek Radwanski", "Mark Frimston"]
-__license__ = "MIT"
-__version__ = "0.6.2"
-__maintainer__ = "Bartek Radwanski"
-__email__ = "bartek.radwanski@gmail.com"
+__license__ = "AGPL3+"
+__version__ = "1.0.0"
+__maintainer__ = "Bob Mottram"
+__email__ = "bob@freedombone.net"
 __status__ = "Production"
 
 """Basic MUD server module for creating text-based Multi-User Dungeon

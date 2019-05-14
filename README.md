@@ -1,6 +1,8 @@
 # AberMUSH
 A modern Python MU* engine with AberMUD universe.
 
+Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
+
 You can also use a mud client of your choice if you wish - use connection details below:
 
 ```
