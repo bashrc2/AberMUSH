@@ -631,7 +631,7 @@ while True:
                                 # print(c)
                                 for m in ch:
                                         if ch[m]['channel'] == c:
-                                                mud.send_message(p, "[<f191>" + ch[m]['channel'] + "<r>] <f32>" + ch[m]['sender'] + "<r>: " + ch[m]['message'])
+                                                mud.send_message(p, "[<f191>" + ch[m]['channel'] + "<r>] <f32>" + ch[m]['sender'] + "<r>: " + ch[m]['message'] + "\n")
                                                 # del channels[m]
         channels.clear()
 
@@ -711,7 +711,7 @@ while True:
                 for l in motdLines:
                         mud.send_message(id, l[:-1])
 
-                mud.send_message(id, "\nWhat is your username? (type <f255>new<r> for new character)")
+                mud.send_message(id, "\nWhat is your username? (type <f255>new<r> for new character) ")
                 log("Client ID: " + str(id) + " has connected", "info")
 
         # go through any recently disconnected players
@@ -733,7 +733,7 @@ while True:
                                    and players[pid]['room'] == players[id]['room'] \
                                    and players[pid]['name'] != players[id]['name']:
                                         mud.send_message(pid,
-                                                         "<f32><u>{}<r>'s body has vanished.".format(players[id]['name']))
+                                                         "<f32><u>{}<r>'s body has vanished.".format(players[id]['name']) + "\n")
 
                 # Code here to save player to the database after he's disconnected and before removing him from players dictionary
                 if players[id]['authenticated'] is not None:
@@ -771,14 +771,14 @@ while True:
                         players[id]['idleStart'] = int(time.time())
                         mud.send_message(id, "<f220>Ok, leaving the character creation.\n")
                         players[id]['exAttribute0'] = None
-                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.")
+                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character. ")
                         log("Client ID: " + str(id) + " has aborted character creation.", "info")
                         break
 
                 if players[id]['exAttribute0'] == 1000:
                         players[id]['idleStart'] = int(time.time())
                         # First step of char creation
-                        mud.send_message(id, "<f220>\nWhat is going to be your name?")
+                        mud.send_message(id, "<f220>\nWhat is going to be your name? ")
                         for c in mud._clients:
                                 #print(str(mud._clients[c].address))
                                 pass
@@ -798,7 +798,7 @@ while True:
                                 players[id]['exAttribute1'] = command
                                 # print(players[id]['exAttribute1'])
                                 mud.send_message(id, "<f220>\nAhh.. <r><f32>" + command + "<r><f220>! That's a strong name!\n")
-                                mud.send_message(id, "<f220>Now what would you like your password to be?")
+                                mud.send_message(id, "<f220>Now what would you like your password to be? ")
                                 players[id]['exAttribute0'] = 1002
                                 break
                         else:
@@ -830,7 +830,7 @@ while True:
                         players[id]['exAttribute0'] = None
                         mud.send_message(id, '<f220>Your character has now been created, you can log in using credentials you have provided.\n')
                         # mud.send_message(id, '<f15>What is your username?')
-                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.")
+                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character. ")
                         log("Client ID: " + str(id) + " has completed character creation (" + template['name'] + ").", "info")
                         break
 
@@ -851,10 +851,10 @@ while True:
 
                                         log("Client ID: " + str(id) + " has requested existing user (" + command + ")", "info")
                                         mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
-                                        mud.send_message(id, '<f15>What is your password?')
+                                        mud.send_message(id, '<f15>What is your password? ')
                                 else:
                                         mud.send_message(id, '<f202>User <f32>' + command + '<r> was not found!\n')
-                                        mud.send_message(id, '<f15>What is your username?')
+                                        mud.send_message(id, '<f15>What is your username? ')
                                         log("Client ID: " + str(id) + " has requested non existent user (" + command + ")", "info")
                         else:
                                 # New player creation here
@@ -946,7 +946,7 @@ while True:
                                                 if players[pid]['authenticated'] is not None \
                                                    and players[pid]['room'] == players[id]['room'] \
                                                    and players[pid]['name'] != players[id]['name']:
-                                                        mud.send_message(pid, '{} has materialised out of thin air nearby.'.format(players[id]['name']))
+                                                        mud.send_message(pid, '{} has materialised out of thin air nearby.'.format(players[id]['name']) + "\n")
 
                                         # send the new player a welcome message
                                         mud.send_message(id, '\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
@@ -956,12 +956,12 @@ while True:
                                         mud.send_message(id, '<f202>This character is already in the world!')
                                         log("Client ID: " + str(id) + " has requested a character which is already in the world!", "info")
                                         players[id]['name'] = None
-                                        mud.send_message(id, '<f15>What is your username?\n')
+                                        mud.send_message(id, '<f15>What is your username? ')
                         else:
                                 mud.send_message(id, '<f202>Password incorrect!\n')
                                 log("Client ID: " + str(id) + " has failed authentication", "info")
                                 players[id]['name'] = None
-                                mud.send_message(id, '<f15>What is your username?')
+                                mud.send_message(id, '<f15>What is your username? ')
 
                 else:
                         players[id]['idleStart'] = int(time.time())
@@ -983,7 +983,7 @@ while True:
                                                                         if players[id]['permissionLevel'] == 0:
                                                                                 sendToChannel(players[id]['name'], c, params, channels)
                                                                         else:
-                                                                                mud.send_message(id, "You do not have permision to send messages to this channel.")
+                                                                                mud.send_message(id, "You do not have permision to send messages to this channel.\n")
                                                                 elif "@" in c:
                                                                         chan = c
                                                                         l = chan.split('@')
@@ -994,22 +994,22 @@ while True:
                                                                                                 gsocket.msg_gen_message_channel_send(players[id]['name'], l[0].lower(), params)
                                                                                                 sendToChannel(players[id]['name'], chan, params, channels)
                                                                                         else:
-                                                                                                mud.send_message(id, "Grapevine is disabled!")
+                                                                                                mud.send_message(id, "Grapevine is disabled!\n")
                                                                                 else:
                                                                                         #print("Unrecognised channel location '" + l[1] + "'")
-                                                                                        mud.send_message(id, "Unrecognised channel location '" + l[1] + "'")
+                                                                                        mud.send_message(id, "Unrecognised channel location '" + l[1] + "'\n")
                                                                         else:
                                                                                 #print("Invalid channel '" + chan + "'")
-                                                                                mud.send_message(id, "Invalid channel '" + chan + "'")
+                                                                                mud.send_message(id, "Invalid channel '" + chan + "'\n")
                                                                 else:
                                                                         sendToChannel(players[id]['name'], c.lower(), params, channels)
                                                         else:
-                                                                mud.send_message(id, "What message would you like to send?")
+                                                                mud.send_message(id, "What message would you like to send?\n")
                                                 else:
                                                         #if players[id]['defaultChannel'] != None:
                                                         #sendToChannel(players[id]['name'], players[id]['defaultChannel'], params, channels)
                                                         #else:
-                                                        mud.send_message(id, "Which channel would you like to message?")
+                                                        mud.send_message(id, "Which channel would you like to message?\n")
 
                                         else:
                                                 runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses)
