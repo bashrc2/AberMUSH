@@ -11,6 +11,7 @@ from functions import addToScheduler
 from functions import getFreeKey
 from copy import deepcopy
 import time
+import os.path
 
 '''
 Command function template:
@@ -21,6 +22,43 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
+
+def isAdmin(id):
+        name = players[id]['name']
+
+        if not os.path.isfile("admins"):
+            return False
+
+        adminfile = open("admins", "r")
+
+        for line in adminfile:
+            adminName = line.strip()
+            if adminName == name:
+                return True
+
+        adminfile.close()
+        return False
+
+def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if players[id]['permissionLevel'] == 0:
+            if isAdmin(id):
+                target = params.partition(' ')[0]
+                if len(target) != 0:
+                    for p in players:
+                        if players[p]['name'] == target:
+                            players[p]['canSay'] = 0
+                            players[p]['canAttack'] = 0
+
+def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if players[id]['permissionLevel'] == 0:
+            if isAdmin(id):
+                target = params.partition(' ')[0]
+                if len(target) != 0:
+                    if target.toLower() != 'guest':
+                        for p in players:
+                            if players[p]['name'] == target:
+                                players[p]['canSay'] = 1
+                                players[p]['canAttack'] = 1
 
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud._handle_disconnect(id)
@@ -111,6 +149,8 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  take [item]                      - Pick up an item lying ' + "on the floor")
         mud.send_message(id, '  drop [item]                      - Drop an item from your inventory ' + "on the floor")
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
+        mud.send_message(id, '  mute/silence [target]            - Mutes a player and prevents them from attacking')
+        mud.send_message(id, '  unmute/unsilence [target]        - Unmutes a player')
         mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
@@ -475,6 +515,10 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "drop": drop,
                 "check": check,
                 "whisper": whisper,
+                "mute": mute,
+                "silence": mute,
+                "unmute": unmute,
+                "unsilence": unmute,
                 "tell": tell,
         }
 
