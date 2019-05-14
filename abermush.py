@@ -399,9 +399,9 @@ while True:
                                         if players[pid2]['authenticated'] is not None \
                                            and players[pid2]['room'] == players[pid]['lastRoom'] \
                                            and players[pid2]['name'] != players[pid]['name']:
-                                                mud.send_message(pid2, '<u><f32>{}<r> <f124>has been killed.'.format(players[pid]['name']))
+                                                mud.send_message(pid2, '<u><f32>{}<r> <f124>has been killed.'.format(players[pid]['name']) + "\n")
                                                 players[pid]['lastRoom'] = None
-                                                mud.send_message(pid, '<b88><f158>Oh dear! You have died!')
+                                                mud.send_message(pid, '<b88><f158>Oh dear! You have died!\n')
 
                                 # Add Player Death event (ID:666) to eventSchedule
                                 addToScheduler(666, pid, eventSchedule, scriptedEventsDB)
@@ -423,15 +423,15 @@ while True:
                                                         if players[fights[fid]['s1id']]['hp'] > 0:
                                                                 players[fights[fid]['s2id']]['hp'] = players[fights[fid]['s2id']]['hp'] - (players[fights[fid]['s1id']]['str'] + modifier)
                                                                 players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                                mud.send_message(fights[fid]['s1id'], 'You manage to hit <f32><u>' + players[fights[fid]['s2id']]['name'] + '<r> for <f15><b2> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.')
-                                                                mud.send_message(fights[fid]['s2id'], '<f32>' + players[fights[fid]['s1id']]['name'] + '<r> has managed to hit you for <f15><b88> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.')
+                                                                mud.send_message(fights[fid]['s1id'], 'You manage to hit <f32><u>' + players[fights[fid]['s2id']]['name'] + '<r> for <f15><b2> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.\n')
+                                                                mud.send_message(fights[fid]['s2id'], '<f32>' + players[fights[fid]['s1id']]['name'] + '<r> has managed to hit you for <f15><b88> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.\n')
 
                                                 else:
                                                         players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                        mud.send_message(fights[fid]['s1id'], 'You miss trying to hit <f32><u>' + players[fights[fid]['s2id']]['name'] + '')
-                                                        mud.send_message(fights[fid]['s2id'], '<f32><u>' + players[fights[fid]['s1id']]['name'] + '<r> missed while trying to hit you!')
+                                                        mud.send_message(fights[fid]['s1id'], 'You miss trying to hit <f32><u>' + players[fights[fid]['s2id']]['name'] + '\n')
+                                                        mud.send_message(fights[fid]['s2id'], '<f32><u>' + players[fights[fid]['s1id']]['name'] + '<r> missed while trying to hit you!\n')
                                         else:
-                                                mud.send_message(fights[fid]['s1id'], '<f225>Suddnely you stop. It wouldn`t be a good idea to attack <f32>' + players[fights[fid]['s2id']]['name'] + ' at this time.')
+                                                mud.send_message(fights[fid]['s1id'], '<f225>Suddnely you stop. It wouldn`t be a good idea to attack <f32>' + players[fights[fid]['s2id']]['name'] + ' at this time.\n')
                                                 fightsCopy = deepcopy(fights)
                                                 for (fight, pl) in fightsCopy.items():
                                                         if fightsCopy[fight]['s1id'] == fights[fid]['s1id'] and fightsCopy[fight]['s2id'] == fights[fid]['s2id']:
@@ -449,13 +449,13 @@ while True:
                                                         if players[fights[fid]['s1id']]['hp'] > 0:
                                                                 npcs[fights[fid]['s2id']]['hp'] = npcs[fights[fid]['s2id']]['hp'] - (players[fights[fid]['s1id']]['str'] + modifier)
                                                                 players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                                mud.send_message(fights[fid]['s1id'], 'You manage to hit <f220>' + npcs[fights[fid]['s2id']]['name'] + '<r> for <b2><f15> * ' + str(players[fights[fid]['s1id']]['str'] + modifier)  + ' * <r> points of damage')
+                                                                mud.send_message(fights[fid]['s1id'], 'You manage to hit <f220>' + npcs[fights[fid]['s2id']]['name'] + '<r> for <b2><f15> * ' + str(players[fights[fid]['s1id']]['str'] + modifier)  + ' * <r> points of damage\n')
 
                                                 else:
                                                         players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                        mud.send_message(fights[fid]['s1id'], 'You miss <f220>' + npcs[fights[fid]['s2id']]['name'] + '<r> completely!')
+                                                        mud.send_message(fights[fid]['s1id'], 'You miss <f220>' + npcs[fights[fid]['s2id']]['name'] + '<r> completely!\n')
                                         else:
-                                                mud.send_message(fights[fid]['s1id'], '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <u><f21>' + npcs[fights[fid]['s2id']]['name'] + '<r> at this time.')
+                                                mud.send_message(fights[fid]['s1id'], '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <u><f21>' + npcs[fights[fid]['s2id']]['name'] + '<r> at this time.\n')
                                                 fightsCopy = deepcopy(fights)
                                                 for (fight, pl) in fightsCopy.items():
                                                         if fightsCopy[fight]['s1id'] == fights[fid]['s1id'] and fightsCopy[fight]['s2id'] == fights[fid]['s2id']:
@@ -472,10 +472,10 @@ while True:
                                                 if npcs[fights[fid]['s1id']]['hp'] > 0:
                                                         players[fights[fid]['s2id']]['hp'] = players[fights[fid]['s2id']]['hp'] - (npcs[fights[fid]['s1id']]['str'] + modifier)
                                                         npcs[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                        mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has managed to hit you for <f15><b88> * ' + str(npcs[fights[fid]['s1id']]['str'] + modifier) + ' * <r> points of damage.')
+                                                        mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has managed to hit you for <f15><b88> * ' + str(npcs[fights[fid]['s1id']]['str'] + modifier) + ' * <r> points of damage.\n')
                                         else:
                                                 npcs[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has missed you completely!')
+                                                mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has missed you completely!\n')
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
                         test = 1
                         # NPC -> NPC
@@ -493,13 +493,13 @@ while True:
                                 if npcs[nid]['room'] == players[pid]['room']:
                                         if len(npcs[nid]['vocabulary']) > 1:
                                                 #mud.send_message(pid, npcs[nid]['vocabulary'][rnd])
-                                                msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + npcs[nid]['vocabulary'][rnd]
+                                                msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + npcs[nid]['vocabulary'][rnd] + "\n"
                                                 mud.send_message(pid, msg)
                                                 npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
                                                 npcs[nid]['lastSaid'] = rnd
                                         else:
                                                 #mud.send_message(pid, npcs[nid]['vocabulary'][0])
-                                                msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + npcs[nid]['vocabulary'][0]
+                                                msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + npcs[nid]['vocabulary'][0] + "\n"
                                                 mud.send_message(pid, msg)
                                                 npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
                                                 npcs[nid]['timeTalked'] =  now
@@ -533,7 +533,7 @@ while True:
                         for (pid, pl) in list(players.items()):
                                 if players[pid]['authenticated'] is not None:
                                         if players[pid]['authenticated'] is not None and players[pid]['room'] == npcs[nid]['room']:
-                                                mud.send_message(pid, "<f220>{}<r> <f88>has been killed.".format(npcs[nid]['name']))
+                                                mud.send_message(pid, "<f220>{}<r> <f88>has been killed.".format(npcs[nid]['name']) + "\n")
                                                 npcs[nid]['lastRoom'] = npcs[nid]['room']
                                                 npcs[nid]['room'] = None
                                                 npcs[nid]['hp'] = npcsTemplate[nid]['hp']
@@ -551,7 +551,7 @@ while True:
                         if len(droppedItems) > 0:
                                 for p in players:
                                         if players[p]['room'] == npcs[nid]['lastRoom']:
-                                                mud.send_message(p, "Right before <f220>" + str(npcs[nid]['name']) +"<r>'s lifeless body collapsed to the floor, it had dropped the following items: <f220>{}".format(', '.join(droppedItems)))
+                                                mud.send_message(p, "Right before <f220>" + str(npcs[nid]['name']) +"<r>'s lifeless body collapsed to the floor, it had dropped the following items: <f220>{}".format(', '.join(droppedItems)) + "\n")
 
         # Iterate through ENV elements and see if it's time to send a message to players in the same room as the ENV elements
         for (eid, pl) in list(env.items()):
@@ -567,12 +567,12 @@ while True:
                         for (pid, pl) in list(players.items()):
                                 if env[eid]['room'] == players[pid]['room']:
                                         if len(env[eid]['vocabulary']) > 1:
-                                                msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][rnd]
+                                                msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][rnd] + "\n"
                                                 mud.send_message(pid, msg)
                                                 env[eid]['lastSaid'] = rnd
                                                 env[eid]['timeTalked'] = now
                                         else:
-                                                msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][0]
+                                                msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][0] + "\n"
                                                 mud.send_message(pid, msg)
                                                 env[eid]['lastSaid'] = rnd
                                                 env[eid]['timeTalked'] = now
@@ -601,7 +601,7 @@ while True:
                 if time.time() >= eventSchedule[event]['time']:
                         # its time to run the event!
                         if eventSchedule[event]['type'] == "msg":
-                                mud.send_message(int(eventSchedule[event]['target']), str(eventSchedule[event]['body']))
+                                mud.send_message(int(eventSchedule[event]['target']), str(eventSchedule[event]['body']) + "\n")
                         else:
                                 evaluateEvent(eventSchedule[event]['target'], eventSchedule[event]['type'], eventSchedule[event]['body'], players, npcs, itemsInWorld, env, npcsDB, envDB)
                                 del eventSchedule[event]
@@ -613,9 +613,9 @@ while True:
                 #if playersCopy[p]['authenticated'] != None:
                 if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
                         if players[p]['authenticated'] != None:
-                                mud.send_message(p, "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...")
+                                mud.send_message(p, "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
                         else:
-                                mud.send_message(p, "<f232><b11>You are being disconnected due to inactivity. Bye!")
+                                mud.send_message(p, "<f232><b11>You are being disconnected due to inactivity. Bye!\n")
                                 log("Character " + str(players[p]['name']) + " is being disconnected due to inactivity.", "warning")
                                 del players[p]
                                 log("Disconnecting client " + str(p), "warning")
@@ -808,7 +808,7 @@ while True:
 
                 if players[id]['exAttribute0'] == 1002:
                         players[id]['idleStart'] = int(time.time())
-                        mud.send_message(id, "<f220>\nOk, got that.")
+                        mud.send_message(id, "<f220>\nOk, got that.\n")
                         players[id]['exAttribute2'] = command
 
                         # Load the player template from a file
