@@ -191,7 +191,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                         message += npcs[n]['lookDescription']
 
                         if len(message) > 0:
-                                mud.send_message(id, message)
+                                mud.send_message(id, message + "\n\n")
                                 messageSent = True
 
                         message = ""
@@ -207,7 +207,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
                         if len(message) > 0:
                                 mud.send_message(id, "It's " + itemName + ".")
-                                mud.send_message(id, message)
+                                mud.send_message(id, message + "\n\n")
                                 messageSent = True
                                 if itemCounter > 1:
                                         mud.send_message(id, "You can see " + str(itemCounter) + " of those in the vicinity.\n")
