@@ -515,7 +515,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if itemsDB[items[iid]['id']]['name'].lower() == str(params).lower():
                                 players[id]['inv'].append(str(itemID))
                                 del items[iid]
-                                # mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.')
+                                # mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.\n\n')
                                 itemPickedUp = True
                                 break
                         else:
@@ -527,7 +527,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         # break
 
         if itemPickedUp == True:
-                mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.')
+                mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.\n\n')
                 itemPickedUp = False
         else:
                 mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.')
