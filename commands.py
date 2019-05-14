@@ -97,7 +97,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  @unsubscribe [channel]           - Un-subscribe from a chat channel')
         mud.send_message(id, '\nOther:')
         mud.send_message(id, '  /[channel] [message]             - Send a message to a chat channel')
-        mud.send_message(id, '  / [message]                      - Send a message to a default channel (if configured)')
+        mud.send_message(id, '  / [message]                      - Send a message to a default channel (if configured)\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         # print(channels)
