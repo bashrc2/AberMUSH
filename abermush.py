@@ -567,12 +567,12 @@ while True:
                         for (pid, pl) in list(players.items()):
                                 if env[eid]['room'] == players[pid]['room']:
                                         if len(env[eid]['vocabulary']) > 1:
-                                                msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][rnd] + "\n"
+                                                msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + env[eid]['vocabulary'][rnd] + "\n\n"
                                                 mud.send_message(pid, msg)
                                                 env[eid]['lastSaid'] = rnd
                                                 env[eid]['timeTalked'] = now
                                         else:
-                                                msg = '<f58>[' + env[eid]['name'] + ']: <f236>' + env[eid]['vocabulary'][0] + "\n"
+                                                msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + env[eid]['vocabulary'][0] + "\n\n"
                                                 mud.send_message(pid, msg)
                                                 env[eid]['lastSaid'] = rnd
                                                 env[eid]['timeTalked'] = now
