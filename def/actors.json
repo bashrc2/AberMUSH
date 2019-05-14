@@ -3,9 +3,9 @@
 
 {
     "1": {
-        "name": "innkeeper",
-        "vocabulary": "Drink up!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
-        "talkDelay": "240",
+        "name": "Inn Occupants",
+        "vocabulary": "Someone falls over noisily|Punters suddenly laugh loudly at a joke you don't understand|A big crowd forms around the bar|Some kind of drinking game is going on|Punters bang their beer mugs on the table in unison|Cutlery rattles|A punter cleans their dagger between sips of special brew|There is a small group playing a game with dice and cards|A punter strenuously hurls a dart at a dart board...and misses|A punter hurls a dart at a dart board...and hits the metal frame|A punter hurls a dart at a dart board...and hits the bullseye. The crowd cheers.",
+        "talkDelay": "200",
         "randomFactor": "10",
 
         // --- Do not modify below this line ---

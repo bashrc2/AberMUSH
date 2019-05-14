@@ -125,7 +125,8 @@
         "inDescription": "drops down out of a tree",
         "outDescription": "scampers off",
         "lookDescription": "peers at you from behind a treetrunk"
-    },    "81": {
+    },
+    "81": {
         "inDescription": "eyes you curiously",
         "outDescription": "scurries",
         "lookDescription": "eyes you curiously",
@@ -209,7 +210,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "94": {
         "name": "Lars",
         "inv" : [],
@@ -293,7 +293,8 @@
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "snarls at you, having been woken from his hangover. He is"
-    },    "118": {
+    },
+    "118": {
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "kneels before the bonfire rubbing his hands. He is",
@@ -335,7 +336,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "137": {
         "name": "the fire demon",
         "inv" : [],
@@ -419,7 +419,8 @@
         "inDescription": "wanders in",
         "outDescription": "pads quietly",
         "lookDescription": "watches you suspiciously from amongst the trees. The trapper is"
-    },    "165": {
+    },
+    "165": {
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "lurks in the shadows",
@@ -461,7 +462,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "166": {
         "name": "the black raven",
         "inv" : [],
@@ -591,8 +591,8 @@
     "303": {
         "name": "the zombie",
         "inv" : [],
-        "vocabulary" : "",
-        "talkDelay" : "30",
+        "vocabulary" : "Groans|Moans vaguely|Mumbles something unintelligable",
+        "talkDelay" : "200",
         "randomFactor" : "100",
         "hp" : "24332",
         "charge" : "1233",
@@ -629,14 +629,15 @@
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "gazes mindlessly at you"
-    },    "336": {
+    },
+    "336": {
         "inDescription": "stomps around",
         "outDescription": "goes",
         "lookDescription": "stomps around",
         "name": "the zombie",
         "inv" : [],
-        "vocabulary" : "",
-        "talkDelay" : "30",
+        "vocabulary" : "Groans|Moans vaguely|Mumbles something unintelligable",
+        "talkDelay" : "300",
         "randomFactor" : "100",
         "hp" : "24332",
         "charge" : "1233",
@@ -677,8 +678,8 @@
         "lookDescription": "turns slowly to follow you",
         "name": "the zombie",
         "inv" : [],
-        "vocabulary" : "",
-        "talkDelay" : "30",
+        "vocabulary" : "Groans|Moans vaguely|Mumbles something unintelligable",
+        "talkDelay" : "300",
         "randomFactor" : "100",
         "hp" : "24332",
         "charge" : "1233",
@@ -713,12 +714,11 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "339": {
         "name": "the zombie",
         "inv" : [],
-        "vocabulary" : "",
-        "talkDelay" : "30",
+        "vocabulary" : "Groans|Moans vaguely|Mumbles something unintelligable",
+        "talkDelay" : "300",
         "randomFactor" : "100",
         "hp" : "24332",
         "charge" : "1233",
@@ -759,8 +759,8 @@
     "340": {
         "name": "the zombie",
         "inv" : [],
-        "vocabulary" : "",
-        "talkDelay" : "30",
+        "vocabulary" : "Groans|Moans vaguely|Mumbles something unintelligable",
+        "talkDelay" : "300",
         "randomFactor" : "100",
         "hp" : "24332",
         "charge" : "1233",
@@ -1011,8 +1011,8 @@
     "405": {
         "name": "the old inn-keeper",
         "inv" : [],
-        "vocabulary" : "",
-        "talkDelay" : "30",
+        "vocabulary": "Drink up!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
+        "talkDelay" : "300",
         "randomFactor" : "100",
         "hp" : "24332",
         "charge" : "1233",
@@ -1049,7 +1049,8 @@
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "stands behind the bar, pulling ugly faces"
-    },    "485": {
+    },
+    "485": {
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "blocks your path",
