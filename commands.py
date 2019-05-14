@@ -48,6 +48,8 @@ def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if players[p]['name'] == target:
                             players[p]['canSay'] = 0
                             players[p]['canAttack'] = 0
+                            mud.send_message(id, "You have muted " + target + "\n")
+                            return
 
 def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
@@ -59,6 +61,8 @@ def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                             if players[p]['name'] == target:
                                 players[p]['canSay'] = 1
                                 players[p]['canAttack'] = 1
+                                mud.send_message(id, "You have unmuted " + target + "\n")
+                                return
 
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud._handle_disconnect(id)
