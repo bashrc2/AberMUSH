@@ -336,7 +336,7 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                         #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))
                         mud.send_message(id, 'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']))
                 else:
-                # the specified exit wasn't found in the current room
+                        # the specified exit wasn't found in the current room
                         # send back an 'unknown exit' message
                         mud.send_message(id, "Unknown exit <f226>'{}'".format(ex))
         else:
