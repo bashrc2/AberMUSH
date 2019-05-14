@@ -3,17 +3,27 @@
 
 {
     "1": {
-    // --- Actor definition ---
         "name": "innkeeper",
         "vocabulary": "Drink up!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
-    "talkDelay": "240",
-    "randomFactor": "10",
-    // --- End of Actor definition ---
+        "talkDelay": "240",
+        "randomFactor": "10",
 
-    // --- Do not modify below this line ---
+        // --- Do not modify below this line ---
         "room": "0",
-    "randomizer": "0",
-    "timeTalked": "0",
-    "lastSaid": "0"
+        "randomizer": "0",
+        "timeTalked": "0",
+        "lastSaid": "0"
+    }
+    "2": {
+        "name": "giant rat",
+        "vocabulary": "Makes scratching noises|Retreats into the shadows|Scurries about|Scratches its nose|Notices you for a moment, the returns to rummaging|Cautiously watches you|Eyes you suspiciously|Screeches|Screeches twice|Screeches three times|Makes shuffling noises|Forrages through rotting debris|Rummages in the garbage|Washes itself in the mucky water|Scrambles onto a drifting piece of garbage",
+        "talkDelay": "200",
+        "randomFactor": "15",
+
+        // --- Do not modify below this line ---
+        "room": "0",
+        "randomizer": "0",
+        "timeTalked": "0",
+        "lastSaid": "0"
     }
 }
