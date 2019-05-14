@@ -23,7 +23,7 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
-def isAdmin(id):
+def isAdmin(id, players):
         name = players[id]['name']
 
         if not os.path.isfile("admins"):
@@ -39,9 +39,21 @@ def isAdmin(id):
         adminfile.close()
         return False
 
+def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if players[id]['permissionLevel'] == 0:
+            if isAdmin(id,players):
+                targetLocation = params[0:].strip().lower()
+                for rm in rooms:
+                    if rooms[rm]['name'].strip().lower() == targetLocation:
+                        players[id]['room'] = rm
+                        mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
+                        return
+            else:
+                mud.send_message(id, "You don't have enough powers for that.\n")
+
 def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
-            if isAdmin(id):
+            if isAdmin(id,players):
                 target = params.partition(' ')[0]
                 if len(target) != 0:
                     for p in players:
@@ -53,10 +65,10 @@ def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
 def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
-            if isAdmin(id):
+            if isAdmin(id,players):
                 target = params.partition(' ')[0]
                 if len(target) != 0:
-                    if target.toLower() != 'guest':
+                    if target.lower() != 'guest':
                         for p in players:
                             if players[p]['name'] == target:
                                 players[p]['canSay'] = 1
@@ -155,6 +167,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
         mud.send_message(id, '  mute/silence [target]            - Mutes a player and prevents them from attacking')
         mud.send_message(id, '  unmute/unsilence [target]        - Unmutes a player')
+        mud.send_message(id, '  teleport [room]                  - Teleport to a room')
         mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
@@ -519,6 +532,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "drop": drop,
                 "check": check,
                 "whisper": whisper,
+                "teleport": teleport,
                 "mute": mute,
                 "silence": mute,
                 "unmute": unmute,

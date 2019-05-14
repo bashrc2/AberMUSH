@@ -865,7 +865,7 @@ while True:
                                         # send the new player a welcome message
                                         mud.send_message(id, '\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
                                         mud.send_message(id, '\n<f255>Hello there traveller! You have connected to an AberMUSH server. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the repo for further info. Thanks for your interest in AberMUSH.')
-                                        mud.send_message(id, "\n<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions. Have fun!")
+                                        mud.send_message(id, "\n<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions. Have fun!\n\n")
                                 else:
                                         mud.send_message(id, '<f202>This character is already in the world!')
                                         log("Client ID: " + str(id) + " has requested a character which is already in the world!", "info")
