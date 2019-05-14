@@ -5,7 +5,7 @@
     "1": {
     // --- Actor definition ---
         "name": "innkeeper",
-        "vocabulary": "Drink up!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encoraged in this establishment",
+        "vocabulary": "Drink up!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
     "talkDelay": "240",
     "randomFactor": "10",
     // --- End of Actor definition ---
