@@ -85,10 +85,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  take [item]                      - Pick up an item lying ' + "on the floor")
         mud.send_message(id, '  drop [item]                      - Drop an item from your inventory ' + "on the floor")
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
-        mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player')
-        mud.send_message(id, '\nOther:')
-        mud.send_message(id, '  /[channel] [message]             - Send a message to a chat channel')
-        mud.send_message(id, '  / [message]                      - Send a message to a default channel (if configured)\n\n')
+        mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         # print(channels)
