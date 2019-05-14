@@ -1,4 +1,3 @@
-![Dum!](docs/logo.png)
 # AberMUSH
 A modern Python MU* engine with AberMUD universe.
 
