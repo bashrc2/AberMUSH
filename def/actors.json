@@ -3,8 +3,8 @@
 
 {
     "1": {
-        "name": "Inn Occupants",
-        "vocabulary": "Someone falls over noisily|Punters suddenly laugh loudly at a joke you don't understand|A big crowd forms around the bar|Some kind of drinking game is going on|Punters bang their beer mugs on the table in unison|Cutlery rattles|A punter cleans their dagger between sips of special brew|There is a small group playing a game with dice and cards|A punter strenuously hurls a dart at a dart board...and misses|A punter hurls a dart at a dart board...and hits the metal frame|A punter hurls a dart at a dart board...and hits the bullseye. The crowd cheers.",
+        "name": "Customers",
+        "vocabulary": "Someone falls over noisily|Punters suddenly laugh loudly at a joke you don't understand|The crowd bustles and chatters|A small group of customers shuffles past|A big crowd forms around the bar|Pints are pulled at the bar|Some kind of drinking game is going on|Create a lot of noise|Punters bang their beer mugs on the table in unison|Cutlery rattles|A punter cleans their dagger between sips of special brew|There is a small group playing a game with dice and cards|A punter strenuously hurls a dart at a dart board...and misses|Someone gesticulates while telling an exaggerated tale|Someone downs a flagon of ale in one go. The crows bellows and roars|A punter hurls a dart at a dart board...It bounces off of the metal frame|A punter hurls a dart at a dart board...and hits the bullseye. The crowd cheers.",
         "talkDelay": "200",
         "randomFactor": "10",
 

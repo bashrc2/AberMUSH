@@ -411,6 +411,7 @@ while True:
                                                 mud.send_message(pid, msg)
                                                 npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
                                                 npcs[nid]['lastSaid'] = rnd
+                                                npcs[nid]['timeTalked'] =  now
                                         else:
                                                 #mud.send_message(pid, npcs[nid]['vocabulary'][0])
                                                 msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + npcs[nid]['vocabulary'][0] + "\n"
