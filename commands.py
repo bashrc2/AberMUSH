@@ -20,7 +20,7 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 '''
 
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
-        mud.send_message(id, "Unknown command " + str(params) + "!")
+        mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
 def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         told = False
@@ -31,18 +31,18 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if players[p]['authenticated'] != None and players[p]['name'].lower() == target.lower():
                                 #print("sending a tell")
                                 if players[id]['name'].lower() == target.lower():
-                                        mud.send_message(id, "It'd be pointless to send a tell message to yourself")
+                                        mud.send_message(id, "It'd be pointless to send a tell message to yourself\n")
                                         told = True
                                         break
                                 else:
                                         addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message, p, eventSchedule, eventDB)
-                                        mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message)
+                                        mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message + "\n")
                                         told = True
                                         break
                 if told == False:
-                        mud.send_message(id, "<f32>" + target + "<r> does not appear to be reachable at this moment.")
+                        mud.send_message(id, "<f32>" + target + "<r> does not appear to be reachable at this moment.\n")
         else:
-                mud.send_message(id, "Huh?")
+                mud.send_message(id, "Huh?\n")
 
 def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         target = params.partition(' ')[0]
@@ -59,19 +59,21 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                                         if players[p]['room'] == players[id]['room']:
                                                 if players[p]['name'].lower() != players[id]['name'].lower():
                                                         mud.send_message(id, "You whisper to <f32>" + players[p]['name'] + "<r>: " + message[1:])
+                                                        mud.send_message(id, "\n")
                                                         mud.send_message(p, "<f162>" + players[id]['name'] + " whispers: " + message[1:])
+                                                        mud.send_message(p, "\n")
                                                         messageSent = True
                                                         break
                                                 else:
-                                                        mud.send_message(id, "You would probably look rather silly whispering to yourself.")
+                                                        mud.send_message(id, "You would probably look rather silly whispering to yourself.\n")
                                                         messageSent = True
                                                         break
                         if messageSent == False:
-                                mud.send_message(id, "<f32>" + target + "<r> is not here with you.")
+                                mud.send_message(id, "<f32>" + target + "<r> is not here with you.\n")
                 else:
-                        mud.send_message(id, "What would you like to whisper?")
+                        mud.send_message(id, "What would you like to whisper?\n")
         else:
-                mud.send_message(id, "Who would you like to whisper to??")
+                mud.send_message(id, "Who would you like to whisper to??\n")
 
 def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, 'Commands:')
@@ -106,9 +108,9 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                         # if they're in the same room as the player
                         if players[pid]['room'] == players[id]['room']:
                                 # send them a message telling them what the player said
-                                mud.send_message(pid, '<f32>{}<r> says: <f159>{}'.format(players[id]['name'], params))
+                                mud.send_message(pid, '<f32>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n")
         else:
-                mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!')
+                mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
 def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['canLook'] == 1:
@@ -163,7 +165,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if len(itemshere) > 0:
                                 mud.send_message(id, '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
 
-                        #mud.send_message(id, " ")
+                        mud.send_message(id, "\n")
                 else:
                         # If argument is given, then evaluate it
                         param = params.lower()
@@ -208,13 +210,13 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 mud.send_message(id, message)
                                 messageSent = True
                                 if itemCounter > 1:
-                                        mud.send_message(id, "You can see " + str(itemCounter) + " of those in the vicinity.")
+                                        mud.send_message(id, "You can see " + str(itemCounter) + " of those in the vicinity.\n")
 
                         ## If no message has been sent, it means no player/npc/item was found
                         if messageSent == False:
-                                mud.send_message(id, "Look at what?")
+                                mud.send_message(id, "Look at what?\n")
         else:
-                mud.send_message(id, 'You somehow cannot muster enough perceptive powers to perceive and describe your immediate surroundings...')
+                mud.send_message(id, 'You somehow cannot muster enough perceptive powers to perceive and describe your immediate surroundings...\n')
 
 def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['canAttack'] == 1:
@@ -236,7 +238,7 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                                 attackerId = id
                                                 if players[pid]['room'] == players[id]['room']:
                                                         fights[len(fights)] = { 's1': players[id]['name'], 's2': target, 's1id': attackerId, 's2id': victimId, 's1type': 'pc', 's2type': 'pc', 'retaliated': 0 }
-                                                        mud.send_message(id, '<f214>Attacking <r><f255>' + target + '!')
+                                                        mud.send_message(id, '<f214>Attacking <r><f255>' + target + '!\n')
                                                         # addToScheduler('0|msg|<b63>You are being attacked by ' + players[id]['name'] + "!", pid, eventSchedule, eventDB)
                                                 else:
                                                         targetFound = False
@@ -253,26 +255,27 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                                                 # print('target found!')
                                                                 if players[id]['room'] == npcs[nid]['room']:
                                                                         fights[len(fights)] = { 's1': players[id]['name'], 's2': nid, 's1id': attackerId, 's2id': victimId, 's1type': 'pc', 's2type': 'npc', 'retaliated': 0 }
-                                                                        mud.send_message(id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!')
+                                                                        mud.send_message(id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
                                                                 else:
                                                                         pass
 
                                 if targetFound == False:
-                                        mud.send_message(id, 'You cannot see ' + target + ' anywhere nearby.')
+                                        mud.send_message(id, 'You cannot see ' + target + ' anywhere nearby.\n')
                         else:
-                                mud.send_message(id, 'You attempt hitting yourself and realise this might not be the most productive way of using your time.')
+                                mud.send_message(id, 'You attempt hitting yourself and realise this might not be the most productive way of using your time.\n')
                 else:
                         if type(currentTarget) is not int:
-                                mud.send_message(id, 'You are already attacking ' + currentTarget)
+                                mud.send_message(id, 'You are already attacking ' + currentTarget + "\n")
                         else:
-                                mud.send_message(id, 'You are already attacking ' + npcs[currentTarget]['name'])
+                                mud.send_message(id, 'You are already attacking ' + npcs[currentTarget]['name'] + "\n")
+
                 # List fights for debugging purposes
                 # for x in fights:
                         # print (x)
                         # for y in fights[x]:
                                 # print (y,':',fights[x][y])
         else:
-                mud.send_message(id, 'Right now, you do not feel like you can force yourself to attack anyone or anything.')
+                mud.send_message(id, 'Right now, you do not feel like you can force yourself to attack anyone or anything.\n')
 
 def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if params.lower() == 'inventory' or params.lower() == 'inv':
@@ -281,12 +284,13 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                         mud.send_message(id, 'You are currently in possession of: ')
                         for i in list(players[id]['inv']):
                                 mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
+                        mud.send_message(id, "\n")
                 else:
-                        mud.send_message(id, 'You haven`t got any items on you.')
+                        mud.send_message(id, 'You haven`t got any items on you.\n')
         elif params.lower() == 'stats':
-                mud.send_message(id, 'You check your character sheet.')
+                mud.send_message(id, 'You check your character sheet.\n')
         else:
-                mud.send_message(id, 'Check what?')
+                mud.send_message(id, 'Check what?\n')
 
 def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['canGo'] == 1:
@@ -307,7 +311,7 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                                         # send them a message telling them that the player
                                         # left the room
                                         mud.send_message(pid,
-                                                        '<f32>{}<r> left via exit {}'.format(players[id]['name'], ex))
+                                                         '<f32>{}<r> left via exit {}'.format(players[id]['name'], ex) + "\n")
 
                         # Trigger old room eventOnLeave for the player
                         if rooms[players[id]['room']]['eventOnLeave'] is not "":
@@ -330,17 +334,17 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                                         # send them a message telling them that the player
                                         # entered the room
                                         # mud.send_message(pid, '{} arrived via exit {}|'.format(players[id]['name'], ex))
-                                        mud.send_message(pid, '<f32>{}<r> has arrived.'.format(players[id]['name'], ex))
+                                        mud.send_message(pid, '<f32>{}<r> has arrived.'.format(players[id]['name'], ex) + "\n")
 
                         # send the player a message telling them where they are now
                         #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))
-                        mud.send_message(id, 'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']))
+                        mud.send_message(id, 'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
                 else:
                         # the specified exit wasn't found in the current room
                         # send back an 'unknown exit' message
-                        mud.send_message(id, "Unknown exit <f226>'{}'".format(ex))
+                        mud.send_message(id, "Unknown exit <f226>'{}'".format(ex) + "\n\n")
         else:
-                mud.send_message(id, 'Somehow, your legs refuse to obey your will.')
+                mud.send_message(id, 'Somehow, your legs refuse to obey your will.\n')
 
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         itemInDB = False
