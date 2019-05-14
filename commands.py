@@ -22,6 +22,27 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
+def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        counter = 1
+        if players[id]['permissionLevel'] == 0:
+                for p in players:
+                        if players[p]['name'] == None:
+                                name = "None"
+                        else:
+                                name = players[p]['name']
+
+                        if players[p]['room'] == None:
+                                room = "None"
+                        else:
+                                rm = rooms[players[p]['room']]
+                                room = "<f230>" + rm['name']
+
+                        mud.send_message(id, str(counter) + ". " + name + " is in " + room)
+                        counter += 1
+                mud.send_message(id, "\n")
+        else:
+                mud.send_message(id, "You do not have permission to do this.\n")
+
 def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         told = False
         target = params.partition(' ')[0]
@@ -77,6 +98,7 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 
 def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, 'Commands:')
+        mud.send_message(id, '  who                              - List players and where they are')
         mud.send_message(id, '  say [message]                    - Says something out loud, '  + "e.g. 'say Hello'")
         mud.send_message(id, '  look/examine                     - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine tin can' or 'look cleaning robot'")
         mud.send_message(id, '  go [exit]                        - Moves through the exit ' + "specified, e.g. 'go outside'")
@@ -437,6 +459,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
         switcher = {
                 "sendCommandError": sendCommandError,
                 "go": go,
+                "who": who,
                 "look": look,
                 "examine": look,
                 "help": help,
