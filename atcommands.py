@@ -24,11 +24,11 @@ Config.read('config.ini')
 '''
 Command function template:
 
-def atcommandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def atcommandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         print("I'm in!")
 '''
 
-def config(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def config(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         configitem = params.split(" ")[0]
         parameter = " ".join(params.split(" ")[1:])
         #print(configitem)
@@ -48,7 +48,7 @@ def config(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
         else:
                 mud.send_message(id, "Not sure what you would like to configure.\n")
 
-def serverlog(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def serverlog(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         if players[id]['permissionLevel'] == 0:
                 if params.lower() == 'show':
                         logLocation = str(Config.get('Logs', 'ServerLog'))
@@ -85,13 +85,13 @@ def serverlog(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
 
-def sendAtCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def sendAtCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         mud.send_message(id, "Unknown @command " + str(params) + "!\n")
 
-def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         mud._handle_disconnect(id)
 
-def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         counter = 1
         if players[id]['permissionLevel'] == 0:
                 for p in players:
@@ -110,7 +110,7 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
 
-def subscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def subscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         # print("Subbing to a channel")
         invalidChannels = ["clear", "show"]
         params = params.replace(" ", "")
@@ -122,8 +122,6 @@ def subscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                         if str(params.lower()) not in invalidChannels:
                                 players[id]['channels'].append(str(params.lower()))
                                 mud.send_message(id, "You have subscribed to [<f191>" + params + "<r>]\n")
-                                if "@" in params:
-                                        gsocket.msg_gen_message_channel_send(players[id]['name'], params.split("@")[0].lower(), players[id]['name'] + " has joined the channel!\n")
                                 if params.lower() != "system":
                                         sendToChannel(players[id]['name'], params, players[id]['name'] + " has joined the channel.\n", chans)
                         else:
@@ -131,12 +129,10 @@ def subscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
         else:
                 mud.send_message(id, "What channel would you like to subscribe to?\n")
 
-def unsubscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def unsubscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         params = params.replace(" ", "")
         if len(params) > 0:
                 try:
-                        if "@" in params:
-                                gsocket.msg_gen_message_channel_send(players[id]['name'], params.split("@")[0].lower(), players[id]['name'] + " has left the channel!")
                         if params.lower() != "system":
                                 sendToChannel(players[id]['name'], params, players[id]['name'] + " has left the channel.\n", chans)
                         players[id]['channels'].remove(params.lower())
@@ -149,7 +145,7 @@ def unsubscribe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         if params.lower() == "system":
                 mud.send_message(id, "<f230>You have un-subscribed from a [<f191>system<r>] channel. From now on, you will not receive any game-wide system messages (including server reboot notifications etc.). You can subscribe to SYSTEM at any time by typing '<f255>@subscribe system<r>'\n")
 
-def channels(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def channels(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         if len(players[id]['channels']):
                 mud.send_message(id, "You are currently subscribed to the following channels:\n")
                 # print(players[id]['channels'])
@@ -158,7 +154,7 @@ def channels(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         else:
                 mud.send_message(id, "You are not currently subscribed to any channels.\n")
 
-def runAtCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket):
+def runAtCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans):
         switcher = {
                 "sendAtCommandError": sendAtCommandError,
                 "quit": quit,
@@ -171,6 +167,6 @@ def runAtCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, 
         }
 
         try:
-                switcher[command](params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket)
+                switcher[command](params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans)
         except Exception as e:
-                switcher["sendAtCommandError"](e, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans, gsocket)
+                switcher["sendAtCommandError"](e, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, chans)

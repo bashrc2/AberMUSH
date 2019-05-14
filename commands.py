@@ -86,22 +86,12 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  drop [item]                      - Drop an item from your inventory ' + "on the floor")
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
         mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player')
-        mud.send_message(id, '\nAT Commands:')
-        mud.send_message(id, '  @who                             - See who is logged in (permission level 0 required')
-        mud.send_message(id, '  @serverlog [clear/show]          - Print or clear the server log (permission level 0 required)')
-        mud.send_message(id, '  @config defaultchannel [channel] - Set a default chat channel to send messages to')
-        mud.send_message(id, '  @config defaultchannel [show]    - Print currently set default channel')
-        mud.send_message(id, '  @config defaultchannel [clear]   - Clear a default channel')
-        mud.send_message(id, '  @channels                        - List all chat channels players is currently subscribed to')
-        mud.send_message(id, '  @subscribe [channel]             - Subscribe to a chat channel')
-        mud.send_message(id, '  @unsubscribe [channel]           - Un-subscribe from a chat channel')
         mud.send_message(id, '\nOther:')
         mud.send_message(id, '  /[channel] [message]             - Send a message to a chat channel')
         mud.send_message(id, '  / [message]                      - Send a message to a default channel (if configured)\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         # print(channels)
-        #print(gsocket.inbound_frame_buffer)
         if players[id]['canSay'] == 1:
                 # go through every player in the game
                 for (pid, pl) in list(players.items()):

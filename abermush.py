@@ -30,9 +30,6 @@ from atcommands import runAtCommand
 
 import time
 
-#import gossip
-#from gossip import gsocket
-
 # import the MUD server class
 from mudserver import MudServer
 
@@ -51,9 +48,6 @@ import commentjson
 # import glob module
 import glob
 
-# import grapevine client
-import grapevine
-
 log("", "Server Boot")
 
 log("", "Loading configuration file")
@@ -63,30 +57,6 @@ Config = configparser.ConfigParser()
 Config.read('config.ini')
 # example of config file usage
 # print(str(Config.get('Database', 'Hostname')))
-
-# check the config file to see if we should use grapevine at all
-if int(Config.get('Grapevine', 'Enabled')) != 0:
-        useGrapevine = True
-        log("Grapevine enabled in config!", "grapevine")
-else:
-        useGrapevine = False
-        log("Grapevine disabled in config!", "grapevine")
-
-# initialise grapevine connection
-if useGrapevine:
-        log("Initialising...", "grapevine")
-        gsocket = grapevine.GrapevineSocket()
-        if gsocket.gsocket_connect() == True:
-                log("Connection Successful", "grapevine")
-                # Setting last hearbeat to NOW since we have just connected.
-                gsocket.lastHeartbeat = int(time.time())
-        else:
-                log("Connection Failed", "grapevine")
-                useGrapevine = False
-                log("Grapevine features have been disabled", "grapevine")
-
-# Grapevine re-enable requested
-grapevineReconnecting = False
 
 # Declare rooms dictionary
 rooms = {}
@@ -282,7 +252,7 @@ npcsTemplate = deepcopy(npcs)
 # stores the players in the game
 players = {}
 
-#list of players for Grapevine
+#list of players
 playerList = []
 
 # start the server
@@ -291,72 +261,14 @@ mud = MudServer()
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
         # print(int(time.time()))
-        if useGrapevine == True or grapevineReconnecting == True:
-                if gsocket.state["connected"] == True:
-                        gsocket.import_players(playerList)
-                        gsocket.handle_read()
-                        gsocket.handle_write()
 
-                        rcvd_msg = None
-                        ret_value = None
+        # update player list
+        playerList = []
+        for p in players:
+                if players[p]['name'] != None and players[p]['authenticated'] != None:
+                        if players[p]['name'] not in playerList:
+                                playerList.append(players[p]['name'])
 
-                        if len(gsocket.inbound_frame_buffer) > 0:
-                                rcvd_msg = gsocket.receive_message()
-                                #print(rcvd_msg.event)
-                                ret_value = rcvd_msg.parse_frame()
-                                #print(ret_value)
-                                if rcvd_msg.event == "channels/broadcast":
-                                        #print("sending to channels in game")
-                                        sendToChannel(str(ret_value['name']) + "@" + ret_value['game'], ret_value['channel'] + "@grapevine", ret_value['message'], channels)
-                                elif rcvd_msg.event == "players/sign-in":
-                                        log("Received player sign in", "info")
-                                        log(ret_value)
-
-                        # update player list for grapevine heartbeats
-                        playerList = []
-                        for p in players:
-                                if players[p]['name'] != None and players[p]['authenticated'] != None:
-                                        if players[p]['name'] not in playerList:
-                                                playerList.append(players[p]['name'])
-
-                #grapevineLastHeartbeat = gsocket.msg_gen_lastheartbeat_timestamp()
-                #print(str(grapevineLastHeartbeat))
-
-                # Let's wait some time before attempting reconnection (as defined in config.ini)
-                if gsocket.state["connected"] == False and int(time.time()) >= timeDisconnected + int(Config.get('Grapevine', 'ConnectionRetryDelay')):
-                        #print("grapevine trying to reconnect")
-                        #timeDisconnected = int(time.time())
-                        #log("Trying to connect", "grapevine")
-                        gsocket = grapevine.GrapevineSocket()
-                        log("Attempting to reconnect...", "grapevine")
-                        sendToChannel("Grapevine", "system", "Attempting to reconnect to the Network...", channels)
-                        if gsocket.gsocket_connect() == True:
-                                log("Connection Successful", "grapevine")
-                                gsocket.lastHeartbeat = int(time.time())
-                                sendToChannel("Grapevine", "system", "Connection to Grapevine Network has been restored!", channels)
-                                useGrapevine = True
-                                grapevineReconnecting = False
-                        else:
-                                log("Failed to reconnect after " + str(Config.get('Grapevine', 'ConnectionRetryDelay')) + " seconds", "grapevine")
-                                log("Disabling Grapevine permanently", "grapevine")
-                                sendToChannel("Grapevine", "system", "Failed to reconnect to the network. Grapevine functionality is now permanently disabled.", channels)
-                                grapevineReconnecting = False
-
-                if gsocket.state["connected"] == True and int(time.time()) > gsocket.msg_gen_lastheartbeat_timestamp() + int(Config.get('Grapevine', 'MaxHeartbeatDelay')):
-                        # Opps! It has been more than 60 seconds since last grapevine heartbeat!
-                        #print("60 secs since heartbeat")
-                        gsocket.state["connected"] = False
-                        gsocket.state["authenticated"] = False
-                        gsocket.gsocket_disconnect()
-                        log("Connection to Grapevine Network was lost! Attempt to reconnect will be made in " + str(Config.get('Grapevine', 'ConnectionRetryDelay')) + " seconds.", "grapevine")
-                        sendToChannel("Grapevine", "system", "Connection to Grapevine Network was lost. We will try to reconnect in " + str(Config.get('Grapevine', 'ConnectionRetryDelay')) + " seconds.", channels)
-                        grapevineReconnecting = True
-                        useGrapevine = False
-                        timeDisconnected = int(time.time())
-
-
-        # print("useGrapevine: " + str(useGrapevine))
-        # print("grapevineReconnecting: " + str(grapevineReconnecting))
         # pause for 1/5 of a second on each loop, so that we don't constantly
         # use 100% CPU time
         time.sleep(0.1)
@@ -971,7 +883,7 @@ while True:
                                 #print("gone into command eval")
                                 if len(command) > 0:
                                         if str(command[0]) == "@":
-                                                runAtCommand(command.lower()[1:], params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, channels, gsocket)
+                                                runAtCommand(command.lower()[1:], params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, channels)
                                         elif str(command[0]) == "/":
                                                 c = command[1:]
                                                 if len(c) == 0 and players[id]['defaultChannel'] != None:
@@ -989,12 +901,7 @@ while True:
                                                                         l = chan.split('@')
                                                                         if len(l) == 2 and len(l[0]) > 0 and len(l[1]) > 0:
                                                                                 if l[1].lower() == "grapevine":
-                                                                                        if useGrapevine:
-                                                                                                #print("grapevine used!")
-                                                                                                gsocket.msg_gen_message_channel_send(players[id]['name'], l[0].lower(), params)
-                                                                                                sendToChannel(players[id]['name'], chan, params, channels)
-                                                                                        else:
-                                                                                                mud.send_message(id, "Grapevine is disabled!\n")
+                                                                                        mud.send_message(id, "Grapevine is disabled!\n")
                                                                                 else:
                                                                                         #print("Unrecognised channel location '" + l[1] + "'")
                                                                                         mud.send_message(id, "Unrecognised channel location '" + l[1] + "'\n")
