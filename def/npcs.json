@@ -1011,7 +1011,7 @@
     "405": {
         "name": "the old inn-keeper",
         "inv" : [],
-        "vocabulary": "Drink up!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
+        "vocabulary": "Drink up!|Special brew is on tap!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
         "talkDelay" : "300",
         "randomFactor" : "100",
         "hp" : "24332",
