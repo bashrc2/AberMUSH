@@ -20,4 +20,4 @@ telnet [hostname] 35123
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
 
-You can define who has admin/ArchWizard status by creating a file called `admins` within the same directory that you ran `abermush.py` from and adding their usernames. Admins can mute or unmute other players and teleport to rooms.
+You can define who has admin/ArchWizard status by creating a file called `admins` within the same directory that you ran `abermush.py` from and adding their usernames. Admins can mute or unmute other players, teleport to rooms or summon other players to their location.

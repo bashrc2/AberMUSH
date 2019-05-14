@@ -43,11 +43,27 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         if players[id]['permissionLevel'] == 0:
             if isAdmin(id,players):
                 targetLocation = params[0:].strip().lower()
-                for rm in rooms:
-                    if rooms[rm]['name'].strip().lower() == targetLocation:
-                        players[id]['room'] = rm
-                        mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
-                        return
+                if len(targetLocation) != 0:
+                    for rm in rooms:
+                        if rooms[rm]['name'].strip().lower() == targetLocation:
+                            players[id]['room'] = rm
+                            mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
+                            return
+            else:
+                mud.send_message(id, "You don't have enough powers for that.\n")
+
+def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if players[id]['permissionLevel'] == 0:
+            if isAdmin(id,players):
+                targetPlayer = params[0:].strip().lower()
+                if len(targetPlayer) != 0:
+                    for p in players:
+                        if players[p]['name'].strip().lower() == targetPlayer:
+                            players[p]['room'] = players[id]['room']
+                            rm = players[p]['room']
+                            mud.send_message(id, "You summon " + players[p]['name'] + "\n")
+                            mud.send_message(p, "A mist surrounds you. When it clears you find that you are now in " + rooms[rm]['name'] + "\n")
+                            return
             else:
                 mud.send_message(id, "You don't have enough powers for that.\n")
 
@@ -168,6 +184,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  mute/silence [target]            - Mutes a player and prevents them from attacking')
         mud.send_message(id, '  unmute/unsilence [target]        - Unmutes a player')
         mud.send_message(id, '  teleport [room]                  - Teleport to a room')
+        mud.send_message(id, '  summon [player]                  - Summons a player to your location')
         mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
@@ -533,6 +550,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "check": check,
                 "whisper": whisper,
                 "teleport": teleport,
+                "summon": summon,
                 "mute": mute,
                 "silence": mute,
                 "unmute": unmute,
