@@ -78,7 +78,7 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, 'Commands:')
         mud.send_message(id, '  say [message]                    - Says something out loud, '  + "e.g. 'say Hello'")
-        mud.send_message(id, '  look                             - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'look tin can' or 'look cleaning robot'")
+        mud.send_message(id, '  look/examine                     - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine tin can' or 'look cleaning robot'")
         mud.send_message(id, '  go [exit]                        - Moves through the exit ' + "specified, e.g. 'go outside'")
         mud.send_message(id, '  attack [target]                  - Attack target ' + "specified, e.g. 'attack cleaning bot'")
         mud.send_message(id, '  check inventory                  - Check the contents of ' + "your inventory")
