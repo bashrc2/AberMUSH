@@ -1,5 +1,4 @@
-# AberMUSH
-A modern Python MU* engine with AberMUD universe.
+![AberMUSH](docs/logo.png)
 
 Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
 
