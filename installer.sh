@@ -10,4 +10,4 @@ $INSTALL_PACKAGE $PYTHON_PACKAGE-pip
 yes | sudo pip3 install commentjson
 yes | sudo pip3 install websocket-client
 $INSTALL_PACKAGE git-core
-git clone https://code.freedombone.net/bashrc/AberMUSH
+#git clone https://code.freedombone.net/bashrc/AberMUSH
