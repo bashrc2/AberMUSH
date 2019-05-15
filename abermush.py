@@ -159,6 +159,9 @@ for k in npcsDB:
                 if not(v == "name" or \
                        v == "room" or \
                        v == "inv" or \
+                       v == "path" or \
+                       v == "moveDelay" or \
+                       v == "moveType" or \
                        v == "vocabulary" or \
                        v == "inDescription" or \
                        v == "outDescription" or \
