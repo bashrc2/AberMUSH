@@ -184,7 +184,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  mute/silence [target]            - Mutes a player and prevents them from attacking')
         mud.send_message(id, '  unmute/unsilence [target]        - Unmutes a player')
         mud.send_message(id, '  teleport [room]                  - Teleport to a room')
-        mud.send_message(id, '  summon [player]                  - Summons a player to your location')
+        mud.send_message(id, '  summon [target]                  - Summons a player to your location')
         mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
