@@ -46,8 +46,10 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                 if len(targetLocation) != 0:
                     for rm in rooms:
                         if rooms[rm]['name'].strip().lower() == targetLocation:
-                            players[id]['room'] = rm
                             mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
+                            messageToPlayersInRoom(players,id,'<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n")
+                            players[id]['room'] = rm
+                            messageToPlayersInRoom(players,id,'<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n")
                             return
             else:
                 mud.send_message(id, "You don't have enough powers for that.\n")
@@ -61,6 +63,7 @@ def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                         if players[p]['name'].strip().lower() == targetPlayer:
                             players[p]['room'] = players[id]['room']
                             rm = players[p]['room']
+                            messageToPlayersInRoom(players,p,'<f32>{}<r> suddenly vanishes.'.format(players[p]['name']) + "\n")
                             mud.send_message(id, "You summon " + players[p]['name'] + "\n")
                             mud.send_message(p, "A mist surrounds you. When it clears you find that you are now in " + rooms[rm]['name'] + "\n")
                             return
@@ -387,6 +390,16 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
         else:
                 mud.send_message(id, 'Check what?\n')
 
+def messageToPlayersInRoom(players,id,msg):
+        # go through all the players in the game
+        for (pid, pl) in list(players.items()):
+                # if player is in the same room and isn't the player
+                # sending the command
+                if players[pid]['room'] == players[id]['room'] \
+                         and pid != id:
+                        mud.send_message(pid,msg)
+
+
 def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['canGo'] == 1:
                 # store the exit name
@@ -397,16 +410,7 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
 
                 # if the specified exit is found in the room's exits list
                 if ex in rm['exits']:
-                        # go through all the players in the game
-                        for (pid, pl) in list(players.items()):
-                                # if player is in the same room and isn't the player
-                                # sending the command
-                                if players[pid]['room'] == players[id]['room'] \
-                                        and pid != id:
-                                        # send them a message telling them that the player
-                                        # left the room
-                                        mud.send_message(pid,
-                                                         '<f32>{}<r> left via exit {}'.format(players[id]['name'], ex) + "\n")
+                        messageToPlayersInRoom(players,id,'<f32>{}<r> left via exit {}'.format(players[id]['name'], ex) + "\n")
 
                         # Trigger old room eventOnLeave for the player
                         if rooms[players[id]['room']]['eventOnLeave'] is not "":
