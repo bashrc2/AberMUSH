@@ -282,6 +282,10 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 else:
                         # If argument is given, then evaluate it
                         param = params.lower()
+                        if param.startswith('the '):
+                                param = params.lower().replace('the ', '')
+                        if param.startswith('a '):
+                                param = params.lower().replace('a ', '')
                         messageSent = False
 
                         message = ""
@@ -335,6 +339,9 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
         if players[id]['canAttack'] == 1:
                 isAlreadyAttacking = False
                 target = params #.lower()
+                if target.startswith('the '):
+                        target = params.replace('the ', '')
+
                 targetFound = False
 
                 for (fight, pl) in fights.items():
@@ -478,12 +485,15 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         itemInInventory = False
         itemID = None
         itemName = None
+        target = str(params).lower()
+        if target.startswith('the '):
+                target = params.replace('the ', '')
 
         # Check if item is in player's inventory
         for item in players[id]['inv']:
                 for (iid, pl) in list(itemsDB.items()):
                         if str(iid) == item:
-                                if itemsDB[iid]['name'].lower() == str(params).lower():
+                                if itemsDB[iid]['name'].lower() == target:
                                         itemID = iid
                                         itemName = itemsDB[iid]['name']
                                         itemInInventory = True
@@ -497,7 +507,7 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
             for item in players[id]['inv']:
                 for (iid, pl) in list(itemsDB.items()):
                         if str(iid) == item:
-                                if str(params).lower() in itemsDB[iid]['name'].lower():
+                                if target in itemsDB[iid]['name'].lower():
                                         itemID = iid
                                         itemName = itemsDB[iid]['name']
                                         itemInInventory = True
@@ -538,9 +548,12 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         itemID = None
         itemName = None
         itemPickedUp = False
+        target = str(params).lower()
+        if target.startswith('the '):
+                target = params.replace('the ', '')
 
         for (iid, pl) in list(itemsDB.items()):
-                if itemsDB[iid]['name'].lower() == str(params).lower():
+                if itemsDB[iid]['name'].lower() == target:
                         # ID of the item to be picked up
                         itemID = iid
                         itemName = itemsDB[iid]['name']
@@ -557,11 +570,14 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
             # Try fuzzy match of the item name
             for (iid, pl) in list(itemsInWorldCopy.items()):
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                    if str(params).lower() in itemsDB[items[iid]['id']]['name'].lower():
+                    if target in itemsDB[items[iid]['id']]['name'].lower():
                         # ID of the item to be picked up
                         itemID = itemsDB[items[iid]['id']]
                         itemName = itemsDB[items[iid]['id']]['name']
                         itemInDB = True
+                        if itemInInventory(players,id,itemName,itemsDB):
+                                mud.send_message(id, 'You are already carring ' + itemName + '\n\n')
+                                return
                         break
                     else:
                         itemInDB = False
@@ -581,7 +597,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You pick up and place ' + itemName + ' in your inventory.\n\n')
                 itemPickedUp = False
         else:
-                mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.\n\n')
+                mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
                 itemPickedUp = False
 
 def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
