@@ -32,6 +32,8 @@ from atcommands import runAtCommand
 
 import time
 
+maximum_players = 128
+
 # import the MUD server class
 from mudserver import MudServer
 
@@ -552,6 +554,10 @@ while True:
 
         # go through any newly connected players
         for id in mud.get_new_players():
+                if len(players) >= maximum_players:
+                    mud.send_message(id, "Player limit reached\n\n")
+                    mud._handle_disconnect(id)
+
                 # add the new player to the dictionary, noting that they've not been
                 # named yet.
                 # The dictionary key is the player's id number. We set their room to
