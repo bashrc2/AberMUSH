@@ -823,7 +823,7 @@ while True:
                                         players[id]['cred'] = dbResponse[13]
                                         players[id]['inv'] = dbResponse[14]#.split(',')
                                         # Example: item_list = [e for e in item_list if e not in ('item', 5)]
-                                        players[id]['inv'] = [e for e in players[id]['inv'] if e not in ('', ' ')]
+                                        #players[id]['inv'] = [e for e in players[id]['inv'] if e not in ('', ' ')]
                                         players[id]['clo_head'] = dbResponse[16]
                                         players[id]['clo_larm'] = dbResponse[17]
                                         players[id]['clo_rarm'] = dbResponse[18]
