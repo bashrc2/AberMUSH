@@ -516,10 +516,10 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         # for y in itemsInWorld[x]:
                                         # print(y,':',itemsInWorld[x][y])
 
-                mud.send_message(id, 'You drop ' + itemsDB[int(i)]['article'] + ' ' + itemsDB[int(i)]['name'] + ' on the floor.')
+                mud.send_message(id, 'You drop ' + itemsDB[int(i)]['article'] + ' ' + itemsDB[int(i)]['name'] + ' on the floor.\n\n')
 
         else:
-                mud.send_message(id, 'You don`t have that!')
+                mud.send_message(id, 'You don`t have that!\n\n')
 
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if len(str(params)) < 3:
