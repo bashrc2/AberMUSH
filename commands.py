@@ -44,6 +44,10 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
             if isAdmin(id,players):
                 targetLocation = params[0:].strip().lower()
                 if len(targetLocation) != 0:
+                    currRoom=players[id]['room']
+                    if rooms[currRoom]['name'].strip().lower() == targetLocation:
+                        mud.send_message(id, "You are already in " + rooms[currRoom]['name'] + "\n")
+                        return
                     for rm in rooms:
                         if rooms[rm]['name'].strip().lower() == targetLocation:
                             mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
