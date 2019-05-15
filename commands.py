@@ -477,25 +477,30 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         itemID = None
         itemName = None
 
-        for (iid, pl) in list(itemsDB.items()):
-                if itemsDB[iid]['name'].lower() == str(params).lower():
-                        # ID of the item to be dropped
-                        itemID = iid
-                        itemName = itemsDB[iid]['name']
-                        itemInDB = True
-                        break
-                else:
-                        itemInDB = False
-                        itemName = None
-                        itemID = None
-
         # Check if item is in player's inventory
         for item in players[id]['inv']:
-                if int(item) == itemID:
-                        itemInInventory = True
+                for (iid, pl) in list(itemsDB.items()):
+                        if str(iid) == item:
+                                if itemsDB[iid]['name'].lower() == str(params).lower():
+                                        itemID = iid
+                                        itemName = itemsDB[iid]['name']
+                                        itemInInventory = True
+                                        itemInDB = True
+                                        break
+                if itemInInventory:
                         break
-                else:
-                        itemInInventory = False
+
+        if not itemInInventory:
+            # Try a fuzzy match
+            for item in players[id]['inv']:
+                for (iid, pl) in list(itemsDB.items()):
+                        if str(iid) == item:
+                                if str(params).lower() in itemsDB[iid]['name'].lower():
+                                        itemID = iid
+                                        itemName = itemsDB[iid]['name']
+                                        itemInInventory = True
+                                        itemInDB = True
+                                        break
 
         if itemInDB and itemInInventory:
                 inventoryCopy = deepcopy(players[id]['inv'])
