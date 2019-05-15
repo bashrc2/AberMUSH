@@ -522,14 +522,17 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You don`t have that!')
 
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if len(str(params)) < 3:
+            return
+
         if itemInInventory(players,id,str(params),itemsDB):
             mud.send_message(id, 'You are already carring ' + str(params) + '\n\n')
             return
 
-        itemInDB = None
+        itemInDB = False
         itemID = None
         itemName = None
-        # itemInRoom = None
+        itemPickedUp = False
 
         for (iid, pl) in list(itemsDB.items()):
                 if itemsDB[iid]['name'].lower() == str(params).lower():
@@ -545,26 +548,32 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
         itemsInWorldCopy = deepcopy(items)
 
-        for (iid, pl) in list(itemsInWorldCopy.items()):
+        if not itemInDB:
+            # Try fuzzy match of the item name
+            for (iid, pl) in list(itemsInWorldCopy.items()):
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                        # print(str(itemsDB[itemsInWorld[iid]['id']]['name'].lower()))
-                        # print(str(params).lower())
-                        if itemsDB[items[iid]['id']]['name'].lower() == str(params).lower():
-                                players[id]['inv'].append(str(itemID))
+                    if str(params).lower() in itemsDB[items[iid]['id']]['name'].lower():
+                        # ID of the item to be picked up
+                        itemID = itemsDB[items[iid]['id']]
+                        itemName = itemsDB[items[iid]['id']]['name']
+                        itemInDB = True
+                        break
+                    else:
+                        itemInDB = False
+                        itemName = None
+                        itemID = None
+
+        if itemInDB:
+            for (iid, pl) in list(itemsInWorldCopy.items()):
+                if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+                        if itemsDB[items[iid]['id']]['name'] == itemName:
+                                players[id]['inv'].append(str(items[iid]['id']))
                                 del items[iid]
-                                # mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.\n\n')
                                 itemPickedUp = True
                                 break
-                        else:
-                                # mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.')
-                                itemPickedUp = False
-                else:
-                        # mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.')
-                        itemPickedUp = False
-                        # break
 
-        if itemPickedUp == True:
-                mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.\n\n')
+        if itemPickedUp:
+                mud.send_message(id, 'You pick up and place ' + itemName + ' in your inventory.\n\n')
                 itemPickedUp = False
         else:
                 mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.\n\n')
