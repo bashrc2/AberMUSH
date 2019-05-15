@@ -5891,5 +5891,14 @@
             "south": "$rid=1383$",
             "west": "$rid=858$"
         }
+    },
+    "$rid=666$": {
+        "description": "Void. This is how you would describe your surroundings. You realize you cannot see your physical body and somehow it feels like you are not ACTUALLY there in a physical sense. It`s unbelievably bright here. You can see a slightly darker patch in a distance. It almost looks like an open rift, a tear in whatever fabric the environment is made of.",
+        "exits": {
+            "rift": "$rid=432$"
+        },
+        "name": "Void",
+        "eventOnEnter": "",
+        "eventOnLeave": ""
     }
 }

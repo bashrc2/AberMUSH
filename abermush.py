@@ -521,7 +521,7 @@ while True:
                                 mud.send_message(int(eventSchedule[event]['target']), str(eventSchedule[event]['body']) + "\n")
                         else:
                                 evaluateEvent(eventSchedule[event]['target'], eventSchedule[event]['type'], eventSchedule[event]['body'], players, npcs, itemsInWorld, env, npcsDB, envDB)
-                                del eventSchedule[event]
+                        del eventSchedule[event]
 
         # Evaluate player idle time and disconnect if required
         now = int(time.time())
