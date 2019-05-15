@@ -536,7 +536,7 @@ while True:
                                 log("Character " + str(players[p]['name']) + " is being disconnected due to inactivity.", "warning")
                                 del players[p]
                                 log("Disconnecting client " + str(p), "warning")
-                                mud._handle_disconnect(p)
+                        mud._handle_disconnect(p)
 
         npcsTemplate = deepcopy(npcs)
 
