@@ -178,7 +178,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  go [exit]                        - Moves through the exit ' + "specified, e.g. 'go outside'")
         mud.send_message(id, '  attack [target]                  - Attack target ' + "specified, e.g. 'attack cleaning bot'")
         mud.send_message(id, '  check inventory                  - Check the contents of ' + "your inventory")
-        mud.send_message(id, '  take [item]                      - Pick up an item lying ' + "on the floor")
+        mud.send_message(id, '  take/get [item]                  - Pick up an item lying ' + "on the floor")
         mud.send_message(id, '  drop [item]                      - Drop an item from your inventory ' + "on the floor")
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
         mud.send_message(id, '  mute/silence [target]            - Mutes a player and prevents them from attacking')
@@ -558,6 +558,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "say": say,
                 "attack": attack,
                 "take": take,
+                "get": take,
                 "drop": drop,
                 "check": check,
                 "whisper": whisper,
