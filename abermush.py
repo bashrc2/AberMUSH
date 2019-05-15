@@ -734,6 +734,11 @@ while True:
                         template['name'] = players[id]['exAttribute1']
                         template['pwd'] = hash_password(players[id]['exAttribute2'])
 
+                        # First player becomes the admin
+                        if not os.path.isfile("admins"):
+                            with open("admins", "w") as admins_file:
+                                admins_file.write(template['name'])
+
                         # Save template into a new player file
                         # print(template)
                         with open(str(Config.get('Players', 'Location')) + "/" + template['name'] + ".player", 'w') as fp:
