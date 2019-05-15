@@ -300,7 +300,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
                         ## Go through all NPCs in game
                         for n in npcs:
-                                if npcs[n]['name'].lower() == param and npcs[n]['room'] == players[id]['room']:
+                                if param in npcs[n]['name'].lower() and npcs[n]['room'] == players[id]['room']:
                                         message += npcs[n]['lookDescription']
 
                         if len(message) > 0:
@@ -312,7 +312,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         ## Go through all Items in game
                         itemCounter = 0
                         for i in items:
-                                if items[i]['room'].lower() == players[id]['room'] and itemsDB[items[i]['id']]['name'].lower() == param:
+                                if items[i]['room'].lower() == players[id]['room'] and param in itemsDB[items[i]['id']]['name'].lower():
                                         if itemCounter == 0:
                                                 message += itemsDB[items[i]['id']]['long_description']
                                                 itemName = itemsDB[items[i]['id']]['article'] + " " + itemsDB[items[i]['id']]['name']
