@@ -364,6 +364,14 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
         else:
                 mud.send_message(id, 'Right now, you do not feel like you can force yourself to attack anyone or anything.\n')
 
+def itemInInventory(players,id,itemName,itemsDB):
+        if len(list(players[id]['inv'])) > 0:
+                itemNameLower=itemName.lower()
+                for i in list(players[id]['inv']):
+                        if itemsDB[int(i)]['name'].lower() == itemNameLower:
+                                return True
+        return False
+
 def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if params.lower() == 'inventory' or params.lower() == 'inv':
                 mud.send_message(id, 'You check your inventory.')
@@ -489,6 +497,10 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You don`t have that!')
 
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if itemInInventory(players,id,str(params),itemsDB):
+            mud.send_message(id, 'You are already carring ' + str(params) + '\n\n')
+            return
+
         itemInDB = None
         itemID = None
         itemName = None
@@ -530,7 +542,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You pick up and place ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' in your inventory.\n\n')
                 itemPickedUp = False
         else:
-                mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.')
+                mud.send_message(id, 'You cannot see ' + str(params) + ' anywhere.\n\n')
                 itemPickedUp = False
 
 def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
