@@ -357,7 +357,7 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                 # mud.send_message(id, 'You cannot see ' + target + ' anywhere nearby.|')
                                 if(targetFound == False):
                                         for (nid, pl) in list(npcs.items()):
-                                                if npcs[nid]['name'].lower() == target.lower():
+                                                if target.lower() in npcs[nid]['name'].lower():
                                                         victimId = nid
                                                         attackerId = id
                                                         # print('found target npc')
