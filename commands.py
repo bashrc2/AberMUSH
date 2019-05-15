@@ -61,11 +61,14 @@ def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                 if len(targetPlayer) != 0:
                     for p in players:
                         if players[p]['name'].strip().lower() == targetPlayer:
-                            messageToPlayersInRoom(players,p,'<f32>{}<r> suddenly vanishes.'.format(players[p]['name']) + "\n")
-                            players[p]['room'] = players[id]['room']
-                            rm = players[p]['room']
-                            mud.send_message(id, "You summon " + players[p]['name'] + "\n")
-                            mud.send_message(p, "A mist surrounds you. When it clears you find that you are now in " + rooms[rm]['name'] + "\n")
+                            if players[p]['room'] != players[id]['room']:
+                                messageToPlayersInRoom(players,p,'<f32>{}<r> suddenly vanishes.'.format(players[p]['name']) + "\n")
+                                players[p]['room'] = players[id]['room']
+                                rm = players[p]['room']
+                                mud.send_message(id, "You summon " + players[p]['name'] + "\n")
+                                mud.send_message(p, "A mist surrounds you. When it clears you find that you are now in " + rooms[rm]['name'] + "\n")
+                            else:
+                                mud.send_message(id, players[p]['name'] + " is already here.\n")
                             return
             else:
                 mud.send_message(id, "You don't have enough powers for that.\n")
