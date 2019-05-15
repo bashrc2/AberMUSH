@@ -401,6 +401,21 @@ while True:
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         for (nid, pl) in list(npcs.items()):
+                # NPC moves to the next location
+                now = int(time.time())
+                if len(npcs[nid]['path'])>0:
+                    if now > npcs[nid]['lastMoved'] + npcs[nid]['moveDelay'] + npcs[nid]['randomizer']:
+                        npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
+                        for (pid, pl) in list(players.items()):
+                                if npcs[nid]['room'] == players[pid]['room']:
+                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['outDescription'] + "\n")
+                        npcs[nid]['room'] = rooms[npcs[nid]['path'][npcRoomIndex]]
+                        for (pid, pl) in list(players.items()):
+                                if npcs[nid]['room'] == players[pid]['room']:
+                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['inDescription'] + "\n")
+                                        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
+                                        npcs[nid]['lastMoved'] =  now
+
                 # Check if any player is in the same room, then send a random message to them
                 now = int(time.time())
                 if npcs[nid]['vocabulary'][0]:
