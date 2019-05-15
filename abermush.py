@@ -401,21 +401,6 @@ while True:
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         for (nid, pl) in list(npcs.items()):
-                # NPC moves to the next location
-                now = int(time.time())
-                if len(npcs[nid]['path'])>0:
-                    if now > npcs[nid]['lastMoved'] + npcs[nid]['moveDelay'] + npcs[nid]['randomizer']:
-                        npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
-                        for (pid, pl) in list(players.items()):
-                                if npcs[nid]['room'] == players[pid]['room']:
-                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['outDescription'] + "\n")
-                        npcs[nid]['room'] = rooms[npcs[nid]['path'][npcRoomIndex]]
-                        for (pid, pl) in list(players.items()):
-                                if npcs[nid]['room'] == players[pid]['room']:
-                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['inDescription'] + "\n")
-                                        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
-                                        npcs[nid]['lastMoved'] =  now
-
                 # Check if any player is in the same room, then send a random message to them
                 now = int(time.time())
                 if npcs[nid]['vocabulary'][0]:
@@ -440,6 +425,7 @@ while True:
                                                 npcs[nid]['timeTalked'] =  now
 
                 # Iterate through fights and see if anyone is attacking an NPC - if so, attack him too if not in combat (TODO: and isAggressive = true)
+                isInFight=False
                 for (fid, pl) in list(fights.items()):
                         if fights[fid]['s2id'] == nid and npcs[fights[fid]['s2id']]['isInCombat'] == 1 and fights[fid]['s1type'] == 'pc' and fights[fid]['retaliated'] == 0:
                                 # print('player is attacking npc')
@@ -448,6 +434,7 @@ while True:
                                 fights[fid]['retaliated'] = 1
                                 npcs[fights[fid]['s2id']]['isInCombat'] = 1
                                 fights[len(fights)] = { 's1': npcs[fights[fid]['s2id']]['name'], 's2': players[fights[fid]['s1id']]['name'], 's1id': nid, 's2id': fights[fid]['s1id'], 's1type': 'npc', 's2type': 'pc', 'retaliated': 1 }
+                                isInFight=True
                         elif fights[fid]['s2id'] == nid and npcs[fights[fid]['s2id']]['isInCombat'] == 1 and fights[fid]['s1type'] == 'npc' and fights[fid]['retaliated'] == 0:
                                 # print('npc is attacking npc')
                                 # BETA: set las combat action to now when attacking a player
@@ -455,7 +442,24 @@ while True:
                                 fights[fid]['retaliated'] = 1
                                 npcs[fights[fid]['s2id']]['isInCombat'] = 1
                                 fights[len(fights)] = { 's1': npcs[fights[fid]['s2id']]['name'], 's2': players[fights[fid]['s1id']]['name'], 's1id': nid, 's2id': fights[fid]['s1id'], 's1type': 'npc', 's2type': 'npc', 'retaliated': 1 }
-                                # Check if NPC is still alive, if not, remove from room and create a corpse, set isInCombat to 0, set whenDied to now and remove any fights NPC was involved in
+                                isInFight=True
+
+                # NPC moves to the next location
+                now = int(time.time())
+                if isInFight == False and len(npcs[nid]['path'])>0:
+                    if now > npcs[nid]['lastMoved'] + npcs[nid]['moveDelay'] + npcs[nid]['randomizer']:
+                        npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
+                        for (pid, pl) in list(players.items()):
+                                if npcs[nid]['room'] == players[pid]['room']:
+                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['outDescription'] + "\n")
+                        npcs[nid]['room'] = rooms[npcs[nid]['path'][npcRoomIndex]]
+                        for (pid, pl) in list(players.items()):
+                                if npcs[nid]['room'] == players[pid]['room']:
+                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['inDescription'] + "\n")
+                                        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
+                                        npcs[nid]['lastMoved'] =  now
+
+                # Check if NPC is still alive, if not, remove from room and create a corpse, set isInCombat to 0, set whenDied to now and remove any fights NPC was involved in
                 if npcs[nid]['hp'] <= 0:
                         npcs[nid]['isInCombat'] = 0
                         npcs[nid]['lastRoom'] = npcs[nid]['room']
@@ -551,9 +555,9 @@ while True:
                                 mud.send_message(p, "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
                         else:
                                 mud.send_message(p, "<f232><b11>You are being disconnected due to inactivity. Bye!\n")
-                                log("Character " + str(players[p]['name']) + " is being disconnected due to inactivity.", "warning")
-                                del players[p]
-                                log("Disconnecting client " + str(p), "warning")
+                        log("Character " + str(players[p]['name']) + " is being disconnected due to inactivity.", "warning")
+                        log("Disconnecting client " + str(p), "warning")
+                        del players[p]
                         mud._handle_disconnect(p)
 
         npcsTemplate = deepcopy(npcs)
