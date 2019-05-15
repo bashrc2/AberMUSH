@@ -467,8 +467,12 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                 mud.send_message(id, 'Somehow, your legs refuse to obey your will.\n')
 
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        # Check if inventory is empty
+        if len(list(players[id]['inv'])) == 0:
+                mud.send_message(id, 'You don`t have that!\n\n')
+                return
+
         itemInDB = False
-        inventoryNotEmpty = False
         itemInInventory = False
         itemID = None
         itemName = None
@@ -485,12 +489,6 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         itemName = None
                         itemID = None
 
-        # Check if inventory is not empty
-        if len(list(players[id]['inv'])) > 0:
-                inventoryNotEmpty = True
-        else:
-                inventoryNotEmpty = False
-
         # Check if item is in player's inventory
         for item in players[id]['inv']:
                 if int(item) == itemID:
@@ -499,7 +497,7 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 else:
                         itemInInventory = False
 
-        if itemInDB and inventoryNotEmpty and itemInInventory:
+        if itemInDB and itemInInventory:
                 inventoryCopy = deepcopy(players[id]['inv'])
                 for i in inventoryCopy:
                         if int(i) == itemID:
