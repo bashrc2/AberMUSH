@@ -100,9 +100,10 @@ def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                     if target.lower() != 'guest':
                         for p in players:
                             if players[p]['name'] == target:
-                                players[p]['canSay'] = 1
-                                players[p]['canAttack'] = 1
-                                mud.send_message(id, "You have unmuted " + target + "\n")
+                                if not isAdmin(p,players):
+                                    players[p]['canSay'] = 1
+                                    players[p]['canAttack'] = 1
+                                    mud.send_message(id, "You have unmuted " + target + "\n")
                                 return
 
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
