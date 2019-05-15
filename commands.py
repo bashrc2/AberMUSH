@@ -108,11 +108,18 @@ def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         counter = 1
         if players[id]['permissionLevel'] == 0:
+                is_admin = isAdmin(id,players)
                 for p in players:
                         if players[p]['name'] == None:
                                 name = "None"
                         else:
+                            if not is_admin:
                                 name = players[p]['name']
+                            else:
+                                if players[p]['canSay'] == 1:
+                                    name = players[p]['name']
+                                else:
+                                    name = players[p]['name'] + " (muted)"
 
                         if players[p]['room'] == None:
                                 room = "None"
