@@ -120,10 +120,13 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                             if not is_admin:
                                 name = players[p]['name']
                             else:
-                                if players[p]['canSay'] == 1:
-                                    name = players[p]['name']
+                                if not isAdmin(p,players):
+                                    if players[p]['canSay'] == 1:
+                                        name = players[p]['name']
+                                    else:
+                                        name = players[p]['name'] + " (muted)"
                                 else:
-                                    name = players[p]['name'] + " (muted)"
+                                    name = players[p]['name'] + "*"
 
                         if players[p]['room'] == None:
                                 room = "None"
