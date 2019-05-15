@@ -126,7 +126,7 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                                     else:
                                         name = players[p]['name'] + " (muted)"
                                 else:
-                                    name = "[" + players[p]['name'] + "]"
+                                    name = "<f32>" + players[p]['name'] + "<r>"
 
                         if players[p]['room'] == None:
                                 room = "None"
