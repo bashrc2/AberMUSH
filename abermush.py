@@ -447,17 +447,19 @@ while True:
                 # NPC moves to the next location
                 now = int(time.time())
                 if isInFight == False and len(npcs[nid]['path'])>0:
-                    if now > npcs[nid]['lastMoved'] + npcs[nid]['moveDelay'] + npcs[nid]['randomizer']:
+                    if now > npcs[nid]['lastMoved'] + int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
                         npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
                         for (pid, pl) in list(players.items()):
                                 if npcs[nid]['room'] == players[pid]['room']:
-                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['outDescription'] + "\n")
-                        npcs[nid]['room'] = rooms[npcs[nid]['path'][npcRoomIndex]]
+                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['outDescription'] + "\n\n")
+                        rm = npcs[nid]['path'][npcRoomIndex]
+                        npcs[nid]['room'] = rm
+                        npcs[nid]['lastRoom'] = rm
                         for (pid, pl) in list(players.items()):
                                 if npcs[nid]['room'] == players[pid]['room']:
-                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['inDescription'] + "\n")
-                                        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
-                                        npcs[nid]['lastMoved'] =  now
+                                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['inDescription'] + "\n\n")
+                        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
+                        npcs[nid]['lastMoved'] =  now
 
                 # Check if NPC is still alive, if not, remove from room and create a corpse, set isInCombat to 0, set whenDied to now and remove any fights NPC was involved in
                 if npcs[nid]['hp'] <= 0:

@@ -903,8 +903,8 @@
     "380": {
         "name": "the knight",
         "inv" : [],
-        "path" : [],
-        "moveDelay" : "300",
+        "path" : ["$rid=382$","$rid=384$","$rid=396$","$rid=383$","$rid=357$"],
+        "moveDelay" : "50",
         "moveType" : "",
         "vocabulary" : "",
         "talkDelay" : "300",
@@ -941,8 +941,8 @@
         "imp_lleg" : "0",
         "imp_rleg" : "0",
         "imp_feet" : "0",
-        "inDescription": "arrives",
-        "outDescription": "goes",
+        "inDescription": "arrives with a clanking of armor",
+        "outDescription": "clanks off",
         "lookDescription": "stands sadly before you"
     },
     "392": {
@@ -1124,7 +1124,8 @@
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "stands behind the bar, pulling ugly faces"
-    },    "485": {
+    },
+    "485": {
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "blocks your path",
@@ -1169,7 +1170,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "524": {
         "name": "the giant snake",
         "inv" : [],
@@ -1214,7 +1214,8 @@
         "inDescription": "slithers in",
         "outDescription": "slithers",
         "lookDescription": "is here, its forked tongue flicking in and out"
-    },    "536": {
+    },
+    "536": {
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "stands before you squeaking and showing its teeth",
