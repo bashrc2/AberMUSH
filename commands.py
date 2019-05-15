@@ -84,9 +84,12 @@ def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 if len(target) != 0:
                     for p in players:
                         if players[p]['name'] == target:
-                            players[p]['canSay'] = 0
-                            players[p]['canAttack'] = 0
-                            mud.send_message(id, "You have muted " + target + "\n")
+                            if not isAdmin(p,players):
+                                players[p]['canSay'] = 0
+                                players[p]['canAttack'] = 0
+                                mud.send_message(id, "You have muted " + target + "\n")
+                            else:
+                                mud.send_message(id, "You try to mute " + target + " but their power is too strong.\n")
                             return
 
 def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
