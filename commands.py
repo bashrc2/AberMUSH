@@ -411,9 +411,8 @@ def itemInInventory(players,id,itemName,itemsDB):
                                 return True
         return False
 
-def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
-        if params.lower() == 'inventory' or params.lower() == 'inv':
-                mud.send_message(id, 'You check your inventory.')
+def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        mud.send_message(id, 'You check your inventory.')
                 if len(list(players[id]['inv'])) > 0:
                         mud.send_message(id, 'You are currently in possession of: ')
                         for i in list(players[id]['inv']):
@@ -433,9 +432,14 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                                                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
                                                                 else:
                                                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
-                        mud.send_message(id, "\n")
+                                                                        mud.send_message(id, "\n")
                 else:
                         mud.send_message(id, 'You haven`t got any items on you.\n')
+
+
+def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if params.lower() == 'inventory' or params.lower() == 'inv':
+                checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses)
         elif params.lower() == 'stats':
                 mud.send_message(id, 'You check your character sheet.\n')
         else:
