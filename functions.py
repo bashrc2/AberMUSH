@@ -14,11 +14,68 @@ import errno
 from copy import deepcopy
 import configparser
 import hashlib, binascii
+from random import randint
 
 # example of config file usage
 # print(str(Config.get('Database', 'Hostname')))
 Config = configparser.ConfigParser()
 Config.read('config.ini')
+
+def moveNPCs(npcs,players,mud,now,nid):
+    if now > npcs[nid]['lastMoved'] + int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
+
+        # Move types:
+        #   random, cycle, inverse cycle, patrol
+        moveTypeLower = npcs[nid]['moveType'].lower()
+        if moveTypeLower.startswith('c') or moveTypeLower.startswith('p'):
+                npcRoomIndex = 0
+                npcRoomCurr =npcs[nid]['room']
+                for npcRoom in npcs[nid]['path']:
+                        if npcRoom == npcRoomCurr:
+                                npcRoomIndex = npcRoomIndex + 1
+                                break
+                        npcRoomIndex = npcRoomIndex + 1
+                if npcRoomIndex >= len(npcs[nid]['path']):
+                        if moveTypeLower.startswith('p'):
+                                npcs[nid]['moveType'] = 'back'
+                                npcRoomIndex = len(npcs[nid]['path']) - 1
+                                if npcRoomIndex > 0:
+                                        npcRoomIndex = npcRoomIndex - 1
+                        else:
+                                npcRoomIndex = 0
+        else:
+                if moveTypeLower.startswith('i') or moveTypeLower.startswith('b'):
+                        npcRoomIndex = 0
+                        npcRoomCurr =npcs[nid]['room']
+                        for npcRoom in npcs[nid]['path']:
+                                if npcRoom == npcRoomCurr:
+                                        npcRoomIndex = npcRoomIndex - 1
+                                        break
+                                npcRoomIndex = npcRoomIndex + 1
+                        if npcRoomIndex >= len(npcs[nid]['path']):
+                                npcRoomIndex = len(npcs[nid]['path']) - 1
+                        if npcRoomIndex < 0:
+                                if moveTypeLower.startswith('b'):
+                                        npcs[nid]['moveType'] = 'patrol'
+                                        npcRoomIndex = 0
+                                        if npcRoomIndex < len(npcs[nid]['path'])-1:
+                                                npcRoomIndex = npcRoomIndex + 1
+                                else:
+                                        npcRoomIndex = len(npcs[nid]['path'])-1
+                else:
+                        npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
+
+        for (pid, pl) in list(players.items()):
+                if npcs[nid]['room'] == players[pid]['room']:
+                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['outDescription'] + "\n\n")
+        rm = npcs[nid]['path'][npcRoomIndex]
+        npcs[nid]['room'] = rm
+        npcs[nid]['lastRoom'] = rm
+        for (pid, pl) in list(players.items()):
+                if npcs[nid]['room'] == players[pid]['room']:
+                        mud.send_message(pid, '<f220>' + npcs[nid]['name'] + "<r> " + npcs[nid]['inDescription'] + "\n\n")
+        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
+        npcs[nid]['lastMoved'] =  now
 
 def hash_password(password):
     """Hash a password for storing."""
