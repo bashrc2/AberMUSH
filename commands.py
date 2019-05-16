@@ -418,10 +418,19 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                                 if int(players[id]['clo_lhand']) > 0:
                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
                                 else:
-                                        if int(players[id]['clo_rhand']) > 0:
-                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
+                                        if int(players[id]['clo_lleg']) > 0:
+                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left leg)')
                                         else:
-                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
+                                                if int(players[id]['clo_rleg']) > 0:
+                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right leg)')
+                                                else:
+                                                        if int(players[id]['clo_rhand']) > 0:
+                                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
+                                                        else:
+                                                                if int(players[id]['clo_head']) > 0 or int(players[id]['clo_chest']) > 0 or int(players[id]['clo_feet']) > 0:
+                                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
+                                                                else:
+                                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
                         mud.send_message(id, "\n")
                 else:
                         mud.send_message(id, 'You haven`t got any items on you.\n')
@@ -504,6 +513,12 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 mud.send_message(id, itemName + " is not in your inventory.\n\n")
                 return
 
+        # items stowed on legs
+        if int(players[id]['clo_lleg']) == itemID:
+                players[id]['clo_lleg'] = 0
+        if int(players[id]['clo_rleg']) == itemID:
+                players[id]['clo_rleg'] = 0
+
         if itemHand == 0:
                 if int(players[id]['clo_rhand']) == itemID:
                         players[id]['clo_rhand'] = 0
@@ -520,12 +535,24 @@ def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 return
 
         if int(players[id]['clo_rhand']) > 0:
-                mud.send_message(id, 'You stow the <b234>' + itemsDB[int(players[id]['clo_rhand'])]['name'] + '\n\n')
+                itemID=int(players[id]['clo_rhand'])
+                mud.send_message(id, 'You stow the <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_rhand'] = 0
 
         if int(players[id]['clo_lhand']) > 0:
-                mud.send_message(id, 'You stow the <b234>' + itemsDB[int(players[id]['clo_lhand'])]['name'] + '\n\n')
+                itemID=int(players[id]['clo_lhand'])
+                mud.send_message(id, 'You stow the <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_lhand'] = 0
+
+        if int(itemsDB[itemID]['clo_rleg']) > 0:
+                if int(players[id]['clo_rleg']) == 0:
+                        if int(players[id]['clo_lleg']) != itemID:
+                                players[id]['clo_rleg'] = itemID
+
+        if int(itemsDB[itemID]['clo_lleg']) > 0:
+                if int(players[id]['clo_lleg']) == 0:
+                        if int(players[id]['clo_rleg']) != itemID:
+                                players[id]['clo_lleg'] = itemID
 
 def messageToPlayersInRoom(players,id,msg):
         # go through all the players in the game

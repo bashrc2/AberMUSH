@@ -355,7 +355,7 @@ while True:
                                                 for (fight, pl) in fightsCopy.items():
                                                         if fightsCopy[fight]['s1id'] == fights[fid]['s1id'] and fightsCopy[fight]['s2id'] == fights[fid]['s2id']:
                                                                 del fights[fight]
-                                                                # PC -> NPC
+                # PC -> NPC
                 elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
                         if players[fights[fid]['s1id']]['room'] == npcs[fights[fid]['s2id']]['room']:
                                 if int(time.time()) >= players[fights[fid]['s1id']]['lastCombatAction'] + 10 - players[fights[fid]['s1id']]['agi']:
@@ -379,7 +379,7 @@ while True:
                                                 for (fight, pl) in fightsCopy.items():
                                                         if fightsCopy[fight]['s1id'] == fights[fid]['s1id'] and fightsCopy[fight]['s2id'] == fights[fid]['s2id']:
                                                                 del fights[fight]
-                                                                # NPC -> PC
+                # NPC -> PC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
                         if npcs[fights[fid]['s1id']]['room'] == players[fights[fid]['s2id']]['room']:
                                 if int(time.time()) >= npcs[fights[fid]['s1id']]['lastCombatAction'] + 10 - npcs[fights[fid]['s1id']]['agi']:
