@@ -453,6 +453,12 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
         if itemName.endswith(' in left'):
                 itemName = itemName.replace(' in left','')
                 itemHand = 0
+        if itemName.endswith(' on left'):
+                itemName = itemName.replace(' on left','')
+                itemHand = 0
+        if itemName.endswith(' on left hand'):
+                itemName = itemName.replace(' on left hand','')
+                itemHand = 0
         if itemName.endswith(' in left hand'):
                 itemName = itemName.replace(' in left hand','')
                 itemHand = 0
@@ -467,6 +473,12 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 itemHand = 1
         if itemName.endswith(' in right'):
                 itemName = itemName.replace(' in right','')
+                itemHand = 1
+        if itemName.endswith(' on right'):
+                itemName = itemName.replace(' on right','')
+                itemHand = 1
+        if itemName.endswith(' on right hand'):
+                itemName = itemName.replace(' on right hand','')
                 itemHand = 1
         if itemName.endswith(' in right hand'):
                 itemName = itemName.replace(' in right hand','')
