@@ -24,6 +24,7 @@ You now should be able to connect to your server on `<server IP/hostname>:35123`
 All players can use the following commands:
 
 ``` bash
+bio [description]                      - Set a description of yourself
 who                                    - List players and where they are
 quit/exit                              - Leave the game
 say [message]                          - Says something out loud

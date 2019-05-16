@@ -197,6 +197,7 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 
 def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, 'Commands:')
+        mud.send_message(id, '  bio [description]                      - Set a description of yourself')
         mud.send_message(id, '  who                                    - List players and where they are')
         mud.send_message(id, '  quit/exit                              - Leave the game')
         mud.send_message(id, '  say [message]                          - Says something out loud, '  + "e.g. 'say Hello'")
@@ -303,7 +304,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                 message += players[p]['lookDescription']
 
                         if len(message) > 0:
-                                mud.send_message(id, message)
+                                mud.send_message(id, message + '\n\n')
                                 messageSent = True
 
                         message = ""
@@ -413,28 +414,28 @@ def itemInInventory(players,id,itemName,itemsDB):
 
 def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, 'You check your inventory.')
-                if len(list(players[id]['inv'])) > 0:
-                        mud.send_message(id, 'You are currently in possession of: ')
-                        for i in list(players[id]['inv']):
-                                if int(players[id]['clo_lhand']) == int(i):
-                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
+        if len(list(players[id]['inv'])) > 0:
+                mud.send_message(id, 'You are currently in possession of: ')
+                for i in list(players[id]['inv']):
+                        if int(players[id]['clo_lhand']) == int(i):
+                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
+                        else:
+                                if int(players[id]['clo_lleg']) == int(i):
+                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left leg)')
                                 else:
-                                        if int(players[id]['clo_lleg']) == int(i):
-                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left leg)')
+                                        if int(players[id]['clo_rleg']) == int(i):
+                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right leg)')
                                         else:
-                                                if int(players[id]['clo_rleg']) == int(i):
-                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right leg)')
+                                                if int(players[id]['clo_rhand']) == int(i):
+                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
                                                 else:
-                                                        if int(players[id]['clo_rhand']) == int(i):
-                                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
+                                                        if int(players[id]['clo_head']) ==int(i) or int(players[id]['clo_chest']) == int(i) or int(players[id]['clo_feet']) == int(i):
+                                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
                                                         else:
-                                                                if int(players[id]['clo_head']) ==int(i) or int(players[id]['clo_chest']) == int(i) or int(players[id]['clo_feet']) == int(i):
-                                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
-                                                                else:
-                                                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
-                                                                        mud.send_message(id, "\n")
-                else:
-                        mud.send_message(id, 'You haven`t got any items on you.\n')
+                                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
+                                                                mud.send_message(id, "\n")
+        else:
+                mud.send_message(id, 'You haven`t got any items on you.\n\n')
 
 
 def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
@@ -638,6 +639,17 @@ def messageToPlayersInRoom(players,id,msg):
                          and pid != id:
                         mud.send_message(pid,msg)
 
+def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if len(params) == 0:
+                mud.send_message(id,players[id]['lookDescription'] + '\n\n')
+                return
+        if '"' in params:
+                mud.send_message(id,"Your bio must not include double quotes.\n\n")
+                return
+        if params.startswith(':'):
+                params = params.replace(':','').strip()
+        players[id]['lookDescription'] = params
+        mud.send_message(id,"Your bio has been set.\n\n")
 
 def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['canGo'] == 1:
@@ -813,6 +825,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
         switcher = {
                 "sendCommandError": sendCommandError,
                 "go": go,
+                "bio": bio,
                 "who": who,
                 "quit": quit,
                 "exit": quit,
