@@ -206,6 +206,8 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  check inventory                  - Check the contents of ' + "your inventory")
         mud.send_message(id, '  take/get [item]                  - Pick up an item lying ' + "on the floor")
         mud.send_message(id, '  drop [item]                      - Drop an item from your inventory ' + "on the floor")
+        mud.send_message(id, '  use/wield/brandish [item]        - Transfer an item to your hands')
+        mud.send_message(id, '  stow                             - Free your hands of items')
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
         mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player')
         mud.send_message(id, '')
@@ -413,7 +415,13 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 if len(list(players[id]['inv'])) > 0:
                         mud.send_message(id, 'You are currently in possession of: ')
                         for i in list(players[id]['inv']):
-                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
+                                if int(players[id]['clo_lhand']) > 0:
+                                        mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
+                                else:
+                                        if int(players[id]['clo_rhand']) > 0:
+                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
+                                        else:
+                                                mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
                         mud.send_message(id, "\n")
                 else:
                         mud.send_message(id, 'You haven`t got any items on you.\n')
@@ -421,6 +429,91 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 mud.send_message(id, 'You check your character sheet.\n')
         else:
                 mud.send_message(id, 'Check what?\n')
+
+def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if len(params) < 1:
+                mud.send_message(id, 'Specify an item from your inventory.\n\n')
+                return
+
+        if len(list(players[id]['inv'])) == 0:
+                mud.send_message(id, 'You are not carrying that.\n\n')
+                return
+
+        itemName = params.lower()
+        itemHand = 1
+        if itemName.startswith('the '):
+                itemName = itemName.replace('the ','')
+        if itemName.startswith('my '):
+                itemName = itemName.replace('my ','')
+        if itemName.startswith('your '):
+                itemName = itemName.replace('your ','')
+        if itemName.endswith(' left'):
+                itemName = itemName.replace(' left','')
+                itemHand = 0
+        if itemName.endswith(' in left'):
+                itemName = itemName.replace(' in left','')
+                itemHand = 0
+        if itemName.endswith(' in left hand'):
+                itemName = itemName.replace(' in left hand','')
+                itemHand = 0
+        if itemName.endswith(' in my left hand'):
+                itemName = itemName.replace(' in my left hand','')
+                itemHand = 0
+        if itemName.endswith(' in your left hand'):
+                itemName = itemName.replace(' in your left hand','')
+                itemHand = 0
+        if itemName.endswith(' right'):
+                itemName = itemName.replace(' right','')
+                itemHand = 1
+        if itemName.endswith(' in right'):
+                itemName = itemName.replace(' in right','')
+                itemHand = 1
+        if itemName.endswith(' in right hand'):
+                itemName = itemName.replace(' in right hand','')
+                itemHand = 1
+        if itemName.endswith(' in my right hand'):
+                itemName = itemName.replace(' in my right hand','')
+                itemHand = 1
+        if itemName.endswith(' in your right hand'):
+                itemName = itemName.replace(' in your right hand','')
+                itemHand = 1
+
+        itemID = 0
+        for i in list(players[id]['inv']):
+                if itemsDB[int(i)]['name'].lower() == itemName:
+                        itemID = int(i)
+
+        if itemID == 0:
+                for i in list(players[id]['inv']):
+                        if itemName in itemsDB[int(i)]['name'].lower():
+                                itemID = int(i)
+
+        if itemID == 0:
+                mud.send_message(id, itemName + " is not in your inventory.\n\n")
+                return
+
+        if itemHand == 0:
+                if int(players[id]['clo_rhand']) == itemID:
+                        players[id]['clo_rhand'] = 0
+                players[id]['clo_lhand'] = itemID
+                mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['name'] + '<r> in your left hand.\n\n')
+        else:
+                if int(players[id]['clo_lhand']) == itemID:
+                        players[id]['clo_lhand'] = 0
+                players[id]['clo_rhand'] = itemID
+                mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['name'] + '<r> in your right hand.\n\n')
+
+def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if len(list(players[id]['inv'])) == 0:
+                return
+
+        if int(players[id]['clo_rhand']) > 0:
+                mud.send_message(id, 'You stow the <b234>' + itemsDB[int(players[id]['clo_rhand'])]['name'] + '\n\n')
+                players[id]['clo_rhand'] = 0
+
+        if int(players[id]['clo_lhand']) > 0:
+                mud.send_message(id, 'You stow the <b234>' + itemsDB[int(players[id]['clo_lhand'])]['name'] + '\n\n')
+                players[id]['clo_lhand'] = 0
 
 def messageToPlayersInRoom(players,id,msg):
         # go through all the players in the game
@@ -618,6 +711,10 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "get": take,
                 "drop": drop,
                 "check": check,
+                "use": wield,
+                "wield": wield,
+                "brandish": wield,
+                "stow": stow,
                 "whisper": whisper,
                 "teleport": teleport,
                 "summon": summon,

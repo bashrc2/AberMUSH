@@ -35,6 +35,8 @@ take/get [item]                  - Pick up an item
 drop [item]                      - Drop an item
 whisper [target] [message]       - Whisper to a player in the same room
 tell [target] [message]          - Send a tell message to another player
+use/wield/brandish [item]        - Transfer an item to your hands
+stow                             - Free your hands of items
 ```
 
 ## Witch Commands
