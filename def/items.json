@@ -1,7 +1,7 @@
 {
     "2": {
         "name": "maintenance hatch",
-        "short_description": "The hatch is closed. ",
+        "short_description": "The hatch is closed.",
         "long_description": "The hatch has been opened.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -33,7 +33,7 @@
     },
     "3": {
         "name": "maintenance hatch",
-        "short_description": "The door is closed. ",
+        "short_description": "The door is closed.",
         "long_description": "Remarkably well concealed, and designed only to open from the far side.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -129,8 +129,8 @@
     },
     "10": {
         "name": "ugly gargoyle",
-        "short_description": "Light shines down past the base of the gargoyle. ",
-        "long_description": "The base of the gargoyle blocks the ladder upwards completely. I doubt you'll even be able to move it from this side. ",
+        "short_description": "Light shines down past the base of the gargoyle.",
+        "long_description": "The base of the gargoyle blocks the ladder upwards completely. I doubt you'll even be able to move it from this side.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -161,8 +161,8 @@
     },
     "11": {
         "name": "ugly gargoyle",
-        "short_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones. ",
-        "long_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones. A flagstone beside the gargoyle has vanished revealing a ladder descending into the depths. ",
+        "short_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones.",
+        "long_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones. A flagstone beside the gargoyle has vanished revealing a ladder descending into the depths.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -193,8 +193,8 @@
     },
     "13": {
         "name": "hidden door",
-        "short_description": "Battered and old. ",
-        "long_description": "A battered wooden door makes a vain attempt to fill an ivy draped doorway to the west. ",
+        "short_description": "Battered and old.",
+        "long_description": "A battered wooden door makes a vain attempt to fill an ivy draped doorway to the west.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -226,7 +226,7 @@
     "14": {
         "name": "hidden door",
         "short_description": "Needs painting.",
-        "long_description": "A small door, half hidden by ivy, opens eastwards into another garden. ",
+        "long_description": "A small door, half hidden by ivy, opens eastwards into another garden.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -257,7 +257,7 @@
     },
     "24": {
         "name": "gravestone",
-        "short_description": "A small battered gravestone protrudes from amongst the weeds. ",
+        "short_description": "A small battered gravestone protrudes from amongst the weeds.",
         "long_description": "It bears the inscription 'Squeak The Gerbil', sadly passed away September 92.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -289,8 +289,8 @@
     },
     "31": {
         "name": "monks bones",
-        "short_description": "A human skeleton, now  picked clean by time. ",
-        "long_description": "A skeleton sits here in a full lotus position, grinning at you macabrely. ",
+        "short_description": "A human skeleton, now  picked clean by time.",
+        "long_description": "A skeleton sits here in a full lotus position, grinning at you macabrely.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -321,8 +321,8 @@
     },
     "34": {
         "name": "ornate door",
-        "short_description": "The door to the rest of the monastery is open. ",
-        "long_description": "The dojo door is closed, allowing you to concentrate on your efforts. ",
+        "short_description": "The door to the rest of the monastery is open.",
+        "long_description": "The dojo door is closed, allowing you to concentrate on your efforts.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -353,7 +353,7 @@
     },
     "35": {
         "name": "ornate door",
-        "short_description": "An ornate door stands open, and through it you can see a very strange room. ",
+        "short_description": "An ornate door stands open, and through it you can see a very strange room.",
         "long_description": "A door here stands closed. On it you can read the inscription 'To gain enlightenment, the body must be trained to discipline the mind.' ",
         "clo_head": 0,
         "clo_larm": 0,
@@ -385,8 +385,8 @@
     },
     "37": {
         "name": "monks sandals",
-        "short_description": "A pair of old discarded sandals lie here in a heap. ",
-        "long_description": "A pair of sandals, handtooled in soft leather, now sadly old and valueless. ",
+        "short_description": "A pair of old discarded sandals lie here in a heap.",
+        "long_description": "A pair of sandals, handtooled in soft leather, now sadly old and valueless.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -417,8 +417,8 @@
     },
     "40": {
         "name": "zen scroll",
-        "short_description": "A scroll lies here, with some strange characters scripted onto it. ",
-        "long_description": "A parchment, with fine Calligraphic characters telling something in the secret language of the monks. ",
+        "short_description": "A scroll lies here, with some strange characters scripted onto it.",
+        "long_description": "A parchment, with fine Calligraphic characters telling something in the secret language of the monks.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -449,8 +449,8 @@
     },
     "41": {
         "name": "dirty habit",
-        "short_description": "A monks habit is hanging from a peg on the wall. ",
-        "long_description": "Someone, ashamed of their dirty habit, has dropped it here. ",
+        "short_description": "A monks habit is hanging from a peg on the wall.",
+        "long_description": "Someone, ashamed of their dirty habit, has dropped it here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -481,8 +481,8 @@
     },
     "42": {
         "name": "old door",
-        "short_description": "A wooden door is open to the south. ",
-        "long_description": "A wooden door to the south is shut tight against interference. ",
+        "short_description": "A wooden door is open to the south.",
+        "long_description": "A wooden door to the south is shut tight against interference.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -514,7 +514,7 @@
     "43": {
         "name": "old door",
         "short_description": "A door to the north lies open.",
-        "long_description": "The wooden door of the cell is firmly shut. ",
+        "long_description": "The wooden door of the cell is firmly shut.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -545,8 +545,8 @@
     },
     "44": {
         "name": "cell door",
-        "short_description": "With the door closed, the stench of Old Monk is unbearable. ",
-        "long_description": "The door is open, letting a much needed breath of fresh air into the room.  ",
+        "short_description": "With the door closed, the stench of Old Monk is unbearable.",
+        "long_description": "The door is open, letting a much needed breath of fresh air into the room.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -578,7 +578,7 @@
     "45": {
         "name": "cell door",
         "short_description": "The cell door to the west is closed.",
-        "long_description": "The cell door to the west is open, a faint aroma wafting through the opening. ",
+        "long_description": "The cell door to the west is open, a faint aroma wafting through the opening.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -609,7 +609,7 @@
     },
     "49": {
         "name": "cell door",
-        "short_description": "The door is closed tight, shutting out the world. ",
+        "short_description": "The door is closed tight, shutting out the world.",
         "long_description": "The cell door stands ajar, leading out into the gloomy corridor.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -673,8 +673,8 @@
     },
     "54": {
         "name": "Temple Curtain",
-        "short_description": "A bale of silken cloth, with finest gold weave, lies here. ",
-        "long_description": "This weave is made of purest, softest silk, with a fine gold weave pattern. ",
+        "short_description": "A bale of silken cloth, with finest gold weave, lies here.",
+        "long_description": "This weave is made of purest, softest silk, with a fine gold weave pattern.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -705,8 +705,8 @@
     },
     "55": {
         "name": "Outer door",
-        "short_description": "The outer door is closed, sealing off the noise and excitement of the outside world. ",
-        "long_description": "The outer door stands open, and through it you catch a glimpse of the rest of the monastery. ",
+        "short_description": "The outer door is closed, sealing off the noise and excitement of the outside world.",
+        "long_description": "The outer door stands open, and through it you catch a glimpse of the rest of the monastery.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -769,8 +769,8 @@
     },
     "59": {
         "name": "wall",
-        "short_description": "You can't get to the wall underneath all that ivy. ",
-        "long_description": "You can't get to the wall underneath all that ivy. ",
+        "short_description": "You can't get to the wall underneath all that ivy.",
+        "long_description": "You can't get to the wall underneath all that ivy.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -801,8 +801,8 @@
     },
     "60": {
         "name": "ivy",
-        "short_description": "The ivy hangs down in a thick tangle, but, lifting it on your arm, you can see a door hidden behind it. ",
-        "long_description": "The ivy hangs down in a thick tangle, but, lifting it on your arm, you can see a door hidden behind it. ",
+        "short_description": "The ivy hangs down in a thick tangle, but, lifting it on your arm, you can see a door hidden behind it.",
+        "long_description": "The ivy hangs down in a thick tangle, but, lifting it on your arm, you can see a door hidden behind it.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -866,7 +866,7 @@
     "69": {
         "name": "black bottle",
         "short_description": "A small black bottle.",
-        "long_description": "A small black bottle lies here. The bottle seems to shake and rattle, as if something very large is trying to get out. ",
+        "long_description": "A small black bottle lies here. The bottle seems to shake and rattle, as if something very large is trying to get out.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -930,7 +930,7 @@
     "77": {
         "name": "smelly fish",
         "short_description": "Not exactly fresh fish.",
-        "long_description": "A smelly fish lies on the ground. The stink wafts up around you making your eyes water. ",
+        "long_description": "A smelly fish lies on the ground. The stink wafts up around you making your eyes water.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -961,8 +961,8 @@
     },
     "78": {
         "name": "black cat",
-        "short_description": "A large black cat stares out at you, its eyes an emerald blaze. ",
-        "long_description": "As you stare into the cat's eyes you feel as if you are looking through time far into the past. As if the cat dates back far into prehistory. ",
+        "short_description": "A large black cat stares out at you, its eyes an emerald blaze.",
+        "long_description": "As you stare into the cat's eyes you feel as if you are looking through time far into the past. As if the cat dates back far into prehistory.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1089,7 +1089,7 @@
     },
     "98": {
         "name": "door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "A heavy door, with a strong bolt.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -1121,8 +1121,8 @@
     },
     "99": {
         "name": "door",
-        "short_description": "The door is open. ",
-        "long_description": "The door is open. ",
+        "short_description": "The door is open.",
+        "long_description": "The door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1346,7 +1346,7 @@
     "120": {
         "name": "large fire",
         "short_description": "Hot",
-        "long_description": "A large smouldering pile of ashes lies here. ",
+        "long_description": "A large smouldering pile of ashes lies here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1473,8 +1473,8 @@
     },
     "157": {
         "name": "gallery extension",
-        "short_description": "Plumes of noxious smoke billow up from vents in the floor of the cavern. ",
-        "long_description": "Plumes of noxious smoke billow up from vents in the floor of the cavern. ",
+        "short_description": "Plumes of noxious smoke billow up from vents in the floor of the cavern.",
+        "long_description": "Plumes of noxious smoke billow up from vents in the floor of the cavern.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1666,7 +1666,7 @@
     "174": {
         "name": "footstool",
         "short_description": "; a footstool is adjacent to one",
-        "long_description": "A footstool lies somewhat incongruously here. ",
+        "long_description": "A footstool lies somewhat incongruously here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1697,8 +1697,8 @@
     },
     "175": {
         "name": "rocking chair",
-        "short_description": "A large comfortable rocking chair. ",
-        "long_description": "A rocking chair creaks sadly to itself in the corner. ",
+        "short_description": "A large comfortable rocking chair.",
+        "long_description": "A rocking chair creaks sadly to itself in the corner.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1761,8 +1761,8 @@
     },
     "177": {
         "name": "small candle",
-        "short_description": "Dusty. ",
-        "long_description": "There is a small candle here. ",
+        "short_description": "Dusty.",
+        "long_description": "There is a small candle here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1793,8 +1793,8 @@
     },
     "180": {
         "name": "secret door",
-        "short_description": "A narrow door leads south. The door is shut. ",
-        "long_description": "It fits tightly to the frame. Whether it is visible to anyone on the other side of the wall is doubtful. ",
+        "short_description": "A narrow door leads south. The door is shut.",
+        "long_description": "It fits tightly to the frame. Whether it is visible to anyone on the other side of the wall is doubtful.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1825,8 +1825,8 @@
     },
     "181": {
         "name": "secret panel",
-        "short_description": "Fine stained oak. ",
-        "long_description": "A panel in the north wall hangs slightly open. ",
+        "short_description": "Fine stained oak.",
+        "long_description": "A panel in the north wall hangs slightly open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1857,8 +1857,8 @@
     },
     "182": {
         "name": "religious text",
-        "short_description": "A small thin religious text lies here, its pages flapping in the faint draught. ",
-        "long_description": "It would seem to be a copy of the apocryphal Acts of Nimicus - rare, and possibly valuable, but now frequently regarded as evidence of heresy. ",
+        "short_description": "A small thin religious text lies here, its pages flapping in the faint draught.",
+        "long_description": "It would seem to be a copy of the apocryphal Acts of Nimicus - rare, and possibly valuable, but now frequently regarded as evidence of heresy.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1921,8 +1921,8 @@
     },
     "187": {
         "name": "mint",
-        "short_description": "A common garden herb. ",
-        "long_description": "A string of mint has spread itself across the garden. ",
+        "short_description": "A common garden herb.",
+        "long_description": "A string of mint has spread itself across the garden.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -1953,7 +1953,7 @@
     },
     "188": {
         "name": "garlic",
-        "short_description": "Garlic grows here. ",
+        "short_description": "Garlic grows here.",
         "long_description": "A complete bulb - should be enough to keep half of Transylvania at bay...",
         "clo_head": 0,
         "clo_larm": 0,
@@ -2017,8 +2017,8 @@
     },
     "191": {
         "name": "dark libram",
-        "short_description": "A dark libram lies on the shelf, securely chained down. ",
-        "long_description": "A dark and evil work, bound in flayed human skin. It is a turgid learned tome, detailing the evil priest powers, and in paticular their unusual properties of needing deaths to cast magic, and of the lack of effect of iron on their magic. It also briefly mentions 'zombie' and 'produce flame', the most well known of the evil priestly powers. ",
+        "short_description": "A dark libram lies on the shelf, securely chained down.",
+        "long_description": "A dark and evil work, bound in flayed human skin. It is a turgid learned tome, detailing the evil priest powers, and in paticular their unusual properties of needing deaths to cast magic, and of the lack of effect of iron on their magic. It also briefly mentions 'zombie' and 'produce flame', the most well known of the evil priestly powers.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2050,7 +2050,7 @@
     "192": {
         "name": "oak door",
         "short_description": "A stout door.",
-        "long_description": "The oak door to the east is open and leads through into the library. ",
+        "long_description": "The oak door to the east is open and leads through into the library.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2082,7 +2082,7 @@
     "193": {
         "name": "oak door",
         "short_description": "A stout door.",
-        "long_description": "The oak door is open, and leads west through into the work room. ",
+        "long_description": "The oak door is open, and leads west through into the work room.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2145,8 +2145,8 @@
     },
     "196": {
         "name": "brass candelabrum",
-        "short_description": "A brass candelabrum sits here. ",
-        "long_description": "A brass candelabrum stands on the south side of the altar. ",
+        "short_description": "A brass candelabrum sits here.",
+        "long_description": "A brass candelabrum stands on the south side of the altar.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2178,7 +2178,7 @@
     "197": {
         "name": "athame",
         "short_description": "Umm oww! very sharp.",
-        "long_description": "A razor sharp athame rests on the eastern edge of the altar. ",
+        "long_description": "A razor sharp athame rests on the eastern edge of the altar.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2209,8 +2209,8 @@
     },
     "198": {
         "name": "golden goblet",
-        "short_description": "A golden goblet glitters before you. ",
-        "long_description": "A golden goblet stands on the western side of the altar. ",
+        "short_description": "A golden goblet glitters before you.",
+        "long_description": "A golden goblet stands on the western side of the altar.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2242,7 +2242,7 @@
     "199": {
         "name": "smelly incense",
         "short_description": "Phew.. really pongs.",
-        "long_description": "A stick of incense has been left here. Judging by the smell the owner finally had enough of it. ",
+        "long_description": "A stick of incense has been left here. Judging by the smell the owner finally had enough of it.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2274,7 +2274,7 @@
     "200": {
         "name": "sand",
         "short_description": "A small heap of fine sand.",
-        "long_description": "A small heap of sand sits on the north side of the altar. ",
+        "long_description": "A small heap of sand sits on the north side of the altar.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2338,7 +2338,7 @@
     "202": {
         "name": "stone altar",
         "short_description": "A sense of deep power and awareness seems to flow from the altar.",
-        "long_description": "A stone altar stands in the centre of the room, surrounded by a magic circle woven into the carpets. ",
+        "long_description": "A stone altar stands in the centre of the room, surrounded by a magic circle woven into the carpets.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2402,7 +2402,7 @@
     "207": {
         "name": "clothes chest",
         "short_description": "Good solid wood.",
-        "long_description": "A clothes chest sits here. The chest is open. ",
+        "long_description": "A clothes chest sits here. The chest is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2529,8 +2529,8 @@
     },
     "212": {
         "name": "oak door",
-        "short_description": "Good stout wood. ",
-        "long_description": "A heavy oak door bars entry to the tower. ",
+        "short_description": "Good stout wood.",
+        "long_description": "A heavy oak door bars entry to the tower.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2562,7 +2562,7 @@
     "213": {
         "name": "oak door",
         "short_description": "A stout and solid door.",
-        "long_description": "The front door is open, and you can wander back out into the courtyard. ",
+        "long_description": "The front door is open, and you can wander back out into the courtyard.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2594,7 +2594,7 @@
     "222": {
         "name": "bee hive",
         "short_description": "Large, with a sticky sweet smell coming from it.",
-        "long_description": "A large squat beehive stands here, with bees dancing in the air around it. The hive is open. ",
+        "long_description": "A large squat beehive stands here, with bees dancing in the air around it. The hive is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2625,8 +2625,8 @@
     },
     "224": {
         "name": "tatty box",
-        "short_description": "As boxes go, pretty average. ",
-        "long_description": "On a shelf at about shoulder-height lies an old box. ",
+        "short_description": "As boxes go, pretty average.",
+        "long_description": "On a shelf at about shoulder-height lies an old box.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2657,8 +2657,8 @@
     },
     "225": {
         "name": "small hatchet",
-        "short_description": "There is a small but useful hatchet lying here. ",
-        "long_description": "Excellent for chopping down trees, and possibly useful on people too. ",
+        "short_description": "There is a small but useful hatchet lying here.",
+        "long_description": "Excellent for chopping down trees, and possibly useful on people too.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2689,8 +2689,8 @@
     },
     "226": {
         "name": "strong bucket",
-        "short_description": "A sturdy bucket, with a metal handle. ",
-        "long_description": "A bucket has been left lying about here. ",
+        "short_description": "A sturdy bucket, with a metal handle.",
+        "long_description": "A bucket has been left lying about here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2722,7 +2722,7 @@
     "227": {
         "name": "stone gates",
         "short_description": "Huge and immovable.",
-        "long_description": "The gates stand firmly shut, barring any entry. ",
+        "long_description": "The gates stand firmly shut, barring any entry.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2754,7 +2754,7 @@
     "228": {
         "name": "stone gates",
         "short_description": "Huge and immovable.",
-        "long_description": "The gates stand firmly shut, barring any egress. ",
+        "long_description": "The gates stand firmly shut, barring any egress.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2786,7 +2786,7 @@
     "229": {
         "name": "iron chain",
         "short_description": "Good solid chain, unweakened despite years of rusting.",
-        "long_description": "A heavy iron chain hangs down from the hole in the roof. ",
+        "long_description": "A heavy iron chain hangs down from the hole in the roof.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2817,7 +2817,7 @@
     },
     "230": {
         "name": "small note",
-        "short_description": "A small note is stuck on the door. ",
+        "short_description": "A small note is stuck on the door.",
         "long_description": "The note reads 'Gone questing, back in five years.'",
         "clo_head": 0,
         "clo_larm": 0,
@@ -3042,7 +3042,7 @@
     "247": {
         "name": "decaying rushes",
         "short_description": "Smelly.",
-        "long_description": "Rushes are strewn over the floor. ",
+        "long_description": "Rushes are strewn over the floor.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3073,7 +3073,7 @@
     },
     "248": {
         "name": "black cloth",
-        "short_description": "Finely woven silk. ",
+        "short_description": "Finely woven silk.",
         "long_description": "An old piece of black cloth lies here.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -3105,8 +3105,8 @@
     },
     "249": {
         "name": "Relia's portrait",
-        "short_description": "A black cloth hangs over what is presumably a portrait. ",
-        "long_description": "A splendid and costly portrait is propped up here, showing a very beautiful woman sitting in front of a clavichord. She is smiling at someone out of the picture. ",
+        "short_description": "A black cloth hangs over what is presumably a portrait.",
+        "long_description": "A splendid and costly portrait is propped up here, showing a very beautiful woman sitting in front of a clavichord. She is smiling at someone out of the picture.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3137,7 +3137,7 @@
     },
     "250": {
         "name": "sea chart",
-        "short_description": "A chart lies here, curling at the corners. ",
+        "short_description": "A chart lies here, curling at the corners.",
         "long_description": "This chart shows the eastern coastline and a large island off the coast. A faint tracing shows where someone has failed to rub out all of a possible route between them.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -3169,7 +3169,7 @@
     },
     "251": {
         "name": "Birfle's invitation",
-        "short_description": "An invitation has been dropped here. ",
+        "short_description": "An invitation has been dropped here.",
         "long_description": "This beautifully-written note reads: 'Dear Morran, it is some time since I last had the pleasure of seeing you and Relia. I have recently acquired some items I believe you would be delighted to see, in particular a most excellent specimen of Draco Veritas, or the true dragon. I should like to invite you both to my island for a stay in which we can catch up on old times.'",
         "clo_head": 0,
         "clo_larm": 0,
@@ -3201,7 +3201,7 @@
     },
     "252": {
         "name": "artist's receipt",
-        "short_description": "A small receipt lies before you. ",
+        "short_description": "A small receipt lies before you.",
         "long_description": "This paper bears the message 'Thanking you for your recent commission to paint your most beautiful wife at her favourite instrument. The challenge to convey her loveliness will be my delight.' It is dated some ten years previously.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -3265,8 +3265,8 @@
     },
     "254": {
         "name": "Morran's desk",
-        "short_description": "An old desk stands under the window. ",
-        "long_description": "The desk is strewn with papers and junk. ",
+        "short_description": "An old desk stands under the window.",
+        "long_description": "The desk is strewn with papers and junk.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3297,8 +3297,8 @@
     },
     "255": {
         "name": "lyre",
-        "short_description": "A lyre hangs here on the wall. ",
-        "long_description": "A lyre lies here, its strings humming in the draught. ",
+        "short_description": "A lyre hangs here on the wall.",
+        "long_description": "A lyre lies here, its strings humming in the draught.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3329,8 +3329,8 @@
     },
     "256": {
         "name": "clavichord",
-        "short_description": "An early keyboard instrument. ",
-        "long_description": "An early keyboard instrument. ",
+        "short_description": "An early keyboard instrument.",
+        "long_description": "An early keyboard instrument.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3394,7 +3394,7 @@
     "258": {
         "name": "broken shards",
         "short_description": "Millions of pieces of shattered glass and china.",
-        "long_description": "Millions of shards of broken glass litter the floor. ",
+        "long_description": "Millions of shards of broken glass litter the floor.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3425,8 +3425,8 @@
     },
     "261": {
         "name": "glass cabinet",
-        "short_description": "A cabinet made from glass stands here. ",
-        "long_description": "A cabinet made from glass stands here, the door hanging open. ",
+        "short_description": "A cabinet made from glass stands here.",
+        "long_description": "A cabinet made from glass stands here, the door hanging open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3521,8 +3521,8 @@
     },
     "268": {
         "name": "east door",
-        "short_description": "The door through to the remainder of the house is shut. ",
-        "long_description": "A cobweb in the corner of a panel in the door shows how little-used it is. ",
+        "short_description": "The door through to the remainder of the house is shut.",
+        "long_description": "A cobweb in the corner of a panel in the door shows how little-used it is.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3553,8 +3553,8 @@
     },
     "269": {
         "name": "dusty door",
-        "short_description": "Old and long-unused. ",
-        "long_description": "The door leading back to the gallery is open. ",
+        "short_description": "Old and long-unused.",
+        "long_description": "The door leading back to the gallery is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3585,8 +3585,8 @@
     },
     "271": {
         "name": "musty door",
-        "short_description": "The door is open. ",
-        "long_description": "Woodworm has not improved this door's smell. ",
+        "short_description": "The door is open.",
+        "long_description": "Woodworm has not improved this door's smell.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3617,8 +3617,8 @@
     },
     "272": {
         "name": "west door",
-        "short_description": "The west door is shut. ",
-        "long_description": "Woodworm has not improved this door's smell. ",
+        "short_description": "The west door is shut.",
+        "long_description": "Woodworm has not improved this door's smell.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3649,8 +3649,8 @@
     },
     "275": {
         "name": "mahogany door",
-        "short_description": "The mahogany door is firmly shut. ",
-        "long_description": "The mahogany door is open, leading through to the chart room. ",
+        "short_description": "The mahogany door is firmly shut.",
+        "long_description": "The mahogany door is open, leading through to the chart room.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3681,8 +3681,8 @@
     },
     "276": {
         "name": "mahogany door",
-        "short_description": "The mahogany door is locked. ",
-        "long_description": "The mahogany door is open, leading through to the music room. ",
+        "short_description": "The mahogany door is locked.",
+        "long_description": "The mahogany door is open, leading through to the music room.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3713,8 +3713,8 @@
     },
     "280": {
         "name": "plain door",
-        "short_description": "The plain door yawns open. ",
-        "long_description": "The plain door is tightly closed. ",
+        "short_description": "The plain door yawns open.",
+        "long_description": "The plain door is tightly closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3746,7 +3746,7 @@
     "281": {
         "name": "plain door",
         "short_description": "The plain door yawns open.",
-        "long_description": "The plain door is tightly closed. ",
+        "long_description": "The plain door is tightly closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3809,8 +3809,8 @@
     },
     "285": {
         "name": "west door",
-        "short_description": "It's a door. ",
-        "long_description": "The door into the house is closed. ",
+        "short_description": "It's a door.",
+        "long_description": "The door into the house is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3841,8 +3841,8 @@
     },
     "286": {
         "name": "east door",
-        "short_description": "It's a door. ",
-        "long_description": "The east door is open. ",
+        "short_description": "It's a door.",
+        "long_description": "The east door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3873,8 +3873,8 @@
     },
     "288": {
         "name": "rusted gates",
-        "short_description": "A pair of gates block your way westwards. ",
-        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet. ",
+        "short_description": "A pair of gates block your way westwards.",
+        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -3906,7 +3906,7 @@
     "289": {
         "name": "rusted gates",
         "short_description": "A pair of rusted gates lean against each other, blocking your road out.",
-        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet. ",
+        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4321,8 +4321,8 @@
     },
     "331": {
         "name": "iron door",
-        "short_description": "The door is open. ",
-        "long_description": "The door is closed. ",
+        "short_description": "The door is open.",
+        "long_description": "The door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4385,8 +4385,8 @@
     },
     "370": {
         "name": "sack",
-        "short_description": "It looks like quite a strong sack. ",
-        "long_description": "A sack marked 'Dragon Food' has been dumped here. Someone has left it open. ",
+        "short_description": "It looks like quite a strong sack.",
+        "long_description": "A sack marked 'Dragon Food' has been dumped here. Someone has left it open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4417,7 +4417,7 @@
     },
     "371": {
         "name": "crystal goblet",
-        "short_description": "It sparkles in the light. ",
+        "short_description": "It sparkles in the light.",
         "long_description": "A large crystal goblet full of wine has been left here.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -4450,7 +4450,7 @@
     "372": {
         "name": "leather leash",
         "short_description": "A name tag on the collar reads 'Tiddles'.",
-        "long_description": "An enormous leather leash hangs up on a hook on the wall. ",
+        "long_description": "An enormous leather leash hangs up on a hook on the wall.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4482,7 +4482,7 @@
     "373": {
         "name": "sliding panel",
         "short_description": "It has a small handle at one end.",
-        "long_description": "A small sliding panel is set into the east wall. It is open. ",
+        "long_description": "A small sliding panel is set into the east wall. It is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4513,7 +4513,7 @@
     },
     "374": {
         "name": "lump of meat",
-        "short_description": "It seems to still be fresh, somehow. ",
+        "short_description": "It seems to still be fresh, somehow.",
         "long_description": "A large lump of meat has been dropped here.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -4546,7 +4546,7 @@
     "381": {
         "name": "large pavillion",
         "short_description": "A good well made tent.",
-        "long_description": "A large pavillion has been erected in the centre of the clearing. ",
+        "long_description": "A large pavillion has been erected in the centre of the clearing.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4577,8 +4577,8 @@
     },
     "386": {
         "name": "clock bottom",
-        "short_description": "The trapdoor is open. ",
-        "long_description": "The trapdoor is open. ",
+        "short_description": "The trapdoor is open.",
+        "long_description": "The trapdoor is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4609,8 +4609,8 @@
     },
     "387": {
         "name": "clock bottom",
-        "short_description": "There is an open trapdoor set in the floor. ",
-        "long_description": "There is an open trapdoor set in the floor. ",
+        "short_description": "There is an open trapdoor set in the floor.",
+        "long_description": "There is an open trapdoor set in the floor.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4642,7 +4642,7 @@
     "389": {
         "name": "crystal decanter",
         "short_description": "A large crystal decanter has been placed here.",
-        "long_description": "A large, heavy, carved crystal decanter, with gold fittings. ",
+        "long_description": "A large, heavy, carved crystal decanter, with gold fittings.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4834,7 +4834,7 @@
     "414": {
         "name": "dusty book",
         "short_description": "A large, dusty book has been left here.",
-        "long_description": "The sands of Time have been flowing around this book for many years. ",
+        "long_description": "The sands of Time have been flowing around this book for many years.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4865,8 +4865,8 @@
     },
     "425": {
         "name": "large book",
-        "short_description": "A large book has been left here. ",
-        "long_description": "A large book has been left here. It is open. ",
+        "short_description": "A large book has been left here.",
+        "long_description": "A large book has been left here. It is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4930,7 +4930,7 @@
     "429": {
         "name": "old trapdoor",
         "short_description": "Battered and worn.",
-        "long_description": "The trapdoor is open. ",
+        "long_description": "The trapdoor is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4962,7 +4962,7 @@
     "430": {
         "name": "old trapdoor",
         "short_description": "Old and battered.",
-        "long_description": "The trapdoor is open. ",
+        "long_description": "The trapdoor is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5121,8 +5121,8 @@
     },
     "441": {
         "name": "grandfather clock",
-        "short_description": "A grandfather clock stands in the corner. ",
-        "long_description": "It is a tall, polished, wooden grandfather clock. You notice that it has only got one hand. ",
+        "short_description": "A grandfather clock stands in the corner.",
+        "long_description": "It is a tall, polished, wooden grandfather clock. You notice that it has only got one hand.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5154,7 +5154,7 @@
     "445": {
         "name": "wooden box",
         "short_description": "It is a dilapidated old wooden tea chest.",
-        "long_description": "A small, wooden box has been placed on a shelf. ",
+        "long_description": "A small, wooden box has been placed on a shelf.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5378,7 +5378,7 @@
     "469": {
         "name": "heavy mace",
         "short_description": "An old mace has been left here.",
-        "long_description": "A long, heavy, iron mace, studded at the business end, so as to inflict even more damage. ",
+        "long_description": "A long, heavy, iron mace, studded at the business end, so as to inflict even more damage.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5474,7 +5474,7 @@
     "474": {
         "name": "handle",
         "short_description": "It is a wooden handle.",
-        "long_description": "There is a small wooden handle in the wall, next to the hole. ",
+        "long_description": "There is a small wooden handle in the wall, next to the hole.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5506,7 +5506,7 @@
     "475": {
         "name": "stove",
         "short_description": "It is black with grime, and stone cold.",
-        "long_description": "There is a small, wood burning stove in the corner, which is only big enough for the smallest snacks. ",
+        "long_description": "There is a small, wood burning stove in the corner, which is only big enough for the smallest snacks.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5569,7 +5569,7 @@
     },
     "478": {
         "name": "hole",
-        "short_description": "and a hole in the east wall. ",
+        "short_description": "and a hole in the east wall.",
         "long_description": "It looks like the hole for a dumb waiter.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -5697,7 +5697,7 @@
     },
     "490": {
         "name": "silver cross",
-        "short_description": "A large silver cross has been dropped here. ",
+        "short_description": "A large silver cross has been dropped here.",
         "long_description": "It is a large, ornate, silver cross on a chain.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -5762,7 +5762,7 @@
     "492": {
         "name": "tin bath",
         "short_description": "A tin bath has been pushed against the wall.",
-        "long_description": "There is a tin bath here. It has been pulled away from the wall slightly. ",
+        "long_description": "There is a tin bath here. It has been pulled away from the wall slightly.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5921,7 +5921,7 @@
     },
     "498": {
         "name": "iron maiden",
-        "short_description": "An iron maiden stands against the east wall. ",
+        "short_description": "An iron maiden stands against the east wall.",
         "long_description": "An iron maiden stands against the east wall. It is open.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6050,7 +6050,7 @@
     "505": {
         "name": "large table",
         "short_description": "It is a very solid, old wooden table.",
-        "long_description": "There is a large table in the middle of the room. ",
+        "long_description": "There is a large table in the middle of the room.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -6177,7 +6177,7 @@
     },
     "512": {
         "name": "iron door",
-        "short_description": "There is an iron door in the south wall. ",
+        "short_description": "There is an iron door in the south wall.",
         "long_description": "It is a very sturdy iron door, with a barred window in it.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6209,7 +6209,7 @@
     },
     "513": {
         "name": "iron door",
-        "short_description": "There is an iron door in the north wall. ",
+        "short_description": "There is an iron door in the north wall.",
         "long_description": "It is a very sturdy iron door, with a barred window in it.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6305,8 +6305,8 @@
     },
     "517": {
         "name": "manacled skeleton",
-        "short_description": "There is a skeleton chained to the wall. ",
-        "long_description": "There is a skeleton chained to the wall. ",
+        "short_description": "There is a skeleton chained to the wall.",
+        "long_description": "There is a skeleton chained to the wall.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -6337,7 +6337,7 @@
     },
     "518": {
         "name": "ivory lever",
-        "short_description": "There is an ivory lever set in the wall, next to the door. ",
+        "short_description": "There is an ivory lever set in the wall, next to the door.",
         "long_description": "It is highly polished, and the end is ornately carved in the shape of a skull.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6370,7 +6370,7 @@
     "520": {
         "name": "steel lever",
         "short_description": "It is bright and shiny.",
-        "long_description": "A steel lever pokes through a slot in the east wall. ",
+        "long_description": "A steel lever pokes through a slot in the east wall.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -6433,7 +6433,7 @@
     },
     "526": {
         "name": "wooden door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "It's as if you can almost feel the presence of the door.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6465,7 +6465,7 @@
     },
     "527": {
         "name": "wooden door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "It's as if you can almost feel the presence of the door.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6530,7 +6530,7 @@
     "545": {
         "name": "spiral staircase",
         "short_description": "A descending spiral staircase has been cut into the rock.",
-        "long_description": "The steps have been worn smooth, but it looks quite safe to use. ",
+        "long_description": "The steps have been worn smooth, but it looks quite safe to use.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -6561,8 +6561,8 @@
     },
     "547": {
         "name": "spiral staircase",
-        "short_description": "The steps have been worn smooth, but it looks quite safe to use. ",
-        "long_description": "To the north is an ascending spiral staircase, cut into the rock. ",
+        "short_description": "The steps have been worn smooth, but it looks quite safe to use.",
+        "long_description": "To the north is an ascending spiral staircase, cut into the rock.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -6625,7 +6625,7 @@
     },
     "549": {
         "name": "spider web",
-        "short_description": "You can see a huge spider's web draped over one end of the room. ",
+        "short_description": "You can see a huge spider's web draped over one end of the room.",
         "long_description": "You can just make out a large dark shape behind the tightly interwoven strands of silky web.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -6786,7 +6786,7 @@
     "561": {
         "name": "dark lake",
         "short_description": "An archway leads north.",
-        "long_description": "Through an archway to the north, you can see reflected light glittering on a large expanse of water. ",
+        "long_description": "Through an archway to the north, you can see reflected light glittering on a large expanse of water.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -7041,7 +7041,7 @@
     },
     "602": {
         "name": "doorbell",
-        "short_description": "A doorbell adorns the wall. ",
+        "short_description": "A doorbell adorns the wall.",
         "long_description": "A little round bell high up on the wall.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -7265,8 +7265,8 @@
     },
     "612": {
         "name": "green door",
-        "short_description": "The door is open. ",
-        "long_description": "The door is open. ",
+        "short_description": "The door is open.",
+        "long_description": "The door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -7297,8 +7297,8 @@
     },
     "613": {
         "name": "green door",
-        "short_description": "The green door is open. ",
-        "long_description": "The green door is open. ",
+        "short_description": "The green door is open.",
+        "long_description": "The green door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -7330,7 +7330,7 @@
     "617": {
         "name": "blue door",
         "short_description": "A blue door.",
-        "long_description": "The door is open. ",
+        "long_description": "The door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -7361,8 +7361,8 @@
     },
     "618": {
         "name": "blue door",
-        "short_description": "The blue door is open. ",
-        "long_description": "The blue door is open. ",
+        "short_description": "The blue door is open.",
+        "long_description": "The blue door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -7393,8 +7393,8 @@
     },
     "619": {
         "name": "red door",
-        "short_description": "The red door is open. ",
-        "long_description": "The red door is open. ",
+        "short_description": "The red door is open.",
+        "long_description": "The red door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -7425,8 +7425,8 @@
     },
     "620": {
         "name": "door",
-        "short_description": "The door is open. ",
-        "long_description": "The door is open. ",
+        "short_description": "The door is open.",
+        "long_description": "The door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -8193,7 +8193,7 @@
     },
     "680": {
         "name": "iron door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "It is huge and ironbound.. unbreakable",
         "clo_head": 0,
         "clo_larm": 0,
@@ -8225,7 +8225,7 @@
     },
     "681": {
         "name": "iron door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "It is huge and ironbound.. unbreakable",
         "clo_head": 0,
         "clo_larm": 0,
@@ -8385,7 +8385,7 @@
     },
     "702": {
         "name": "old grimoire",
-        "short_description": "An old grimoire is firmly fastened to a corner post of the bookcase. ",
+        "short_description": "An old grimoire is firmly fastened to a corner post of the bookcase.",
         "long_description": "It contains much on magic, there is little to pick up from the book, but the name of some spells : FIREBALL MISSILE SHOCK CURE BLIND DEAFEN DUMB CRIPPLE SHIELD ELECTRIFY ZOMBIE WHERE and PRODUCE FLAME",
         "clo_head": 0,
         "clo_larm": 0,
@@ -8417,8 +8417,8 @@
     },
     "709": {
         "name": "sundial",
-        "short_description": "A large stone sundial is set before the entrance. ",
-        "long_description": "A large stone sundial is set before the entrance. ",
+        "short_description": "A large stone sundial is set before the entrance.",
+        "long_description": "A large stone sundial is set before the entrance.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -8449,7 +8449,7 @@
     },
     "711": {
         "name": "black blob",
-        "short_description": "The door is closed. ",
+        "short_description": "The door is closed.",
         "long_description": "A section of the west wall is slid open.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -8481,7 +8481,7 @@
     },
     "712": {
         "name": "black blob",
-        "short_description": "The door is closed. ",
+        "short_description": "The door is closed.",
         "long_description": "A section of the east wall is slid open.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -8610,7 +8610,7 @@
     "724": {
         "name": "wooden ladder",
         "short_description": "It vanishes up a tree, into the leaves.",
-        "long_description": "A wooden ladder disappears up one of the trees. ",
+        "long_description": "A wooden ladder disappears up one of the trees.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -8705,7 +8705,7 @@
     },
     "728": {
         "name": "tall archway",
-        "short_description": "An archway leads west. ",
+        "short_description": "An archway leads west.",
         "long_description": "The west wall has an archway carved into the stone. You can clearly make out scratch marks in the stone wall where some unfortunate person has tried to claw their way through.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -8737,8 +8737,8 @@
     },
     "729": {
         "name": "tall archway",
-        "short_description": "A tall archway leads east. ",
-        "long_description": "The east wall has a tall archway carved into the stone. ",
+        "short_description": "A tall archway leads east.",
+        "long_description": "The east wall has a tall archway carved into the stone.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -8993,8 +8993,8 @@
     },
     "740": {
         "name": "infinite torch",
-        "short_description": "Torches burn brightly on all walls. ",
-        "long_description": "There are extinguished torches on all walls, some of them still smoking gently. ",
+        "short_description": "Torches burn brightly on all walls.",
+        "long_description": "There are extinguished torches on all walls, some of them still smoking gently.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -9442,7 +9442,7 @@
     "804": {
         "name": "ice fountain",
         "short_description": "A beautiful frozen crystal fountain.",
-        "long_description": "A beautiful crystal fountain sits silent and frozen in the centre of the chamber. ",
+        "long_description": "A beautiful crystal fountain sits silent and frozen in the centre of the chamber.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -9537,8 +9537,8 @@
     },
     "810": {
         "name": "black bell",
-        "short_description": "A massive black bell has been placed here. ",
-        "long_description": "A huge black bell is hung from a massive frame in the centre of the courtyard. ",
+        "short_description": "A massive black bell has been placed here.",
+        "long_description": "A huge black bell is hung from a massive frame in the centre of the courtyard.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -9601,8 +9601,8 @@
     },
     "814": {
         "name": "stout door",
-        "short_description": "The door is open. ",
-        "long_description": "The door is closed. ",
+        "short_description": "The door is open.",
+        "long_description": "The door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -9634,7 +9634,7 @@
     "815": {
         "name": "stout door",
         "short_description": "A strong well bound door.",
-        "long_description": "A passage runs north a few feet before coming to a closed door. ",
+        "long_description": "A passage runs north a few feet before coming to a closed door.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -9665,7 +9665,7 @@
     },
     "816": {
         "name": "mandala",
-        "short_description": "A beautiful mandala has been laid out on the floor. ",
+        "short_description": "A beautiful mandala has been laid out on the floor.",
         "long_description": "It's beautiful, a fantastic image made entirely out of carefully positioned tiny seeds.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -9826,7 +9826,7 @@
     "870": {
         "name": "gold nugget",
         "short_description": "Beautiful.",
-        "long_description": "A large gold nugget lies here, twinkling temptingly in the light. ",
+        "long_description": "A large gold nugget lies here, twinkling temptingly in the light.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -9890,7 +9890,7 @@
     "876": {
         "name": "skeleton",
         "short_description": "A partially complete skeleton lies here.",
-        "long_description": "A skeleton sticks out of the bog to the west, the legs and lower torso invisible beneath the soft mud. Fortunately you can still reach the skeleton from here without straying onto the really dangerous looking bits. ",
+        "long_description": "A skeleton sticks out of the bog to the west, the legs and lower torso invisible beneath the soft mud. Fortunately you can still reach the skeleton from here without straying onto the really dangerous looking bits.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10082,7 +10082,7 @@
     "906": {
         "name": "huge chest",
         "short_description": "A huge chest lies open before you.",
-        "long_description": "The chest is heavy and metal bound. It has been carefully sealed with lead for some reason. ",
+        "long_description": "The chest is heavy and metal bound. It has been carefully sealed with lead for some reason.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10274,7 +10274,7 @@
     "915": {
         "name": "stone door",
         "short_description": "The door is massive and carved with ancient runes.",
-        "long_description": "A huge stone door closes off the archway to the south. ",
+        "long_description": "A huge stone door closes off the archway to the south.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10305,7 +10305,7 @@
     },
     "916": {
         "name": "stone door",
-        "short_description": "The huge stone door to the library stands open. ",
+        "short_description": "The huge stone door to the library stands open.",
         "long_description": "The door is massive. Its huge bulk is only movable because it is so beautifully balanced.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -10401,7 +10401,7 @@
     },
     "921": {
         "name": "lever",
-        "short_description": "A heavy iron lever is set into the south wall. ",
+        "short_description": "A heavy iron lever is set into the south wall.",
         "long_description": "It appears to be very stiff, and probably hasn't been moved for a long time.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -10529,8 +10529,8 @@
     },
     "927": {
         "name": "crystalline bridge",
-        "short_description": "A shimmering crystalline bridge spans the lava. ",
-        "long_description": "A shimmering crystalline bridge spans the lava. ",
+        "short_description": "A shimmering crystalline bridge spans the lava.",
+        "long_description": "A shimmering crystalline bridge spans the lava.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10561,8 +10561,8 @@
     },
     "928": {
         "name": "crystalline bridge",
-        "short_description": "A shimmering crystalline bridge spans the lava. ",
-        "long_description": "A shimmering crystalline bridge spans the lava. ",
+        "short_description": "A shimmering crystalline bridge spans the lava.",
+        "long_description": "A shimmering crystalline bridge spans the lava.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10657,8 +10657,8 @@
     },
     "936": {
         "name": "massive drawbridge",
-        "short_description": "bridges a channel of flaming lava to the west. A passage leads east. ",
-        "long_description": "The huge metal plates which form it are hot, and seem to have been exposed to scorching heat quite often. ",
+        "short_description": "bridges a channel of flaming lava to the west. A passage leads east.",
+        "long_description": "The huge metal plates which form it are hot, and seem to have been exposed to scorching heat quite often.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10689,8 +10689,8 @@
     },
     "937": {
         "name": "massive drawbridge",
-        "short_description": "A massive metal drawbridge crosses the flaming lava. ",
-        "long_description": "A massive metal drawbridge is drawn up across a wide archway on the far side of the channel. ",
+        "short_description": "A massive metal drawbridge crosses the flaming lava.",
+        "long_description": "A massive metal drawbridge is drawn up across a wide archway on the far side of the channel.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10817,8 +10817,8 @@
     },
     "961": {
         "name": "small door",
-        "short_description": "There is a door to the south. ",
-        "long_description": "A small door leads south out of the chamber into a low passage. ",
+        "short_description": "There is a door to the south.",
+        "long_description": "A small door leads south out of the chamber into a low passage.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10850,7 +10850,7 @@
     "962": {
         "name": "small door",
         "short_description": "The door is about dwarf sized.",
-        "long_description": "There is a small door to the north. ",
+        "long_description": "There is a small door to the north.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -10945,8 +10945,8 @@
     },
     "975": {
         "name": "ice pendant",
-        "short_description": "A small and beautiful pendant lies here. ",
-        "long_description": "A small and beautiful pendant, carved with the runes for invocation and shielding. ",
+        "short_description": "A small and beautiful pendant lies here.",
+        "long_description": "A small and beautiful pendant, carved with the runes for invocation and shielding.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11074,7 +11074,7 @@
     "987": {
         "name": "dusty tome",
         "short_description": "An ancient dusty tome lies here.",
-        "long_description": "This ancient book contains the living record of those who have died. By ancient magics the book adds names itself. ",
+        "long_description": "This ancient book contains the living record of those who have died. By ancient magics the book adds names itself.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11170,7 +11170,7 @@
     "997": {
         "name": "hole",
         "short_description": "It leads down under the statue.",
-        "long_description": "A hole leads down under the statue. ",
+        "long_description": "A hole leads down under the statue.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11266,7 +11266,7 @@
     "1014": {
         "name": "garland",
         "short_description": "Beautiful.",
-        "long_description": "A beautiful garland has been left against the monolith. ",
+        "long_description": "A beautiful garland has been left against the monolith.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11297,7 +11297,7 @@
     },
     "1015": {
         "name": "monolith",
-        "short_description": "A huge stone monolith towers above the pool, it's black stone bulk reflected in the waters. ",
+        "short_description": "A huge stone monolith towers above the pool, it's black stone bulk reflected in the waters.",
         "long_description": "An ancient standing stone, which some say has mystical powers. Parts of the stone are worn smooth, from countless people touching its surface.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -11393,8 +11393,8 @@
     },
     "1023": {
         "name": "metal grille",
-        "short_description": "The grille is open. ",
-        "long_description": "The grille is open. ",
+        "short_description": "The grille is open.",
+        "long_description": "The grille is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11521,7 +11521,7 @@
     },
     "1037": {
         "name": "sign",
-        "short_description": "There is a small sign fastened above the bar. ",
+        "short_description": "There is a small sign fastened above the bar.",
         "long_description": "It reads 'As suppliers of drinks and for our sponsorship of the creation of this universe the owners of this inn are granted total immunity to violence. Customers please take note.'",
         "clo_head": 0,
         "clo_larm": 0,
@@ -11810,7 +11810,7 @@
     "1068": {
         "name": "secret passage",
         "short_description": "It leads east.",
-        "long_description": "A narrow secret passage leads east. ",
+        "long_description": "A narrow secret passage leads east.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11842,7 +11842,7 @@
     "1070": {
         "name": "metal ring",
         "short_description": "A strong iron ring, of the sort used to secure prisoners.",
-        "long_description": "A metal ring is set into the wall, for securing prisoners. ",
+        "long_description": "A metal ring is set into the wall, for securing prisoners.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11873,8 +11873,8 @@
     },
     "1071": {
         "name": "rotten door",
-        "short_description": "The cell door is closed. ",
-        "long_description": "You can go east through a broken down door, into a cell. ",
+        "short_description": "The cell door is closed.",
+        "long_description": "You can go east through a broken down door, into a cell.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -11906,7 +11906,7 @@
     "1072": {
         "name": "rotten door",
         "short_description": "Weak and insecure.",
-        "long_description": "You can go west through a broken down door. ",
+        "long_description": "You can go west through a broken down door.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -12002,7 +12002,7 @@
     "1081": {
         "name": "wooden door",
         "short_description": "A stout door.",
-        "long_description": "A door stands open to the south. ",
+        "long_description": "A door stands open to the south.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -12098,7 +12098,7 @@
     "1087": {
         "name": "old door",
         "short_description": "Slightly rotten.",
-        "long_description": "The door is closed. ",
+        "long_description": "The door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -12610,7 +12610,7 @@
     "1158": {
         "name": "silver pentacle",
         "short_description": "A masterpiece of tremendous magical power.",
-        "long_description": "Something seems to be moving in the pentacle, a faint formless shape trying to free itself from the confines of the circle. ",
+        "long_description": "Something seems to be moving in the pentacle, a faint formless shape trying to free itself from the confines of the circle.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -12641,7 +12641,7 @@
     },
     "1159": {
         "name": "runic door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "The door is marked with the runes for protection and barring.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -13025,8 +13025,8 @@
     },
     "1200": {
         "name": "oak door",
-        "short_description": "The doors stand open. ",
-        "long_description": "Tall and splendidly carved. ",
+        "short_description": "The doors stand open.",
+        "long_description": "Tall and splendidly carved.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13057,8 +13057,8 @@
     },
     "1201": {
         "name": "oak door",
-        "short_description": "The doors are open. ",
-        "long_description": "The doors appear to have been struck by some kind of magical forces. ",
+        "short_description": "The doors are open.",
+        "long_description": "The doors appear to have been struck by some kind of magical forces.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13090,7 +13090,7 @@
     "1202": {
         "name": "oak table",
         "short_description": "A small oak table stands here.",
-        "long_description": "Mystic symbols are inlaid into its top, along with a draught board. ",
+        "long_description": "Mystic symbols are inlaid into its top, along with a draught board.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13313,8 +13313,8 @@
     },
     "1215": {
         "name": "wooden ladder",
-        "short_description": "It seems suprisingly worn. ",
-        "long_description": "It seems suprisingly worn. ",
+        "short_description": "It seems suprisingly worn.",
+        "long_description": "It seems suprisingly worn.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13345,8 +13345,8 @@
     },
     "1216": {
         "name": "strong horse",
-        "short_description": "A good riding horse. ",
-        "long_description": "A strong lean horse stands here. ",
+        "short_description": "A good riding horse.",
+        "long_description": "A strong lean horse stands here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13409,8 +13409,8 @@
     },
     "1218": {
         "name": "wooden door",
-        "short_description": "The door is open. ",
-        "long_description": "A stout wooden door. ",
+        "short_description": "The door is open.",
+        "long_description": "A stout wooden door.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13442,7 +13442,7 @@
     "1219": {
         "name": "wooden door",
         "short_description": "A stout oak door.",
-        "long_description": "The storehouse door is locked. ",
+        "long_description": "The storehouse door is locked.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13730,7 +13730,7 @@
     "1243": {
         "name": "stone statue",
         "short_description": "The statue is carved into the likeness of a man, with deep staring eyes.",
-        "long_description": "A huge stone statue stands on one side of the entrance, its sinister empty eyes glaring towards you. ",
+        "long_description": "A huge stone statue stands on one side of the entrance, its sinister empty eyes glaring towards you.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13858,7 +13858,7 @@
     "1255": {
         "name": "huge crystal",
         "short_description": "",
-        "long_description": "You gaze into the crystal for a while, but even your finely honed mind cannot follow the action within. ",
+        "long_description": "You gaze into the crystal for a while, but even your finely honed mind cannot follow the action within.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13889,7 +13889,7 @@
     },
     "1256": {
         "name": "small door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "It leads to the chamber of the arch-magi",
         "clo_head": 0,
         "clo_larm": 0,
@@ -13921,7 +13921,7 @@
     },
     "1257": {
         "name": "gold door",
-        "short_description": "The gold door is open. ",
+        "short_description": "The gold door is open.",
         "long_description": "It bears the runes for World and Holding.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -13954,7 +13954,7 @@
     "1258": {
         "name": "mighty door",
         "short_description": "Awesome.",
-        "long_description": "The mighty doors stand open to the south. ",
+        "long_description": "The mighty doors stand open to the south.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14082,7 +14082,7 @@
     "1274": {
         "name": "stone coffin",
         "short_description": "It bears the words 'Open not, lest foul undead slay thee.'",
-        "long_description": "A stone coffin is set on a plinth in the centre of the chamber. The coffin is open. ",
+        "long_description": "A stone coffin is set on a plinth in the centre of the chamber. The coffin is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14114,7 +14114,7 @@
     "1276": {
         "name": "old dust",
         "short_description": "You see nothing special.",
-        "long_description": "The thick dust on the floor shows you are the only person to have come this way for a long time. ",
+        "long_description": "The thick dust on the floor shows you are the only person to have come this way for a long time.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14145,7 +14145,7 @@
     },
     "1280": {
         "name": "dilapidated door",
-        "short_description": "The door is open. ",
+        "short_description": "The door is open.",
         "long_description": "The door is old and battered, worn by the weather and by time.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -14210,7 +14210,7 @@
     "1284": {
         "name": "spit",
         "short_description": "Hot!",
-        "long_description": "A pig roasts on a spit above the roaring fire. ",
+        "long_description": "A pig roasts on a spit above the roaring fire.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14273,7 +14273,7 @@
     },
     "1286": {
         "name": "inn door",
-        "short_description": "The inn door is open. ",
+        "short_description": "The inn door is open.",
         "long_description": "A strong iron-bound door.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -14305,8 +14305,8 @@
     },
     "1287": {
         "name": "large fire",
-        "short_description": "Very hot. ",
-        "long_description": "Very hot. ",
+        "short_description": "Very hot.",
+        "long_description": "Very hot.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14338,7 +14338,7 @@
     "1288": {
         "name": "log bench",
         "short_description": "",
-        "long_description": "Solid, but a little uncomfortable. ",
+        "long_description": "Solid, but a little uncomfortable.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14370,7 +14370,7 @@
     "1289": {
         "name": "inn table",
         "short_description": "",
-        "long_description": "Good solid tables. ",
+        "long_description": "Good solid tables.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14401,8 +14401,8 @@
     },
     "1291": {
         "name": "sack",
-        "short_description": "An old rather rotten looking sack has been dumped here. ",
-        "long_description": "It seems in better condition than at first sight, but it is still not in great condition. ",
+        "short_description": "An old rather rotten looking sack has been dumped here.",
+        "long_description": "It seems in better condition than at first sight, but it is still not in great condition.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14433,8 +14433,8 @@
     },
     "1293": {
         "name": "large window",
-        "short_description": "A huge window looks out across the snows. ",
-        "long_description": "It looks out over the snows. You could climb out of the window and down the snowbanks outside, providing of course they will take your weight. It is difficult to tell if they will though. ",
+        "short_description": "A huge window looks out across the snows.",
+        "long_description": "It looks out over the snows. You could climb out of the window and down the snowbanks outside, providing of course they will take your weight. It is difficult to tell if they will though.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14465,8 +14465,8 @@
     },
     "1295": {
         "name": "large window",
-        "short_description": "You could climb up and through it quite easily. ",
-        "long_description": "A large window is set high up above the snowbanks on one side. ",
+        "short_description": "You could climb up and through it quite easily.",
+        "long_description": "A large window is set high up above the snowbanks on one side.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14497,7 +14497,7 @@
     },
     "1296": {
         "name": "stone tablet",
-        "short_description": "An ancient stone tablet has been left here. ",
+        "short_description": "An ancient stone tablet has been left here.",
         "long_description": "The tablet is an ancient piece from the philosopher-mage Theosynimus. It bears the words 'Thrice at the lich-owl's screech, cast fire into the images of the moon, listen well lest bitter experience teach, none make the path of the shadow alone.'",
         "clo_head": 0,
         "clo_larm": 0,
@@ -14529,8 +14529,8 @@
     },
     "1299": {
         "name": "small rock",
-        "short_description": "A small piece of rock lies here. ",
-        "long_description": "A small piece of rock has been left on a stone slab. ",
+        "short_description": "A small piece of rock lies here.",
+        "long_description": "A small piece of rock has been left on a stone slab.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14561,8 +14561,8 @@
     },
     "1300": {
         "name": "hammer",
-        "short_description": "A heavy mining hammer has been left here. ",
-        "long_description": "Very heavy, not the sort of hammer to hit your fingers with, more for hitting other peoples. ",
+        "short_description": "A heavy mining hammer has been left here.",
+        "long_description": "Very heavy, not the sort of hammer to hit your fingers with, more for hitting other peoples.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14593,8 +14593,8 @@
     },
     "1301": {
         "name": "pick",
-        "short_description": "A good strong mining tool. ",
-        "long_description": "A heavy pick has been put here. The pick is battered and worn, and obviously much used. ",
+        "short_description": "A good strong mining tool.",
+        "long_description": "A heavy pick has been put here. The pick is battered and worn, and obviously much used.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14625,8 +14625,8 @@
     },
     "1302": {
         "name": "shed door",
-        "short_description": "It is a typical door. ",
-        "long_description": "The shed door is closed. ",
+        "short_description": "It is a typical door.",
+        "long_description": "The shed door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14657,8 +14657,8 @@
     },
     "1303": {
         "name": "stout door",
-        "short_description": "It is a typical door. ",
-        "long_description": "The shed door is closed. ",
+        "short_description": "It is a typical door.",
+        "long_description": "The shed door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14690,7 +14690,7 @@
     "1304": {
         "name": "quarry shed",
         "short_description": "It appears to be a store for all the quarrying equipment.",
-        "long_description": "A large stone built shed stands at the north end of the quarry. ",
+        "long_description": "A large stone built shed stands at the north end of the quarry.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14722,7 +14722,7 @@
     "1316": {
         "name": "still pool",
         "short_description": "Peaceful and quiet.",
-        "long_description": "The gentle swaying of the trees, and their reflection in the pool, make this place seem quiet and peaceful. ",
+        "long_description": "The gentle swaying of the trees, and their reflection in the pool, make this place seem quiet and peaceful.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14754,7 +14754,7 @@
     "1322": {
         "name": "old fire",
         "short_description": "The fire is quite old, several days at least.",
-        "long_description": "Someone has had a fire here recently, although all that is left now is a pile of ashes. Someone has spread the ashes out too. ",
+        "long_description": "Someone has had a fire here recently, although all that is left now is a pile of ashes. Someone has spread the ashes out too.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14785,8 +14785,8 @@
     },
     "1324": {
         "name": "portable hole",
-        "short_description": "There is a large hole here. ",
-        "long_description": "It is a strange hole. It seems almost well, unattached. ",
+        "short_description": "There is a large hole here.",
+        "long_description": "It is a strange hole. It seems almost well, unattached.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14817,8 +14817,8 @@
     },
     "1327": {
         "name": "tomb lid",
-        "short_description": "The tomb lid is open. ",
-        "long_description": "The tomb lid is closed. ",
+        "short_description": "The tomb lid is open.",
+        "long_description": "The tomb lid is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14850,7 +14850,7 @@
     "1328": {
         "name": "mystic talisman",
         "short_description": "It appears to be a marker for some kind of magic.",
-        "long_description": "An ancient engraved stone talisman has been placed here. ",
+        "long_description": "An ancient engraved stone talisman has been placed here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14882,7 +14882,7 @@
     "1329": {
         "name": "large tomb",
         "short_description": "The tomb is very solidly built from stone slabs.",
-        "long_description": "A large stone tomb is set in the very centre of the chamber. The tomb is open. ",
+        "long_description": "A large stone tomb is set in the very centre of the chamber. The tomb is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14908,13 +14908,13 @@
         "mod_inte": 0,
         "mod_agi": 0,
         "mod_luc": 0,
-        "weight": 20000,
+        "weight": 0,
         "article": "a"
     },
     "1340": {
         "name": "wooden boat",
-        "short_description": "It's in good condition. ",
-        "long_description": "An old wooden boat has been left here. ",
+        "short_description": "It's in good condition.",
+        "long_description": "An old wooden boat has been left here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14945,8 +14945,8 @@
     },
     "1343": {
         "name": "icy passage",
-        "short_description": "An icy passage has been hacked through the icy wall, leading north into a cave. ",
-        "long_description": "An icy passage has been hacked through the icy wall, leading north into a cave. ",
+        "short_description": "An icy passage has been hacked through the icy wall, leading north into a cave.",
+        "long_description": "An icy passage has been hacked through the icy wall, leading north into a cave.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14977,8 +14977,8 @@
     },
     "1345": {
         "name": "icy passage",
-        "short_description": "An icy passage has been hacked through the snowy walls of the cave, to reveal a huge icy hall extending away southwards. ",
-        "long_description": "An icy passage has been hacked through the snowy walls of the cave, to reveal a huge icy hall extending away southwards. ",
+        "short_description": "An icy passage has been hacked through the snowy walls of the cave, to reveal a huge icy hall extending away southwards.",
+        "long_description": "An icy passage has been hacked through the snowy walls of the cave, to reveal a huge icy hall extending away southwards.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15010,7 +15010,7 @@
     "1347": {
         "name": "frozen corpse",
         "short_description": "Severe frostbite.",
-        "long_description": "A stiff and frozen human corpse lies slumped on the ground. ",
+        "long_description": "A stiff and frozen human corpse lies slumped on the ground.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15042,7 +15042,7 @@
     "1348": {
         "name": "narrow cavemouth",
         "short_description": "It's dark inside.",
-        "long_description": "The opening appears to lead into a cave. ",
+        "long_description": "The opening appears to lead into a cave.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15074,7 +15074,7 @@
     "1349": {
         "name": "icy cavemouth",
         "short_description": "You see nothing special.",
-        "long_description": "The cavemouth is blocked up by a huge fall of snow. ",
+        "long_description": "The cavemouth is blocked up by a huge fall of snow.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15106,7 +15106,7 @@
     "1351": {
         "name": "piles of snow",
         "short_description": "White and cold.",
-        "long_description": "The snow is deep and movement awkward. There appears to have been an avalanche here recently. A narrow path leads east and steeply up into a side valley. ",
+        "long_description": "The snow is deep and movement awkward. There appears to have been an avalanche here recently. A narrow path leads east and steeply up into a side valley.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15138,7 +15138,7 @@
     "1353": {
         "name": "wooden bridge",
         "short_description": "Confidence inspiring",
-        "long_description": "Across the bridge the path continues south along the other side of the pass. ",
+        "long_description": "Across the bridge the path continues south along the other side of the pass.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15201,7 +15201,7 @@
     },
     "1366": {
         "name": "shortsword",
-        "short_description": "A strong stabbing weapon. ",
+        "short_description": "A strong stabbing weapon.",
         "long_description": "A sharp shortsword has been dropped here.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -15233,8 +15233,8 @@
     },
     "1367": {
         "name": "small dagger",
-        "short_description": "Although small it is very sharp. ",
-        "long_description": "A small dagger has been dropped here. ",
+        "short_description": "Although small it is very sharp.",
+        "long_description": "A small dagger has been dropped here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15265,8 +15265,8 @@
     },
     "1368": {
         "name": "door",
-        "short_description": "It is a stout door. ",
-        "long_description": "The west door is closed. ",
+        "short_description": "It is a stout door.",
+        "long_description": "The west door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15297,8 +15297,8 @@
     },
     "1369": {
         "name": "door",
-        "short_description": "The door is open. ",
-        "long_description": "A good stout door. ",
+        "short_description": "The door is open.",
+        "long_description": "A good stout door.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15330,7 +15330,7 @@
     "1371": {
         "name": "old horseshoe",
         "short_description": "Well it didnt bring the horse any luck.",
-        "long_description": "An old horseshoe has been discarded here. ",
+        "long_description": "An old horseshoe has been discarded here.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15356,13 +15356,13 @@
         "mod_inte": 0,
         "mod_agi": 0,
         "mod_luc": 0,
-        "weight": 0,
+        "weight": 3,
         "article": "a"
     },
     "1374": {
         "name": "runesword",
-        "short_description": "A huge black runesword lies at your feet, glowing with arcane power. ",
-        "long_description": "A huge black runesword stands upright before you, embedded in the solid stone altar. ",
+        "short_description": "A huge black runesword lies at your feet, glowing with arcane power.",
+        "long_description": "A huge black runesword stands upright before you, embedded in the solid stone altar.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15393,8 +15393,8 @@
     },
     "1378": {
         "name": "iron lever",
-        "short_description": "It is connected to a mass of heavy mechanisms. ",
-        "long_description": "A huge iron lever in the west wall has been pulled right back in its slot. ",
+        "short_description": "It is connected to a mass of heavy mechanisms.",
+        "long_description": "A huge iron lever in the west wall has been pulled right back in its slot.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15426,7 +15426,7 @@
     "1379": {
         "name": "oak door",
         "short_description": "A good solid door.",
-        "long_description": "An open oak door leads east into the gatehouse. ",
+        "long_description": "An open oak door leads east into the gatehouse.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15457,8 +15457,8 @@
     },
     "1380": {
         "name": "oak door",
-        "short_description": "A solid oak door. ",
-        "long_description": "The oak door is open. ",
+        "short_description": "A solid oak door.",
+        "long_description": "The oak door is open.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15489,8 +15489,8 @@
     },
     "1382": {
         "name": "strong portcullis",
-        "short_description": "It is strong and bound in heavy iron. ",
-        "long_description": "The portcullis is raised, allowing free access to and from the castle. ",
+        "short_description": "It is strong and bound in heavy iron.",
+        "long_description": "The portcullis is raised, allowing free access to and from the castle.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -15521,8 +15521,8 @@
     },
     "1384": {
         "name": "portcullis",
-        "short_description": "The portcullis is raised.  ",
-        "long_description": "It is strong and bound in heavy iron. ",
+        "short_description": "The portcullis is raised.",
+        "long_description": "It is strong and bound in heavy iron.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
