@@ -415,19 +415,19 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 if len(list(players[id]['inv'])) > 0:
                         mud.send_message(id, 'You are currently in possession of: ')
                         for i in list(players[id]['inv']):
-                                if int(players[id]['clo_lhand']) > 0:
+                                if int(players[id]['clo_lhand']) == int(i):
                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
                                 else:
-                                        if int(players[id]['clo_lleg']) > 0:
+                                        if int(players[id]['clo_lleg']) == int(i):
                                                 mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (left leg)')
                                         else:
-                                                if int(players[id]['clo_rleg']) > 0:
+                                                if int(players[id]['clo_rleg']) == int(i):
                                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right leg)')
                                                 else:
-                                                        if int(players[id]['clo_rhand']) > 0:
+                                                        if int(players[id]['clo_rhand']) == int(i):
                                                                 mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
                                                         else:
-                                                                if int(players[id]['clo_head']) > 0 or int(players[id]['clo_chest']) > 0 or int(players[id]['clo_feet']) > 0:
+                                                                if int(players[id]['clo_head']) ==int(i) or int(players[id]['clo_chest']) == int(i) or int(players[id]['clo_feet']) == int(i):
                                                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
                                                                 else:
                                                                         mud.send_message(id, '<b234>' + itemsDB[int(i)]['name'])
