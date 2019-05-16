@@ -36,7 +36,7 @@
     "hp": 100,
     "charge": 0,
     "inDescription": "arrives",
-    "outDescription": "goes",
+    "outDescription": "leaves",
     "lookDescription": "This is a Player description",
     "channels": ["system"],
     "permissionLevel": 0,

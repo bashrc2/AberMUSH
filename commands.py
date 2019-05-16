@@ -51,9 +51,9 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                     for rm in rooms:
                         if rooms[rm]['name'].strip().lower() == targetLocation:
                             mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
-                            messageToPlayersInRoom(players,id,'<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n")
+                            messageToPlayersInRoom(mud,players,id,'<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n")
                             players[id]['room'] = rm
-                            messageToPlayersInRoom(players,id,'<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n")
+                            messageToPlayersInRoom(mud,players,id,'<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n")
                             return
             else:
                 mud.send_message(id, "You don't have enough powers for that.\n")
@@ -66,7 +66,7 @@ def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                     for p in players:
                         if players[p]['name'].strip().lower() == targetPlayer:
                             if players[p]['room'] != players[id]['room']:
-                                messageToPlayersInRoom(players,p,'<f32>{}<r> suddenly vanishes.'.format(players[p]['name']) + "\n")
+                                messageToPlayersInRoom(mud,players,p,'<f32>{}<r> suddenly vanishes.'.format(players[p]['name']) + "\n")
                                 players[p]['room'] = players[id]['room']
                                 rm = players[p]['room']
                                 mud.send_message(id, "You summon " + players[p]['name'] + "\n")
@@ -630,7 +630,7 @@ def unwear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                 mud.send_message(id, 'You take off <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_feet'] = 0
 
-def messageToPlayersInRoom(players,id,msg):
+def messageToPlayersInRoom(mud,players,id,msg):
         # go through all the players in the game
         for (pid, pl) in list(players.items()):
                 # if player is in the same room and isn't the player
@@ -672,7 +672,7 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
 
                 # if the specified exit is found in the room's exits list
                 if ex in rm['exits']:
-                        messageToPlayersInRoom(players,id,'<f32>{}<r> left via exit {}'.format(players[id]['name'], ex) + "\n")
+                        messageToPlayersInRoom(mud,players,id,'<f32>' + players[id]['name'] + '<r> ' + players[id]['outDescription'] + " via exit " + ex + '\n')
 
                         # Trigger old room eventOnLeave for the player
                         if rooms[players[id]['room']]['eventOnLeave'] is not "":
@@ -686,16 +686,7 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                         if rooms[players[id]['room']]['eventOnEnter'] is not "":
                                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']), id, eventSchedule, eventDB)
 
-                        # go through all the players in the game
-                        for (pid, pl) in list(players.items()):
-                                # if player is in the same (new) room and isn't the player
-                                # sending the command
-                                if players[pid]['room'] == players[id]['room'] \
-                                        and pid != id:
-                                        # send them a message telling them that the player
-                                        # entered the room
-                                        # mud.send_message(pid, '{} arrived via exit {}|'.format(players[id]['name'], ex))
-                                        mud.send_message(pid, '<f32>{}<r> has arrived.'.format(players[id]['name'], ex) + "\n")
+                        messageToPlayersInRoom(mud,players,id,'<f32>' + players[id]['name'] + '<r> ' + players[id]['inDescription'] + "\n")
 
                         # send the player a message telling them where they are now
                         #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))

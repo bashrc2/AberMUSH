@@ -38,11 +38,9 @@
    "hp":4,
    "charge":0,
    "inDescription":"arrives",
-   "outDescription":"goes",
-   "lookDescription":"This is a Player description",
+   "outDescription":"leaves",
+   "lookDescription":"Guest Player",
    "channels":[
-      "gossip@grapevine",
-      "testing@grapevine",
       "system"
    ],
    "permissionLevel":100,
