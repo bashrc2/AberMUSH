@@ -447,15 +447,6 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 itemName = itemName.replace('my ','')
         if itemName.startswith('your '):
                 itemName = itemName.replace('your ','')
-        if itemName.endswith(' left'):
-                itemName = itemName.replace(' left','')
-                itemHand = 0
-        if itemName.endswith(' in left'):
-                itemName = itemName.replace(' in left','')
-                itemHand = 0
-        if itemName.endswith(' on left'):
-                itemName = itemName.replace(' on left','')
-                itemHand = 0
         if itemName.endswith(' on left hand'):
                 itemName = itemName.replace(' on left hand','')
                 itemHand = 0
@@ -468,15 +459,15 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
         if itemName.endswith(' in your left hand'):
                 itemName = itemName.replace(' in your left hand','')
                 itemHand = 0
-        if itemName.endswith(' right'):
-                itemName = itemName.replace(' right','')
-                itemHand = 1
-        if itemName.endswith(' in right'):
-                itemName = itemName.replace(' in right','')
-                itemHand = 1
-        if itemName.endswith(' on right'):
-                itemName = itemName.replace(' on right','')
-                itemHand = 1
+        if itemName.endswith(' left'):
+                itemName = itemName.replace(' left','')
+                itemHand = 0
+        if itemName.endswith(' in left'):
+                itemName = itemName.replace(' in left','')
+                itemHand = 0
+        if itemName.endswith(' on left'):
+                itemName = itemName.replace(' on left','')
+                itemHand = 0
         if itemName.endswith(' on right hand'):
                 itemName = itemName.replace(' on right hand','')
                 itemHand = 1
@@ -488,6 +479,15 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 itemHand = 1
         if itemName.endswith(' in your right hand'):
                 itemName = itemName.replace(' in your right hand','')
+                itemHand = 1
+        if itemName.endswith(' right'):
+                itemName = itemName.replace(' right','')
+                itemHand = 1
+        if itemName.endswith(' in right'):
+                itemName = itemName.replace(' in right','')
+                itemHand = 1
+        if itemName.endswith(' on right'):
+                itemName = itemName.replace(' on right','')
                 itemHand = 1
 
         itemID = 0
