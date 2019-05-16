@@ -832,6 +832,10 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         itemID = None
 
         if itemInDB:
+            if int(itemsDB[items[iid]['id']]['weight']) == 0:
+                    mud.send_message(id, "You can't pick that up.\n\n")
+                    return
+
             for (iid, pl) in list(itemsInWorldCopy.items()):
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                         if itemsDB[items[iid]['id']]['name'] == itemName:
