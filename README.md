@@ -37,6 +37,8 @@ whisper [target] [message]             - Whisper to a player in the same room
 tell [target] [message]                - Send a tell message to another player
 use/wield/brandish [item] [left|right] - Transfer an item to your hands
 stow                                   - Free your hands of items
+wear [item]                            - Wear an item
+remove/unwear [item]                   - Remove a worn item
 ```
 
 ## Witch Commands
