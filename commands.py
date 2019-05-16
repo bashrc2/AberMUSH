@@ -23,25 +23,25 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
-def isAdmin(id, players):
+def isWitch(id, players):
         name = players[id]['name']
 
-        if not os.path.isfile("admins"):
+        if not os.path.isfile("witches"):
             return False
 
-        adminfile = open("admins", "r")
+        witchesfile = open("witches", "r")
 
-        for line in adminfile:
-            adminName = line.strip()
-            if adminName == name:
+        for line in witchesfile:
+            witchName = line.strip()
+            if witchName == name:
                 return True
 
-        adminfile.close()
+        witchesfile.close()
         return False
 
 def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
-            if isAdmin(id,players):
+            if isWitch(id,players):
                 targetLocation = params[0:].strip().lower()
                 if len(targetLocation) != 0:
                     currRoom=players[id]['room']
@@ -60,7 +60,7 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
 
 def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
-            if isAdmin(id,players):
+            if isWitch(id,players):
                 targetPlayer = params[0:].strip().lower()
                 if len(targetPlayer) != 0:
                     for p in players:
@@ -79,12 +79,12 @@ def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
 
 def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
-            if isAdmin(id,players):
+            if isWitch(id,players):
                 target = params.partition(' ')[0]
                 if len(target) != 0:
                     for p in players:
                         if players[p]['name'] == target:
-                            if not isAdmin(p,players):
+                            if not isWitch(p,players):
                                 players[p]['canSay'] = 0
                                 players[p]['canAttack'] = 0
                                 players[p]['canDirectMessage'] = 0
@@ -95,13 +95,13 @@ def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
 def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
-            if isAdmin(id,players):
+            if isWitch(id,players):
                 target = params.partition(' ')[0]
                 if len(target) != 0:
                     if target.lower() != 'guest':
                         for p in players:
                             if players[p]['name'] == target:
-                                if not isAdmin(p,players):
+                                if not isWitch(p,players):
                                     players[p]['canSay'] = 1
                                     players[p]['canAttack'] = 1
                                     players[p]['canDirectMessage'] = 1
@@ -114,15 +114,15 @@ def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         counter = 1
         if players[id]['permissionLevel'] == 0:
-                is_admin = isAdmin(id,players)
+                is_witch = isWitch(id,players)
                 for p in players:
                         if players[p]['name'] == None:
                                 name = "None"
                         else:
-                            if not is_admin:
+                            if not is_witch:
                                 name = players[p]['name']
                             else:
-                                if not isAdmin(p,players):
+                                if not isWitch(p,players):
                                     if players[p]['canSay'] == 1:
                                         name = players[p]['name']
                                     else:
@@ -202,16 +202,18 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  say [message]                    - Says something out loud, '  + "e.g. 'say Hello'")
         mud.send_message(id, '  look/examine                     - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine tin can' or 'look cleaning robot'")
         mud.send_message(id, '  go [exit]                        - Moves through the exit ' + "specified, e.g. 'go outside'")
-        mud.send_message(id, '  attack [target]                  - Attack target ' + "specified, e.g. 'attack cleaning bot'")
+        mud.send_message(id, '  attack [target]                  - Attack target ' + "specified, e.g. 'attack knight'")
         mud.send_message(id, '  check inventory                  - Check the contents of ' + "your inventory")
         mud.send_message(id, '  take/get [item]                  - Pick up an item lying ' + "on the floor")
         mud.send_message(id, '  drop [item]                      - Drop an item from your inventory ' + "on the floor")
         mud.send_message(id, '  whisper [target] [message]       - Whisper to a player in the same room')
+        mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player')
+        mud.send_message(id, '')
+        mud.send_message(id, 'Witch Commands:')
         mud.send_message(id, '  mute/silence [target]            - Mutes a player and prevents them from attacking')
         mud.send_message(id, '  unmute/unsilence [target]        - Unmutes a player')
         mud.send_message(id, '  teleport [room]                  - Teleport to a room')
-        mud.send_message(id, '  summon [target]                  - Summons a player to your location')
-        mud.send_message(id, '  tell [target] [message]          - Send a tell message to another player\n\n')
+        mud.send_message(id, '  summon [target]                  - Summons a player to your location\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         # print(channels)

@@ -19,4 +19,31 @@ telnet [hostname] 35123
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
 
-You can define who has admin/ArchWizard status by creating a file called `admins` within the same directory that you ran `abermush.py` from and adding their usernames. Admins can mute or unmute other players, teleport to rooms or summon other players to their location.
+## Player Commands
+
+All players can use the following commands:
+
+``` bash
+who                              - List players and where they are
+quit/exit                        - Leave the game
+say [message]                    - Says something out loud
+look/examine                     - Examines the surroundings
+go [exit]                        - Moves through the exit specified
+attack [target]                  - Attack another player or NPC
+check inventory                  - Check the contents of your inventory
+take/get [item]                  - Pick up an item
+drop [item]                      - Drop an item
+whisper [target] [message]       - Whisper to a player in the same room
+tell [target] [message]          - Send a tell message to another player
+```
+
+## Witch Commands
+
+Witches are the admins of the system, and have additional supernatural powers. The first user to create an account gains witch status. Additional witches may be assigned by appending them to the `witches` file, which is located in the same directory as `abermush.py` is run from.
+
+``` bash
+mute/silence [target]            - Mutes a player and prevents them from attacking
+unmute/unsilence [target]        - Unmutes a player
+teleport [room]                  - Teleport to a room
+summon [target]                  - Summons a player to your location
+```

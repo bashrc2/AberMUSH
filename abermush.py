@@ -764,10 +764,10 @@ while True:
                         template['name'] = players[id]['exAttribute1']
                         template['pwd'] = hash_password(players[id]['exAttribute2'])
 
-                        # First player becomes the admin
-                        if not os.path.isfile("admins"):
-                            with open("admins", "w") as admins_file:
-                                admins_file.write(template['name'])
+                        # First player becomes a witch
+                        if not os.path.isfile("witches"):
+                            with open("witches", "w") as witches_file:
+                                witches_file.write(template['name'])
 
                         # Save template into a new player file
                         # print(template)
