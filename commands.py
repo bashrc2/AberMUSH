@@ -678,6 +678,26 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                         if rooms[players[id]['room']]['eventOnLeave'] is not "":
                                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']), id, eventSchedule, eventDB)
 
+                        # Does the player have any follower NPCs?
+                        followersMsg=""
+                        for (nid, pl) in list(npcs.items()):
+                                if npcs[nid]['follow'] == players[id]['name']:
+                                        # is the npc in the same room as the player?
+                                        if npcs[nid]['room'] == players[id]['room']:
+                                                # is the player within the permitted npc path?
+                                                if rm['exits'][ex] in list(npcs[nid]['path']):
+                                                        npcs[nid]['room'] = rm['exits'][ex]
+                                                        followersMsg=followersMsg+'<f32>'+npcs[nid]['name'] + '<r> ' + npcs[nid]['inDescription'] + '.\n'
+                                                        messageToPlayersInRoom(mud,players,id,'<f32>' + npcs[nid]['name'] + '<r> ' + npcs[nid]['outDescription'] + " via exit " + ex + '\n')
+                                                else:
+                                                        # not within the npc path, stop following
+                                                        #print(npcs[nid]['name'] + ' stops following (out of path)\n')
+                                                        npcs[nid]['follow'] = ""
+                                        else:
+                                                # stop following
+                                                #print(npcs[nid]['name'] + ' stops following\n')
+                                                npcs[nid]['follow'] = ""
+
                         # update the player's current room to the one the exit leads to
                         players[id]['room'] = rm['exits'][ex]
                         rm = rooms[players[id]['room']]
@@ -691,6 +711,10 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                         # send the player a message telling them where they are now
                         #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))
                         mud.send_message(id, 'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
+                        # report any followers
+                        if len(followersMsg)>0:
+                                messageToPlayersInRoom(mud,players,id,followersMsg)
+                                mud.send_message(id, followersMsg);
                 else:
                         # the specified exit wasn't found in the current room
                         # send back an 'unknown exit' message

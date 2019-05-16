@@ -23,11 +23,26 @@ Config.read('config.ini')
 
 def moveNPCs(npcs,players,mud,now,nid):
     if now > npcs[nid]['lastMoved'] + int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
-
         # Move types:
-        #   random, cycle, inverse cycle, patrol
+        #   random, cycle, inverse cycle, patrol, follow
+
         moveTypeLower = npcs[nid]['moveType'].lower()
-        if moveTypeLower.startswith('c') or moveTypeLower.startswith('p'):
+
+        followCycle=False
+        if moveTypeLower.startswith('f'):
+            if len(npcs[nid]['follow']) == 0:
+                followCycle=True
+                # Look for a player to follow
+                for (pid, pl) in list(players.items()):
+                    if npcs[nid]['room'] == players[pid]['room']:
+                        # follow by name
+                        #print(npcs[nid]['name'] + ' starts following ' + players[pid]['name'] + '\n')
+                        npcs[nid]['follow'] = players[pid]['name']
+                        followCycle=False
+            if not followCycle:
+                return
+
+        if moveTypeLower.startswith('c') or moveTypeLower.startswith('p') or followCycle:
                 npcRoomIndex = 0
                 npcRoomCurr =npcs[nid]['room']
                 for npcRoom in npcs[nid]['path']:

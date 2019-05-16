@@ -161,6 +161,7 @@ for k in npcsDB:
                        v == "room" or \
                        v == "inv" or \
                        v == "path" or \
+                       v == "follow" or \
                        v == "moveDelay" or \
                        v == "moveType" or \
                        v == "vocabulary" or \
