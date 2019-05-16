@@ -643,6 +643,17 @@ def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if len(params) == 0:
                 mud.send_message(id,players[id]['lookDescription'] + '\n\n')
                 return
+        if params == players[id]['name']:
+                mud.send_message(id,players[id]['lookDescription'] + '\n\n')
+                return
+
+        # go through all the players in the game
+        if players[id]['authenticated'] != None:
+            for (pid, pl) in list(players.items()):
+                if players[pid]['name'] == params:
+                        mud.send_message(id,players[pid]['lookDescription'] + '\n\n')
+                        return
+
         if '"' in params:
                 mud.send_message(id,"Your bio must not include double quotes.\n\n")
                 return
