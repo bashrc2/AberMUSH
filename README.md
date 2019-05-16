@@ -52,3 +52,17 @@ unmute/unsilence [target]        - Unmutes a player
 teleport [room]                  - Teleport to a room
 summon [target]                  - Summons a player to your location
 ```
+
+### NPC Types
+
+NPCs defined within `def/npcs.json` have a few different modes. The rooms which they can occupy are defined within the `path` list and the ways in which they move is defined by the `moveType` parameter. Movement types are:
+
+ * *cyclic* - Move from the start to the end of the list of rooms
+ * *inverse cyclic* - Move from the end to the start of the list of rooms
+ * *random* - Move to random rooms in the list
+ * *patrol* - Move from the start to the end of the list, then back again
+ * *follow* - Look for players and follow them around
+
+If no `moveType` is specified then random movement is the default.
+
+The speed at which NPCs move between rooms is defined by `moveDelay` and `randomFactor` parameters. RandomFactor just makes the delay between movements not completely predictable.
