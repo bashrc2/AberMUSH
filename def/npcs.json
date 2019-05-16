@@ -647,7 +647,7 @@
         "lookDescription": "hums and fusses about the furniture. The imp is"
     },
     "303": {
-        "name": "the zombie",
+        "name": "the one-armed zombie",
         "inv" : [],
         "path" : ["$rid=304$","$rid=299$","$rid=298$"],
         "moveDelay" : "300",
@@ -690,7 +690,7 @@
         "imp_feet" : "0",
         "inDescription": "stumbles in",
         "outDescription": "shuffles out",
-        "lookDescription": "gazes mindlessly at you"
+        "lookDescription": "gazes mindlessly at you while raising its singular appendage"
     },
     "336": {
         "inDescription": "makes an unpleasant dragging noise",
@@ -785,14 +785,14 @@
         "imp_feet" : "0"
     },
     "339": {
-        "name": "the zombie",
+        "name": "the pruple zombie",
         "inv" : [],
         "path" : [],
-        "moveDelay" : "300",
+        "moveDelay" : "8",
         "moveType" : "",
-        "vocabulary" : "",
+        "vocabulary" : "Ooooh-ooooh!|Aaaakkk!|Aaar!|AaaaRRRRrrrraaaaaa!",
         "talkDelay" : "300",
-        "randomFactor" : "100",
+        "randomFactor" : "3",
         "follow" : "",
         "hp" : "24332",
         "charge" : "1233",
@@ -828,17 +828,17 @@
         "imp_feet" : "0",
         "inDescription": "shuffles in",
         "outDescription": "shuffles out",
-        "lookDescription": "stands before you"
+        "lookDescription": "A putrid purple smoke rises from its chest"
     },
     "340": {
-        "name": "the zombie",
+        "name": "the green zombie",
         "inv" : [],
-        "path" : [],
-        "moveDelay" : "300",
-        "moveType" : "",
-        "vocabulary" : "",
+        "path" : ["$rid=346$","$rid=347$","$rid=344$"],
+        "moveDelay" : "9",
+        "moveType" : "follow",
+        "vocabulary" : "Oooooooh ooooh!|Aaaaaaakkk!|Aaaaaaaarrr!|AaaaRRRRrrrr! AaaaRRRaaa!",
         "talkDelay" : "300",
-        "randomFactor" : "100",
+        "randomFactor" : "4",
         "follow" : "",
         "hp" : "24332",
         "charge" : "1233",
@@ -874,7 +874,7 @@
         "imp_feet" : "0",
         "inDescription": "stumbles and almost falls over",
         "outDescription": "stumbles away",
-        "lookDescription": "stands vacantly here"
+        "lookDescription": "stands vacantly here in a lurid shade of green"
     },
     "342": {
         "name": "the necromancer",
