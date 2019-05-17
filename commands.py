@@ -676,7 +676,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                                                 wearingMsg=wearingMsg+', '
                                 else:
                                         wearingMsg=wearingMsg+' '
-                                wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['name']
+                                wearingMsg=wearingMsg+'a '+itemsDB[players[pid][cl]]['name']
                                 if cl.endswith('lleg'):
                                         wearingMsg=wearingMsg+' on ' + playerName2 + ' left leg'
                                 if cl.endswith('rleg'):
