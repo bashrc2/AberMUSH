@@ -295,17 +295,12 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 param = params.lower().replace('a ', '')
                         messageSent = False
 
-                        message = ""
-
                         ## Go through all players in game
                         for p in players:
                                 if players[p]['authenticated'] != None:
                                         if players[p]['name'].lower() == param and players[p]['room'] == players[id]['room']:
-                                                message += players[p]['lookDescription']
-
-                        if len(message) > 0:
-                                mud.send_message(id, message + '\n\n')
-                                messageSent = True
+                                                bioOfPlayer(mud,id,p,players,itemsDB)
+                                                messageSent = True
 
                         message = ""
 
@@ -639,19 +634,70 @@ def messageToPlayersInRoom(mud,players,id,msg):
                          and pid != id:
                         mud.send_message(pid,msg)
 
+def bioOfPlayer(mud,id,pid,players,itemsDB):
+        mud.send_message(id,players[pid]['lookDescription'] + '\n\n')
+
+        # count items of clothing
+        wearingCtr=0
+        if int(players[pid]['clo_head'])>0:
+                wearingCtr=wearingCtr+1
+        if int(players[pid]['clo_chest'])>0:
+                wearingCtr=wearingCtr+1
+        if int(players[pid]['clo_feet'])>0:
+                wearingCtr=wearingCtr+1
+        if int(players[pid]['clo_lleg'])>0:
+                wearingCtr=wearingCtr+1
+        if int(players[pid]['clo_rleg'])>0:
+                wearingCtr=wearingCtr+1
+
+        playerName='You'
+        playerName2='your'
+        playerName3='have'
+        if id != pid:
+                playerName='They'
+                playerName2='their'
+                playerName3='has'
+
+        if int(players[pid]['clo_rhand'])>0:
+                mud.send_message(id,playerName + ' ' + playerName3 + ' a ' + itemsDB[players[pid]['clo_rhand']]['name'] + ' in ' + playerName2 + ' right hand.\n')
+        if int(players[pid]['clo_lhand'])>0:
+                mud.send_message(id,playerName + ' ' + playerName3 + ' a ' + itemsDB[players[pid]['clo_lhand']]['name'] + ' in ' + playerName2 + ' left hand.\n')
+
+        if wearingCtr>0:
+                wearingMsg=playerName + ' are wearing'
+                wearingCtr2=0
+                playerClothing=['clo_head','clo_chest','clo_lleg','clo_rleg','clo_feet']
+                for cl in playerClothing:
+                        if int(players[pid][cl])>0:
+                                if wearingCtr2>0:
+                                        if wearingCtr2 == wearingCtr-1:
+                                                wearingMsg=wearingMsg+' and '
+                                        else:
+                                                wearingMsg=wearingMsg+', '
+                                else:
+                                        wearingMsg=wearingMsg+' '
+                                wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['name']
+                                if cl.endswith('lleg'):
+                                        wearingMsg=wearingMsg+' on ' + playerName2 + ' left leg'
+                                if cl.endswith('rleg'):
+                                        wearingMsg=wearingMsg+' on ' + playerName2 + ' right leg'
+                                wearingCtr2=wearingCtr2+1
+                mud.send_message(id,wearingMsg + '.\n')
+        mud.send_message(id,'\n')
+
 def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if len(params) == 0:
-                mud.send_message(id,players[id]['lookDescription'] + '\n\n')
+                bioOfPlayer(mud,id,id,players,itemsDB)
                 return
         if params == players[id]['name']:
-                mud.send_message(id,players[id]['lookDescription'] + '\n\n')
+                bioOfPlayer(mud,id,id,players,itemsDB)
                 return
 
         # go through all the players in the game
         if players[id]['authenticated'] != None:
             for (pid, pl) in list(players.items()):
                 if players[pid]['name'] == params:
-                        mud.send_message(id,players[pid]['lookDescription'] + '\n\n')
+                        bioOfPlayer(mud,id,pid,players,itemsDB)
                         return
 
         if '"' in params:
