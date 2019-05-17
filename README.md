@@ -73,8 +73,10 @@ You can create simple kinds of conversations with NPCs by editing `npcs.json` an
 
 ``` bash
 "conv" : [
-    [["beer","?"], "We have all kinds of beer"],
-    [["wine","?"], "We only serve the more disreputable wine"]
+    [["serve","beer","?"], "Yes, of course"],
+    [["serve","wine","?"], "We only serve the more disreputable wine"],
+    [["have","order","like","beer","ale","drink","please"],"Here you go","give","114"],
+    [["have","order","like","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","624","1367"]
 ],
 ```
 
@@ -89,3 +91,5 @@ The system will then try to match words within your `tell` command and pick the 
 ``` bash
 the old inn-keeper says: We only serve the more disreputable wine.
 ```
+
+The NPC can also give an item if some words are matched, or exchange/buy/barter an item such as a gold coin for a small dagger. The numbers refer to item numbers within `items.json`.
