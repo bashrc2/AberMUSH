@@ -11,7 +11,9 @@ from functions import addToScheduler
 from functions import getFreeKey
 from copy import deepcopy
 import time
+import datetime
 import os.path
+from random import randint
 
 '''
 Command function template:
@@ -148,6 +150,11 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
         best_match_action_param0=''
         best_match_action_param1=''
         max_match_ctr=0
+
+        puzzledStr='puzzled'
+        if randint(0, 1) == 1:
+                puzzledStr='confused'
+
         # for each entry in the conversation list
         for conv in npcs[nid]['conv']:
                 # entry must contain matching words and resulting reply
@@ -182,6 +189,25 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
                                                 return
+                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+                                return
+
+                        if best_match_action == 'giveondate' or best_match_action == 'giftondate':
+                                if len(best_match_action_param0)>0:
+                                        itemID=int(best_match_action_param0)
+                                        if itemID not in list(players[id]['inv']):
+                                                if '/' in best_match_action_param1:
+                                                        dayNumber=int(best_match_action_param1.split('/')[0])
+                                                        if dayNumber == int(datetime.date.today().strftime("%d")):
+                                                                monthNumber=int(best_match_action_param1.split('/')[1])
+                                                                if monthNumber == int(datetime.date.today().strftime("%m")):
+                                                                        players[id]['inv'].append(str(itemID))
+                                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
+                                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
+                                                                        return
+                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+                                return
+
                         if best_match_action == 'buy' or best_match_action == 'exchange' or best_match_action == 'barter' or best_match_action == 'trade':
                                 if len(best_match_action_param0)>0 and len(best_match_action_param1)>0:
                                         itemBuyID=int(best_match_action_param0)
@@ -191,7 +217,6 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                                                     mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I don't have any of those to sell.\n\n")
                                             else:
                                                     mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I don't have any of those to trade.\n\n")
-                                            return
                                         else:
                                             if str(itemBuyID) in list(players[id]['inv']):
                                                 if str(itemSellID) not in list(players[id]['inv']):
@@ -201,22 +226,21 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                                                                 npcs[nid]['inv'].append(str(itemBuyID))
                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
-                                                        return
                                                 else:
                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I see you already have a " + itemsDB[itemSellID]['name'] + ".\n\n")
-                                                        return
                                             else:
                                                 if best_match_action == 'buy':
                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: The " + itemsDB[itemSellID]['name'] + " costs a " + itemsDB[itemBuyID]['name'] + ".\n\n")
-                                                        return
                                                 else:
                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I'll give you a " + itemsDB[itemSellID]['name'] + " in exchange for a " + itemsDB[itemBuyID]['name'] + ".\n\n")
-                                                        return
+                                else:
+                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+                                return
 
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
         else:
                 # No word matches
-                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks puzzled.\n\n")
+                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
 
 def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         told = False
