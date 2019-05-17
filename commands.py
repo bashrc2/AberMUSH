@@ -172,16 +172,48 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                                         best_match_action_param1=conv[4]
         if len(best_match)>0:
                 # There were some word matches
-                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
 
                 if len(best_match_action)>0:
-                        if best_match_action == 'give':
+                        if best_match_action == 'give' or best_match_action == 'gift':
                                 if len(best_match_action_param0)>0:
                                         itemID=int(best_match_action_param0)
                                         if itemID not in list(players[id]['inv']):
                                                 players[id]['inv'].append(str(itemID))
+                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
                                                 return
+                        if best_match_action == 'buy' or best_match_action == 'exchange' or best_match_action == 'barter' or best_match_action == 'trade':
+                                if len(best_match_action_param0)>0 and len(best_match_action_param1)>0:
+                                        itemBuyID=int(best_match_action_param0)
+                                        itemSellID=int(best_match_action_param1)
+                                        if str(itemSellID) not in list(npcs[nid]['inv']):
+                                            if best_match_action == 'buy':
+                                                    mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I don't have any of those to sell.\n\n")
+                                            else:
+                                                    mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I don't have any of those to trade.\n\n")
+                                            return
+                                        else:
+                                            if str(itemBuyID) in list(players[id]['inv']):
+                                                if str(itemSellID) not in list(players[id]['inv']):
+                                                        players[id]['inv'].remove(str(itemBuyID))
+                                                        players[id]['inv'].append(str(itemSellID))
+                                                        if str(itemBuyID) not in list(npcs[nid]['inv']):
+                                                                npcs[nid]['inv'].append(str(itemBuyID))
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
+                                                        return
+                                                else:
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I see you already have a " + itemsDB[itemSellID]['name'] + ".\n\n")
+                                                        return
+                                            else:
+                                                if best_match_action == 'buy':
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: The " + itemsDB[itemSellID]['name'] + " costs a " + itemsDB[itemBuyID]['name'] + ".\n\n")
+                                                        return
+                                                else:
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I'll give you a " + itemsDB[itemSellID]['name'] + " in exchange for a " + itemsDB[itemBuyID]['name'] + ".\n\n")
+                                                        return
+
+                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
         else:
                 # No word matches
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks puzzled.\n\n")

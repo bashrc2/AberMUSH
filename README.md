@@ -76,7 +76,7 @@ You can create simple kinds of conversations with NPCs by editing `npcs.json` an
     [["serve","beer","?"], "Yes, of course"],
     [["serve","wine","?"], "We only serve the more disreputable wine"],
     [["have","order","like","beer","ale","drink","please"],"Here you go","give","114"],
-    [["have","order","like","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","624","1367"]
+    [["have","order","buy","purchase","trade","like","weapon","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","624","1367"]
 ],
 ```
 
