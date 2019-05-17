@@ -142,13 +142,16 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
 
-def npcConversation(mud,npcs,players,id,nid,message):
+def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
         best_match=''
+        best_match_action=''
+        best_match_action_param0=''
+        best_match_action_param1=''
         max_match_ctr=0
         # for each entry in the conversation list
         for conv in npcs[nid]['conv']:
                 # entry must contain matching words and resulting reply
-                if len(conv)==2:
+                if len(conv)>=2:
                         # count the number of matches for this line
                         match_ctr=0
                         for word_match in conv[0]:
@@ -158,9 +161,27 @@ def npcConversation(mud,npcs,players,id,nid,message):
                         if match_ctr > max_match_ctr:
                                 max_match_ctr = match_ctr
                                 best_match=conv[1]
+                                best_match_action=''
+                                best_match_action_param0=''
+                                best_match_action_param1=''
+                                if len(conv)>=3:
+                                        best_match_action=conv[2]
+                                if len(conv)>=4:
+                                        best_match_action_param0=conv[3]
+                                if len(conv)>=5:
+                                        best_match_action_param1=conv[4]
         if len(best_match)>0:
                 # There were some word matches
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
+
+                if len(best_match_action)>0:
+                        if best_match_action == 'give':
+                                if len(best_match_action_param0)>0:
+                                        itemID=int(best_match_action_param0)
+                                        if itemID not in list(players[id]['inv']):
+                                                players[id]['inv'].append(str(itemID))
+                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
+                                                return
         else:
                 # No word matches
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks puzzled.\n\n")
@@ -186,7 +207,7 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         for (nid, pl) in list(npcs.items()):
                                 if npcs[nid]['room'] == players[id]['room']:
                                         if target.lower() in npcs[nid]['name'].lower():
-                                                npcConversation(mud,npcs,players,id,nid,message.lower())
+                                                npcConversation(mud,npcs,players,itemsDB,id,nid,message.lower())
                                                 told = True
                                                 break
 

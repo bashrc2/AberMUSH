@@ -1134,8 +1134,10 @@
         "name": "the old inn-keeper",
         "inv" : [],
         "conv" : [
-            [["beer","?"], "We have all kinds of beer"],
-            [["wine","?"], "We only serve the more disreputable wine"]
+            [["have","order","like","beer","ale","drink","please"],"Here you go","give","114"],
+            [["serve","beer","?"], "Yes, of course"],
+            [["serve","ale","?"], "Yes, of course"],
+            [["serve","wine","?"], "We only serve the more disreputable wine"]
         ],
         "path" : [],
         "moveDelay" : "300",
