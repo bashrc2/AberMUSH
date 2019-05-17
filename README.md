@@ -35,7 +35,7 @@ check inventory                        - Check the contents of your inventory
 take/get [item]                        - Pick up an item
 drop [item]                            - Drop an item
 whisper [target] [message]             - Whisper to a player in the same room
-tell [target] [message]                - Send a tell message to another player
+tell [target] [message]                - Send a tell message to another player or NPC
 use/wield/brandish [item] [left|right] - Transfer an item to your hands
 stow                                   - Free your hands of items
 wear [item]                            - Wear an item

@@ -15585,7 +15585,7 @@
     },
     "1386": {
         "name": "wizard hat",
-        "short_description": "A wazard hat.",
+        "short_description": "A wizard hat.",
         "long_description": "The wizard hat is tall, with a large floppy brim.",
         "clo_head": 1,
         "clo_larm": 0,

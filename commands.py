@@ -142,6 +142,29 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
 
+def npcConversation(mud,npcs,players,id,nid,message):
+        best_match=''
+        max_match_ctr=0
+        # for each entry in the conversation list
+        for conv in npcs[nid]['conv']:
+                # entry must contain matching words and resulting reply
+                if len(conv)==2:
+                        # count the number of matches for this line
+                        match_ctr=0
+                        for word_match in conv[0]:
+                                if word_match.lower() in message:
+                                        match_ctr = match_ctr + 1
+                        # store the best match
+                        if match_ctr > max_match_ctr:
+                                max_match_ctr = match_ctr
+                                best_match=conv[1]
+        if len(best_match)>0:
+                # There were some word matches
+                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
+        else:
+                # No word matches
+                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks puzzled.\n\n")
+
 def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         told = False
         target = params.partition(' ')[0]
@@ -159,6 +182,14 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                         mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message + "\n")
                                         told = True
                                         break
+                if told == False:
+                        for (nid, pl) in list(npcs.items()):
+                                if npcs[nid]['room'] == players[id]['room']:
+                                        if target.lower() in npcs[nid]['name'].lower():
+                                                npcConversation(mud,npcs,players,id,nid,message.lower())
+                                                told = True
+                                                break
+
                 if told == False:
                         mud.send_message(id, "<f32>" + target + "<r> does not appear to be reachable at this moment.\n")
         else:
@@ -212,7 +243,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  wear [item]                            - Wear an item')
         mud.send_message(id, '  remove/unwear [item]                   - Remove a worn item')
         mud.send_message(id, '  whisper [target] [message]             - Whisper to a player in the same room')
-        mud.send_message(id, '  tell [target] [message]                - Send a tell message to another player')
+        mud.send_message(id, '  tell [target] [message]                - Send a tell message to another player or NPC')
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')
         mud.send_message(id, '  mute/silence [target]                  - Mutes a player and prevents them from attacking')
@@ -228,7 +259,7 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                         # if they're in the same room as the player
                         if players[pid]['room'] == players[id]['room']:
                                 # send them a message telling them what the player said
-                                mud.send_message(pid, '<f32>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n")
+                                mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n")
         else:
                 mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 

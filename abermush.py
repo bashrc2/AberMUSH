@@ -160,6 +160,7 @@ for k in npcsDB:
                 if not(v == "name" or \
                        v == "room" or \
                        v == "inv" or \
+                       v == "conv" or \
                        v == "path" or \
                        v == "follow" or \
                        v == "moveDelay" or \

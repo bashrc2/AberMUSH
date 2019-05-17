@@ -3,6 +3,7 @@
     "6": {
         "name": "the giant rat",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -49,6 +50,7 @@
     "64": {
         "name": "the black panther",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=591$","$rid=590$","$rid=599$","$rid=594$","$rid=592$"],
         "moveDelay" : "300",
         "moveType" : "random",
@@ -95,6 +97,7 @@
     "65": {
         "name": "the monkey",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=595$","$rid=600$","$rid=596$","$rid=594$"],
         "moveDelay" : "200",
         "moveType" : "",
@@ -144,6 +147,7 @@
         "lookDescription": "eyes you curiously",
         "name": "the weasel",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=82$","$rid=80$","$rid=84$","$rid=86$","$rid=68$"],
         "moveDelay" : "30",
         "moveType" : "random",
@@ -190,6 +194,7 @@
         "lookDescription": "lifts its tail threateningly",
         "name": "the skunk",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=67$","$rid=68$","$rid=28$"],
         "moveDelay" : "400",
         "moveType" : "random",
@@ -234,6 +239,7 @@
     "94": {
         "name": "Lars",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=105$","$rid=109$"],
         "moveDelay" : "300",
         "moveType" : "patrol",
@@ -280,6 +286,7 @@
     "112": {
         "name": "Erik",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=115$","$rid=121$","$rid=109$","$rid=101$","$rid=122$"],
         "moveDelay" : "400",
         "moveType" : "patrol",
@@ -329,6 +336,7 @@
         "lookDescription": "kneels before the bonfire rubbing his hands.",
         "name": "Njalmir",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -373,6 +381,7 @@
     "137": {
         "name": "the fire demon",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=156$","$rid=141$","$rid=159$"],
         "moveDelay" : "500",
         "moveType" : "cycle",
@@ -419,6 +428,7 @@
     "139": {
         "name": "the fur trapper",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -468,6 +478,7 @@
         "lookDescription": "lurks in the shadows",
         "name": "the mugger",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=434$","$rid=433$","$rid=435$","$rid=422$"],
         "moveDelay" : "600",
         "moveType" : "patrol",
@@ -511,6 +522,7 @@
     "166": {
         "name": "the black raven",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=167$","$rid=168$","$rid=1376$","$rid=167$"],
         "moveDelay" : "100",
         "moveType" : "random",
@@ -557,6 +569,7 @@
     "185": {
         "name": "the old pig",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=236$","$rid=239$","$rid=234$","$rid=235$"],
         "moveDelay" : "800",
         "moveType" : "cycle",
@@ -603,6 +616,7 @@
     "215": {
         "name": "the imp",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -649,6 +663,7 @@
     "303": {
         "name": "the one-armed zombie",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=304$","$rid=299$","$rid=298$"],
         "moveDelay" : "300",
         "moveType" : "patrol",
@@ -698,6 +713,7 @@
         "lookDescription": "moves clumsily around",
         "name": "the crawler zombie",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=346$","$rid=347$","$rid=344$","$rid=345$"],
         "moveDelay" : "500",
         "moveType" : "patrol",
@@ -744,6 +760,7 @@
         "lookDescription": "turns slowly to follow you",
         "name": "the grey zombie",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=346$","$rid=347$","$rid=344$","$rid=345$","$rid=343$"],
         "moveDelay" : "10",
         "moveType" : "follow",
@@ -787,6 +804,7 @@
     "339": {
         "name": "the pruple zombie",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "8",
         "moveType" : "",
@@ -833,6 +851,7 @@
     "340": {
         "name": "the green zombie",
         "inv" : [],
+        "conv" : [],
         "path" : ["$rid=346$","$rid=347$","$rid=344$"],
         "moveDelay" : "9",
         "moveType" : "follow",
@@ -879,6 +898,7 @@
     "342": {
         "name": "the necromancer",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -925,6 +945,7 @@
     "380": {
         "name": "the knight",
         "inv" : ["1366"],
+        "conv": [],
         "path" : ["$rid=382$","$rid=384$","$rid=396$","$rid=383$","$rid=357$"],
         "moveDelay" : "50",
         "moveType" : "patrol",
@@ -971,6 +992,7 @@
     "392": {
         "name": "a cute little bunny rabbit",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1017,6 +1039,7 @@
     "393": {
         "name": "a cute little bunny rabbit",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1063,6 +1086,7 @@
     "394": {
         "name": "a cute little bunny rabbit",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1109,6 +1133,10 @@
     "405": {
         "name": "the old inn-keeper",
         "inv" : [],
+        "conv" : [
+            [["beer","?"], "We have all kinds of beer"],
+            [["wine","?"], "We only serve the more disreputable wine"]
+        ],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1158,6 +1186,7 @@
         "lookDescription": "blocks your path",
         "name": "the giant slug",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1201,6 +1230,7 @@
     "524": {
         "name": "the giant snake",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1250,6 +1280,7 @@
         "lookDescription": "stands before you squeaking and showing its teeth",
         "name": "the giant rat",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1294,6 +1325,7 @@
     "646": {
         "name": "the wizened man",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1340,6 +1372,7 @@
     "678": {
         "name": "the librarian",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1386,6 +1419,7 @@
     "723": {
         "name": "the elf",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1432,6 +1466,7 @@
     "749": {
         "name": "the wizened corpse",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1480,6 +1515,7 @@
         "lookDescription": "stands glowering before you. He is",
         "name": "the dark priest",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1524,6 +1560,7 @@
     "811": {
         "name": "the monk",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1570,6 +1607,7 @@
     "812": {
         "name": "the monk",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1616,6 +1654,7 @@
     "840": {
         "name": "the hermit",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1664,6 +1703,7 @@
         "lookDescription": "stands on watch here",
         "name": "the sturdy dwarf",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1708,6 +1748,7 @@
     "867": {
         "name": "the ogre",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1756,6 +1797,7 @@
         "lookDescription": "watches you cautiously from a distance",
         "name": "the bear",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1802,6 +1844,7 @@
         "lookDescription": "stands here",
         "name": "the heavy dwarf",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1848,6 +1891,7 @@
         "lookDescription": "is here, cropping grass peacefully",
         "name": "the goat",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1894,6 +1938,7 @@
         "lookDescription": "is here, chewing the cud quietly. The goat is",
         "name": "the goat",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1940,6 +1985,7 @@
         "lookDescription": "stands watch",
         "name": "the strong dwarf",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1986,6 +2032,7 @@
         "lookDescription": "stands on guard",
         "name": "the sturdy dwarf",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -2032,6 +2079,7 @@
         "lookDescription": "crouches before you, eyeing you suspiciously",
         "name": "the wolf",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -2072,10 +2120,10 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "1373": {
         "name": "the stone golem",
         "inv" : [],
+        "conv" : [],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
