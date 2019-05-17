@@ -66,3 +66,26 @@ NPCs defined within `def/npcs.json` have a few different modes. The rooms which 
 If no `moveType` is specified then random movement is the default.
 
 The speed at which NPCs move between rooms is defined by `moveDelay` and `randomFactor` parameters. RandomFactor just makes the delay between movements not completely predictable.
+
+### NPC Conversations
+
+You can create simple kinds of conversations with NPCs by editing `npcs.json` and adding line entries within the `conv` parameter. For example:
+
+``` bash
+"conv" : [
+    [["beer","?"], "We have all kinds of beer"],
+    [["wine","?"], "We only serve the more disreputable wine"]
+],
+```
+
+You can then tell the NPC something like:
+
+``` bash
+tell inn-keeper Do you serve wine?
+```
+
+The system will then try to match words within your `tell` command and pick the most appropriate reply:
+
+``` bash
+the old inn-keeper says: We only serve the more disreputable wine.
+```
