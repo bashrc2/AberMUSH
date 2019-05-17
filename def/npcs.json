@@ -3,7 +3,9 @@
     "6": {
         "name": "the giant rat",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Eeeek!"]
+        ],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -50,7 +52,9 @@
     "64": {
         "name": "the black panther",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Grrrrr!"]
+        ],
         "path" : ["$rid=591$","$rid=590$","$rid=599$","$rid=594$","$rid=592$"],
         "moveDelay" : "300",
         "moveType" : "random",
@@ -97,7 +101,9 @@
     "65": {
         "name": "the monkey",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Oooh-ooh!"]
+        ],
         "path" : ["$rid=595$","$rid=600$","$rid=596$","$rid=594$"],
         "moveDelay" : "200",
         "moveType" : "",
@@ -147,7 +153,9 @@
         "lookDescription": "eyes you curiously",
         "name": "the weasel",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Eeeeek!"]
+        ],
         "path" : ["$rid=82$","$rid=80$","$rid=84$","$rid=86$","$rid=68$"],
         "moveDelay" : "30",
         "moveType" : "random",
@@ -235,7 +243,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "94": {
         "name": "Lars",
         "inv" : [],
@@ -286,7 +293,9 @@
     "112": {
         "name": "Erik",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["hello"],"Greetings!"]
+        ],
         "path" : ["$rid=115$","$rid=121$","$rid=109$","$rid=101$","$rid=122$"],
         "moveDelay" : "400",
         "moveType" : "patrol",
@@ -377,11 +386,12 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "137": {
         "name": "the fire demon",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Foolish mortal!"]
+        ],
         "path" : ["$rid=156$","$rid=141$","$rid=159$"],
         "moveDelay" : "500",
         "moveType" : "cycle",
@@ -522,7 +532,9 @@
     "166": {
         "name": "the black raven",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Kaw!"]
+        ],
         "path" : ["$rid=167$","$rid=168$","$rid=1376$","$rid=167$"],
         "moveDelay" : "100",
         "moveType" : "random",
@@ -569,7 +581,9 @@
     "185": {
         "name": "the old pig",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Oink!"]
+        ],
         "path" : ["$rid=236$","$rid=239$","$rid=234$","$rid=235$"],
         "moveDelay" : "800",
         "moveType" : "cycle",
@@ -663,7 +677,9 @@
     "303": {
         "name": "the one-armed zombie",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Rrrrr!"]
+        ],
         "path" : ["$rid=304$","$rid=299$","$rid=298$"],
         "moveDelay" : "300",
         "moveType" : "patrol",
@@ -713,7 +729,9 @@
         "lookDescription": "moves clumsily around",
         "name": "the crawler zombie",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Aaaaa!"]
+        ],
         "path" : ["$rid=346$","$rid=347$","$rid=344$","$rid=345$"],
         "moveDelay" : "500",
         "moveType" : "patrol",
@@ -760,7 +778,9 @@
         "lookDescription": "turns slowly to follow you",
         "name": "the grey zombie",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Aaaaaaaa!"]
+        ],
         "path" : ["$rid=346$","$rid=347$","$rid=344$","$rid=345$","$rid=343$"],
         "moveDelay" : "10",
         "moveType" : "follow",
@@ -804,7 +824,9 @@
     "339": {
         "name": "the pruple zombie",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Aaaaaakkk!"]
+        ],
         "path" : [],
         "moveDelay" : "8",
         "moveType" : "",
@@ -851,7 +873,9 @@
     "340": {
         "name": "the green zombie",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"AaaaRRRRrrr!"]
+        ],
         "path" : ["$rid=346$","$rid=347$","$rid=344$"],
         "moveDelay" : "9",
         "moveType" : "follow",
@@ -944,8 +968,10 @@
     },
     "380": {
         "name": "the knight",
-        "inv" : ["1366"],
-        "conv": [],
+        "inv" : ["1366","624"],
+        "conv" : [
+            [["rose","valentine","?"],"A gift","giveondate","1114","14/2"]
+        ],
         "path" : ["$rid=382$","$rid=384$","$rid=396$","$rid=383$","$rid=357$"],
         "moveDelay" : "50",
         "moveType" : "patrol",
@@ -1234,7 +1260,9 @@
     "524": {
         "name": "the giant snake",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Sssssssss!"]
+        ],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1284,7 +1312,9 @@
         "lookDescription": "stands before you squeaking and showing its teeth",
         "name": "the giant rat",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["e"],"Eeeeeek!"]
+        ],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1376,7 +1406,9 @@
     "678": {
         "name": "the librarian",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["book"],"Take your pick"]
+        ],
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
@@ -1513,7 +1545,8 @@
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "sits on his throne"
-    },    "809": {
+    },
+    "809": {
         "inDescription": "arrives",
         "outDescription": "goes",
         "lookDescription": "stands glowering before you. He is",
@@ -1560,7 +1593,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "811": {
         "name": "the monk",
         "inv" : [],
@@ -1748,7 +1780,6 @@
         "imp_rleg" : "0",
         "imp_feet" : "0"
     },
-
     "867": {
         "name": "the ogre",
         "inv" : [],
@@ -1795,7 +1826,8 @@
         "inDescription": "wanders in looking for heads to break",
         "outDescription": "goes",
         "lookDescription": "stands here looking for heads to break, in his mighty arms he is "
-    },    "877": {
+    },
+    "877": {
         "inDescription": "pads up towards you, sniffing the air",
         "outDescription": "ambles off",
         "lookDescription": "watches you cautiously from a distance",
