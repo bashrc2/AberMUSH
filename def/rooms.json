@@ -2599,7 +2599,6 @@
     },
     "$rid=621$": {
         "exits": {
-            "west": "$rid=622$"
         },
         "name": "The Island Passage.",
         "description": "You are in a tunnel which is obviously man-made. The floor is completely smooth and level. The walls arch up and meet in the middle of the roof. There is a red door in the west wall, a green door in the south wall, and a blue door in the east wall.",
@@ -2610,7 +2609,6 @@
     },
     "$rid=622$": {
         "exits": {
-            "east": "$rid=621$",
             "west": "$rid=600$",
             "up": "$rid=600$"
         },
