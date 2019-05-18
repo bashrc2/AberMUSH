@@ -108,7 +108,7 @@ To add a door, or other object to be opened or closed you will need a pair of it
         "state": "closed",
         "exitName": "up|down",
         "linkedItem": 430,
-        "exit": "$rid=433$",
+        "exit": "$rid=433$"
     },
     "430": {
         "name": "old trapdoor",
@@ -116,7 +116,7 @@ To add a door, or other object to be opened or closed you will need a pair of it
         "state": "closed",
         "exitName": "down|up",
         "linkedItem": 429,
-        "exit": "$rid=431$",
+        "exit": "$rid=431$"
     },
 ```
 
