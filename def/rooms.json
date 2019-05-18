@@ -6402,7 +6402,6 @@
     },
     "$rid=1297$": {
         "exits": {
-            "north": "$rid=1376$"
         },
         "name": "The Library Of The Kings",
         "description": "You stand in the library of the kings, an ancient repository for the knowledge of the ages. It is said that the library contained some of the darkest secrets of the land before such knowledge was banished from its shelves.",
@@ -6924,7 +6923,6 @@
         "exits": {
             "north": "$rid=1377$",
             "east": "$rid=1375$",
-            "south": "$rid=1297$",
             "west": "$rid=168$"
         }
     },
