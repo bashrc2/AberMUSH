@@ -4599,7 +4599,7 @@
     },
     "288": {
         "name": "rusted gates",
-        "short_description": "A pair of gates block your way westwards.",
+        "short_description": "A pair of gates westwards are closed.",
         "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -4628,11 +4628,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "west|east",
+        "linkedItem": 289,
+        "exit": "$rid=290$",
         "article": "a"
     },
     "289": {
@@ -4666,11 +4666,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "east|west",
+        "linkedItem": 288,
+        "exit": "$rid=291$",
         "article": "a"
     },
     "294": {
