@@ -1136,7 +1136,6 @@
     },
     "$rid=284$": {
         "exits": {
-            "north": "$rid=287$",
             "south": "$rid=279$"
         },
         "name": "Display Room",
@@ -1154,8 +1153,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=290$",
-            "south": "$rid=284$"
+            "east": "$rid=290$"
         }
     },
     "$rid=290$": {
