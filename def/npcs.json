@@ -488,7 +488,11 @@
         "lookDescription": "lurks in the shadows",
         "name": "the mugger",
         "inv" : [],
-        "conv" : [],
+        "conv" : [
+            [["hello","hi","who"],"Get lost!"],
+            [["mug","help"],"Bugger off!"],
+            [["e"],"Go away!"]
+        ],
         "path" : ["$rid=434$","$rid=433$","$rid=435$","$rid=422$"],
         "moveDelay" : "600",
         "moveType" : "patrol",
@@ -496,7 +500,7 @@
         "talkDelay" : "300",
         "randomFactor" : "100",
         "follow" : "",
-        "hp" : "24332",
+        "hp" : "343",
         "charge" : "1233",
         "lvl" : "5",
         "exp" : "32",
