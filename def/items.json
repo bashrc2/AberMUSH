@@ -14134,11 +14134,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "east|west",
+        "linkedItem": 1072,
+        "exit": "$rid=1073$",
         "article": "a"
     },
     "1072": {
@@ -14172,11 +14172,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "west|east",
+        "linkedItem": 1071,
+        "exit": "$rid=1077$",
         "article": "a"
     },
     "1074": {
