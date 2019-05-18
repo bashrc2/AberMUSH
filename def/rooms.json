@@ -1384,7 +1384,6 @@
     },
     "$rid=332$": {
         "exits": {
-            "north": "$rid=333$"
         },
         "name": "Necromancer's Study",
         "description": "You stand in a dark gloomy room. The walls are draped with black, and your faint light casts sinister shifting shadows across the floor. A stout iron door is set in the north wall.",
@@ -1395,8 +1394,7 @@
     },
     "$rid=333$": {
         "exits": {
-            "north": "$rid=335$",
-            "south": "$rid=332$"
+            "north": "$rid=335$"
         },
         "name": "Narrow Passage",
         "description": "You are following a narrow north south passage, dug deep into the depths of the underworld. The low roof is help up by heavy flagstones and strong buttressed pillars. White mist floats in from the north. To the south the passage ends at a large iron door.",
@@ -1591,7 +1589,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "up": "$rid=388$"
         }
     },
     "$rid=396$": {
@@ -1817,8 +1814,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "down": "$rid=388$",
-            "out": "$rid=443$"
+            "down": "$rid=388$"
         }
     },
     "$rid=442$": {
@@ -1841,7 +1837,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "in": "$rid=441$"
         }
     },
     "$rid=446$": {

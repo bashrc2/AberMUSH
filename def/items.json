@@ -5122,11 +5122,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 331,
+        "exit": "$rid=332$",
         "article": "a"
     },
     "331": {
@@ -5160,11 +5160,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 330,
+        "exit": "$rid=333$",
         "article": "a"
     },
     "345": {
@@ -5466,9 +5466,9 @@
         "edible": 0,
         "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "up|down",
+        "linkedItem": 387,
+        "exit": "$rid=388$",
         "article": "a"
     },
     "387": {
@@ -5504,9 +5504,9 @@
         "edible": 0,
         "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "down|up",
+        "linkedItem": 386,
+        "exit": "$rid=388$",
         "article": "a"
     },
     "389": {
@@ -6040,11 +6040,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "out|in",
+        "linkedItem": 440,
+        "exit": "$rid=443$",
         "article": "a"
     },
     "440": {
@@ -6078,11 +6078,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "in|out",
+        "linkedItem": 439,
+        "exit": "$rid=441$",
         "article": "a"
     },
     "441": {
