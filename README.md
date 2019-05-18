@@ -41,6 +41,8 @@ use/hold/pick/wield [item] [left|right] - Transfer an item to your hands
 stow                                    - Free your hands of items
 wear [item]                             - Wear an item
 remove/unwear [item]                    - Remove a worn item
+open [item]                             - Open an item or door
+close [item]                            - Close an item or door
 ```
 
 ## Witch Commands
@@ -94,3 +96,30 @@ the old inn-keeper says: We only serve the more disreputable wine.
 ```
 
 The NPC can also give an item if some words are matched, or exchange/buy/barter an item such as a gold coin for a small dagger. The numbers refer to item numbers within `items.json`.
+
+### Adding Doors and Opening things
+
+To add a door, or other object to be opened or closed you will need a pair of items, like the following:
+
+``` bash
+    "429": {
+        "name": "old trapdoor",
+        ...
+        "state": "closed",
+        "exitName": "up|down",
+        "linkedItem": 430,
+        "exit": "$rid=433$",
+    },
+    "430": {
+        "name": "old trapdoor",
+        ...
+        "state": "closed",
+        "exitName": "down|up",
+        "linkedItem": 429,
+        "exit": "$rid=431$",
+    },
+```
+
+These are the same trapdoor as seen from two rooms. The `linkedItem` parameter links the two and the `exit` parameter defines which room to go to when going through. Exits called `down` and `up` are added if the trapdoor is open.
+
+You should make some vague suggestion that these items can be opened within their `long_description` parameter.

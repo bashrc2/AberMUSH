@@ -201,6 +201,9 @@ for k in itemsDB:
                 if not(v == "name" or \
                        v == "long_description" or \
                        v == "short_description" or \
+                       v == "state" or \
+                       v == "exit" or \
+                       v == "exitName" or \
                        v == "article"):
                         itemsDB[k][v] = int(itemsDB[k][v])
 

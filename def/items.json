@@ -30,6 +30,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "3": {
@@ -63,6 +67,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "8": {
@@ -96,6 +104,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "9": {
@@ -129,6 +141,10 @@
         "mod_luc": 0,
         "weight": 3000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "10": {
@@ -162,6 +178,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "11": {
@@ -195,6 +215,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "13": {
@@ -228,6 +252,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "14": {
@@ -261,6 +289,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "24": {
@@ -294,6 +326,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "31": {
@@ -327,6 +363,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "34": {
@@ -360,6 +400,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "35": {
@@ -393,6 +437,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "37": {
@@ -426,6 +474,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "40": {
@@ -459,6 +511,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "41": {
@@ -492,6 +548,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "42": {
@@ -525,6 +585,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "43": {
@@ -558,6 +622,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "44": {
@@ -591,6 +659,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "45": {
@@ -624,6 +696,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "49": {
@@ -657,6 +733,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "50": {
@@ -690,6 +770,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "54": {
@@ -723,6 +807,10 @@
         "mod_luc": 0,
         "weight": 35,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "55": {
@@ -756,6 +844,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "56": {
@@ -789,6 +881,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "59": {
@@ -822,6 +918,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "60": {
@@ -855,6 +955,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "66": {
@@ -888,6 +992,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "69": {
@@ -921,6 +1029,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "76": {
@@ -954,6 +1066,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "77": {
@@ -987,6 +1103,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "78": {
@@ -1020,6 +1140,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "88": {
@@ -1053,6 +1177,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "92": {
@@ -1086,6 +1214,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "97": {
@@ -1119,6 +1251,10 @@
         "mod_luc": 0,
         "weight": 1000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "98": {
@@ -1152,6 +1288,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "99": {
@@ -1185,6 +1325,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "102": {
@@ -1218,6 +1362,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "106": {
@@ -1251,6 +1399,10 @@
         "mod_luc": 0,
         "weight": 70,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "107": {
@@ -1284,6 +1436,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "113": {
@@ -1317,6 +1473,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "114": {
@@ -1350,6 +1510,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 2,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "116": {
@@ -1383,6 +1547,10 @@
         "mod_luc": 0,
         "weight": 60,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "120": {
@@ -1416,6 +1584,10 @@
         "mod_luc": 0,
         "weight": 600,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "124": {
@@ -1449,6 +1621,10 @@
         "mod_luc": 0,
         "weight": 90,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "149": {
@@ -1482,6 +1658,10 @@
         "mod_luc": 0,
         "weight": 400,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "151": {
@@ -1515,6 +1695,10 @@
         "mod_luc": 0,
         "weight": 400,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "157": {
@@ -1548,6 +1732,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "169": {
@@ -1581,6 +1769,10 @@
         "mod_luc": 0,
         "weight": 100,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "170": {
@@ -1614,6 +1806,10 @@
         "mod_luc": 0,
         "weight": 150,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "171": {
@@ -1647,6 +1843,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "172": {
@@ -1680,6 +1880,10 @@
         "mod_luc": 0,
         "weight": 250,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "173": {
@@ -1713,6 +1917,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "174": {
@@ -1746,6 +1954,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "175": {
@@ -1779,6 +1991,10 @@
         "mod_luc": 0,
         "weight": 60,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "176": {
@@ -1812,6 +2028,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "177": {
@@ -1845,6 +2065,10 @@
         "mod_luc": 0,
         "weight": 6,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "180": {
@@ -1878,6 +2102,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "181": {
@@ -1911,6 +2139,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "182": {
@@ -1944,6 +2176,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "184": {
@@ -1977,6 +2213,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "187": {
@@ -2010,6 +2250,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 1,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "188": {
@@ -2043,6 +2287,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 1,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "190": {
@@ -2076,6 +2324,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "191": {
@@ -2109,6 +2361,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "192": {
@@ -2142,6 +2398,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "193": {
@@ -2175,6 +2435,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "194": {
@@ -2208,6 +2472,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "196": {
@@ -2241,6 +2509,10 @@
         "mod_luc": 0,
         "weight": 8,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "197": {
@@ -2274,6 +2546,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "198": {
@@ -2307,6 +2583,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "199": {
@@ -2340,6 +2620,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "200": {
@@ -2373,6 +2657,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "201": {
@@ -2406,6 +2694,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "202": {
@@ -2439,6 +2731,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "203": {
@@ -2472,6 +2768,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "207": {
@@ -2505,6 +2805,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "208": {
@@ -2538,6 +2842,10 @@
         "mod_luc": 0,
         "weight": 80,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "209": {
@@ -2571,6 +2879,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "210": {
@@ -2604,6 +2916,10 @@
         "mod_luc": 0,
         "weight": 1000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "212": {
@@ -2637,6 +2953,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "213": {
@@ -2670,6 +2990,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "222": {
@@ -2703,6 +3027,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "224": {
@@ -2736,6 +3064,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "225": {
@@ -2769,6 +3101,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "226": {
@@ -2802,6 +3138,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "227": {
@@ -2835,6 +3175,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "228": {
@@ -2868,6 +3212,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "229": {
@@ -2901,6 +3249,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "230": {
@@ -2934,6 +3286,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "237": {
@@ -2967,6 +3323,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "241": {
@@ -3000,6 +3360,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "242": {
@@ -3033,6 +3397,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "244": {
@@ -3066,6 +3434,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "245": {
@@ -3099,6 +3471,10 @@
         "mod_luc": 0,
         "weight": 4,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "246": {
@@ -3132,6 +3508,10 @@
         "mod_luc": 0,
         "weight": 7,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "247": {
@@ -3165,6 +3545,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "248": {
@@ -3198,6 +3582,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "249": {
@@ -3231,6 +3619,10 @@
         "mod_luc": 0,
         "weight": 60,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "250": {
@@ -3264,6 +3656,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "251": {
@@ -3297,6 +3693,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "252": {
@@ -3330,6 +3730,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "253": {
@@ -3363,6 +3767,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "254": {
@@ -3396,6 +3804,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "255": {
@@ -3429,6 +3841,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "256": {
@@ -3462,6 +3878,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "257": {
@@ -3495,6 +3915,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "258": {
@@ -3528,6 +3952,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "261": {
@@ -3561,6 +3989,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "262": {
@@ -3594,6 +4026,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "263": {
@@ -3627,6 +4063,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "268": {
@@ -3660,6 +4100,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "269": {
@@ -3693,6 +4137,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "271": {
@@ -3726,6 +4174,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "272": {
@@ -3759,6 +4211,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "275": {
@@ -3792,6 +4248,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "276": {
@@ -3825,6 +4285,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "280": {
@@ -3858,6 +4322,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "281": {
@@ -3891,6 +4359,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "283": {
@@ -3924,6 +4396,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "285": {
@@ -3957,6 +4433,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "286": {
@@ -3990,6 +4470,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "288": {
@@ -4023,6 +4507,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "289": {
@@ -4056,6 +4544,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "294": {
@@ -4089,6 +4581,10 @@
         "mod_luc": 0,
         "weight": 140,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "295": {
@@ -4122,6 +4618,10 @@
         "mod_luc": 0,
         "weight": 9999,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "296": {
@@ -4155,6 +4655,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "297": {
@@ -4188,6 +4692,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "310": {
@@ -4221,6 +4729,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "318": {
@@ -4254,6 +4766,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "322": {
@@ -4287,6 +4803,10 @@
         "mod_luc": 0,
         "weight": 100,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "323": {
@@ -4320,6 +4840,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "326": {
@@ -4353,6 +4877,10 @@
         "mod_luc": 0,
         "weight": 240,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "327": {
@@ -4386,6 +4914,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "329": {
@@ -4419,6 +4951,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "330": {
@@ -4452,6 +4988,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "331": {
@@ -4485,6 +5025,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "345": {
@@ -4518,6 +5062,10 @@
         "mod_luc": 0,
         "weight": 25000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "370": {
@@ -4551,6 +5099,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "371": {
@@ -4584,6 +5136,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "372": {
@@ -4617,6 +5173,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "373": {
@@ -4650,6 +5210,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "374": {
@@ -4683,6 +5247,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "381": {
@@ -4716,12 +5284,16 @@
         "mod_luc": 0,
         "weight": 400,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "386": {
         "name": "clock bottom",
-        "short_description": "The trapdoor is open.",
-        "long_description": "The trapdoor is open.",
+        "short_description": "The trapdoor is closed.",
+        "long_description": "The trapdoor is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4749,12 +5321,16 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "closed",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "387": {
         "name": "clock bottom",
-        "short_description": "There is an open trapdoor set in the floor.",
-        "long_description": "There is an open trapdoor set in the floor.",
+        "short_description": "There is an closed trapdoor set in the floor.",
+        "long_description": "There is an closed trapdoor set in the floor.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -4782,6 +5358,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "closed",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "389": {
@@ -4815,6 +5395,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "390": {
@@ -4848,6 +5432,10 @@
         "mod_luc": 0,
         "weight": 25,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "404": {
@@ -4881,6 +5469,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "408": {
@@ -4914,6 +5506,10 @@
         "mod_luc": 0,
         "weight": 70,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "409": {
@@ -4947,6 +5543,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "413": {
@@ -4980,6 +5580,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "414": {
@@ -5013,6 +5617,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "425": {
@@ -5046,6 +5654,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "426": {
@@ -5079,12 +5691,16 @@
         "mod_luc": 0,
         "weight": 5000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "429": {
         "name": "old trapdoor",
         "short_description": "Battered and worn.",
-        "long_description": "The trapdoor is open.",
+        "long_description": "The trapdoor is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5112,12 +5728,16 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "closed",
+        "exitName": "up|down",
+        "linkedItem": 430,
+        "exit": "$rid=433$",
         "article": "a"
     },
     "430": {
         "name": "old trapdoor",
         "short_description": "Old and battered.",
-        "long_description": "The trapdoor is open.",
+        "long_description": "The trapdoor is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -5145,6 +5765,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "closed",
+        "exitName": "down|up",
+        "linkedItem": 429,
+        "exit": "$rid=431$",
         "article": "a"
     },
     "437": {
@@ -5178,11 +5802,19 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "438": {
         "name": "weight",
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "short_description": "It is a large, iron weight.",
         "long_description": "A large weight has been dropped here.",
         "clo_head": 0,
@@ -5212,6 +5844,10 @@
         "mod_luc": 0,
         "weight": 80,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "439": {
@@ -5245,6 +5881,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "440": {
@@ -5278,6 +5918,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "441": {
@@ -5311,6 +5955,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "445": {
@@ -5344,6 +5992,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "447": {
@@ -5377,6 +6029,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "449": {
@@ -5410,6 +6066,10 @@
         "mod_luc": 0,
         "weight": 10000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "450": {
@@ -5443,6 +6103,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "465": {
@@ -5476,6 +6140,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "466": {
@@ -5509,6 +6177,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "467": {
@@ -5542,6 +6214,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "469": {
@@ -5575,6 +6251,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "470": {
@@ -5608,6 +6288,10 @@
         "mod_luc": 0,
         "weight": 45,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "471": {
@@ -5641,6 +6325,10 @@
         "mod_luc": 0,
         "weight": 55,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "474": {
@@ -5674,6 +6362,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "475": {
@@ -5707,6 +6399,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "476": {
@@ -5740,6 +6436,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "478": {
@@ -5773,6 +6473,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "479": {
@@ -5806,6 +6510,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "486": {
@@ -5839,6 +6547,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "488": {
@@ -5872,6 +6584,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "490": {
@@ -5905,6 +6621,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "491": {
@@ -5938,6 +6658,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "492": {
@@ -5971,6 +6695,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "493": {
@@ -6004,6 +6732,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "494": {
@@ -6037,6 +6769,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "496": {
@@ -6070,6 +6806,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "497": {
@@ -6103,6 +6843,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "498": {
@@ -6136,6 +6880,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "501": {
@@ -6169,6 +6917,10 @@
         "mod_luc": 0,
         "weight": 75,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "503": {
@@ -6202,6 +6954,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "504": {
@@ -6235,6 +6991,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "505": {
@@ -6268,6 +7028,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "506": {
@@ -6301,6 +7065,10 @@
         "mod_luc": 0,
         "weight": 4,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "508": {
@@ -6334,6 +7102,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "509": {
@@ -6367,6 +7139,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "512": {
@@ -6400,6 +7176,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "513": {
@@ -6433,6 +7213,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "515": {
@@ -6466,6 +7250,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "516": {
@@ -6499,6 +7287,10 @@
         "mod_luc": 0,
         "weight": 8,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "517": {
@@ -6532,6 +7324,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "518": {
@@ -6565,6 +7361,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "520": {
@@ -6598,6 +7398,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "521": {
@@ -6631,6 +7435,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "526": {
@@ -6664,6 +7472,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "527": {
@@ -6697,6 +7509,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "529": {
@@ -6730,6 +7546,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "545": {
@@ -6763,6 +7583,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "547": {
@@ -6796,6 +7620,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "548": {
@@ -6829,6 +7657,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "549": {
@@ -6862,6 +7694,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "553": {
@@ -6895,6 +7731,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "554": {
@@ -6928,6 +7768,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "555": {
@@ -6961,6 +7805,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "558": {
@@ -6994,6 +7842,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "561": {
@@ -7027,6 +7879,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "566": {
@@ -7060,6 +7916,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "568": {
@@ -7093,6 +7953,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "569": {
@@ -7126,6 +7990,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "570": {
@@ -7159,6 +8027,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "571": {
@@ -7192,6 +8064,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "573": {
@@ -7225,6 +8101,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "601": {
@@ -7258,6 +8138,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "602": {
@@ -7291,6 +8175,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "606": {
@@ -7324,6 +8212,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "607": {
@@ -7357,6 +8249,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "608": {
@@ -7390,6 +8286,10 @@
         "mod_luc": 0,
         "weight": 4,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "609": {
@@ -7423,6 +8323,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "610": {
@@ -7456,6 +8360,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "611": {
@@ -7489,6 +8397,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "612": {
@@ -7522,6 +8434,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "613": {
@@ -7555,6 +8471,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "617": {
@@ -7588,6 +8508,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "618": {
@@ -7621,6 +8545,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "619": {
@@ -7654,6 +8582,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "620": {
@@ -7687,6 +8619,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "623": {
@@ -7720,6 +8656,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "624": {
@@ -7753,6 +8693,10 @@
         "mod_luc": 0,
         "weight": 8,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "625": {
@@ -7786,6 +8730,10 @@
         "mod_luc": 0,
         "weight": 8,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "626": {
@@ -7819,6 +8767,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "627": {
@@ -7852,6 +8804,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "628": {
@@ -7885,6 +8841,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "634": {
@@ -7918,6 +8878,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "635": {
@@ -7951,6 +8915,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "636": {
@@ -7984,6 +8952,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "637": {
@@ -8017,6 +8989,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "640": {
@@ -8050,6 +9026,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "641": {
@@ -8083,6 +9063,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "643": {
@@ -8116,6 +9100,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "644": {
@@ -8149,6 +9137,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "646": {
@@ -8182,6 +9174,10 @@
         "mod_luc": 0,
         "weight": 120,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "648": {
@@ -8215,6 +9211,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "661": {
@@ -8248,6 +9248,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "673": {
@@ -8281,6 +9285,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "674": {
@@ -8314,6 +9322,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "675": {
@@ -8347,6 +9359,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "676": {
@@ -8380,6 +9396,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "677": {
@@ -8413,6 +9433,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "679": {
@@ -8446,6 +9470,10 @@
         "mod_luc": 0,
         "weight": 70,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "680": {
@@ -8479,6 +9507,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "681": {
@@ -8512,6 +9544,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "691": {
@@ -8545,6 +9581,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "698": {
@@ -8578,6 +9618,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "699": {
@@ -8611,6 +9655,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "700": {
@@ -8644,6 +9692,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "702": {
@@ -8677,6 +9729,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "709": {
@@ -8710,6 +9766,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "711": {
@@ -8743,6 +9803,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "712": {
@@ -8776,6 +9840,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "715": {
@@ -8809,6 +9877,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "718": {
@@ -8842,6 +9914,10 @@
         "mod_luc": 0,
         "weight": 800,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "720": {
@@ -8875,6 +9951,10 @@
         "mod_luc": 0,
         "weight": 5000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "724": {
@@ -8908,6 +9988,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "725": {
@@ -8941,6 +10025,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "726": {
@@ -8974,6 +10062,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "728": {
@@ -9007,6 +10099,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "729": {
@@ -9040,6 +10136,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "730": {
@@ -9073,6 +10173,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "733": {
@@ -9106,6 +10210,10 @@
         "mod_luc": 0,
         "weight": 5000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "735": {
@@ -9139,6 +10247,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "736": {
@@ -9172,6 +10284,10 @@
         "mod_luc": 0,
         "weight": 400,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "737": {
@@ -9205,6 +10321,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "738": {
@@ -9238,6 +10358,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "739": {
@@ -9271,6 +10395,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "740": {
@@ -9304,6 +10432,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "745": {
@@ -9337,6 +10469,10 @@
         "mod_luc": 0,
         "weight": 400,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "746": {
@@ -9370,6 +10506,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "747": {
@@ -9403,6 +10543,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "748": {
@@ -9436,6 +10580,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "750": {
@@ -9469,6 +10617,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "757": {
@@ -9502,6 +10654,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "781": {
@@ -9535,6 +10691,10 @@
         "mod_luc": 0,
         "weight": 2000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "782": {
@@ -9568,6 +10728,10 @@
         "mod_luc": 0,
         "weight": 4000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "795": {
@@ -9601,6 +10765,10 @@
         "mod_luc": 0,
         "weight": 2000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "796": {
@@ -9634,6 +10802,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "798": {
@@ -9667,6 +10839,10 @@
         "mod_luc": 0,
         "weight": 400,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "799": {
@@ -9700,6 +10876,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 5,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "802": {
@@ -9733,6 +10913,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "804": {
@@ -9766,6 +10950,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "805": {
@@ -9799,6 +10987,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "807": {
@@ -9832,6 +11024,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "810": {
@@ -9865,6 +11061,10 @@
         "mod_luc": 0,
         "weight": 1000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "813": {
@@ -9898,6 +11098,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "814": {
@@ -9931,6 +11135,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "815": {
@@ -9964,6 +11172,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "816": {
@@ -9997,6 +11209,10 @@
         "mod_luc": 0,
         "weight": 140,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "835": {
@@ -10030,6 +11246,10 @@
         "mod_luc": 0,
         "weight": 2000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "838": {
@@ -10063,6 +11283,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "845": {
@@ -10096,6 +11320,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "868": {
@@ -10129,6 +11357,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "870": {
@@ -10162,6 +11394,10 @@
         "mod_luc": 0,
         "weight": 35,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "873": {
@@ -10195,6 +11431,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "876": {
@@ -10228,6 +11468,10 @@
         "mod_luc": 0,
         "weight": 120,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "885": {
@@ -10261,6 +11505,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "888": {
@@ -10294,6 +11542,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "900": {
@@ -10327,6 +11579,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "901": {
@@ -10360,6 +11616,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "905": {
@@ -10393,6 +11653,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "906": {
@@ -10426,6 +11690,10 @@
         "mod_luc": 0,
         "weight": 1200,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "907": {
@@ -10459,6 +11727,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 3,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "908": {
@@ -10492,6 +11764,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "910": {
@@ -10525,6 +11801,10 @@
         "mod_luc": 0,
         "weight": 1000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "912": {
@@ -10558,6 +11838,10 @@
         "mod_luc": 0,
         "weight": 200,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "914": {
@@ -10591,6 +11875,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 3,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "915": {
@@ -10624,6 +11912,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "916": {
@@ -10657,6 +11949,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "918": {
@@ -10690,6 +11986,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "919": {
@@ -10723,6 +12023,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "921": {
@@ -10756,6 +12060,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "924": {
@@ -10789,6 +12097,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "925": {
@@ -10822,6 +12134,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "926": {
@@ -10855,6 +12171,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "927": {
@@ -10888,6 +12208,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "928": {
@@ -10921,6 +12245,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "931": {
@@ -10954,6 +12282,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "934": {
@@ -10987,6 +12319,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "936": {
@@ -11020,6 +12356,10 @@
         "mod_luc": 0,
         "weight": 99999,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "937": {
@@ -11053,6 +12393,10 @@
         "mod_luc": 0,
         "weight": 99999,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "939": {
@@ -11086,6 +12430,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "959": {
@@ -11119,6 +12467,10 @@
         "mod_luc": 0,
         "weight": 70,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "960": {
@@ -11152,6 +12504,10 @@
         "mod_luc": 0,
         "weight": 70,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "961": {
@@ -11185,6 +12541,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "962": {
@@ -11218,6 +12578,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "970": {
@@ -11251,6 +12615,10 @@
         "mod_luc": 0,
         "weight": 2000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "973": {
@@ -11284,6 +12652,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "975": {
@@ -11317,6 +12689,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "979": {
@@ -11350,6 +12726,10 @@
         "mod_luc": 0,
         "weight": 4,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "980": {
@@ -11383,6 +12763,10 @@
         "mod_luc": 0,
         "weight": 4,
         "edible": 3,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "981": {
@@ -11416,6 +12800,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "987": {
@@ -11449,6 +12837,10 @@
         "mod_luc": 0,
         "weight": 200,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "989": {
@@ -11482,6 +12874,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 3,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "990": {
@@ -11515,6 +12911,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 3,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "997": {
@@ -11548,6 +12948,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1006": {
@@ -11581,6 +12985,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1013": {
@@ -11614,6 +13022,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1014": {
@@ -11647,6 +13059,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1015": {
@@ -11680,6 +13096,10 @@
         "mod_luc": 0,
         "weight": 10000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1016": {
@@ -11713,6 +13133,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1017": {
@@ -11746,6 +13170,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1023": {
@@ -11779,6 +13207,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1024": {
@@ -11812,6 +13244,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1031": {
@@ -11845,6 +13281,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1036": {
@@ -11878,6 +13318,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1037": {
@@ -11911,6 +13355,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1040": {
@@ -11944,6 +13392,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1043": {
@@ -11977,6 +13429,10 @@
         "mod_luc": 0,
         "weight": 3000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1045": {
@@ -12010,6 +13466,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1047": {
@@ -12043,6 +13503,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1048": {
@@ -12076,6 +13540,10 @@
         "mod_luc": 0,
         "weight": 700,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1050": {
@@ -12109,6 +13577,10 @@
         "mod_luc": 0,
         "weight": 30000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1054": {
@@ -12142,6 +13614,10 @@
         "mod_luc": 0,
         "weight": 3000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1065": {
@@ -12175,6 +13651,10 @@
         "mod_luc": 0,
         "weight": 24000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1068": {
@@ -12208,6 +13688,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1070": {
@@ -12241,6 +13725,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1071": {
@@ -12274,6 +13762,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1072": {
@@ -12307,6 +13799,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1074": {
@@ -12340,6 +13836,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1080": {
@@ -12373,6 +13873,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1081": {
@@ -12406,6 +13910,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1082": {
@@ -12439,6 +13947,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1086": {
@@ -12472,6 +13984,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1087": {
@@ -12505,6 +14021,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1091": {
@@ -12538,6 +14058,10 @@
         "mod_luc": 0,
         "weight": 32000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1093": {
@@ -12571,6 +14095,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1095": {
@@ -12604,6 +14132,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1100": {
@@ -12637,6 +14169,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1114": {
@@ -12670,6 +14206,10 @@
         "mod_luc": 0,
         "weight": 1,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1117": {
@@ -12703,6 +14243,10 @@
         "mod_luc": 0,
         "weight": 70,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1119": {
@@ -12736,6 +14280,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1121": {
@@ -12769,6 +14317,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1124": {
@@ -12802,6 +14354,10 @@
         "mod_luc": 0,
         "weight": 80,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1141": {
@@ -12835,6 +14391,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1149": {
@@ -12868,6 +14428,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1150": {
@@ -12901,6 +14465,10 @@
         "mod_luc": 0,
         "weight": 2300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1153": {
@@ -12934,6 +14502,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1154": {
@@ -12967,6 +14539,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1157": {
@@ -13000,6 +14576,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1158": {
@@ -13033,6 +14613,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1159": {
@@ -13066,6 +14650,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1160": {
@@ -13099,6 +14687,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1164": {
@@ -13132,6 +14724,10 @@
         "mod_luc": 0,
         "weight": 8000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1166": {
@@ -13165,6 +14761,10 @@
         "mod_luc": 0,
         "weight": 500,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1169": {
@@ -13198,6 +14798,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1170": {
@@ -13231,6 +14835,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1172": {
@@ -13264,6 +14872,10 @@
         "mod_luc": 0,
         "weight": 200,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1188": {
@@ -13297,6 +14909,10 @@
         "mod_luc": 0,
         "weight": 12,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1193": {
@@ -13330,6 +14946,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1194": {
@@ -13363,6 +14983,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1195": {
@@ -13396,6 +15020,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1199": {
@@ -13429,6 +15057,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1200": {
@@ -13462,6 +15094,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1201": {
@@ -13495,6 +15131,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1202": {
@@ -13528,6 +15168,10 @@
         "mod_luc": 0,
         "weight": 80,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1204": {
@@ -13561,6 +15205,10 @@
         "mod_luc": 0,
         "weight": 180,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1206": {
@@ -13594,6 +15242,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1207": {
@@ -13627,6 +15279,10 @@
         "mod_luc": 0,
         "weight": 7,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1210": {
@@ -13660,6 +15316,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1211": {
@@ -13693,6 +15353,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1213": {
@@ -13726,6 +15390,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1215": {
@@ -13759,6 +15427,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1216": {
@@ -13792,6 +15464,10 @@
         "mod_luc": 0,
         "weight": 2000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1217": {
@@ -13825,6 +15501,10 @@
         "mod_luc": 0,
         "weight": 40,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1218": {
@@ -13858,6 +15538,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1219": {
@@ -13891,6 +15575,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1224": {
@@ -13924,6 +15612,10 @@
         "mod_luc": 0,
         "weight": 160,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1230": {
@@ -13957,6 +15649,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1231": {
@@ -13990,6 +15686,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1232": {
@@ -14023,6 +15723,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1234": {
@@ -14056,6 +15760,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1238": {
@@ -14089,6 +15797,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1239": {
@@ -14122,6 +15834,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1240": {
@@ -14155,6 +15871,10 @@
         "mod_luc": 0,
         "weight": 20,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1243": {
@@ -14188,6 +15908,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1245": {
@@ -14221,6 +15945,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1246": {
@@ -14254,6 +15982,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1251": {
@@ -14287,6 +16019,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1255": {
@@ -14320,6 +16056,10 @@
         "mod_luc": 0,
         "weight": 5000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1256": {
@@ -14353,6 +16093,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1257": {
@@ -14386,6 +16130,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1258": {
@@ -14419,6 +16167,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1259": {
@@ -14452,6 +16204,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1266": {
@@ -14485,6 +16241,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1269": {
@@ -14518,6 +16278,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1274": {
@@ -14551,6 +16315,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1276": {
@@ -14584,6 +16352,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1280": {
@@ -14617,6 +16389,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1281": {
@@ -14650,6 +16426,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1284": {
@@ -14683,6 +16463,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1285": {
@@ -14716,6 +16500,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 5,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1286": {
@@ -14749,6 +16537,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1287": {
@@ -14782,6 +16574,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1288": {
@@ -14815,6 +16611,10 @@
         "mod_luc": 0,
         "weight": 32000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1289": {
@@ -14848,6 +16648,10 @@
         "mod_luc": 0,
         "weight": 32000,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1291": {
@@ -14881,6 +16685,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1293": {
@@ -14914,6 +16722,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1295": {
@@ -14947,6 +16759,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1296": {
@@ -14980,6 +16796,10 @@
         "mod_luc": 0,
         "weight": 15,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1299": {
@@ -15013,6 +16833,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1300": {
@@ -15046,6 +16870,10 @@
         "mod_luc": 0,
         "weight": 100,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1301": {
@@ -15079,6 +16907,10 @@
         "mod_luc": 0,
         "weight": 80,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1302": {
@@ -15112,6 +16944,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1303": {
@@ -15145,6 +16981,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1304": {
@@ -15178,6 +17018,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1316": {
@@ -15211,6 +17055,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1322": {
@@ -15244,6 +17092,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1324": {
@@ -15277,6 +17129,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1327": {
@@ -15310,6 +17166,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1328": {
@@ -15343,6 +17203,10 @@
         "mod_luc": 0,
         "weight": 5,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1329": {
@@ -15376,6 +17240,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1340": {
@@ -15409,6 +17277,10 @@
         "mod_luc": 0,
         "weight": 300,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1343": {
@@ -15442,6 +17314,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1345": {
@@ -15475,6 +17351,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1347": {
@@ -15508,6 +17388,10 @@
         "mod_luc": 0,
         "weight": 120,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1348": {
@@ -15541,6 +17425,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1349": {
@@ -15574,6 +17462,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1351": {
@@ -15607,6 +17499,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1353": {
@@ -15640,6 +17536,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1355": {
@@ -15673,6 +17573,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1366": {
@@ -15706,6 +17610,10 @@
         "mod_luc": 0,
         "weight": 30,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1367": {
@@ -15739,6 +17647,10 @@
         "mod_luc": 0,
         "weight": 10,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1368": {
@@ -15772,6 +17684,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1369": {
@@ -15805,6 +17721,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1371": {
@@ -15838,6 +17758,10 @@
         "mod_luc": 0,
         "weight": 3,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1374": {
@@ -15871,6 +17795,10 @@
         "mod_luc": 0,
         "weight": 50,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1378": {
@@ -15904,6 +17832,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1379": {
@@ -15937,6 +17869,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1380": {
@@ -15970,6 +17906,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1382": {
@@ -16003,6 +17943,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1384": {
@@ -16036,6 +17980,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1385": {
@@ -16069,6 +18017,10 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1386": {
@@ -16102,6 +18054,10 @@
         "mod_luc": 10,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1387": {
@@ -16135,6 +18091,10 @@
         "mod_luc": 10,
         "weight": 2,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     },
     "1388": {
@@ -16168,6 +18128,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
+        "state": "",
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
         "article": "a"
     }
 }

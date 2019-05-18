@@ -1791,8 +1791,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "south": "$rid=428$",
-            "up": "$rid=433$"
+            "south": "$rid=428$"
         }
     },
     "$rid=432$": {
@@ -1816,8 +1815,7 @@
         "exits": {
             "east": "$rid=422$",
             "south": "$rid=432$",
-            "west": "$rid=434$",
-            "down": "$rid=431$"
+            "west": "$rid=434$"
         }
     },
     "$rid=434$": {
