@@ -9735,7 +9735,7 @@
     },
     "680": {
         "name": "iron door",
-        "short_description": "The door is open.",
+        "short_description": "The door is closed.",
         "long_description": "It is huge and ironbound.. unbreakable",
         "clo_head": 0,
         "clo_larm": 0,
@@ -9764,11 +9764,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 681,
+        "exit": "$rid=690$",
         "article": "a"
     },
     "681": {
@@ -9802,11 +9802,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 680,
+        "exit": "$rid=682$",
         "article": "a"
     },
     "691": {
