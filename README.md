@@ -24,23 +24,23 @@ You now should be able to connect to your server on `<server IP/hostname>:35123`
 All players can use the following commands:
 
 ``` bash
-bio [description]                      - Set a description of yourself
-who                                    - List players and where they are
-quit/exit                              - Leave the game
-eat/drink [item]                       - Eat or drink a consumable
-say [message]                          - Says something out loud
-look/examine                           - Examines the surroundings
-go [exit]                              - Moves through the exit specified
-attack [target]                        - Attack another player or NPC
-check inventory                        - Check the contents of your inventory
-take/get [item]                        - Pick up an item
-drop [item]                            - Drop an item
-whisper [target] [message]             - Whisper to a player in the same room
-tell [target] [message]                - Send a tell message to another player or NPC
-use/wield/brandish [item] [left|right] - Transfer an item to your hands
-stow                                   - Free your hands of items
-wear [item]                            - Wear an item
-remove/unwear [item]                   - Remove a worn item
+bio [description]                       - Set a description of yourself
+who                                     - List players and where they are
+quit/exit                               - Leave the game
+eat/drink [item]                        - Eat or drink a consumable
+say [message]                           - Says something out loud
+look/examine                            - Examines the surroundings
+go [exit]                               - Moves through the exit specified
+attack [target]                         - Attack another player or NPC
+check inventory                         - Check the contents of your inventory
+take/get [item]                         - Pick up an item
+drop [item]                             - Drop an item
+whisper [target] [message]              - Whisper to a player in the same room
+tell [target] [message]                 - Send a tell message to another player or NPC
+use/hold/pick/wield [item] [left|right] - Transfer an item to your hands
+stow                                    - Free your hands of items
+wear [item]                             - Wear an item
+remove/unwear [item]                    - Remove a worn item
 ```
 
 ## Witch Commands
