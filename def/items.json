@@ -11407,7 +11407,7 @@
     },
     "814": {
         "name": "stout door",
-        "short_description": "The door is open.",
+        "short_description": "The door is closed.",
         "long_description": "The door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -11436,11 +11436,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 815,
+        "exit": "$rid=822$",
         "article": "a"
     },
     "815": {
@@ -11474,11 +11474,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 814,
+        "exit": "$rid=820$",
         "article": "a"
     },
     "816": {

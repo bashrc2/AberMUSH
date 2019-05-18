@@ -3504,7 +3504,6 @@
         "coords": [],
         "exits": {
             "north": "$rid=819$",
-            "south": "$rid=822$",
             "up": "$rid=819$"
         }
     },
@@ -3521,7 +3520,6 @@
     },
     "$rid=822$": {
         "exits": {
-            "north": "$rid=820$",
             "east": "$rid=821$",
             "west": "$rid=826$"
         },
