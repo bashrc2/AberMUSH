@@ -224,7 +224,6 @@
     },
     "$rid=36$": {
         "exits": {
-            "south": "$rid=38$"
         },
         "name": "The Temple Dojo",
         "description": "You stand in a light airy room that bears the signs of being used as the monks training room. The floor is covered in straw mats, although a tentative poke with one foot reveals that they are not what is normally called 'soft'. Pictures adorn the walls, and one in particular catches your eye, showing the various parts of the body and how to kill using the secret 'pressure points'. Fortunately for your comrades, the instructions are printed in a lost tongue.",
@@ -235,7 +234,6 @@
     },
     "$rid=38$": {
         "exits": {
-            "north": "$rid=36$",
             "south": "$rid=52$",
             "west": "$rid=33$"
         },
