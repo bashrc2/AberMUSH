@@ -470,7 +470,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=101$"
         }
     },
     "$rid=101$": {
@@ -482,8 +481,7 @@
         "coords": [],
         "exits": {
             "north": "$rid=121$",
-            "east": "$rid=104$",
-            "south": "$rid=100$"
+            "east": "$rid=104$"
         }
     },
     "$rid=104$": {
