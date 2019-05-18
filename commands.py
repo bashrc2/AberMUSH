@@ -1038,7 +1038,7 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
 
                                                             break
                                             if keyFound:
-                                                    mud.send_message(id, 'You use the ' + itemsDB[int(i)]['name'])
+                                                    mud.send_message(id, 'You use the ' + itemsDB[unlockItemID]['name'])
                                             else:
                                                     if randint(0, 1) == 1:
                                                             mud.send_message(id, "You don't have the key.\n\n")
