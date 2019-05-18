@@ -910,7 +910,6 @@
     },
     "$rid=195$": {
         "exits": {
-            "west": "$rid=204$"
         },
         "name": "Wizardly Library",
         "description": "You are standing in the wizard's library, a small musty room up in the tower. The shelves are mostly bare but a few odd items still lie around.",
@@ -921,7 +920,6 @@
     },
     "$rid=204$": {
         "exits": {
-            "east": "$rid=195$"
         },
         "name": "Work Room",
         "description": "The air is still and quiet, tingling with the feeling of life. Beautifully carved runes decorate the round walls of the wizard's work room, and thick carpets cover the floor. An ornate mirror hangs on the wall.",
