@@ -6990,11 +6990,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "out|in",
+        "linkedItem": 497,
+        "exit": "$rid=514$",
         "article": "a"
     },
     "497": {
@@ -7028,11 +7028,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "in|out",
+        "linkedItem": 496,
+        "exit": "$rid=498$",
         "article": "a"
     },
     "498": {
@@ -7370,11 +7370,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 513,
+        "exit": "$rid=519$",
         "article": "a"
     },
     "513": {
@@ -7408,11 +7408,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 512,
+        "exit": "$rid=514$",
         "article": "a"
     },
     "515": {
