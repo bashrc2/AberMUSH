@@ -14258,7 +14258,7 @@
     "1081": {
         "name": "wooden door",
         "short_description": "A stout door.",
-        "long_description": "A door stands open to the south.",
+        "long_description": "A door stands closed to the south.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -14286,11 +14286,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 1082,
+        "exit": "$rid=1083$",
         "article": "a"
     },
     "1082": {
@@ -14324,11 +14324,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 1081,
+        "exit": "$rid=1084$",
         "article": "a"
     },
     "1086": {
@@ -14362,11 +14362,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 1087,
+        "exit": "$rid=1090$",
         "article": "a"
     },
     "1087": {
@@ -14400,11 +14400,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 1086,
+        "exit": "$rid=1088$",
         "article": "a"
     },
     "1091": {

@@ -5059,13 +5059,11 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=1084$"
         }
     },
     "$rid=1084$": {
         "exits": {
             "east": "$rid=1079$",
-            "south": "$rid=1083$",
             "west": "$rid=1085$"
         },
         "name": "Shadowy Corridor",
@@ -5095,7 +5093,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=1090$"
         }
     },
     "$rid=1090$": {
@@ -5106,8 +5103,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=1085$",
-            "south": "$rid=1088$"
+            "east": "$rid=1085$"
         }
     },
     "$rid=1092$": {
