@@ -1161,7 +1161,9 @@
         "inv" : ["1367"],
         "conv" : [
             [["rose","valentine","?"],"Have a special gift","giveondate","1114","14/2"],
-            [["have","order","like","beer","ale","drink","please"],"Here you go","give","114"],
+            [["have","order","like","food","pork","eat","please"],"Here you go","give","799"],
+            [["have","order","like","beer","ale","drink","please"],"Free as in beer","give","114"],
+            [["serve","food","?"], "Yes, of course"],
             [["serve","beer","?"], "Yes, of course"],
             [["serve","ale","?"], "Yes, of course"],
             [["serve","wine","?"], "We don't serve wine in this establishment, only ale"],
