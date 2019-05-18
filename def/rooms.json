@@ -272,12 +272,11 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=52$",
+            "north": "$rid=52$"
         }
     },
     "$rid=51$": {
         "exits": {
-            "east": "$rid=52$"
         },
         "name": "Monk's Cell",
         "description": "The cell you are standing in is the utmost peak in austerity. No concessions are made to human ease and comfort save for a grilled window high up in the wall, and a bare sleeping pallet in the corner. It was in such a room that monks would spend hours and days, contemplating, seeking Enlightenment.",
@@ -296,8 +295,7 @@
         "exits": {
             "north": "$rid=38$",
             "east": "$rid=53$",
-            "south": "$rid=48$",
-            "west": "$rid=51$"
+            "south": "$rid=48$"
         }
     },
     "$rid=53$": {
