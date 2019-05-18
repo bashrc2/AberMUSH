@@ -1101,7 +1101,6 @@
     },
     "$rid=277$": {
         "exits": {
-            "west": "$rid=278$",
             "down": "$rid=4$"
         },
         "name": "Chart Room",
@@ -1113,7 +1112,6 @@
     },
     "$rid=278$": {
         "exits": {
-            "east": "$rid=277$",
             "west": "$rid=279$"
         },
         "name": "Music Room ",
