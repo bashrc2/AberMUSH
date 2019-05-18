@@ -15017,7 +15017,7 @@
     },
     "1159": {
         "name": "runic door",
-        "short_description": "The door is open.",
+        "short_description": "The door is closed.",
         "long_description": "The door is marked with the runes for protection and barring.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -15046,11 +15046,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "west|east",
+        "linkedItem": 1160,
+        "exit": "$rid=1162$",
         "article": "a"
     },
     "1160": {
@@ -15084,11 +15084,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "east|west",
+        "linkedItem": 1159,
+        "exit": "$rid=1161$",
         "article": "a"
     },
     "1164": {

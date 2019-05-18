@@ -5693,7 +5693,6 @@
     },
     "$rid=1161$": {
         "exits": {
-            "west": "$rid=1162$"
         },
         "name": "The Summoning Chamber",
         "description": "Sinister gargoyles leer down at you, as you peer around this huge chamber. Wide and tall the chamber is carved with magical symbols, and seems to radiate an immense ancient power. In the centre of the chamber a huge pentacle is carved with ancient symbols of power, set into the floor and worked it seems from pure silver. A rune-marked door leads west.",
@@ -5705,7 +5704,6 @@
     "$rid=1162$": {
         "exits": {
             "north": "$rid=1155$",
-            "east": "$rid=1161$",
             "south": "$rid=1151$",
             "down": "$rid=1163$"
         },
