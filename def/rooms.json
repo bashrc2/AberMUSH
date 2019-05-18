@@ -2599,7 +2599,6 @@
     },
     "$rid=621$": {
         "exits": {
-            "east": "$rid=638$",
             "west": "$rid=622$"
         },
         "name": "The Island Passage.",
@@ -2659,7 +2658,6 @@
     "$rid=638$": {
         "exits": {
             "east": "$rid=158$",
-            "west": "$rid=621$",
             "in": "$rid=637$"
         },
         "name": "The Smoke-filled Cavern",
