@@ -2587,7 +2587,6 @@
     },
     "$rid=615$": {
         "exits": {
-            "north": "$rid=621$",
             "east": "$rid=630$",
             "west": "$rid=550$"
         },
@@ -2601,7 +2600,6 @@
     "$rid=621$": {
         "exits": {
             "east": "$rid=638$",
-            "south": "$rid=615$",
             "west": "$rid=622$"
         },
         "name": "The Island Passage.",
