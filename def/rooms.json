@@ -6918,7 +6918,6 @@
     },
     "$rid=1381$": {
         "exits": {
-            "west": "$rid=1383$"
         },
         "name": "The Gate House",
         "description": "You are standing in the gatehouse, buried within the mighty walls of the gate itself. A narrow oak door leads west into the arched gate passage itself. The room is dark and it is difficult to see clearly in the gloom of just a few arrow slits.",
@@ -6936,7 +6935,6 @@
         "coords": [],
         "exits": {
             "north": "$rid=1385$",
-            "east": "$rid=1381$",
             "south": "$rid=1377$",
             "up": "$rid=999$"
         }
