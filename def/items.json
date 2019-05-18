@@ -844,10 +844,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "state": "closed",
+        "exitName": "south|north",
+        "linkedItem": 56,
+        "exit": "$rid=57$",
         "article": "a"
     },
     "56": {
@@ -881,10 +881,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "state": "closed",
+        "exitName": "north|south",
+        "linkedItem": 55,
+        "exit": "$rid=71$",
         "article": "a"
     },
     "59": {
