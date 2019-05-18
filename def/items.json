@@ -631,7 +631,7 @@
     "44": {
         "name": "cell door",
         "short_description": "With the door closed, the stench of Old Monk is unbearable.",
-        "long_description": "The door is open, letting a much needed breath of fresh air into the room.",
+        "long_description": "The door is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -659,10 +659,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "state": "closed",
+        "exitName": "east|west",
+        "linkedItem": 45,
+        "exit": "$rid=48$",
         "article": "a"
     },
     "45": {
@@ -696,10 +696,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "state": "closed",
+        "exitName": "west|east",
+        "linkedItem": 44,
+        "exit": "$rid=47$",
         "article": "a"
     },
     "49": {
