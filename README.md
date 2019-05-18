@@ -108,6 +108,7 @@ To add a door, or other object to be opened or closed you will need a pair of it
         "state": "closed",
         "exitName": "up|down",
         "linkedItem": 430,
+        "lockedWithItem": 0,
         "exit": "$rid=433$"
     },
     "430": {
@@ -116,6 +117,7 @@ To add a door, or other object to be opened or closed you will need a pair of it
         "state": "closed",
         "exitName": "down|up",
         "linkedItem": 429,
+        "lockedWithItem": 0,
         "exit": "$rid=431$"
     },
 ```
@@ -123,3 +125,5 @@ To add a door, or other object to be opened or closed you will need a pair of it
 These are the same trapdoor as seen from two rooms. The `linkedItem` parameter links the two and the `exit` parameter defines which room to go to when going through. Exits called `down` and `up` are added if the trapdoor is open.
 
 You should make some vague suggestion that these items can be opened within their `long_description` parameter.
+
+If you need a key to open the door then specify the item number within the `lockedWithItem` parameter.

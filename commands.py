@@ -1029,6 +1029,23 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                     if target in itemsDB[items[iid]['id']]['name'].lower():
                             if itemsDB[items[iid]['id']]['state'] == 'closed':
+                                    unlockItemID=itemsDB[items[iid]['id']]['lockedWithItem']
+                                    if unlockItemID>0:
+                                            keyFound=False
+                                            for i in list(players[id]['inv']):
+                                                    if int(i) == unlockItemID:
+                                                            keyFound=True
+
+                                                            break
+                                            if keyFound:
+                                                    mud.send_message(id, 'You use the ' + itemsDB[int(i)]['name'])
+                                            else:
+                                                    if randint(0, 1) == 1:
+                                                            mud.send_message(id, "You don't have the key.\n\n")
+                                                    else:
+                                                            mud.send_message(id, "Looks like you need a key for this.\n\n")
+                                                    return
+
                                     linkedItemID=int(itemsDB[items[iid]['id']]['linkedItem'])
                                     roomID=itemsDB[items[iid]['id']]['exit']
                                     if '|' in itemsDB[items[iid]['id']]['exitName']:
