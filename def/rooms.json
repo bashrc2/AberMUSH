@@ -6199,7 +6199,6 @@
     },
     "$rid=1260$": {
         "exits": {
-            "south": "$rid=1261$"
         },
         "name": "The Chamber Of The Creators",
         "description": "You are in a small circular chamber, lit only by the pale light of a huge crystal in its centre. Gazing into the crystal, you can see the whole of the land within it; a tiny exact map of everything on the mortal plane. As you look deeper within it, you realise that everything is moving, and that the crystal actually contains the land itself.",
@@ -6210,8 +6209,6 @@
     },
     "$rid=1261$": {
         "exits": {
-            "north": "$rid=1260$",
-            "south": "$rid=1264$"
         },
         "name": "The Chamber Of The ArchMagi",
         "description": "You are standing in a long hall decorated throughout with carved black mahogany and gold. The centrepiece of the room is a huge gold inlaid table surrounded by luxurious leather chairs, where the magi hold their discussions. The whole chamber has an air of richness and power, appropriate to the station of those to whom this is home. Massive oak doors flanked with pillars stand at the south end of the room. A small gold door leads north.",
@@ -6248,7 +6245,6 @@
     },
     "$rid=1264$": {
         "exits": {
-            "north": "$rid=1261$",
             "south": "$rid=1263$"
         },
         "name": "The Inner Hall",
