@@ -7,8 +7,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "up": "$rid=277$",
-            "down": "$rid=5$"
+            "up": "$rid=277$"
         }
     },
     "$rid=5$": {
@@ -19,8 +18,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "west": "$rid=7$",
-            "up": "$rid=4$"
+            "west": "$rid=7$"
         }
     },
     "$rid=7$": {
