@@ -487,7 +487,7 @@
         "outDescription": "goes",
         "lookDescription": "lurks in the shadows",
         "name": "the mugger",
-        "inv" : [],
+        "inv" : ["169"],
         "conv" : [
             [["hello","hi","who"],"Get lost!"],
             [["mug","help"],"Bugger off!"],
@@ -500,7 +500,7 @@
         "talkDelay" : "300",
         "randomFactor" : "100",
         "follow" : "",
-        "hp" : "343",
+        "hp" : "43",
         "charge" : "1233",
         "lvl" : "5",
         "exp" : "32",
@@ -1171,7 +1171,7 @@
             [["serve","beer","?"], "Yes, of course"],
             [["serve","ale","?"], "Yes, of course"],
             [["serve","wine","?"], "We don't serve wine in this establishment, only ale"],
-            [["have","order","buy","sell","purchase","trade","like","weapon","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","624","1367"]
+            [["have","order","buy","sell","purchase","trade","like","weapon","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","169","1367"]
         ],
         "path" : [],
         "moveDelay" : "300",
