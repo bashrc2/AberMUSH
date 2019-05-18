@@ -15359,7 +15359,7 @@
     },
     "1194": {
         "name": "old door",
-        "short_description": "An open door leads north",
+        "short_description": "A closed door leads north",
         "long_description": "You peer at the remarkable achievement of science.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -15388,11 +15388,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 1195,
+        "exit": "$rid=1196$",
         "article": "a"
     },
     "1195": {
@@ -15426,11 +15426,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 1194,
+        "exit": "$rid=1235$",
         "article": "a"
     },
     "1199": {
