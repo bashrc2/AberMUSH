@@ -2102,10 +2102,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "state": "closed",
+        "exitName": "south|north",
+        "linkedItem": 181,
+        "exit": "$rid=273$",
         "article": "a"
     },
     "181": {
@@ -2139,10 +2139,10 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "state": "closed",
+        "exitName": "north|south",
+        "linkedItem": 180,
+        "exit": "$rid=183$",
         "article": "a"
     },
     "182": {

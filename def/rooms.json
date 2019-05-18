@@ -905,7 +905,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "south": "$rid=273$",
             "down": "$rid=179$"
         }
     },
@@ -1085,7 +1084,6 @@
     },
     "$rid=273$": {
         "exits": {
-            "north": "$rid=183$",
             "east": "$rid=270$",
             "west": "$rid=274$"
         },
