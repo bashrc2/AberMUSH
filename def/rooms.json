@@ -3359,7 +3359,6 @@
     },
     "$rid=783$": {
         "exits": {
-            "west": "$rid=787$"
         },
         "name": "Altar Chamber",
         "description": "You stand in a dusty room full of cobwebs, dominated by a huge altar that stands against the north wall. The whole room is covered with strange drawings and signs that give you an unearthly feeling.",
@@ -3382,7 +3381,6 @@
     "$rid=787$": {
         "exits": {
             "north": "$rid=788$",
-            "east": "$rid=783$",
             "south": "$rid=786$"
         },
         "name": "Small passageway",
