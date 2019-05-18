@@ -321,7 +321,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  wear [item]                             - Wear an item')
         mud.send_message(id, '  remove/unwear [item]                    - Remove a worn item')
         mud.send_message(id, '  whisper [target] [message]              - Whisper to a player in the same room')
-        mud.send_message(id, '  tell [target] [message]                 - Send a tell message to another player or NPC')
+        mud.send_message(id, '  tell/ask [target] [message]             - Send a tell message to another player or NPC')
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')
         mud.send_message(id, '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
@@ -1085,6 +1085,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "unmute": unmute,
                 "unsilence": unmute,
                 "tell": tell,
+                "ask": tell,
                 "eat": eat,
                 "drink": eat
         }
