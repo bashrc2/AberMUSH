@@ -27,6 +27,7 @@ All players can use the following commands:
 bio [description]                      - Set a description of yourself
 who                                    - List players and where they are
 quit/exit                              - Leave the game
+eat/drink [item]                       - Eat or drink a consumable
 say [message]                          - Says something out loud
 look/examine                           - Examines the surroundings
 go [exit]                              - Moves through the exit specified

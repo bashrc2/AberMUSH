@@ -308,6 +308,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  bio [description]                      - Set a description of yourself')
         mud.send_message(id, '  who                                    - List players and where they are')
         mud.send_message(id, '  quit/exit                              - Leave the game')
+        mud.send_message(id, '  eat/drink [item]                       - Eat or drink a consumable')
         mud.send_message(id, '  say [message]                          - Says something out loud, '  + "e.g. 'say Hello'")
         mud.send_message(id, '  look/examine                           - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine tin can' or 'look cleaning robot'")
         mud.send_message(id, '  go [exit]                              - Moves through the exit ' + "specified, e.g. 'go outside'")
@@ -816,6 +817,29 @@ def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         players[id]['lookDescription'] = params
         mud.send_message(id,"Your bio has been set.\n\n")
 
+def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        food = params.lower()
+        foodItemID=0
+        if len(list(players[id]['inv'])) > 0:
+                for i in list(players[id]['inv']):
+                        if food in itemsDB[int(i)]['name'].lower():
+                                if itemsDB[int(i)]['edible']>0:
+                                        foodItemID=int(i)
+                                        break
+                                else:
+                                        mud.send_message(id,"That's not consumable.\n\n")
+                                        return
+
+        if foodItemID == 0:
+                mud.send_message(id,"Your don't have " + params + ".\n\n")
+                return
+        mud.send_message(id,"You consume the " + itemsDB[foodItemID]['name'] + ".\n\n")
+        players[id]['inv'].remove(str(foodItemID))
+        if int(players[id]['clo_rhand']) == foodItemID:
+                players[id]['clo_rhand'] = 0
+        if int(players[id]['clo_lhand']) == foodItemID:
+                players[id]['clo_lhand'] = 0
+
 def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['canGo'] == 1:
                 # store the exit name
@@ -922,6 +946,26 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 # Remove first matching item from inventory
                                 players[id]['inv'].remove(i)
                                 break
+
+                # remove from clothing
+                if int(players[id]['clo_head']) == int(i):
+                        players[id]['clo_head'] = 0
+                if int(players[id]['clo_feet']) == int(i):
+                        players[id]['clo_feet'] = 0
+                if int(players[id]['clo_chest']) == int(i):
+                        players[id]['clo_chest'] = 0
+                if int(players[id]['clo_lleg']) == int(i):
+                        players[id]['clo_lleg'] = 0
+                if int(players[id]['clo_larm']) == int(i):
+                        players[id]['clo_larm'] = 0
+                if int(players[id]['clo_rleg']) == int(i):
+                        players[id]['clo_rleg'] = 0
+                if int(players[id]['clo_rarm']) == int(i):
+                        players[id]['clo_rarm'] = 0
+                if int(players[id]['clo_rhand']) == int(i):
+                        players[id]['clo_rhand'] = 0
+                if int(players[id]['clo_lhand']) == int(i):
+                        players[id]['clo_lhand'] = 0
 
                 # Create item on the floor in the same room as the player
                 items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
@@ -1039,6 +1083,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "unmute": unmute,
                 "unsilence": unmute,
                 "tell": tell,
+                "eat": eat,
+                "drink": eat
         }
 
         try:
