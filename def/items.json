@@ -15473,7 +15473,7 @@
     },
     "1200": {
         "name": "oak door",
-        "short_description": "The doors stand open.",
+        "short_description": "The doors stand closed.",
         "long_description": "Tall and splendidly carved.",
         "clo_head": 0,
         "clo_larm": 0,
@@ -15502,11 +15502,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 1201,
+        "exit": "$rid=1203$",
         "article": "a"
     },
     "1201": {
@@ -15540,11 +15540,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 1200,
+        "exit": "$rid=1205$",
         "article": "a"
     },
     "1202": {

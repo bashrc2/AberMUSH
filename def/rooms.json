@@ -5956,7 +5956,6 @@
     },
     "$rid=1203$": {
         "exits": {
-            "north": "$rid=1205$"
         },
         "name": "The Reading Room",
         "description": "You stand in a large reading room cum library. Once this chamber must have been beautiful, but it appears a battle has raged here, and the shelves are scarred and burned. A pair of scorched oak doors lead outside.",
@@ -5967,8 +5966,7 @@
     },
     "$rid=1205$": {
         "exits": {
-            "north": "$rid=1275$",
-            "south": "$rid=1203$"
+            "north": "$rid=1275$"
         },
         "name": "The Entry Hall",
         "description": "You stand in a short arched hallway, which leads south down a tapestry lined corridor towards a pair of tall oak doors. To the north the hall leads into a large gloomy chamber.",
