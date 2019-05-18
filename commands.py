@@ -144,7 +144,7 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
 
-def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
+def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
         best_match=''
         best_match_action=''
         best_match_action_param0=''
@@ -181,6 +181,7 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                 # There were some word matches
 
                 if len(best_match_action)>0:
+                        # give
                         if best_match_action == 'give' or best_match_action == 'gift':
                                 if len(best_match_action_param0)>0:
                                         itemID=int(best_match_action_param0)
@@ -192,6 +193,42 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
                                 return
 
+                        # transport (free taxi)
+                        if best_match_action == 'transport' or best_match_action == 'ride' or best_match_action == 'teleport':
+                                if len(best_match_action_param0)>0:
+                                        roomID=best_match_action_param0
+                                        mud.send_message(id, best_match)
+                                        messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n")
+                                        players[id]['room'] = rooms[roomID]
+                                        npcs[nid]['room'] = rooms[roomID]
+                                        messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n")
+                                        mud.send_message(id, "You are in " + rooms[rm]['name'] + "\n\n")
+                                        return
+                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+                                return
+
+                        # taxi (exchange for an item)
+                        if best_match_action == 'taxi':
+                                if len(best_match_action_param0)>0 and len(best_match_action_param1)>0:
+                                        roomID=best_match_action_param0
+                                        itemBuyID=int(best_match_action_param1)
+                                        if str(itemBuyID) in list(players[id]['inv']):
+                                                players[id]['inv'].remove(str(itemBuyID))
+
+                                                mud.send_message(id, best_match)
+                                                messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n")
+                                                players[id]['room'] = rooms[roomID]
+                                                npcs[nid]['room'] = rooms[roomID]
+                                                messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n")
+                                                mud.send_message(id, "You are in " + rooms[rm]['name'] + "\n\n")
+                                                return
+                                        else:
+                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: Give me a " + itemsDB[itemBuyID]['name'] + ".\n\n")
+                                                return
+                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+                                return
+
+                        # give on a date
                         if best_match_action == 'giveondate' or best_match_action == 'giftondate':
                                 if len(best_match_action_param0)>0:
                                         itemID=int(best_match_action_param0)
@@ -208,6 +245,7 @@ def npcConversation(mud,npcs,players,itemsDB,id,nid,message):
                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
                                 return
 
+                        # buy or exchange
                         if best_match_action == 'buy' or best_match_action == 'exchange' or best_match_action == 'barter' or best_match_action == 'trade':
                                 if len(best_match_action_param0)>0 and len(best_match_action_param1)>0:
                                         itemBuyID=int(best_match_action_param0)
@@ -263,7 +301,7 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         for (nid, pl) in list(npcs.items()):
                                 if npcs[nid]['room'] == players[id]['room']:
                                         if target.lower() in npcs[nid]['name'].lower():
-                                                npcConversation(mud,npcs,players,itemsDB,id,nid,message.lower())
+                                                npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message.lower())
                                                 told = True
                                                 break
 
