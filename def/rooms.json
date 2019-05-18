@@ -1069,7 +1069,6 @@
     },
     "$rid=270$": {
         "exits": {
-            "west": "$rid=273$"
         },
         "name": "Soler",
         "description": "The windows on the south side of this room are unusually large, allowing space for the sun to stream in. Despite this, the room has a desolate air.",
@@ -1080,8 +1079,6 @@
     },
     "$rid=273$": {
         "exits": {
-            "east": "$rid=270$",
-            "west": "$rid=274$"
         },
         "name": "Dusty Gallery",
         "description": "This room contains a rather musty smell. A stag's head juts out gloomily from the wall, its glassy-eyed stare arresting you. The two doors out look very attractive.",
@@ -1092,7 +1089,6 @@
     },
     "$rid=274$": {
         "exits": {
-            "east": "$rid=273$",
             "up": "$rid=267$",
             "down": "$rid=279$"
         },
