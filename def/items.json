@@ -2927,7 +2927,7 @@
     "207": {
         "name": "clothes chest",
         "short_description": "Good solid wood.",
-        "long_description": "A clothes chest sits here. The chest is open.",
+        "long_description": "A clothes chest sits here. The chest is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -2953,15 +2953,15 @@
         "mod_inte": 0,
         "mod_agi": 0,
         "mod_luc": 0,
-        "weight": 50,
+        "weight": 0,
         "edible": 0,
         "state": "container closed",
-        "contains": [],
+        "contains": ["107","1386"],
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "208": {
         "name": "oak table",

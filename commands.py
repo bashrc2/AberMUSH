@@ -1055,7 +1055,7 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
 
         itemCtr=0
         for contentsID in itemsDB[itemID]['contains']:
-                if itemctr > 0:
+                if itemCtr > 0:
                         if itemCtr < noOfItems-1:
                                 containerMsg = containerMsg + ', '
                         else:
@@ -1082,14 +1082,6 @@ def openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, item
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('shut','open')
 
         describeContainerContents(mud, id, itemsDB, itemID, False)
-
-def closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
-        itemID=items[iid]['id']
-        itemsDB[itemID]['state']='container closed'
-        itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('open', 'closed')
-        itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('open','closed')
-
-        mud.send_message(id, 'You close ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '.\n\n')
 
 def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
         if not openItemUnlock(items,itemsDB,id,iid,players,mud):
@@ -1136,6 +1128,14 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                             if itemsDB[items[iid]['id']]['state'] == 'container closed':
                                     openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
                                     break
+
+def closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
+        itemID=items[iid]['id']
+        itemsDB[itemID]['state']='container closed'
+        itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('open', 'closed')
+        itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('open','closed')
+
+        mud.send_message(id, 'You close ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '.\n\n')
 
 def closeItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
         linkedItemID=int(itemsDB[items[iid]['id']]['linkedItem'])
@@ -1244,6 +1244,22 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You pick up and place ' + itemName + ' in your inventory.\n\n')
                 itemPickedUp = False
         else:
+                # are there any open containers with this item?
+                for (iid, pl) in list(itemsInWorldCopy.items()):
+                        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+                                if itemsDB[items[iid]['id']]['state'] == 'container open':
+                                        for containerItemID in itemsDB[items[iid]['id']]['contains']:
+                                                itemName = itemsDB[int(containerItemID)]['name']
+                                                if target in itemName.lower():
+                                                        if itemsDB[int(containerItemID)]['weight']==0:
+                                                                mud.send_message(id, "You can't pick that up.\n\n")
+                                                                return
+                                                        else:
+                                                                players[id]['inv'].append(containerItemID)
+                                                                itemsDB[items[iid]['id']]['contains'].remove(containerItemID)
+                                                                mud.send_message(id, 'You take ' + itemsDB[int(containerItemID)]['article'] + ' ' + itemsDB[int(containerItemID)]['name'] + ' from ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
+                                                                return
+
                 mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
                 itemPickedUp = False
 
