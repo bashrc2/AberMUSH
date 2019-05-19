@@ -202,6 +202,7 @@ for k in itemsDB:
                        v == "long_description" or \
                        v == "short_description" or \
                        v == "state" or \
+                       v == "contains" or \
                        v == "exit" or \
                        v == "exitName" or \
                        v == "article"):
