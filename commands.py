@@ -22,6 +22,26 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         print("I'm in!")
 '''
 
+def removeItemFromClothing(players,id,itemID):
+        if int(players[id]['clo_head']) == itemID:
+                players[id]['clo_head'] = 0
+        if int(players[id]['clo_chest']) == itemID:
+                players[id]['clo_chest'] = 0
+        if int(players[id]['clo_feet']) == itemID:
+                players[id]['clo_feet'] = 0
+        if int(players[id]['clo_larm']) == itemID:
+                players[id]['clo_larm'] = 0
+        if int(players[id]['clo_rarm']) == itemID:
+                players[id]['clo_rarm'] = 0
+        if int(players[id]['clo_lleg']) == itemID:
+                players[id]['clo_lleg'] = 0
+        if int(players[id]['clo_rleg']) == itemID:
+                players[id]['clo_rleg'] = 0
+        if int(players[id]['clo_lhand']) == itemID:
+                players[id]['clo_lhand'] = 0
+        if int(players[id]['clo_rhand']) == itemID:
+                players[id]['clo_rhand'] = 0
+
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
@@ -353,6 +373,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  attack [target]                         - Attack target ' + "specified, e.g. 'attack knight'")
         mud.send_message(id, '  check inventory                         - Check the contents of ' + "your inventory")
         mud.send_message(id, '  take/get [item]                         - Pick up an item lying ' + "on the floor")
+        mud.send_message(id, '  put [item] in/on [item]                 - Put an item into or onto another one')
         mud.send_message(id, '  drop [item]                             - Drop an item from your inventory ' + "on the floor")
         mud.send_message(id, '  use/hold/pick/wield [item] [left|right] - Transfer an item to your hands')
         mud.send_message(id, '  stow                                    - Free your hands of items')
@@ -470,7 +491,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 if items[i]['room'].lower() == players[id]['room'] and param in itemsDB[items[i]['id']]['name'].lower():
                                         if itemCounter == 0:
                                                 message += itemsDB[items[i]['id']]['long_description']
-                                                message += describeContainerContents(mud, id, itemsDB, itemID, True)
+                                                message += describeContainerContents(mud, id, itemsDB, items[i]['id'], True)
                                                 itemName = itemsDB[items[i]['id']]['article'] + " " + itemsDB[items[i]['id']]['name']
                                         itemCounter += 1
 
@@ -989,24 +1010,7 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 break
 
                 # remove from clothing
-                if int(players[id]['clo_head']) == int(i):
-                        players[id]['clo_head'] = 0
-                if int(players[id]['clo_feet']) == int(i):
-                        players[id]['clo_feet'] = 0
-                if int(players[id]['clo_chest']) == int(i):
-                        players[id]['clo_chest'] = 0
-                if int(players[id]['clo_lleg']) == int(i):
-                        players[id]['clo_lleg'] = 0
-                if int(players[id]['clo_larm']) == int(i):
-                        players[id]['clo_larm'] = 0
-                if int(players[id]['clo_rleg']) == int(i):
-                        players[id]['clo_rleg'] = 0
-                if int(players[id]['clo_rarm']) == int(i):
-                        players[id]['clo_rarm'] = 0
-                if int(players[id]['clo_rhand']) == int(i):
-                        players[id]['clo_rhand'] = 0
-                if int(players[id]['clo_lhand']) == int(i):
-                        players[id]['clo_lhand'] = 0
+                removeItemFromClothing(players,id,int(i))
 
                 # Create item on the floor in the same room as the player
                 items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
@@ -1179,6 +1183,83 @@ def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                                     closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
                                     break
 
+def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if ' in ' not in params:
+                if ' on ' not in params:
+                        if ' into ' not in params:
+                                if ' onto ' not in params:
+                                        if ' within ' not in params:
+                                                return
+
+        target = []
+        inon=' in '
+        if ' in ' in params:
+                target = params.split(' in ')
+        else:
+                if ' into ' in params:
+                        target = params.split(' into ')
+                else:
+                        if ' onto ' in params:
+                                target = params.split(' onto ')
+                                inon=' onto '
+                        else:
+                                if ' on ' in params:
+                                        inon=' on '
+                                        target = params.split(' on ')
+                                else:
+                                        target = params.split(' within ')
+
+        if len(target) != 2:
+                return
+
+        itemID = 0
+        itemName = target[0]
+        containerName = target[1]
+
+        if len(list(players[id]['inv'])) > 0:
+                itemNameLower=itemName.lower()
+                for i in list(players[id]['inv']):
+                        if itemsDB[int(i)]['name'].lower() == itemNameLower:
+                                itemID=int(i)
+                                itemName=itemsDB[int(i)]['name']
+
+                if itemID == 0:
+                        for i in list(players[id]['inv']):
+                                if itemNameLower in itemsDB[int(i)]['name'].lower():
+                                        itemID=int(i)
+                                        itemName=itemsDB[int(i)]['name']
+
+        if itemID == 0:
+                mud.send_message(id, "You don't have " + itemName +".\n\n")
+                return
+
+        itemsInWorldCopy = deepcopy(items)
+
+        for (iid, pl) in list(itemsInWorldCopy.items()):
+                if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+                        if containerName.lower() in itemsDB[items[iid]['id']]['name'].lower():
+                                if itemsDB[items[iid]['id']]['state'] == 'container open':
+                                        players[id]['inv'].remove(str(itemID))
+                                        removeItemFromClothing(players,id,itemID)
+                                        itemsDB[items[iid]['id']]['contains'].append(str(itemID))
+                                        mud.send_message(id, 'You put ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + inon + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
+                                        return
+                                else:
+                                        if itemsDB[items[iid]['id']]['state'] == 'container closed':
+                                                if 'on' in inon:
+                                                        mud.send_message(id, "You can't.\n\n")
+                                                else:
+                                                        mud.send_message(id, "It's closed.\n\n")
+                                                return
+                                        else:
+                                                if 'on' in inon:
+                                                        mud.send_message(id, "You can't put anything on that.\n\n")
+                                                else:
+                                                        mud.send_message(id, "It can't contain anything.\n\n")
+                                                return
+
+        mud.send_message(id, "You don't see " + containerName + ".\n\n")
+
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if len(str(params)) < 3:
             return
@@ -1245,6 +1326,10 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 itemPickedUp = False
         else:
                 # are there any open containers with this item?
+                if ' from ' in target:
+                        target2 = target.split(' from ')
+                        target = target2[0]
+
                 for (iid, pl) in list(itemsInWorldCopy.items()):
                         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                                 if itemsDB[items[iid]['id']]['state'] == 'container open':
@@ -1278,11 +1363,11 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "attack": attack,
                 "take": take,
                 "get": take,
+                "put": putItem,
                 "drop": drop,
                 "check": check,
                 "wear": wear,
                 "don": wear,
-                "put": wear,
                 "unwear": unwear,
                 "remove": unwear,
                 "use": wield,

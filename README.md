@@ -34,6 +34,7 @@ go [exit]                               - Moves through the exit specified
 attack [target]                         - Attack another player or NPC
 check inventory                         - Check the contents of your inventory
 take/get [item]                         - Pick up an item
+put [item] in/on [item]                 - Put an item into or onto another one
 drop [item]                             - Drop an item
 whisper [target] [message]              - Whisper to a player in the same room
 tell/ask [target] [message]             - Send a tell message to another player or NPC
