@@ -187,7 +187,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "11": {
         "name": "ugly gargoyle",
@@ -225,7 +225,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "13": {
         "name": "hidden door",
@@ -415,7 +415,7 @@
         "exitName": "south|north",
         "linkedItem": 35,
         "exit": "$rid=38$",
-        "article": "a"
+        "article": "an"
     },
     "35": {
         "name": "ornate door",
@@ -453,7 +453,7 @@
         "exitName": "north|south",
         "linkedItem": 34,
         "exit": "$rid=36$",
-        "article": "a"
+        "article": "an"
     },
     "37": {
         "name": "monks sandals",
@@ -605,7 +605,7 @@
         "exitName": "south|north",
         "linkedItem": 43,
         "exit": "$rid=46$",
-        "article": "a"
+        "article": "an"
     },
     "43": {
         "name": "old door",
@@ -643,7 +643,7 @@
         "exitName": "north|south",
         "linkedItem": 42,
         "exit": "$rid=48$",
-        "article": "a"
+        "article": "an"
     },
     "44": {
         "name": "cell door",
@@ -871,7 +871,7 @@
         "exitName": "south|north",
         "linkedItem": 56,
         "exit": "$rid=57$",
-        "article": "a"
+        "article": "the"
     },
     "56": {
         "name": "Outer door",
@@ -909,7 +909,7 @@
         "exitName": "north|south",
         "linkedItem": 55,
         "exit": "$rid=71$",
-        "article": "a"
+        "article": "the"
     },
     "59": {
         "name": "wall",
@@ -985,7 +985,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "66": {
         "name": "mighty wall",
@@ -1023,7 +1023,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "69": {
         "name": "black bottle",
@@ -1184,8 +1184,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -1208,7 +1208,7 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
-        "state": "",
+        "state": "write",
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
@@ -2315,7 +2315,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "188": {
         "name": "garlic",
@@ -2467,7 +2467,7 @@
         "exitName": "east|west",
         "linkedItem": 193,
         "exit": "$rid=195$",
-        "article": "a"
+        "article": "an"
     },
     "193": {
         "name": "oak door",
@@ -2505,7 +2505,7 @@
         "exitName": "west|east",
         "linkedItem": 192,
         "exit": "$rid=204$",
-        "article": "a"
+        "article": "an"
     },
     "194": {
         "name": "ephemeris",
@@ -2543,7 +2543,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "196": {
         "name": "brass candelabrum",
@@ -2695,7 +2695,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "200": {
         "name": "sand",
@@ -2733,7 +2733,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "201": {
         "name": "carved runes",
@@ -2771,7 +2771,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "202": {
         "name": "stone altar",
@@ -2923,7 +2923,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "209": {
         "name": "full-height mirror",
@@ -3037,7 +3037,7 @@
         "exitName": "north|south",
         "linkedItem": 213,
         "exit": "$rid=216$",
-        "article": "a"
+        "article": "an"
     },
     "213": {
         "name": "oak door",
@@ -3075,7 +3075,7 @@
         "exitName": "south|north",
         "linkedItem": 212,
         "exit": "$rid=231$",
-        "article": "a"
+        "article": "an"
     },
     "222": {
         "name": "bee hive",
@@ -3341,7 +3341,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "230": {
         "name": "small note",
@@ -3455,7 +3455,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "242": {
         "name": "arching fountains",
@@ -3493,7 +3493,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "244": {
         "name": "filigree key",
@@ -3569,7 +3569,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "246": {
         "name": "silver flute",
@@ -3645,7 +3645,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "248": {
         "name": "black cloth",
@@ -3721,7 +3721,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": ""
     },
     "250": {
         "name": "sea chart",
@@ -3797,7 +3797,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": ""
     },
     "252": {
         "name": "artist's receipt",
@@ -3835,7 +3835,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "253": {
         "name": "Morran's papers",
@@ -3873,7 +3873,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": ""
     },
     "254": {
         "name": "Morran's desk",
@@ -4025,7 +4025,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "258": {
         "name": "broken shards",
@@ -4063,7 +4063,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "261": {
         "name": "glass cabinet",
@@ -4139,7 +4139,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "263": {
         "name": "couch",
@@ -4215,7 +4215,7 @@
         "exitName": "east|west",
         "linkedItem": 269,
         "exit": "$rid=270$",
-        "article": "a"
+        "article": "the"
     },
     "269": {
         "name": "dusty door",
@@ -4329,7 +4329,7 @@
         "exitName": "west|east",
         "linkedItem": 271,
         "exit": "$rid=274$",
-        "article": "a"
+        "article": "the"
     },
     "275": {
         "name": "mahogany door",
@@ -4367,7 +4367,7 @@
         "exitName": "east|west",
         "linkedItem": 276,
         "exit": "$rid=277$",
-        "article": "a"
+        "article": "the"
     },
     "276": {
         "name": "mahogany door",
@@ -4405,7 +4405,7 @@
         "exitName": "west|east",
         "linkedItem": 275,
         "exit": "$rid=278$",
-        "article": "a"
+        "article": "the"
     },
     "280": {
         "name": "plain door",
@@ -4519,7 +4519,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "285": {
         "name": "west door",
@@ -4557,7 +4557,7 @@
         "exitName": "west|east",
         "linkedItem": 286,
         "exit": "$rid=287$",
-        "article": "a"
+        "article": "the"
     },
     "286": {
         "name": "east door",
@@ -4595,7 +4595,7 @@
         "exitName": "east|west",
         "linkedItem": 285,
         "exit": "$rid=290$",
-        "article": "a"
+        "article": "the"
     },
     "288": {
         "name": "rusted gates",
@@ -4633,7 +4633,7 @@
         "exitName": "west|east",
         "linkedItem": 289,
         "exit": "$rid=290$",
-        "article": "a"
+        "article": "the"
     },
     "289": {
         "name": "rusted gates",
@@ -4671,7 +4671,7 @@
         "exitName": "east|west",
         "linkedItem": 288,
         "exit": "$rid=291$",
-        "article": "a"
+        "article": "the"
     },
     "294": {
         "name": "gold crown",
@@ -5013,7 +5013,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "327": {
         "name": "black casket",
@@ -5127,7 +5127,7 @@
         "exitName": "south|north",
         "linkedItem": 331,
         "exit": "$rid=332$",
-        "article": "a"
+        "article": "an"
     },
     "331": {
         "name": "iron door",
@@ -5165,7 +5165,7 @@
         "exitName": "north|south",
         "linkedItem": 330,
         "exit": "$rid=333$",
-        "article": "a"
+        "article": "an"
     },
     "345": {
         "name": "monolith",
@@ -5364,8 +5364,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -5387,7 +5387,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 30,
-        "edible": 0,
+        "edible": 5,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
@@ -5469,7 +5469,7 @@
         "exitName": "up|down",
         "linkedItem": 387,
         "exit": "$rid=388$",
-        "article": "a"
+        "article": "the"
     },
     "387": {
         "name": "clock bottom",
@@ -5507,7 +5507,7 @@
         "exitName": "down|up",
         "linkedItem": 386,
         "exit": "$rid=388$",
-        "article": "a"
+        "article": "the"
     },
     "389": {
         "name": "crystal decanter",
@@ -5554,8 +5554,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -5577,7 +5577,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 25,
-        "edible": 0,
+        "edible": 2,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
@@ -5621,7 +5621,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "408": {
         "name": "sharp axe",
@@ -5735,7 +5735,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "414": {
         "name": "dusty book",
@@ -5849,7 +5849,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "429": {
         "name": "old trapdoor",
@@ -5887,7 +5887,7 @@
         "exitName": "up|down",
         "linkedItem": 430,
         "exit": "$rid=433$",
-        "article": "a"
+        "article": "an"
     },
     "430": {
         "name": "old trapdoor",
@@ -5925,7 +5925,7 @@
         "exitName": "down|up",
         "linkedItem": 429,
         "exit": "$rid=431$",
-        "article": "a"
+        "article": "an"
     },
     "437": {
         "name": "pendulum",
@@ -6045,7 +6045,7 @@
         "exitName": "out|in",
         "linkedItem": 440,
         "exit": "$rid=443$",
-        "article": "a"
+        "article": "the"
     },
     "440": {
         "name": "clock door",
@@ -6083,7 +6083,7 @@
         "exitName": "in|out",
         "linkedItem": 439,
         "exit": "$rid=441$",
-        "article": "a"
+        "article": "the"
     },
     "441": {
         "name": "grandfather clock",
@@ -6121,7 +6121,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "445": {
         "name": "wooden box",
@@ -6197,7 +6197,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "449": {
         "name": "dreaming tower",
@@ -6235,7 +6235,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "450": {
         "name": "light",
@@ -6700,8 +6700,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -6724,7 +6724,7 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
-        "state": "",
+        "state": "write",
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
@@ -6738,8 +6738,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -6762,7 +6762,7 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
-        "state": "",
+        "state": "write",
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
@@ -6843,7 +6843,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "492": {
         "name": "tin bath",
@@ -6995,7 +6995,7 @@
         "exitName": "out|in",
         "linkedItem": 497,
         "exit": "$rid=514$",
-        "article": "a"
+        "article": "the"
     },
     "497": {
         "name": "maiden door",
@@ -7033,7 +7033,7 @@
         "exitName": "in|out",
         "linkedItem": 496,
         "exit": "$rid=498$",
-        "article": "a"
+        "article": "the"
     },
     "498": {
         "name": "iron maiden",
@@ -7071,7 +7071,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "501": {
         "name": "old cupboard",
@@ -7109,7 +7109,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "503": {
         "name": "wooden coffin",
@@ -7375,7 +7375,7 @@
         "exitName": "south|north",
         "linkedItem": 513,
         "exit": "$rid=519$",
-        "article": "a"
+        "article": "an"
     },
     "513": {
         "name": "iron door",
@@ -7413,7 +7413,7 @@
         "exitName": "north|south",
         "linkedItem": 512,
         "exit": "$rid=514$",
-        "article": "a"
+        "article": "an"
     },
     "515": {
         "name": "loaf of bread",
@@ -7565,7 +7565,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "520": {
         "name": "steel lever",
@@ -7916,8 +7916,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -7939,7 +7939,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 1,
-        "edible": 0,
+        "edible": 1,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
@@ -7983,7 +7983,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "555": {
         "name": "water",
@@ -8021,7 +8021,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "558": {
         "name": "rusty rungs",
@@ -8059,7 +8059,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "561": {
         "name": "dark lake",
@@ -8135,7 +8135,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "568": {
         "name": "high cliff",
@@ -8325,7 +8325,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": ""
     },
     "601": {
         "name": "piece of string",
@@ -8895,7 +8895,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "624": {
         "name": "gold coin",
@@ -9018,8 +9018,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -9042,7 +9042,7 @@
         "mod_luc": 0,
         "weight": 2,
         "edible": 0,
-        "state": "",
+        "state": "write",
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
@@ -9313,7 +9313,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "643": {
         "name": "names",
@@ -9351,7 +9351,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "644": {
         "name": "extension",
@@ -9389,7 +9389,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "646": {
         "name": "wizened man",
@@ -9503,7 +9503,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "673": {
         "name": "gruel",
@@ -9512,8 +9512,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -9535,13 +9535,13 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 15,
-        "edible": 0,
+        "edible": 1,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "674": {
         "name": "gruel",
@@ -9550,8 +9550,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -9573,13 +9573,13 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 15,
-        "edible": 0,
+        "edible": 1,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "675": {
         "name": "gruel",
@@ -9588,8 +9588,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -9611,7 +9611,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 15,
-        "edible": 0,
+        "edible": 1,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
@@ -9626,8 +9626,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -9649,7 +9649,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "weight": 15,
-        "edible": 0,
+        "edible": 1,
         "state": "",
         "lockedWithItem": 0,
         "exitName": "",
@@ -9769,7 +9769,7 @@
         "exitName": "north|south",
         "linkedItem": 681,
         "exit": "$rid=690$",
-        "article": "a"
+        "article": "an"
     },
     "681": {
         "name": "iron door",
@@ -9807,7 +9807,7 @@
         "exitName": "south|north",
         "linkedItem": 680,
         "exit": "$rid=682$",
-        "article": "a"
+        "article": "an"
     },
     "691": {
         "name": "mithril",
@@ -9845,7 +9845,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "698": {
         "name": "mithril",
@@ -9883,7 +9883,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "699": {
         "name": "mithril",
@@ -9921,7 +9921,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "700": {
         "name": "mithril",
@@ -9959,7 +9959,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "702": {
         "name": "old grimoire",
@@ -9997,7 +9997,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "709": {
         "name": "sundial",
@@ -10225,7 +10225,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "724": {
         "name": "wooden ladder",
@@ -10719,7 +10719,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "745": {
         "name": "large greatsword",
@@ -10790,11 +10790,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "west|east",
+        "linkedItem": 747,
+        "exit": "$rid=789$",
         "article": "a"
     },
     "747": {
@@ -10828,11 +10828,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "east|west",
+        "linkedItem": 746,
+        "exit": "$rid=788$",
         "article": "a"
     },
     "748": {
@@ -10909,7 +10909,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "757": {
         "name": "leather pouch",
@@ -11070,8 +11070,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -11099,7 +11099,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "798": {
         "name": "a bullet belt",
@@ -11110,7 +11110,7 @@
         "clo_rarm": 0,
         "clo_lhand": 0,
         "clo_rhand": 0,
-        "clo_chest": 0,
+        "clo_chest": 1,
         "clo_lleg": 0,
         "clo_rleg": 0,
         "clo_feet": 0,
@@ -11251,7 +11251,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "805": {
         "name": "ice throne",
@@ -11289,7 +11289,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "807": {
         "name": "fountains",
@@ -11327,7 +11327,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "810": {
         "name": "black bell",
@@ -11403,7 +11403,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "814": {
         "name": "stout door",
@@ -11669,7 +11669,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "870": {
         "name": "gold nugget",
@@ -11892,11 +11892,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "south|north",
+        "linkedItem": 901,
+        "exit": "$rid=1326$",
         "article": "a"
     },
     "901": {
@@ -11930,11 +11930,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "north|south",
+        "linkedItem": 900,
+        "exit": "$rid=1330$",
         "article": "a"
     },
     "905": {
@@ -12049,7 +12049,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "908": {
         "name": "brass telescope",
@@ -12125,7 +12125,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "912": {
         "name": "cart",
@@ -12201,7 +12201,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "915": {
         "name": "stone door",
@@ -12400,8 +12400,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -12438,8 +12438,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -12690,11 +12690,11 @@
         "mod_luc": 0,
         "weight": 99999,
         "edible": 0,
-        "state": "",
-        "lockedWithItem": 0,
-        "exitName": "",
+        "state": "closed",
+        "lockedWithItem": 937,
+        "exitName": "west|east",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1059$",
         "article": "a"
     },
     "937": {
@@ -12728,11 +12728,11 @@
         "mod_luc": 0,
         "weight": 99999,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "east|west",
+        "linkedItem": 936,
+        "exit": "$rid=938$",
         "article": "a"
     },
     "939": {
@@ -13037,7 +13037,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "979": {
         "name": "waybread",
@@ -13075,7 +13075,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "980": {
         "name": "waybread",
@@ -13113,7 +13113,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "981": {
         "name": "small shield",
@@ -13198,8 +13198,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -13236,8 +13236,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -13535,8 +13535,8 @@
     },
     "1023": {
         "name": "metal grille",
-        "short_description": "The grille is open.",
-        "long_description": "The grille is open.",
+        "short_description": "The grille is closed.",
+        "long_description": "The grille is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13564,17 +13564,17 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "up|down",
+        "linkedItem": 1024,
+        "exit": "$rid=1372$",
         "article": "a"
     },
     "1024": {
         "name": "metal grille",
         "short_description": "The grille is solidly made.",
-        "long_description": "An open metal grille is set into the floor.",
+        "long_description": "A closed metal grille is set into the floor.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -13602,11 +13602,11 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
+        "state": "closed",
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "down|up",
+        "linkedItem": 1023,
+        "exit": "$rid=1025$",
         "article": "a"
     },
     "1031": {
@@ -13645,7 +13645,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1036": {
         "name": "flame",
@@ -13797,7 +13797,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "1045": {
         "name": "tangled bushes",
@@ -13835,7 +13835,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1047": {
         "name": "Anarchy",
@@ -13873,7 +13873,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": ""
     },
     "1048": {
         "name": "pile of straw",
@@ -13949,7 +13949,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1054": {
         "name": "festering corpse",
@@ -14329,7 +14329,7 @@
         "exitName": "north|south",
         "linkedItem": 1081,
         "exit": "$rid=1084$",
-        "article": "a"
+        "article": "an"
     },
     "1086": {
         "name": "old door",
@@ -14367,7 +14367,7 @@
         "exitName": "north|south",
         "linkedItem": 1087,
         "exit": "$rid=1090$",
-        "article": "a"
+        "article": "an"
     },
     "1087": {
         "name": "old door",
@@ -14405,7 +14405,7 @@
         "exitName": "south|north",
         "linkedItem": 1086,
         "exit": "$rid=1088$",
-        "article": "a"
+        "article": "an"
     },
     "1091": {
         "name": "pillar",
@@ -14490,8 +14490,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -14566,8 +14566,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -14633,7 +14633,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1119": {
         "name": "golden weathercock",
@@ -14899,7 +14899,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1154": {
         "name": "wooden chest",
@@ -15127,7 +15127,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1166": {
         "name": "pool",
@@ -15203,7 +15203,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1170": {
         "name": "obsidian slab",
@@ -15241,7 +15241,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1172": {
         "name": "pile of stones",
@@ -15355,7 +15355,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1194": {
         "name": "old door",
@@ -15393,7 +15393,7 @@
         "exitName": "north|south",
         "linkedItem": 1195,
         "exit": "$rid=1196$",
-        "article": "a"
+        "article": "an"
     },
     "1195": {
         "name": "old door",
@@ -15431,7 +15431,7 @@
         "exitName": "south|north",
         "linkedItem": 1194,
         "exit": "$rid=1235$",
-        "article": "a"
+        "article": "an"
     },
     "1199": {
         "name": "scarred shelves",
@@ -15469,7 +15469,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1200": {
         "name": "oak door",
@@ -15507,7 +15507,7 @@
         "exitName": "south|north",
         "linkedItem": 1201,
         "exit": "$rid=1203$",
-        "article": "a"
+        "article": "an"
     },
     "1201": {
         "name": "oak door",
@@ -15545,7 +15545,7 @@
         "exitName": "north|south",
         "linkedItem": 1200,
         "exit": "$rid=1205$",
-        "article": "a"
+        "article": "an"
     },
     "1202": {
         "name": "oak table",
@@ -15583,7 +15583,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1204": {
         "name": "shadowy figure",
@@ -15811,7 +15811,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1215": {
         "name": "wooden ladder",
@@ -16077,7 +16077,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "1231": {
         "name": "dark shroud",
@@ -16153,7 +16153,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1234": {
         "name": "crumbling scroll",
@@ -16267,7 +16267,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1240": {
         "name": "black robe",
@@ -16457,7 +16457,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1255": {
         "name": "huge crystal",
@@ -16685,7 +16685,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1269": {
         "name": "small well",
@@ -16799,7 +16799,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1280": {
         "name": "dilapidated door",
@@ -16951,7 +16951,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "some"
     },
     "1286": {
         "name": "inn door",
@@ -16989,7 +16989,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "1287": {
         "name": "large fire",
@@ -17103,7 +17103,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "1291": {
         "name": "sack",
@@ -17340,8 +17340,8 @@
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
-        "clo_rhand": 0,
+        "clo_lhand": 1,
+        "clo_rhand": 1,
         "clo_chest": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
@@ -17559,7 +17559,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1324": {
         "name": "portable hole",
@@ -17635,7 +17635,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "the"
     },
     "1328": {
         "name": "mystic talisman",
@@ -17753,8 +17753,8 @@
     },
     "1343": {
         "name": "icy passage",
-        "short_description": "An icy passage has been hacked through the icy wall, leading north into a cave.",
-        "long_description": "An icy passage has been hacked through the icy wall, leading north into a cave.",
+        "short_description": "An icy passage is closed, leading north into a cave.",
+        "long_description": "An icy passage is closed, leading north into a cave.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -17782,17 +17782,17 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
-        "article": "a"
+        "state": "closed",
+        "lockedWithItem": 1301,
+        "exitName": "north|south",
+        "linkedItem": 1345,
+        "exit": "$rid=1350$",
+        "article": "an"
     },
     "1345": {
         "name": "icy passage",
-        "short_description": "An icy passage has been hacked through the snowy walls of the cave, to reveal a huge icy hall extending away southwards.",
-        "long_description": "An icy passage has been hacked through the snowy walls of the cave, to reveal a huge icy hall extending away southwards.",
+        "short_description": "An icy passage has to a huge icy hall extending away southwards is closed.",
+        "long_description": "An icy passage has to a huge icy hall extending away southwards is closed.",
         "clo_head": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -17820,12 +17820,12 @@
         "mod_luc": 0,
         "weight": 0,
         "edible": 0,
-        "state": "",
-        "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
-        "article": "a"
+        "state": "closed",
+        "lockedWithItem": 1301,
+        "exitName": "south|north",
+        "linkedItem": 1343,
+        "exit": "$rid=1344$",
+        "article": "an"
     },
     "1347": {
         "name": "frozen corpse",
@@ -17939,7 +17939,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1351": {
         "name": "piles of snow",
@@ -18319,7 +18319,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "article": "a"
+        "article": "an"
     },
     "1379": {
         "name": "oak door",
@@ -18357,7 +18357,7 @@
         "exitName": "east|west",
         "linkedItem": 1380,
         "exit": "$rid=1381$",
-        "article": "a"
+        "article": "the"
     },
     "1380": {
         "name": "oak door",
@@ -18395,7 +18395,7 @@
         "exitName": "west|east",
         "linkedItem": 1379,
         "exit": "$rid=1383$",
-        "article": "a"
+        "article": "the"
     },
     "1382": {
         "name": "strong portcullis",

@@ -188,7 +188,7 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                         if itemID not in list(players[id]['inv']):
                                                 players[id]['inv'].append(str(itemID))
                                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
-                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
+                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
                                                 return
                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
                                 return
@@ -223,7 +223,7 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                                 mud.send_message(id, "You are in " + rooms[roomID]['name'] + "\n\n")
                                                 return
                                         else:
-                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: Give me a " + itemsDB[itemBuyID]['name'] + ".\n\n")
+                                                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: Give me " + itemsDB[itemBuyID]['article'] + ' ' + itemsDB[itemBuyID]['name'] + ".\n\n")
                                                 return
                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
                                 return
@@ -240,7 +240,7 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                                                 if monthNumber == int(datetime.date.today().strftime("%m")):
                                                                         players[id]['inv'].append(str(itemID))
                                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
-                                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
+                                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
                                                                         return
                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
                                 return
@@ -263,14 +263,14 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                                         if str(itemBuyID) not in list(npcs[nid]['inv']):
                                                                 npcs[nid]['inv'].append(str(itemBuyID))
                                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
-                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you a " + itemsDB[itemID]['name']  + ".\n\n")
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
                                                 else:
-                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I see you already have a " + itemsDB[itemSellID]['name'] + ".\n\n")
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I see you already have " + itemsDB[itemSellID]['article'] + ' ' + itemsDB[itemSellID]['name'] + ".\n\n")
                                             else:
                                                 if best_match_action == 'buy':
-                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: The " + itemsDB[itemSellID]['name'] + " costs a " + itemsDB[itemBuyID]['name'] + ".\n\n")
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + itemsDB[itemSellID]['article'] + ' ' + itemsDB[itemSellID]['name'] + " costs " + itemsDB[itemBuyID]['article'] + ' ' + itemsDB[itemBuyID]['name'] + ".\n\n")
                                                 else:
-                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I'll give you a " + itemsDB[itemSellID]['name'] + " in exchange for a " + itemsDB[itemBuyID]['name'] + ".\n\n")
+                                                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: I'll give you " + itemsDB[itemSellID]['article'] + ' ' + itemsDB[itemSellID]['name'] + " in exchange for " + itemsDB[itemBuyID]['article'] + ' ' + itemsDB[itemBuyID]['name'] + ".\n\n")
                                 else:
                                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
                                 return
@@ -562,21 +562,21 @@ def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB
                 mud.send_message(id, 'You are currently in possession of:\n')
                 for i in list(players[id]['inv']):
                         if int(players[id]['clo_lhand']) == int(i):
-                                mud.send_message(id, ' * <b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
+                                mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (left hand)')
                         else:
                                 if int(players[id]['clo_lleg']) == int(i):
-                                        mud.send_message(id, ' * <b234>' + itemsDB[int(i)]['name'] + '<r> (left leg)')
+                                        mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (left leg)')
                                 else:
                                         if int(players[id]['clo_rleg']) == int(i):
-                                                mud.send_message(id, ' * <b234>' + itemsDB[int(i)]['name'] + '<r> (right leg)')
+                                                mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (right leg)')
                                         else:
                                                 if int(players[id]['clo_rhand']) == int(i):
-                                                        mud.send_message(id, ' * <b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
+                                                        mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
                                                 else:
                                                         if int(players[id]['clo_head']) ==int(i) or int(players[id]['clo_chest']) == int(i) or int(players[id]['clo_feet']) == int(i):
-                                                                mud.send_message(id, ' * <b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
+                                                                mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
                                                         else:
-                                                                mud.send_message(id, ' * <b234>' + itemsDB[int(i)]['name'])
+                                                                mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'])
                 mud.send_message(id, "\n\n")
         else:
                 mud.send_message(id, 'You haven`t got any items on you.\n\n')
@@ -623,15 +623,15 @@ def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
         if itemsDB[itemID]['clo_head'] > 0:
                 players[id]['clo_head'] = itemID
-                mud.send_message(id, 'You don the <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You don ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 return
         if itemsDB[itemID]['clo_chest'] > 0:
                 players[id]['clo_chest'] = itemID
-                mud.send_message(id, 'You wear the <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You wear ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 return
         if itemsDB[itemID]['clo_feet'] > 0:
                 players[id]['clo_feet'] = itemID
-                mud.send_message(id, 'You put on the <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You put on ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 return
 
         mud.send_message(id, "You can't wear that\n\n")
@@ -737,12 +737,12 @@ def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
         if int(players[id]['clo_rhand']) > 0:
                 itemID=int(players[id]['clo_rhand'])
-                mud.send_message(id, 'You stow the <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You stow ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_rhand'] = 0
 
         if int(players[id]['clo_lhand']) > 0:
                 itemID=int(players[id]['clo_lhand'])
-                mud.send_message(id, 'You stow the <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You stow ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_lhand'] = 0
 
         if int(itemsDB[itemID]['clo_rleg']) > 0:
@@ -761,17 +761,17 @@ def unwear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
 
         if int(players[id]['clo_head']) > 0:
                 itemID=int(players[id]['clo_head'])
-                mud.send_message(id, 'You remove <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You remove ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_head'] = 0
 
         if int(players[id]['clo_chest']) > 0:
                 itemID=int(players[id]['clo_chest'])
-                mud.send_message(id, 'You remove <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You remove ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_chest'] = 0
 
         if int(players[id]['clo_feet']) > 0:
                 itemID=int(players[id]['clo_feet'])
-                mud.send_message(id, 'You take off <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_feet'] = 0
 
 def messageToPlayersInRoom(mud,players,id,msg):
@@ -808,9 +808,9 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                 playerName3='has'
 
         if int(players[pid]['clo_rhand'])>0:
-                mud.send_message(id,playerName + ' ' + playerName3 + ' a ' + itemsDB[players[pid]['clo_rhand']]['name'] + ' in ' + playerName2 + ' right hand.\n')
+                mud.send_message(id,playerName + ' ' + playerName3 + ' ' + itemsDB[players[pid]['clo_rhand']]['article'] + ' ' + itemsDB[players[pid]['clo_rhand']]['name'] + ' in ' + playerName2 + ' right hand.\n')
         if int(players[pid]['clo_lhand'])>0:
-                mud.send_message(id,playerName + ' ' + playerName3 + ' a ' + itemsDB[players[pid]['clo_lhand']]['name'] + ' in ' + playerName2 + ' left hand.\n')
+                mud.send_message(id,playerName + ' ' + playerName3 + ' ' + itemsDB[players[pid]['clo_lhand']]['article'] + ' ' + itemsDB[players[pid]['clo_lhand']]['name'] + ' in ' + playerName2 + ' left hand.\n')
 
         if wearingCtr>0:
                 wearingMsg=playerName + ' are wearing'
@@ -825,7 +825,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                                                 wearingMsg=wearingMsg+', '
                                 else:
                                         wearingMsg=wearingMsg+' '
-                                wearingMsg=wearingMsg+'a '+itemsDB[players[pid][cl]]['name']
+                                wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['article'] + ' ' + itemsDB[players[pid][cl]]['name']
                                 if cl.endswith('lleg'):
                                         wearingMsg=wearingMsg+' on ' + playerName2 + ' left leg'
                                 if cl.endswith('rleg'):
@@ -873,7 +873,7 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if foodItemID == 0:
                 mud.send_message(id,"Your don't have " + params + ".\n\n")
                 return
-        mud.send_message(id,"You consume the " + itemsDB[foodItemID]['name'] + ".\n\n")
+        mud.send_message(id,"You consume " + itemsDB[foodItemID]['article'] + " " + itemsDB[foodItemID]['name'] + ".\n\n")
         players[id]['inv'].remove(str(foodItemID))
         if int(players[id]['clo_rhand']) == foodItemID:
                 players[id]['clo_rhand'] = 0
@@ -1038,12 +1038,12 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
 
                                                             break
                                             if keyFound:
-                                                    mud.send_message(id, 'You use the ' + itemsDB[unlockItemID]['name'])
+                                                    mud.send_message(id, 'You use ' + itemsDB[unlockItemID]['article'] + ' ' + itemsDB[unlockItemID]['name'])
                                             else:
                                                     if randint(0, 1) == 1:
-                                                            mud.send_message(id, "You don't have the key.\n\n")
+                                                            mud.send_message(id, "You don't have " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + ".\n\n")
                                                     else:
-                                                            mud.send_message(id, "Looks like you need a key for this.\n\n")
+                                                            mud.send_message(id, "Looks like you need " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + " for this.\n\n")
                                                     return
 
                                     linkedItemID=int(itemsDB[items[iid]['id']]['linkedItem'])
@@ -1071,7 +1071,7 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                                             del rooms[rm]['exits'][exitName[1]]
                                                     rooms[rm]['exits'][exitName[1]] = players[id]['room']
 
-                                    mud.send_message(id, 'You open the ' + itemsDB[items[iid]['id']]['name'] + '\n\n')
+                                    mud.send_message(id, 'You open ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '\n\n')
 
 def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         target=params.lower()
@@ -1104,7 +1104,7 @@ def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                                                     if exitName[1] in rooms[rm]['exits']:
                                                             del rooms[rm]['exits'][exitName[1]]
 
-                                    mud.send_message(id, 'You close the ' + itemsDB[items[iid]['id']]['name'] + '\n\n')
+                                    mud.send_message(id, 'You close ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '\n\n')
 
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if len(str(params)) < 3:

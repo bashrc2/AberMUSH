@@ -3392,8 +3392,7 @@
     },
     "$rid=788$": {
         "exits": {
-            "south": "$rid=787$",
-            "west": "$rid=789$"
+            "south": "$rid=787$"
         },
         "name": "Praying chamber",
         "description": "You stand in a smooth walled chamber, decorated with various decaying tapestries high on the walls out of reach. The room is dry and dusty, and gives you an eerie feeling about the whole place. A small stone altar stands against a wall. A narrow passageway leads south into the darkness.",
@@ -3404,7 +3403,6 @@
     },
     "$rid=789$": {
         "exits": {
-            "east": "$rid=788$",
             "west": "$rid=794$"
         },
         "name": "Bare Cavern",
@@ -4252,8 +4250,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=933$",
-            "west": "$rid=1059$"
+            "east": "$rid=933$"
         }
     },
     "$rid=942$": {
@@ -4722,7 +4719,6 @@
     },
     "$rid=1025$": {
         "exits": {
-            "up": "$rid=1372$"
         },
         "name": "The Vertical Shaft",
         "description": "The shaft is about twenty feet long, with a metal grille at the top, and a set of iron rungs leading down into darkness below.",
@@ -4883,7 +4879,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=938$",
             "west": "$rid=1060$"
         }
     },
@@ -6594,7 +6589,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=1330$"
         }
     },
     "$rid=1329$": {
@@ -6616,7 +6610,6 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "south": "$rid=1326$",
             "up": "$rid=1333$"
         }
     },
@@ -6695,7 +6688,6 @@
     },
     "$rid=1344$": {
         "exits": {
-            "north": "$rid=1350$",
             "south": "$rid=977$"
         },
         "name": "The Icy Hall",
@@ -6708,7 +6700,6 @@
     "$rid=1350$": {
         "exits": {
             "east": "$rid=1352$",
-            "south": "$rid=1344$",
             "out": "$rid=1352$"
         },
         "name": "The Mountain Cave",
@@ -6875,8 +6866,7 @@
         "weather": 0,
         "coords": [],
         "exits": {
-            "west": "$rid=1377$",
-            "down": "$rid=1025$"
+            "west": "$rid=1377$"
         }
     },
     "$rid=1375$": {
