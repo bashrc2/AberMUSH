@@ -368,7 +368,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  quit/exit                               - Leave the game')
         mud.send_message(id, '  eat/drink [item]                        - Eat or drink a consumable')
         mud.send_message(id, '  say [message]                           - Says something out loud, '  + "e.g. 'say Hello'")
-        mud.send_message(id, '  look/examine                            - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine tin can' or 'look cleaning robot'")
+        mud.send_message(id, '  look/examine                            - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine inn-keeper'")
         mud.send_message(id, '  go [exit]                               - Moves through the exit ' + "specified, e.g. 'go outside'")
         mud.send_message(id, '  attack [target]                         - Attack target ' + "specified, e.g. 'attack knight'")
         mud.send_message(id, '  check inventory                         - Check the contents of ' + "your inventory")
