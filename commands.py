@@ -470,6 +470,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 if items[i]['room'].lower() == players[id]['room'] and param in itemsDB[items[i]['id']]['name'].lower():
                                         if itemCounter == 0:
                                                 message += itemsDB[items[i]['id']]['long_description']
+                                                message += describeContainerContents(mud, id, itemsDB, itemID, True)
                                                 itemName = itemsDB[items[i]['id']]['article'] + " " + itemsDB[items[i]['id']]['name']
                                         itemCounter += 1
 
@@ -1021,9 +1022,9 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         else:
                 mud.send_message(id, 'You don`t have that!\n\n')
 
-def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
-            unlockItemID=itemsDB[items[iid]['id']]['lockedWithItem']
-            if unlockItemID>0:
+def openItemUnlock(items,itemsDB,id,iid,players,mud):
+        unlockItemID=itemsDB[items[iid]['id']]['lockedWithItem']
+        if unlockItemID>0:
                     keyFound=False
                     for i in list(players[id]['inv']):
                             if int(i) == unlockItemID:
@@ -1036,16 +1037,64 @@ def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                                     mud.send_message(id, "You don't have " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + ".\n\n")
                             else:
                                     mud.send_message(id, "Looks like you need " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + " for this.\n\n")
-                            return
+                            return False
+        return True
 
-            linkedItemID=int(itemsDB[items[iid]['id']]['linkedItem'])
-            roomID=itemsDB[items[iid]['id']]['exit']
-            if '|' in itemsDB[items[iid]['id']]['exitName']:
-                    exitName=itemsDB[items[iid]['id']]['exitName'].split('|')
+def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
+        if itemsDB[itemID]['state'] != 'container open':
+                if returnMsg:
+                        return ''
+                else:
+                        return
+        noOfItems=len(itemsDB[itemID]['contains'])
+        containerMsg='It contains '
 
-                    itemsDB[items[iid]['id']]['state']='open'
-                    itemsDB[items[iid]['id']]['short_description']=itemsDB[items[iid]['id']]['short_description'].replace('closed','open')
-                    itemsDB[items[iid]['id']]['long_description']=itemsDB[items[iid]['id']]['long_description'].replace('closed','open')
+        if noOfItems == 0:
+                mud.send_message(id, containerMsg + ' nothing.\n\n')
+                return
+
+        itemCtr=0
+        for contentsID in itemsDB[itemID]['contains']:
+                if itemctr > 0:
+                        if itemCtr < noOfItems-1:
+                                containerMsg = containerMsg + ', '
+                        else:
+                                containerMsg = containerMsg + ' and '
+
+                containerMsg = containerMsg + itemsDB[int(contentsID)]['article'] + ' ' + itemsDB[int(contentsID)]['name']
+                itemCtr = itemCtr + 1
+
+        containerMsg = containerMsg + '.\n\n'
+        if returnMsg:
+                return containerMsg
+        else:
+                mud.send_message(id, containerMsg)
+
+def openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
+            if not openItemUnlock(items,itemsDB,id,iid,players,mud):
+                    return
+
+            itemID=items[iid]['id']
+            itemsDB[itemID]['state']='container open'
+            itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('closed','open')
+            itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('closed','open')
+            itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('shut','open')
+
+            describeContainerContents(mud, id, itemsDB, itemID, False)
+
+def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
+            if not openItemUnlock(items,itemsDB,id,iid,players,mud):
+                    return
+
+            itemID=items[iid]['id']
+            linkedItemID=int(itemsDB[itemID]['linkedItem'])
+            roomID=itemsDB[itemID]['exit']
+            if '|' in itemsDB[itemID]['exitName']:
+                    exitName=itemsDB[itemID]['exitName'].split('|')
+
+                    itemsDB[itemID]['state']='open'
+                    itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('closed','open')
+                    itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('closed','open')
 
                     if linkedItemID>0:
                             itemsDB[linkedItemID]['short_description']=itemsDB[linkedItemID]['short_description'].replace('closed','open')
@@ -1063,7 +1112,7 @@ def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                                     del rooms[rm]['exits'][exitName[1]]
                             rooms[rm]['exits'][exitName[1]] = players[id]['room']
 
-            mud.send_message(id, 'You open ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '\n\n')
+            mud.send_message(id, 'You open ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '\n\n')
 
 def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         target=params.lower()
@@ -1074,6 +1123,8 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                     if target in itemsDB[items[iid]['id']]['name'].lower():
                             if itemsDB[items[iid]['id']]['state'] == 'closed':
                                     openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
+                            if itemsDB[items[iid]['id']]['state'] == 'container closed':
+                                    openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
 
 def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         target=params.lower()
