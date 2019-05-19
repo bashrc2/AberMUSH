@@ -1061,7 +1061,7 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
                         else:
                                 containerMsg = containerMsg + ' and '
 
-                containerMsg = containerMsg + itemsDB[int(contentsID)]['article'] + ' ' + itemsDB[int(contentsID)]['name']
+                containerMsg = containerMsg + itemsDB[int(contentsID)]['article'] + ' <b234>' + itemsDB[int(contentsID)]['name'] + '<r>'
                 itemCtr = itemCtr + 1
 
         containerMsg = containerMsg + '.\n'
