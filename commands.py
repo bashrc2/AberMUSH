@@ -1085,6 +1085,8 @@ def openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, item
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('closed','open')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('shut','open')
 
+        if len(itemsDB[itemID]['open_description'])>0:
+                mud.send_message(id, itemsDB[itemID]['open_description'] + '\n')
         describeContainerContents(mud, id, itemsDB, itemID, False)
 
 def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
@@ -1139,7 +1141,10 @@ def closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, ite
         itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('open', 'closed')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('open','closed')
 
-        mud.send_message(id, 'You close ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '.\n\n')
+        if len(itemsDB[itemID]['close_description'])>0:
+                mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
+        else:
+                mud.send_message(id, 'You close ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '.\n\n')
 
 def closeItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
         linkedItemID=int(itemsDB[items[iid]['id']]['linkedItem'])

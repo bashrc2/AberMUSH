@@ -201,6 +201,8 @@ for k in itemsDB:
                 if not(v == "name" or \
                        v == "long_description" or \
                        v == "short_description" or \
+                       v == "open_description" or \
+                       v == "close_description" or \
                        v == "state" or \
                        v == "contains" or \
                        v == "exit" or \
