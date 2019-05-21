@@ -801,10 +801,10 @@ while True:
 
                                         log("Client ID: " + str(id) + " has requested existing user (" + command + ")", "info")
                                         mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
-                                        mud.send_message(id, '<f15>What is your password? ')
+                                        mud.send_message(id, '<f15>What is your password?\n\n')
                                 else:
                                         mud.send_message(id, '<f202>User <f32>' + command + '<r> was not found!\n')
-                                        mud.send_message(id, '<f15>What is your username? ')
+                                        mud.send_message(id, '<f15>What is your username?\n\n')
                                         log("Client ID: " + str(id) + " has requested non existent user (" + command + ")", "info")
                         else:
                                 # New player creation here
