@@ -902,7 +902,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                                         wearingMsg=wearingMsg+' '
                                 wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['article'] + ' ' + itemsDB[players[pid][cl]]['name']
                                 if cl.endswith('neck'):
-                                        wearingMsg=wearingMsg+' around your neck'
+                                        wearingMsg=wearingMsg+' around ' + playerName2 + ' neck'
                                 if cl.endswith('lleg'):
                                         wearingMsg=wearingMsg+' on ' + playerName2 + ' left leg'
                                 if cl.endswith('rleg'):
