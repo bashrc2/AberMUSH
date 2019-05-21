@@ -305,7 +305,7 @@ while True:
                 for (pid, pl) in list(players.items()):
                         if players[pid]['authenticated'] is not None:
                                 # print('Saving' + players[pid]['name'])
-                                saveState(players[pid], playersDB)
+                                saveState(players[pid], playersDB, False)
                                 playersDB = loadPlayersDB()
                                 # State Save logic End
                                 lastStateSave = now
@@ -683,7 +683,7 @@ while True:
                 # Code here to save player to the database after he's disconnected and before removing him from players dictionary
                 if players[id]['authenticated'] is not None:
                         log("Player disconnected, saving state", "info")
-                        saveState(players[id], playersDB)
+                        saveState(players[id], playersDB, False)
                         playersDB = loadPlayersDB()
 
                 # TODO: IDEA - Some sort of a timer to have the character remain in the game for some time after disconnection?

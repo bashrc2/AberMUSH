@@ -192,7 +192,7 @@ def loadPlayer(name, db):
         except Exception:
                 pass
 
-def savePlayer(player, masterDB, path = str(Config.get('Players', 'Location')) + "/"):
+def savePlayer(player, masterDB, savePassword, path = str(Config.get('Players', 'Location')) + "/"):
         #print(path)
         DB = loadPlayersDB(forceLowercase = False)
         for p in DB:
@@ -208,7 +208,7 @@ def savePlayer(player, masterDB, path = str(Config.get('Players', 'Location')) +
                         #print(newPlayer)
                         newPlayer['pwd'] = temp['pwd']
                         for key in newPlayer:
-                                if key != "pwd":
+                                if key != "pwd" or savePassword:
                                         # print(key)
                                         newPlayer[key] = player[key]
                         #print(newPlayer)
@@ -219,11 +219,10 @@ def savePlayer(player, masterDB, path = str(Config.get('Players', 'Location')) +
                         masterDB = loadPlayersDB()
                         #print(masterDB)
 
-
 # State Save Function
-def saveState(player, masterDB):
+def saveState(player, masterDB, savePassword):
         tempVar = 0
-        savePlayer(player, masterDB)
+        savePlayer(player, masterDB, savePassword)
         #masterDB = loadPlayersDB()
 
 def str2bool(v):

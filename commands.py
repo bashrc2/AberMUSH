@@ -9,6 +9,9 @@ __status__ = "Production"
 
 from functions import addToScheduler
 from functions import getFreeKey
+from functions import hash_password
+from functions import log
+from functions import saveState
 from copy import deepcopy
 import time
 import datetime
@@ -364,6 +367,7 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, 'Commands:')
         mud.send_message(id, '  bio [description]                       - Set a description of yourself')
+        mud.send_message(id, '  change password [newpassword]           - Change your password')
         mud.send_message(id, '  who                                     - List players and where they are')
         mud.send_message(id, '  quit/exit                               - Leave the game')
         mud.send_message(id, '  eat/drink [item]                        - Eat or drink a consumable')
@@ -602,6 +606,21 @@ def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB
                 mud.send_message(id, "\n\n")
         else:
                 mud.send_message(id, 'You haven`t got any items on you.\n\n')
+
+def changeSetting(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        newPassword=''
+        if params.startswith('password '):
+                newPassword=params.replace('password ','')
+        if params.startswith('pass '):
+                newPassword=params.replace('pass ','')
+        if len(newPassword)>0:
+            if len(newPassword)<6:
+                mud.send_message(id, "That password is too short.\n\n")
+                return
+            players[id]['pwd'] = hash_password(newPassword)
+            log("Player " + players[id]['name'] + "changed their password", "info")
+            saveState(players[id],playersDB,True)
+            mud.send_message(id, "Your password has been changed.\n\n")
 
 def writeOnItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if ' on ' not in params:
@@ -1416,7 +1435,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "write": writeOnItem,
                 "tag": writeOnItem,
                 "eat": eat,
-                "drink": eat
+                "drink": eat,
+                "change": changeSetting
         }
 
         try:

@@ -25,6 +25,7 @@ All players can use the following commands:
 
 ``` bash
 bio [description]                       - Set a description of yourself
+change password [newpassword]           - Change your password
 who                                     - List players and where they are
 quit/exit                               - Leave the game
 eat/drink [item]                        - Eat or drink a consumable
