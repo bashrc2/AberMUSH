@@ -810,7 +810,7 @@ while True:
                                 # New player creation here
                                 players[id]['idleStart'] = int(time.time())
                                 log("Client ID: " + str(id) + " has initiated character creation.", "info")
-                                mud.send_message(id, "<f220>Welcome Traveller! So you have decided to create an account, that's awesome! Thank you for your interest in DUM, hope you enjoy yourself while you're here.")
+                                mud.send_message(id, "<f220>Welcome Traveller! So you have decided to create an account, that's awesome! Thank you for your interest in AberMUSH, hope you enjoy yourself while you're here.")
                                 mud.send_message(id, "Note: You can type 'startover' at any time to restart the character creation process.\n")
                                 mud.send_message(id, "<f230>Press ENTER to continue...")
                                 # mud.send_message(id, "<f220>What is going to be your name?")
