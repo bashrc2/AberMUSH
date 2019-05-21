@@ -618,7 +618,7 @@ def changeSetting(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB,
                 mud.send_message(id, "That password is too short.\n\n")
                 return
             players[id]['pwd'] = hash_password(newPassword)
-            log("Player " + players[id]['name'] + "changed their password", "info")
+            log("Player " + players[id]['name'] + " changed their password", "info")
             saveState(players[id],playersDB,True)
             mud.send_message(id, "Your password has been changed.\n\n")
 
