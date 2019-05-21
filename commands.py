@@ -603,6 +603,27 @@ def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB
         else:
                 mud.send_message(id, 'You haven`t got any items on you.\n\n')
 
+def writeOnItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if ' on ' not in params:
+                if ' onto ' not in params:
+                        if ' in ' not in params:
+                                if ' using ' not in params:
+                                        if ' with ' not in params:
+                                                mud.send_message(id, 'What?\n\n')
+                                                return
+        writeItemName=''
+        msg=''
+        if ' using ' not in params:
+                msg=params.split(' using ')[0].remove('"')
+                writeItemName=params.split(' using ')[1].lower()
+        if ' with ' not in params:
+                msg=params.split(' with ')[0].remove('"')
+                writeItemName=params.split(' with ')[1].lower()
+
+        if len(msg)==0:
+                return
+        if len(msg)>64:
+                mud.send_message(id, 'That message is too long.\n\n')
 
 def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if params.lower() == 'inventory' or params.lower() == 'inv':
@@ -1392,6 +1413,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "ask": tell,
                 "open": openItem,
                 "close": closeItem,
+                "write": writeOnItem,
+                "tag": writeOnItem,
                 "eat": eat,
                 "drink": eat
         }
