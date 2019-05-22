@@ -21,6 +21,8 @@
     "clo_rarm": 0,
     "clo_lhand": 0,
     "clo_rhand": 0,
+    "clo_lwrist": 0,
+    "clo_rwrist": 0,
     "clo_chest": 0,
     "clo_lleg": 0,
     "clo_rleg": 0,
