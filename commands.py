@@ -46,6 +46,10 @@ def removeItemFromClothing(players,id,itemID):
                 players[id]['clo_lhand'] = 0
         if int(players[id]['clo_rhand']) == itemID:
                 players[id]['clo_rhand'] = 0
+        if int(players[id]['clo_lwrist']) == itemID:
+                players[id]['clo_lwrist'] = 0
+        if int(players[id]['clo_rwrist']) == itemID:
+                players[id]['clo_rwrist'] = 0
 
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
@@ -601,7 +605,7 @@ def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB
                                                 if int(players[id]['clo_rhand']) == int(i):
                                                         mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (right hand)')
                                                 else:
-                                                        if int(players[id]['clo_head']) ==int(i) or int(players[id]['clo_neck']) ==int(i) or int(players[id]['clo_chest']) == int(i) or int(players[id]['clo_feet']) == int(i):
+                                                        if int(players[id]['clo_head']) ==int(i) or int(players[id]['clo_lwrist']) ==int(i) or int(players[id]['clo_rwrist']) ==int(i) or int(players[id]['clo_neck']) ==int(i) or int(players[id]['clo_chest']) == int(i) or int(players[id]['clo_feet']) == int(i):
                                                                 mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'] + '<r> (worn)')
                                                         else:
                                                                 mud.send_message(id, ' * ' + itemsDB[int(i)]['article'] + ' <b234>' + itemsDB[int(i)]['name'])
@@ -837,6 +841,16 @@ def unwear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                 mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_neck'] = 0
 
+        if int(players[id]['clo_lwrist']) > 0:
+                itemID=int(players[id]['clo_lwrist'])
+                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                players[id]['clo_lwrist'] = 0
+
+        if int(players[id]['clo_rwrist']) > 0:
+                itemID=int(players[id]['clo_rwrist'])
+                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                players[id]['clo_rwrist'] = 0
+
         if int(players[id]['clo_chest']) > 0:
                 itemID=int(players[id]['clo_chest'])
                 mud.send_message(id, 'You remove ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
@@ -890,7 +904,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
         if wearingCtr>0:
                 wearingMsg=playerName + ' are wearing'
                 wearingCtr2=0
-                playerClothing=['clo_head','clo_neck','clo_chest','clo_lleg','clo_rleg','clo_feet']
+                playerClothing=['clo_head','clo_neck','clo_lwrist','clo_rwrist','clo_chest','clo_lleg','clo_rleg','clo_feet']
                 for cl in playerClothing:
                         if int(players[pid][cl])>0:
                                 if wearingCtr2>0:
@@ -903,6 +917,10 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                                 wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['article'] + ' ' + itemsDB[players[pid][cl]]['name']
                                 if cl.endswith('neck'):
                                         wearingMsg=wearingMsg+' around ' + playerName2 + ' neck'
+                                if cl.endswith('lwrist'):
+                                        wearingMsg=wearingMsg+' on ' + playerName2 + ' left wrist'
+                                if cl.endswith('rwrist'):
+                                        wearingMsg=wearingMsg+' on ' + playerName2 + ' right wrist'
                                 if cl.endswith('lleg'):
                                         wearingMsg=wearingMsg+' on ' + playerName2 + ' left leg'
                                 if cl.endswith('rleg'):
