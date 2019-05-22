@@ -719,14 +719,14 @@ while True:
                         players[id]['idleStart'] = int(time.time())
                         mud.send_message(id, "<f220>Ok, leaving the character creation.\n")
                         players[id]['exAttribute0'] = None
-                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character. ")
+                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
                         log("Client ID: " + str(id) + " has aborted character creation.", "info")
                         break
 
                 if players[id]['exAttribute0'] == 1000:
                         players[id]['idleStart'] = int(time.time())
                         # First step of char creation
-                        mud.send_message(id, "<f220>\nWhat is going to be your name? ")
+                        mud.send_message(id, "<f220>\nWhat is going to be your name?\n\n")
                         for c in mud._clients:
                                 #print(str(mud._clients[c].address))
                                 pass
@@ -739,14 +739,14 @@ while True:
                         for p in playersDB:
                                 if playersDB[p]['name'].lower() == command.lower():
                                         mud.send_message(id, "\n<f220>This character name is already taken!")
-                                        mud.send_message(id, "Press ENTER to continue...")
+                                        mud.send_message(id, "Press ENTER to continue...\n\n")
                                         taken = True
                                         break
                         if taken == False:
                                 players[id]['exAttribute1'] = command
                                 # print(players[id]['exAttribute1'])
                                 mud.send_message(id, "<f220>\nAhh.. <r><f32>" + command + "<r><f220>! That's a strong name!\n")
-                                mud.send_message(id, "<f220>Now what would you like your password to be? ")
+                                mud.send_message(id, "<f220>Now what would you like your password to be?\n\n")
                                 players[id]['exAttribute0'] = 1002
                                 break
                         else:
@@ -783,7 +783,7 @@ while True:
                         players[id]['exAttribute0'] = None
                         mud.send_message(id, '<f220>Your character has now been created, you can log in using credentials you have provided.\n')
                         # mud.send_message(id, '<f15>What is your username?')
-                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character. ")
+                        mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
                         log("Client ID: " + str(id) + " has completed character creation (" + template['name'] + ").", "info")
                         break
 
@@ -815,7 +815,7 @@ while True:
                                 log("Client ID: " + str(id) + " has initiated character creation.", "info")
                                 mud.send_message(id, "<f220>Welcome Traveller! So you have decided to create an account, that's awesome! Thank you for your interest in AberMUSH, hope you enjoy yourself while you're here.")
                                 mud.send_message(id, "Note: You can type 'startover' at any time to restart the character creation process.\n")
-                                mud.send_message(id, "<f230>Press ENTER to continue...")
+                                mud.send_message(id, "<f230>Press ENTER to continue...\n\n")
                                 # mud.send_message(id, "<f220>What is going to be your name?")
                                 # Set eAttribute0 to 1000, signifying this client has initialised a player creation process.
                                 players[id]['exAttribute0'] = 1000
