@@ -825,6 +825,9 @@ while True:
                         #print(pl)
                         dbPass = pl['pwd']
 
+                        if players[id]['name'] == 'Guest':
+                                dbPass = hash_password(pl['pwd'])
+
                         # Iterate through players in game and see if our newly connected players is not already in game.
                         playerFound = False
                         for pl in players:
