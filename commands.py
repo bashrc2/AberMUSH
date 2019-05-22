@@ -974,6 +974,10 @@ def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                         bioOfPlayer(mud,id,pid,players,itemsDB)
                         return
 
+        if players[id]['name'].lower() == 'guest':
+                mud.send_message(id,"Guest players cannot set a bio.\n\n")
+                return
+
         if '"' in params:
                 mud.send_message(id,"Your bio must not include double quotes.\n\n")
                 return

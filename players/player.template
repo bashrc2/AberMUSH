@@ -40,7 +40,7 @@
     "charge": 0,
     "inDescription": "arrives",
     "outDescription": "leaves",
-    "lookDescription": "This is a Player description",
+    "lookDescription": "To set your bio use the command:\n\nbio [description]",
     "channels": ["system"],
     "permissionLevel": 0,
     "exAttribute0": 0,
