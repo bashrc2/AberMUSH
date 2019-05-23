@@ -340,6 +340,9 @@ while True:
                                 players[pid]['hp'] = 4
 
         # Handle Fights
+        attack_types_pre=["strike","lunge","bludgeon","thrust","swipe","swing","stab","cut","slash"]
+        attack_types_pre2=["struck","lunged","bludgeoned","thrusted","swiped","swung","stabbed","cut","slashed"]
+        attack_types_post=["viciously at","savagely at","daringly at","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
         for (fid, pl) in list(fights.items()):
                 # PC -> PC
                 if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
@@ -354,9 +357,12 @@ while True:
                                                         if players[fights[fid]['s1id']]['hp'] > 0:
                                                                 players[fights[fid]['s2id']]['hp'] = players[fights[fid]['s2id']]['hp'] - (players[fights[fid]['s1id']]['str'] + modifier)
                                                                 players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                                mud.send_message(fights[fid]['s1id'], 'You manage to hit <f32><u>' + players[fights[fid]['s2id']]['name'] + '<r> for <f15><b2> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.\n')
-                                                                mud.send_message(fights[fid]['s2id'], '<f32>' + players[fights[fid]['s1id']]['name'] + '<r> has managed to hit you for <f15><b88> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.\n')
-
+                                                                attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+                                                                attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                                                                attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                                                                mud.send_message(fights[fid]['s1id'], 'You ' + attackDescription + ' <f32><u>' + players[fights[fid]['s2id']]['name'] + '<r> for <f15><b2> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.\n')
+                                                                attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                                                                mud.send_message(fights[fid]['s2id'], '<f32>' + players[fights[fid]['s1id']]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(players[fights[fid]['s1id']]['str'] + modifier) + ' *<r> points of damage.\n')
                                                 else:
                                                         players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
                                                         mud.send_message(fights[fid]['s1id'], 'You miss trying to hit <f32><u>' + players[fights[fid]['s2id']]['name'] + '\n')
@@ -380,7 +386,12 @@ while True:
                                                         if players[fights[fid]['s1id']]['hp'] > 0:
                                                                 npcs[fights[fid]['s2id']]['hp'] = npcs[fights[fid]['s2id']]['hp'] - (players[fights[fid]['s1id']]['str'] + modifier)
                                                                 players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                                mud.send_message(fights[fid]['s1id'], 'You manage to hit <f220>' + npcs[fights[fid]['s2id']]['name'] + '<r> for <b2><f15> * ' + str(players[fights[fid]['s1id']]['str'] + modifier)  + ' * <r> points of damage\n')
+
+                                                                attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+                                                                attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                                                                attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+
+                                                                mud.send_message(fights[fid]['s1id'], 'You '+ attackDescription + ' <f220>' + npcs[fights[fid]['s2id']]['name'] + '<r> for <b2><f15> * ' + str(players[fights[fid]['s1id']]['str'] + modifier)  + ' * <r> points of damage\n')
 
                                                 else:
                                                         players[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
@@ -403,7 +414,10 @@ while True:
                                                 if npcs[fights[fid]['s1id']]['hp'] > 0:
                                                         players[fights[fid]['s2id']]['hp'] = players[fights[fid]['s2id']]['hp'] - (npcs[fights[fid]['s1id']]['str'] + modifier)
                                                         npcs[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
-                                                        mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has managed to hit you for <f15><b88> * ' + str(npcs[fights[fid]['s1id']]['str'] + modifier) + ' * <r> points of damage.\n')
+                                                        attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+                                                        attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                                                        attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                                                        mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(npcs[fights[fid]['s1id']]['str'] + modifier) + ' * <r> points of damage.\n')
                                         else:
                                                 npcs[fights[fid]['s1id']]['lastCombatAction'] = int(time.time())
                                                 mud.send_message(fights[fid]['s2id'], '<f220>' + npcs[fights[fid]['s1id']]['name'] + '<r> has missed you completely!\n')
