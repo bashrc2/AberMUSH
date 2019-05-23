@@ -2,6 +2,8 @@
 
 Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
 
+Universe based on [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Software/Games/AberMUD5/SOURCE/)
+
 You can also use a mud client of your choice if you wish - use connection details below:
 
 ```
