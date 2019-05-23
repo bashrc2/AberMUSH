@@ -154,6 +154,7 @@ The state of the item can be `container open` or `container closed`. You can the
 
 ``` bash
 open chest
+examine chest
 take hat from chest
 wear hat
 close chest
