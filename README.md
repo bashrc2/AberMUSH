@@ -19,6 +19,8 @@ telnet [hostname] 35123
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
 
+![AberMUSH](docs/sword.png)
+
 ## Player Commands
 
 All players can use the following commands:
