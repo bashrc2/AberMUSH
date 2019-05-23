@@ -1,8 +1,8 @@
 ![AberMUSH](docs/logo.png)
 
-Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
+A modern MU* engine with [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Software/Games/AberMUD5/SOURCE/) universe.
 
-Universe based on [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Software/Games/AberMUD5/SOURCE/)
+Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
 
 You can also use a mud client of your choice if you wish - use connection details below:
 
