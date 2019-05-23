@@ -52,6 +52,8 @@ close [item]                            - Close an item or door
 Witches are the admins of the system, and have additional supernatural powers. The first user to create an account gains witch status. Additional witches may be assigned by appending them to the `witches` file, which is located in the same directory as `abermush.py` is run from.
 
 ``` bash
+close registrations              - Closes registrations of new players
+open registrations               - Allows registrations of new players
 mute/silence [target]            - Mutes a player and prevents them from attacking
 unmute/unsilence [target]        - Unmutes a player
 teleport [room]                  - Teleport to a room

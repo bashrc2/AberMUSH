@@ -16,6 +16,7 @@ from copy import deepcopy
 import time
 import datetime
 import os.path
+import commentjson
 from random import randint
 
 '''
@@ -69,6 +70,27 @@ def isWitch(id, players):
 
         witchesfile.close()
         return False
+
+def disableRegistrations(mud, id, players):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have enough powers.\n\n")
+                return
+        if os.path.isfile(".disableRegistrations"):
+                mud.send_message(id, "New registrations are already closed.\n\n")
+                return
+        with open(".disableRegistrations", 'w') as fp:
+                fp.write('')
+        mud.send_message(id, "New player registrations are now closed.\n\n")
+
+def enableRegistrations(mud, id, players):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have enough powers.\n\n")
+                return
+        if not os.path.isfile(".disableRegistrations"):
+                mud.send_message(id, "New registrations are already allowed.\n\n")
+                return
+        os.remove(".disableRegistrations")
+        mud.send_message(id, "New player registrations are now permitted.\n\n")
 
 def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
@@ -395,6 +417,8 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  close [item]                            - Close an item or door')
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')
+        mud.send_message(id, '  close registrations                     - Closes registrations of new players')
+        mud.send_message(id, '  open registrations                      - Allows registrations of new players')
         mud.send_message(id, '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
         mud.send_message(id, '  unmute/unsilence [target]               - Unmutes a player')
         mud.send_message(id, '  teleport [room]                         - Teleport to a room')
@@ -1234,6 +1258,10 @@ def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
 def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         target=params.lower()
 
+        if target.startswith('registration'):
+                enableRegistrations(mud, id, players)
+                return
+
         itemsInWorldCopy = deepcopy(items)
         for (iid, pl) in list(itemsInWorldCopy.items()):
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
@@ -1290,6 +1318,10 @@ def closeItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB,
 
 def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         target=params.lower()
+
+        if target.startswith('registration'):
+                disableRegistrations(mud, id, players)
+                return
 
         itemsInWorldCopy = deepcopy(items)
         for (iid, pl) in list(itemsInWorldCopy.items()):
