@@ -49,6 +49,8 @@ open [item]                             - Open an item or door
 close [item]                            - Close an item or door
 ```
 
+![AberMUSH](docs/skull.png)
+
 ## Witch Commands
 
 Witches are the admins of the system, and have additional supernatural powers. The first user to create an account gains witch status. Additional witches may be assigned by appending them to the `witches` file, which is located in the same directory as `abermush.py` is run from.
