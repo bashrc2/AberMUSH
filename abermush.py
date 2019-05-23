@@ -659,7 +659,14 @@ while True:
                 for l in motdLines:
                         mud.send_message(id, l[:-1])
 
-                mud.send_message(id, "\nWhat is your username? (type <f255>new<r> for new character)\n\n")
+                if not os.path.isfile(".disableRegistrations"):
+                        mud.send_message(id, '<f15>You can create a new Character, or use the following guest account:')
+                        mud.send_message(id, '<f15>Username: <r><f220>Guest<r><f15> Password: <r><f220>Password')
+                        mud.send_message(id, "\nWhat is your username? (type <f255>new<r> for new character)\n\n")
+                else:
+                        mud.send_message(id, '<f0><b220> New account registrations are currently closed')
+
+                        mud.send_message(id, "\nWhat is your username?\n\n")
                 log("Client ID: " + str(id) + " has connected", "info")
 
         # go through any recently disconnected players
@@ -711,9 +718,10 @@ while True:
 
                 # print(str(players[id]['authenticated']))
                 if command.lower() == "startover" and players[id]['exAttribute0'] != None and players[id]['authenticated'] == None:
-                        players[id]['idleStart'] = int(time.time())
-                        mud.send_message(id, "<f220>Ok, Starting character creation from the beginning!\n")
-                        players[id]['exAttribute0'] = 1000
+                        if not os.path.isfile(".disableRegistrations"):
+                                players[id]['idleStart'] = int(time.time())
+                                mud.send_message(id, "<f220>Ok, Starting character creation from the beginning!\n")
+                                players[id]['exAttribute0'] = 1000
 
                 if command.lower() == "exit" and players[id]['exAttribute0'] != None and players[id]['authenticated'] == None:
                         players[id]['idleStart'] = int(time.time())
@@ -811,14 +819,18 @@ while True:
                                         log("Client ID: " + str(id) + " has requested non existent user (" + command + ")", "info")
                         else:
                                 # New player creation here
-                                players[id]['idleStart'] = int(time.time())
-                                log("Client ID: " + str(id) + " has initiated character creation.", "info")
-                                mud.send_message(id, "<f220>Welcome Traveller! So you have decided to create an account, that's awesome! Thank you for your interest in AberMUSH, hope you enjoy yourself while you're here.")
-                                mud.send_message(id, "Note: You can type 'startover' at any time to restart the character creation process.\n")
-                                mud.send_message(id, "<f230>Press ENTER to continue...\n\n")
-                                # mud.send_message(id, "<f220>What is going to be your name?")
-                                # Set eAttribute0 to 1000, signifying this client has initialised a player creation process.
-                                players[id]['exAttribute0'] = 1000
+                                if not os.path.isfile(".disableRegistrations"):
+                                        players[id]['idleStart'] = int(time.time())
+                                        log("Client ID: " + str(id) + " has initiated character creation.", "info")
+                                        mud.send_message(id, "<f220>Welcome Traveller! So you have decided to create an account, that's awesome! Thank you for your interest in AberMUSH, hope you enjoy yourself while you're here.")
+                                        mud.send_message(id, "Note: You can type 'startover' at any time to restart the character creation process.\n")
+                                        mud.send_message(id, "<f230>Press ENTER to continue...\n\n")
+                                        # mud.send_message(id, "<f220>What is going to be your name?")
+                                        # Set eAttribute0 to 1000, signifying this client has initialised a player creation process.
+                                        players[id]['exAttribute0'] = 1000
+                                else:
+                                        mud.send_message(id, "<f220>New registrations are closed at this time.")
+                                        mud.send_message(id, "<f230>Press ENTER to continue...\n\n")
                 elif players[id]['name'] is not None \
                      and players[id]['authenticated'] is None:
                         pl = loadPlayer(players[id]['name'], playersDB)
