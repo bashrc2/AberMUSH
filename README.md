@@ -138,6 +138,8 @@ You should make some vague suggestion that these items can be opened within thei
 
 If you need a key to open the door then specify the item number within the `lockedWithItem` parameter.
 
+![AberMUSH](docs/chest.png)
+
 ### Containers, Chests and Tables
 
 Other than opening and closing doors you may also want to have items which can be opened or closed, and have things removed or put into them. For example a treasure chest containing gold coins. To define an item as openable the relevant attributes are similar to the following:
