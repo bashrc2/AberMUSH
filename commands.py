@@ -1207,7 +1207,7 @@ def openItemUnlock(items,itemsDB,id,iid,players,mud):
         return True
 
 def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
-        if itemsDB[itemID]['state'] != 'container open':
+        if not itemsDB[itemID]['state'].startswith('container open'):
                 if returnMsg:
                         return ''
                 else:
@@ -1242,6 +1242,10 @@ def openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, item
                 return
 
         itemID=items[iid]['id']
+        if itemsDB[itemID]['state'].startswith('container open'):
+                mud.send_message(id, "It's already open\n\n")
+                return
+
         itemsDB[itemID]['state']='container open'
         itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('closed','open')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('closed','open')
@@ -1306,6 +1310,14 @@ def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
 
 def closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid):
         itemID=items[iid]['id']
+        if itemsDB[itemID]['state'].startswith('container closed'):
+                mud.send_message(id, "It's already closed\n\n")
+                return
+
+        if itemsDB[itemID]['state'].startswith('container open '):
+                mud.send_message(id, "That's not possible.\n\n")
+                return
+
         itemsDB[itemID]['state']='container closed'
         itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('open', 'closed')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('open','closed')
@@ -1361,7 +1373,7 @@ def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                             if itemsDB[items[iid]['id']]['state'] == 'open':
                                     closeItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
                                     break
-                            if itemsDB[items[iid]['id']]['state'] == 'container open':
+                            if itemsDB[items[iid]['id']]['state'].startswith('container open'):
                                     closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
                                     break
 
@@ -1420,7 +1432,7 @@ def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         for (iid, pl) in list(itemsInWorldCopy.items()):
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                         if containerName.lower() in itemsDB[items[iid]['id']]['name'].lower():
-                                if itemsDB[items[iid]['id']]['state'] == 'container open':
+                                if itemsDB[items[iid]['id']]['state'].startswith('container open'):
                                         players[id]['inv'].remove(str(itemID))
                                         removeItemFromClothing(players,id,itemID)
                                         itemsDB[items[iid]['id']]['contains'].append(str(itemID))
@@ -1514,7 +1526,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
                 for (iid, pl) in list(itemsInWorldCopy.items()):
                         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                                if itemsDB[items[iid]['id']]['state'] == 'container open':
+                                if itemsDB[items[iid]['id']]['state'].startswith('container open'):
                                         for containerItemID in itemsDB[items[iid]['id']]['contains']:
                                                 itemName = itemsDB[int(containerItemID)]['name']
                                                 if target in itemName.lower():

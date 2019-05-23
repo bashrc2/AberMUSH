@@ -166,7 +166,7 @@ Similar to doors, items may be locked with another item which could be a key. Ta
     "1289": {
         "name": "inn table",
         ...
-        "state": "container open",
+        "state": "container open always",
     },
 ```
 
