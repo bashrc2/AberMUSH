@@ -133,3 +133,44 @@ These are the same trapdoor as seen from two rooms. The `linkedItem` parameter l
 You should make some vague suggestion that these items can be opened within their `long_description` parameter.
 
 If you need a key to open the door then specify the item number within the `lockedWithItem` parameter.
+
+### Containers, Chests and Tables
+
+Other than opening and closing doors you may also want to have items which can be opened or closed, and have things removed or put into them. For example a treasure chest containing gold coins. To define an item as openable the relevant attributes are similar to the following:
+
+``` bash
+    "207": {
+        "name": "clothes chest",
+        ...
+        "state": "container closed",
+        "open_description": "Tiny moths flutter out as you open the clothes chest.",
+        "close_description": "The clothes chest closes with a satisfying thud.",
+        "contains": ["107","1386","1389","1390"],
+        "lockedWithItem": 0,
+    },
+```
+
+The state of the item can be `container open` or `container closed`. You can then use commands such as:
+
+``` bash
+open chest
+take hat from chest
+wear hat
+close chest
+```
+
+Similar to doors, items may be locked with another item which could be a key. Tables can be a special type of always open item.
+
+``` bash
+    "1289": {
+        "name": "inn table",
+        ...
+        "state": "container open",
+    },
+```
+
+You can then use a command such as:
+
+``` bash
+put hat on table
+```
