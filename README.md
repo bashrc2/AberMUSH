@@ -56,6 +56,8 @@ close registrations              - Closes registrations of new players
 open registrations               - Allows registrations of new players
 mute/silence [target]            - Mutes a player and prevents them from attacking
 unmute/unsilence [target]        - Unmutes a player
+freeze [target]                  - Prevents a player from moving or attacking
+unfreeze [target]                - Allows a player to move or attack
 teleport [room]                  - Teleport to a room
 summon [target]                  - Summons a player to your location
 ```

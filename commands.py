@@ -161,6 +161,35 @@ def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                     mud.send_message(id, "You have unmuted " + target + "\n")
                                 return
 
+def freeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if players[id]['permissionLevel'] == 0:
+            if isWitch(id,players):
+                target = params.partition(' ')[0]
+                if len(target) != 0:
+                    for p in players:
+                        if players[p]['name'] == target:
+                            if not isWitch(p,players):
+                                players[p]['canGo'] = 0
+                                players[p]['canAttack'] = 0
+                                mud.send_message(id, "You have frozen " + target + "\n")
+                            else:
+                                mud.send_message(id, "You try to freeze " + target + " but their power is too strong.\n")
+                            return
+
+def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if players[id]['permissionLevel'] == 0:
+            if isWitch(id,players):
+                target = params.partition(' ')[0]
+                if len(target) != 0:
+                    if target.lower() != 'guest':
+                        for p in players:
+                            if players[p]['name'] == target:
+                                if not isWitch(p,players):
+                                    players[p]['canGo'] = 1
+                                    players[p]['canAttack'] = 1
+                                    mud.send_message(id, "You have unfrozen " + target + "\n")
+                                return
+
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud._handle_disconnect(id)
 
@@ -421,6 +450,8 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  open registrations                      - Allows registrations of new players')
         mud.send_message(id, '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
         mud.send_message(id, '  unmute/unsilence [target]               - Unmutes a player')
+        mud.send_message(id, '  freeze [target]                         - Prevents a player from moving or attacking')
+        mud.send_message(id, '  unfreeze [target]                       - Allows a player to move or attack')
         mud.send_message(id, '  teleport [room]                         - Teleport to a room')
         mud.send_message(id, '  summon [target]                         - Summons a player to your location\n\n')
 
@@ -1534,6 +1565,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "silence": mute,
                 "unmute": unmute,
                 "unsilence": unmute,
+                "freeze": freeze,
+                "unfreeze": unfreeze,
                 "tell": tell,
                 "ask": tell,
                 "open": openItem,
