@@ -1213,7 +1213,7 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
                 else:
                         return
         noOfItems=len(itemsDB[itemID]['contains'])
-        containerMsg='It contains '
+        containerMsg='You see '
 
         if noOfItems == 0:
                 mud.send_message(id, containerMsg + ' nothing.\n\n')
