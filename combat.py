@@ -18,7 +18,43 @@ import time
 
 attack_types_pre=["strike","lunge","bludgeon","thrust","swipe","swing","stab","cut","slash"]
 attack_types_pre2=["struck","lunged","bludgeoned","thrusted","swiped","swung","stabbed","cut","slashed"]
-attack_types_post=["viciously at","savagely at","daringly at","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
+attack_types_post=["viciously at","savagely at","daringly at","a crushing blow on","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
+
+def npcWieldsWeapon(id,npcs,itemsDB):
+    if len(npcs[id]['inv'])==0:
+        return
+
+    itemID=0
+    # what is the best weapon which the NPC is carrying?
+    max_damage=0
+    for i in npcs[id]['inv']:
+        if itemsDB[int(i)]['clo_rhand']>0:
+            if itemsDB[int(i)]['mod_str']>max_damage:
+                max_damage=itemsDB[int(i)]['mod_str']
+                itemID=int(i)
+    if itemID>0:
+        # Transfer weapon to hand
+        npcs[id]['clo_rhand']=itemID
+        npcs[id]['clo_lhand']=0
+
+def npcWearsArmor(id,npcs,itemsDB):
+    if len(npcs[id]['inv'])==0:
+        return
+
+    defenseClothing=['clo_chest','clo_head','clo_rarm','clo_rleg','clo_rwrist']
+    for c in defenseClothing:
+        itemID=0
+        # what is the best defense which the NPC is carrying?
+        max_defense=0
+        for i in npcs[id]['inv']:
+            if itemsDB[int(i)][c]>0:
+                if itemsDB[int(i)]['mod_str'] == 0:
+                    if itemsDB[int(i)]['mod_endu']>max_defense:
+                        max_defense=itemsDB[int(i)]['mod_endu']
+                        itemID=int(i)
+        if itemID>0:
+            # Wear the armor
+            npcs[id][c]=itemID
 
 def weaponDamage(id,players,itemsDB):
     damage=0
@@ -31,7 +67,20 @@ def weaponDamage(id,players,itemsDB):
     if itemID>0:
         damage = damage + itemsDB[itemID]['mod_str']
 
+    # Total damage inflicted by weapons
     return damage
+
+def weaponDefense(id,players,itemsDB):
+    defense=0
+
+    defenseClothing=['clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist']
+    for c in defenseClothing:
+        itemID=int(players[id][c])
+        if itemID>0:
+            defense = defense + int(itemsDB[itemID]['mod_endu'])
+
+    # Total defense by shields or clothing
+    return defense
 
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
         s1id = fights[fid]['s1id']
@@ -50,16 +99,23 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
                 players[s2id]['isInCombat'] = 1
                 # Do damage to the PC here
                 if randint(0, 1) == 1:
-                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB)
-                        if players[s1id]['hp'] > 0:
+                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB) - weaponDefense(s2id,players,itemsDB)
+                        attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+                        attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                        attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                        if modifier>0:
+                            if players[s1id]['hp'] > 0:
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
-                                attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-                                attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
-                                attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
                                 mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of damage.\n')
                                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
                                 mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of damage.\n')
+                        else:
+                            if players[s1id]['hp'] > 0:
+                                # Attack deflected by armor
+                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
+                                attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you but it is deflected by your armor.\n')
                 else:
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss trying to hit <f32><u>' + players[s2id]['name'] + '\n')
@@ -88,17 +144,21 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
                 npcs[s2id]['isInCombat'] = 1
                 # Do damage to the NPC here
                 if randint(0, 1) == 1:
-                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB)
-                        if players[s1id]['hp'] > 0:
+                        npcWearsArmor(s2id,npcs,itemsDB)
+                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB) - weaponDefense(s2id,npcs,itemsDB)
+                        attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+                        attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                        attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                        if modifier>0:
+                            if players[s1id]['hp'] > 0:
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
 
-                                attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-                                attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
-                                attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
-
                                 mud.send_message(s1id, 'You '+ attackDescription + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of damage\n')
-
+                        else:
+                            if players[s1id]['hp'] > 0:
+                                # Attack deflected by armor
+                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
                 else:
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!\n')
@@ -125,14 +185,18 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
         players[s2id]['isInCombat'] = 1
         # Do the damage to PC here
         if randint(0, 1) == 1:
-                modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB)
-                if npcs[s1id]['hp'] > 0:
+                npcWieldsWeapon(s1id,npcs,itemsDB)
+                modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB) - weaponDefense(s2id,players,itemsDB)
+                attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+                attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                if modifier>0:
+                    if npcs[s1id]['hp'] > 0:
                         players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
                         npcs[s1id]['lastCombatAction'] = int(time.time())
-                        attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-                        attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
-                        attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
                         mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of damage.\n')
+                else:
+                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you but it is deflected by your armor.\n')
         else:
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')

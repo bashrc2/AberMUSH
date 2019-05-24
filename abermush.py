@@ -318,7 +318,7 @@ while True:
                                 lastStateSave = now
 
         # Handle Player Deaths
-        runDeaths(mud,players,corpses,fights)
+        runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
         # Handle Fights
         runFights(mud,players,npcs,fights,itemsDB)

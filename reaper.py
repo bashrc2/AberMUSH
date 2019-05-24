@@ -49,7 +49,7 @@ def removeCorpses(corpses):
                         # print("deleting " + corpses[corpse]['name'])
                         del corpses[c]
 
-def runDeaths(mud,players,corpses,fights):
+def runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB):
         # Handle Player Deaths
         for (pid, pl) in list(players.items()):
                 if players[pid]['authenticated'] == True:
