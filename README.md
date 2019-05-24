@@ -123,6 +123,8 @@ To add a door, or other object to be opened or closed you will need a pair of it
         "exitName": "up|down",
         "linkedItem": 430,
         "lockedWithItem": 0,
+        "open_description": "As you push open the trapdoor bright light streams in.",
+        "close_description": "You close the trapdoor and it takes a few moments for your eyes to adjust to the darkness.",
         "exit": "$rid=433$"
     },
     "430": {
@@ -132,6 +134,8 @@ To add a door, or other object to be opened or closed you will need a pair of it
         "exitName": "down|up",
         "linkedItem": 429,
         "lockedWithItem": 0,
+        "open_description": "You carefully lift open the trapdoor. It looks dark down there.",
+        "close_description": "You gently close the trapdoor",
         "exit": "$rid=431$"
     },
 ```
