@@ -1510,10 +1510,14 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
             for (iid, pl) in list(itemsInWorldCopy.items()):
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                         if itemsDB[items[iid]['id']]['name'] == itemName:
-                                players[id]['inv'].append(str(items[iid]['id']))
-                                del items[iid]
-                                itemPickedUp = True
-                                break
+                                if players[id]['canGo'] != 0:
+                                        players[id]['inv'].append(str(items[iid]['id']))
+                                        del items[iid]
+                                        itemPickedUp = True
+                                        break
+                                else:
+                                        mud.send_message(id, 'You try to pick up ' + itemName + " but find that your arms won't move.\n\n")
+                                        return
 
         if itemPickedUp:
                 mud.send_message(id, 'You pick up and place ' + itemName + ' in your inventory.\n\n')
@@ -1534,9 +1538,12 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                                 mud.send_message(id, "You can't pick that up.\n\n")
                                                                 return
                                                         else:
-                                                                players[id]['inv'].append(containerItemID)
-                                                                itemsDB[items[iid]['id']]['contains'].remove(containerItemID)
-                                                                mud.send_message(id, 'You take ' + itemsDB[int(containerItemID)]['article'] + ' ' + itemsDB[int(containerItemID)]['name'] + ' from ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
+                                                                if players[id]['canGo'] != 0:
+                                                                        players[id]['inv'].append(containerItemID)
+                                                                        itemsDB[items[iid]['id']]['contains'].remove(containerItemID)
+                                                                        mud.send_message(id, 'You take ' + itemsDB[int(containerItemID)]['article'] + ' ' + itemsDB[int(containerItemID)]['name'] + ' from ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
+                                                                else:
+                                                                        mud.send_message(id, 'You try to pick up ' + itemsDB[int(containerItemID)]['article'] + ' ' + itemsDB[int(containerItemID)]['name'] + " but find that your arms won't move.\n\n")
                                                                 return
 
                 mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
