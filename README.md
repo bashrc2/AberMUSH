@@ -196,6 +196,22 @@ Food or drink can be defined by setting `edible` to a non-zero value within `ite
 
 ### Combat
 
+Collecting weapons or armor will alter your chances of success in combat. In order to use a weapon you first need to be holding it. Merely having it in your inventory isn't enough for it to be effective. For example:
+
+``` bash
+take dagger
+hold dagger
+```
+
+You can also choose which hand.
+
+``` bash
+hold dagger right
+hold dagger left
+```
+
+With the possibility of using two weapons at the same time.
+
 The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
 
 If you are attacked then your `hit points` will decrease. Rest, or the consumption of food or drink, can restore your hit points.
