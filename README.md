@@ -220,6 +220,12 @@ take chainmail
 wear chainmail
 ```
 
+To see what you or other players are wearing or holding use the `bio` command or:
+
+``` bash
+examine [player]
+```
+
 The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
 
 If you are attacked then your `hit points` will decrease. Rest, or the consumption of food or drink, can restore your hit points.
