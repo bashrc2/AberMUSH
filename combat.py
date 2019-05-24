@@ -20,7 +20,20 @@ attack_types_pre=["strike","lunge","bludgeon","thrust","swipe","swing","stab","c
 attack_types_pre2=["struck","lunged","bludgeoned","thrusted","swiped","swung","stabbed","cut","slashed"]
 attack_types_post=["viciously at","savagely at","daringly at","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
 
-def runFightsBetweenPlayers(mud,players,npcs,fights,fid):
+def weaponDamage(id,players,itemsDB):
+    damage=0
+
+    itemID=players[id]['clo_lhand']
+    if itemID>0:
+        damage = damage + itemsDB[itemID]['mod_str']
+
+    itemID=players[id]['clo_rhand']
+    if itemID>0:
+        damage = damage + itemsDB[itemID]['mod_str']
+
+    return damage
+
+def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -37,7 +50,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid):
                 players[s2id]['isInCombat'] = 1
                 # Do damage to the PC here
                 if randint(0, 1) == 1:
-                        modifier = randint(0, 10)
+                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB)
                         if players[s1id]['hp'] > 0:
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
@@ -58,7 +71,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid):
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid):
+def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -75,7 +88,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid):
                 npcs[s2id]['isInCombat'] = 1
                 # Do damage to the NPC here
                 if randint(0, 1) == 1:
-                        modifier = randint(0, 10)
+                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB)
                         if players[s1id]['hp'] > 0:
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
@@ -96,7 +109,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid):
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid):
+def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -112,7 +125,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid):
         players[s2id]['isInCombat'] = 1
         # Do the damage to PC here
         if randint(0, 1) == 1:
-                modifier = randint(0, 10)
+                modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB)
                 if npcs[s1id]['hp'] > 0:
                         players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
                         npcs[s1id]['lastCombatAction'] = int(time.time())
@@ -124,17 +137,17 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid):
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
 
-def runFights(mud,players,npcs,fights):
+def runFights(mud,players,npcs,fights,itemsDB):
         for (fid, pl) in list(fights.items()):
                 # PC -> PC
                 if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenPlayers(mud,players,npcs,fights,fid)
+                    runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB)
                 # PC -> NPC
                 elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid)
+                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB)
                 # NPC -> PC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid)
+                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB)
                 # NPC -> NPC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
                         test = 1
