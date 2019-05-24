@@ -19,8 +19,6 @@ def assignTerrainDifficulty(rooms):
     terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough']
     maxTerrainDifficulty=1
     for rm in rooms:
-        if rooms[rm]['weather'] == 0:
-            continue
         difficulty=rooms[rm]['terrainDifficulty']
         if difficulty==0:
             roomDescription=rooms[rm]['description'].lower()
