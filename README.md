@@ -82,6 +82,8 @@ If no `moveType` is specified then random movement is the default.
 
 The speed at which NPCs move between rooms is defined by `moveDelay` and `randomFactor` parameters. RandomFactor just makes the delay between movements not completely predictable.
 
+![AberMUSH](docs/npcs.png)
+
 ### NPC Conversations
 
 You can create simple kinds of conversations with NPCs by editing `npcs.json` and adding line entries within the `conv` parameter. For example:
