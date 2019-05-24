@@ -192,7 +192,7 @@ put hat on table
 
 Food or drink can be defined by setting `edible` to a non-zero value within `items.json`. If the value is negative then the item is a type of poison.
 
-![AberMUSH](docs/npcs.png)
+![AberMUSH](docs/combat.png)
 
 ### Combat
 
