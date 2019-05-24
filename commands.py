@@ -1047,7 +1047,7 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if len(list(players[id]['inv'])) > 0:
                 for i in list(players[id]['inv']):
                         if food in itemsDB[int(i)]['name'].lower():
-                                if itemsDB[int(i)]['edible']>0:
+                                if itemsDB[int(i)]['edible']!=0:
                                         foodItemID=int(i)
                                         break
                                 else:
@@ -1057,8 +1057,18 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if foodItemID == 0:
                 mud.send_message(id,"Your don't have " + params + ".\n\n")
                 return
+
         mud.send_message(id,"You consume " + itemsDB[foodItemID]['article'] + " " + itemsDB[foodItemID]['name'] + ".\n\n")
+
+        # Alter hp
+        players[id]['hp'] = players[id]['hp'] + itemsDB[foodItemID]['edible']
+        if players[id]['hp']>100:
+                players[id]['hp']=100
+
+        # Consumed
         players[id]['inv'].remove(str(foodItemID))
+
+        # Remove from hands
         if int(players[id]['clo_rhand']) == foodItemID:
                 players[id]['clo_rhand'] = 0
         if int(players[id]['clo_lhand']) == foodItemID:
