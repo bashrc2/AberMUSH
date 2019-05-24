@@ -18,6 +18,13 @@ from copy import deepcopy
 
 import time
 
+def npcsRest(npcs):
+    # rest restores hit points of NPCs
+    for p in npcs:
+        if npcs[p]['hp'] < 100:
+            if randint(0,100)>97:
+                npcs[p]['hp'] = npcs[p]['hp'] + 1
+
 def npcRespawns(npcs):
         for (nid, pl) in list(npcs.items()):
                 # print(npcs[nid])

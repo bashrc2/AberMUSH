@@ -20,6 +20,14 @@ attack_types_pre=["strike","lunge","bludgeon","thrust","swipe","swing","stab","c
 attack_types_pre2=["struck","lunged","bludgeoned","thrusted","swiped","swung","stabbed","cut","slashed"]
 attack_types_post=["viciously at","savagely at","daringly at","a crushing blow on","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
 
+def playersRest(players):
+    # rest restores hit points
+    for p in players:
+        if players[p]['name'] != None and players[p]['authenticated'] != None:
+            if players[p]['hp'] < 100:
+                if randint(0,100)>97:
+                    players[p]['hp'] = players[p]['hp'] + 1
+
 def npcWieldsWeapon(id,npcs,itemsDB):
     if len(npcs[id]['inv'])==0:
         return

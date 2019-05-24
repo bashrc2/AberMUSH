@@ -30,10 +30,12 @@ from events import evaluateEvent
 from commands import runCommand
 from atcommands import runAtCommand
 from combat import runFights
+from combat import playersRest
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
 from npcs import npcRespawns
 from npcs import runNPCs
+from npcs import npcsRest
 from reaper import removeCorpses
 from reaper import runDeaths
 from scheduler import runSchedule
@@ -343,6 +345,10 @@ while True:
         channels.clear()
 
         runPlayerConnections(mud,id,players,playersDB,fights,Config)
+
+        # rest restores hp
+        playersRest(players)
+        npcsRest(npcs)
 
         # go through any new commands sent from players
         for (id, command, params) in mud.get_commands():
