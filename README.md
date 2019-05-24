@@ -82,8 +82,6 @@ If no `moveType` is specified then random movement is the default.
 
 The speed at which NPCs move between rooms is defined by `moveDelay` and `randomFactor` parameters. RandomFactor just makes the delay between movements not completely predictable.
 
-![AberMUSH](docs/npcs.png)
-
 ### NPC Conversations
 
 You can create simple kinds of conversations with NPCs by editing `npcs.json` and adding line entries within the `conv` parameter. For example:
@@ -189,3 +187,15 @@ You can then use a command such as:
 ``` bash
 put hat on table
 ```
+
+### Consumables
+
+Food or drink can be defined by setting `edible` to a non-zero value within `items.json`. If the value is negative then the item is a type of poison.
+
+![AberMUSH](docs/npcs.png)
+
+### Combat
+
+The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
+
+If you are attacked then your `hit points` will decrease. Rest, or the consumption of food or drink, can restore your hit points.
