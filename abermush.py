@@ -41,6 +41,7 @@ from reaper import runDeaths
 from scheduler import runSchedule
 from scheduler import runEnvironment
 from scheduler import runMessages
+from environment import assignTerrainDifficulty
 
 import time
 
@@ -121,6 +122,10 @@ with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
         rooms = commentjson.load(read_file)
 
 log("Rooms loaded: " + str(len(rooms)), "info")
+
+assignTerrainDifficulty(rooms)
+
+log("Terrain difficulty calculated", "info")
 
 # Loading environment actors
 with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
