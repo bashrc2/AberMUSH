@@ -158,3 +158,19 @@ def runPlayerDisconnections(mud,id,players,playersDB,fights,Config):
 def runPlayerConnections(mud,id,players,playersDB,fights,Config):
     runNewPlayerConnections(mud,id,players,playersDB,fights,Config)
     runPlayerDisconnections(mud,id,players,playersDB,fights,Config)
+
+def disconnectIdlePlayers(mud,players,allowedPlayerIdle):
+        # Evaluate player idle time and disconnect if required
+        now = int(time.time())
+        playersCopy = deepcopy(players)
+        for p in playersCopy:
+                #if playersCopy[p]['authenticated'] != None:
+                if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
+                        if players[p]['authenticated'] != None:
+                                mud.send_message(p, "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
+                        else:
+                                mud.send_message(p, "<f232><b11>You are being disconnected due to inactivity. Bye!\n")
+                        log("Character " + str(players[p]['name']) + " is being disconnected due to inactivity.", "warning")
+                        log("Disconnecting client " + str(p), "warning")
+                        del players[p]
+                        mud._handle_disconnect(p)
