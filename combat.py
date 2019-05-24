@@ -101,6 +101,12 @@ def armorAgility(id,players,itemsDB):
     # Total agility for clothing
     return agility
 
+def getAttackDescription():
+    attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
+    attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+    attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+    return attackDescriptionIndex1,attackDescriptionIndex2,attackDescription
+
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
@@ -119,9 +125,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
                 # Do damage to the PC here
                 if randint(0, 1) == 1:
                         modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB) - weaponDefense(s2id,players,itemsDB)
-                        attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-                        attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
-                        attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                        attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                         if modifier>0:
                             if players[s1id]['hp'] > 0:
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
@@ -165,9 +169,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
                 if randint(0, 1) == 1:
                         npcWearsArmor(s2id,npcs,itemsDB)
                         modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB) - weaponDefense(s2id,npcs,itemsDB)
-                        attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-                        attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
-                        attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                        attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                         if modifier>0:
                             if players[s1id]['hp'] > 0:
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
@@ -206,8 +208,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
         if randint(0, 1) == 1:
                 npcWieldsWeapon(s1id,npcs,itemsDB)
                 modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB) - weaponDefense(s2id,players,itemsDB)
-                attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-                attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
+                attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
                 if modifier>0:
                     if npcs[s1id]['hp'] > 0:
