@@ -33,6 +33,7 @@ from atcommands import runAtCommand
 from combat import runFights
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
+from npcs import npcRespawns
 
 import time
 
@@ -458,16 +459,7 @@ while True:
                         # print("deleting " + corpses[corpse]['name'])
                         del corpses[c]
 
-        # Handle NPC respawns
-        for (nid, pl) in list(npcs.items()):
-                # print(npcs[nid])
-                if npcs[nid]['whenDied'] is not None and int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
-                        #print("IN")
-                        npcs[nid]['whenDied'] = None
-                        #npcs[nid]['room'] = npcsTemplate[nid]['room']
-                        npcs[nid]['room'] = npcs[nid]['lastRoom']
-                        # print("respawning " + npcs[nid]['name'])
-                        # print(npcs[nid]['hp'])
+        npcRespawns(npcs)
 
         # Evaluate the Event Schedule
         for (event, pl) in list(eventSchedule.items()):
