@@ -16,6 +16,8 @@ from copy import deepcopy
 
 import time
 
+defenseClothing=['clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist']
+
 attack_types_pre=["strike","lunge","bludgeon","thrust","swipe","swing","stab","cut","slash"]
 attack_types_pre2=["struck","lunged","bludgeoned","thrusted","swiped","swung","stabbed","cut","slashed"]
 attack_types_post=["viciously at","savagely at","daringly at","a crushing blow on","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
@@ -49,7 +51,6 @@ def npcWearsArmor(id,npcs,itemsDB):
     if len(npcs[id]['inv'])==0:
         return
 
-    defenseClothing=['clo_chest','clo_head','clo_rarm','clo_rleg','clo_rwrist']
     for c in defenseClothing:
         itemID=0
         # what is the best defense which the NPC is carrying?
@@ -81,7 +82,6 @@ def weaponDamage(id,players,itemsDB):
 def weaponDefense(id,players,itemsDB):
     defense=0
 
-    defenseClothing=['clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist']
     for c in defenseClothing:
         itemID=int(players[id][c])
         if itemID>0:
@@ -89,6 +89,17 @@ def weaponDefense(id,players,itemsDB):
 
     # Total defense by shields or clothing
     return defense
+
+def armorAgility(id,players,itemsDB):
+    agility=0
+
+    for c in defenseClothing:
+        itemID=int(players[id][c])
+        if itemID>0:
+            agility = agility + int(itemsDB[itemID]['mod_agi'])
+
+    # Total agility for clothing
+    return agility
 
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
         s1id = fights[fid]['s1id']
@@ -99,7 +110,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
             return
 
         # agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi']:
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB):
             return
 
         if players[s2id]['isAttackable'] == 1:
@@ -144,7 +155,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
             return
 
         # Agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi']:
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB):
             return
 
         if npcs[s2id]['isAttackable'] == 1:
@@ -186,7 +197,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
             return
 
         # Agility
-        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi']:
+        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB):
             return
 
         npcs[s1id]['isInCombat'] = 1
