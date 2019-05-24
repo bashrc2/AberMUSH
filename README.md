@@ -212,6 +212,14 @@ hold dagger left
 
 With the possibility of using two weapons at the same time.
 
+Similar applies with armour:
+
+
+``` bash
+take chainmail
+wear chainmail
+```
+
 The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
 
 If you are attacked then your `hit points` will decrease. Rest, or the consumption of food or drink, can restore your hit points.
