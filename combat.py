@@ -24,7 +24,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
-        # In teh same room?
+        # In the same room?
         if players[s1id]['room'] != players[s2id]['room']:
             return
 
