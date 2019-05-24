@@ -107,7 +107,7 @@ def getAttackDescription():
     attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
     return attackDescriptionIndex1,attackDescriptionIndex2,attackDescription
 
-def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
+def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -115,8 +115,10 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
         if players[s1id]['room'] != players[s2id]['room']:
             return
 
+        terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
+
         # agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB):
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty:
             return
 
         if players[s2id]['isAttackable'] == 1:
@@ -150,7 +152,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB):
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
+def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -158,8 +160,10 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
         if players[s1id]['room'] != npcs[s2id]['room']:
             return
 
+        terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
+
         # Agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB):
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty:
             return
 
         if npcs[s2id]['isAttackable'] == 1:
@@ -190,7 +194,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB):
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
+def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -198,8 +202,10 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
         if npcs[s1id]['room'] != players[s2id]['room']:
             return
 
+        terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
+
         # Agility
-        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB):
+        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty:
             return
 
         npcs[s1id]['isInCombat'] = 1
@@ -221,17 +227,17 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB):
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
 
-def runFights(mud,players,npcs,fights,itemsDB):
+def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty):
         for (fid, pl) in list(fights.items()):
                 # PC -> PC
                 if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB)
+                    runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty)
                 # PC -> NPC
                 elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB)
+                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty)
                 # NPC -> PC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB)
+                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty)
                 # NPC -> NPC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
                         test = 1

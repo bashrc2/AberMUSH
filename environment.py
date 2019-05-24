@@ -16,7 +16,8 @@ from random import randint
 import time
 
 def assignTerrainDifficulty(rooms):
-    terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fogg','bush']
+    terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough']
+    maxTerrainDifficulty=1
     for rm in rooms:
         if rooms[rm]['weather'] == 0:
             continue
@@ -26,3 +27,6 @@ def assignTerrainDifficulty(rooms):
             if w in roomDescription:
                 difficulty = difficulty + 1
         rooms[rm]['terrainDifficulty'] = difficulty
+        if difficulty > maxTerrainDifficulty:
+            maxTerrainDifficulty = difficulty
+    return maxTerrainDifficulty

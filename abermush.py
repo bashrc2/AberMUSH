@@ -123,9 +123,9 @@ with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
 
 log("Rooms loaded: " + str(len(rooms)), "info")
 
-assignTerrainDifficulty(rooms)
+maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 
-log("Terrain difficulty calculated", "info")
+log("Terrain difficulty calculated. max=" + str(maxTerrainDifficulty), "info")
 
 # Loading environment actors
 with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
@@ -328,7 +328,7 @@ while True:
         runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
         # Handle Fights
-        runFights(mud,players,npcs,fights,itemsDB)
+        runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty)
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate)
