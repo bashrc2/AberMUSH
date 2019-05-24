@@ -24,7 +24,6 @@ from functions import loadPlayersDB
 from functions import sendToChannel
 from functions import hash_password
 from functions import verify_password
-from functions import moveNPCs
 
 from events import evaluateEvent
 
