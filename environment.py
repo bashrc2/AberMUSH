@@ -21,12 +21,14 @@ def assignTerrainDifficulty(rooms):
     for rm in rooms:
         if rooms[rm]['weather'] == 0:
             continue
-        roomDescription=rooms[rm]['description'].lower()
-        difficulty=0
-        for w in terrainDifficultyWords:
-            if w in roomDescription:
-                difficulty = difficulty + 1
-        rooms[rm]['terrainDifficulty'] = difficulty
+        difficulty=rooms[rm]['terrainDifficulty']
+        if difficulty==0:
+            roomDescription=rooms[rm]['description'].lower()
+            difficulty=0
+            for w in terrainDifficultyWords:
+                if w in roomDescription:
+                    difficulty = difficulty + 1
+            rooms[rm]['terrainDifficulty'] = difficulty
         if difficulty > maxTerrainDifficulty:
             maxTerrainDifficulty = difficulty
     return maxTerrainDifficulty
