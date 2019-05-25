@@ -97,8 +97,27 @@ def findRoomWithoutCoords(rooms):
     return None
 
 def assignCoordinates(rooms):
+    mapArea=[[9999,-9999],[9999,-9999],[9999,-9999]]
     roomFound=True
     while roomFound:
         newRoom = findRoomWithoutCoords(rooms)
         if newRoom == None:
             roomFound = False
+            break
+        coords=newRoom['coords']
+        # north/south extent
+        if coords[0] > mapArea[0][1]:
+            mapArea[0][1] = coords[0]
+        if coords[0] < mapArea[0][0]:
+            mapArea[0][0] = coords[0]
+        # east/west extent
+        if coords[1] > mapArea[1][1]:
+            mapArea[1][1] = coords[1]
+        if coords[1] < mapArea[1][0]:
+            mapArea[1][0] = coords[1]
+        # up/down extent
+        if coords[2] > mapArea[2][1]:
+            mapArea[2][1] = coords[2]
+        if coords[2] < mapArea[2][0]:
+            mapArea[2][0] = coords[2]
+    return mapArea

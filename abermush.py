@@ -128,9 +128,9 @@ maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 
 log("Terrain difficulty calculated. max=" + str(maxTerrainDifficulty), "info")
 
-assignCoordinates(rooms)
+mapArea = assignCoordinates(rooms)
 
-log("Room coordinates assigned", "info")
+log("Map coordinates:" + str(mapArea), "info")
 
 # Loading environment actors
 with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
