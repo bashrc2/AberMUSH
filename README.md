@@ -194,11 +194,11 @@ put hat on table
 
 Food or drink can be defined by setting `edible` to a non-zero value within `items.json`. If the value is negative then the item is a type of poison.
 
-![AberMUSH](docs/combat.png)
-
 ### Weather
 
-The system includes a weather simulation with varying seasonal and daily temperatures, passing clouds and rain. The ambient weather conditions may affect your combat performance, especialy if you are wearing armor or carrying a lot of weight.
+The system includes a dynamic weather simulation with varying seasonal and daily temperatures, passing clouds and rain. The ambient weather conditions may affect your combat performance, especialy if you are wearing armor or carrying a lot of weight.
+
+![AberMUSH](docs/combat.png)
 
 ### Combat
 
