@@ -334,7 +334,6 @@
         "coords": [],
         "exits": {
             "north": "$rid=57$",
-            "south": "$rid=39$",
             "west": "$rid=52$"
         }
     },
@@ -898,9 +897,7 @@
     },
     "$rid=156$": {
         "exits": {
-            "east": "$rid=141$",
-            "west": "$rid=159$",
-            "up": "$rid=159$"
+            "east": "$rid=141$"
         },
         "name": "the huge cavern.",
         "description": "You are in a huge underground cavern. You have to pick your way carefully across the floor, so as not to fall into any of the many pools of molten lava dotted about. There is a small gallery carved into the rock high up on the west wall. Just above this, the roof starts to slope steeply, and forms a cone above the eastern end of the cavern. Plumes of noxious smoke billow up from vents in the floor of the cavern, and rise quickly up to the roof.",
@@ -2352,8 +2349,7 @@
     },
     "$rid=537$": {
         "exits": {
-            "north": "$rid=535$",
-            "south": "$rid=539$"
+            "north": "$rid=535$"
         },
         "name": "The Watery Tunnel",
         "description": "You are wading along a damp underground tunnel deep in the rock. It is muddy and wet and most unpleasant. The tunnel winds on north, towards a rock bridge of some kind.",
@@ -2436,7 +2432,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=552$",
             "south": "$rid=563$"
         }
     },
@@ -3487,7 +3482,6 @@
         "coords": [],
         "exits": {
             "north": "$rid=1008$",
-            "east": "$rid=767$",
             "south": "$rid=775$",
             "west": "$rid=768$"
         }
@@ -3503,8 +3497,7 @@
         "exits": {
             "north": "$rid=1008$",
             "east": "$rid=766$",
-            "south": "$rid=776$",
-            "west": "$rid=767$"
+            "south": "$rid=776$"
         }
     },
     "$rid=769$": {
@@ -3933,9 +3926,7 @@
     },
     "$rid=832$": {
         "exits": {
-            "north": "$rid=831$",
-            "east": "$rid=833$",
-            "south": "$rid=831$"
+            "east": "$rid=833$"
         },
         "name": "Rising Ridge",
         "description": "The mountain ridge gradually gets thinner and thinner, becoming a knife edge with preciptious drops on either side, before it tapers out however it comes to an end running into the side of a massive pinnacle of ice sheeted rock. The only even vaguely safe route appears to be to follow the ridge eastwards.",
@@ -3947,7 +3938,6 @@
     },
     "$rid=833$": {
         "exits": {
-            "north": "$rid=831$",
             "east": "$rid=830$",
             "south": "$rid=836$"
         },
@@ -3961,7 +3951,7 @@
     },
     "$rid=836$": {
         "exits": {
-            "west": "$rid=837$"
+            "west": "$rid=841$"
         },
         "name": "Steep Climb",
         "description": "You are standing on a small flat plateau, high high up in the mountains. A treacherous path plunges westwards down the side of the mountains and down out of sight through the clouds at your feet. The path also turns north and rises seemingly even more steeply, up over the top of a long ridge high above you to the north.",
@@ -4389,6 +4379,21 @@
         "exits": {
             "north": "$rid=884$",
             "east": "$rid=884$",
+            "south": "$rid=882$",
+            "west": "$rid=886$"
+        },
+        "name": "The Bog",
+        "description": "You are squelching through the thick muddy bog. The ground appears to become more solid to the west, but in all other directions the mud looks soft and has pools of water sitting upon it.",
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "weather": 1,
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=884$": {
+        "exits": {
+            "north": "$rid=883$",
+            "east": "$rid=883$",
             "south": "$rid=882$",
             "west": "$rid=886$"
         },
@@ -7210,7 +7215,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=1337$"
+            "east": "$rid=1336$"
         }
     },
     "$rid=1341$": {
@@ -7302,8 +7307,7 @@
         "coords": [],
         "exits": {
             "south": "$rid=1357$",
-            "west": "$rid=1354$",
-            "down": "$rid=161$"
+            "west": "$rid=1354$"
         }
     },
     "$rid=1357$": {

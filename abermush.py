@@ -42,6 +42,7 @@ from scheduler import runSchedule
 from scheduler import runEnvironment
 from scheduler import runMessages
 from environment import assignTerrainDifficulty
+from environment import assignCoordinates
 
 import time
 
@@ -126,6 +127,10 @@ log("Rooms loaded: " + str(len(rooms)), "info")
 maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 
 log("Terrain difficulty calculated. max=" + str(maxTerrainDifficulty), "info")
+
+assignCoordinates(rooms)
+
+log("Room coordinates assigned", "info")
 
 # Loading environment actors
 with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
