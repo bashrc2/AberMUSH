@@ -45,7 +45,9 @@ from environment import assignTerrainDifficulty
 from environment import assignCoordinates
 from environment import plotClouds
 from environment import generateCloud
+from environment import getTemperature
 
+import datetime
 import time
 
 # import the MUD server class
@@ -53,6 +55,7 @@ from mudserver import MudServer
 
 # import random generator library
 from random import randint
+import random
 
 # import the deepcopy library
 from copy import deepcopy
@@ -299,12 +302,19 @@ playerList = []
 mud = MudServer()
 
 # weather
+random.seed(72519)
 lastWeatherUpdate = int(time.time())
-weatherUpdateInterval=120
+weatherUpdateInterval=1
 clouds = {}
 cloudGrid = {}
 tileSize=2
-windDirection=randint(0,359)
+temperature=getTemperature()
+daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
+currHour = int(datetime.date.today().strftime("%H"))
+currMin = int(datetime.date.today().strftime("%M"))
+dayMins=(currHour*60)+currMin
+r1 = random.Random((daysSinceEpoch*1440)+dayMins)
+windDirection=int(r1.random()*359)
 windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
 log("Clouds generated", "info")
 
@@ -315,8 +325,10 @@ while True:
         now = int(time.time())
         if int(now >= lastWeatherUpdate + weatherUpdateInterval):
                 lastWeatherUpdate = int(time.time())
+                temperature=getTemperature()
+                #print("Temperature " + str(temperature))
                 windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
-                #plotClouds(mapArea, clouds, 25)
+                #plotClouds(mapArea, clouds, temperature)
 
         # update player list
         playerList = []

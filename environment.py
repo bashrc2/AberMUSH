@@ -12,8 +12,11 @@ __status__ = "Production"
 
 from functions import log
 from random import randint
+import random
 from copy import deepcopy
+from math import sin
 
+import datetime
 import time
 
 # For weather simulation
@@ -243,6 +246,7 @@ def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
     return windDirection
 
 def plotClouds(mapArea, clouds, temperature):
+    tempThreshold = 10 + temperature
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
 
@@ -250,10 +254,46 @@ def plotClouds(mapArea, clouds, temperature):
         lineStr=''
         for x in range (0,mapWidth-1):
             lineChar='.'
-            if clouds[x][y]>temperature*6:
+            if clouds[x][y]>tempThreshold*7:
                 lineChar='o'
-            if clouds[x][y]>temperature*7:
+            if clouds[x][y]>tempThreshold*8:
                 lineChar='O'
             lineStr = lineStr + lineChar
         print(lineStr+'\n')
     print('\n')
+
+def getTemperatureSeasonal():
+    # Average temperature for the time of year
+    dayOfYear = int(datetime.date.today().strftime("%j"))
+    tempFraction=((sin((0.75+(dayOfYear/365.0)) * 2 * 3.1415927)+1)/2.0)
+    return 8 + (7*tempFraction)
+
+def getTemperature():
+    # Average daily seasonal temperature
+    avTemp=getTemperatureSeasonal()
+
+    daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
+
+    # Temperature can vary randomly from one day to the next
+    r1 = random.Random(daysSinceEpoch)
+    dailyVariance=avTemp*0.4*(r1.random()-0.5)
+
+    # Calculate number of minutes elapsed in the day so far
+    currHour = int(datetime.date.today().strftime("%H"))
+    currMin = int(datetime.date.today().strftime("%M"))
+    dayMins=(currHour*60)+currMin
+
+    # Seed number generator for the current minute of the day
+    dayFraction = dayMins/(60.0*24.0)
+    r1 = random.Random((daysSinceEpoch*1440)+dayMins)
+
+    # Passing clouds reduce temperatude
+    cloudCover=0
+    if r1.random() > 0.7:
+        cloudCover=avTemp*2/10
+
+    solarVariance=avTemp*0.2
+    solarCycle=sin((0.75+dayFraction)*2*3.1415927)*solarVariance
+
+    #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle) + " cloudCover " + str(cloudCover))
+    return avTemp + dailyVariance + solarCycle - cloudCover
