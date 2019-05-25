@@ -44,6 +44,8 @@ from scheduler import runMessages
 from environment import assignTerrainDifficulty
 from environment import assignCoordinates
 from environment import weatherCycle
+from environment import windCycle
+from environment import plotClouds
 
 import time
 
@@ -302,12 +304,31 @@ delta_pressure={}
 atmosphere={}
 local_delta = 0
 wind_dissipation = 0
+wind_aim_x=0
+wind_aim_y=0
+wind_value_x=0
+wind_value_y=0
+delta_pressure_lowest=0
+delta_pressure_highest=0
+atmosphere_lowest=0
+atmosphere_highest=0
+lastWeatherUpdate = int(time.time())
+weatherUpdateInterval=60
+
+# initial weather update
+local_delta,wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest,atmosphere_lowest,atmosphere_highest=weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y, delta_pressure_lowest,delta_pressure_highest)
+windCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y,delta_pressure_highest,atmosphere_lowest,atmosphere_highest)
 
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
         # print(int(time.time()))
 
-        #local_delta,wind_dissipation=weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta)
+        now = int(time.time())
+        if int(now >= lastWeatherUpdate + weatherUpdateInterval):
+                lastWeatherUpdate = int(time.time())
+                local_delta,wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest,atmosphere_lowest,atmosphere_highest=weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y, delta_pressure_lowest,delta_pressure_highest)
+                windCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y,delta_pressure_highest,atmosphere_lowest,atmosphere_highest)
+                #plotClouds(rooms, mapArea)
 
         # update player list
         playerList = []
