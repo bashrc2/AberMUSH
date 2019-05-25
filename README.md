@@ -196,6 +196,10 @@ Food or drink can be defined by setting `edible` to a non-zero value within `ite
 
 ![AberMUSH](docs/combat.png)
 
+### Weather
+
+The system includes a weather simulation with varying seasonal and daily temperatures, passing clouds and rain. The ambient weather conditions may affect your combat performance, especialy if you are wearing armor or carrying a lot of weight.
+
 ### Combat
 
 Collecting weapons or armor will alter your chances of success in combat. In order to use a weapon you first need to be holding it. Merely having it in your inventory isn't enough for it to be effective. For example:
