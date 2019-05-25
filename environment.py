@@ -145,266 +145,115 @@ def highestPointAtCoord(rooms,mapArea,x,y):
 
     return (highest-mapArea[2][0])*255/vertical_range
 
-def weatherInit(rooms, mapArea, atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y):
-    if len(atmosphere)>0:
-        return 0
+def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
+    mapWidth = mapArea[1][1] - mapArea[1][0]
+    mapHeight = mapArea[0][1] - mapArea[0][0]
+    cloudGridWidth = int(mapWidth/tileSize)
+    cloudGridHeight = int(mapHeight/tileSize)
 
-    wind_dissipation = randint(0,1024) & 3
-    wind_aim =  -96 + (randint(0,2048) % 194)
-    wind_value_x = wind_aim
-    wind_aim =  -96 + (randint(0,2048) % 194)
-    wind_aim_y = wind_aim
-    wind_aim =  -96 + (randint(0,2048) % 194)
-    wind_value_y = wind_aim
-    wind_aim =  -96 + (randint(0,2048) % 194)
-    wind_aim_x = wind_aim
+    if len(clouds)==0:
+        for x in range (0,mapWidth):
+            clouds[x]={}
+            for y in range (0,mapHeight):
+                clouds[x][y]=0
 
-    local_delta = 0
+    if len(cloudGrid)==0:
+        for x in range (0,cloudGridWidth):
+            cloudGrid[x]={}
+            for y in range (0,cloudGridHeight):
+                cloudGrid[x][y]=randint(0,255)
 
-    delta_pressure_lowest = 0xffff
-    delta_pressure_highest = 1
+    for x in range (0,mapWidth-1):
+        tile_tx = int(x / tileSize)
+        tile_bx = tile_tx + 1
+        if tile_bx >= cloudGridWidth:
+            tile_bx = 0
+        for y in range (0,mapHeight-1):
+            tile_ty = int(y / tileSize)
+            tile_by = tile_ty + 1
+            if tile_by >= cloudGridHeight:
+                tile_by = 0
 
-    # calculate the topography from the arrangement of rooms
-    # up and down exit directions indicate verticality
-    topography={}
-    for x in range (0,MAP_DIMENSION_X):
-        topography[x]={}
-        for y in range (0,MAP_DIMENSION_Y):
-            topography[x][y]=highestPointAtCoord(rooms,mapArea,x,y)
+            interpolate_top = \
+                cloudGrid[tile_tx][tile_ty] + \
+                int((cloudGrid[tile_bx][tile_ty] - cloudGrid[tile_tx][tile_ty]) * \
+                    (x % tileSize) / tileSize)
 
-    for x in range (0,MAP_DIMENSION_X):
-        atmosphere[x]={}
-        delta_pressure[x]={}
-        for y in range (0,MAP_DIMENSION_Y):
-            delta_pressure[x][y]=0
-            atmosphere[x][y]=topography[x][y] * 4
+            interpolate_bottom = \
+                cloudGrid[tile_tx][tile_by] + \
+                int((cloudGrid[tile_bx][tile_by] - cloudGrid[tile_tx][tile_by]) * \
+                    (x % tileSize) / tileSize)
 
-    delta_pressure_highest = -99999
-    delta_pressure_lowest = 99999
-    for x in range (1,MAP_DIMENSION_X-1):
-        for y in range (1,MAP_DIMENSION_Y-1):
-            delta_pressure[x][y] = atmosphere[x + 1][y] - \
-                atmosphere[x - 1][y] + \
-                atmosphere[x][y + 1] - \
-                atmosphere[x][y - 1] + \
-                512
-            if delta_pressure[x][y] > delta_pressure_highest:
-                delta_pressure_highest = delta_pressure[x][y]
+            clouds[x][y] = \
+                interpolate_top + \
+                int((interpolate_bottom - interpolate_top) * \
+                    (y % tileSize) / tileSize)
 
-            if delta_pressure[x][y] < delta_pressure_lowest:
-                delta_pressure_lowest = delta_pressure[x][y]
-    return wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest
+    for x in range (0,cloudGridWidth):
+        for y in range (0,cloudGridHeight):
+            cloudGrid[x][y]=cloudGrid[x][y]+randint(-5,5)
+            if cloudGrid[x][y] < 0:
+                cloudGrid[x][y] = cloudGrid[x][y] + 255
+            if cloudGrid[x][y] > 255:
+                cloudGrid[x][y] = cloudGrid[x][y] - 255
 
-def updateRoomWeather(rooms,mapArea,atmosphere,MAP_DIMENSION_X,MAP_DIMENSION_Y):
-    for rm in rooms:
-        if rooms[rm]['weather']==0:
-            continue
+    windDirection = (windDirection + randint(-1,1)) % 360
+    if windDirection < 0:
+        windDirection = windDirection + 360
 
-        # coordinates at this location
-        x = rooms[rm]['coords'][1] - mapArea[1][0]
-        if x < 0:
-            x = 0
-        if x >= MAP_DIMENSION_X:
-            x = MAP_DIMENSION_X-1
-        y = rooms[rm]['coords'][0] - mapArea[0][0]
-        if y < 0:
-            y = 0
-        if y >= MAP_DIMENSION_Y:
-            y = MAP_DIMENSION_Y-1
+    dx=0
+    dy=0
+    if windDirection >= 290 or windDirection <=70:
+        dy=1
+    if windDirection >= 200 and windDirection < 160:
+        dy=-1
+    if windDirection < 315 and windDirection >= 225:
+        dx=-1
+    if windDirection > 45 and windDirection <= 90+45:
+        dx=1
 
-        rooms[rm]['weather']=1
-        # cloudy
-        if atmosphere[x][y] > weather_cloud:
-            rooms[rm]['weather']=2
-        # rain
-        if atmosphere[x][y] > weather_cloud*3:
-            rooms[rm]['weather']=3
+    cloudGridNew={}
+    for x in range (0,cloudGridWidth):
+        cloudGridNew[x]={}
+        for y in range (0,cloudGridHeight):
+            cloudGridNew[x][y]=cloudGrid[x][y]
 
-def plotClouds(rooms, mapArea):
-    MAP_DIMENSION_X=mapArea[1][1] - mapArea[1][0]
-    MAP_DIMENSION_Y=mapArea[0][1] - mapArea[0][0]
+    for x in range (0,cloudGridWidth):
+        old_x = x + dx
+        for y in range (0,cloudGridHeight):
+            old_y = y + dy
+            if old_x >= 0 and old_x <= cloudGridWidth-1 and \
+               old_y >=0 and old_y <= cloudGridHeight-1:
+                cloudGridNew[x][y]=cloudGrid[old_x][old_y]
+            else:
+                if old_x < 0:
+                    old_x = old_x + cloudGridWidth
+                if old_y < 0:
+                    old_y = old_y + cloudGridHeight
+                if old_x > cloudGridWidth-1:
+                    old_x = old_x - cloudGridWidth
+                if old_y > cloudGridHeight-1:
+                    old_y = old_y - cloudGridHeight
+                cloudGridNew[x][y]=randint(0,255)
 
-    for ly in range (0,MAP_DIMENSION_Y):
-        weatherStr=''
-        for lx in range (0,MAP_DIMENSION_X):
-            weatherChar='.'
-            for rm in rooms:
-                if rooms[rm]['coords'][0]-mapArea[0][0]==ly:
-                    if rooms[rm]['coords'][1]-mapArea[1][0]==lx:
-                        if rooms[rm]['weather']==2:
-                            weatherChar='o'
-                        if rooms[rm]['weather']==3:
-                            weatherChar='O'
-            weatherStr=weatherStr+weatherChar
-        print(weatherStr+'\n')
+    for x in range (0,cloudGridWidth):
+        for y in range (0,cloudGridHeight):
+            cloudGrid[x][y]=cloudGridNew[x][y]
+
+    return windDirection
+
+def plotClouds(mapArea, clouds, temperature):
+    mapWidth = mapArea[1][1] - mapArea[1][0]
+    mapHeight = mapArea[0][1] - mapArea[0][0]
+
+    for y in range (0,mapHeight-1):
+        lineStr=''
+        for x in range (0,mapWidth-1):
+            lineChar='.'
+            if clouds[x][y]>temperature*6:
+                lineChar='o'
+            if clouds[x][y]>temperature*7:
+                lineChar='O'
+            lineStr = lineStr + lineChar
+        print(lineStr+'\n')
     print('\n')
-
-def weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest):
-    dissipation = wind_dissipation + 1020
-    new_delta = 0
-    # east/west
-    MAP_DIMENSION_X=mapArea[1][1] - mapArea[1][0]
-    # north/south
-    MAP_DIMENSION_Y=mapArea[0][1] - mapArea[0][0]
-    MAP_BITS = 8
-
-    if len(atmosphere)==0:
-        wind_dissipation,wind_aim_x, wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest=weatherInit(rooms, mapArea, atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y)
-
-    atmosphere_lowest = bits_pos
-    atmosphere_highest = bits_neg
-
-    atmosphere_next = atmosphere.copy()
-
-    for ly in range (1,MAP_DIMENSION_Y-1):
-        for lx in range (1,MAP_DIMENSION_X-1):
-            value = int(dissipation * atmosphere[lx][ly]) >> 10
-
-            local_atm = \
-                (2 * atmosphere[lx][ly-1]) + \
-                (2 * atmosphere[lx-1][ly]) - \
-                (2 * atmosphere[lx+1][ly]) - \
-                (2 * atmosphere[lx][ly+1])
-
-            value = value + \
-                 (int(local_atm - local_delta) >> MAP_BITS) + \
-                 delta_pressure[lx][ly]
-
-            atmosphere_next[lx][ly] = value
-            new_delta = new_delta + value
-
-            if value > atmosphere_highest:
-                atmosphere_highest = value
-
-            if value < atmosphere_lowest:
-                atmosphere_lowest = value
-
-    local_delta = int(new_delta) >> MAP_BITS
-
-    atmosphere = atmosphere_next.copy()
-
-    updateRoomWeather(rooms,mapArea,atmosphere,MAP_DIMENSION_X,MAP_DIMENSION_Y)
-
-    return local_delta,wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest,atmosphere_lowest,atmosphere_highest
-
-def tile_wind_pp(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest):
-    # Add dynamic wind
-    p01 = wind_value_x
-    p10 = wind_value_y
-    atmosphere_new = atmosphere.copy()
-    for ly in range (1,MAP_DIMENSION_Y-1):
-        for lx in range (1,MAP_DIMENSION_X-1):
-            tp01 = (p01 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp10 = (p10 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp00 = 256 - tp01 - tp10
-            local_atm = \
-                (tp00 * atmosphere[lx][ly]) + \
-                (tp10 * atmosphere[lx][ly+1]) + \
-                (tp01 * atmosphere[lx+1][ly])
-            atmosphere_new[lx][ly] = int(local_atm) >> 8;
-    atmosphere = atmosphere_new.copy()
-
-def tile_wind_np(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest):
-    # Add dynamic wind
-    p01 = wind_value_x
-    p10 = 0 - wind_value_y
-    atmosphere_new = atmosphere.copy()
-    for ly in range (1,MAP_DIMENSION_Y-1):
-        for lx in range (1,MAP_DIMENSION_X-1):
-            tp01 = (p01 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp10 = (p10 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp00 = 256 - tp01 - tp10
-            local_atm = \
-                (tp00 * atmosphere[lx][ly]) + \
-                (tp10 * atmosphere[lx][ly-1]) + \
-                (tp01 * atmosphere[lx+1][ly])
-            atmosphere_new[lx][ly] = int(local_atm) >> 8;
-    atmosphere = atmosphere_new.copy()
-
-def tile_wind_pn(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest):
-    # Add dynamic wind
-    p01 = 0 - wind_value_x
-    p10 = wind_value_y
-    atmosphere_new = atmosphere.copy()
-    for ly in range (1,MAP_DIMENSION_Y-1):
-        for lx in range (1,MAP_DIMENSION_X-1):
-            tp01 = (p01 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp10 = (p10 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp00 = 256 - tp01 - tp10
-            local_atm = \
-                (tp00 * atmosphere[lx][ly]) + \
-                (tp10 * atmosphere[lx][ly+1]) + \
-                (tp01 * atmosphere[lx-1][ly])
-            atmosphere_new[lx][ly] = int(local_atm) >> 8;
-    atmosphere = atmosphere_new.copy()
-
-def tile_wind_nn(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest):
-    # Add dynamic wind
-    p01 = 0 - wind_value_x
-    p10 = 0 - wind_value_y
-    atmosphere_new = atmosphere.copy()
-    for ly in range (1,MAP_DIMENSION_Y-1):
-        for lx in range (1,MAP_DIMENSION_X-1):
-            tp01 = (p01 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp10 = (p10 * delta_pressure[lx][ly]) / delta_pressure_highest
-            tp00 = 256 - tp01 - tp10
-            local_atm = \
-                (tp00 * atmosphere[lx][ly]) + \
-                (tp10 * atmosphere[lx][ly-1]) + \
-                (tp01 * atmosphere[lx-1][ly])
-            atmosphere_new[lx][ly] = int(local_atm) >> 8;
-    atmosphere = atmosphere_new.copy()
-
-def title_wind_calculation(wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y):
-    if (randint(0,2048) & 31) == 0:
-        wind_dissipation = randint(0,1024) & 3
-        wind_aim =  -96 + (randint(0,2048) % 194)
-        wind_value_x = wind_aim
-        wind_aim =  -96 + (randint(0,2048) % 194)
-        wind_aim_y = wind_aim
-        wind_aim =  -96 + (randint(0,2048) % 194)
-        wind_value_y = wind_aim
-        wind_aim =  -96 + (randint(0,2048) % 194)
-        wind_aim_x = wind_aim
-
-    if wind_aim_x > wind_value_x:
-        wind_value_x = wind_value_x + 1
-
-    if wind_aim_x < wind_value_x:
-        wind_value_x=wind_value_x-1
-
-    if wind_aim_y > wind_value_y:
-        wind_value_y=wind_value_y+1
-
-    if wind_aim_y < wind_value_y:
-        wind_value_y=wind_value_y-1
-
-    return wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y
-
-def tile_wrap(atmosphere,MAP_DIMENSION_X,MAP_DIMENSION_Y):
-    for ly in range (0,MAP_DIMENSION_Y):
-        for lx in range (0,MAP_DIMENSION_X):
-            atmosphere[lx][ly] = (atmosphere[lx][ly] * 253) / 256
-
-def windCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y,delta_pressure_highest,atmosphere_lowest,atmosphere_highest):
-    # east/west
-    MAP_DIMENSION_X=mapArea[1][1] - mapArea[1][0]
-    # north/south
-    MAP_DIMENSION_Y=mapArea[0][1] - mapArea[0][0]
-
-    wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y = title_wind_calculation(wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y)
-    p01 = wind_value_x
-    p10 = wind_value_y
-    if p01 > -1:
-        if p10 > -1:
-            tile_wind_pp(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest)
-        else:
-            tile_wind_np(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest)
-    else:
-        if p10 > -1:
-            tile_wind_pn(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest)
-        else:
-            tile_wind_nn(atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y, wind_value_x, wind_value_y, delta_pressure_highest)
-
-    if atmosphere_lowest < bits_neg or atmosphere_highest > bits_pos:
-        tile_wrap(atmosphere,MAP_DIMENSION_X,MAP_DIMENSION_Y)

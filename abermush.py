@@ -43,9 +43,8 @@ from scheduler import runEnvironment
 from scheduler import runMessages
 from environment import assignTerrainDifficulty
 from environment import assignCoordinates
-from environment import weatherCycle
-from environment import windCycle
 from environment import plotClouds
+from environment import generateCloud
 
 import time
 
@@ -300,24 +299,14 @@ playerList = []
 mud = MudServer()
 
 # weather
-delta_pressure={}
-atmosphere={}
-local_delta = 0
-wind_dissipation = 0
-wind_aim_x=0
-wind_aim_y=0
-wind_value_x=0
-wind_value_y=0
-delta_pressure_lowest=0
-delta_pressure_highest=0
-atmosphere_lowest=0
-atmosphere_highest=0
 lastWeatherUpdate = int(time.time())
-weatherUpdateInterval=60
-
-# initial weather update
-local_delta,wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest,atmosphere_lowest,atmosphere_highest=weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y, delta_pressure_lowest,delta_pressure_highest)
-windCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y,delta_pressure_highest,atmosphere_lowest,atmosphere_highest)
+weatherUpdateInterval=120
+clouds = {}
+cloudGrid = {}
+tileSize=2
+windDirection=randint(0,359)
+windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
+log("Clouds generated", "info")
 
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
@@ -326,9 +315,8 @@ while True:
         now = int(time.time())
         if int(now >= lastWeatherUpdate + weatherUpdateInterval):
                 lastWeatherUpdate = int(time.time())
-                local_delta,wind_dissipation,wind_aim_x,wind_aim_y,wind_value_x,wind_value_y,delta_pressure_lowest,delta_pressure_highest,atmosphere_lowest,atmosphere_highest=weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y, delta_pressure_lowest,delta_pressure_highest)
-                windCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta, wind_aim_x, wind_aim_y, wind_value_x, wind_value_y,delta_pressure_highest,atmosphere_lowest,atmosphere_highest)
-                #plotClouds(rooms, mapArea)
+                windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
+                #plotClouds(mapArea, clouds, 25)
 
         # update player list
         playerList = []
@@ -363,7 +351,7 @@ while True:
         runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
         # Handle Fights
-        runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty)
+        runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty,mapArea)
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate)

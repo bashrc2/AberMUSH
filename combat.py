@@ -227,7 +227,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
 
-def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty):
+def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty,mapArea):
         for (fid, pl) in list(fights.items()):
                 # PC -> PC
                 if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
