@@ -12,6 +12,7 @@ __status__ = "Production"
 
 from functions import log
 from random import randint
+from copy import deepcopy
 
 import time
 
@@ -97,6 +98,7 @@ def findRoomWithoutCoords(rooms):
     return None
 
 def assignCoordinates(rooms):
+    # assigns cartesian coordinates to each room and returns the limits
     mapArea=[[9999,-9999],[9999,-9999],[9999,-9999]]
     roomFound=True
     while roomFound:
@@ -121,3 +123,106 @@ def assignCoordinates(rooms):
         if coords[2] < mapArea[2][0]:
             mapArea[2][0] = coords[2]
     return mapArea
+
+def highestPointAtCoord(rooms,mapArea,x,y):
+    highest=0
+
+    vertical_range=mapArea[2][1]-mapArea[2][0]
+    if vertical_range<1:
+        vertical_range=1
+
+    for rm in rooms:
+        if rooms[rm]['coords'][0]-mapArea[0][0]==y:
+            if rooms[rm]['coords'][1]-mapArea[1][0]==x:
+                if rooms[rm]['coords'][2]>highest:
+                    highest=rooms[rm]['coords'][2]
+
+    return (highest-mapArea[2][0])*255/vertical_range
+
+def weatherInit(rooms, mapArea, atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y):
+    if len(atmosphere)>0:
+        return 0
+
+    wind_dissipation = randint(0,1024) & 3
+    wind_aim =  -96 + (randint(0,2048) % 194)
+    wind_value_x = wind_aim
+    wind_aim_y = wind_aim
+    wind_value_y = wind_aim
+    wind_aim_x = wind_aim
+
+    local_delta = 0
+
+    delta_pressure_lowest = 0xffff
+    delta_pressure_highest = 1
+
+    # calculate the topography from the arrangement of rooms
+    # up and down exit directions indicate verticality
+    topography={}
+    for x in range (0,MAP_DIMENSION_X):
+        topography[x]={}
+        for y in range (0,MAP_DIMENSION_Y):
+            topography[x][y]=highestPointAtCoord(rooms,mapArea,x,y)
+
+    for x in range (0,MAP_DIMENSION_X):
+        atmosphere[x]={}
+        delta_pressure[x]={}
+        for y in range (0,MAP_DIMENSION_Y):
+            delta_pressure[x][y]=0
+            atmosphere[x][y]=topography[x][y] * 4
+
+    for x in range (1,MAP_DIMENSION_X-1):
+        for y in range (1,MAP_DIMENSION_Y-1):
+            delta_pressure[x][y] = atmosphere[x + 1][y] - \
+                atmosphere[x - 1][y] + \
+                atmosphere[x][y + 1] - \
+                atmosphere[x][y - 1] + \
+                512
+            #if delta_pressure[x][y] > delta_pressure_highest:
+            #    delta_pressure_highest = delta_pressure[x][y]
+
+            #if delta_pressure[x][y] < delta_pressure_lowest:
+            #    delta_pressure_lowest = delta_pressure[x][y]
+    return wind_dissipation
+
+def weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta):
+    dissipation = wind_dissipation + 1020
+    new_delta = 0
+    # east/west
+    MAP_DIMENSION_X=mapArea[1][1] - mapArea[1][0]
+    # north/south
+    MAP_DIMENSION_Y=mapArea[0][1] - mapArea[0][0]
+    MAP_BITS = 8
+
+    if len(atmosphere)==0:
+        wind_dissipation=weatherInit(rooms, mapArea, atmosphere, delta_pressure, MAP_DIMENSION_X, MAP_DIMENSION_Y)
+
+    bits_neg = (-131072 * 254) / 256
+    bits_pos = ( 131071 * 254) / 256
+
+    atmosphere_lowest = bits_pos
+    atmosphere_highest = bits_neg
+
+    atmosphere_next = atmosphere.copy()
+
+    for ly in range (1,MAP_DIMENSION_Y-1):
+        for lx in range (1,MAP_DIMENSION_X-1):
+            value = int(dissipation * atmosphere[lx][ly]) >> 10
+
+            local_atm = \
+                (2 * atmosphere[lx][ly-1]) + \
+                (2 * atmosphere[lx-1][ly]) - \
+                (2 * atmosphere[lx+1][ly]) - \
+                (2 * atmosphere[lx][ly+1])
+
+            value = value + \
+                 (int(local_atm - local_delta) >> MAP_BITS) + \
+                 delta_pressure[lx][ly]
+
+            atmosphere_next[lx][ly] = value
+            new_delta = new_delta + value
+
+    local_delta = int(new_delta) >> MAP_BITS
+
+    atmosphere = atmosphere_next.copy()
+
+    return local_delta,wind_dissipation

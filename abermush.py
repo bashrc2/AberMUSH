@@ -43,6 +43,7 @@ from scheduler import runEnvironment
 from scheduler import runMessages
 from environment import assignTerrainDifficulty
 from environment import assignCoordinates
+from environment import weatherCycle
 
 import time
 
@@ -296,9 +297,17 @@ playerList = []
 # start the server
 mud = MudServer()
 
+# weather
+delta_pressure={}
+atmosphere={}
+local_delta = 0
+wind_dissipation = 0
+
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
         # print(int(time.time()))
+
+        #local_delta,wind_dissipation=weatherCycle(rooms, mapArea, atmosphere, delta_pressure, wind_dissipation, local_delta)
 
         # update player list
         playerList = []
