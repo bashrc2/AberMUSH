@@ -304,7 +304,7 @@ mud = MudServer()
 # weather
 random.seed(72519)
 lastWeatherUpdate = int(time.time())
-weatherUpdateInterval=1
+weatherUpdateInterval=120
 clouds = {}
 cloudGrid = {}
 tileSize=2
