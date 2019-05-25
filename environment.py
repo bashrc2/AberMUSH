@@ -297,3 +297,15 @@ def getTemperature():
 
     #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle) + " cloudCover " + str(cloudCover))
     return avTemp + dailyVariance + solarCycle - cloudCover
+
+def getTemperatureAtCoords(coords,mapArea,clouds):
+    x = coords[1] - mapArea[1][0]
+    y = coords[0] - mapArea[0][0]
+
+    currTemp = getTemperature()
+    if clouds[x][y] < (10+currTemp)*7:
+        # without cloud
+        return currTemp
+
+    # with cloud
+    return currTemp*0.8

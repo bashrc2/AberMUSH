@@ -13,6 +13,7 @@ __status__ = "Production"
 from functions import log
 from random import randint
 from copy import deepcopy
+from environment import getTemperatureAtCoords
 
 import time
 
@@ -107,7 +108,7 @@ def getAttackDescription():
     attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
     return attackDescriptionIndex1,attackDescriptionIndex2,attackDescription
 
-def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty):
+def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -115,10 +116,12 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
         if players[s1id]['room'] != players[s2id]['room']:
             return
 
+        currRoom=players[s1id]['room']
+        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty:
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + int(currTemp/2):
             return
 
         if players[s2id]['isAttackable'] == 1:
@@ -152,7 +155,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty):
+def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -160,10 +163,12 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
         if players[s1id]['room'] != npcs[s2id]['room']:
             return
 
+        currRoom=players[s1id]['room']
+        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # Agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty:
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + int(currTemp/2):
             return
 
         if npcs[s2id]['isAttackable'] == 1:
@@ -194,7 +199,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty):
+def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -202,10 +207,12 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
         if npcs[s1id]['room'] != players[s2id]['room']:
             return
 
+        currRoom=npcs[s1id]['room']
+        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],mapArea,clouds)
         terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # Agility
-        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty:
+        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + int(currTemp/2):
             return
 
         npcs[s1id]['isInCombat'] = 1
@@ -227,17 +234,17 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
 
-def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty,mapArea):
+def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         for (fid, pl) in list(fights.items()):
                 # PC -> PC
                 if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty)
+                    runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
                 # PC -> NPC
                 elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty)
+                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
                 # NPC -> PC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty)
+                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
                 # NPC -> NPC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
                         test = 1
