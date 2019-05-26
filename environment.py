@@ -22,7 +22,7 @@ import time
 rainThreshold = 230
 
 def assignTerrainDifficulty(rooms):
-    terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough']
+    terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough','snow','ice']
     maxTerrainDifficulty=1
     for rm in rooms:
         difficulty=rooms[rm]['terrainDifficulty']
