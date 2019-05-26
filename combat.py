@@ -108,6 +108,15 @@ def getAttackDescription():
     attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
     return attackDescriptionIndex1,attackDescriptionIndex2,attackDescription
 
+def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
+    temperature = getTemperatureAtCoords(rooms[rm]['coords'],rooms,mapArea,clouds)
+
+    if temperature>5:
+        # Things get difficult when hotter
+        return int(temperature/4)
+    # Things get difficult in snow/ice
+    return -(temperature-5)
+
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
@@ -117,11 +126,11 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
             return
 
         currRoom=players[s1id]['room']
-        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],rooms,mapArea,clouds)
+        temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + int(currTemp/2):
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty:
             return
 
         if players[s2id]['isAttackable'] == 1:
@@ -164,11 +173,11 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             return
 
         currRoom=players[s1id]['room']
-        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],rooms,mapArea,clouds)
+        temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # Agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + int(currTemp/2):
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty:
             return
 
         if npcs[s2id]['isAttackable'] == 1:
@@ -208,11 +217,11 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             return
 
         currRoom=npcs[s1id]['room']
-        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],rooms,mapArea,clouds)
+        temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # Agility
-        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + int(currTemp/2):
+        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + temperatureDifficulty:
             return
 
         npcs[s1id]['isInCombat'] = 1

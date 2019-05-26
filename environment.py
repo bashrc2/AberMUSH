@@ -247,6 +247,28 @@ def getCloudThreshold(temperature):
 def altitudeTemperatureAdjustment(rooms, mapArea, x, y):
     return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
 
+def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
+    terrainFreezingWords=['snow','ice']
+    terrainCoolingWords=['rock','steep','sewer','sea','lake','river','stream','water','forest','trees','mist','fog']
+    terrainHeatingWords=['sun','lava','volcan','molten','desert','dry']
+
+    maxTerrainDifficulty=1
+    for rm in rooms:
+        coords=rooms[rm]['coords']
+        if coords[0] - mapArea[0][0] == y:
+            if coords[1] - mapArea[1][0] == x:
+                roomDescription=rooms[rm]['description'].lower()
+                for w in terrainFreezingWords:
+                    if w in roomDescription:
+                        temperature = temperature * 0.1
+                for w in terrainCoolingWords:
+                    if w in roomDescription:
+                        temperature = temperature * 0.98
+                for w in terrainHeatingWords:
+                    if w in roomDescription:
+                        temperature = temperature * 1.05
+    return temperature
+
 def plotClouds(rooms, mapArea, clouds, temperature):
     cloudThreshold = getCloudThreshold(temperature)
     mapWidth = mapArea[1][1] - mapArea[1][0]
@@ -256,6 +278,7 @@ def plotClouds(rooms, mapArea, clouds, temperature):
         lineStr=''
         for x in range (0,mapWidth-1):
             mapTemp = clouds[x][y] - (altitudeTemperatureAdjustment(rooms, mapArea, x, y)*7)
+            mapTemp = terrainTemperatureAdjustment(mapTemp, rooms, mapArea, x, y)
             lineChar='.'
             if mapTemp>cloudThreshold:
                 lineChar='o'
@@ -305,6 +328,9 @@ def getTemperatureAtCoords(coords, rooms, mapArea, clouds):
 
     # Adjust for altitude
     currTemp = currTemp - altitudeTemperatureAdjustment(rooms, mapArea, x, y)
+
+    # Adjust for terrain
+    currTemp = terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
 
     # Adjust for rain
     if clouds[x][y] > rainThreshold:
