@@ -46,6 +46,7 @@ def npcWieldsWeapon(mud,id,nid,npcs,items,itemsDB):
 
     # what is the best weapon which the NPC is carrying?
     itemID=0
+    max_protection=0
     max_damage=0
     for i in npcs[nid]['inv']:
         if itemsDB[int(i)]['clo_rhand']>0:
@@ -53,20 +54,45 @@ def npcWieldsWeapon(mud,id,nid,npcs,items,itemsDB):
                 max_damage=itemsDB[int(i)]['mod_str']
                 itemID=int(i)
 
+    # search for any weapons on the floor
     pickedUpWeapon=False
     itemIndex=0
     itemsInWorldCopy = deepcopy(items)
     for (iid, pl) in list(itemsInWorldCopy.items()):
         if itemsInWorldCopy[iid]['room'] == npcs[nid]['room']:
-            if itemsDB[items[iid]['id']]['mod_str']>max_damage:
-                itemName = itemsDB[items[iid]['id']]['name']
-                if not itemInNPCInventory(npcs,nid,itemName,itemsDB):
-                    max_damage = itemsDB[items[iid]['id']]['mod_str']
-                    itemID = int(items[iid]['id'])
-                    itemIndex = iid
-                    pickedUpWeapon = True
+            if itemsDB[items[iid]['id']]['clo_rhand']>0:
+                if itemsDB[items[iid]['id']]['mod_str']>max_damage:
+                    itemName = itemsDB[items[iid]['id']]['name']
+                    if not itemInNPCInventory(npcs,nid,itemName,itemsDB):
+                        max_damage = itemsDB[items[iid]['id']]['mod_str']
+                        itemID = int(items[iid]['id'])
+                        itemIndex = iid
+                        pickedUpWeapon = True
+
+    # Search for any armor on the floor
+    pickedUpArmor=False
+    if itemID==0:
+        itemIndex=0
+        for (iid, pl) in list(itemsInWorldCopy.items()):
+            if itemsInWorldCopy[iid]['room'] == npcs[nid]['room']:
+                if itemsDB[items[iid]['id']]['clo_chest']>0:
+                    if itemsDB[items[iid]['id']]['mod_endu']>max_protection:
+                        itemName = itemsDB[items[iid]['id']]['name']
+                        if not itemInNPCInventory(npcs,nid,itemName,itemsDB):
+                            max_protection = itemsDB[items[iid]['id']]['mod_endu']
+                            itemID = int(items[iid]['id'])
+                            itemIndex = iid
+                            pickedUpArmor = True
 
     if itemID>0:
+        if pickedUpArmor:
+            if npcs[nid]['clo_chest'] != itemID:
+                npcs[nid]['inv'].append(str(itemID))
+                npcs[nid]['clo_chest'] = itemID
+                del items[itemIndex]
+                mud.send_message(id, '<f220>' + npcs[nid]['name'] + '<r> picks up and wears ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '\n')
+                return True
+            return False
         if npcs[nid]['clo_rhand'] != itemID:
             # Transfer weapon to hand
             npcs[nid]['clo_rhand'] = itemID
