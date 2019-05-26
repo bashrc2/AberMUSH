@@ -117,7 +117,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
             return
 
         currRoom=players[s1id]['room']
-        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],mapArea,clouds)
+        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # agility
@@ -164,7 +164,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             return
 
         currRoom=players[s1id]['room']
-        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],mapArea,clouds)
+        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # Agility
@@ -208,7 +208,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             return
 
         currRoom=npcs[s1id]['room']
-        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],mapArea,clouds)
+        currTemp = getTemperatureAtCoords(rooms[currRoom]['coords'],rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
         # Agility

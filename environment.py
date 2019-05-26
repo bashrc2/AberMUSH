@@ -19,6 +19,8 @@ from math import sin
 import datetime
 import time
 
+rainThreshold = 230
+
 def assignTerrainDifficulty(rooms):
     terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough']
     maxTerrainDifficulty=1
@@ -239,19 +241,25 @@ def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
 
     return windDirection
 
-def plotClouds(mapArea, clouds, temperature):
-    cloudThreshold = 10 + temperature
-    rainThreshold = 230
+def getCloudThreshold(temperature):
+    return (10 + temperature) * 7
+
+def altitudeTemperatureAdjustment(rooms, mapArea, x, y):
+    return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
+
+def plotClouds(rooms, mapArea, clouds, temperature):
+    cloudThreshold = getCloudThreshold(temperature)
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
 
     for y in range (0,mapHeight-1):
         lineStr=''
         for x in range (0,mapWidth-1):
+            mapTemp = clouds[x][y] - (altitudeTemperatureAdjustment(rooms, mapArea, x, y)*7)
             lineChar='.'
-            if clouds[x][y]>cloudThreshold*7:
+            if mapTemp>cloudThreshold:
                 lineChar='o'
-            if clouds[x][y]>rainThreshold:
+            if mapTemp>rainThreshold:
                 lineChar='O'
             lineStr = lineStr + lineChar
         print(lineStr+'\n')
@@ -288,12 +296,21 @@ def getTemperature():
     #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle))
     return avTemp + dailyVariance + solarCycle
 
-def getTemperatureAtCoords(coords,mapArea,clouds):
+def getTemperatureAtCoords(coords, rooms, mapArea, clouds):
     x = coords[1] - mapArea[1][0]
     y = coords[0] - mapArea[0][0]
 
+    # Average temperature of the universe
     currTemp = getTemperature()
-    if clouds[x][y] < (10+currTemp)*7:
+
+    # Adjust for altitude
+    currTemp = currTemp - altitudeTemperatureAdjustment(rooms, mapArea, x, y)
+
+    # Adjust for rain
+    if clouds[x][y] > rainThreshold:
+        currTemp = currTemp * 0.8
+
+    if clouds[x][y] < getCloudThreshold(currTemp):
         # without cloud
         return currTemp
 

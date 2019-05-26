@@ -316,7 +316,7 @@ dayMins=(currHour*60)+currMin
 r1 = random.Random((daysSinceEpoch*1440)+dayMins)
 windDirection=int(r1.random()*359)
 windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
-log("Clouds generated", "info")
+log("Clouds generated. Wind direction " + str(windDirection), "info")
 
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
@@ -328,7 +328,7 @@ while True:
                 temperature=getTemperature()
                 #print("Temperature " + str(temperature))
                 windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
-                plotClouds(mapArea, clouds, temperature)
+                plotClouds(rooms, mapArea, clouds, temperature)
 
         # update player list
         playerList = []
