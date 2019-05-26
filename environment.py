@@ -144,24 +144,28 @@ def highestPointAtCoord(rooms,mapArea,x,y):
 
     return (highest-mapArea[2][0])*255/vertical_range
 
-def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
+def generateCloud(randnumgen, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
     cloudGridWidth = int(mapWidth/tileSize)
     cloudGridHeight = int(mapHeight/tileSize)
 
     if len(clouds)==0:
+        # Generate the clouds map
         for x in range (0,mapWidth):
             clouds[x]={}
             for y in range (0,mapHeight):
                 clouds[x][y]=0
 
     if len(cloudGrid)==0:
+        # Initialize clouds grid randomly
+        # This is lower resolution than the map
         for x in range (0,cloudGridWidth):
             cloudGrid[x]={}
             for y in range (0,cloudGridHeight):
-                cloudGrid[x][y]=randint(0,255)
+                cloudGrid[x][y]=int(randnumgen.random()*255)
 
+    # Update clouds (same resolution as the map)
     for x in range (0,mapWidth-1):
         tile_tx = int(x / tileSize)
         tile_bx = tile_tx + 1
@@ -188,18 +192,21 @@ def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
                 int((interpolate_bottom - interpolate_top) * \
                     (y % tileSize) / tileSize)
 
+    # Clouds change
     for x in range (0,cloudGridWidth):
         for y in range (0,cloudGridHeight):
-            cloudGrid[x][y]=cloudGrid[x][y]+randint(-5,5)
+            cloudGrid[x][y]=cloudGrid[x][y]+(int(randnumgen.random()*11)-5)
             if cloudGrid[x][y] < 0:
                 cloudGrid[x][y] = cloudGrid[x][y] + 255
             if cloudGrid[x][y] > 255:
                 cloudGrid[x][y] = cloudGrid[x][y] - 255
 
-    windDirection = (windDirection + randint(-1,1)) % 360
+    # change wind direction
+    windDirection = (windDirection + int(randnumgen.random()*9)-4) % 360
     if windDirection < 0:
         windDirection = windDirection + 360
 
+    # Which directions to shift the clouds
     dx=0
     dy=0
     if windDirection >= 320 or windDirection <=40:
@@ -211,6 +218,7 @@ def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
     if windDirection > 50 and windDirection <= 130:
         dx=1
 
+    # Move clouds in the wind direction
     cloudGridNew={}
     for x in range (0,cloudGridWidth):
         cloudGridNew[x]={}

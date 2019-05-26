@@ -302,20 +302,20 @@ playerList = []
 mud = MudServer()
 
 # weather
-random.seed(72519)
+currHour = int(datetime.date.today().strftime("%H"))
+currMin = int(datetime.date.today().strftime("%M"))
+daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
+dayMins=(currHour*60)+currMin
+random.seed((daysSinceEpoch*1440)+dayMins)
 lastWeatherUpdate = int(time.time())
 weatherUpdateInterval=120
 clouds = {}
 cloudGrid = {}
 tileSize=2
 temperature=getTemperature()
-daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
-currHour = int(datetime.date.today().strftime("%H"))
-currMin = int(datetime.date.today().strftime("%M"))
-dayMins=(currHour*60)+currMin
 r1 = random.Random((daysSinceEpoch*1440)+dayMins)
 windDirection=int(r1.random()*359)
-windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
+windDirection=generateCloud(r1, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
 log("Clouds generated. Wind direction " + str(windDirection), "info")
 
 # main game loop. We loop forever (i.e. until the program is terminated)
@@ -327,7 +327,7 @@ while True:
                 lastWeatherUpdate = int(time.time())
                 temperature=getTemperature()
                 #print("Temperature " + str(temperature))
-                windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
+                windDirection=generateCloud(r1, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
                 #plotClouds(rooms, mapArea, clouds, temperature)
 
         # update player list
