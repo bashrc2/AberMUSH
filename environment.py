@@ -202,13 +202,13 @@ def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
 
     dx=0
     dy=0
-    if windDirection >= 290 or windDirection <=70:
+    if windDirection >= 320 or windDirection <=40:
         dy=1
-    if windDirection >= 200 and windDirection < 160:
+    if windDirection <= 200 and windDirection > 160:
         dy=-1
-    if windDirection < 315 and windDirection >= 225:
+    if windDirection < 300 and windDirection >= 230:
         dx=-1
-    if windDirection > 45 and windDirection <= 90+45:
+    if windDirection > 50 and windDirection <= 130:
         dx=1
 
     cloudGridNew={}
