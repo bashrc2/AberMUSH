@@ -32,7 +32,15 @@ def playersRest(players):
                 if randint(0,100)>97:
                     players[p]['hp'] = players[p]['hp'] + 1
 
-def npcWieldsWeapon(mud,id,nid,npcs,itemsDB):
+def itemInNPCInventory(npcs,id,itemName,itemsDB):
+        if len(list(npcs[id]['inv'])) > 0:
+                itemNameLower=itemName.lower()
+                for i in list(npcs[id]['inv']):
+                        if itemsDB[int(i)]['name'].lower() == itemNameLower:
+                                return True
+        return False
+
+def npcWieldsWeapon(mud,id,nid,npcs,items,itemsDB):
     if len(npcs[nid]['inv'])==0:
         return False
 
@@ -44,12 +52,31 @@ def npcWieldsWeapon(mud,id,nid,npcs,itemsDB):
             if itemsDB[int(i)]['mod_str']>max_damage:
                 max_damage=itemsDB[int(i)]['mod_str']
                 itemID=int(i)
+
+    pickedUpWeapon=False
+    itemIndex=0
+    itemsInWorldCopy = deepcopy(items)
+    for (iid, pl) in list(itemsInWorldCopy.items()):
+        if itemsInWorldCopy[iid]['room'] == npcs[nid]['room']:
+            if itemsDB[items[iid]['id']]['mod_str']>max_damage:
+                itemName = itemsDB[items[iid]['id']]['name']
+                if not itemInNPCInventory(npcs,nid,itemName,itemsDB):
+                    max_damage = itemsDB[items[iid]['id']]['mod_str']
+                    itemID = int(items[iid]['id'])
+                    itemIndex = iid
+                    pickedUpWeapon = True
+
     if itemID>0:
         if npcs[nid]['clo_rhand'] != itemID:
             # Transfer weapon to hand
-            npcs[nid]['clo_rhand']=itemID
-            npcs[nid]['clo_lhand']=0
-            mud.send_message(id, '<f220>' + npcs[nid]['name'] + '<r> has drawn their ' + itemsDB[itemID]['name'] + '\n')
+            npcs[nid]['clo_rhand'] = itemID
+            npcs[nid]['clo_lhand'] = 0
+            if pickedUpWeapon:
+                npcs[nid]['inv'].append(str(itemID))
+                del items[itemIndex]
+                mud.send_message(id, '<f220>' + npcs[nid]['name'] + '<r> picks up ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '\n')
+            else:
+                mud.send_message(id, '<f220>' + npcs[nid]['name'] + '<r> has drawn their ' + itemsDB[itemID]['name'] + '\n')
             return True
 
     return False
@@ -216,7 +243,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                         if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                                 del fights[fight]
 
-def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
+def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
 
@@ -236,7 +263,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
         npcs[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
 
-        if npcWieldsWeapon(mud, s2id, s1id, npcs, itemsDB):
+        if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
             return
 
         # Do the damage to PC here
@@ -255,7 +282,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
 
-def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
+def runFights(mud,players,npcs,fights,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         for (fid, pl) in list(fights.items()):
                 # PC -> PC
                 if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
@@ -265,7 +292,7 @@ def runFights(mud,players,npcs,fights,itemsDB,rooms,maxTerrainDifficulty,mapArea
                     runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
                 # NPC -> PC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
+                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
                 # NPC -> NPC
                 elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
                         test = 1
