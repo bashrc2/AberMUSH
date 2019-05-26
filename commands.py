@@ -545,7 +545,6 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 if param in npcs[n]['name'].lower() and npcs[n]['room'] == players[id]['room']:
                                         bioOfPlayer(mud,id,n,npcs,itemsDB)
                                         messageSent = True
-                                        #message += npcs[n]['lookDescription']
 
                         if len(message) > 0:
                                 mud.send_message(id, message + "\n\n")
