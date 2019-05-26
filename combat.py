@@ -34,10 +34,10 @@ def playersRest(players):
 
 def npcWieldsWeapon(mud,id,nid,npcs,itemsDB):
     if len(npcs[nid]['inv'])==0:
-        return
+        return False
 
-    itemID=0
     # what is the best weapon which the NPC is carrying?
+    itemID=0
     max_damage=0
     for i in npcs[nid]['inv']:
         if itemsDB[int(i)]['clo_rhand']>0:
@@ -50,6 +50,9 @@ def npcWieldsWeapon(mud,id,nid,npcs,itemsDB):
             npcs[nid]['clo_rhand']=itemID
             npcs[nid]['clo_lhand']=0
             mud.send_message(id, '<f220>' + npcs[nid]['name'] + '<r> has drawn their ' + itemsDB[itemID]['name'] + '\n')
+            return True
+
+    return False
 
 def npcWearsArmor(id,npcs,itemsDB):
     if len(npcs[id]['inv'])==0:
@@ -233,7 +236,8 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
         npcs[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
 
-        npcWieldsWeapon(mud,s2id,s1id,npcs,itemsDB)
+        if npcWieldsWeapon(mud, s2id, s1id, npcs, itemsDB):
+            return
 
         # Do the damage to PC here
         if randint(0, 1) == 1:
