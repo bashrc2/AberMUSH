@@ -982,7 +982,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
         if id != pid:
                 playerName='They'
                 playerName2='their'
-                playerName3='has'
+                playerName3='have'
 
         if int(players[pid]['clo_rhand'])>0:
                 mud.send_message(id,playerName + ' ' + playerName3 + ' ' + itemsDB[players[pid]['clo_rhand']]['article'] + ' ' + itemsDB[players[pid]['clo_rhand']]['name'] + ' in ' + playerName2 + ' right hand.\n')

@@ -32,22 +32,24 @@ def playersRest(players):
                 if randint(0,100)>97:
                     players[p]['hp'] = players[p]['hp'] + 1
 
-def npcWieldsWeapon(id,npcs,itemsDB):
-    if len(npcs[id]['inv'])==0:
+def npcWieldsWeapon(mud,id,nid,npcs,itemsDB):
+    if len(npcs[nid]['inv'])==0:
         return
 
     itemID=0
     # what is the best weapon which the NPC is carrying?
     max_damage=0
-    for i in npcs[id]['inv']:
+    for i in npcs[nid]['inv']:
         if itemsDB[int(i)]['clo_rhand']>0:
             if itemsDB[int(i)]['mod_str']>max_damage:
                 max_damage=itemsDB[int(i)]['mod_str']
                 itemID=int(i)
     if itemID>0:
-        # Transfer weapon to hand
-        npcs[id]['clo_rhand']=itemID
-        npcs[id]['clo_lhand']=0
+        if npcs[nid]['clo_rhand'] != itemID:
+            # Transfer weapon to hand
+            npcs[nid]['clo_rhand']=itemID
+            npcs[nid]['clo_lhand']=0
+            mud.send_message(id, '<f220>' + npcs[nid]['name'] + '<r> has drawn their ' + itemsDB[itemID]['name'] + '\n')
 
 def npcWearsArmor(id,npcs,itemsDB):
     if len(npcs[id]['inv'])==0:
@@ -200,7 +202,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                         else:
                             if players[s1id]['hp'] > 0:
                                 # Attack deflected by armor
-                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
+                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + npcs[s2id]['name'] + '<r> but their armor deflects it.\n')
                 else:
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!\n')
@@ -232,7 +234,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
         players[s2id]['isInCombat'] = 1
         # Do the damage to PC here
         if randint(0, 1) == 1:
-                npcWieldsWeapon(s1id,npcs,itemsDB)
+                npcWieldsWeapon(mud,s2id,s1id,npcs,itemsDB)
                 modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB) - weaponDefense(s2id,players,itemsDB)
                 attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
