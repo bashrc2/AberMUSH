@@ -282,16 +282,11 @@ def getTemperature():
     dayFraction = dayMins/(60.0*24.0)
     r1 = random.Random((daysSinceEpoch*1440)+dayMins)
 
-    # Passing clouds reduce temperatude
-    cloudCover=0
-    if r1.random() > 0.7:
-        cloudCover=avTemp*2/10
-
     solarVariance=avTemp*0.2
     solarCycle=sin((0.75+dayFraction)*2*3.1415927)*solarVariance
 
-    #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle) + " cloudCover " + str(cloudCover))
-    return avTemp + dailyVariance + solarCycle - cloudCover
+    #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle))
+    return avTemp + dailyVariance + solarCycle
 
 def getTemperatureAtCoords(coords,mapArea,clouds):
     x = coords[1] - mapArea[1][0]
