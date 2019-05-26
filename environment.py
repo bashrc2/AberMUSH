@@ -240,7 +240,8 @@ def generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
     return windDirection
 
 def plotClouds(mapArea, clouds, temperature):
-    tempThreshold = 10 + temperature
+    cloudThreshold = 10 + temperature
+    rainThreshold = 230
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
 
@@ -248,9 +249,9 @@ def plotClouds(mapArea, clouds, temperature):
         lineStr=''
         for x in range (0,mapWidth-1):
             lineChar='.'
-            if clouds[x][y]>tempThreshold*7:
+            if clouds[x][y]>cloudThreshold*7:
                 lineChar='o'
-            if clouds[x][y]>tempThreshold*8:
+            if clouds[x][y]>rainThreshold:
                 lineChar='O'
             lineStr = lineStr + lineChar
         print(lineStr+'\n')
