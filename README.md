@@ -200,7 +200,7 @@ The system includes a dynamic weather simulation with varying seasonal and daily
 
 ![AberMUSH](docs/combat.png)
 
-### Combat
+### Players in Combat
 
 Collecting weapons or armor will alter your chances of success in combat. In order to use a weapon you first need to be holding it. Merely having it in your inventory isn't enough for it to be effective. For example:
 
@@ -239,3 +239,7 @@ There is a limit to how much weight you can carry and carrying or wearing a lot 
 If you are attacked then your `hit points` will decrease. Rest, or the consumption of food or drink, can restore your hit points.
 
 The type or armor which players (including NPCs) are wearing can also modify their agility, altering their combat performance. Agility values for armor items can be set with the `mod_agi` parameter. Negative values mean that wearing the item slows the player down. Positive values improve fighting performance.
+
+### NPCs in Combat
+
+NPCs are able to pick up and use any weapons or armor available in the vicinity. For some types of NPC, such as small animals, this isn't appropriate and so it's possible to set `canWear` and `canWield` parameters to zero within `npcs.json` if necessary.
