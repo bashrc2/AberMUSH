@@ -234,6 +234,8 @@ examine [player]
 
 The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
 
+There is a limit to how much weight you can carry and carrying or wearing a lot of heavy items will reduce your agility.
+
 If you are attacked then your `hit points` will decrease. Rest, or the consumption of food or drink, can restore your hit points.
 
 The type or armor which players (including NPCs) are wearing can also modify their agility, altering their combat performance. Agility values for armor items can be set with the `mod_agi` parameter. Negative values mean that wearing the item slows the player down. Positive values improve fighting performance.
