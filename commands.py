@@ -1523,7 +1523,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if itemsDB[items[iid]['id']]['name'] == itemName:
                                 if players[id]['canGo'] != 0:
                                         # Too heavy?
-                                        carryingWeight = playerInventoryWeight(id, players)
+                                        carryingWeight = playerInventoryWeight(id, players, itemsDB)
                                         if carryingWeight + itemsDB[items[iid]['id']]['weight'] > 100:
                                                 mud.send_message(id, "You can't carry any more.\n\n")
                                                 return

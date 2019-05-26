@@ -11,6 +11,7 @@ __status__ = "Production"
 # -*- coding: utf-8 -*-
 
 from functions import log
+from functions import playerInventoryWeight
 from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
@@ -126,11 +127,12 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
             return
 
         currRoom=players[s1id]['room']
+        weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
         temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
-        # agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty:
+        # Agility of player
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
             return
 
         if players[s2id]['isAttackable'] == 1:
@@ -173,11 +175,12 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             return
 
         currRoom=players[s1id]['room']
+        weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
         temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
-        # Agility
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty:
+        # Agility of player
+        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
             return
 
         if npcs[s2id]['isAttackable'] == 1:
@@ -217,11 +220,12 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             return
 
         currRoom=npcs[s1id]['room']
+        weightDifficulty = int(playerInventoryWeight(s1id, npcs, itemsDB)/20)
         temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
         terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
-        # Agility
-        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + temperatureDifficulty:
+        # Agility of NPC
+        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
             return
 
         npcs[s1id]['isInCombat'] = 1

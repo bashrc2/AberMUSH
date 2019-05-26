@@ -21,7 +21,7 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
-def playerInventoryWeight(id, players):
+def playerInventoryWeight(id, players, itemsDB):
     if len(list(players[id]['inv'])) == 0:
         return 0
 
