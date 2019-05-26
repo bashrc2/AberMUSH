@@ -12,6 +12,7 @@ from functions import getFreeKey
 from functions import hash_password
 from functions import log
 from functions import saveState
+from functions import playerInventoryWeight
 from copy import deepcopy
 import time
 import datetime
@@ -1521,6 +1522,12 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                         if itemsDB[items[iid]['id']]['name'] == itemName:
                                 if players[id]['canGo'] != 0:
+                                        # Too heavy?
+                                        carryingWeight = playerInventoryWeight(id, players)
+                                        if carryingWeight + itemsDB[items[iid]['id']]['weight'] > 100:
+                                                mud.send_message(id, "You can't carry any more.\n\n")
+                                                return
+
                                         players[id]['inv'].append(str(items[iid]['id']))
                                         del items[iid]
                                         itemPickedUp = True

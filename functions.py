@@ -21,6 +21,16 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def playerInventoryWeight(id, players):
+    if len(list(players[id]['inv'])) == 0:
+        return 0
+
+    weight=0
+    for i in list(players[id]['inv']):
+        weight = weight + itemsDB[int(i)]['weight']
+
+    return weight
+
 def moveNPCs(npcs,players,mud,now,nid):
     if now > npcs[nid]['lastMoved'] + int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
         # Move types:
