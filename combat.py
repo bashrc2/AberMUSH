@@ -232,9 +232,11 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
         npcs[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
+
+        npcWieldsWeapon(mud,s2id,s1id,npcs,itemsDB)
+
         # Do the damage to PC here
         if randint(0, 1) == 1:
-                npcWieldsWeapon(mud,s2id,s1id,npcs,itemsDB)
                 modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB) - weaponDefense(s2id,players,itemsDB)
                 attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
