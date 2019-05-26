@@ -304,7 +304,7 @@ mud = MudServer()
 # weather
 random.seed(72519)
 lastWeatherUpdate = int(time.time())
-weatherUpdateInterval=120
+weatherUpdateInterval=1
 clouds = {}
 cloudGrid = {}
 tileSize=2
@@ -328,7 +328,7 @@ while True:
                 temperature=getTemperature()
                 #print("Temperature " + str(temperature))
                 windDirection=generateCloud(rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
-                #plotClouds(mapArea, clouds, temperature)
+                plotClouds(mapArea, clouds, temperature)
 
         # update player list
         playerList = []

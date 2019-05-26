@@ -19,12 +19,6 @@ from math import sin
 import datetime
 import time
 
-# For weather simulation
-bits_neg = (-131072 * 254) / 256
-bits_pos = ( 131071 * 254) / 256
-# pressure threshold for cloud
-weather_cloud = 32768 >> 4
-
 def assignTerrainDifficulty(rooms):
     terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough']
     maxTerrainDifficulty=1
