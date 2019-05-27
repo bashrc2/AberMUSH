@@ -30,6 +30,9 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         print("I'm in!")
 '''
 
+# maximum weight of items which can be carried
+maxWeight = 100
+
 def removeItemFromClothing(players,id,itemID):
         if int(players[id]['clo_head']) == itemID:
                 players[id]['clo_head'] = 0
@@ -1190,6 +1193,7 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if int(i) == itemID:
                                 # Remove first matching item from inventory
                                 players[id]['inv'].remove(i)
+                                players[id]['luc'] = players[id]['luc'] - itemsDB[items[i]['id']]['mod_luc']
                                 break
 
                 # remove from clothing
@@ -1534,11 +1538,12 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 if players[id]['canGo'] != 0:
                                         # Too heavy?
                                         carryingWeight = playerInventoryWeight(id, players, itemsDB)
-                                        if carryingWeight + itemsDB[items[iid]['id']]['weight'] > 100:
+                                        if carryingWeight + itemsDB[items[iid]['id']]['weight'] > maxWeight:
                                                 mud.send_message(id, "You can't carry any more.\n\n")
                                                 return
 
                                         players[id]['inv'].append(str(items[iid]['id']))
+                                        players[id]['luc'] = players[id]['luc'] + items[iid]['mod_luc']
                                         del items[iid]
                                         itemPickedUp = True
                                         break
@@ -1566,6 +1571,12 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                                 return
                                                         else:
                                                                 if players[id]['canGo'] != 0:
+                                                                        # Too heavy?
+                                                                        carryingWeight = playerInventoryWeight(id, players, itemsDB)
+                                                                        if carryingWeight + itemsDB[int(containerItemID)]['weight'] > maxWeight:
+                                                                                mud.send_message(id, "You can't carry any more.\n\n")
+                                                                                return
+
                                                                         players[id]['inv'].append(containerItemID)
                                                                         itemsDB[items[iid]['id']]['contains'].remove(containerItemID)
                                                                         mud.send_message(id, 'You take ' + itemsDB[int(containerItemID)]['article'] + ' ' + itemsDB[int(containerItemID)]['name'] + ' from ' + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
