@@ -1543,7 +1543,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                 return
 
                                         players[id]['inv'].append(str(items[iid]['id']))
-                                        players[id]['luc'] = players[id]['luc'] + items[iid]['mod_luc']
+                                        players[id]['luc'] = players[id]['luc'] + itemsDB[items[iid]['id']]['mod_luc']
                                         del items[iid]
                                         itemPickedUp = True
                                         break
