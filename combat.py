@@ -40,6 +40,12 @@ def itemInNPCInventory(npcs,id,itemName,itemsDB):
                                 return True
         return False
 
+def npcUpdateLuck(nid,npcs,items,itemsDB):
+    luck=0
+    for i in npcs[nid]['inv']:
+        luck = luck + itemsDB[int(i)]['mod_luc']
+    npcs[nid]['luc'] = luck
+
 def npcWieldsWeapon(mud,id,nid,npcs,items,itemsDB):
     # what is the best weapon which the NPC is carrying?
     itemID=0
@@ -327,6 +333,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
         npcs[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
 
+        npcUpdateLuck(s1id, npcs, items, itemsDB)
         if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
             return
 
