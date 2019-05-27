@@ -212,6 +212,15 @@ def criticalHit():
         return True
     return False
 
+def calculateDamage(weapons, defense):
+    damageDescription='damage'
+    damageValue=weapons
+    armorClass=defense
+    if criticalHit():
+        damageDescription='critical damage'
+        damageValue = damageValue*2
+    return damageValue,armorClass,damageDescription
+
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
@@ -234,12 +243,9 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                 players[s2id]['isInCombat'] = 1
                 # Do damage to the PC here
                 if attackRoll(players[s1id]['luc']):
-                        damageDescription='damage'
-                        damageValue=weaponDamage(s1id,players,itemsDB)
-                        armorClass=weaponDefense(s2id,players,itemsDB)
-                        if criticalHit():
-                            damageDescription='critical damage'
-                            damageValue = damageValue*2
+                        damageValue,armorClass,damageDescription = \
+                            calculateDamage(weaponDamage(s1id,players,itemsDB),
+                                            weaponDefense(s2id,players,itemsDB))
                         attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                         if armorClass<=damageValue:
                             if players[s1id]['hp'] > 0:
@@ -288,13 +294,12 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 npcs[s2id]['isInCombat'] = 1
                 # Do damage to the NPC here
                 if attackRoll(players[s1id]['luc']):
-                        damageDescription='damage'
-                        damageValue=weaponDamage(s1id,players,itemsDB)
-                        armorClass=weaponDefense(s2id,npcs,itemsDB)
-                        if criticalHit():
-                            damageDescription='critical damage'
-                            damageValue = damageValue*2
+                        damageValue,armorClass,damageDescription = \
+                            calculateDamage(weaponDamage(s1id,players,itemsDB),
+                                            weaponDefense(s2id,npcs,itemsDB))
+
                         npcWearsArmor(s2id,npcs,itemsDB)
+
                         attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                         if armorClass<=damageValue:
                             if players[s1id]['hp'] > 0:
@@ -343,12 +348,9 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
 
         # Do the damage to PC here
         if attackRoll(npcs[s1id]['luc']):
-                damageDescription='damage'
-                damageValue=weaponDamage(s1id,npcs,itemsDB)
-                armorClass=weaponDefense(s2id,players,itemsDB)
-                if criticalHit():
-                    damageDescription='critical damage'
-                    damageValue = damageValue*2
+                damageValue,armorClass,damageDescription = \
+                    calculateDamage(weaponDamage(s1id,npcs,itemsDB),
+                                    weaponDefense(s2id,players,itemsDB))
                 attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
                 if armorClass<=damageValue:
