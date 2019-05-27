@@ -283,6 +283,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 luckValue=players[s1id]['luc']
                 if luckValue>6:
                     luckValue=6
+                #print("randint " + str(randint(1+luckValue, 10)))
                 if randint(1+luckValue, 10) > 5:
                         damageDescription='damage'
                         damageValue=weaponDamage(s1id,players,itemsDB)
