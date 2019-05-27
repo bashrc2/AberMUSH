@@ -218,14 +218,15 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                 if randint(0, 1) == 1:
                         damageDescription='damage'
                         damageValue=weaponDamage(s1id,players,itemsDB)
+                        armorValue=weaponDefense(s2id,players,itemsDB)
                         if randint(1, 20)==20:
                             damageDescription='critical damage'
                             damageValue = damageValue*2
-                        modifier = randint(0, 10) + damageValue - weaponDefense(s2id,players,itemsDB)
+                        modifier = randint(0, 10) + damageValue - armorValue
                         #if players[s1id]['luc']>0:
                         #    modifier = modifier + randint(0,players[s1id]['luc'])
                         attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
-                        if modifier>0:
+                        if armorValue<damageValue:
                             if players[s1id]['hp'] > 0:
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
@@ -273,13 +274,14 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 if randint(0, 1) == 1:
                         damageDescription='damage'
                         damageValue=weaponDamage(s1id,players,itemsDB)
+                        armorValue=weaponDefense(s2id,npcs,itemsDB)
                         if randint(1, 20)==20:
                             damageDescription='critical damage'
                             damageValue = damageValue*2
                         npcWearsArmor(s2id,npcs,itemsDB)
-                        modifier = randint(0, 10) + damageValue - weaponDefense(s2id,npcs,itemsDB)
+                        modifier = randint(0, 10) + damageValue - armorValue
                         attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
-                        if modifier>0:
+                        if armorValue<damageValue:
                             if players[s1id]['hp'] > 0:
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
@@ -326,13 +328,14 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
         if randint(0, 1) == 1:
                 damageDescription='damage'
                 damageValue=weaponDamage(s1id,npcs,itemsDB)
+                armorValue=weaponDefense(s2id,players,itemsDB)
                 if randint(1, 20)==20:
                     damageDescription='critical damage'
                     damageValue = damageValue*2
-                modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB) - weaponDefense(s2id,players,itemsDB)
+                modifier = randint(0, 10) + damageValue - armorValue
                 attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
-                if modifier>0:
+                if armorValue<damageValue:
                     if npcs[s1id]['hp'] > 0:
                         players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
                         npcs[s1id]['lastCombatAction'] = int(time.time())
