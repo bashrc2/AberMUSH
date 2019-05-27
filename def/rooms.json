@@ -5,6 +5,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -17,6 +18,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -29,6 +31,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -46,6 +49,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -58,6 +62,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -67,6 +72,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -80,6 +86,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -93,6 +100,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -106,6 +114,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -119,6 +128,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -136,6 +146,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -145,6 +156,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -158,6 +170,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -172,6 +185,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -187,6 +201,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -200,6 +215,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -213,6 +229,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -225,6 +242,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -238,6 +256,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -249,6 +268,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -262,6 +282,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -271,6 +292,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -282,6 +304,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -293,6 +316,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -307,6 +331,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -316,6 +341,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -330,6 +356,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -343,6 +370,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -355,6 +383,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -368,6 +397,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -381,6 +411,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -395,6 +426,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -404,6 +436,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -421,6 +454,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -435,6 +469,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -448,6 +483,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -462,6 +498,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -474,6 +511,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -486,6 +524,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -495,6 +534,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -507,6 +547,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -518,6 +559,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -535,6 +577,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -544,6 +587,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -556,6 +600,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -568,6 +613,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -582,6 +628,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -600,6 +647,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -609,6 +657,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -622,6 +671,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -635,6 +685,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -648,6 +699,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -663,6 +715,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -684,6 +737,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -693,6 +747,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -708,6 +763,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -723,6 +779,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -735,6 +792,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -749,6 +807,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -763,6 +822,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -777,6 +837,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -792,6 +853,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -807,6 +869,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -823,6 +886,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -838,6 +902,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -851,6 +916,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -864,6 +930,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -878,6 +945,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -892,6 +960,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -904,6 +973,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -916,6 +986,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -925,6 +996,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -937,6 +1009,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -950,6 +1023,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -962,6 +1036,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -975,6 +1050,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -989,6 +1065,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1000,6 +1077,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1009,6 +1087,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1021,6 +1100,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1033,6 +1113,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1045,6 +1126,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1058,6 +1140,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1074,6 +1157,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1086,6 +1170,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1095,6 +1180,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1112,6 +1198,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1126,6 +1213,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1139,6 +1227,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1151,6 +1240,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1162,6 +1252,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1173,6 +1264,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1186,6 +1278,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1198,6 +1291,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1210,6 +1304,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1224,6 +1319,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1236,6 +1332,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1245,6 +1342,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1256,6 +1354,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1268,6 +1367,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1284,6 +1384,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1293,6 +1394,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1306,6 +1408,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1318,6 +1421,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1331,6 +1435,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1343,6 +1448,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1358,6 +1464,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1373,6 +1480,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1388,6 +1496,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1400,6 +1509,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1412,6 +1522,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1428,6 +1539,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1441,6 +1553,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1454,6 +1567,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1467,6 +1581,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1481,6 +1596,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1493,6 +1609,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1504,6 +1621,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1516,6 +1634,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1528,6 +1647,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1540,6 +1660,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1549,6 +1670,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1561,6 +1683,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1574,6 +1697,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1586,6 +1710,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1600,6 +1725,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1614,6 +1740,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1628,6 +1755,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1647,6 +1775,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1656,6 +1785,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1668,6 +1798,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1680,6 +1811,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1692,6 +1824,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1704,6 +1837,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1718,6 +1852,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1729,6 +1864,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1741,6 +1877,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1753,6 +1890,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1765,6 +1903,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1778,6 +1917,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1792,6 +1932,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1805,6 +1946,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1818,6 +1960,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1832,6 +1975,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1846,6 +1990,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1859,6 +2004,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1871,6 +2017,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1885,6 +2032,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1897,6 +2045,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1909,6 +2058,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1921,6 +2071,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1935,6 +2086,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1948,6 +2100,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1962,6 +2115,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1974,6 +2128,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1987,6 +2142,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2001,6 +2157,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2014,6 +2171,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2030,6 +2188,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2045,6 +2204,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2058,6 +2218,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2073,6 +2234,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2088,6 +2250,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2103,6 +2266,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2115,6 +2279,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2128,6 +2293,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2141,6 +2307,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2150,6 +2317,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2166,6 +2334,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2180,6 +2349,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2194,6 +2364,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2203,6 +2374,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2215,6 +2387,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2227,6 +2400,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2238,6 +2412,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2251,6 +2426,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2266,6 +2442,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2275,6 +2452,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2287,6 +2465,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2301,6 +2480,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2319,6 +2499,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2328,6 +2509,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2344,6 +2526,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2356,6 +2539,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2365,6 +2549,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2378,6 +2563,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2393,6 +2579,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2402,6 +2589,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2416,6 +2604,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2429,6 +2618,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2441,6 +2631,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2454,6 +2645,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2473,6 +2665,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2482,6 +2675,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2496,6 +2690,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2509,6 +2704,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2524,6 +2720,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2537,6 +2734,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2550,6 +2748,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2564,6 +2763,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2578,6 +2778,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2593,6 +2794,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "This is a long stretch of golden sand. The exposed beach eventually reaches a line of palm trees and disappears into a thick jungle.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2606,6 +2808,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2618,6 +2821,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "A short stretch of golden sand and occasional rockpools, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2631,6 +2835,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2645,6 +2850,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2659,6 +2865,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2674,6 +2881,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2688,6 +2896,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2702,6 +2911,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2717,6 +2927,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2731,6 +2942,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2744,6 +2956,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2758,6 +2971,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2772,6 +2986,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2793,6 +3008,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2806,6 +3022,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2817,6 +3034,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2830,6 +3048,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2839,6 +3058,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2852,6 +3072,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2867,6 +3088,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2880,6 +3102,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2889,6 +3112,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2902,6 +3126,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2914,6 +3139,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2927,6 +3153,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2941,6 +3168,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2956,6 +3184,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2969,6 +3198,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -2987,6 +3217,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2996,6 +3227,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3009,6 +3241,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3026,6 +3259,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3035,6 +3269,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3052,6 +3287,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3061,6 +3297,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3080,6 +3317,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3089,6 +3327,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3106,6 +3345,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3115,6 +3355,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3128,6 +3369,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3141,6 +3383,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3153,6 +3396,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3164,6 +3408,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3176,6 +3421,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3188,6 +3434,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3200,6 +3447,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3212,6 +3460,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3225,6 +3474,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3237,6 +3487,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3253,6 +3504,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3262,6 +3514,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3274,6 +3527,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3286,6 +3540,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3298,6 +3553,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3315,6 +3571,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3328,6 +3585,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3341,6 +3599,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3353,6 +3612,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3365,6 +3625,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3377,6 +3638,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3389,6 +3651,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3398,6 +3661,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3412,6 +3676,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3425,6 +3690,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3438,6 +3704,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You stand on a pebble beach with the receded waterline in the distance. It appears to encircle the island rock. There is more beach to the north and the south. The rock face is sheer and totally impossible to climb. High up on the cliff face there is a short ledge, outside a large hole.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3451,6 +3718,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You stand on a pebble beach with the receded waterline in the distance. It appears to encircle the island rock. There is more beach to the east and the west. The rock face is sheer and totally impossible to climb.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3464,6 +3732,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You stand on a pebble beach with the receded waterline in the distance. It appears to encircle the island rock. There is more beach to the east and the west. To the north is a small cavemouth. There is a large window cut into the rock, about three-quarters of the way up the cliff.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3478,6 +3747,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3492,6 +3762,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3506,6 +3777,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3521,6 +3793,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3535,6 +3808,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3549,6 +3823,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3563,6 +3838,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3578,6 +3854,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You stand on a pebble beach with the tide receded. It appears to encircle the island rock. There  is more beach to the north and the south. The rock face is sheer and totally impossible to climb.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3591,6 +3868,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You stand on a pebble beach with the tide receded. It appears to encircle the island rock. There is more beach to the east and the west. To the north, the water looks easily fordable to the beach opposite. To the south, a set of rough, stone steps  descends the side of the rock to the beach.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3607,6 +3885,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You stand on a pebble beach with the tide receded. It appears to encircle the island rock. There is more beach to the east and the west. To the north, the water looks easily fordable to the beach opposite. To the south, and about six feet up a steep slope, you can see the mouth of a cave.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3622,6 +3901,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3638,6 +3918,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3650,6 +3931,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3663,6 +3945,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3675,6 +3958,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3687,6 +3971,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3699,6 +3984,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3712,6 +3998,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3725,6 +4012,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3737,6 +4025,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3746,6 +4035,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3761,6 +4051,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3775,6 +4066,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3784,6 +4076,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3797,6 +4090,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3813,6 +4107,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3822,6 +4117,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3834,6 +4130,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3846,6 +4143,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3860,6 +4158,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3875,6 +4174,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3893,6 +4193,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3907,6 +4208,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3916,6 +4218,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3933,6 +4236,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3946,6 +4250,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3958,6 +4263,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3967,6 +4273,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3984,6 +4291,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -3993,6 +4301,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4006,6 +4315,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4026,6 +4336,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4038,6 +4349,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4053,6 +4365,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4068,6 +4381,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4081,6 +4395,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4096,6 +4411,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4110,6 +4426,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4125,6 +4442,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4140,6 +4458,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4153,6 +4472,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4168,6 +4488,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4182,6 +4503,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4195,6 +4517,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4207,6 +4530,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4220,6 +4544,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4229,6 +4554,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4246,6 +4572,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4255,6 +4582,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4267,6 +4595,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4280,6 +4609,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4293,6 +4623,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4312,6 +4643,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4327,6 +4659,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4342,6 +4675,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4357,6 +4691,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4372,6 +4707,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4387,6 +4723,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4402,6 +4739,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4416,6 +4754,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4430,6 +4769,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4444,6 +4784,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4453,6 +4794,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4469,6 +4811,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4478,6 +4821,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4491,6 +4835,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4503,6 +4848,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4521,6 +4867,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4530,6 +4877,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4545,6 +4893,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4558,6 +4907,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4570,6 +4920,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4583,6 +4934,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4596,6 +4948,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4605,6 +4958,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4623,6 +4977,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4636,6 +4991,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4645,6 +5001,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4661,6 +5018,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4674,6 +5032,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4687,6 +5046,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4696,6 +5056,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4710,6 +5071,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4721,6 +5083,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4738,6 +5101,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4755,6 +5119,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4770,6 +5135,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4783,6 +5149,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4796,6 +5163,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4808,6 +5176,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4820,6 +5189,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4829,6 +5199,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4846,6 +5217,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4855,6 +5227,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4868,6 +5241,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4883,6 +5257,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4897,6 +5272,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4906,6 +5282,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4918,6 +5295,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4931,6 +5309,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4943,6 +5322,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4955,6 +5335,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4971,6 +5352,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You are floating just off the village. You can row westwards and beach upon the shore or you can travel safely northwards following the line of the breakwater to the river mouth. To the south you can hug the shoreline but to the east, the seas become rocky and dangerous.",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4983,6 +5365,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "To your west the waves lap against a a narrow beach, to the south the sea becomes treacherous as it crashes against rocks, some of them submerged. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they meet a high cliff.",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4995,6 +5378,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5004,6 +5388,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You are in a sandy cove surrounded by rocky cliffs to the north and west. A wide cavemouth leads into a cave to the west. To the east is a calm shore. A shallow stream, easily fordable, lies to the south.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5017,6 +5402,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5033,6 +5419,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5045,6 +5432,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5057,6 +5445,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5066,6 +5455,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5079,6 +5469,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5093,6 +5484,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5107,6 +5499,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5122,6 +5515,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5134,6 +5528,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5147,6 +5542,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5160,6 +5556,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5175,6 +5572,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5184,6 +5582,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5197,6 +5596,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5214,6 +5614,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5223,6 +5624,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5239,6 +5641,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5248,6 +5651,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5261,6 +5665,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5273,6 +5678,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5287,6 +5693,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5299,6 +5706,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5313,6 +5721,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5326,6 +5735,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5343,6 +5753,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5352,6 +5763,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5365,6 +5777,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5377,6 +5790,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5389,6 +5803,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5402,6 +5817,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5416,6 +5832,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5428,6 +5845,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5442,6 +5860,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5451,6 +5870,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5468,6 +5888,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5477,6 +5898,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5492,6 +5914,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5501,6 +5924,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5514,6 +5938,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5525,6 +5950,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5537,6 +5963,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5551,6 +5978,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5566,6 +5994,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5578,6 +6007,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5590,6 +6020,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5611,6 +6042,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5620,6 +6052,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5639,6 +6072,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5653,6 +6087,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5667,6 +6102,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5680,6 +6116,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5694,6 +6131,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5709,6 +6147,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5724,6 +6163,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5738,6 +6178,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5752,6 +6193,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5767,6 +6209,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5782,6 +6225,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5795,6 +6239,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5808,6 +6253,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5820,6 +6266,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5835,6 +6282,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5847,6 +6295,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5861,6 +6310,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5873,6 +6323,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5886,6 +6337,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5900,6 +6352,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5913,6 +6366,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5926,6 +6380,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5938,6 +6393,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5951,6 +6407,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5960,6 +6417,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5979,6 +6437,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5994,6 +6453,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6008,6 +6468,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6023,6 +6484,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6037,6 +6499,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6050,6 +6513,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6065,6 +6529,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6078,6 +6543,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6093,6 +6559,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6106,6 +6573,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6121,6 +6589,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6135,6 +6604,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6147,6 +6617,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6159,6 +6630,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6170,6 +6642,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6184,6 +6657,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6197,6 +6671,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6210,6 +6685,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6219,6 +6695,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6233,6 +6710,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6250,6 +6728,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6263,6 +6742,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6272,6 +6752,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6286,6 +6767,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6300,6 +6782,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6314,6 +6797,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6327,6 +6811,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6340,6 +6825,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6357,6 +6843,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6366,6 +6853,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6379,6 +6867,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "The gently shelving beach runs east into the receded tide. To the north the waves are higher, crashing on the jagged rocks. A high cliff overhangs the beach from the west, and blocks the beach to the south as it juts out forming a huge rocky headland. A narrow path zig-zags up to the top of the cliff to the west.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6396,6 +6885,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "You are standing on a rocky beach. The beach continues southwards along the line of the east cliffs towards what might be a beach in the distance. To the north progress is barred by a deep water filled channel, some twenty feet down.",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6408,6 +6898,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "You are clambering across steep jagged rocks. The sharp slanted edges make climbing difficult. To the north the rocks become slippery and treacherous, while to the south they drop a sheer twenty feet down into a wide water filled channel which churns and froths at a terrific rate, east from a narrow but very deep gorge. The sheer cliff walls make it impossible to reach the gorge entry from upon the rocks.",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6421,6 +6912,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "A high cliff rises up to the west, rising steep and unclimbable over the rocky beach. The slippery rocks make walking treacherous. To the north is the beach, while to the south the rocks get even more jagged and rough.",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6430,6 +6922,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6441,6 +6934,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6455,6 +6949,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6467,6 +6962,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6476,6 +6972,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6488,6 +6985,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6506,6 +7004,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6515,6 +7014,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6528,6 +7028,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6541,6 +7042,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6554,6 +7056,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6572,6 +7075,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6585,6 +7089,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6597,6 +7102,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6610,6 +7116,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6624,6 +7131,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6637,6 +7145,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6649,6 +7158,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6663,6 +7173,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6672,6 +7183,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "You are on a short section of gently shelving beach with the tide out. To the north the beach swings around following the edge of a river mouth. To the south it gives way to jagged, slippery rocks. Gazing west, you can look up the hill, past the village to the mighty snowcapped mountains beyond.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6687,6 +7199,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6707,6 +7220,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6718,6 +7232,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6729,6 +7244,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6744,6 +7260,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6757,6 +7274,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6769,6 +7287,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6778,6 +7297,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6791,6 +7311,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6803,6 +7324,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6817,6 +7339,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6836,6 +7359,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6850,6 +7374,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6859,6 +7384,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6874,6 +7400,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6889,6 +7416,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6905,6 +7433,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6916,6 +7445,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6925,6 +7455,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6937,6 +7468,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6952,6 +7484,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6968,6 +7501,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6986,6 +7520,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6995,6 +7530,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7009,6 +7545,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7024,6 +7561,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7038,6 +7576,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7052,6 +7591,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7070,6 +7610,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7085,6 +7626,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7094,6 +7636,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7109,6 +7652,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7124,6 +7668,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7136,6 +7681,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7150,6 +7696,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7159,6 +7706,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7171,6 +7719,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7184,6 +7733,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7197,6 +7747,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7212,6 +7763,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7227,6 +7779,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7241,6 +7794,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7253,6 +7807,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7266,6 +7821,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7281,6 +7837,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7290,6 +7847,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7303,6 +7861,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7320,6 +7879,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7329,6 +7889,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7343,6 +7904,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7361,6 +7923,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7370,6 +7933,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7382,6 +7946,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7401,6 +7966,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7415,6 +7981,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7424,6 +7991,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7435,6 +8003,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7447,6 +8016,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7459,6 +8029,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7473,6 +8044,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7489,6 +8061,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7498,6 +8071,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7512,6 +8086,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 1,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7530,6 +8105,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
+        "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
     }

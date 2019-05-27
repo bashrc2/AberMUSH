@@ -302,8 +302,8 @@ playerList = []
 mud = MudServer()
 
 # weather
-currHour = int(datetime.date.today().strftime("%H"))
-currMin = int(datetime.date.today().strftime("%M"))
+currHour = datetime.datetime.utcnow().hour
+currMin = datetime.datetime.utcnow().minute
 daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
 dayMins=(currHour*60)+currMin
 random.seed((daysSinceEpoch*1440)+dayMins)

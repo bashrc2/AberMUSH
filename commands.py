@@ -13,6 +13,9 @@ from functions import hash_password
 from functions import log
 from functions import saveState
 from functions import playerInventoryWeight
+
+from environment import runTide
+
 from copy import deepcopy
 import time
 import datetime
@@ -477,7 +480,13 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         rm = rooms[players[id]['room']]
 
                         # send the player back the description of their current room
-                        mud.send_message(id, "\n<f230>" + rm['description'])
+                        if len(rm['tideOutDescription'])==0:
+                                mud.send_message(id, "\n<f230>" + rm['description'])
+                        else:
+                                if runTide() < 0:
+                                        mud.send_message(id, "\n<f230>" + rm['tideOutDescription'])
+                                else:
+                                        mud.send_message(id, "\n<f230>" + rm['description'])
 
                         playershere = []
 

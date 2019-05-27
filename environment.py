@@ -21,6 +21,24 @@ import time
 
 rainThreshold = 230
 
+def runTide():
+    lunar_orbit_mins = 39312
+
+    daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
+    currHour = datetime.datetime.utcnow().hour
+    currMin = datetime.datetime.utcnow().minute
+    timeMins = (daysSinceEpoch*60*24) + (currHour*60) + currMin
+
+    lunarMins = timeMins % int(lunar_orbit_mins)
+    solarMins = timeMins % int(24 * 60 * 365)
+    dailyMins = timeMins % int(24 * 60)
+
+    lunar = sin(lunarMins * 2 * 3.1415927 / lunar_orbit_mins) * 0.5
+    solar = sin(solarMins * 2 * 3.1415927 / (24 * 60 * 365)) * 0.1
+    daily = sin(dailyMins * 2 * 3.1415927 / (24 * 60)) * 0.5
+
+    return daily + lunar + solar
+
 def assignTerrainDifficulty(rooms):
     terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough','snow','ice']
     maxTerrainDifficulty=1
@@ -257,7 +275,7 @@ def altitudeTemperatureAdjustment(rooms, mapArea, x, y):
 
 def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
     terrainFreezingWords=['snow','ice']
-    terrainCoolingWords=['rock','steep','sewer','sea','lake','river','stream','water','forest','trees','mist','fog']
+    terrainCoolingWords=['rock','steep','sewer','sea','lake','river','stream','water','forest','trees','mist','fog','beach','shore']
     terrainHeatingWords=['sun','lava','volcan','molten','desert','dry']
 
     maxTerrainDifficulty=1
@@ -313,8 +331,8 @@ def getTemperature():
     dailyVariance=avTemp*0.4*(r1.random()-0.5)
 
     # Calculate number of minutes elapsed in the day so far
-    currHour = int(datetime.date.today().strftime("%H"))
-    currMin = int(datetime.date.today().strftime("%M"))
+    currHour = datetime.datetime.utcnow().hour
+    currMin = datetime.datetime.utcnow().minute
     dayMins=(currHour*60)+currMin
 
     # Seed number generator for the current minute of the day
