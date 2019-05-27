@@ -200,6 +200,18 @@ def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
     # Things get difficult in snow/ice
     return -(temperature-5)
 
+def attackRoll(luck):
+    if luck>6:
+        luck=6
+    if randint(1+luck, 10) > 5:
+        return True
+    return False
+
+def criticalHit():
+    if randint(1, 20)==20:
+        return True
+    return False
+
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         s1id = fights[fid]['s1id']
         s2id = fights[fid]['s2id']
@@ -221,14 +233,11 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                 players[s1id]['isInCombat'] = 1
                 players[s2id]['isInCombat'] = 1
                 # Do damage to the PC here
-                luckValue=players[s1id]['luc']
-                if luckValue>6:
-                    luckValue=6
-                if randint(1+luckValue, 10) > 5:
+                if attackRoll(players[s1id]['luc']):
                         damageDescription='damage'
                         damageValue=weaponDamage(s1id,players,itemsDB)
                         armorClass=weaponDefense(s2id,players,itemsDB)
-                        if randint(1, 20)==20:
+                        if criticalHit():
                             damageDescription='critical damage'
                             damageValue = damageValue*2
                         modifier = randint(0, 10) + damageValue - armorClass
@@ -280,14 +289,11 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 players[s1id]['isInCombat'] = 1
                 npcs[s2id]['isInCombat'] = 1
                 # Do damage to the NPC here
-                luckValue=players[s1id]['luc']
-                if luckValue>6:
-                    luckValue=6
-                if randint(1+luckValue, 10) > 5:
+                if attackRoll(players[s1id]['luc']):
                         damageDescription='damage'
                         damageValue=weaponDamage(s1id,players,itemsDB)
                         armorClass=weaponDefense(s2id,npcs,itemsDB)
-                        if randint(1, 20)==20:
+                        if criticalHit():
                             damageDescription='critical damage'
                             damageValue = damageValue*2
                         npcWearsArmor(s2id,npcs,itemsDB)
@@ -338,14 +344,11 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
             return
 
         # Do the damage to PC here
-        luckValue=npcs[s1id]['luc']
-        if luckValue>6:
-            luckValue=6
-        if randint(1+luckValue, 10) > 5:
+        if attackRoll(npcs[s1id]['luc']):
                 damageDescription='damage'
                 damageValue=weaponDamage(s1id,npcs,itemsDB)
                 armorClass=weaponDefense(s2id,players,itemsDB)
-                if randint(1, 20)==20:
+                if criticalHit():
                     damageDescription='critical damage'
                     damageValue = damageValue*2
                 modifier = randint(0, 10) + damageValue - armorClass
