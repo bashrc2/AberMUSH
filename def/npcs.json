@@ -1299,7 +1299,7 @@
         "path" : [],
         "moveDelay" : "300",
         "moveType" : "",
-        "vocabulary": "Drink up!|Special brew is on tap!|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
+        "vocabulary": "Drink up!|Drink till you drop|Ahoy shipmates!|Don't watch that!|Who runs this establishment anyway?|No fighting in the back!|Cheap ale is the best medicine|Hey!|When the going gets tough the tough begin boozing|Quieten down you lot!|Go outside if you want to fight|Gambling and debauchery are encouraged in this establishment",
         "talkDelay" : "300",
         "randomFactor" : "100",
         "follow" : "",
