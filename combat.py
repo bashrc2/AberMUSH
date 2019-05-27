@@ -216,15 +216,22 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                 players[s2id]['isInCombat'] = 1
                 # Do damage to the PC here
                 if randint(0, 1) == 1:
-                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB) - weaponDefense(s2id,players,itemsDB)
+                        damageDescription='damage'
+                        damageValue=weaponDamage(s1id,players,itemsDB)
+                        if randint(1, 20)==20:
+                            damageDescription='critical damage'
+                            damageValue = damageValue*2
+                        modifier = randint(0, 10) + damageValue - weaponDefense(s2id,players,itemsDB)
+                        #if players[s1id]['luc']>0:
+                        #    modifier = modifier + randint(0,players[s1id]['luc'])
                         attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                         if modifier>0:
                             if players[s1id]['hp'] > 0:
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
-                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of damage.\n')
+                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
                                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
-                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of damage.\n')
+                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
                         else:
                             if players[s1id]['hp'] > 0:
                                 # Attack deflected by armor
@@ -264,15 +271,20 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 npcs[s2id]['isInCombat'] = 1
                 # Do damage to the NPC here
                 if randint(0, 1) == 1:
+                        damageDescription='damage'
+                        damageValue=weaponDamage(s1id,players,itemsDB)
+                        if randint(1, 20)==20:
+                            damageDescription='critical damage'
+                            damageValue = damageValue*2
                         npcWearsArmor(s2id,npcs,itemsDB)
-                        modifier = randint(0, 10) + weaponDamage(s1id,players,itemsDB) - weaponDefense(s2id,npcs,itemsDB)
+                        modifier = randint(0, 10) + damageValue - weaponDefense(s2id,npcs,itemsDB)
                         attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                         if modifier>0:
                             if players[s1id]['hp'] > 0:
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
                                 players[s1id]['lastCombatAction'] = int(time.time())
 
-                                mud.send_message(s1id, 'You '+ attackDescription + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of damage\n')
+                                mud.send_message(s1id, 'You '+ attackDescription + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
                         else:
                             if players[s1id]['hp'] > 0:
                                 # Attack deflected by armor
@@ -312,6 +324,11 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
 
         # Do the damage to PC here
         if randint(0, 1) == 1:
+                damageDescription='damage'
+                damageValue=weaponDamage(s1id,npcs,itemsDB)
+                if randint(1, 20)==20:
+                    damageDescription='critical damage'
+                    damageValue = damageValue*2
                 modifier = randint(0, 10) + weaponDamage(s1id,npcs,itemsDB) - weaponDefense(s2id,players,itemsDB)
                 attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
@@ -319,7 +336,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
                     if npcs[s1id]['hp'] > 0:
                         players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
                         npcs[s1id]['lastCombatAction'] = int(time.time())
-                        mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of damage.\n')
+                        mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
                 else:
                     mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you but it is deflected by your armor.\n')
         else:
