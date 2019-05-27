@@ -238,7 +238,6 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                         if armorValue<damageValue:
                             if players[s1id]['hp'] > 0:
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
-                                players[s1id]['lastCombatAction'] = int(time.time())
                                 mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
                                 attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
                                 mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
@@ -252,6 +251,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss trying to hit <f32><u>' + players[s2id]['name'] + '\n')
                         mud.send_message(s2id, '<f32><u>' + players[s1id]['name'] + '<r> missed while trying to hit you!\n')
+                players[s1id]['lastCombatAction'] = int(time.time())
         else:
                 mud.send_message(s1id, '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <f32>' + players[s2id]['name'] + ' at this time.\n')
                 fightsCopy = deepcopy(fights)
@@ -283,7 +283,6 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 luckValue=players[s1id]['luc']
                 if luckValue>6:
                     luckValue=6
-                #print("randint " + str(randint(1+luckValue, 10)))
                 if randint(1+luckValue, 10) > 5:
                         damageDescription='damage'
                         damageValue=weaponDamage(s1id,players,itemsDB)
@@ -297,7 +296,6 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                         if armorValue<damageValue:
                             if players[s1id]['hp'] > 0:
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
-                                players[s1id]['lastCombatAction'] = int(time.time())
 
                                 mud.send_message(s1id, 'You '+ attackDescription + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
                         else:
@@ -307,6 +305,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 else:
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!\n')
+                players[s1id]['lastCombatAction'] = int(time.time())
         else:
                 mud.send_message(s1id, '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <u><f21>' + npcs[s2id]['name'] + '<r> at this time.\n')
                 fightsCopy = deepcopy(fights)
@@ -355,13 +354,13 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
                 if armorValue<damageValue:
                     if npcs[s1id]['hp'] > 0:
                         players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
-                        npcs[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
                 else:
                     mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you but it is deflected by your armor.\n')
         else:
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
+        npcs[s1id]['lastCombatAction'] = int(time.time())
 
 def runFights(mud,players,npcs,fights,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
         for (fid, pl) in list(fights.items()):
