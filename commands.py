@@ -102,7 +102,7 @@ def enableRegistrations(mud, id, players):
 def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
-                targetLocation = params[0:].strip().lower()
+                targetLocation = params[0:].strip().lower().replace('to the ', '').replace('to ', '')
                 if len(targetLocation) != 0:
                     currRoom=players[id]['room']
                     if rooms[currRoom]['name'].strip().lower() == targetLocation:
