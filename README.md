@@ -198,6 +198,10 @@ Food or drink can be defined by setting `edible` to a non-zero value within `ite
 
 The system includes a dynamic weather simulation with varying seasonal and daily temperatures, passing clouds and rain. The ambient weather conditions may affect your combat performance, especialy if you are wearing armor or carrying a lot of weight.
 
+### Tides
+
+For coastal locations an optional alternative description may be entered into `tideOutDescription`. When the tide is in the default `description` parameter will be used.
+
 ![AberMUSH](docs/combat.png)
 
 ### Players in Combat
