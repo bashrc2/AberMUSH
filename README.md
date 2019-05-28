@@ -190,6 +190,26 @@ You can then use a command such as:
 put hat on table
 ```
 
+It's also possible to have items which can be opened and closed but which can't have things put into them. Use `noput` within the state parameter to indicate this.
+
+
+``` bash
+    "1289": {
+        "name": "dusty book",
+        ...
+        "state": "container closed noput",
+        "open_description": "A dust cloud emerges as you open the ancient tome.",
+        "close_description": "You close the book and blow off some dust from its cover.",
+    },
+```
+
+With commands such as:
+
+``` bash
+open book
+close book
+```
+
 ### Consumables
 
 Food or drink can be defined by setting `edible` to a non-zero value within `items.json`. If the value is negative then the item is a type of poison.
