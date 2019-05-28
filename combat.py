@@ -20,10 +20,6 @@ import time
 
 defenseClothing=['clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist']
 
-attack_types_pre=["strike","lunge","bludgeon","thrust","swipe","swing","stab","cut","slash"]
-attack_types_pre2=["struck","lunged","bludgeoned","thrusted","swiped","swung","stabbed","cut","slashed"]
-attack_types_post=["viciously at","savagely at","daringly at","a crushing blow on","a glancing blow on","a blow on","heavily at","clumsily at","crudely at"]
-
 def playersRest(players):
     # rest restores hit points
     for p in players:
@@ -185,11 +181,128 @@ def armorAgility(id,players,itemsDB):
     # Total agility for clothing
     return agility
 
-def getAttackDescription():
-    attackDescriptionIndex1=randint(0,len(attack_types_pre)-1)
-    attackDescriptionIndex2=randint(0,len(attack_types_post)-1)
-    attackDescription=attack_types_pre[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
-    return attackDescriptionIndex1,attackDescriptionIndex2,attackDescription
+def getWeaponHeld(id, players, itemsDB):
+    if players[id]['clo_rhand']>0 and players[id]['clo_lhand']==0:
+        # something in right hand
+        itemID = int(players[id]['clo_rhand'])
+        if itemsDB[itemID]['mod_str']>0:
+            if len(itemsDB[itemID]['type'])>0:
+                return itemsDB[itemID]['type']
+
+    if players[id]['clo_lhand']>0 and players[id]['clo_rhand']==0:
+        # something in left hand
+        itemID = int(players[id]['clo_lhand'])
+        if itemsDB[itemID]['mod_str']>0:
+            if len(itemsDB[itemID]['type'])>0:
+                return itemsDB[itemID]['type']
+
+    if players[id]['clo_lhand']>0 and players[id]['clo_rhand']>0:
+        # something in both hands
+        itemRightID = int(players[id]['clo_rhand'])
+        itemLeftID = int(players[id]['clo_lhand'])
+        if randint(0,1)==1:
+            if itemsDB[itemRightID]['mod_str']>0:
+                if len(itemsDB[itemRightID]['type'])>0:
+                    return itemsDB[itemRightID]['type']
+            if itemsDB[itemLeftID]['mod_str']>0:
+                if len(itemsDB[itemLeftID]['type'])>0:
+                    return itemsDB[itemLeftID]['type']
+        else:
+            if itemsDB[itemLeftID]['mod_str']>0:
+                if len(itemsDB[itemLeftID]['type'])>0:
+                    return itemsDB[itemLeftID]['type']
+            if itemsDB[itemRightID]['mod_str']>0:
+                if len(itemsDB[itemRightID]['type'])>0:
+                    return itemsDB[itemRightID]['type']
+    return "fists"
+
+def getAttackDescription(weaponType):
+    weaponType = weaponType.lower()
+
+    attackStrings=["swing a fist at","punch","crudely swing a fist at","ineptly punch"]
+    attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+    attackStrings=["swung a fist at","punched","crudely swung a fist at","ineptly punched"]
+    attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("acid"):
+        attackStrings=["corrode", "spray", "splash"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["corroded", "sprayed", "splashed"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("bludg"):
+        attackStrings=["deliver a crushing blow on","strike at","swing at","swing clumsily at","strike a blow on"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["delivered a crushing blow on","struck at","swung at","swung clumsily at","struck a blow on"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("cold"):
+        attackStrings=["freeze","chill"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["froze","chilled"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("fire"):
+        attackStrings=["cast a ball a of flame at","cast a fireball at","cast a burning sphere at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["casted a ball a of flame at","casted a fireball at","casted a burning sphere at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("force"):
+        attackStrings=["point at", "wave at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["pointed at","waved at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("lightning"):
+        attackStrings=["cast a bolt of lightning at", "cast a lightning bolt at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["casted a bolt of lightning at", "casted a lightning bolt at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("necro"):
+        attackStrings=["whither","chill"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["whithered","chilled"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("pierc"):
+        attackStrings=["stab at", "hack at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["stabbed at","hacked at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("poison"):
+        attackStrings=["poison"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["poisoned"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("psy"):
+        attackStrings=["psychically blast","psychically deplete"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["psychically blasted","psychically depleted"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("radiant"):
+        attackStrings=["sear","scorch"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["seared","scorched"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("slash"):
+        attackStrings=["cut at","cut savagely into","slash at","swing at","swing clumsily at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["cut at","cut savagely into","slashed at","swung at","swung clumsily at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("thunder"):
+        attackStrings=["cast a thunderbolt at","cast a bolt of thunder at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["casted a thunderbolt at","casted a bolt of thunder at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    return attackDescriptionFirst,attackDescriptionSecond
 
 def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
     temperature = getTemperatureAtCoords(rooms[rm]['coords'],rooms,mapArea,clouds)
@@ -246,20 +359,19 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                         damageValue,armorClass,damageDescription = \
                             calculateDamage(weaponDamage(s1id,players,itemsDB),
                                             weaponDefense(s2id,players,itemsDB))
-                        attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
+                        weaponType=getWeaponHeld(s1id,players,itemsDB)
+                        attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
                         if armorClass<=damageValue:
                             if players[s1id]['hp'] > 0:
                                 modifier = randint(0, 10) + damageValue - armorClass
                                 players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
-                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
-                                attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
-                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
+                                mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
+                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
                         else:
                             if players[s1id]['hp'] > 0:
                                 # Attack deflected by armor
-                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
-                                attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
-                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescription + ' you but it is deflected by your armor.\n')
+                                mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
+                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
                 else:
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss trying to hit <f32><u>' + players[s2id]['name'] + '\n')
@@ -300,17 +412,18 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
                         npcWearsArmor(s2id,npcs,itemsDB)
 
-                        attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
+                        weaponType=getWeaponHeld(s1id,players,itemsDB)
+                        attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
                         if armorClass<=damageValue:
                             if players[s1id]['hp'] > 0:
                                 modifier = randint(0, 10) + damageValue - armorClass
                                 npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
 
-                                mud.send_message(s1id, 'You '+ attackDescription + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
+                                mud.send_message(s1id, 'You '+ attackDescriptionFirst + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
                         else:
                             if players[s1id]['hp'] > 0:
                                 # Attack deflected by armor
-                                mud.send_message(s1id, 'You ' + attackDescription + ' <f32><u>' + npcs[s2id]['name'] + '<r> but their armor deflects it.\n')
+                                mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + npcs[s2id]['name'] + '<r> but their armor deflects it.\n')
                 else:
                         players[s1id]['lastCombatAction'] = int(time.time())
                         mud.send_message(s1id, 'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!\n')
@@ -351,15 +464,15 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
                 damageValue,armorClass,damageDescription = \
                     calculateDamage(weaponDamage(s1id,npcs,itemsDB),
                                     weaponDefense(s2id,players,itemsDB))
-                attackDescriptionIndex1,attackDescriptionIndex2,attackDescription = getAttackDescription()
-                attackDescription=attack_types_pre2[attackDescriptionIndex1] + ' ' + attack_types_post[attackDescriptionIndex2]
+                weaponType=getWeaponHeld(s1id,npcs,itemsDB)
+                attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
                 if armorClass<=damageValue:
                     if npcs[s1id]['hp'] > 0:
                         modifier = randint(0, 10) + damageValue - armorClass
                         players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
-                        mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
+                        mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
                 else:
-                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescription + ' you but it is deflected by your armor.\n')
+                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
         else:
                 npcs[s1id]['lastCombatAction'] = int(time.time())
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
