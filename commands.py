@@ -1271,7 +1271,7 @@ def openItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, item
                 mud.send_message(id, "It's already open\n\n")
                 return
 
-        itemsDB[itemID]['state']='container open'
+        itemsDB[itemID]['state']=itemsDB[itemID]['state'].replace('closed','open')
         itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('closed','open')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('closed','open')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('shut','open')
@@ -1343,7 +1343,7 @@ def closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, ite
                 mud.send_message(id, "That's not possible.\n\n")
                 return
 
-        itemsDB[itemID]['state']='container closed'
+        itemsDB[itemID]['state']=itemsDB[itemID]['state'].replace('open', 'closed')
         itemsDB[itemID]['short_description']=itemsDB[itemID]['short_description'].replace('open', 'closed')
         itemsDB[itemID]['long_description']=itemsDB[itemID]['long_description'].replace('open','closed')
 
@@ -1458,13 +1458,19 @@ def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                 if itemsInWorldCopy[iid]['room'] == players[id]['room']:
                         if containerName.lower() in itemsDB[items[iid]['id']]['name'].lower():
                                 if itemsDB[items[iid]['id']]['state'].startswith('container open'):
-                                        players[id]['inv'].remove(str(itemID))
-                                        removeItemFromClothing(players,id,itemID)
-                                        itemsDB[items[iid]['id']]['contains'].append(str(itemID))
-                                        mud.send_message(id, 'You put ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + inon + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
+                                        if ' noput' not in itemsDB[items[iid]['id']]['state']:
+                                                players[id]['inv'].remove(str(itemID))
+                                                removeItemFromClothing(players,id,itemID)
+                                                itemsDB[items[iid]['id']]['contains'].append(str(itemID))
+                                                mud.send_message(id, 'You put ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + inon + itemsDB[items[iid]['id']]['article'] + ' ' + itemsDB[items[iid]['id']]['name'] + '.\n\n')
+                                        else:
+                                                if 'on' in inon:
+                                                        mud.send_message(id, "You can't put anything on that.\n\n")
+                                                else:
+                                                        mud.send_message(id, "You can't put anything in that.\n\n")
                                         return
                                 else:
-                                        if itemsDB[items[iid]['id']]['state'] == 'container closed':
+                                        if itemsDB[items[iid]['id']]['state'].startswith('container closed'):
                                                 if 'on' in inon:
                                                         mud.send_message(id, "You can't.\n\n")
                                                 else:
