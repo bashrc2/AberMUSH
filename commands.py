@@ -34,30 +34,10 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 maxWeight = 100
 
 def removeItemFromClothing(players,id,itemID):
-        if int(players[id]['clo_head']) == itemID:
-                players[id]['clo_head'] = 0
-        if int(players[id]['clo_neck']) == itemID:
-                players[id]['clo_neck'] = 0
-        if int(players[id]['clo_chest']) == itemID:
-                players[id]['clo_chest'] = 0
-        if int(players[id]['clo_feet']) == itemID:
-                players[id]['clo_feet'] = 0
-        if int(players[id]['clo_larm']) == itemID:
-                players[id]['clo_larm'] = 0
-        if int(players[id]['clo_rarm']) == itemID:
-                players[id]['clo_rarm'] = 0
-        if int(players[id]['clo_lleg']) == itemID:
-                players[id]['clo_lleg'] = 0
-        if int(players[id]['clo_rleg']) == itemID:
-                players[id]['clo_rleg'] = 0
-        if int(players[id]['clo_lhand']) == itemID:
-                players[id]['clo_lhand'] = 0
-        if int(players[id]['clo_rhand']) == itemID:
-                players[id]['clo_rhand'] = 0
-        if int(players[id]['clo_lwrist']) == itemID:
-                players[id]['clo_lwrist'] = 0
-        if int(players[id]['clo_rwrist']) == itemID:
-                players[id]['clo_rwrist'] = 0
+        clothingLocation = ['clo_head','clo_neck','clo_chest','clo_feet','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lhand','clo_rhand','clo_lwrist','clo_rwrist']
+        for c in clothingLocation:
+                if int(players[id][c]) == itemID:
+                        players[id][c] = 0
 
 def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
