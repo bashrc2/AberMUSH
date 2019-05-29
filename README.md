@@ -118,8 +118,8 @@ It may be useful for an NPC to keep track of the state of your conversation and 
 
 ``` bash
 "conv" : [
-    [["have","order","like","beer","ale","drink","please"],"Free as in beer","state:beer given","give","114"],
-    [["state:beer given","have","order","like","beer","ale","drink","please"],"Have another one then","give","114"]
+    [["order","beer","please"],"Free as in beer","state:beer given","give","114"],
+    [["state:beer given","order","beer","please"],"Have another one then","give","114"]
 ],
 ```
 
