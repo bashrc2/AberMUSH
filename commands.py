@@ -197,6 +197,15 @@ def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                     mud.send_message(id, "You have unfrozen " + target + "\n")
                                 return
 
+def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
+        if not isWitch(id,players):
+                return
+
+        mud.send_message(id, "\n\nShutdown commenced...\n\n")
+        for (pid, pl) in list(players.items()):
+                mud.send_message(pid, "Game server shutting down...\n\n")
+                mud._handle_disconnect(pid)
+
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud._handle_disconnect(id)
 
@@ -1638,7 +1647,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "tag": writeOnItem,
                 "eat": eat,
                 "drink": eat,
-                "change": changeSetting
+                "change": changeSetting,
+                "shutdown": shutdown
         }
 
         try:

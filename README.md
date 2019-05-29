@@ -66,6 +66,7 @@ freeze [target]                  - Prevents a player from moving or attacking
 unfreeze [target]                - Allows a player to move or attack
 teleport [room]                  - Teleport to a room
 summon [target]                  - Summons a player to your location
+shutdown                         - Shuts down the game server
 ```
 
 ### NPC Types
