@@ -130,14 +130,27 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
         if randint(0, 1) == 1:
                 puzzledStr='confused'
 
+        conversation_states=players[id]['convstate']
+        conversation_new_state=''
+
         # for each entry in the conversation list
         for conv in npcs[nid]['conv']:
                 # entry must contain matching words and resulting reply
                 if len(conv)>=2:
                         # count the number of matches for this line
                         match_ctr=0
-                        for word_match in conv[0]:
-                                if word_match.lower() in message:
+                        words_list = conv[0]
+                        for word_match in words_list:
+                                if word_match.lower().startswith('state:'):
+                                    # is the conversations with this npc in the given state?
+                                    state_value=word_match.lower().split(':')[1].strip()
+                                    if npcs[nid]['name'] in conversation_states:
+                                        match_ctr = match_ctr + 1
+                                        if conversation_states[npcs[nid]['name']] != state_value:
+                                            match_ctr=0
+                                            break
+                                else:
+                                    if word_match.lower() in message:
                                         match_ctr = match_ctr + 1
                         # store the best match
                         if match_ctr > max_match_ctr:
@@ -146,14 +159,29 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                 best_match_action=''
                                 best_match_action_param0=''
                                 best_match_action_param1=''
+                                currIndex=2
+                                conversation_new_state=''
                                 if len(conv)>=3:
-                                        best_match_action=conv[2]
-                                if len(conv)>=4:
-                                        best_match_action_param0=conv[3]
-                                if len(conv)>=5:
-                                        best_match_action_param1=conv[4]
+                                        if conv[2].lower().startswith('state:'):
+                                            conversation_new_state=conv[2].lower().split(':')[1].strip()
+                                            if len(conv)>=4:
+                                                best_match_action=conv[3]
+                                            if len(conv)>=5:
+                                                best_match_action_param0=conv[4]
+                                            if len(conv)>=6:
+                                                best_match_action_param1=conv[5]
+                                        else:
+                                            best_match_action=conv[2]
+                                            if len(conv)>=4:
+                                                best_match_action_param0=conv[3]
+                                            if len(conv)>=5:
+                                                best_match_action_param1=conv[4]
         if len(best_match)>0:
                 # There were some word matches
+            
+                if len(conversation_new_state)>0:
+                    # set the new conversation state with this npc
+                    conversation_states[npcs[nid]['name']] = conversation_new_state
 
                 if len(best_match_action)>0:
                         # give
