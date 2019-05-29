@@ -18,7 +18,7 @@ from environment import getTemperatureAtCoords
 
 import time
 
-defenseClothing=['clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist']
+defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')
 
 def playersRest(players):
     # rest restores hit points

@@ -37,7 +37,7 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 maxWeight = 100
 
 def removeItemFromClothing(players,id,itemID):
-        clothingLocation = ['clo_head','clo_neck','clo_chest','clo_feet','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lhand','clo_rhand','clo_lwrist','clo_rwrist']
+        clothingLocation = ('clo_head','clo_neck','clo_chest','clo_feet','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lhand','clo_rhand','clo_lwrist','clo_rwrist')
         for c in clothingLocation:
                 if int(players[id][c]) == itemID:
                         players[id][c] = 0
