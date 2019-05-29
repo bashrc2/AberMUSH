@@ -114,7 +114,7 @@ The NPC can also give an item if some words are matched, or exchange/buy/barter 
 
 ### Stateful NPC Conversations
 
-It may be useful for an NPC to keep track of the state of your conversation and it's possible to do this via state variables. There is only one conversation state variable per NPC and it can be named anything you like. For example:
+It may be useful for an NPC to keep track of the state of your conversation and it's possible to do this via state variables. There is only one conversation state variable per NPC/player combination and it can be named anything you like. For example:
 
 ``` bash
 "conv" : [
