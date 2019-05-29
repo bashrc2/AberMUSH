@@ -16,6 +16,7 @@ from functions import playerInventoryWeight
 
 from environment import runTide
 
+import sys
 from copy import deepcopy
 import time
 import datetime
@@ -185,6 +186,8 @@ def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         for (pid, pl) in list(players.items()):
                 mud.send_message(pid, "Game server shutting down...\n\n")
                 mud._handle_disconnect(pid)
+        log("Shutting down", "info")
+        sys.exit()
 
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses):
         mud._handle_disconnect(id)
