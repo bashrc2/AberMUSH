@@ -40,7 +40,7 @@ def runTide():
     return daily + lunar + solar
 
 def assignTerrainDifficulty(rooms):
-    terrainDifficultyWords=['rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough','snow','ice']
+    terrainDifficultyWords=('rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough','snow','ice')
     maxTerrainDifficulty=1
     for rm in rooms:
         difficulty=rooms[rm]['terrainDifficulty']
@@ -274,9 +274,9 @@ def altitudeTemperatureAdjustment(rooms, mapArea, x, y):
     return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
 
 def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
-    terrainFreezingWords=['snow','ice']
-    terrainCoolingWords=['rock','steep','sewer','sea','lake','river','stream','water','forest','trees','mist','fog','beach','shore']
-    terrainHeatingWords=['sun','lava','volcan','molten','desert','dry']
+    terrainFreezingWords=('snow','ice')
+    terrainCoolingWords=('rock','steep','sewer','sea','lake','river','stream','water','forest','trees','mist','fog','beach','shore')
+    terrainHeatingWords=('sun','lava','volcan','molten','desert','dry')
 
     maxTerrainDifficulty=1
     for rm in rooms:
