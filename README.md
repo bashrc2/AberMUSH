@@ -101,16 +101,29 @@ You can create simple kinds of conversations with NPCs by editing `npcs.json` an
 You can then tell the NPC something like:
 
 ``` bash
-tell inn-keeper Do you serve wine?
+ask inn-keeper Do you serve wine?
 ```
 
-The system will then try to match words within your `tell` command and pick the most appropriate reply:
+The system will then try to match words within your `ask` command and pick the most appropriate reply:
 
 ``` bash
 the old inn-keeper says: We only serve the more disreputable wine.
 ```
 
 The NPC can also give an item if some words are matched, or exchange/buy/barter an item such as a gold coin for a small dagger. The numbers refer to item numbers within `items.json`.
+
+### Stateful NPC Conversations
+
+It may be useful for an NPC to keep track of the state of your conversation and it's possible to do this via state variables. There is only one conversation state variable per NPC and it can be named anything you like. For example:
+
+``` bash
+"conv" : [
+    [["have","order","like","beer","ale","drink","please"],"Free as in beer","state:beer given","give","114"],
+    [["state:beer given","have","order","like","beer","ale","drink","please"],"Have another one then","give","114"]
+],
+```
+
+Here whenever you ask for a beer the state variable `beer given` will be set for the NPC. If you subsequently ask for another beer the NPC gives a different response by matching the state variable. In this way you can have branching narratives dependent upon conversational context.
 
 ### Adding Doors and Opening things
 
