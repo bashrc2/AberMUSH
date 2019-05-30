@@ -248,6 +248,21 @@ def unblock(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         else:
                 mud.send_message(id, "That's not in the blocklist.\n")
 
+def kick(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
+        if not isWitch(id,players):
+                return
+        
+        playerName=params
+
+        if len(playerName)==0:
+                return
+
+        for (pid, pl) in list(players.items()):
+                if players[pid]['name'] == playerName:
+                        mud.send_message(id, "Removing player " + playerName + "\n\n")
+                        mud._handle_disconnect(pid)
+                        break
+                
 def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         if not isWitch(id,players):
                 return
@@ -406,6 +421,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  unfreeze [target]                       - Allows a player to move or attack')
                 mud.send_message(id, '  teleport [room]                         - Teleport to a room')
                 mud.send_message(id, '  summon [target]                         - Summons a player to your location')
+                mud.send_message(id, '  kick/remove [target]                    - Remove a player from the game')
                 mud.send_message(id, '  blocklist                               - Show the current blocklist')
                 mud.send_message(id, '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
                 mud.send_message(id, '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
@@ -1597,6 +1613,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "tag": writeOnItem,
                 "eat": eat,
                 "drink": eat,
+                "kick": kick,
+                "remove": kick,
                 "change": changeSetting,
                 "blocklist": showBlocklist,
                 "block": block,

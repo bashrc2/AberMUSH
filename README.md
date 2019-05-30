@@ -66,6 +66,7 @@ freeze [target]                  - Prevents a player from moving or attacking
 unfreeze [target]                - Allows a player to move or attack
 teleport [room]                  - Teleport to a room
 summon [target]                  - Summons a player to your location
+kick/remove [target]             - Remove a player from the game
 blocklist                        - Show the current blocklist
 block [word or phrase]           - Adds a word or phrase to the blocklist
 unblock [word or phrase]         - Removes a word or phrase to the blocklist
