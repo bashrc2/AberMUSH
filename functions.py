@@ -242,3 +242,26 @@ def sendToChannel(sender, channel, message, channels):
         #print("Im in!")
         channels[getFreeKey(channels)] = {"channel": str(channel), "message": str(message), "sender": str(sender)}
         #print(channels)
+
+def loadBlocklist(filename, blocklist):
+    if not os.path.isfile(filename):
+        return False
+    
+    blocklist.clear()
+
+    blockfile = open(filename, "r")
+
+    for line in blockfile:
+        blockedstr = line.lower().strip()
+        if ',' in blockedstr:
+            blockedlst = blockedstr.lower().strip().split(',')
+            for blockedstr2 in blockedlst:
+                blockedstr2 = blockedstr2.lower().strip()
+                if blockedstr2 not in blocklist:
+                    blocklist.append(blockedstr2)
+        else:    
+            if blockedstr not in blocklist:
+                blocklist.append(blockedstr)
+            
+    blockfile.close()
+    return True

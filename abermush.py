@@ -24,6 +24,7 @@ from functions import loadPlayersDB
 from functions import sendToChannel
 from functions import hash_password
 from functions import verify_password
+from functions import loadBlocklist
 
 from events import evaluateEvent
 
@@ -318,6 +319,10 @@ r1 = random.Random((daysSinceEpoch*1440)+dayMins)
 windDirection=int(r1.random()*359)
 windDirection=generateCloud(r1, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
 log("Clouds generated. Wind direction " + str(windDirection), "info")
+
+blocklist=[]
+if loadBlocklist("blocked.txt", blocklist):
+        log("Blocklist loaded", "info")
 
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
@@ -661,4 +666,4 @@ while True:
                                                         mud.send_message(id, "Which channel would you like to message?\n")
 
                                         else:
-                                                runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses)
+                                                runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist)
