@@ -135,7 +135,7 @@ def runPlayerDisconnections(mud,id,players,playersDB,fights,Config):
                                    and players[pid]['room'] == players[id]['room'] \
                                    and players[pid]['name'] != players[id]['name']:
                                         mud.send_message(pid,
-                                                         "<f32><u>{}<r>'s body has vanished.".format(players[id]['name']) + "\n")
+                                                         "<f32><u>{}<r>'s body has vanished.".format(players[id]['name']) + "\n\n")
 
                 # Code here to save player to the database after he's disconnected and before removing him from players dictionary
                 if players[id]['authenticated'] is not None:
