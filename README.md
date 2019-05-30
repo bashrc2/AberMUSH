@@ -288,3 +288,5 @@ NPCs are able to pick up and use any weapons or armor available in the vicinity.
 ### Parental Controls
 
 If you don't want certain words or phrases to be used by players then you can create a file called `blocked.txt` containing them in the same directory that you run `abermush.py` from. Entries can be on separate lines or comma separated and the matching is case insensitive. This then alters the `say`, `tell` and `whisper` commands such that recipients won't receive messages containing blocked text.
+
+You can also use the commands `block` and `unblock` to update the blocklist without restarting the server.
