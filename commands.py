@@ -205,8 +205,12 @@ def block(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
 
         blockedstr=params.lower().strip().replace('"','')
 
+        if blockedstr.startswith('the word '):
+                blockedstr = blockedstr.replace('the word ','')
         if blockedstr.startswith('word '):
                 blockedstr = blockedstr.replace('word ','')
+        if blockedstr.startswith('the phrase '):
+                blockedstr = blockedstr.replace('the phrase ','')
         if blockedstr.startswith('phrase '):
                 blockedstr = blockedstr.replace('phrase ','')
 
@@ -228,8 +232,12 @@ def unblock(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 
         unblockedstr=params.lower().strip().replace('"','')
 
+        if unblockedstr.startswith('the word '):
+                unblockedstr = unblockedstr.replace('the word ','')
         if unblockedstr.startswith('word '):
                 unblockedstr = unblockedstr.replace('word ','')
+        if unblockedstr.startswith('the phrase '):
+                unblockedstr = unblockedstr.replace('the phrase ','')
         if unblockedstr.startswith('phrase '):
                 unblockedstr = unblockedstr.replace('phrase ','')
 
