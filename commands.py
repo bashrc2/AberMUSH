@@ -943,6 +943,9 @@ def messageToPlayersInRoom(mud,players,id,msg):
 def bioOfPlayer(mud,id,pid,players,itemsDB):
         mud.send_message(id,players[pid]['lookDescription'] + '\n')
 
+        if players[pid]['canGo'] == 0:
+                mud.send_message(id,'They are frozen.\n')
+
         # count items of clothing
         wearingCtr=0
         if int(players[pid]['clo_head'])>0:
@@ -978,7 +981,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
         if wearingCtr>0:
                 wearingMsg=playerName + ' are wearing'
                 wearingCtr2=0
-                playerClothing=['clo_head','clo_neck','clo_lwrist','clo_rwrist','clo_larm','clo_rarm','clo_chest','clo_lleg','clo_rleg','clo_feet']
+                playerClothing=('clo_head','clo_neck','clo_lwrist','clo_rwrist','clo_larm','clo_rarm','clo_chest','clo_lleg','clo_rleg','clo_feet')
                 for cl in playerClothing:
                         if int(players[pid][cl])>0:
                                 if wearingCtr2>0:
