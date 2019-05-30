@@ -162,9 +162,9 @@ def freeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                             if not isWitch(p,players):
                                 players[p]['canGo'] = 0
                                 players[p]['canAttack'] = 0
-                                mud.send_message(id, "You have frozen " + target + "\n")
+                                mud.send_message(id, "You have frozen " + target + "\n\n")
                             else:
-                                mud.send_message(id, "You try to freeze " + target + " but their power is too strong.\n")
+                                mud.send_message(id, "You try to freeze " + target + " but their power is too strong.\n\n")
                             return
 
 def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
@@ -445,7 +445,7 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                         if players[pid]['room'] == players[id]['room']:
                                 # send them a message telling them what the player said
                                 if selfOnly == False or pid == id:
-                                        mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n")
+                                        mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
         else:
                 mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
