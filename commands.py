@@ -13,6 +13,7 @@ from functions import hash_password
 from functions import log
 from functions import saveState
 from functions import playerInventoryWeight
+from functions import saveBlocklist
 
 from environment import runTide
 
@@ -180,6 +181,65 @@ def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                     mud.send_message(id, "You have unfrozen " + target + "\n")
                                 return
 
+def showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have sufficient powers to do that.\n")
+                return
+
+        blocklist.sort()
+        
+        blockStr=''
+        for blockedstr in blocklist:
+                blockStr = blockStr + blockedstr + '\n'
+                
+        mud.send_message(id, "Blocked strings are:\n\n" + blockStr + '\n')
+                        
+def block(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have sufficient powers to do that.\n")
+                return
+
+        if len(params)==0:
+                showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist)
+                return
+
+        blockedstr=params.lower().strip().replace('"','')
+
+        if blockedstr.startswith('word '):
+                blockedstr = blockedstr.replace('word ','')
+        if blockedstr.startswith('phrase '):
+                blockedstr = blockedstr.replace('phrase ','')
+
+        if blockedstr not in blocklist:
+                blocklist.append(blockedstr)
+                saveBlocklist("blocked.txt",blocklist)
+                mud.send_message(id, "Blocklist updated.\n\n")
+        else:
+                mud.send_message(id, "That's already in the blocklist.\n")
+
+def unblock(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have sufficient powers to do that.\n")
+                return
+
+        if len(params)==0:
+                showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist)
+                return
+
+        unblockedstr=params.lower().strip().replace('"','')
+
+        if unblockedstr.startswith('word '):
+                unblockedstr = unblockedstr.replace('word ','')
+        if unblockedstr.startswith('phrase '):
+                unblockedstr = unblockedstr.replace('phrase ','')
+
+        if unblockedstr in blocklist:
+                blocklist.remove(unblockedstr)
+                saveBlocklist("blocked.txt",blocklist)
+                mud.send_message(id, "Blocklist updated.\n\n")
+        else:
+                mud.send_message(id, "That's not in the blocklist.\n")
+
 def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         if not isWitch(id,players):
                 return
@@ -336,7 +396,11 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  freeze [target]                         - Prevents a player from moving or attacking')
         mud.send_message(id, '  unfreeze [target]                       - Allows a player to move or attack')
         mud.send_message(id, '  teleport [room]                         - Teleport to a room')
-        mud.send_message(id, '  summon [target]                         - Summons a player to your location\n\n')
+        mud.send_message(id, '  summon [target]                         - Summons a player to your location')
+        mud.send_message(id, '  blocklist                               - Show the current blocklist')
+        mud.send_message(id, '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
+        mud.send_message(id, '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
+        mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         # print(channels)
@@ -1525,6 +1589,9 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "eat": eat,
                 "drink": eat,
                 "change": changeSetting,
+                "blocklist": showBlocklist,
+                "block": block,
+                "unblock": unblock,
                 "shutdown": shutdown
         }
 

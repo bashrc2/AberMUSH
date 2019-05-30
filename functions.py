@@ -265,3 +265,9 @@ def loadBlocklist(filename, blocklist):
             
     blockfile.close()
     return True
+
+def saveBlocklist(filename, blocklist):
+    blockfile = open(filename, "w")
+    for blockedstr in blocklist:
+        blockfile.write(blockedstr + '\n')
+    blockfile.close()
