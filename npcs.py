@@ -19,7 +19,8 @@ from copy import deepcopy
 import time
 
 def npcsRest(npcs):
-    # rest restores hit points of NPCs
+    """Rest restores hit points of NPCs
+    """
     for p in npcs:
         if npcs[p]['hp'] < 100:
             if randint(0,100)>97:
@@ -33,8 +34,7 @@ def npcRespawns(npcs):
                         npcs[nid]['whenDied'] = None
                         #npcs[nid]['room'] = npcsTemplate[nid]['room']
                         npcs[nid]['room'] = npcs[nid]['lastRoom']
-                        # print("respawning " + npcs[nid]['name'])
-                        # print(npcs[nid]['hp'])
+                        log("respawning " + npcs[nid]['name'] + " with " + str(npcs[nid]['hp']) + " hit points","info")
 
 def runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate):
         for (nid, pl) in list(npcs.items()):
