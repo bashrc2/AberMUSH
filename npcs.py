@@ -27,16 +27,18 @@ def npcsRest(npcs):
                 npcs[p]['hp'] = npcs[p]['hp'] + 1
 
 def npcRespawns(npcs):
-        for (nid, pl) in list(npcs.items()):
-                # print(npcs[nid])
-                if npcs[nid]['whenDied'] is not None and int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
-                        #print("IN")
-                        npcs[nid]['whenDied'] = None
-                        #npcs[nid]['room'] = npcsTemplate[nid]['room']
-                        npcs[nid]['room'] = npcs[nid]['lastRoom']
-                        log("respawning " + npcs[nid]['name'] + " with " + str(npcs[nid]['hp']) + " hit points","info")
+    """Respawns inactive NPCs
+    """
+    for (nid, pl) in list(npcs.items()):
+        if npcs[nid]['whenDied'] is not None and int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
+            npcs[nid]['whenDied'] = None
+            #npcs[nid]['room'] = npcsTemplate[nid]['room']
+            npcs[nid]['room'] = npcs[nid]['lastRoom']
+            log("respawning " + npcs[nid]['name'] + " with " + str(npcs[nid]['hp']) + " hit points","info")
 
 def runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate):
+    """Updates all NPCs
+    """
         for (nid, pl) in list(npcs.items()):
                 # Check if any player is in the same room, then send a random message to them
                 now = int(time.time())
