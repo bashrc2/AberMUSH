@@ -1209,10 +1209,13 @@ def openItemUnlock(items,itemsDB,id,iid,players,mud):
                     if keyFound:
                             mud.send_message(id, 'You use ' + itemsDB[unlockItemID]['article'] + ' ' + itemsDB[unlockItemID]['name'])
                     else:
-                            if randint(0, 1) == 1:
-                                    mud.send_message(id, "You don't have " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + ".\n\n")
+                            if len(itemsDB[unlockItemID]['open_failed_description'])>0:
+                                    mud.send_message(id, itemsDB[unlockItemID]['open_failed_description'] + ".\n\n")
                             else:
-                                    mud.send_message(id, "Looks like you need " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + " for this.\n\n")
+                                    if randint(0, 1) == 1:
+                                            mud.send_message(id, "You don't have " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + ".\n\n")
+                                    else:
+                                            mud.send_message(id, "Looks like you need " + itemsDB[unlockItemID]['article'] + " " + itemsDB[unlockItemID]['name'] + " for this.\n\n")
                             return False
         return True
 

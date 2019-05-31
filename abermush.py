@@ -227,6 +227,7 @@ for k in itemsDB:
                        v == "long_description" or \
                        v == "short_description" or \
                        v == "open_description" or \
+                       v == "open_failed_description" or \
                        v == "close_description" or \
                        v == "state" or \
                        v == "type" or \
