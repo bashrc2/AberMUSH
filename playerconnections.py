@@ -87,7 +87,6 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'inDescription': None,
                         'outDescription': None,
                         'lookDescription': None,
-                        #'idleStart': None,
                         'idleStart': int(time.time()),
                         'channels': None,
                         'permissionLevel': None,
@@ -124,7 +123,7 @@ def runPlayerDisconnections(mud,id,players,playersDB,fights,Config):
                 if id not in players:
                         continue
 
-                log("Client ID: " + str(id) + " has disconnected (" + str(players[id]['name']) + ")", "info")
+                log("Player ID: " + str(id) + " has disconnected (" + str(players[id]['name']) + ")", "info")
 
                 # go through all the players in the game
                 for (pid, pl) in list(players.items()):
@@ -143,14 +142,11 @@ def runPlayerDisconnections(mud,id,players,playersDB,fights,Config):
                         saveState(players[id], playersDB, False)
                         playersDB = loadPlayersDB()
 
-                # TODO: IDEA - Some sort of a timer to have the character remain in the game for some time after disconnection?
-
                 # Create a deep copy of fights, iterate through it and remove fights disconnected player was taking part in
                 fightsCopy = deepcopy(fights)
                 for (fight, pl) in fightsCopy.items():
                         if fightsCopy[fight]['s1'] == players[id]['name'] or fightsCopy[fight]['s2'] == players[id]['name']:
                                 del fights[fight]
-
 
                 # remove the player's entry in the player dictionary
                 del players[id]
