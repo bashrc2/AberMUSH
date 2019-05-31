@@ -17,6 +17,7 @@ from cmsg import cmsg
 from functions import getFreeKey
 from functions import log
 from functions import saveState
+from functions import saveUniverse
 from functions import addToScheduler
 from functions import loadPlayer
 from functions import savePlayer
@@ -125,8 +126,12 @@ allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 print("Loading rooms...");
 
 # Loading rooms
-with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
-        rooms = commentjson.load(read_file)
+if os.path.isfile("universe.json"):
+        with open("universe.json", "r") as read_file:
+                rooms = commentjson.load(read_file)
+else:
+        with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
+                rooms = commentjson.load(read_file)
 
 log("Rooms loaded: " + str(len(rooms)), "info")
 
@@ -139,8 +144,12 @@ mapArea = assignCoordinates(rooms)
 log("Map coordinates:" + str(mapArea), "info")
 
 # Loading environment actors
-with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
-        envDB = commentjson.load(read_file)
+if os.path.isfile("universe_actors.json"):
+        with open("universe_actors.json", "r") as read_file:
+                envDB = commentjson.load(read_file)
+else:
+        with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
+                envDB = commentjson.load(read_file)
 
 output_dict = {}
 for key, value in envDB.items():
@@ -149,7 +158,8 @@ for key, value in envDB.items():
 envDB = output_dict
 
 for k in envDB:
-        envDB[k]['vocabulary'] = envDB[k]['vocabulary'].split('|')
+        if not os.path.isfile("universe_actors.json"):
+                envDB[k]['vocabulary'] = envDB[k]['vocabulary'].split('|')
         for v in envDB[k]:
                 if not(v == "name" or \
                        v == "room" or \
@@ -168,6 +178,10 @@ log("Environment Actors loaded: " + str(len(envDB)), "info")
         # print (y,':',env[x][y])
 
 print("Loading NPCs...");
+#if os.path.isfile("universe_npcs.json"):
+#        with open("universe_npcs.json", "r") as read_file:
+#                npcsDB = commentjson.load(read_file)
+#else:
 with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
         npcsDB = commentjson.load(read_file)
 
@@ -180,6 +194,7 @@ npcsDB = output_dict
 for k in npcsDB:
         npcsDB[k]['lastRoom'] = None
         npcsDB[k]['whenDied'] = None
+        #if not os.path.isfile("universe_npcs.json"):
         npcsDB[k]['vocabulary'] = npcsDB[k]['vocabulary'].split('|')
         for v in npcsDB[k]:
                 if not(v == "name" or \
@@ -212,8 +227,12 @@ log("NPCs loaded: " + str(len(npcsDB)), "info")
         #print (y,':',npcsDB[x][y])
 
 # Loading Items
-with open(str(Config.get('Items', 'Definition')), "r") as read_file:
-        itemsDB = commentjson.load(read_file)
+if os.path.isfile("universe_items.json"):
+        with open("universe_items.json", "r") as read_file:
+                itemsDB = commentjson.load(read_file)
+else:
+        with open(str(Config.get('Items', 'Definition')), "r") as read_file:
+                itemsDB = commentjson.load(read_file)
 
 output_dict = {}
 for key, value in itemsDB.items():
@@ -365,6 +384,8 @@ while True:
                                 playersDB = loadPlayersDB()
                                 # State Save logic End
                                 lastStateSave = now
+                saveUniverse(rooms,npcs,items,env)
+                lastStateSave = now
 
         # Handle Player Deaths
         runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)

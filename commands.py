@@ -14,6 +14,7 @@ from functions import log
 from functions import saveState
 from functions import playerInventoryWeight
 from functions import saveBlocklist
+from functions import saveUniverse
 
 from environment import runTide
 
@@ -266,8 +267,11 @@ def kick(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         if not isWitch(id,players):
                 return
-
-        mud.send_message(id, "\n\nShutdown commenced...\n\n")
+        
+        mud.send_message(id, "\n\nShutdown commenced.\n\n")
+        saveUniverse(rooms,npcs,itemsDB,env)
+        mud.send_message(id, "\n\nUniverse saved.\n\n")
+        log("Universe saved", "info")
         for (pid, pl) in list(players.items()):
                 mud.send_message(pid, "Game server shutting down...\n\n")
                 mud._handle_disconnect(pid)

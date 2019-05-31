@@ -221,6 +221,7 @@ def savePlayer(player, masterDB, savePassword, path = str(Config.get('Players', 
                                 if key != "pwd" or savePassword:
                                         # print(key)
                                         newPlayer[key] = player[key]
+
                         #print(newPlayer)
                         #print("Saving player state")
                         with open(path + player['name'] + ".player", 'w') as fp:
@@ -232,8 +233,25 @@ def savePlayer(player, masterDB, savePassword, path = str(Config.get('Players', 
 # State Save Function
 def saveState(player, masterDB, savePassword):
         tempVar = 0
-        savePlayer(player, masterDB, savePassword)
+        savePlayer(player, masterDB, savePassword)                    
         #masterDB = loadPlayersDB()
+
+def saveUniverse(rooms,npcsDB,items,env):
+    # save rooms
+    with open("universe.json", 'w') as fp:
+        commentjson.dump(rooms, fp)
+
+    # save items
+    with open("universe_items.json", 'w') as fp:
+        commentjson.dump(items, fp)
+
+    # save environment actors
+    with open("universe_actors.json", 'w') as fp:
+        commentjson.dump(env, fp)
+
+    # save npcs
+    #with open("universe_npcs.json", 'w') as fp:
+    #    commentjson.dump(npcsDB, fp)
 
 def str2bool(v):
   return v.lower() in ("yes", "true", "True", "t", "1")
