@@ -1010,6 +1010,7 @@ def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if len(params) == 0:
                 bioOfPlayer(mud,id,id,players,itemsDB)
                 return
+
         if params == players[id]['name']:
                 bioOfPlayer(mud,id,id,players,itemsDB)
                 return
@@ -1028,12 +1029,14 @@ def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if players[id]['canSay'] == 0:
                 mud.send_message(id,"You try to describe yourself, but find you have nothing to say.\n\n")
                 return
-        
+
         if '"' in params:
                 mud.send_message(id,"Your bio must not include double quotes.\n\n")
                 return
+
         if params.startswith(':'):
                 params = params.replace(':','').strip()
+
         players[id]['lookDescription'] = params
         mud.send_message(id,"Your bio has been set.\n\n")
 
