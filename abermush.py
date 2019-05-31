@@ -30,7 +30,6 @@ from functions import loadBlocklist
 from events import evaluateEvent
 
 from commands import runCommand
-from atcommands import runAtCommand
 from combat import runFights
 from combat import playersRest
 from playerconnections import runPlayerConnections
@@ -648,46 +647,6 @@ while True:
 
                 else:
                         players[id]['idleStart'] = int(time.time())
-                        # mud.send_message(id, "\x00")
-                        # print(str(command.lower()[0]))
                         if players[id]['exAttribute0'] < 1000:
-                                #print("gone into command eval")
                                 if len(command) > 0:
-                                        if str(command[0]) == "@":
-                                                runAtCommand(command.lower()[1:], params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, channels)
-                                        elif str(command[0]) == "/":
-                                                c = command[1:]
-                                                if len(c) == 0 and players[id]['defaultChannel'] != None:
-                                                        c = players[id]['defaultChannel']
-
-                                                if len(c) > 0:
-                                                        if len(params) > 0:
-                                                                if c.lower() == "system":
-                                                                        if players[id]['permissionLevel'] == 0:
-                                                                                sendToChannel(players[id]['name'], c, params, channels)
-                                                                        else:
-                                                                                mud.send_message(id, "You do not have permision to send messages to this channel.\n")
-                                                                elif "@" in c:
-                                                                        chan = c
-                                                                        l = chan.split('@')
-                                                                        if len(l) == 2 and len(l[0]) > 0 and len(l[1]) > 0:
-                                                                                if l[1].lower() == "grapevine":
-                                                                                        mud.send_message(id, "Grapevine is disabled!\n")
-                                                                                else:
-                                                                                        #print("Unrecognised channel location '" + l[1] + "'")
-                                                                                        mud.send_message(id, "Unrecognised channel location '" + l[1] + "'\n")
-                                                                        else:
-                                                                                #print("Invalid channel '" + chan + "'")
-                                                                                mud.send_message(id, "Invalid channel '" + chan + "'\n")
-                                                                else:
-                                                                        sendToChannel(players[id]['name'], c.lower(), params, channels)
-                                                        else:
-                                                                mud.send_message(id, "What message would you like to send?\n")
-                                                else:
-                                                        #if players[id]['defaultChannel'] != None:
-                                                        #sendToChannel(players[id]['name'], players[id]['defaultChannel'], params, channels)
-                                                        #else:
-                                                        mud.send_message(id, "Which channel would you like to message?\n")
-
-                                        else:
-                                                runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist)
+                                        runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist)
