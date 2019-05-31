@@ -22,6 +22,8 @@ import time
 rainThreshold = 230
 
 def runTide():
+    """Calculates the tide level as the addition of sine waves
+    """
     lunar_orbit_mins = 39312
 
     daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
@@ -40,6 +42,8 @@ def runTide():
     return daily + lunar + solar
 
 def assignTerrainDifficulty(rooms):
+    """Updates the terrain difficulty for each room and returns the maximum
+    """
     terrainDifficultyWords=('rock','boulder','slip','steep','rough','volcan','sewer','sand','pebble','mountain','mist','fog','bush','dense','trees','forest','tangle','thick','tough','snow','ice')
     maxTerrainDifficulty=1
     for rm in rooms:
@@ -56,10 +60,14 @@ def assignTerrainDifficulty(rooms):
     return maxTerrainDifficulty
 
 def assignInitialCoordinates(rooms,rm):
+    """Sets initial zero room coordinates
+    """
     if len(rooms[rm]['coords'])==0:
         rooms[rm]['coords'] = [0,0,0]
 
 def findRoomWithoutCoords(rooms):
+    """Finds the next room without assigned coordinates
+    """
     for rm in rooms:
         # Room with coords
         if len(rooms[rm]['coords'])>0:
@@ -121,7 +129,8 @@ def findRoomWithoutCoords(rooms):
     return None
 
 def assignCoordinates(rooms):
-    # assigns cartesian coordinates to each room and returns the limits
+    """Assigns cartesian coordinates to each room and returns the limits
+    """
     mapArea=[[9999,-9999],[9999,-9999],[9999,-9999]]
     roomFound=True
     while roomFound:
@@ -148,6 +157,8 @@ def assignCoordinates(rooms):
     return mapArea
 
 def highestPointAtCoord(rooms,mapArea,x,y):
+    """Returns the highest elevation at the given location
+    """
     highest=0
 
     vertical_range=mapArea[2][1]-mapArea[2][0]
@@ -163,6 +174,12 @@ def highestPointAtCoord(rooms,mapArea,x,y):
     return (highest-mapArea[2][0])*255/vertical_range
 
 def generateCloud(randnumgen, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection):
+    """Weather simulation
+       This uses a simple cloud model adjusted for topology in which
+       clouds get smaller as temperature increases and bigger with
+       more chance of rain as temperature falls.
+       Wind blows clouds in one of 8 possible directions, or can be still.
+    """
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
     cloudGridWidth = int(mapWidth/tileSize)
@@ -268,12 +285,18 @@ def generateCloud(randnumgen, rooms, mapArea, clouds, cloudGrid, tileSize, windD
     return windDirection
 
 def getCloudThreshold(temperature):
+    """Temperature threshold at which cloud is formed
+    """
     return (10 + temperature) * 7
 
 def altitudeTemperatureAdjustment(rooms, mapArea, x, y):
+    """Temperature decreases with altitude
+    """
     return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
 
 def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
+    """Temperature is adjusted for different types of terrain
+    """
     terrainFreezingWords=('snow','ice')
     terrainCoolingWords=('rock','steep','sewer','sea','lake','river','stream','water','forest','trees','mist','fog','beach','shore')
     terrainHeatingWords=('sun','lava','volcan','molten','desert','dry')
@@ -296,6 +319,8 @@ def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
     return temperature
 
 def plotClouds(rooms, mapArea, clouds, temperature):
+    """Show clouds as ASCII diagram for debugging purposes
+    """
     cloudThreshold = getCloudThreshold(temperature)
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
@@ -315,13 +340,15 @@ def plotClouds(rooms, mapArea, clouds, temperature):
     print('\n')
 
 def getTemperatureSeasonal():
-    # Average temperature for the time of year
+    """Average temperature for the time of year
+    """
     dayOfYear = int(datetime.date.today().strftime("%j"))
     tempFraction=((sin((0.75+(dayOfYear/365.0)) * 2 * 3.1415927)+1)/2.0)
     return 8 + (7*tempFraction)
 
-def getTemperature():
-    # Average daily seasonal temperature
+def getTemperature():    
+    """Average daily seasonal temperature for the universe
+    """
     avTemp=getTemperatureSeasonal()
 
     daysSinceEpoch=(datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days
@@ -346,6 +373,8 @@ def getTemperature():
     return avTemp + dailyVariance + solarCycle
 
 def getTemperatureAtCoords(coords, rooms, mapArea, clouds):
+    """Returns the temperature at the given coordinates
+    """
     x = coords[1] - mapArea[1][0]
     y = coords[0] - mapArea[0][0]
 
