@@ -46,5 +46,10 @@
     "permissionLevel": 0,
     "exAttribute0": 0,
     "exAttribute1": 0,
-    "exAttribute2": 0
+    "exAttribute2": 0,
+    "canGo": 1,
+    "canLook": 1,
+    "canSay": 1,
+    "canAttack": 1,
+    "canDirectMessage": 1
 }

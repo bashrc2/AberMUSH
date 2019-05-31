@@ -584,18 +584,17 @@ while True:
                                         players[id]['lastCombatAction'] = int(time.time())
                                         players[id]['isAttackable'] = 1
                                         players[id]['corpseTTL'] = 60
-                                        players[id]['canSay'] = 1
-                                        players[id]['canGo'] = 1
-                                        players[id]['canLook'] = 1
-                                        players[id]['canAttack'] = 1
-                                        players[id]['canDirectMessage'] = 1
                                         players[id]['idleStart'] = int(time.time())
                                         players[id]['channels'] = dbResponse[43]
                                         players[id]['permissionLevel'] = dbResponse[44]
                                         players[id]['exAttribute0'] = dbResponse[45]
                                         players[id]['exAttribute1'] = dbResponse[46]
                                         players[id]['exAttribute2'] = dbResponse[47]
-
+                                        players[id]['canGo'] = dbResponse[48]
+                                        players[id]['canLook'] = dbResponse[49]
+                                        players[id]['canSay'] = dbResponse[50]
+                                        players[id]['canAttack'] = dbResponse[51]
+                                        players[id]['canDirectMessage'] = dbResponse[52]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])
@@ -605,7 +604,7 @@ while True:
                                                 if players[pid]['authenticated'] is not None \
                                                    and players[pid]['room'] == players[id]['room'] \
                                                    and players[pid]['name'] != players[id]['name']:
-                                                        mud.send_message(pid, '{} has materialised out of thin air nearby.'.format(players[id]['name']) + "\n")
+                                                        mud.send_message(pid, '{} has materialised out of thin air nearby.'.format(players[id]['name']) + "\n\n")
 
                                         # send the new player a welcome message
                                         mud.send_message(id, '\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))

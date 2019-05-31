@@ -201,10 +201,10 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                 if len(best_match_action_param0)>0:
                                         roomID=best_match_action_param0
                                         mud.send_message(id, best_match)
-                                        messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n")
+                                        messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
                                         players[id]['room'] = roomID
                                         npcs[nid]['room'] = roomID
-                                        messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n")
+                                        messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
                                         mud.send_message(id, "You are in " + rooms[roomID]['name'] + "\n\n")
                                         return
                                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
@@ -219,10 +219,10 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                                 players[id]['inv'].remove(str(itemBuyID))
 
                                                 mud.send_message(id, best_match)
-                                                messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n")
+                                                messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
                                                 players[id]['room'] = roomID
                                                 npcs[nid]['room'] = roomID
-                                                messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n")
+                                                messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
                                                 mud.send_message(id, "You are in " + rooms[roomID]['name'] + "\n\n")
                                                 return
                                         else:

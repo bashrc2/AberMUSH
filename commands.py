@@ -90,17 +90,17 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                 if len(targetLocation) != 0:
                     currRoom=players[id]['room']
                     if rooms[currRoom]['name'].strip().lower() == targetLocation:
-                        mud.send_message(id, "You are already in " + rooms[currRoom]['name'] + "\n")
+                        mud.send_message(id, "You are already in " + rooms[currRoom]['name'] + "\n\n")
                         return
                     for rm in rooms:
                         if rooms[rm]['name'].strip().lower() == targetLocation:
-                            mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n")
-                            messageToPlayersInRoom(mud,players,id,'<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n")
+                            mud.send_message(id, "You teleport to " + rooms[rm]['name'] + "\n\n")
+                            messageToPlayersInRoom(mud,players,id,'<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n\n")
                             players[id]['room'] = rm
-                            messageToPlayersInRoom(mud,players,id,'<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n")
+                            messageToPlayersInRoom(mud,players,id,'<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n\n")
                             return
             else:
-                mud.send_message(id, "You don't have enough powers for that.\n")
+                mud.send_message(id, "You don't have enough powers for that.\n\n")
 
 def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         if players[id]['permissionLevel'] == 0:
@@ -113,13 +113,13 @@ def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                 messageToPlayersInRoom(mud,players,p,'<f32>{}<r> suddenly vanishes.'.format(players[p]['name']) + "\n")
                                 players[p]['room'] = players[id]['room']
                                 rm = players[p]['room']
-                                mud.send_message(id, "You summon " + players[p]['name'] + "\n")
-                                mud.send_message(p, "A mist surrounds you. When it clears you find that you are now in " + rooms[rm]['name'] + "\n")
+                                mud.send_message(id, "You summon " + players[p]['name'] + "\n\n")
+                                mud.send_message(p, "A mist surrounds you. When it clears you find that you are now in " + rooms[rm]['name'] + "\n\n")
                             else:
-                                mud.send_message(id, players[p]['name'] + " is already here.\n")
+                                mud.send_message(id, players[p]['name'] + " is already here.\n\n")
                             return
             else:
-                mud.send_message(id, "You don't have enough powers for that.\n")
+                mud.send_message(id, "You don't have enough powers for that.\n\n")
 
 def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         if players[id]['permissionLevel'] == 0:
@@ -132,9 +132,9 @@ def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 players[p]['canSay'] = 0
                                 players[p]['canAttack'] = 0
                                 players[p]['canDirectMessage'] = 0
-                                mud.send_message(id, "You have muted " + target + "\n")
+                                mud.send_message(id, "You have muted " + target + "\n\n")
                             else:
-                                mud.send_message(id, "You try to mute " + target + " but their power is too strong.\n")
+                                mud.send_message(id, "You try to mute " + target + " but their power is too strong.\n\n")
                             return
 
 def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
@@ -149,7 +149,7 @@ def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                     players[p]['canSay'] = 1
                                     players[p]['canAttack'] = 1
                                     players[p]['canDirectMessage'] = 1
-                                    mud.send_message(id, "You have unmuted " + target + "\n")
+                                    mud.send_message(id, "You have unmuted " + target + "\n\n")
                                 return
 
 def freeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
@@ -178,7 +178,7 @@ def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                 if not isWitch(p,players):
                                     players[p]['canGo'] = 1
                                     players[p]['canAttack'] = 1
-                                    mud.send_message(id, "You have unfrozen " + target + "\n")
+                                    mud.send_message(id, "You have unfrozen " + target + "\n\n")
                                 return
 
 def showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
