@@ -21,7 +21,8 @@ import time
 defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')
 
 def playersRest(players):
-    # rest restores hit points
+    """Rest restores hit points
+    """
     for p in players:
         if players[p]['name'] != None and players[p]['authenticated'] != None:
             if players[p]['hp'] < 100:
@@ -37,13 +38,16 @@ def itemInNPCInventory(npcs,id,itemName,itemsDB):
         return False
 
 def npcUpdateLuck(nid,npcs,items,itemsDB):
+    """Calculate the luck of an NPC based on what items they are carrying
+    """
     luck=0
     for i in npcs[nid]['inv']:
         luck = luck + itemsDB[int(i)]['mod_luc']
     npcs[nid]['luc'] = luck
 
 def npcWieldsWeapon(mud,id,nid,npcs,items,itemsDB):
-    # what is the best weapon which the NPC is carrying?
+    """what is the best weapon which the NPC is carrying?
+    """
     itemID=0
     max_protection=0
     max_damage=0
@@ -128,6 +132,8 @@ def npcWieldsWeapon(mud,id,nid,npcs,items,itemsDB):
     return False
 
 def npcWearsArmor(id,npcs,itemsDB):
+    """An NPC puts on armor
+    """
     if len(npcs[id]['inv'])==0:
         return
 
@@ -146,6 +152,9 @@ def npcWearsArmor(id,npcs,itemsDB):
             npcs[id][c]=itemID
 
 def weaponDamage(id,players,itemsDB):
+    """Calculates the amount of damage which a player can do
+       with weapons held
+    """
     damage=0
 
     itemID=players[id]['clo_lhand']
@@ -160,6 +169,8 @@ def weaponDamage(id,players,itemsDB):
     return damage
 
 def weaponDefense(id,players,itemsDB):
+    """How much defense does a player have due to armor worn?
+    """
     defense=0
 
     for c in defenseClothing:
@@ -171,6 +182,8 @@ def weaponDefense(id,players,itemsDB):
     return defense
 
 def armorAgility(id,players,itemsDB):
+    """Modify agility based on armor worn
+    """
     agility=0
 
     for c in defenseClothing:
@@ -182,6 +195,8 @@ def armorAgility(id,players,itemsDB):
     return agility
 
 def getWeaponHeld(id, players, itemsDB):
+    """Returns the type of weapon held, or fists if none is held
+    """
     if players[id]['clo_rhand']>0 and players[id]['clo_lhand']==0:
         # something in right hand
         itemID = int(players[id]['clo_rhand'])
@@ -217,6 +232,10 @@ def getWeaponHeld(id, players, itemsDB):
     return "fists"
 
 def getAttackDescription(weaponType):
+    """Describes an attack with a given type of weapon. This
+       Returns both the first person and second person
+       perspective descriptions
+    """
     weaponType = weaponType.lower()
 
     attackStrings=["swing a fist at","punch","crudely swing a fist at","ineptly punch"]
@@ -305,6 +324,9 @@ def getAttackDescription(weaponType):
     return attackDescriptionFirst,attackDescriptionSecond
 
 def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
+    """Returns a difficulty factor based on the ambient
+       temperature
+    """
     temperature = getTemperatureAtCoords(rooms[rm]['coords'],rooms,mapArea,clouds)
 
     if temperature>5:
@@ -314,6 +336,8 @@ def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
     return -(temperature-5)
 
 def attackRoll(luck):
+    """Did an attack succeed?
+    """
     if luck>6:
         luck=6
     if randint(1+luck, 10) > 5:
@@ -321,11 +345,15 @@ def attackRoll(luck):
     return False
 
 def criticalHit():
+    """Is this a critical hit (extra damage)?
+    """
     if randint(1, 20)==20:
         return True
     return False
 
 def calculateDamage(weapons, defense):
+    """Returns the amount of damage an attack causes
+    """
     damageDescription='damage'
     damageValue=weapons
     armorClass=defense
@@ -335,160 +363,168 @@ def calculateDamage(weapons, defense):
     return damageValue,armorClass,damageDescription
 
 def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
-        s1id = fights[fid]['s1id']
-        s2id = fights[fid]['s2id']
+    """A fight between two players
+    """
+    s1id = fights[fid]['s1id']
+    s2id = fights[fid]['s2id']
 
-        # In the same room?
-        if players[s1id]['room'] != players[s2id]['room']:
-            return
+    # In the same room?
+    if players[s1id]['room'] != players[s2id]['room']:
+        return
 
-        currRoom=players[s1id]['room']
-        weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
-        temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
-        terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
+    currRoom=players[s1id]['room']
+    weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
+    temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
+    terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
-        # Agility of player
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
-            return
+    # Agility of player
+    if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
+        return
 
-        if players[s2id]['isAttackable'] == 1:
-                players[s1id]['isInCombat'] = 1
-                players[s2id]['isInCombat'] = 1
-                # Do damage to the PC here
-                if attackRoll(players[s1id]['luc']):
-                        damageValue,armorClass,damageDescription = \
-                            calculateDamage(weaponDamage(s1id,players,itemsDB),
-                                            weaponDefense(s2id,players,itemsDB))
-                        weaponType=getWeaponHeld(s1id,players,itemsDB)
-                        attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
-                        if armorClass<=damageValue:
-                            if players[s1id]['hp'] > 0:
-                                modifier = randint(0, 10) + damageValue - armorClass
-                                players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
-                                mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
-                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
-                        else:
-                            if players[s1id]['hp'] > 0:
-                                # Attack deflected by armor
-                                mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
-                                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
-                else:
-                        players[s1id]['lastCombatAction'] = int(time.time())
-                        mud.send_message(s1id, 'You miss trying to hit <f32><u>' + players[s2id]['name'] + '\n')
-                        mud.send_message(s2id, '<f32><u>' + players[s1id]['name'] + '<r> missed while trying to hit you!\n')
-                players[s1id]['lastCombatAction'] = int(time.time())
-        else:
-                mud.send_message(s1id, '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <f32>' + players[s2id]['name'] + ' at this time.\n')
-                fightsCopy = deepcopy(fights)
-                for (fight, pl) in fightsCopy.items():
-                        if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
-                                del fights[fight]
+    if players[s2id]['isAttackable'] == 1:
+            players[s1id]['isInCombat'] = 1
+            players[s2id]['isInCombat'] = 1
+            # Do damage to the PC here
+            if attackRoll(players[s1id]['luc']):
+                    damageValue,armorClass,damageDescription = \
+                        calculateDamage(weaponDamage(s1id,players,itemsDB),
+                                        weaponDefense(s2id,players,itemsDB))
+                    weaponType=getWeaponHeld(s1id,players,itemsDB)
+                    attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
+                    if armorClass<=damageValue:
+                        if players[s1id]['hp'] > 0:
+                            modifier = randint(0, 10) + damageValue - armorClass
+                            players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
+                            mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
+                            mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
+                    else:
+                        if players[s1id]['hp'] > 0:
+                            # Attack deflected by armor
+                            mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> but their armor deflects it.\n')
+                            mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
+            else:
+                    players[s1id]['lastCombatAction'] = int(time.time())
+                    mud.send_message(s1id, 'You miss trying to hit <f32><u>' + players[s2id]['name'] + '\n')
+                    mud.send_message(s2id, '<f32><u>' + players[s1id]['name'] + '<r> missed while trying to hit you!\n')
+            players[s1id]['lastCombatAction'] = int(time.time())
+    else:
+            mud.send_message(s1id, '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <f32>' + players[s2id]['name'] + ' at this time.\n')
+            fightsCopy = deepcopy(fights)
+            for (fight, pl) in fightsCopy.items():
+                    if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
+                            del fights[fight]
 
 def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
-        s1id = fights[fid]['s1id']
-        s2id = fights[fid]['s2id']
+    """Fight between a player and an NPC
+    """
+    s1id = fights[fid]['s1id']
+    s2id = fights[fid]['s2id']
 
-        # In the same room?
-        if players[s1id]['room'] != npcs[s2id]['room']:
-            return
+    # In the same room?
+    if players[s1id]['room'] != npcs[s2id]['room']:
+        return
 
-        currRoom=players[s1id]['room']
-        weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
-        temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
-        terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
+    currRoom=players[s1id]['room']
+    weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
+    temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
+    terrainDifficulty=rooms[players[s1id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
 
-        # Agility of player
-        if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
-            return
+    # Agility of player
+    if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(s1id,players,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
+        return
 
-        if npcs[s2id]['isAttackable'] == 1:
-                players[s1id]['isInCombat'] = 1
-                npcs[s2id]['isInCombat'] = 1
-                # Do damage to the NPC here
-                if attackRoll(players[s1id]['luc']):
-                        damageValue,armorClass,damageDescription = \
-                            calculateDamage(weaponDamage(s1id,players,itemsDB),
-                                            weaponDefense(s2id,npcs,itemsDB))
-
-                        npcWearsArmor(s2id,npcs,itemsDB)
-
-                        weaponType=getWeaponHeld(s1id,players,itemsDB)
-                        attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
-                        if armorClass<=damageValue:
-                            if players[s1id]['hp'] > 0:
-                                modifier = randint(0, 10) + damageValue - armorClass
-                                npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
-
-                                mud.send_message(s1id, 'You '+ attackDescriptionFirst + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
-                        else:
-                            if players[s1id]['hp'] > 0:
-                                # Attack deflected by armor
-                                mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + npcs[s2id]['name'] + '<r> but their armor deflects it.\n')
-                else:
-                        players[s1id]['lastCombatAction'] = int(time.time())
-                        mud.send_message(s1id, 'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!\n')
-                players[s1id]['lastCombatAction'] = int(time.time())
-        else:
-                mud.send_message(s1id, '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <u><f21>' + npcs[s2id]['name'] + '<r> at this time.\n')
-                fightsCopy = deepcopy(fights)
-                for (fight, pl) in fightsCopy.items():
-                        if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
-                                del fights[fight]
-
-def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
-        s1id = fights[fid]['s1id']
-        s2id = fights[fid]['s2id']
-
-        # In the same room?
-        if npcs[s1id]['room'] != players[s2id]['room']:
-            return
-
-        currRoom=npcs[s1id]['room']
-        weightDifficulty = int(playerInventoryWeight(s1id, npcs, itemsDB)/20)
-        temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
-        terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
-
-        # Agility of NPC
-        if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
-            return
-
-        npcs[s1id]['isInCombat'] = 1
-        players[s2id]['isInCombat'] = 1
-
-        npcUpdateLuck(s1id, npcs, items, itemsDB)
-        if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
-            return
-
-        # Do the damage to PC here
-        if attackRoll(npcs[s1id]['luc']):
+    if npcs[s2id]['isAttackable'] == 1:
+            players[s1id]['isInCombat'] = 1
+            npcs[s2id]['isInCombat'] = 1
+            # Do damage to the NPC here
+            if attackRoll(players[s1id]['luc']):
                 damageValue,armorClass,damageDescription = \
-                    calculateDamage(weaponDamage(s1id,npcs,itemsDB),
-                                    weaponDefense(s2id,players,itemsDB))
-                weaponType=getWeaponHeld(s1id,npcs,itemsDB)
+                    calculateDamage(weaponDamage(s1id,players,itemsDB),
+                                    weaponDefense(s2id,npcs,itemsDB))
+
+                npcWearsArmor(s2id,npcs,itemsDB)
+
+                weaponType=getWeaponHeld(s1id,players,itemsDB)
                 attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
                 if armorClass<=damageValue:
-                    if npcs[s1id]['hp'] > 0:
+                    if players[s1id]['hp'] > 0:
                         modifier = randint(0, 10) + damageValue - armorClass
-                        players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
-                        mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
+                        npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
+
+                        mud.send_message(s1id, 'You '+ attackDescriptionFirst + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
                 else:
-                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
-        else:
-                npcs[s1id]['lastCombatAction'] = int(time.time())
-                mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
-        npcs[s1id]['lastCombatAction'] = int(time.time())
+                    if players[s1id]['hp'] > 0:
+                        # Attack deflected by armor
+                        mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + npcs[s2id]['name'] + '<r> but their armor deflects it.\n')
+            else:
+                players[s1id]['lastCombatAction'] = int(time.time())
+                mud.send_message(s1id, 'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!\n')
+            players[s1id]['lastCombatAction'] = int(time.time())
+    else:
+            mud.send_message(s1id, '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <u><f21>' + npcs[s2id]['name'] + '<r> at this time.\n')
+            fightsCopy = deepcopy(fights)
+            for (fight, pl) in fightsCopy.items():
+                    if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
+                            del fights[fight]
+
+def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
+    """Fight between NPC and player
+    """
+    s1id = fights[fid]['s1id']
+    s2id = fights[fid]['s2id']
+
+    # In the same room?
+    if npcs[s1id]['room'] != players[s2id]['room']:
+        return
+
+    currRoom=npcs[s1id]['room']
+    weightDifficulty = int(playerInventoryWeight(s1id, npcs, itemsDB)/20)
+    temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
+    terrainDifficulty=rooms[players[s2id]['room']]['terrainDifficulty']*10/maxTerrainDifficulty
+
+    # Agility of NPC
+    if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(s1id,npcs,itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
+        return
+
+    npcs[s1id]['isInCombat'] = 1
+    players[s2id]['isInCombat'] = 1
+
+    npcUpdateLuck(s1id, npcs, items, itemsDB)
+    if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
+        return
+
+    # Do the damage to PC here
+    if attackRoll(npcs[s1id]['luc']):
+            damageValue,armorClass,damageDescription = \
+                calculateDamage(weaponDamage(s1id,npcs,itemsDB),
+                                weaponDefense(s2id,players,itemsDB))
+            weaponType=getWeaponHeld(s1id,npcs,itemsDB)
+            attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
+            if armorClass<=damageValue:
+                if npcs[s1id]['hp'] > 0:
+                    modifier = randint(0, 10) + damageValue - armorClass
+                    players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
+                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
+            else:
+                mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
+    else:
+            npcs[s1id]['lastCombatAction'] = int(time.time())
+            mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
+    npcs[s1id]['lastCombatAction'] = int(time.time())
 
 def runFights(mud,players,npcs,fights,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds):
-        for (fid, pl) in list(fights.items()):
-                # PC -> PC
-                if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
-                # PC -> NPC
-                elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-                    runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
-                # NPC -> PC
-                elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-                    runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
-                # NPC -> NPC
-                elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
-                        test = 1
+    """Handles fights
+    """
+    for (fid, pl) in list(fights.items()):
+            # PC -> PC
+            if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
+                runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
+            # PC -> NPC
+            elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
+                runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
+            # NPC -> PC
+            elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
+                runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
+            # NPC -> NPC
+            elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
+                    test = 1

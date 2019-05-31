@@ -160,7 +160,6 @@ def disconnectIdlePlayers(mud,players,allowedPlayerIdle):
         now = int(time.time())
         playersCopy = deepcopy(players)
         for p in playersCopy:
-                #if playersCopy[p]['authenticated'] != None:
                 if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
                         if players[p]['authenticated'] != None:
                                 mud.send_message(p, "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")

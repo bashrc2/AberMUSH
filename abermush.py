@@ -129,6 +129,9 @@ print("Loading rooms...");
 if os.path.isfile("universe.json"):
         with open("universe.json", "r") as read_file:
                 rooms = commentjson.load(read_file)
+        # Clear room coordinates
+        for rm in rooms:
+                rooms[rm]['coords'] = []
 else:
         with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
                 rooms = commentjson.load(read_file)
