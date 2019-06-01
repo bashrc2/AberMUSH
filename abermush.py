@@ -213,6 +213,7 @@ for k in npcsDB:
                        v == "lookDescription" or \
                        v == "lastRoom" or \
                        v == "loot" or \
+                       v == "bodyType" or \
                        v == "whenDied"):
                         npcsDB[k][v] = int(npcsDB[k][v])
 
@@ -620,6 +621,7 @@ while True:
                                         players[id]['canAttack'] = dbResponse[51]
                                         players[id]['canDirectMessage'] = dbResponse[52]
                                         players[id]['ref'] = dbResponse[53]
+                                        players[id]['bodyType'] = dbResponse[54]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])

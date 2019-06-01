@@ -52,5 +52,6 @@
     "canSay": 1,
     "canAttack": 1,
     "canDirectMessage": 1,
-    "ref": 1
+    "ref": 1,
+    "bodyType": ""
 }
