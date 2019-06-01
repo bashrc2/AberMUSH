@@ -129,6 +129,18 @@ It may be useful for an NPC to keep track of the state of your conversation and 
 
 Here whenever you ask for a beer the state variable `beer given` will be set for the NPC. If you subsequently ask for another beer the NPC gives a different response by matching the state variable. In this way you can have branching narratives dependent upon conversational context. Maybe an NPC only gives you some item after an appropriate sequence of dialogue.
 
+### NPC Conversation conditions
+
+It's also possible to add extra conditions to the conversation response selection.
+
+``` bash
+"conv" : [
+    [["order","ale","please"],"Have an ale!","state:beer given","give","114"],
+    [["strength>90","order","ale","please"],"I'm sorry, we don't serve bodybuilders here."]
+],
+```
+The variables available are the various player attributes: `level`, `experience`, `strength`, `size`, `weight` (of inventory carried), `perception`, `endurance`, `charisma`, `intelligence`, `agility` and `luck`. You can match multiple conditions if necessary.
+
 ### Adding Doors and Opening things
 
 To add a door, or other object to be opened or closed you will need a pair of items, like the following:
