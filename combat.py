@@ -340,6 +340,12 @@ def getAttackDescription(weaponType):
         attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
         attackStrings=["slung a rock at"]
         attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+        
+    if weaponType.startswith("ranged dart"):
+        attackStrings=["blow a dart at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["blew a dart at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
 
     return attackDescriptionFirst,attackDescriptionSecond
 
