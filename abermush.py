@@ -251,6 +251,7 @@ for k in itemsDB:
                        v == "open_description" or \
                        v == "open_failed_description" or \
                        v == "close_description" or \
+                       v == "room" or \
                        v == "state" or \
                        v == "type" or \
                        v == "writeWithItems" or \
