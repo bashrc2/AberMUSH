@@ -71,6 +71,7 @@ blocklist                          - Show the current blocklist
 block [word or phrase]             - Adds a word or phrase to the blocklist
 unblock [word or phrase]           - Removes a word or phrase to the blocklist
 describe "room description"        - Changes the current room description
+describe "tide" "room description" - Changes the room description when tide is out
 describe "item" "item description" - Changes the description of an item in the room
 describe "NPC" "NPC description"   - Changes the description of an NPC in the room
 shutdown                           - Shuts down the game server
