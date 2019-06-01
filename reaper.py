@@ -46,7 +46,6 @@ def removeCorpses(corpses):
         corpsesCopy = deepcopy(corpses)
         for (c, pl) in corpsesCopy.items():
                 if int(time.time()) >= corpsesCopy[c]['died'] + corpsesCopy[c]['TTL']:
-                        # print("deleting " + corpses[corpse]['name'])
                         del corpses[c]
 
 def runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB):

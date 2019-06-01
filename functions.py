@@ -21,6 +21,11 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def updatePlayerAttributes(id, players, itemsDB, itemID, mult):
+        playerAttributes=('luc','per','cha','int')
+        for attr in playerAttributes:
+                players[id][attr] = players[id][attr] + (mult*itemsDB[itemID]['mod_'+attr])
+
 def playerInventoryWeight(id, players, itemsDB):
     """Returns the total weight of a player's inventory
     """

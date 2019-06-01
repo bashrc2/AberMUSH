@@ -15,6 +15,7 @@ from functions import saveState
 from functions import playerInventoryWeight
 from functions import saveBlocklist
 from functions import saveUniverse
+from functions import updatePlayerAttributes
 
 from environment import runTide
 
@@ -1071,6 +1072,9 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         # Consumed
         players[id]['inv'].remove(str(foodItemID))
 
+        # decrement any attributes associated with the food
+        updatePlayerAttributes(id,players,itemsDB,foodItemID,-1)
+
         # Remove from hands
         if int(players[id]['clo_rhand']) == foodItemID:
                 players[id]['clo_rhand'] = 0
@@ -1182,7 +1186,7 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if int(i) == itemID:
                                 # Remove first matching item from inventory
                                 players[id]['inv'].remove(i)
-                                players[id]['luc'] = players[id]['luc'] - itemsDB[items[i]['id']]['mod_luc']
+                                updatePlayerAttributes(id,players,itemsDB,items[i]['id'],-1)
                                 break
 
                 players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
@@ -1545,7 +1549,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
                                         players[id]['inv'].append(str(items[iid]['id']))
                                         players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
-                                        players[id]['luc'] = players[id]['luc'] + itemsDB[items[iid]['id']]['mod_luc']
+                                        updatePlayerAttributes(id,players,itemsDB,items[iid]['id'],1)
                                         del items[iid]
                                         itemPickedUp = True
                                         break
