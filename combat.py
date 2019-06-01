@@ -321,6 +321,26 @@ def getAttackDescription(weaponType):
         attackStrings=["casted a thunderbolt at","casted a bolt of thunder at"]
         attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
 
+    if weaponType.startswith("ranged bow") or \
+       weaponType.startswith("ranged shortbow") or \
+       weaponType.startswith("ranged longbow"):
+        attackStrings=["fire an arrow at","release an arrow at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["fired an arrow at","released an arrow at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("ranged crossbow"):
+        attackStrings=["fire a bolt at","release a bolt at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["fired a bolt at","released a bolt at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
+    if weaponType.startswith("ranged sling"):
+        attackStrings=["sling a rock at"]
+        attackDescriptionFirst=attackStrings[randint(0,len(attackStrings)-1)]
+        attackStrings=["slung a rock at"]
+        attackDescriptionSecond=attackStrings[randint(0,len(attackStrings)-1)]
+
     return attackDescriptionFirst,attackDescriptionSecond
 
 def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
