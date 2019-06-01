@@ -670,16 +670,24 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         if len(descriptionStrings)==2:
                 thingDescribed = descriptionStrings[0].lower()
                 thingDescription = descriptionStrings[1]
+
                 if len(thingDescription)<3:
                         mud.send_message(id, 'Description of ' + descriptionStrings[0] + ' is too short.\n\n')
                         return                        
+                
+                if thingDescribed == 'name':
+                        rooms[rm]['name'] = thingDescription
+                        mud.send_message(id, 'Room name changed to ' + thingDescription + '.\n\n')
+                        saveUniverse(rooms,npcsDB,items,env)
+                        return
+                
                 if thingDescribed == 'tide':
                         rooms[rm]['tideOutDescription'] = thingDescription
                         mud.send_message(id, 'Tide out description set.\n\n')
                         saveUniverse(rooms,npcsDB,items,env)
                         return
 
-                # change the name of an item in the room
+                # change the description of an item in the room
                 for (item, pl) in list(items.items()):
                         if items[item]['room'] == players[id]['room']:
                                 if thingDescribed in itemsDB[items[item]['id']]['name'].lower():
@@ -688,6 +696,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                         saveUniverse(rooms,npcsDB,items,env)
                                         return
 
+                # Change the description of an NPC in the room
                 for (nid, pl) in list(npcs.items()):
                         if npcs[nid]['room'] == players[id]['room']:
                                 if thingDescribed in npcs[nid]['name'].lower():
@@ -695,7 +704,35 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                         mud.send_message(id, 'New description set for ' + npcs[nid]['name'] + '.\n\n')
                                         saveUniverse(rooms,npcsDB,items,env)
                                         return
-                
+
+        if len(descriptionStrings)==3:
+                if descriptionStrings[0].lower() != 'name':
+                        mud.send_message(id, "I don't understand.\n\n")
+                        return
+                thingDescribed = descriptionStrings[1].lower()
+                thingName = descriptionStrings[2]
+                if len(thingName)<3:
+                        mud.send_message(id, 'Description of ' + descriptionStrings[1] + ' is too short.\n\n')
+                        return
+
+                # change the name of an item in the room
+                for (item, pl) in list(items.items()):
+                        if items[item]['room'] == players[id]['room']:
+                                if thingDescribed in itemsDB[items[item]['id']]['name'].lower():
+                                        itemsDB[items[item]['id']]['name'] = thingName
+                                        mud.send_message(id, 'New description set for ' + itemsDB[items[item]['id']]['article'] + ' ' + itemsDB[items[item]['id']]['name'] + '.\n\n')
+                                        saveUniverse(rooms,npcsDB,items,env)
+                                        return
+
+                # Change the name of an NPC in the room
+                for (nid, pl) in list(npcs.items()):
+                        if npcs[nid]['room'] == players[id]['room']:
+                                if thingDescribed in npcs[nid]['name'].lower():
+                                        npcs[nid]['name'] = thingName
+                                        mud.send_message(id, 'New description set for ' + npcs[nid]['name'] + '.\n\n')
+                                        saveUniverse(rooms,npcsDB,items,env)
+                                        return
+                                
 def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):
         mud.send_message(id, 'You check your inventory.')
         if len(list(players[id]['inv'])) > 0:
