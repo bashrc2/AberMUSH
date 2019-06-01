@@ -431,6 +431,9 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  blocklist                               - Show the current blocklist')
                 mud.send_message(id, '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
                 mud.send_message(id, '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
+                mud.send_message(id, '  describe "room description"             - Changes the current room description')
+                mud.send_message(id, '  describe "item" "item description"      - Changes the description of an item in the room')
+                mud.send_message(id, '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist):

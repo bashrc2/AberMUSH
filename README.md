@@ -58,19 +58,22 @@ close [item]                            - Close an item or door
 Witches are the admins of the system, and have additional supernatural powers. The first user to create an account gains witch status. Additional witches may be assigned by appending them to the `witches` file, which is located in the same directory as `abermush.py` is run from.
 
 ``` bash
-close registrations              - Closes registrations of new players
-open registrations               - Allows registrations of new players
-mute/silence [target]            - Mutes a player and prevents them from attacking
-unmute/unsilence [target]        - Unmutes a player
-freeze [target]                  - Prevents a player from moving or attacking
-unfreeze [target]                - Allows a player to move or attack
-teleport [room]                  - Teleport to a room
-summon [target]                  - Summons a player to your location
-kick/remove [target]             - Remove a player from the game
-blocklist                        - Show the current blocklist
-block [word or phrase]           - Adds a word or phrase to the blocklist
-unblock [word or phrase]         - Removes a word or phrase to the blocklist
-shutdown                         - Shuts down the game server
+close registrations                - Closes registrations of new players
+open registrations                 - Allows registrations of new players
+mute/silence [target]              - Mutes a player and prevents them from attacking
+unmute/unsilence [target]          - Unmutes a player
+freeze [target]                    - Prevents a player from moving or attacking
+unfreeze [target]                  - Allows a player to move or attack
+teleport [room]                    - Teleport to a room
+summon [target]                    - Summons a player to your location
+kick/remove [target]               - Remove a player from the game
+blocklist                          - Show the current blocklist
+block [word or phrase]             - Adds a word or phrase to the blocklist
+unblock [word or phrase]           - Removes a word or phrase to the blocklist
+describe "room description"        - Changes the current room description
+describe "item" "item description" - Changes the description of an item in the room
+describe "NPC" "NPC description"   - Changes the description of an NPC in the room
+shutdown                           - Shuts down the game server
 ```
 
 ### NPC Types
