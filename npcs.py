@@ -147,22 +147,118 @@ def runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplat
                                                                  "<r>'s lifeless body collapsed to the floor, " + \
                                                                  "it had dropped the following items: <f220>{}".format(', '.join(droppedItems)) + "\n")
 
-def conversationWordCount(message, words_list,npcs,nid,conversation_states):
-    """Returns the number of matched words in the message
+def conversationState(word,conversation_states,nid,npcs,match_ctr):
+    """Is the conversations with this npc in the given state?
+       Returns True if the conversation is in the given state
+       Also returns True if subsequent words can also be matched
+       and the current word match counter
+    """
+    if word.lower().startswith('state:'):
+        requiredState=word.lower().split(':')[1].strip()
+        if npcs[nid]['name'] in conversation_states:
+            if conversation_states[npcs[nid]['name']] != requiredState:
+                return False,False,match_ctr
+            return True,True,match_ctr+1
+    return False,True,match_ctr
+
+def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id):
+    conditionType=''
+    if '>' in word.lower():
+        conditionType='>'
+    if '<' in word.lower():
+        conditionType='<'
+    if '=' in word.lower():
+        conditionType = conditionType + '='
+
+    if len(conditionType)==0:
+        return False,True,match_ctr
+        
+    varStr = word.lower().split(conditionType)[0].strip()
+    currValue=-99999
+    targetValue = int(word.lower().split(conditionType)[1].strip())
+
+    if varStr is 'str' or \
+       varStr is 'strength':
+        currValue=players[id]['str']
+    if varStr is 'wei' or \
+       varStr is 'weight':
+        currValue=players[id]['wei']
+    if varStr is 'per' or \
+       varStr is 'perception':
+        currValue=players[id]['per']
+    if varStr is 'lvl' or \
+       varStr is 'level':
+        currValue=players[id]['lvl']
+    if varStr is 'exp' or \
+       varStr is 'experience':
+        currValue=players[id]['exp']
+    if varStr is 'endu' or \
+       varStr is 'endurance':
+        currValue=players[id]['endu']
+    if varStr is 'cha' or \
+       varStr is 'charisma':
+        currValue=players[id]['cha']
+    if varStr is 'int' or \
+       varStr is 'intelligence':
+        currValue=players[id]['int']
+    if varStr is 'agi' or \
+       varStr is 'agility':
+        currValue=players[id]['agi']
+    if varStr is 'luc' or \
+       varStr is 'luck':
+        currValue=players[id]['luc']
+    if varStr is 'cred':
+        currValue=players[id]['cred']
+
+    if currValue == -99999:
+        return False,True,match_ctr
+
+    if conditionType=='>':
+        if currValue <= targetValue:
+            return False,False,match_ctr
+        
+    if conditionType=='<':
+        if currValue >= targetValue:
+            return False,False,match_ctr
+
+    if conditionType=='=':
+        if currValue != targetValue:
+            return False,False,match_ctr
+
+    if conditionType=='>=':
+        if currValue < targetValue:
+            return False,False,match_ctr
+        
+    if conditionType=='<=':
+        if currValue > targetValue:
+            return False,False,match_ctr
+        
+    return True,True,match_ctr+1
+        
+def conversationWordCount(message, words_list,npcs,nid,conversation_states,players,id):
+    """Returns the number of matched words in the message.
+       This is a 'bag of words/conditions' type of approach.
     """
     match_ctr=0
     for word_match in words_list:
-        if word_match.lower().startswith('state:'):
-            # is the conversations with this npc in the given state?
-            state_value=word_match.lower().split(':')[1].strip()
-            if npcs[nid]['name'] in conversation_states:
-                match_ctr = match_ctr + 1
-                if conversation_states[npcs[nid]['name']] != state_value:
-                    match_ctr=0
-                    break
-        else:
-            if word_match.lower() in message:
-                match_ctr = match_ctr + 1
+        # Is the conversation required to be in a certain state?
+        matched,continueMatching,match_ctr = \
+            conversationState(word_match,conversation_states,nid,npcs,match_ctr)
+        
+        if not continueMatching:
+            break
+        
+        if not matched:
+            # match conditions such as "strength < 10"
+            matched,continueMatching,match_ctr = \
+                conversationCondition(word_match,conversation_states,nid,npcs,match_ctr,players,id)
+            
+            if not continueMatching:
+                break
+        
+            if not matched:
+                if word_match.lower() in message:
+                    match_ctr = match_ctr + 1
     return match_ctr
 
 def conversationGive(best_match,best_match_action,best_match_action_param0,players,id,mud,npcs,nid,itemsDB,puzzledStr):
@@ -321,7 +417,7 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                 # entry must contain matching words and resulting reply
                 if len(conv)>=2:
                         # count the number of matches for this line
-                        match_ctr = conversationWordCount(message,conv[0],npcs,nid,conversation_states)
+                        match_ctr = conversationWordCount(message,conv[0],npcs,nid,conversation_states,players,id)
                         # store the best match
                         if match_ctr > max_match_ctr:
                                 max_match_ctr = match_ctr

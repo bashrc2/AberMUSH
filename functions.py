@@ -22,6 +22,8 @@ Config = configparser.ConfigParser()
 Config.read('config.ini')
 
 def playerInventoryWeight(id, players, itemsDB):
+    """Returns the total weight of a player's inventory
+    """
     if len(list(players[id]['inv'])) == 0:
         return 0
 
@@ -32,6 +34,8 @@ def playerInventoryWeight(id, players, itemsDB):
     return weight
 
 def moveNPCs(npcs,players,mud,now,nid):
+    """If movement is defined for an NPC this moves it around
+    """
     if now > npcs[nid]['lastMoved'] + int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
         # Move types:
         #   random, cycle, inverse cycle, patrol, follow
@@ -123,11 +127,11 @@ def verify_password(stored_password, provided_password):
 
 # Function to silently remove file
 def silentRemove(filename):
-        try:
-                os.remove(filename)
-        except OSError as e: # this would be "except OSError, e:" before Python 2.6
-                if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
-                        raise # re-raise exception if a different error occurred
+    try:
+        os.remove(filename)
+    except OSError as e: # this would be "except OSError, e:" before Python 2.6
+        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+            raise # re-raise exception if a different error occurred
 
 # Function to load all registered players from JSON files
 # def loadPlayersDB(location = "./players", forceLowercase = True):
