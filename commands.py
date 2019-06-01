@@ -1185,6 +1185,8 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 players[id]['luc'] = players[id]['luc'] - itemsDB[items[i]['id']]['mod_luc']
                                 break
 
+                players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
+
                 # remove from clothing
                 removeItemFromClothing(players,id,int(i))
 
@@ -1535,12 +1537,14 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if itemsDB[items[iid]['id']]['name'] == itemName:
                                 if players[id]['canGo'] != 0:
                                         # Too heavy?
-                                        carryingWeight = playerInventoryWeight(id, players, itemsDB)
-                                        if carryingWeight + itemsDB[items[iid]['id']]['weight'] > maxWeight:
+                                        players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
+                                        
+                                        if players[id]['wei'] + itemsDB[items[iid]['id']]['weight'] > maxWeight:
                                                 mud.send_message(id, "You can't carry any more.\n\n")
                                                 return
 
                                         players[id]['inv'].append(str(items[iid]['id']))
+                                        players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
                                         players[id]['luc'] = players[id]['luc'] + itemsDB[items[iid]['id']]['mod_luc']
                                         del items[iid]
                                         itemPickedUp = True

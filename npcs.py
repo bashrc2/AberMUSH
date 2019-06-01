@@ -13,6 +13,7 @@ __status__ = "Production"
 import os
 from functions import log
 from functions import moveNPCs
+from functions import playerInventoryWeight
 from random import randint
 from copy import deepcopy
 
@@ -270,6 +271,7 @@ def conversationGive(best_match,best_match_action,best_match_action_param0,playe
             itemID=int(best_match_action_param0)
             if itemID not in list(players[id]['inv']):
                 players[id]['inv'].append(str(itemID))
+                players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + \
                                  itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
@@ -337,6 +339,7 @@ def conversationGiveOnDate(best_match_action,best_match_action_param0,best_match
                         monthNumber=int(best_match_action_param1.split('/')[1])
                         if monthNumber == int(datetime.date.today().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
+                            players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
                             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + \
                                              itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
@@ -367,8 +370,9 @@ def conversationBuyOrExchange(best_match,best_match_action,best_match_action_par
                     if str(itemSellID) not in list(players[id]['inv']):
                         players[id]['inv'].remove(str(itemBuyID))
                         players[id]['inv'].append(str(itemSellID))
+                        players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
                         if str(itemBuyID) not in list(npcs[nid]['inv']):
-                            npcs[nid]['inv'].append(str(itemBuyID))
+                            npcs[nid]['inv'].append(str(itemBuyID))                            
                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + \
                                          itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
