@@ -202,14 +202,14 @@ def getWeaponHeld(id, players, itemsDB):
         itemID = int(players[id]['clo_rhand'])
         if itemsDB[itemID]['mod_str']>0:
             if len(itemsDB[itemID]['type'])>0:
-                return itemsDB[itemID]['type']
+                return itemsDB[itemID]['type'],itemsDB[itemID]['rof']
 
     if players[id]['clo_lhand']>0 and players[id]['clo_rhand']==0:
         # something in left hand
         itemID = int(players[id]['clo_lhand'])
         if itemsDB[itemID]['mod_str']>0:
             if len(itemsDB[itemID]['type'])>0:
-                return itemsDB[itemID]['type']
+                return itemsDB[itemID]['type'],itemsDB[itemID]['rof']
 
     if players[id]['clo_lhand']>0 and players[id]['clo_rhand']>0:
         # something in both hands
@@ -218,18 +218,18 @@ def getWeaponHeld(id, players, itemsDB):
         if randint(0,1)==1:
             if itemsDB[itemRightID]['mod_str']>0:
                 if len(itemsDB[itemRightID]['type'])>0:
-                    return itemsDB[itemRightID]['type']
+                    return itemsDB[itemRightID]['type'],itemsDB[itemRightID]['rof']
             if itemsDB[itemLeftID]['mod_str']>0:
                 if len(itemsDB[itemLeftID]['type'])>0:
-                    return itemsDB[itemLeftID]['type']
+                    return itemsDB[itemLeftID]['type'],itemsDB[itemLeftID]['rof']
         else:
             if itemsDB[itemLeftID]['mod_str']>0:
                 if len(itemsDB[itemLeftID]['type'])>0:
-                    return itemsDB[itemLeftID]['type']
+                    return itemsDB[itemLeftID]['type'],itemsDB[itemLeftID]['rof']
             if itemsDB[itemRightID]['mod_str']>0:
                 if len(itemsDB[itemRightID]['type'])>0:
-                    return itemsDB[itemRightID]['type']
-    return "fists"
+                    return itemsDB[itemRightID]['type'],itemsDB[itemRightID]['rof']
+    return "fists",1
 
 def getAttackDescription(weaponType):
     """Describes an attack with a given type of weapon. This
@@ -389,14 +389,23 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                     damageValue,armorClass,damageDescription = \
                         calculateDamage(weaponDamage(s1id,players,itemsDB),
                                         weaponDefense(s2id,players,itemsDB))
-                    weaponType=getWeaponHeld(s1id,players,itemsDB)
+                    weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+                    if roundsOfFire<1:
+                        roundsOfFire=1
                     attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
                     if armorClass<=damageValue:
                         if players[s1id]['hp'] > 0:
-                            modifier = randint(0, 10) + damageValue - armorClass
-                            players[s2id]['hp'] = players[s2id]['hp'] - (players[s1id]['str'] + modifier)
-                            mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
-                            mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(players[s1id]['str'] + modifier) + ' *<r> points of ' + damageDescription + '.\n')
+                            modifierStr=''
+                            for firingRound in range(roundsOfFire):
+                                modifier = randint(0, 10) + (damageValue*roundsOfFire) - armorClass
+                                damagePoints = players[s1id]['str'] + modifier
+                                players[s2id]['hp'] = players[s2id]['hp'] - damagePoints
+                                if len(modifierStr)==0:
+                                    modifierStr = modifierStr + str(damagePoints)
+                                else:
+                                    modifierStr = modifierStr + ' + ' + str(damagePoints)
+                            mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + modifierStr + ' *<r> points of ' + damageDescription + '.\n')
+                            mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + modifierStr + ' *<r> points of ' + damageDescription + '.\n')
                     else:
                         if players[s1id]['hp'] > 0:
                             # Attack deflected by armor
@@ -444,14 +453,23 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
                 npcWearsArmor(s2id,npcs,itemsDB)
 
-                weaponType=getWeaponHeld(s1id,players,itemsDB)
+                weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+                if roundsOfFire<1:
+                    roundsOfFire=1
                 attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
                 if armorClass<=damageValue:
                     if players[s1id]['hp'] > 0:
-                        modifier = randint(0, 10) + damageValue - armorClass
-                        npcs[s2id]['hp'] = npcs[s2id]['hp'] - (players[s1id]['str'] + modifier)
+                        modifierStr=''
+                        for firingRound in range(roundsOfFire):
+                            modifier = randint(0, 10) + damageValue - armorClass
+                            damagePoints = players[s1id]['str'] + modifier
+                            npcs[s2id]['hp'] = npcs[s2id]['hp'] - damagePoints
+                            if len(modifierStr)==0:
+                                modifierStr = modifierStr + str(damagePoints)
+                            else:
+                                modifierStr = modifierStr + ' + ' + str(damagePoints)
 
-                        mud.send_message(s1id, 'You '+ attackDescriptionFirst + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + str(players[s1id]['str'] + modifier)  + ' * <r> points of ' + damageDescription + '\n')
+                        mud.send_message(s1id, 'You '+ attackDescriptionFirst + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + modifierStr  + ' * <r> points of ' + damageDescription + '\n')
                 else:
                     if players[s1id]['hp'] > 0:
                         # Attack deflected by armor
@@ -498,13 +516,22 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
             damageValue,armorClass,damageDescription = \
                 calculateDamage(weaponDamage(s1id,npcs,itemsDB),
                                 weaponDefense(s2id,players,itemsDB))
-            weaponType=getWeaponHeld(s1id,npcs,itemsDB)
+            weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
+            if roundsOfFire<1:
+                roundsOfFire=1
             attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
             if armorClass<=damageValue:
                 if npcs[s1id]['hp'] > 0:
-                    modifier = randint(0, 10) + damageValue - armorClass
-                    players[s2id]['hp'] = players[s2id]['hp'] - (npcs[s1id]['str'] + modifier)
-                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + str(npcs[s1id]['str'] + modifier) + ' * <r> points of ' + damageDescription + '.\n')
+                    modifierStr=''
+                    for firingRound in range(roundsOfFire):
+                        modifier = randint(0, 10) + damageValue - armorClass
+                        damagePoints = npcs[s1id]['str'] + modifier
+                        players[s2id]['hp'] = players[s2id]['hp'] - damagePoints
+                        if len(modifierStr)==0:
+                            modifierStr = modifierStr + str(damagePoints)
+                        else:
+                            modifierStr = modifierStr + ' + ' + str(damagePoints)
+                    mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + modifierStr + ' * <r> points of ' + damageDescription + '.\n')
             else:
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
     else:

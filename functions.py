@@ -259,8 +259,8 @@ def saveUniverse(rooms,npcsDB,items,env):
         commentjson.dump(env, fp)
 
     # save npcs
-    #with open("universe_npcs.json", 'w') as fp:
-    #    commentjson.dump(npcsDB, fp)
+    with open("universe_npcs.json", 'w') as fp:
+        commentjson.dump(npcsDB, fp)
 
 def str2bool(v):
   return v.lower() in ("yes", "true", "True", "t", "1")
