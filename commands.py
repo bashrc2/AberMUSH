@@ -440,6 +440,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
                 mud.send_message(id, '  conjure room [direction]                - Creates a new room in the given direction')
                 mud.send_message(id, '  conjure [item]                          - Creates a new item in the room')
+                mud.send_message(id, '  destroy room [direction]                - Removes the room in the given direction')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
@@ -1358,7 +1359,51 @@ def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                 conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
                 #if not conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
                 #        conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
-                
+
+def destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        params = params.replace('room ','')
+        roomDirection = params.lower().strip()
+        possibleDirections=('north','south','east','west','up','down','in','out')
+        oppositeDirection={'north':'south','south':'north','east':'west','west':'east','up':'down','down':'up','in':'out','out':'in'}
+        if roomDirection not in possibleDirections:
+                mud.send_message(id, 'Specify a room direction.\n\n')
+                return False
+
+        # Is there already a room in that direction?
+        playerRoomID=players[id]['room']
+        roomExits=rooms[playerRoomID]['exits']
+        if not roomExits.get(roomDirection):
+                mud.send_message(id, 'There is no room in that direction.\n\n')
+                return False
+
+        roomToDestroyID=roomExits.get(roomDirection)
+        roomToDestroy = rooms[roomToDestroyID]
+        roomExitsToDestroy=roomToDestroy['exits']
+        for direction,roomID in roomExitsToDestroy.items():
+                # Remove the exit from the other room to this one
+                otherRoom=rooms[roomID]
+                if otherRoom['exits'].get(oppositeDirection[direction]):
+                        del otherRoom['exits'][oppositeDirection[direction]]
+        del rooms[roomToDestroyID]
+
+        # update the map area
+        for rm in rooms:
+                rooms[rm]['coords']=[]
+        mapArea = assignCoordinates(rooms)
+        
+        log("Room destroyed: " + roomToDestroyID, 'info')
+        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
+        mud.send_message(id, "Room destroyed.\n\n")
+        return True
+
+def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have enough powers.\n\n")
+                return
+
+        if params.startswith('room '):
+                destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         # Check if inventory is empty
         if len(list(players[id]['inv'])) == 0:
@@ -1866,6 +1911,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "desc": describe,
                 "description": describe,
                 "conjure": conjure,
+                "destroy": destroy,
                 "shutdown": shutdown
         }
 

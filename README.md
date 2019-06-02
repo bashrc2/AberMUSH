@@ -77,6 +77,7 @@ describe "item" "item description" - Changes the description of an item in the r
 describe "NPC" "NPC description"   - Changes the description of an NPC in the room
 conjure room [direction]           - Creates a new room in the given direction
 conjure [item]                     - Creates a new item in the room
+destroy room [direction]           - Removes the room in the given direction
 shutdown                           - Shuts down the game server
 ```
 
