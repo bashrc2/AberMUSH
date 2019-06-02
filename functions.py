@@ -191,6 +191,22 @@ def getFreeKey(itemsDict, start = None):
                                 found = True
                 return(start)
 
+# Function for returning a first available room key value for appending a room element to a dictionary
+def getFreeRoomKey(rooms):
+        maxRoomID=-1
+        for rmkey in rooms.keys():
+                roomIDStr=rmkey.replace('$','').replace('rid=','')
+                if len(roomIDStr)==0:
+                        continue
+
+                roomID=int(roomIDStr)
+                if roomID > maxRoomID:
+                        maxRoomID = roomID
+
+        if maxRoomID>-1:
+                return '$rid=' + str(maxRoomID+1) + '$'
+        return ''
+        
 # Function for adding events to event scheduler
 def addToScheduler(eventID, targetID, scheduler, database):
         if isinstance(eventID, int):

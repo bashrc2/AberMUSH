@@ -653,4 +653,4 @@ while True:
                         players[id]['idleStart'] = int(time.time())
                         if players[id]['exAttribute0'] < 1000:
                                 if len(command) > 0:
-                                        runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist)
+                                        runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist, mapArea)

@@ -70,6 +70,7 @@ kick/remove [target]               - Remove a player from the game
 blocklist                          - Show the current blocklist
 block [word or phrase]             - Adds a word or phrase to the blocklist
 unblock [word or phrase]           - Removes a word or phrase to the blocklist
+describe "room" "room name"        - Changes the name of the current room
 describe "room description"        - Changes the current room description
 describe "tide" "room description" - Changes the room description when tide is out
 describe "item" "item description" - Changes the description of an item in the room
