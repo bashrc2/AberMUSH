@@ -441,6 +441,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  conjure room [direction]                - Creates a new room in the given direction')
                 mud.send_message(id, '  conjure [item]                          - Creates a new item in the room')
                 mud.send_message(id, '  destroy room [direction]                - Removes the room in the given direction')
+                mud.send_message(id, '  destroy [item]                          - Removes an item from the room')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
@@ -1360,6 +1361,31 @@ def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                 #if not conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
                 #        conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
 
+def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        itemName = params.lower()
+        if len(itemName)==0:
+                mud.send_message(id, "Specify the name of an item to destroy.\n\n")
+                return False
+        
+        # Check if it is in the room
+        itemID=-1
+        destroyedName=''
+        for (item, pl) in list(items.items()):
+                if items[item]['room'] == players[id]['room']:
+                        if itemName in itemsDB[items[item]['id']]['name']:
+                                destroyedName=itemsDB[items[item]['id']]['name']
+                                itemID=items[item]['id']
+                                break
+        if itemID==-1:
+                mud.send_message(id, "It's not here.\n\n")
+                return False
+
+        mud.send_message(id, 'It suddenly vanishes.\n\n')
+        del items[item]
+        log("Item destroyed: " + destroyedName + ' in ' + players[id]['room'], 'info')
+        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
+        return True
+
 def destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         params = params.replace('room ','')
         roomDirection = params.lower().strip()
@@ -1403,6 +1429,8 @@ def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 
         if params.startswith('room '):
                 destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+        else:
+                destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
 
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         # Check if inventory is empty
