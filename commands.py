@@ -438,6 +438,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  describe "tide" "room description"      - Changes the room description when tide is out')
                 mud.send_message(id, '  describe "item" "item description"      - Changes the description of an item in the room')
                 mud.send_message(id, '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
+                mud.send_message(id, '  conjure room [direction]                - Creates a new room in the given direction')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
