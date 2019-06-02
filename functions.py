@@ -261,7 +261,7 @@ def saveState(player, masterDB, savePassword):
         savePlayer(player, masterDB, savePassword)                    
         #masterDB = loadPlayersDB()
 
-def saveUniverse(rooms,npcsDB,items,env):
+def saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env):
     # save rooms
     with open("universe.json", 'w') as fp:
         commentjson.dump(rooms, fp)
@@ -270,12 +270,20 @@ def saveUniverse(rooms,npcsDB,items,env):
     with open("universe_items.json", 'w') as fp:
         commentjson.dump(items, fp)
 
+    # save itemsDB
+    with open("universe_itemsdb.json", 'w') as fp:
+        commentjson.dump(itemsDB, fp)
+
     # save environment actors
     with open("universe_actors.json", 'w') as fp:
         commentjson.dump(env, fp)
 
     # save npcs
     with open("universe_npcs.json", 'w') as fp:
+        commentjson.dump(npcs, fp)
+
+    # save npcsDB
+    with open("universe_npcsdb.json", 'w') as fp:
         commentjson.dump(npcsDB, fp)
 
 def str2bool(v):

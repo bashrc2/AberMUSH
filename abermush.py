@@ -180,12 +180,16 @@ log("Environment Actors loaded: " + str(len(envDB)), "info")
         # print (y,':',env[x][y])
 
 print("Loading NPCs...");
-#if os.path.isfile("universe_npcs.json"):
-#        with open("universe_npcs.json", "r") as read_file:
-#                npcsDB = commentjson.load(read_file)
-#else:
-with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
-        npcsDB = commentjson.load(read_file)
+if os.path.isfile("universe_npcs.json"):
+        with open("universe_npcs.json", "r") as read_file:
+                npcs = commentjson.load(read_file)
+
+if os.path.isfile("universe_npcsdb.json"):
+        with open("universe_npcsdb.json", "r") as read_file:
+                npcsDB = commentjson.load(read_file)
+else:
+        with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
+                npcsDB = commentjson.load(read_file)
 
 output_dict = {}
 for key, value in npcsDB.items():
@@ -196,8 +200,8 @@ npcsDB = output_dict
 for k in npcsDB:
         npcsDB[k]['lastRoom'] = None
         npcsDB[k]['whenDied'] = None
-        #if not os.path.isfile("universe_npcs.json"):
-        npcsDB[k]['vocabulary'] = npcsDB[k]['vocabulary'].split('|')
+        if not os.path.isfile("universe_npcs.json"):
+                npcsDB[k]['vocabulary'] = npcsDB[k]['vocabulary'].split('|')
         for v in npcsDB[k]:
                 if not(v == "name" or \
                        v == "room" or \
@@ -232,6 +236,10 @@ log("NPCs loaded: " + str(len(npcsDB)), "info")
 # Loading Items
 if os.path.isfile("universe_items.json"):
         with open("universe_items.json", "r") as read_file:
+                itemsInWorld = commentjson.load(read_file)
+
+if os.path.isfile("universe_itemsdb.json"):
+        with open("universe_itemsdb.json", "r") as read_file:
                 itemsDB = commentjson.load(read_file)
 else:
         with open(str(Config.get('Items', 'Definition')), "r") as read_file:
@@ -388,7 +396,7 @@ while True:
                                 playersDB = loadPlayersDB()
                                 # State Save logic End
                                 lastStateSave = now
-                saveUniverse(rooms,npcs,items,env)
+                saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                 lastStateSave = now
 
         # Handle Player Deaths

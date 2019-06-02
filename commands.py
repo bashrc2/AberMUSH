@@ -273,7 +273,7 @@ def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                 return
         
         mud.send_message(id, "\n\nShutdown commenced.\n\n")
-        saveUniverse(rooms,npcs,itemsDB,env)
+        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
         mud.send_message(id, "\n\nUniverse saved.\n\n")
         log("Universe saved", "info")
         for (pid, pl) in list(players.items()):
@@ -668,7 +668,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         if len(descriptionStrings)==1:
                 rooms[rm]['description'] = descriptionStrings[0]
                 mud.send_message(id, 'Room description set.\n\n')
-                saveUniverse(rooms,npcsDB,items,env)
+                saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                 return
 
         if len(descriptionStrings)==2:
@@ -682,13 +682,13 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                 if thingDescribed == 'name':
                         rooms[rm]['name'] = thingDescription
                         mud.send_message(id, 'Room name changed to ' + thingDescription + '.\n\n')
-                        saveUniverse(rooms,npcsDB,items,env)
+                        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                         return
                 
                 if thingDescribed == 'tide':
                         rooms[rm]['tideOutDescription'] = thingDescription
                         mud.send_message(id, 'Tide out description set.\n\n')
-                        saveUniverse(rooms,npcsDB,items,env)
+                        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                         return
 
                 # change the description of an item in the room
@@ -697,7 +697,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                 if thingDescribed in itemsDB[items[item]['id']]['name'].lower():
                                         itemsDB[items[item]['id']]['long_description'] = thingDescription
                                         mud.send_message(id, 'New description set for ' + itemsDB[items[item]['id']]['article'] + ' ' + itemsDB[items[item]['id']]['name'] + '.\n\n')
-                                        saveUniverse(rooms,npcsDB,items,env)
+                                        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                                         return
 
                 # Change the description of an NPC in the room
@@ -706,7 +706,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                 if thingDescribed in npcs[nid]['name'].lower():
                                         npcs[nid]['lookDescription'] = thingDescription
                                         mud.send_message(id, 'New description set for ' + npcs[nid]['name'] + '.\n\n')
-                                        saveUniverse(rooms,npcsDB,items,env)
+                                        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                                         return
 
         if len(descriptionStrings)==3:
@@ -725,7 +725,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                 if thingDescribed in itemsDB[items[item]['id']]['name'].lower():
                                         itemsDB[items[item]['id']]['name'] = thingName
                                         mud.send_message(id, 'New description set for ' + itemsDB[items[item]['id']]['article'] + ' ' + itemsDB[items[item]['id']]['name'] + '.\n\n')
-                                        saveUniverse(rooms,npcsDB,items,env)
+                                        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                                         return
 
                 # Change the name of an NPC in the room
@@ -734,7 +734,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                 if thingDescribed in npcs[nid]['name'].lower():
                                         npcs[nid]['name'] = thingName
                                         mud.send_message(id, 'New description set for ' + npcs[nid]['name'] + '.\n\n')
-                                        saveUniverse(rooms,npcsDB,items,env)
+                                        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
                                         return
                                 
 def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
@@ -1280,13 +1280,13 @@ def conjureRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         mapArea = assignCoordinates(rooms)
         
         log("New room: " + roomID, 'info')
-        saveUniverse(rooms,npcsDB,items,env)
+        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
         mud.send_message(id, 'Room created.\n\n')
                 
 def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         itemName = params.lower()
         if len(itemName)==0:
-                mud.send_message(id, "Specify the name of an item or NPC to conjure.\n\n")
+                mud.send_message(id, "Specify the name of an item to conjure.\n\n")
                 return False
 
         # Check if item is in player's inventory
@@ -1308,12 +1308,41 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
                 if itemName in itemsDB[items[item]['id']]['name']:
                         itemID=items[item]['id']
                         break
-
+        
         if itemID != -1:
                 # Generate item
                 items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
 
-                mud.send_message(id, itemsDB[itemID]['article'] + ' ' + itemsDB[int(i)]['name'] + ' spontaneously materializes in front of you.\n\n')
+                mud.send_message(id, itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' spontaneously materializes in front of you.\n\n')
+                return True
+        return False
+
+def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        npcName = params.lower()
+        if len(npcName)==0:
+                mud.send_message(id, "Specify the name of an NPC to conjure.\n\n")
+                return False
+
+        # Check if NPC is in the room
+        for (nid, pl) in list(npcs.items()):
+                if npcs[nid]['room'] == players[id]['room']:
+                        if npcName in npcs[nid]['name']:
+                                mud.send_message(id, npcs[nid]['name'] + " is already here.\n\n")
+                                return False
+
+        npcID=-1
+        for (nid, pl) in list(npcs.items()):
+                if npcName in npcs[nid]['name']:
+                        npcID=npcs[nid]['id']
+                        break
+
+        if npcID != -1:
+
+                # Generate NPC
+                #spawnNPC(evaluateEvent(eventSchedule[event]['target'], eventSchedule[event]['body'], players, npcs, items, env, npcsDB, envDB)
+                #items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
+
+                mud.send_message(id, npcs[nid]['name'] + ' spontaneously materializes in front of you.\n\n')
                 return True
         return False
 
@@ -1325,8 +1354,9 @@ def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         if params.startswith('room '):
                 conjureRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
         else:
-                if not conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
-                        conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                #if not conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+                #        conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
                 
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         # Check if inventory is empty

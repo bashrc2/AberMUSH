@@ -221,23 +221,46 @@ def setPlayerCorpseTTL(etarget, ebody, players, npcs, items, env, npcsDB, envDB)
 def modPlayerCorpseTTL(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         players[etarget]['corpseTTL'] += int(ebody)
 
+def itemInRoom(items,id,room):
+        for i in items.items():
+                if i[1]['room']==room:
+                        if id == i[1]['id']:
+                                return True
+        return False
+        
 def spawnItem(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         tempVar = 0
         body = ebody.split(';')
-        items[getFreeKey(items, 200000)] = { 'id': int(body[0]), 'room': body[1], 'whenDropped': int(time.time()), 'lifespan': int(body[2]), 'owner': int(body[3])}
+        if not itemInRoom(items,int(body[0]),body[1]):
+                items[getFreeKey(items, 200000)] = { 'id': int(body[0]), 'room': body[1], 'whenDropped': int(time.time()), 'lifespan': int(body[2]), 'owner': int(body[3])}
 
+def npcExists(npcs,name):
+        for n in npcs.items():
+                if name in n[1]['name']:
+                        return True
+        return False
+        
 def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         tempVar = 0
         body = ebody.split(';')
         # print(npcsDB)
         # print(body)
         #print(ebody)
-        npcs[getFreeKey(npcs, 90000)] = { 'name': npcsDB[int(body[0])]['name'], 'room': body[1], 'lvl': npcsDB[int(body[0])]['lvl'], 'exp': npcsDB[int(body[0])]['exp'], 'str': npcsDB[int(body[0])]['str'], 'siz': npcsDB[int(body[0])]['siz'], 'wei': npcsDB[int(body[0])]['wei'], 'per': npcsDB[int(body[0])]['per'], 'endu': npcsDB[int(body[0])]['endu'], 'cha': npcsDB[int(body[0])]['cha'], 'int': npcsDB[int(body[0])]['int'], 'agi': npcsDB[int(body[0])]['agi'], 'follow': npcsDB[int(body[0])]['follow'], 'bodyType': npcsDB[int(body[0])]['bodyType'], 'canWear': npcsDB[int(body[0])]['canWear'], 'canWield': npcsDB[int(body[0])]['canWield'], 'luc': npcsDB[int(body[0])]['luc'], 'ref': npcsDB[int(body[0])]['ref'], 'cred': npcsDB[int(body[0])]['cred'], 'inv': npcsDB[int(body[0])]['inv'], 'conv': npcsDB[int(body[0])]['conv'], 'path': npcsDB[int(body[0])]['path'], 'moveDelay': npcsDB[int(body[0])]['moveDelay'], 'moveType': npcsDB[int(body[0])]['moveType'], 'isAttackable': int(body[2]), 'isStealable': int(body[3]), 'isKillable': int(body[4]), 'isAggressive': int(body[5]), 'clo_head': npcsDB[int(body[0])]['clo_head'], 'clo_neck': npcsDB[int(body[0])]['clo_neck'], 'clo_lwrist': npcsDB[int(body[0])]['clo_lwrist'], 'clo_rwrist': npcsDB[int(body[0])]['clo_rwrist'], 'clo_larm': npcsDB[int(body[0])]['clo_larm'], 'clo_rarm': npcsDB[int(body[0])]['clo_rarm'], 'clo_lhand': npcsDB[int(body[0])]['clo_lhand'], 'clo_rhand': npcsDB[int(body[0])]['clo_rhand'], 'clo_chest': npcsDB[int(body[0])]['clo_chest'], 'clo_lleg': npcsDB[int(body[0])]['clo_lleg'], 'clo_rleg': npcsDB[int(body[0])]['clo_rleg'], 'clo_feet': npcsDB[int(body[0])]['clo_feet'], 'imp_head': npcsDB[int(body[0])]['imp_head'], 'imp_larm': npcsDB[int(body[0])]['imp_larm'], 'imp_rarm': npcsDB[int(body[0])]['imp_rarm'], 'imp_lhand': npcsDB[int(body[0])]['imp_lhand'], 'imp_rhand': npcsDB[int(body[0])]['imp_rhand'], 'imp_chest': npcsDB[int(body[0])]['imp_chest'], 'imp_lleg': npcsDB[int(body[0])]['imp_lleg'], 'imp_rleg': npcsDB[int(body[0])]['imp_rleg'], 'imp_feet': npcsDB[int(body[0])]['imp_feet'], 'hp': npcsDB[int(body[0])]['hp'], 'charge': npcsDB[int(body[0])]['charge'], 'corpseTTL': int(body[6]), 'respawn': int(body[7]), 'vocabulary': npcsDB[int(body[0])]['vocabulary'], 'talkDelay': npcsDB[int(body[0])]['talkDelay'], 'inDescription': npcsDB[int(body[0])]['inDescription'], 'outDescription': npcsDB[int(body[0])]['outDescription'], 'lookDescription': npcsDB[int(body[0])]['lookDescription'], 'timeTalked': 0, 'isInCombat': 0, 'lastCombatAction': 0, 'lastRoom': None, 'whenDied': None, 'randomizer': 0, 'randomFactor': npcsDB[int(body[0])]['randomFactor'], 'lastSaid': 0, 'lastMoved': 0 }
+        if not npcExists(npcs,npcsDB[int(body[0])]['name']):
+                npcs[getFreeKey(npcs, 90000)] = { 'name': npcsDB[int(body[0])]['name'], 'room': body[1], 'lvl': npcsDB[int(body[0])]['lvl'], 'exp': npcsDB[int(body[0])]['exp'], 'str': npcsDB[int(body[0])]['str'], 'siz': npcsDB[int(body[0])]['siz'], 'wei': npcsDB[int(body[0])]['wei'], 'per': npcsDB[int(body[0])]['per'], 'endu': npcsDB[int(body[0])]['endu'], 'cha': npcsDB[int(body[0])]['cha'], 'int': npcsDB[int(body[0])]['int'], 'agi': npcsDB[int(body[0])]['agi'], 'follow': npcsDB[int(body[0])]['follow'], 'bodyType': npcsDB[int(body[0])]['bodyType'], 'canWear': npcsDB[int(body[0])]['canWear'], 'canWield': npcsDB[int(body[0])]['canWield'], 'luc': npcsDB[int(body[0])]['luc'], 'ref': npcsDB[int(body[0])]['ref'], 'cred': npcsDB[int(body[0])]['cred'], 'inv': npcsDB[int(body[0])]['inv'], 'conv': npcsDB[int(body[0])]['conv'], 'path': npcsDB[int(body[0])]['path'], 'moveDelay': npcsDB[int(body[0])]['moveDelay'], 'moveType': npcsDB[int(body[0])]['moveType'], 'isAttackable': int(body[2]), 'isStealable': int(body[3]), 'isKillable': int(body[4]), 'isAggressive': int(body[5]), 'clo_head': npcsDB[int(body[0])]['clo_head'], 'clo_neck': npcsDB[int(body[0])]['clo_neck'], 'clo_lwrist': npcsDB[int(body[0])]['clo_lwrist'], 'clo_rwrist': npcsDB[int(body[0])]['clo_rwrist'], 'clo_larm': npcsDB[int(body[0])]['clo_larm'], 'clo_rarm': npcsDB[int(body[0])]['clo_rarm'], 'clo_lhand': npcsDB[int(body[0])]['clo_lhand'], 'clo_rhand': npcsDB[int(body[0])]['clo_rhand'], 'clo_chest': npcsDB[int(body[0])]['clo_chest'], 'clo_lleg': npcsDB[int(body[0])]['clo_lleg'], 'clo_rleg': npcsDB[int(body[0])]['clo_rleg'], 'clo_feet': npcsDB[int(body[0])]['clo_feet'], 'imp_head': npcsDB[int(body[0])]['imp_head'], 'imp_larm': npcsDB[int(body[0])]['imp_larm'], 'imp_rarm': npcsDB[int(body[0])]['imp_rarm'], 'imp_lhand': npcsDB[int(body[0])]['imp_lhand'], 'imp_rhand': npcsDB[int(body[0])]['imp_rhand'], 'imp_chest': npcsDB[int(body[0])]['imp_chest'], 'imp_lleg': npcsDB[int(body[0])]['imp_lleg'], 'imp_rleg': npcsDB[int(body[0])]['imp_rleg'], 'imp_feet': npcsDB[int(body[0])]['imp_feet'], 'hp': npcsDB[int(body[0])]['hp'], 'charge': npcsDB[int(body[0])]['charge'], 'corpseTTL': int(body[6]), 'respawn': int(body[7]), 'vocabulary': npcsDB[int(body[0])]['vocabulary'], 'talkDelay': npcsDB[int(body[0])]['talkDelay'], 'inDescription': npcsDB[int(body[0])]['inDescription'], 'outDescription': npcsDB[int(body[0])]['outDescription'], 'lookDescription': npcsDB[int(body[0])]['lookDescription'], 'timeTalked': 0, 'isInCombat': 0, 'lastCombatAction': 0, 'lastRoom': None, 'whenDied': None, 'randomizer': 0, 'randomFactor': npcsDB[int(body[0])]['randomFactor'], 'lastSaid': 0, 'lastMoved': 0 }
 
+def actorInRoom(env,name,room):
+        for e in env.items():
+                if room == e[1]['room']:
+                        if name in e[1]['name']:
+                                return True
+        return False
+                
 def spawnActor(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         tempVar = 0
         body = ebody.split(';')
-        env[int(body[0])] = { 'name': envDB[int(body[0])]['name'], 'vocabulary': envDB[int(body[0])]['vocabulary'], 'talkDelay': envDB[int(body[0])]['talkDelay'], 'randomFactor': envDB[int(body[0])]['randomFactor'], 'room': body[1], 'randomizer': envDB[int(body[0])]['randomizer'], 'timeTalked': envDB[int(body[0])]['timeTalked'], 'lastSaid': envDB[int(body[0])]['lastSaid'] }
+        if not actorInRoom(env,envDB[int(body[0])]['name'],body[1]):
+                env[int(body[0])] = { 'name': envDB[int(body[0])]['name'], 'vocabulary': envDB[int(body[0])]['vocabulary'], 'talkDelay': envDB[int(body[0])]['talkDelay'], 'randomFactor': envDB[int(body[0])]['randomFactor'], 'room': body[1], 'randomizer': envDB[int(body[0])]['randomizer'], 'timeTalked': envDB[int(body[0])]['timeTalked'], 'lastSaid': envDB[int(body[0])]['lastSaid'] }
 
 # Function for evaluating an Event
 
