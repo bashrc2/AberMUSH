@@ -547,12 +547,16 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 else:
                         # If argument is given, then evaluate it
                         param = params.lower()
+                        if param.startswith('at the '):
+                                param = params.lower().replace('at the ', '')
                         if param.startswith('the '):
                                 param = params.lower().replace('the ', '')
+                        if param.startswith('at '):
+                                param = params.lower().replace('at ', '')
                         if param.startswith('a '):
                                 param = params.lower().replace('a ', '')
                         messageSent = False
-
+                        
                         ## Go through all players in game
                         for p in players:
                                 if players[p]['authenticated'] != None:
@@ -583,6 +587,16 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                 message += describeContainerContents(mud, id, itemsDB, items[i]['id'], True)
                                                 itemName = itemsDB[items[i]['id']]['article'] + " " + itemsDB[items[i]['id']]['name']
                                         itemCounter += 1
+
+                        # Examine items in inventory
+                        if len(message) == 0:
+                                playerinv = list(players[id]['inv'])
+                                if len(playerinv) > 0:
+                                        for i in playerinv:
+                                                if param in itemsDB[int(i)]['name'].lower():
+                                                        message += itemsDB[int(i)]['long_description']
+                                                        message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                        itemName = itemsDB[int(i)]['article'] + " " + itemsDB[int(i)]['name']
 
                         if len(message) > 0:
                                 mud.send_message(id, "It's " + itemName + ".")
@@ -1341,7 +1355,8 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 
         if itemID != -1:
                 # Generate item
-                items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
+                itemKey=getFreeKey(items)
+                items[itemKey] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
 
                 mud.send_message(id, itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' spontaneously materializes in front of you.\n\n')
                 saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
@@ -1903,11 +1918,12 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         if target.startswith('the '):
                 target = params.replace('the ', '')
 
-        for (iid, pl) in list(itemsDB.items()):
-                if itemsDB[iid]['name'].lower() == target:
+        for (iid, pl) in list(items.items()):
+                iid2=items[iid]['id']
+                if itemsDB[iid2]['name'].lower() == target:
                         # ID of the item to be picked up
                         itemID = iid
-                        itemName = itemsDB[iid]['name']
+                        itemName = itemsDB[iid2]['name']
                         itemInDB = True
                         break
                 else:
@@ -1946,7 +1962,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 if players[id]['canGo'] != 0:
                                         # Too heavy?
                                         players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
-                                        
+
                                         if players[id]['wei'] + itemsDB[items[iid]['id']]['weight'] > maxWeight:
                                                 mud.send_message(id, "You can't carry any more.\n\n")
                                                 return
