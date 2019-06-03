@@ -1051,8 +1051,9 @@ def messageToPlayersInRoom(mud,players,id,msg):
 def bioOfPlayer(mud,id,pid,players,itemsDB):
         mud.send_message(id,players[pid]['lookDescription'] + '\n')
 
-        if players[pid]['canGo'] == 0:
-                mud.send_message(id,'They are frozen.\n')
+        if players[pid].get('canGo'):
+                if players[pid]['canGo'] == 0:
+                        mud.send_message(id,'They are frozen.\n')
 
         # count items of clothing
         wearingCtr=0
@@ -1389,7 +1390,11 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "imp_feet" : 0, \
                    "inDescription": "arrives", \
                    "outDescription": "goes", \
-                   "lookDescription": "A new NPC, not yet described" \
+                   "lookDescription": "A new NPC, not yet described", \
+                   "canGo": 0, \
+                   "canLook": 1, \
+                   "canWield": 0, \
+                   "canWear": 0
         }
 
         npcsKey=getFreeKey(npcs)
@@ -1432,6 +1437,33 @@ def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         mud.send_message(id, 'It suddenly vanishes.\n\n')
         del items[item]
         log("Item destroyed: " + destroyedName + ' in ' + players[id]['room'], 'info')
+        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
+        return True
+
+def destroyNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        npcName = params.lower().replace('npc ','').strip().replace('"','')
+        if len(npcName)==0:
+                mud.send_message(id, "Specify the name of an NPC to destroy.\n\n")
+                return False
+        
+        # Check if NPC is in the room
+        npcID=-1
+        destroyedName=''
+        for (nid, pl) in list(npcs.items()):
+                if npcs[nid]['room'] == players[id]['room']:
+                        if npcName.lower() in npcs[nid]['name'].lower():
+                                destroyedName=npcs[nid]['name']
+                                npcID=nid
+                                break
+
+        if npcID == -1:
+                mud.send_message(id, "They're not here.\n\n")
+                return False
+
+        mud.send_message(id, 'They suddenly vanish.\n\n')
+        del npcs[npcID]
+        del npcsDB[npcID]
+        log("NPC destroyed: " + destroyedName + ' in ' + players[id]['room'], 'info')
         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
         return True
 
@@ -1479,7 +1511,10 @@ def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         if params.startswith('room '):
                 destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
         else:
-                destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                if params.startswith('npc '):
+                        destroyNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                else:
+                        destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
 
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         # Check if inventory is empty
