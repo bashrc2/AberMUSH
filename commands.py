@@ -1325,10 +1325,10 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         return False
 
 def sizeFromDescription(description):
-        tinyEntity=('tiny','moth','butterfly','insect','beetle','ant','bee','wasp','hornet','mosquito','lizard','mouse','rat')
-        smallEntity=('small','dog','cat','weasel','owl','hawk','crow','rook','wolf','badger','fox', 'rat','dwarf','mini')
-        largeEntity=('large','tiger','lion','tiger','wolf','leopard','bear','elk','deer','horse','bison','moose')
-        hugeEntity=('huge','ogre','elephant','mastodon','giraffe')
+        tinyEntity=('tiny','moth','butterfly','insect','beetle','ant','bee','wasp','hornet','mosquito','lizard','mouse','rat','crab','roach','snail','slug','hamster','gerbil')
+        smallEntity=('small','dog','cat','weasel','owl','hawk','crow','rook','robbin','penguin','bird','pidgeon','wolf','badger','fox', 'rat','dwarf','mini','fish','lobster','koala','goblin')
+        largeEntity=('large','tiger','lion','tiger','wolf','leopard','bear','elk','deer','horse','bison','moose','kanga','zebra','oxe','beest','troll')
+        hugeEntity=('huge','ogre','elephant','mastodon','giraffe','titan')
         gargantuanEntity=('gargantuan','dragon','whale')
         smallerEntity=('young','child','cub','kitten','puppy','juvenile','kid')
         description2 = description.lower()
