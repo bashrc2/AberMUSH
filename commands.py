@@ -18,6 +18,7 @@ from functions import saveBlocklist
 from functions import saveUniverse
 from functions import updatePlayerAttributes
 from functions import sizeFromDescription
+from functions import stowHands
 
 from environment import runTide
 from environment import assignCoordinates
@@ -998,26 +999,18 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 if int(players[id]['clo_rhand']) == itemID:
                         players[id]['clo_rhand'] = 0
                 players[id]['clo_lhand'] = itemID
-                mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['name'] + '<r> in your left hand.\n\n')
+                mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '<r> in your left hand.\n\n')
         else:
                 if int(players[id]['clo_lhand']) == itemID:
                         players[id]['clo_lhand'] = 0
                 players[id]['clo_rhand'] = itemID
-                mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['name'] + '<r> in your right hand.\n\n')
-
+                mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '<r> in your right hand.\n\n')
+                
 def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         if len(list(players[id]['inv'])) == 0:
                 return
 
-        if int(players[id]['clo_rhand']) > 0:
-                itemID=int(players[id]['clo_rhand'])
-                mud.send_message(id, 'You stow ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
-                players[id]['clo_rhand'] = 0
-
-        if int(players[id]['clo_lhand']) > 0:
-                itemID=int(players[id]['clo_lhand'])
-                mud.send_message(id, 'You stow ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
-                players[id]['clo_lhand'] = 0
+        stowHands(id,players,itemsDB,mud)
 
         if int(itemsDB[itemID]['clo_rleg']) > 0:
                 if int(players[id]['clo_rleg']) == 0:

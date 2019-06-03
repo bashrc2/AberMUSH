@@ -21,6 +21,17 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def stowHands(id,players,itemsDB,mud):
+        if int(players[id]['clo_rhand']) > 0:
+                itemID=int(players[id]['clo_rhand'])
+                mud.send_message(id, 'You stow <b234>' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '<r>\n\n')
+                players[id]['clo_rhand'] = 0
+
+        if int(players[id]['clo_lhand']) > 0:
+                itemID=int(players[id]['clo_lhand'])
+                mud.send_message(id, 'You stow <b234>' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '<r>\n\n')
+                players[id]['clo_lhand'] = 0
+
 def sizeFromDescription(description):
         tinyEntity=('tiny','moth','butterfly','insect','beetle','ant','bee','wasp','hornet','mosquito','lizard','mouse','rat','crab','roach','snail','slug','hamster','gerbil')
         smallEntity=('small','dog','cat','weasel','owl','hawk','crow','rook','robbin','penguin','bird','pidgeon','wolf','badger','fox', 'rat','dwarf','mini','fish','lobster','koala','goblin')

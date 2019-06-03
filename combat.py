@@ -12,6 +12,7 @@ __status__ = "Production"
 
 from functions import log
 from functions import playerInventoryWeight
+from functions import stowHands
 from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
@@ -195,8 +196,11 @@ def armorAgility(id,players,itemsDB):
     return agility
 
 def canUseWeapon(id, players, itemsDB, itemID):
-    if itemsDB[itemID]['lockedWithItem']>0:
-        itemName=itemsDB[itemID]['name']
+    if itemID==0:
+        return True
+    lockItemID=itemsDB[itemID]['lockedWithItem']
+    if lockItemID>0:
+        itemName=itemsDB[lockItemID]['name']
         for i in list(players[id]['inv']):
             if itemsDB[int(i)]['name'] == itemName:
                 return True
@@ -419,17 +423,22 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
     if players[s2id]['isAttackable'] == 1:
             players[s1id]['isInCombat'] = 1
             players[s2id]['isInCombat'] = 1
+
+            weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+            if not canUseWeapon(s1id, players, itemsDB, weaponID):
+                lockItemID=itemsDB[weaponID]['lockedWithItem']
+                mud.send_message(s1id, 'You take aim, but find you have no ' + itemsDB[lockItemID]['name'].lower() + '.\n')
+                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> takes aim, but finds they have no ' + itemsDB[lockItemID]['name'].lower() + '.\n')
+                stowHands(s1id,players,itemsDB,mud)
+                mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> stows ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                players[s1id]['lastCombatAction'] = int(time.time())
+                return
+
             # Do damage to the PC here
             if attackRoll(players[s1id]['luc']):
                     damageValue,armorClass,damageDescription = \
                         calculateDamage(weaponDamage(s1id,players,itemsDB),
                                         weaponDefense(s2id,players,itemsDB))
-                    weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
-                    if not canUseWeapon(s1id, players, itemsDB, weaponID):
-                        mud.send_message(s1id, 'You take aim, but find you have no ' + itemsDB[weaponID]['name'].lower() + '.\n')
-                        mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> takes aim, but find has no ' + itemsDB[weaponID]['name'].lower() + '.\n')
-                        players[s1id]['lastCombatAction'] = int(time.time())
-                        return
                     if roundsOfFire<1:
                         roundsOfFire=1
                     attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
@@ -485,6 +494,15 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
     if npcs[s2id]['isAttackable'] == 1:
             players[s1id]['isInCombat'] = 1
             npcs[s2id]['isInCombat'] = 1
+
+            weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+            if not canUseWeapon(s1id, players, itemsDB, weaponID):
+                lockItemID=itemsDB[weaponID]['lockedWithItem']
+                mud.send_message(s1id, 'You take aim, but find you have no ' + itemsDB[lockItemID]['name'].lower() + '.\n')
+                stowHands(s1id,players,itemsDB,mud)
+                players[s1id]['lastCombatAction'] = int(time.time())
+                return
+
             # Do damage to the NPC here
             if attackRoll(players[s1id]['luc']):
                 damageValue,armorClass,damageDescription = \
@@ -493,11 +511,6 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
                 npcWearsArmor(s2id,npcs,itemsDB)
 
-                weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
-                if not canUseWeapon(s1id, players, itemsDB, weaponID):
-                    mud.send_message(s1id, 'You take aim, but find you have no ' + itemsDB[weaponID]['name'].lower() + '.\n')
-                    players[s1id]['lastCombatAction'] = int(time.time())
-                    return
                 if roundsOfFire<1:
                     roundsOfFire=1
                 attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
