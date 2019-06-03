@@ -81,6 +81,7 @@ conjure [item]                     - Creates a new item in the room
 destroy room [direction]           - Removes the room in the given direction
 destroy npc [target]               - Removes a named NPC from the room
 destroy [item]                     - Removes an item from the room
+resetuniverse                      - Resets the universe, losing any changes from defaults
 shutdown                           - Shuts down the game server
 ```
 

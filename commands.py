@@ -24,6 +24,7 @@ from environment import assignCoordinates
 
 from npcs import npcConversation
 
+import os
 import re
 import sys
 from copy import deepcopy
@@ -271,6 +272,7 @@ def kick(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 
 def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         if not isWitch(id,players):
+                mud.send_message(id, "You don't have enough power to do that.\n\n")
                 return
         
         mud.send_message(id, "\n\nShutdown commenced.\n\n")
@@ -283,6 +285,18 @@ def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         log("Shutting down", "info")
         sys.exit()
 
+def resetUniverse(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        if not isWitch(id,players):
+                mud.send_message(id, "You don't have enough power to do that.\n\n")
+                return
+        os.system('rm universe*.json')
+        log('Universe reset', 'info')
+        for (pid, pl) in list(players.items()):
+                mud.send_message(pid, "Game server shutting down...\n\n")
+                mud._handle_disconnect(pid)
+        log("Shutting down", "info")
+        sys.exit()
+        
 def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         mud._handle_disconnect(id)
 
@@ -445,6 +459,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  destroy room [direction]                - Removes the room in the given direction')
                 mud.send_message(id, '  destroy npc [target]                    - Removes a named NPC from the room')
                 mud.send_message(id, '  destroy [item]                          - Removes an item from the room')
+                mud.send_message(id, '  resetuniverse                           - Resets the universe, losing any changes from defaults')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
@@ -2030,6 +2045,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "description": describe,
                 "conjure": conjure,
                 "destroy": destroy,
+                "resetuniverse": resetUniverse,
                 "shutdown": shutdown
         }
 
