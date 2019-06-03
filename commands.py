@@ -1323,6 +1323,43 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
                 return True
         return False
 
+def sizeFromDescription(description):
+        tinyEntity=('tiny','moth','butterfly','insect','beetle','ant','bee','wasp','hornet','mosquito','lizard','mouse','rat')
+        smallEntity=('small','dog','cat','weasel','owl','hawk','crow','rook','wolf','badger','fox', 'rat','dwarf','mini')
+        largeEntity=('large','tiger','lion','tiger','wolf','leopard','bear','elk','deer','horse','bison','moose')
+        hugeEntity=('huge','ogre','elephant','mastodon','giraffe')
+        gargantuanEntity=('gargantuan','dragon','whale')
+        smallerEntity=('young','child','cub','kitten','puppy','juvenile','kid')
+        description2 = description.lower()
+        size=2
+        for e in tinyEntity:
+                if e in description2:
+                        size=0
+                        break
+        for e in smallEntity:
+                if e in description2:
+                        size=1
+                        break
+        for e in largeEntity:
+                if e in description2:
+                        size=3
+                        break
+        for e in hugeEntity:
+                if e in description2:
+                        size=4
+                        break
+        for e in gargantuanEntity:
+                if e in description2:
+                        size=5
+                        break
+        if size > 0:
+                for e in smallerEntity:
+                        if e in description2:
+                                size = size - 1
+                                break
+              
+        return size
+
 def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         if not params.startswith('npc '):
                 return False
@@ -1339,6 +1376,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                                 mud.send_message(id, npcs[nid]['name'] + " is already here.\n\n")
                                 return False
 
+        # default medium size
         newNPC = { "name": npcName, \
                    "whenDied": None, \
                    "inv" : [], \
@@ -1359,7 +1397,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "lvl" : 5, \
                    "exp" : 32, \
                    "str" : 80, \
-                   "siz" : 100, \
+                   "siz" : sizeFromDescription(npcName), \
                    "wei" : 100, \
                    "per" : 3, \
                    "endu" : 1, \
