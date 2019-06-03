@@ -148,6 +148,9 @@ log("Map coordinates:" + str(mapArea), "info")
 # Loading environment actors
 if os.path.isfile("universe_actors.json"):
         with open("universe_actors.json", "r") as read_file:
+                env = commentjson.load(read_file)
+if os.path.isfile("universe_actorsdb.json"):
+        with open("universe_actorsdb.json", "r") as read_file:
                 envDB = commentjson.load(read_file)
 else:
         with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
@@ -396,7 +399,7 @@ while True:
                                 playersDB = loadPlayersDB()
                                 # State Save logic End
                                 lastStateSave = now
-                saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env)
+                saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
                 lastStateSave = now
 
         # Handle Player Deaths

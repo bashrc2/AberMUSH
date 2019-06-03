@@ -261,7 +261,7 @@ def saveState(player, masterDB, savePassword):
         savePlayer(player, masterDB, savePassword)                    
         #masterDB = loadPlayersDB()
 
-def saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env):
+def saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env):
     # save rooms
     with open("universe.json", 'w') as fp:
         commentjson.dump(rooms, fp)
@@ -273,6 +273,10 @@ def saveUniverse(rooms,npcsDB,npcs,itemsDB,items,env):
     # save itemsDB
     with open("universe_itemsdb.json", 'w') as fp:
         commentjson.dump(itemsDB, fp)
+
+    # save environment actors
+    with open("universe_actorsdb.json", 'w') as fp:
+        commentjson.dump(envDB, fp)
 
     # save environment actors
     with open("universe_actors.json", 'w') as fp:
