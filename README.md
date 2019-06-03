@@ -365,3 +365,5 @@ conjure npc "Huge Ogre"
 describe npc "The ogre is huge and angry looking."
 destroy ogre
 ```
+
+If you make any blunders then you can reset the universe back to its original state with the `resetuniverse` command, then restart the server.
