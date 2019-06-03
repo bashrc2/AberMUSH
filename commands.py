@@ -2044,6 +2044,9 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "desc": describe,
                 "description": describe,
                 "conjure": conjure,
+                "make": conjure,
+                "cancel": destroy,
+                "banish": destroy,
                 "destroy": destroy,
                 "resetuniverse": resetUniverse,
                 "shutdown": shutdown
