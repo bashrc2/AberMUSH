@@ -194,6 +194,15 @@ def armorAgility(id,players,itemsDB):
     # Total agility for clothing
     return agility
 
+def canUseWeapon(id, players, itemsDB, itemID):
+    if itemsDB[itemID]['lockedWithItem']>0:
+        itemName=itemsDB[itemID]['name']
+        for i in list(players[id]['inv']):
+            if itemsDB[int(i)]['name'] == itemName:
+                return True
+        return False
+    return True
+
 def getWeaponHeld(id, players, itemsDB):
     """Returns the type of weapon held, or fists if none is held
     """
@@ -202,14 +211,14 @@ def getWeaponHeld(id, players, itemsDB):
         itemID = int(players[id]['clo_rhand'])
         if itemsDB[itemID]['mod_str']>0:
             if len(itemsDB[itemID]['type'])>0:
-                return itemsDB[itemID]['type'],itemsDB[itemID]['rof']
+                return itemID,itemsDB[itemID]['type'],itemsDB[itemID]['rof']
 
     if players[id]['clo_lhand']>0 and players[id]['clo_rhand']==0:
         # something in left hand
         itemID = int(players[id]['clo_lhand'])
         if itemsDB[itemID]['mod_str']>0:
             if len(itemsDB[itemID]['type'])>0:
-                return itemsDB[itemID]['type'],itemsDB[itemID]['rof']
+                return itemID,itemsDB[itemID]['type'],itemsDB[itemID]['rof']
 
     if players[id]['clo_lhand']>0 and players[id]['clo_rhand']>0:
         # something in both hands
@@ -218,18 +227,18 @@ def getWeaponHeld(id, players, itemsDB):
         if randint(0,1)==1:
             if itemsDB[itemRightID]['mod_str']>0:
                 if len(itemsDB[itemRightID]['type'])>0:
-                    return itemsDB[itemRightID]['type'],itemsDB[itemRightID]['rof']
+                    return itemRightID,itemsDB[itemRightID]['type'],itemsDB[itemRightID]['rof']
             if itemsDB[itemLeftID]['mod_str']>0:
                 if len(itemsDB[itemLeftID]['type'])>0:
-                    return itemsDB[itemLeftID]['type'],itemsDB[itemLeftID]['rof']
+                    return itemLeftID,itemsDB[itemLeftID]['type'],itemsDB[itemLeftID]['rof']
         else:
             if itemsDB[itemLeftID]['mod_str']>0:
                 if len(itemsDB[itemLeftID]['type'])>0:
-                    return itemsDB[itemLeftID]['type'],itemsDB[itemLeftID]['rof']
+                    return itemLeftID,itemsDB[itemLeftID]['type'],itemsDB[itemLeftID]['rof']
             if itemsDB[itemRightID]['mod_str']>0:
                 if len(itemsDB[itemRightID]['type'])>0:
-                    return itemsDB[itemRightID]['type'],itemsDB[itemRightID]['rof']
-    return "fists",1
+                    return itemRightID,itemsDB[itemRightID]['type'],itemsDB[itemRightID]['rof']
+    return 0,"fists",1
 
 def getAttackDescription(weaponType):
     """Describes an attack with a given type of weapon. This
@@ -415,7 +424,12 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                     damageValue,armorClass,damageDescription = \
                         calculateDamage(weaponDamage(s1id,players,itemsDB),
                                         weaponDefense(s2id,players,itemsDB))
-                    weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+                    weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+                    if not canUseWeapon(s1id, players, itemsDB, weaponID):
+                        mud.send_message(s1id, 'You take aim, but find you have no ' + itemsDB[weaponID]['name'].lower() + '.\n')
+                        mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> takes aim, but find has no ' + itemsDB[weaponID]['name'].lower() + '.\n')
+                        players[s1id]['lastCombatAction'] = int(time.time())
+                        return
                     if roundsOfFire<1:
                         roundsOfFire=1
                     attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
@@ -479,7 +493,11 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
                 npcWearsArmor(s2id,npcs,itemsDB)
 
-                weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+                weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
+                if not canUseWeapon(s1id, players, itemsDB, weaponID):
+                    mud.send_message(s1id, 'You take aim, but find you have no ' + itemsDB[weaponID]['name'].lower() + '.\n')
+                    players[s1id]['lastCombatAction'] = int(time.time())
+                    return
                 if roundsOfFire<1:
                     roundsOfFire=1
                 attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
@@ -542,7 +560,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
             damageValue,armorClass,damageDescription = \
                 calculateDamage(weaponDamage(s1id,npcs,itemsDB),
                                 weaponDefense(s2id,players,itemsDB))
-            weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
+            weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
             if roundsOfFire<1:
                 roundsOfFire=1
             attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
