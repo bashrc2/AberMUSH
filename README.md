@@ -316,3 +316,51 @@ NPCs are able to pick up and use any weapons or armor available in the vicinity.
 If you don't want certain words or phrases to be used by players then you can create a file called `blocked.txt` containing them in the same directory that you run `abermush.py` from. Entries can be on separate lines or comma separated and the matching is case insensitive. This then alters the `say`, `tell` and `whisper` commands such that recipients won't receive messages containing blocked text.
 
 You can also use the commands `block` and `unblock` to update the blocklist without restarting the server.
+
+### Constructing the Universe
+
+AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
+
+To change the description of a room:
+
+``` bash
+describe "This is a new description of the room."
+look
+```
+
+You can also change the name of the room:
+
+``` bash
+describe "room" "New room title"
+```
+
+To create and describe a new room:
+
+``` bash
+conjure room south
+go south
+describe "room" "Cave Entrance"
+describe "The cave entrance is narrow with rocks strewn around."
+```
+
+To remove the room just created:
+
+``` bash
+go north
+destroy room south
+```
+
+You can also create and remove items in a room:
+
+``` bash
+conjure sword
+destroy sword
+```
+
+And similar with NPCs:
+
+``` bash
+conjure npc "Huge Ogre"
+describe npc "The ogre is huge and angry looking."
+destroy ogre
+```
