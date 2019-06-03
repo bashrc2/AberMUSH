@@ -439,8 +439,10 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  describe "item" "item description"      - Changes the description of an item in the room')
                 mud.send_message(id, '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
                 mud.send_message(id, '  conjure room [direction]                - Creates a new room in the given direction')
+                mud.send_message(id, '  conjure npc [target]                    - Creates a named NPC in the room')
                 mud.send_message(id, '  conjure [item]                          - Creates a new item in the room')
                 mud.send_message(id, '  destroy room [direction]                - Removes the room in the given direction')
+                mud.send_message(id, '  destroy npc [target]                    - Removes a named NPC from the room')
                 mud.send_message(id, '  destroy [item]                          - Removes an item from the room')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
