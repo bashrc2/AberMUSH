@@ -601,6 +601,8 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
         if players[id]['canAttack'] == 1:
                 isAlreadyAttacking = False
                 target = params #.lower()
+                if target.startswith('at '):
+                        target = params.replace('at ', '')
                 if target.startswith('the '):
                         target = params.replace('the ', '')
 
@@ -2002,6 +2004,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "help": help,
                 "say": say,
                 "attack": attack,
+                "shoot": attack,
                 "take": take,
                 "get": take,
                 "put": putItem,
