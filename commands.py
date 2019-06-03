@@ -1320,6 +1320,7 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
                 items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
 
                 mud.send_message(id, itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' spontaneously materializes in front of you.\n\n')
+                saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
                 return True
         return False
 
@@ -1441,6 +1442,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
         npcs[npcsKey]=newNPC
         npcsDB[npcsKey]=newNPC
         log('NPC ' + npcName + ' generated in ' + players[id]['room'] + ' with key ' + str(npcsKey), 'info')
+        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
         mud.send_message(id, npcName + ' spontaneously appears.\n\n')
         return True
 
