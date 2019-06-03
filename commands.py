@@ -1354,13 +1354,13 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "follow" : "", \
                    "canWield" : 0, \
                    "canWear" : 0, \
-                   "hp" : 24332, \
+                   "hp" : 100, \
                    "charge" : 1233, \
                    "lvl" : 5, \
                    "exp" : 32, \
                    "str" : 80, \
-                   "siz" : 0, \
-                   "wei" : 0, \
+                   "siz" : 100, \
+                   "wei" : 100, \
                    "per" : 3, \
                    "endu" : 1, \
                    "cha" : 4, \
