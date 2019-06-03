@@ -1323,16 +1323,22 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         # Check if it is in the room
         for (item, pl) in list(items.items()):
                 if items[item]['room'] == players[id]['room']:
-                        if itemName in itemsDB[items[item]['id']]['name']:
+                        if itemName in itemsDB[items[item]['id']]['name'].lower():
                                 mud.send_message(id, "It's already here.\n\n")
                                 return False
 
         itemID=-1
         for (item, pl) in list(items.items()):
-                if itemName in itemsDB[items[item]['id']]['name']:
+                if itemName == itemsDB[items[item]['id']]['name'].lower():
                         itemID=items[item]['id']
                         break
-        
+
+        if itemID == -1:
+                for (item, pl) in list(items.items()):
+                        if itemName in itemsDB[items[item]['id']]['name'].lower():
+                                itemID=items[item]['id']
+                                break
+
         if itemID != -1:
                 # Generate item
                 items[getFreeKey(items)] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }

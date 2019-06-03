@@ -395,6 +395,7 @@
 0|spawnItem|1213;$rid=1220$;0;0
 0|spawnItem|1215;$rid=1220$;0;0
 0|spawnItem|1216;$rid=1220$;0;0
+0|spawnItem|1395;$rid=1220$;0;0
 0|spawnItem|1217;$rid=1220$;0;0
 0|spawnItem|1218;$rid=1220$;0;0
 0|spawnItem|1219;$rid=1221$;0;0
@@ -408,6 +409,7 @@
 0|spawnItem|1240;$rid=1241$;0;0
 0|spawnItem|1243;$rid=1244$;0;0
 0|spawnItem|1246;$rid=1212$;0;0
+0|spawnItem|1396;$rid=1212$;0;0
 0|spawnItem|1251;$rid=1268$;0;0
 0|spawnItem|1255;$rid=1260$;0;0
 0|spawnItem|1256;$rid=1260$;0;0
@@ -466,3 +468,7 @@
 0|spawnItem|1386;$rid=195$;0;0
 0|spawnItem|1387;$rid=333$;0;0
 0|spawnItem|1391;$rid=963$;0;0
+0|spawnItem|1397;$rid=978$;0;0
+0|spawnItem|1394;$rid=978$;0;0
+0|spawnItem|1393;$rid=1079$;0;0
+0|spawnItem|1398;$rid=1079$;0;0
