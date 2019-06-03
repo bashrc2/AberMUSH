@@ -1590,7 +1590,7 @@ def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if int(i) == itemID:
                                 # Remove first matching item from inventory
                                 players[id]['inv'].remove(i)
-                                updatePlayerAttributes(id,players,itemsDB,items[i]['id'],-1)
+                                updatePlayerAttributes(id,players,itemsDB,itemID,-1)
                                 break
 
                 players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
