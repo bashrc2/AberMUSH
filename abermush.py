@@ -507,7 +507,7 @@ while True:
                         # Save template into a new player file
                         # print(template)
                         with open(str(Config.get('Players', 'Location')) + "/" + template['name'] + ".player", 'w') as fp:
-                                commentjson.dump(template, fp)
+                                commentjson.dump(template, fp, indent=4, sort_keys=True)
 
                         # Reload PlayersDB to include this newly created player
                         playersDB = loadPlayersDB()

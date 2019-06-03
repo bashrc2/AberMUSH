@@ -298,7 +298,7 @@ def savePlayer(player, masterDB, savePassword, path = str(Config.get('Players', 
                         #print(newPlayer)
                         #print("Saving player state")
                         with open(path + player['name'] + ".player", 'w') as fp:
-                                commentjson.dump(newPlayer, fp)
+                                commentjson.dump(newPlayer, fp, indent=4, sort_keys=True)
                         #print("Updating playerd DB")
                         masterDB = loadPlayersDB()
                         #print(masterDB)
@@ -312,31 +312,31 @@ def saveState(player, masterDB, savePassword):
 def saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env):
     # save rooms
     with open("universe.json", 'w') as fp:
-        commentjson.dump(rooms, fp)
+        commentjson.dump(rooms, fp, indent=4, sort_keys=True)
 
     # save items
     with open("universe_items.json", 'w') as fp:
-        commentjson.dump(items, fp)
+        commentjson.dump(items, fp, indent=4, sort_keys=True)
 
     # save itemsDB
     with open("universe_itemsdb.json", 'w') as fp:
-        commentjson.dump(itemsDB, fp)
+        commentjson.dump(itemsDB, fp, indent=4, sort_keys=True)
 
     # save environment actors
     with open("universe_actorsdb.json", 'w') as fp:
-        commentjson.dump(envDB, fp)
+        commentjson.dump(envDB, fp, indent=4, sort_keys=True)
 
     # save environment actors
     with open("universe_actors.json", 'w') as fp:
-        commentjson.dump(env, fp)
+        commentjson.dump(env, fp, indent=4, sort_keys=True)
 
     # save npcs
     with open("universe_npcs.json", 'w') as fp:
-        commentjson.dump(npcs, fp)
+        commentjson.dump(npcs, fp, indent=4, sort_keys=True)
 
     # save npcsDB
     with open("universe_npcsdb.json", 'w') as fp:
-        commentjson.dump(npcsDB, fp)
+        commentjson.dump(npcsDB, fp, indent=4, sort_keys=True)
 
 def str2bool(v):
   return v.lower() in ("yes", "true", "True", "t", "1")
