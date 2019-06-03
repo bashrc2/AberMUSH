@@ -21,6 +21,43 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def sizeFromDescription(description):
+        tinyEntity=('tiny','moth','butterfly','insect','beetle','ant','bee','wasp','hornet','mosquito','lizard','mouse','rat','crab','roach','snail','slug','hamster','gerbil')
+        smallEntity=('small','dog','cat','weasel','owl','hawk','crow','rook','robbin','penguin','bird','pidgeon','wolf','badger','fox', 'rat','dwarf','mini','fish','lobster','koala','goblin')
+        largeEntity=('large','tiger','lion','tiger','wolf','leopard','bear','elk','deer','horse','bison','moose','kanga','zebra','oxe','beest','troll','taur')
+        hugeEntity=('huge','ogre','elephant','mastodon','giraffe','titan')
+        gargantuanEntity=('gargantuan','dragon','whale')
+        smallerEntity=('young','child','cub','kitten','puppy','juvenile','kid')
+        description2 = description.lower()
+        size=2
+        for e in tinyEntity:
+                if e in description2:
+                        size=0
+                        break
+        for e in smallEntity:
+                if e in description2:
+                        size=1
+                        break
+        for e in largeEntity:
+                if e in description2:
+                        size=3
+                        break
+        for e in hugeEntity:
+                if e in description2:
+                        size=4
+                        break
+        for e in gargantuanEntity:
+                if e in description2:
+                        size=5
+                        break
+        if size > 0:
+                for e in smallerEntity:
+                        if e in description2:
+                                size = size - 1
+                                break
+              
+        return size
+
 def updatePlayerAttributes(id, players, itemsDB, itemID, mult):
         playerAttributes=('luc','per','cha','int')
         for attr in playerAttributes:
