@@ -485,6 +485,94 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         else:
                 mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
+def conditionalRoom(condType,cond,description,id,players):
+        if condType=='hour':
+                currHour = datetime.datetime.utcnow().hour
+                condHour = cond.replace('>','').replace('<','').replace('=','').strip()
+                if '>' in cond:
+                        if currHour > int(condHour):
+                                return True
+                if '<' in cond:
+                        if currHour < int(condHour):
+                                return True
+                if '=' in cond:
+                        if currHour == int(condHour):
+                                return True
+
+        if condType=='skill':
+                if '<=' in cond:
+                        skillType=cond.split('<=')[0].strip()
+                        if players[id].get(skillType):
+                                skillValue=int(cond.split('<=')[1].split())
+                                if players[id][skillType] <= skillValue:
+                                        return True
+                if '>=' in cond:
+                        skillType=cond.split('>=')[0].strip()
+                        if players[id].get(skillType):
+                                skillValue=int(cond.split('>=')[1].split())
+                                if players[id][skillType] >= skillValue:
+                                        return True
+                if '>' in cond:
+                        skillType=cond.split('>')[0].strip()
+                        if players[id].get(skillType):
+                                skillValue=int(cond.split('>')[1].split())
+                                if players[id][skillType] > skillValue:
+                                        return True
+                if '<' in cond:
+                        skillType=cond.split('<')[0].strip()
+                        if players[id].get(skillType):
+                                skillValue=int(cond.split('<')[1].split())
+                                if players[id][skillType] < skillValue:
+                                        return True
+                if '=' in cond:
+                        cond=cond.replace('==','=')
+                        skillType=cond.split('=')[0].strip()
+                        if players[id].get(skillType):
+                                skillValue=int(cond.split('=')[1].split())
+                                if players[id][skillType] == skillValue:
+                                        return True
+
+        if condType=='date' or condType=='day':
+                dayNumber=int(cond.split('/')[0])
+                if dayNumber == int(datetime.date.today().strftime("%d")):
+                        monthNumber=int(cond.split('/')[1])
+                        if monthNumber == int(datetime.date.today().strftime("%m")):
+                                return True
+
+        if condType=='held' or condType.startswith('hold'):
+                if players[id]['clo_lhand'] == int(cond) or \
+                   players[id]['clo_rhand'] == int(cond):
+                        return True
+
+        if condType=='wear':
+                wearableLocation=('clo_head','clo_neck','clo_chest', \
+                                  'clo_larm','clo_lleg','clo_rarm', \
+                                  'clo_rleg','clo_lwrist', \
+                                  'clo_rwrist','clo_feet')
+                for w in wearableLocation:
+                        if players[id][w] == int(cond):
+                                return True
+
+        return False
+
+def conditionalRoomDescription(description,tideOutDescription,conditional,id,players):
+        roomDescription = description
+        if len(tideOutDescription)>0:
+                if runTide() < 0:
+                        roomDescription = rm['tideOutDescription']
+
+        # Alternative descriptions triggered by conditions
+        for possibleDescription in conditional:
+                if len(possibleDescription)>=3:
+                        condType=possibleDescription[0]
+                        cond=possibleDescription[1]
+                        alternativeDescription=possibleDescription[2]
+                        if conditionalRoom(condType,cond,alternativeDescription,id,players):
+                                roomDescription=alternativeDescription
+                                break
+
+        return roomDescription
+        
 def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         if players[id]['canLook'] == 1:
                 if len(params) < 1:
@@ -494,14 +582,15 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         rm = rooms[players[id]['room']]
 
                         # send the player back the description of their current room
-                        if len(rm['tideOutDescription'])==0:
-                                mud.send_message(id, "\n<f230>" + rm['description'])
-                        else:
-                                if runTide() < 0:
-                                        mud.send_message(id, "\n<f230>" + rm['tideOutDescription'])
-                                else:
-                                        mud.send_message(id, "\n<f230>" + rm['description'])
+                        roomDescription=rm['description']
+                        if len(rm['conditional'])>0:
+                                roomDescription = \
+                                        conditionalRoomDescription(roomDescription, \
+                                                                   rm['tideOutDescription'], \
+                                                                   rm['conditional'], \
+                                                                   id,players)
 
+                        mud.send_message(id, "\n<f230>" + roomDescription)
                         playershere = []
 
                         itemshere = []
