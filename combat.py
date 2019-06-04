@@ -170,6 +170,9 @@ def weaponDamage(id,players,itemsDB):
     return damage
 
 def characterClassResistance(id,players,characterClassDB,weaponType):
+    """How much resistance does the player have to the weapon type
+       based upon their character class
+    """
     resistance=0
     resistParam='resist_'+weaponType.lower()
 
