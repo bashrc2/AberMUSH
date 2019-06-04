@@ -12,6 +12,7 @@
     "int": 2,
     "agi": 7,
     "luc": 0,
+    "cool": 0,
     "cred": 0,
     "inv": [],
     "convstate": {},

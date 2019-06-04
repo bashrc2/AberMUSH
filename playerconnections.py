@@ -48,6 +48,7 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'int': None,
                         'agi': None,
                         'luc': None,
+                        'cool': None,
                         'cred': None,
                         'inv': None,
                         'authenticated': None,

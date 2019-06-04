@@ -213,6 +213,8 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         currValue=players[id]['cred']
     if varStr is 'reflex':
         currValue=players[id]['ref']
+    if varStr is 'cool':
+        currValue=players[id]['cool']
 
     if currValue == -99999:
         return False,True,match_ctr

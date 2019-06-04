@@ -70,7 +70,7 @@ def sizeFromDescription(description):
         return size
 
 def updatePlayerAttributes(id, players, itemsDB, itemID, mult):
-        playerAttributes=('luc','per','cha','int')
+        playerAttributes=('luc','per','cha','int','cool')
         for attr in playerAttributes:
                 players[id][attr] = players[id][attr] + (mult*itemsDB[itemID]['mod_'+attr])
 
