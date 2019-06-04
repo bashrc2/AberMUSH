@@ -171,11 +171,20 @@ def weaponDamage(id,players,itemsDB):
 
 def characterClassResistance(id,players,characterClassDB,weaponType):
     resistance=0
+    resistParam='resist_'+weaponType.lower()
+
+    if weaponType.endswith('bow'):
+        resistParam='resist_piercing'
+
+    if weaponType.endswith('sling'):
+        resistParam='resist_bludgeoning'
+
     if players[id].get('characterClass'):
         characterClass=players[id]['characterClass'].lower()
         if characterClassDB.get(characterClass):
-            if characterClassDB[characterClass].get('resist_'+weaponType.lower()):
-                resistance=characterClassDB[characterClass]['resist_'+weaponType.lower()]
+            if characterClassDB[characterClass].get(resistParam):
+                resistance=characterClassDB[characterClass][resistParam]
+
     return resistance
 
 def weaponDefense(id,players,itemsDB,characterClassDB,weaponType):
