@@ -1493,6 +1493,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "int" : 2, \
                    "agi" : 6, \
                    "luc" : 1, \
+                   "cool" : 0, \
                    "ref": 1, \
                    "cred" : 122, \
                    "clo_head" : 0, \
