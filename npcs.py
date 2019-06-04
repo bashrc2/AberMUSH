@@ -211,6 +211,8 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         currValue=players[id]['luc']
     if varStr is 'cred':
         currValue=players[id]['cred']
+    if varStr is 'reflex':
+        currValue=players[id]['ref']
 
     if currValue == -99999:
         return False,True,match_ctr
@@ -291,18 +293,19 @@ def conversationSkill(best_match,best_match_action,best_match_action_param0,best
            len(best_match_action_param1)>0:
             newSkill=best_match_action_param0.lower()
             skillValueStr=best_match_action_param1
-            if not players[id]['skill'].get(newSkill):
-                players[id]['skill'][newSkill] = 0
+            if not players[id].get(newSkill):
+                log(newSkill + ' skill does not exist in player instance','info')
+                return False
             if '+' in skillValueStr:
                 # increase skill
-                players[id]['skill'][newSkill] = players[id]['skill'][newSkill] + int(skillValueStr.replace('+',''))
+                players[id][newSkill] = players[id][newSkill] + int(skillValueStr.replace('+',''))
             else:
                 # decrease skill
                 if '-' in skillValueStr:
-                    players[id]['skill'][newSkill] = players[id]['skill'][newSkill] - int(skillValueStr.replace('-',''))
+                    players[id][newSkill] = players[id][newSkill] - int(skillValueStr.replace('-',''))
                 else:
                     # set skill to absolute value
-                    players[id]['skill'][newSkill] = players[id]['skill'][newSkill] + int(skillValueStr)
+                    players[id][newSkill] = players[id][newSkill] + int(skillValueStr)
             
             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
             return True

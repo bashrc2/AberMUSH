@@ -298,7 +298,7 @@ def savePlayer(player, masterDB, savePassword, path = str(Config.get('Players', 
                         #print(newPlayer)
                         #print("Saving player state")
                         with open(path + player['name'] + ".player", 'w') as fp:
-                                commentjson.dump(newPlayer, fp, indent=4, sort_keys=True)
+                                commentjson.dump(newPlayer, fp)
                         #print("Updating playerd DB")
                         masterDB = loadPlayersDB()
                         #print(masterDB)
