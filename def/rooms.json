@@ -2204,7 +2204,10 @@
     "$rid=432$": {
         "name": "Hatchet Inn",
         "description": "Everything about the inn appears disreputable. Customers murmur and finger weapons as you wander in, while all around you people lie semi-unconcious surrounded by the smell of opium. The door leading back out looks highly promising, unless you wish to play the local game of getting to the bar without dying first.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<2","The night's drinking is over and amidst occasional complaining the inn-keeper is kicking the remaining crowd out of this disreputable establishment. Displaced coasters, drug paraphenalia and cutlery remain strewn around. The door leading back out looks inviting."],
+	    ["hour","<10","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is still around, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out looks tempting."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "weather": 0,
