@@ -369,9 +369,9 @@ def conversationGiveOnDate(best_match_action,best_match_action_param0,best_match
             if itemID not in list(players[id]['inv']):
                 if '/' in best_match_action_param1:
                     dayNumber=int(best_match_action_param1.split('/')[0])
-                    if dayNumber == int(datetime.date.today().strftime("%d")):
+                    if dayNumber == int(datetime.datetime.utcnow().strftime("%d")):
                         monthNumber=int(best_match_action_param1.split('/')[1])
-                        if monthNumber == int(datetime.date.today().strftime("%m")):
+                        if monthNumber == int(datetime.datetime.utcnow().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
                             players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
                             updatePlayerAttributes(id,players,itemsDB,itemID,1)                            

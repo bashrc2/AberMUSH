@@ -342,7 +342,7 @@ def plotClouds(rooms, mapArea, clouds, temperature):
 def getTemperatureSeasonal():
     """Average temperature for the time of year
     """
-    dayOfYear = int(datetime.date.today().strftime("%j"))
+    dayOfYear = int(datetime.datetime.utcnow().strftime("%j"))
     tempFraction=((sin((0.75+(dayOfYear/365.0)) * 2 * 3.1415927)+1)/2.0)
     return 8 + (7*tempFraction)
 

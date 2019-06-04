@@ -533,10 +533,10 @@ def conditionalRoom(condType,cond,description,id,players):
                                         return True
 
         if condType=='date' or condType=='day':
-                dayNumber=int(cond.split('/')[0])
-                if dayNumber == int(datetime.date.today().strftime("%d")):
+                dayNumber=int(cond.split('/')[0])                
+                if dayNumber == int(datetime.datetime.utcnow().strftime("%d")):
                         monthNumber=int(cond.split('/')[1])
-                        if monthNumber == int(datetime.date.today().strftime("%m")):
+                        if monthNumber == int(datetime.datetime.utcnow().strftime("%m")):
                                 return True
 
         if condType=='held' or condType.startswith('hold'):
