@@ -170,6 +170,8 @@ This provides different room descriptions in the morning to at other times.
 
 Possible condition types are `hour`, `date`, `skill`, `hold` and `wear`.
 
+You can use this to do things like describing a dark cave by default but changing the description if you are holding a lamp.
+
 ### Adding Doors and Opening things
 
 To add a door, or other object to be opened or closed you will need a pair of items, like the following:
