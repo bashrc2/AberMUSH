@@ -53,5 +53,7 @@
     "canAttack": 1,
     "canDirectMessage": 1,
     "ref": 1,
-    "bodyType": ""
+    "bodyType": "",
+    "race": "human",
+    "characterClass": "warrior"
 }

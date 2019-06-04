@@ -1165,6 +1165,9 @@ def messageToPlayersInRoom(mud,players,id,msg):
                         mud.send_message(pid,msg)
 
 def bioOfPlayer(mud,id,pid,players,itemsDB):
+        if len(players[pid]['race'])>0:
+                mud.send_message(id,players[pid]['name'] + ' (' + players[pid]['race'] + ' ' + players[pid]['characterClass'] +')\n\n')
+                
         mud.send_message(id,players[pid]['lookDescription'] + '\n')
 
         if players[pid].get('canGo'):

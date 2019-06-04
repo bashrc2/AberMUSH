@@ -501,6 +501,7 @@ while True:
 
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
+                            template['characterClass']='witch'
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 
@@ -634,6 +635,8 @@ while True:
                                         players[id]['canDirectMessage'] = dbResponse[52]
                                         players[id]['ref'] = dbResponse[53]
                                         players[id]['bodyType'] = dbResponse[54]
+                                        players[id]['race'] = dbResponse[55]
+                                        players[id]['characterClass'] = dbResponse[56]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])

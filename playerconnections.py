@@ -93,7 +93,11 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'defaultChannel': None,
                         'exAttribute0': None,
                         'exAttribute1': None,
-                        'exAttribute2': None
+                        'exAttribute2': None,
+                        'ref': None,
+                        'bodyType': None,
+                        'race': None,
+                        'characterClass': None
                 }
 
                 # Read in the MOTD file and send to the player
