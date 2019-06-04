@@ -282,6 +282,35 @@ def conversationGive(best_match,best_match_action,best_match_action_param0,playe
         return True
     return False
 
+def conversationSkill(best_match,best_match_action,best_match_action_param0,best_match_action_param1,players,id,mud,npcs,nid,itemsDB,puzzledStr):
+    """Conversation in which an NPC gives or alters a skill
+    """
+    if best_match_action == 'skill' or \
+       best_match_action == 'teach':
+        if len(best_match_action_param0)>0 and \
+           len(best_match_action_param1)>0:
+            newSkill=best_match_action_param0.lower()
+            skillValueStr=best_match_action_param1
+            if not players[id]['skill'].get(newSkill):
+                players[id]['skill'][newSkill] = 0
+            if '+' in skillValueStr:
+                # increase skill
+                players[id]['skill'][newSkill] = players[id]['skill'][newSkill] + int(skillValueStr.replace('+',''))
+            else:
+                # decrease skill
+                if '-' in skillValueStr:
+                    players[id]['skill'][newSkill] = players[id]['skill'][newSkill] - int(skillValueStr.replace('-',''))
+                else:
+                    # set skill to absolute value
+                    players[id]['skill'][newSkill] = players[id]['skill'][newSkill] + int(skillValueStr)
+            
+            mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
+            return True
+        else:
+            mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+            return False
+    return False
+
 def conversationTransport(best_match_action,best_match_action_param0,mud,id,players,best_match,npcs,nid,puzzledStr):
     """Conversation in which an NPC transports you to some location
     """
@@ -463,6 +492,13 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                         if conversationGive(best_match,best_match_action, \
                                             best_match_action_param0,players, \
                                             id,mud,npcs,nid,itemsDB,puzzledStr):
+                            return
+
+                        # teach skill
+                        if conversationSkill(best_match,best_match_action, \
+                                             best_match_action_param0, \
+                                             best_match_action_param1,players, \
+                                             id,mud,npcs,nid,itemsDB,puzzledStr):
                             return
 
                         # transport (free taxi)
