@@ -226,6 +226,11 @@ for k in npcsDB:
 
 log("NPCs loaded: " + str(len(npcsDB)), "info")
 
+with open(str(Config.get('CharacterClasses', 'Definition')), "r") as read_file:
+        characterClassDB = commentjson.load(read_file)
+
+log("Character Classes loaded: " + str(len(characterClassDB)), "info")
+
 # List NPC dictionary for debugging purposes
 #print(" ")
 #print("LIVE:")
@@ -406,7 +411,7 @@ while True:
         runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
         # Handle Fights
-        runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds)
+        runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,characterClassDB)
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate)
