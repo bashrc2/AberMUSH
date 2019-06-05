@@ -26,6 +26,7 @@ from functions import sendToChannel
 from functions import hash_password
 from functions import verify_password
 from functions import loadBlocklist
+from functions import setRace
 
 from events import evaluateEvent
 
@@ -507,7 +508,7 @@ while True:
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
                             template['characterClass']='witch'
-                            template['race']='human'
+                            setRace(id,players,racesDB,"human")
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 

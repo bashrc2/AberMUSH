@@ -374,3 +374,20 @@ def saveBlocklist(filename, blocklist):
     for blockedstr in blocklist:
         blockfile.write(blockedstr + '\n')
     blockfile.close()
+
+def setRace(id,players,racesDB,name):
+        """Set the player race
+        """
+        if not racesDB.get(name):
+                return
+        players[id]['race'] = name
+        players[id]['str'] = racesDB[name]['str']
+        players[id]['siz'] = racesDB[name]['siz']
+        players[id]['per'] = racesDB[name]['per']
+        players[id]['endu'] = racesDB[name]['endu']
+        players[id]['cha'] = racesDB[name]['cha']
+        players[id]['int'] = racesDB[name]['int']
+        players[id]['agi'] = racesDB[name]['agi']
+        players[id]['luc'] = racesDB[name]['luc']
+        players[id]['cool'] = racesDB[name]['cool']
+        players[id]['ref'] = racesDB[name]['ref']
