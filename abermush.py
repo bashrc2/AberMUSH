@@ -210,6 +210,7 @@ for k in npcsDB:
                 if not(v == "name" or \
                        v == "room" or \
                        v == "inv" or \
+                       v == "speakLanguage" or \
                        v == "language" or \
                        v == "conv" or \
                        v == "path" or \
@@ -623,11 +624,11 @@ while True:
                                         players[id]['cool'] = dbResponse[13]
                                         players[id]['cred'] = dbResponse[14]
                                         players[id]['inv'] = dbResponse[15]#.split(',')
-                                        players[id]['convstate'] = dbResponse[16]#.split(',')
+                                        players[id]['speakLanguage'] = dbResponse[16]
+                                        players[id]['language'] = dbResponse[17]                                        
+                                        players[id]['convstate'] = dbResponse[18]#.split(',')
                                         # Example: item_list = [e for e in item_list if e not in ('item', 5)]
                                         #players[id]['inv'] = [e for e in players[id]['inv'] if e not in ('', ' ')]
-                                        players[id]['speakLanguage'] = dbResponse[18]
-                                        players[id]['language'] = dbResponse[19]                                        
                                         players[id]['clo_head'] = dbResponse[20]
                                         players[id]['clo_neck'] = dbResponse[21]
                                         players[id]['clo_larm'] = dbResponse[22]

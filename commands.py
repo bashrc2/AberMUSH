@@ -1185,6 +1185,22 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                 mud.send_message(id,players[pid]['name'] + ' (' + \
                                  players[pid]['race'] + ' ' + players[pid]['characterClass'] + ')\n')
 
+        if players[pid].get('speakLanguage'):
+                mud.send_message(id,'Speaks: ' + players[pid]['speakLanguage'] + '\n')
+        if pid == id:
+                if players[id].get('language'):
+                        if len(players[id]['language'])>1:
+                                languagesStr=''
+                                langCtr=0
+                                print("language: " + str(players[id]['language']))
+                                for lang in players[id]['language']:
+                                        if langCtr>0:
+                                                languagesStr = languagesStr + ', ' + lang
+                                        else:
+                                                languagesStr = languagesStr + lang
+                                        langCtr=langCtr+1
+                                mud.send_message(id,'Languages: ' + languagesStr + '\n')
+        
         mud.send_message(id,players[pid]['lookDescription'] + '\n')
 
         if players[pid].get('canGo'):

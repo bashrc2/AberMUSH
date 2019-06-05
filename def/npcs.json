@@ -567,6 +567,8 @@
         "lookDescription": "lurks in the shadows",
         "name": "the mugger",
         "inv" : ["169"],
+	"speakLanguage": "common",
+	"language": ["common"],
         "conv" : [
             [["hello","hi","who"],"Get lost!"],
             [["mug","help"],"Bugger off!"],
@@ -1358,6 +1360,8 @@
     "405": {
         "name": "the old inn-keeper",
         "inv" : ["1367"],
+	"speakLanguage": "common",
+	"language": ["common"],
         "conv" : [
             [["rose","valentine","?"],"Have a special gift","giveondate","1114","14/2"],
             [["have","order","like","food","pork","eat","please"],"Here you go","give","799"],
