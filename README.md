@@ -33,6 +33,7 @@ change password [newpassword]           - Change your password
 who                                     - List players and where they are
 quit/exit                               - Leave the game
 eat/drink [item]                        - Eat or drink a consumable
+speak [language]                        - Switch to speaking a different language
 say [message]                           - Says something out loud
 look/examine                            - Examines the surroundings
 go [exit]                               - Moves through the exit specified

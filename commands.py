@@ -425,6 +425,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  who                                     - List players and where they are')
         mud.send_message(id, '  quit/exit                               - Leave the game')
         mud.send_message(id, '  eat/drink [item]                        - Eat or drink a consumable')
+        mud.send_message(id, '  speak [language]                        - Switch to speaking a different language')
         mud.send_message(id, '  say [message]                           - Says something out loud, '  + "e.g. 'say Hello'")
         mud.send_message(id, '  look/examine                            - Examines the ' + "surroundings, items in the room, NPCs or other players e.g. 'examine inn-keeper'")
         mud.send_message(id, '  go [exit]                               - Moves through the exit ' + "specified, e.g. 'go outside'")
@@ -470,6 +471,14 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  resetuniverse                           - Resets the universe, losing any changes from defaults')
                 mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
 
+def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
+        lang=params.lower().strip()
+        if lang not in players[id]['language']:
+                mud.send_message(id, "You don't know how to speak " + lang + "\n\n")
+                return
+        players[id]['speakLanguage'] = lang
+        mud.send_message(id, "You switch to speaking in " + lang + "\n\n")        
+                
 def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         # print(channels)
         if players[id]['canSay'] == 1:
@@ -2250,6 +2259,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "make": conjure,
                 "cancel": destroy,
                 "banish": destroy,
+                "speak": speak,
                 "destroy": destroy,
                 "resetuniverse": resetUniverse,
                 "shutdown": shutdown
