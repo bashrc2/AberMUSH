@@ -482,8 +482,6 @@ while True:
                                         break
                         if taken == False:
                                 players[id]['exAttribute1'] = command
-                                # print(players[id]['exAttribute1'])
-                                mud.send_message(id, "<f220>\nAhh.. <r><f32>" + command + "<r><f220>! That's a strong name!\n")
                                 mud.send_message(id, "<f220>Now what would you like your password to be?\n\n")
                                 players[id]['exAttribute0'] = 1002
                                 break
