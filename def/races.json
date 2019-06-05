@@ -1,6 +1,6 @@
 {
     "human": {
-        "str": 100,
+        "str": 12,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -31,7 +31,7 @@
  	"resist_water": 0		
     },
     "dwarf": {
-        "str": 130,
+        "str": 13,
         "siz": 1,
         "per": 3,
         "endu": 1,
@@ -62,7 +62,7 @@
  	"resist_water": -76		
     },
     "elf": {
-        "str": 130,
+        "str": 13,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -93,7 +93,7 @@
  	"resist_water": 0		
     },
     "giant": {
-        "str": 150,
+        "str": 15,
         "siz": 3,
         "per": 3,
         "endu": 1,
@@ -124,7 +124,7 @@
  	"resist_water": 0		
     },
     "halfling": {
-        "str": 100,
+        "str": 10,
         "siz": 1,
         "per": 3,
         "endu": 1,
@@ -155,7 +155,7 @@
  	"resist_water": -29		
     },
     "goblin": {
-        "str": 120,
+        "str": 12,
         "siz": 1,
         "per": 3,
         "endu": 1,
@@ -186,7 +186,7 @@
  	"resist_water": 0		
     },
     "sprite": {
-        "str": 80,
+        "str": 8,
         "siz": 1,
         "per": 3,
         "endu": 1,
@@ -217,7 +217,7 @@
  	"resist_water": 0		
     },
     "quickling": {
-        "str": 80,
+        "str": 8,
         "siz": 1,
         "per": 3,
         "endu": 1,
@@ -248,7 +248,7 @@
  	"resist_water": 0		
     },
     "centaur": {
-        "str": 110,
+        "str": 11,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -279,7 +279,7 @@
  	"resist_water": 0		
     },
     "vampire": {
-        "str": 100,
+        "str": 10,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -310,7 +310,7 @@
  	"resist_water": 0		
     },
     "wolfen": {
-        "str": 110,
+        "str": 11,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -341,7 +341,7 @@
  	"resist_water": 0		
     },
     "ratling": {
-        "str": 100,
+        "str": 10,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -372,7 +372,7 @@
  	"resist_water": 0		
     },
     "diva": {
-        "str": 90,
+        "str": 9,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -403,7 +403,7 @@
  	"resist_water": 0		
     },
     "shadow": {
-        "str": 70,
+        "str": 7,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -434,7 +434,7 @@
  	"resist_water": 0		
     },
     "triton": {
-        "str": 110,
+        "str": 11,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -465,7 +465,7 @@
  	"resist_water": 62		
     },
     "lizard": {
-        "str": 100,
+        "str": 10,
         "siz": 2,
         "per": 3,
         "endu": 1,
@@ -496,7 +496,7 @@
  	"resist_water": 0		
     },
     "eldar": {
-        "str": 100,
+        "str": 10,
         "siz": 2,
         "per": 3,
         "endu": 1,
