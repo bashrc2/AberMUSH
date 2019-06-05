@@ -1200,9 +1200,11 @@ def messageToPlayersInRoom(mud,players,id,msg):
                         mud.send_message(pid,msg)
 
 def bioOfPlayer(mud,id,pid,players,itemsDB):
-        if len(players[pid]['race'])>0:
-                mud.send_message(id,'<f32>' + players[pid]['name'] + '<r> (' + \
-                                 players[pid]['race'] + ' ' + players[pid]['characterClass'] + ')\n')
+        if players[pid].get('race'):
+                if len(players[pid]['race'])>0:
+                        mud.send_message(id,'<f32>' + players[pid]['name'] + '<r> (' + \
+                                         players[pid]['race'] + ' ' + \
+                                         players[pid]['characterClass'] + ')\n')
 
         if players[pid].get('speakLanguage'):
                 mud.send_message(id,'<f15>Speaks:<r> ' + players[pid]['speakLanguage'] + '\n')

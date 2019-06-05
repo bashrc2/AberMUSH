@@ -536,6 +536,12 @@ while True:
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
                             template['characterClass']='witch'
+                            # admin speaks all languages
+                            template['language']=[]
+                            for race,raceStats in racesDB.items():
+                                    for lang in raceStats['language']:
+                                            if lang not in template['language']:
+                                                    template['language'].append(lang)
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 

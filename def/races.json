@@ -192,7 +192,7 @@
  	"resist_water": 0		
     },
     "sprite": {
-	"language": ["elven"],
+	"language": ["elvish"],
         "str": 8,
         "siz": 1,
         "per": 3,
@@ -224,7 +224,7 @@
  	"resist_water": 0		
     },
     "quickling": {
-	"language": ["elven"],
+	"language": ["elvish"],
         "str": 8,
         "siz": 1,
         "per": 3,
@@ -320,7 +320,7 @@
  	"resist_water": 0		
     },
     "wolfen": {
-	"language": ["dwarven"],
+	"language": ["dwarvish"],
         "str": 11,
         "siz": 2,
         "per": 3,
@@ -352,7 +352,7 @@
  	"resist_water": 0		
     },
     "ratling": {
-	"language": ["dwarven"],
+	"language": ["dwarvish"],
         "str": 10,
         "siz": 2,
         "per": 3,
@@ -448,7 +448,7 @@
  	"resist_water": 0		
     },
     "triton": {
-	"language": ["elven"],
+	"language": ["elvish"],
         "str": 11,
         "siz": 2,
         "per": 3,
