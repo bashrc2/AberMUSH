@@ -1183,7 +1183,7 @@ def messageToPlayersInRoom(mud,players,id,msg):
 def bioOfPlayer(mud,id,pid,players,itemsDB):
         if len(players[pid]['race'])>0:
                 mud.send_message(id,players[pid]['name'] + ' (' + \
-                                 players[pid]['race'] + ')\n\n')
+                                 players[pid]['race'] + ' ' + players[pid]['characterClass'] + ')\n')
 
         mud.send_message(id,players[pid]['lookDescription'] + '\n')
 
