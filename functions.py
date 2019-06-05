@@ -378,6 +378,9 @@ def saveBlocklist(filename, blocklist):
 def setRace(template,racesDB,name):
         """Set the player race
         """
+        template['speakLanguage'] = racesDB[name]['language'][0]
+        template['language'].clear()
+        template['language'].append(racesDB[name]['language'][0])
         template['race'] = name
         template['str'] = racesDB[name]['str']
         template['siz'] = racesDB[name]['siz']

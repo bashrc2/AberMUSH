@@ -52,6 +52,8 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'cred': None,
                         'inv': None,
                         'authenticated': None,
+                        'speakLanguage': None,
+                        'language': None,
                         'clo_head': None,
                         'clo_neck': None,
                         'clo_larm': None,

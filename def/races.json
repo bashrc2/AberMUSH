@@ -1,5 +1,6 @@
 {
     "human": {
+	"language": ["common"],
         "str": 12,
         "siz": 2,
         "per": 3,
@@ -31,6 +32,7 @@
  	"resist_water": 0		
     },
     "dwarf": {
+	"language": ["dwarvish"],
         "str": 13,
         "siz": 1,
         "per": 3,
@@ -62,6 +64,7 @@
  	"resist_water": -76		
     },
     "elf": {
+	"language": ["elvish"],
         "str": 13,
         "siz": 2,
         "per": 3,
@@ -93,6 +96,7 @@
  	"resist_water": 0		
     },
     "giant": {
+	"language": ["dwarvish"],
         "str": 15,
         "siz": 3,
         "per": 3,
@@ -124,6 +128,7 @@
  	"resist_water": 0		
     },
     "halfling": {
+	"language": ["common"],
         "str": 10,
         "siz": 1,
         "per": 3,
@@ -155,6 +160,7 @@
  	"resist_water": -29		
     },
     "goblin": {
+	"language": ["dwarvish"],
         "str": 12,
         "siz": 1,
         "per": 3,
@@ -186,6 +192,7 @@
  	"resist_water": 0		
     },
     "sprite": {
+	"language": ["elven"],
         "str": 8,
         "siz": 1,
         "per": 3,
@@ -217,6 +224,7 @@
  	"resist_water": 0		
     },
     "quickling": {
+	"language": ["elven"],
         "str": 8,
         "siz": 1,
         "per": 3,
@@ -248,6 +256,7 @@
  	"resist_water": 0		
     },
     "centaur": {
+	"language": ["common"],
         "str": 11,
         "siz": 2,
         "per": 3,
@@ -279,6 +288,7 @@
  	"resist_water": 0		
     },
     "vampire": {
+	"language": ["draconic"],
         "str": 10,
         "siz": 2,
         "per": 3,
@@ -310,6 +320,7 @@
  	"resist_water": 0		
     },
     "wolfen": {
+	"language": ["dwarven"],
         "str": 11,
         "siz": 2,
         "per": 3,
@@ -341,6 +352,7 @@
  	"resist_water": 0		
     },
     "ratling": {
+	"language": ["dwarven"],
         "str": 10,
         "siz": 2,
         "per": 3,
@@ -372,6 +384,7 @@
  	"resist_water": 0		
     },
     "diva": {
+	"language": ["common"],
         "str": 9,
         "siz": 2,
         "per": 3,
@@ -403,6 +416,7 @@
  	"resist_water": 0		
     },
     "shadow": {
+	"language": ["druidic"],
         "str": 7,
         "siz": 2,
         "per": 3,
@@ -434,6 +448,7 @@
  	"resist_water": 0		
     },
     "triton": {
+	"language": ["elven"],
         "str": 11,
         "siz": 2,
         "per": 3,
@@ -465,6 +480,7 @@
  	"resist_water": 62		
     },
     "lizard": {
+	"language": ["draconic"],
         "str": 10,
         "siz": 2,
         "per": 3,
@@ -496,6 +512,7 @@
  	"resist_water": 0		
     },
     "eldar": {
+	"language": ["druidic"],
         "str": 10,
         "siz": 2,
         "per": 3,
