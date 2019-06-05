@@ -491,13 +491,41 @@ while True:
                                 break
 
                 if players[id]['exAttribute0'] == 1002:
-                        players[id]['idleStart'] = int(time.time())
+                        # store the password
                         mud.send_message(id, "<f220>\nOk, got that.\n")
                         players[id]['exAttribute2'] = command
+                        
+                        players[id]['idleStart'] = int(time.time())
+                        mud.send_message(id, "<f220>\nSelect your character race:\n\n")
+                        ctr=0
+                        typesStr='  '
+                        for (name, p) in list(racesDB.items()):
+                                if ctr>0:
+                                        typesStr = typesStr + ', <f220>' + name + '<r>'
+                                else:
+                                        typesStr = typesStr + '<f220>' + name + '<r>'
+                                ctr = ctr + 1
+                                if ctr > 7:
+                                        typesStr = typesStr + '\n  '
+                                        ctr = 0
+                        mud.send_message(id, typesStr+'\n\n')
+                        players[id]['exAttribute0'] = 1003
+                        break
+
+                if players[id]['exAttribute0'] == 1003:
+                        players[id]['idleStart'] = int(time.time())
+                        selectedRace = command.lower().strip()
+                        if not racesDB.get(selectedRace):
+                                mud.send_message(id, "<f220>\nUnrecognized character race.<r>\n\n")
+                                players[id]['exAttribute0'] = 1000
+                                mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
+                                break
 
                         # Load the player template from a file
                         with open(str(Config.get('Players', 'Location')) + "/player.template", "r") as read_file:
                                 template = commentjson.load(read_file)
+
+                        setRace(template,racesDB,selectedRace)
 
                         # Make required changes to template before saving again into <Name>.player
                         template['name'] = players[id]['exAttribute1']
@@ -506,7 +534,6 @@ while True:
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
                             template['characterClass']='witch'
-                            setRace(id,players,racesDB,"human")
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 

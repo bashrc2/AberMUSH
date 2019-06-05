@@ -375,19 +375,17 @@ def saveBlocklist(filename, blocklist):
         blockfile.write(blockedstr + '\n')
     blockfile.close()
 
-def setRace(id,players,racesDB,name):
+def setRace(template,racesDB,name):
         """Set the player race
         """
-        if not racesDB.get(name):
-                return
-        players[id]['race'] = name
-        players[id]['str'] = racesDB[name]['str']
-        players[id]['siz'] = racesDB[name]['siz']
-        players[id]['per'] = racesDB[name]['per']
-        players[id]['endu'] = racesDB[name]['endu']
-        players[id]['cha'] = racesDB[name]['cha']
-        players[id]['int'] = racesDB[name]['int']
-        players[id]['agi'] = racesDB[name]['agi']
-        players[id]['luc'] = racesDB[name]['luc']
-        players[id]['cool'] = racesDB[name]['cool']
-        players[id]['ref'] = racesDB[name]['ref']
+        template['race'] = name
+        template['str'] = racesDB[name]['str']
+        template['siz'] = racesDB[name]['siz']
+        template['per'] = racesDB[name]['per']
+        template['endu'] = racesDB[name]['endu']
+        template['cha'] = racesDB[name]['cha']
+        template['int'] = racesDB[name]['int']
+        template['agi'] = racesDB[name]['agi']
+        template['luc'] = racesDB[name]['luc']
+        template['cool'] = racesDB[name]['cool']
+        template['ref'] = racesDB[name]['ref']
