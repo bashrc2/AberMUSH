@@ -354,7 +354,10 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                         break
                                         
                                         if not selfOnly:
-                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message, p, eventSchedule, eventDB)
+                                                if players[id]['speakLanguage'] in players[p]['language']:
+                                                        addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message, p, eventSchedule, eventDB)
+                                                else:
+                                                        addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage'], p, eventSchedule, eventDB)
                                         mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message + "\n")
                                         told = True
                                         break
@@ -394,10 +397,14 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                                                                 if blockedstr in msglower:
                                                                         selfOnly=True
                                                                         break
-                                                        
+
                                                         mud.send_message(id, "You whisper to <f32>" + players[p]['name'] + "<r>: " + message[1:] + '\n')
                                                         if not selfOnly:
-                                                                mud.send_message(p, "<f162>" + players[id]['name'] + " whispers: " + message[1:] + '\n')
+                                                                if players[id]['speakLanguage'] in players[p]['language']:
+                                                                
+                                                                        mud.send_message(p, "<f162>" + players[id]['name'] + " whispers: " + message[1:] + '\n')
+                                                                else:
+                                                                        mud.send_message(p, "<f162>" + players[id]['name'] + " whispers something in " + players[id]['speakLanguage'] + '\n')
                                                         messageSent = True
                                                         break
                                                 else:
@@ -479,9 +486,12 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                 for (pid, pl) in list(players.items()):
                         # if they're in the same room as the player
                         if players[pid]['room'] == players[id]['room']:
-                                # send them a message telling them what the player said
                                 if selfOnly == False or pid == id:
-                                        mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
+                                        if players[id]['speakLanguage'] in players[pid]['language']:
+                                                # send them a message telling them what the player said
+                                                mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
+                                        else:
+                                                mud.send_message(pid, '<f220>{}<r> says something in <f159>{}<r>'.format(players[id]['name'], players[id]['speakLanguage']) + "\n\n")
         else:
                 mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
@@ -1182,11 +1192,11 @@ def messageToPlayersInRoom(mud,players,id,msg):
 
 def bioOfPlayer(mud,id,pid,players,itemsDB):
         if len(players[pid]['race'])>0:
-                mud.send_message(id,players[pid]['name'] + ' (' + \
+                mud.send_message(id,'<f32>' + players[pid]['name'] + '<r> (' + \
                                  players[pid]['race'] + ' ' + players[pid]['characterClass'] + ')\n')
 
         if players[pid].get('speakLanguage'):
-                mud.send_message(id,'Speaks: ' + players[pid]['speakLanguage'] + '\n')
+                mud.send_message(id,'<f15>Speaks:<r> ' + players[pid]['speakLanguage'] + '\n')
         if pid == id:
                 if players[id].get('language'):
                         if len(players[id]['language'])>1:

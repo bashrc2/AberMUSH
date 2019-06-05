@@ -442,15 +442,21 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
         """Conversation with an NPC
            This typically works by matching some words and then producing a corresponding response and/or action
         """
+
+        puzzledStr='puzzled'
+        if randint(0, 1) == 1:
+                puzzledStr='confused'
+        
+        if npcs[nid].get('language'):
+            if players[id]['speakLanguage'] not in npcs[nid]['language']:
+                mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ". They don't understand your language.\n\n")
+                return
+
         best_match=''
         best_match_action=''
         best_match_action_param0=''
         best_match_action_param1=''
         max_match_ctr=0
-
-        puzzledStr='puzzled'
-        if randint(0, 1) == 1:
-                puzzledStr='confused'
 
         conversation_states=players[id]['convstate']
         conversation_new_state=''

@@ -2,6 +2,8 @@
     "6": {
         "name": "the giant rat",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Eeeek!"]
         ],
@@ -59,6 +61,8 @@
     "64": {
         "name": "the black panther",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Grrrrr!"]
         ],
@@ -116,6 +120,8 @@
     "65": {
         "name": "the monkey",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Oooh-ooh!"]
         ],
@@ -176,6 +182,8 @@
         "lookDescription": "eyes you curiously",
         "name": "the weasel",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Eeeeek!"]
         ],
@@ -233,6 +241,8 @@
         "lookDescription": "lifts its tail threateningly",
         "name": "the skunk",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : ["$rid=67$","$rid=68$","$rid=28$"],
         "bodyType": "",
@@ -285,6 +295,8 @@
     "94": {
         "name": "Lars",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : ["$rid=105$","$rid=109$"],
         "bodyType": "",
@@ -340,6 +352,8 @@
     "112": {
         "name": "Erik",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["hello"],"Greetings!"]
         ],
@@ -400,6 +414,8 @@
         "lookDescription": "kneels before the bonfire rubbing his hands.",
         "name": "Njalmir",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -452,6 +468,8 @@
     "137": {
         "name": "the fire demon",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Foolish mortal!"]
         ],
@@ -509,6 +527,8 @@
     "139": {
         "name": "the fur trapper",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -567,8 +587,8 @@
         "lookDescription": "lurks in the shadows",
         "name": "the mugger",
         "inv" : ["169"],
-	"speakLanguage": "common",
-	"language": ["common"],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["hello","hi","who"],"Get lost!"],
             [["mug","help"],"Bugger off!"],
@@ -625,6 +645,8 @@
     "166": {
         "name": "the black raven",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Kaw!"]
         ],
@@ -682,6 +704,8 @@
     "185": {
         "name": "the old pig",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Oink!"]
         ],
@@ -739,6 +763,8 @@
     "215": {
         "name": "the imp",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -794,6 +820,8 @@
     "303": {
         "name": "the one-armed zombie",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Rrrrr!"]
         ],
@@ -854,6 +882,8 @@
         "lookDescription": "moves clumsily around",
         "name": "the crawler zombie",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Aaaaa!"]
         ],
@@ -911,6 +941,8 @@
         "lookDescription": "turns slowly to follow you",
         "name": "the grey zombie",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Aaaaaaaa!"]
         ],
@@ -967,6 +999,8 @@
     "339": {
         "name": "the pruple zombie",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Aaaaaakkk!"]
         ],
@@ -1024,6 +1058,8 @@
     "340": {
         "name": "the green zombie",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"AaaaRRRRrrr!"]
         ],
@@ -1083,6 +1119,8 @@
     "342": {
         "name": "the necromancer",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1138,6 +1176,8 @@
     "380": {
         "name": "the knight",
         "inv" : ["1366","624"],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["rose","valentine","?"],"A gift","giveondate","1114","14/2"]
         ],
@@ -1195,6 +1235,8 @@
     "392": {
         "name": "a cute little bunny rabbit",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1250,6 +1292,8 @@
     "393": {
         "name": "a cute little bunny rabbit",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1305,6 +1349,8 @@
     "394": {
         "name": "a cute little bunny rabbit",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1360,8 +1406,8 @@
     "405": {
         "name": "the old inn-keeper",
         "inv" : ["1367"],
-	"speakLanguage": "common",
-	"language": ["common"],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["rose","valentine","?"],"Have a special gift","giveondate","1114","14/2"],
             [["have","order","like","food","pork","eat","please"],"Here you go","give","799"],
@@ -1434,6 +1480,8 @@
         "lookDescription": "blocks your path",
         "name": "the giant slug",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1486,6 +1534,8 @@
     "524": {
         "name": "the giant snake",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Sssssssss!"]
         ],
@@ -1546,6 +1596,8 @@
         "lookDescription": "stands before you squeaking and showing its teeth",
         "name": "the giant rat",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"Eeeeeek!"]
         ],
@@ -1601,6 +1653,8 @@
     "646": {
         "name": "the wizened man",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1656,6 +1710,8 @@
     "678": {
         "name": "the librarian",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["book"],"Take your pick"]
         ],
@@ -1713,6 +1769,8 @@
     "723": {
         "name": "the elf",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1768,6 +1826,8 @@
     "749": {
         "name": "the wizened corpse",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1826,6 +1886,8 @@
         "lookDescription": "stands glowering before you. He is",
         "name": "the dark priest",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1878,6 +1940,8 @@
     "811": {
         "name": "the monk",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1933,6 +1997,8 @@
     "812": {
         "name": "the monk",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -1988,6 +2054,8 @@
     "840": {
         "name": "the hermit",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2046,6 +2114,8 @@
         "lookDescription": "stands on watch here",
         "name": "the sturdy dwarf",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2098,6 +2168,8 @@
     "867": {
         "name": "the ogre",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2156,6 +2228,8 @@
         "lookDescription": "watches you cautiously from a distance",
         "name": "the bear",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2211,6 +2285,8 @@
         "lookDescription": "stands here",
         "name": "the heavy dwarf",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2266,6 +2342,8 @@
         "lookDescription": "is here, cropping grass peacefully",
         "name": "the goat",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2321,6 +2399,8 @@
         "lookDescription": "is here, chewing the cud quietly. The goat is",
         "name": "the goat",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2376,6 +2456,8 @@
         "lookDescription": "stands watch",
         "name": "the strong dwarf",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2431,6 +2513,8 @@
         "lookDescription": "stands on guard",
         "name": "the sturdy dwarf",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2486,6 +2570,8 @@
         "lookDescription": "crouches before you, eyeing you suspiciously",
         "name": "the wolf",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2538,6 +2624,8 @@
     "1373": {
         "name": "the stone golem",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [],
         "path" : [],
         "bodyType": "",
@@ -2596,6 +2684,8 @@
         "outDescription": "trots out of view",
         "lookDescription": "The rider on a dappled brown horse looks like the inn-keeper's son and is giving people rides between the high street and the inn. Perhaps this free transportation is useful for removing troublemakers.",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["ride","lift","take","high"],"You climb into position behind The rider and they take you to the high street.","ride","$rid=424$"],
             [["ride","lift","take","inn"],"You climb into position behind The rider and they take you to the hatchet inn.","ride","$rid=433$"]
@@ -2654,6 +2744,8 @@
         "outDescription": "trots out of view",
         "lookDescription": "The rider on a grey horse wears a long black cloak to keep off the rain. Only their skeletal hands are occasionally visible.",
         "inv" : [],
+        "speakLanguage": "common",
+        "language": ["common"],
         "conv" : [
             [["e"],"The rider continues, ignoring you"]
         ],
