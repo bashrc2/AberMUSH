@@ -1117,42 +1117,58 @@ def unwear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
 
         if int(players[id]['clo_head']) > 0:
                 itemID=int(players[id]['clo_head'])
-                mud.send_message(id, 'You remove ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You remove ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_head'] = 0
 
         if int(players[id]['clo_neck']) > 0:
                 itemID=int(players[id]['clo_neck'])
-                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_neck'] = 0
 
         if int(players[id]['clo_lwrist']) > 0:
                 itemID=int(players[id]['clo_lwrist'])
-                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_lwrist'] = 0
 
         if int(players[id]['clo_rwrist']) > 0:
                 itemID=int(players[id]['clo_rwrist'])
-                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_rwrist'] = 0
 
         if int(players[id]['clo_larm']) > 0:
                 itemID=int(players[id]['clo_larm'])
-                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_larm'] = 0
 
         if int(players[id]['clo_rarm']) > 0:
                 itemID=int(players[id]['clo_rarm'])
-                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_rarm'] = 0
 
         if int(players[id]['clo_chest']) > 0:
                 itemID=int(players[id]['clo_chest'])
-                mud.send_message(id, 'You remove ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You remove ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_chest'] = 0
 
         if int(players[id]['clo_feet']) > 0:
                 itemID=int(players[id]['clo_feet'])
-                mud.send_message(id, 'You take off ' + itemsDB[itemID]['article'] + ' <b234>' + itemsDB[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You take off ' + \
+                                 itemsDB[itemID]['article'] + ' <b234>' + \
+                                 itemsDB[itemID]['name'] + '\n\n')
                 players[id]['clo_feet'] = 0
 
 def messageToPlayersInRoom(mud,players,id,msg):
@@ -1166,8 +1182,9 @@ def messageToPlayersInRoom(mud,players,id,msg):
 
 def bioOfPlayer(mud,id,pid,players,itemsDB):
         if len(players[pid]['race'])>0:
-                mud.send_message(id,players[pid]['name'] + ' (' + players[pid]['race'] + ' ' + players[pid]['characterClass'] +')\n\n')
-                
+                mud.send_message(id,players[pid]['name'] + ' (' + \
+                                 players[pid]['race'] + ')\n\n')
+
         mud.send_message(id,players[pid]['lookDescription'] + '\n')
 
         if players[pid].get('canGo'):
@@ -1202,14 +1219,22 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                 playerName3='have'
 
         if int(players[pid]['clo_rhand'])>0:
-                mud.send_message(id,playerName + ' ' + playerName3 + ' ' + itemsDB[players[pid]['clo_rhand']]['article'] + ' ' + itemsDB[players[pid]['clo_rhand']]['name'] + ' in ' + playerName2 + ' right hand.\n')
+                mud.send_message(id,playerName + ' ' + playerName3 + ' ' + \
+                                 itemsDB[players[pid]['clo_rhand']]['article'] + \
+                                 ' ' + itemsDB[players[pid]['clo_rhand']]['name'] + \
+                                 ' in ' + playerName2 + ' right hand.\n')
         if int(players[pid]['clo_lhand'])>0:
-                mud.send_message(id,playerName + ' ' + playerName3 + ' ' + itemsDB[players[pid]['clo_lhand']]['article'] + ' ' + itemsDB[players[pid]['clo_lhand']]['name'] + ' in ' + playerName2 + ' left hand.\n')
+                mud.send_message(id,playerName + ' ' + playerName3 + ' ' + \
+                                 itemsDB[players[pid]['clo_lhand']]['article'] + \
+                                 ' ' + itemsDB[players[pid]['clo_lhand']]['name'] + \
+                                 ' in ' + playerName2 + ' left hand.\n')
 
         if wearingCtr>0:
                 wearingMsg=playerName + ' are wearing'
                 wearingCtr2=0
-                playerClothing=('clo_head','clo_neck','clo_lwrist','clo_rwrist','clo_larm','clo_rarm','clo_chest','clo_lleg','clo_rleg','clo_feet')
+                playerClothing=('clo_head','clo_neck','clo_lwrist','clo_rwrist',\
+                                'clo_larm','clo_rarm','clo_chest','clo_lleg',\
+                                'clo_rleg','clo_feet')
                 for cl in playerClothing:
                         if int(players[pid][cl])>0:
                                 if wearingCtr2>0:
@@ -1219,7 +1244,8 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                                                 wearingMsg=wearingMsg+', '
                                 else:
                                         wearingMsg=wearingMsg+' '
-                                wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['article'] + ' ' + itemsDB[players[pid][cl]]['name']
+                                wearingMsg=wearingMsg+itemsDB[players[pid][cl]]['article'] + \
+                                        ' ' + itemsDB[players[pid][cl]]['name']
                                 if cl.endswith('neck'):
                                         wearingMsg=wearingMsg+' around ' + playerName2 + ' neck'
                                 if cl.endswith('lwrist'):
@@ -1285,7 +1311,8 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                 mud.send_message(id,"Your don't have " + params + ".\n\n")
                 return
 
-        mud.send_message(id,"You consume " + itemsDB[foodItemID]['article'] + " " + itemsDB[foodItemID]['name'] + ".\n\n")
+        mud.send_message(id,"You consume " + itemsDB[foodItemID]['article'] + \
+                         " " + itemsDB[foodItemID]['name'] + ".\n\n")
 
         # Alter hp
         players[id]['hp'] = players[id]['hp'] + itemsDB[foodItemID]['edible']
@@ -1314,11 +1341,15 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
 
                 # if the specified exit is found in the room's exits list
                 if ex in rm['exits']:
-                        messageToPlayersInRoom(mud,players,id,'<f32>' + players[id]['name'] + '<r> ' + players[id]['outDescription'] + " via exit " + ex + '\n')
+                        messageToPlayersInRoom(mud,players,id,'<f32>' + \
+                                               players[id]['name'] + '<r> ' + \
+                                               players[id]['outDescription'] + \
+                                               " via exit " + ex + '\n')
 
                         # Trigger old room eventOnLeave for the player
                         if rooms[players[id]['room']]['eventOnLeave'] is not "":
-                                addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']), id, eventSchedule, eventDB)
+                                addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']), \
+                                               id, eventSchedule, eventDB)
 
                         # Does the player have any follower NPCs?
                         followersMsg=""
@@ -1329,8 +1360,13 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                                                 # is the player within the permitted npc path?
                                                 if rm['exits'][ex] in list(npcs[nid]['path']):
                                                         npcs[nid]['room'] = rm['exits'][ex]
-                                                        followersMsg=followersMsg+'<f32>'+npcs[nid]['name'] + '<r> ' + npcs[nid]['inDescription'] + '.\n'
-                                                        messageToPlayersInRoom(mud,players,id,'<f32>' + npcs[nid]['name'] + '<r> ' + npcs[nid]['outDescription'] + " via exit " + ex + '\n')
+                                                        followersMsg=followersMsg+'<f32>' + \
+                                                                npcs[nid]['name'] + '<r> ' + \
+                                                                npcs[nid]['inDescription'] + '.\n'
+                                                        messageToPlayersInRoom(mud,players,id,'<f32>' + \
+                                                                               npcs[nid]['name'] + '<r> ' + \
+                                                                               npcs[nid]['outDescription'] + \
+                                                                               " via exit " + ex + '\n')
                                                 else:
                                                         # not within the npc path, stop following
                                                         #print(npcs[nid]['name'] + ' stops following (out of path)\n')
@@ -1346,9 +1382,12 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
 
                         # trigger new room eventOnEnter for the player
                         if rooms[players[id]['room']]['eventOnEnter'] is not "":
-                                addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']), id, eventSchedule, eventDB)
+                                addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']), \
+                                               id, eventSchedule, eventDB)
 
-                        messageToPlayersInRoom(mud,players,id,'<f32>' + players[id]['name'] + '<r> ' + players[id]['inDescription'] + "\n")
+                        messageToPlayersInRoom(mud,players,id,'<f32>' + \
+                                               players[id]['name'] + '<r> ' + \
+                                               players[id]['inDescription'] + "\n")
 
                         # send the player a message telling them where they are now
                         #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))
@@ -1418,7 +1457,10 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
                 for (iid, pl) in list(itemsDB.items()):
                         if str(iid) == item:
                                 if itemName in itemsDB[iid]['name'].lower():
-                                        mud.send_message(id, "You have " + itemsDB[iid]['article'] + " " + itemsDB[iid]['name'] + " in your inventory already.\n\n")
+                                        mud.send_message(id, "You have " + \
+                                                         itemsDB[iid]['article'] + " " + \
+                                                         itemsDB[iid]['name'] + \
+                                                         " in your inventory already.\n\n")
                                         return False
         # Check if it is in the room
         for (item, pl) in list(items.items()):
@@ -1442,9 +1484,13 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         if itemID != -1:
                 # Generate item
                 itemKey=getFreeKey(items)
-                items[itemKey] = { 'id': itemID, 'room': players[id]['room'], 'whenDropped': int(time.time()), 'lifespan': 900000000, 'owner': id }
+                items[itemKey] = { 'id': itemID, 'room': players[id]['room'], \
+                                   'whenDropped': int(time.time()), \
+                                   'lifespan': 900000000, 'owner': id }
 
-                mud.send_message(id, itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + ' spontaneously materializes in front of you.\n\n')
+                mud.send_message(id, itemsDB[itemID]['article'] + ' ' + \
+                                 itemsDB[itemID]['name'] + \
+                                 ' spontaneously materializes in front of you.\n\n')
                 saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
                 return True
         return False
@@ -1462,7 +1508,8 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
         for (nid, pl) in list(npcs.items()):
                 if npcs[nid]['room'] == players[id]['room']:
                         if npcName.lower() in npcs[nid]['name'].lower():
-                                mud.send_message(id, npcs[nid]['name'] + " is already here.\n\n")
+                                mud.send_message(id, npcs[nid]['name'] + \
+                                                 " is already here.\n\n")
                                 return False
 
         # default medium size
@@ -1541,10 +1588,18 @@ def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                 return
 
         if params.startswith('room '):
-                conjureRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                conjureRoom(params, mud, playersDB, players, rooms, npcsDB, \
+                            npcs, itemsDB, items, envDB, env, eventDB, \
+                            eventSchedule, id, fights, corpses, blocklist, mapArea)
         else:
-                if not conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
-                        conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                if not conjureItem(params, mud, playersDB, players, rooms, \
+                                   npcsDB, npcs, itemsDB, items, envDB, env, \
+                                   eventDB, eventSchedule, id, fights, \
+                                   corpses, blocklist, mapArea):
+                        conjureNPC(params, mud, playersDB, players, rooms, \
+                                   npcsDB, npcs, itemsDB, items, envDB, env, \
+                                   eventDB, eventSchedule, id, fights, corpses, \
+                                   blocklist, mapArea)
 
 def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         itemName = params.lower()
@@ -1602,7 +1657,9 @@ def destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         params = params.replace('room ','')
         roomDirection = params.lower().strip()
         possibleDirections=('north','south','east','west','up','down','in','out')
-        oppositeDirection={'north':'south','south':'north','east':'west','west':'east','up':'down','down':'up','in':'out','out':'in'}
+        oppositeDirection={'north':'south','south':'north','east':'west', \
+                           'west':'east','up':'down','down':'up', \
+                           'in':'out','out':'in'}
         if roomDirection not in possibleDirections:
                 mud.send_message(id, 'Specify a room direction.\n\n')
                 return False
@@ -1640,12 +1697,20 @@ def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                 return
 
         if params.startswith('room '):
-                destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                destroyRoom(params, mud, playersDB, players, rooms, npcsDB, \
+                            npcs, itemsDB, items, envDB, env, eventDB, \
+                            eventSchedule, id, fights, corpses, blocklist, mapArea)
         else:
                 if params.startswith('npc '):
-                        destroyNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                        destroyNPC(params, mud, playersDB, players, rooms, \
+                                   npcsDB, npcs, itemsDB, items, envDB, env, \
+                                   eventDB, eventSchedule, id, fights, \
+                                   corpses, blocklist, mapArea)
                 else:
-                        destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea)
+                        destroyItem(params, mud, playersDB, players, rooms, \
+                                    npcsDB, npcs, itemsDB, items, envDB, env, \
+                                    eventDB, eventSchedule, id, fights, \
+                                    corpses, blocklist, mapArea)
 
 def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         # Check if inventory is empty

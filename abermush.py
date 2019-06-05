@@ -226,10 +226,10 @@ for k in npcsDB:
 
 log("NPCs loaded: " + str(len(npcsDB)), "info")
 
-with open(str(Config.get('CharacterClasses', 'Definition')), "r") as read_file:
-        characterClassDB = commentjson.load(read_file)
+with open(str(Config.get('Races', 'Definition')), "r") as read_file:
+        racesDB = commentjson.load(read_file)
 
-log("Character Classes loaded: " + str(len(characterClassDB)), "info")
+log("Races loaded: " + str(len(racesDB)), "info")
 
 # List NPC dictionary for debugging purposes
 #print(" ")
@@ -411,7 +411,7 @@ while True:
         runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
         # Handle Fights
-        runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,characterClassDB)
+        runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB)
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate)
@@ -507,6 +507,7 @@ while True:
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
                             template['characterClass']='witch'
+                            template['race']='human'
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 
