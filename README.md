@@ -129,6 +129,19 @@ the old inn-keeper says: We only serve the more disreputable wine.
 
 The NPC can also give an item if some words are matched, or exchange/buy/barter an item such as a gold coin for a small dagger. The numbers refer to item numbers within `items.json`.
 
+### Spoken Languages
+
+Players and NPCs have their own languages: `common`, `dwarvish`, `elvish`, `draconic` and `druidic`. Goblins and humans may not be able to understand each other.
+
+The language spoken and understood by NPCs can be defined with two parameters within `npcs.json`. `language` is a list of languages which the NPC understands and `speakLanguage` is the language which they are currently using to communicate.
+
+Players also have the same parameters and is they are multi-lingual then they can switch between languages using the `speak` command. For example:
+
+``` bash
+speak common
+speak dwarvish
+```
+
 ### Stateful NPC Conversations
 
 It may be useful for an NPC to keep track of the state of your conversation and it's possible to do this via state variables. There is only one conversation state variable per NPC/player combination and it can be named anything you like. For example:
