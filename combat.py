@@ -30,6 +30,8 @@ def playersRest(players):
             if players[p]['hp'] < 100:
                 if randint(0,100)>97:
                     players[p]['hp'] = players[p]['hp'] + 1
+            else:
+                players[p]['restRequired']=0
 
 def itemInNPCInventory(npcs,id,itemName,itemsDB):
         if len(list(npcs[id]['inv'])) > 0:
