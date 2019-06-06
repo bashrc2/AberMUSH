@@ -17,6 +17,7 @@ from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
 from proficiencies import damageProficiency
+from proficiencies import defenseProficiency
 import time
 
 defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')
@@ -194,7 +195,7 @@ def raceResistance(id,players,racesDB,weaponType):
 
     return resistance
 
-def weaponDefense(id,players,itemsDB,racesDB,weaponType):
+def weaponDefense(id,players,itemsDB,racesDB,weaponType,characterClassDB):
     """How much defense does a player have due to armor worn?
     """
     defense=raceResistance(id,players,racesDB,weaponType)
@@ -203,6 +204,9 @@ def weaponDefense(id,players,itemsDB,racesDB,weaponType):
         itemID=int(players[id][c])
         if itemID>0:
             defense = defense + int(itemsDB[itemID]['mod_endu'])
+
+    if defense > 0:
+        defenseProficiency(id, players, characterClassDB)
 
     # Total defense by shields or clothing
     return defense
@@ -463,7 +467,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
             if attackRoll(players[s1id]['luc']):
                     damageValue,armorClass,damageDescription = \
                         calculateDamage(weaponDamage(s1id,players,itemsDB,weaponType,characterClassDB),
-                                        weaponDefense(s2id,players,itemsDB,racesDB,weaponType))
+                                        weaponDefense(s2id,players,itemsDB,racesDB,weaponType,characterClassDB))
                     if roundsOfFire<1:
                         roundsOfFire=1
                     attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
@@ -532,7 +536,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             if attackRoll(players[s1id]['luc']):
                 damageValue,armorClass,damageDescription = \
                     calculateDamage(weaponDamage(s1id,players,itemsDB,weaponType,characterClassDB),
-                                    weaponDefense(s2id,npcs,itemsDB,racesDB,weaponType))
+                                    weaponDefense(s2id,npcs,itemsDB,racesDB,weaponType,characterClassDB))
 
                 npcWearsArmor(s2id,npcs,itemsDB)
 
@@ -598,7 +602,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
             weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
             damageValue,armorClass,damageDescription = \
                 calculateDamage(weaponDamage(s1id,npcs,itemsDB,weaponType,characterClassDB),
-                                weaponDefense(s2id,players,itemsDB,racesDB,weaponType))
+                                weaponDefense(s2id,players,itemsDB,racesDB,weaponType,characterClassDB))
             if roundsOfFire<1:
                 roundsOfFire=1
             attackDescriptionFirst,attackDescriptionSecond = getAttackDescription(weaponType)
