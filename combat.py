@@ -18,6 +18,7 @@ from copy import deepcopy
 from environment import getTemperatureAtCoords
 from proficiencies import damageProficiency
 from proficiencies import defenseProficiency
+from proficiencies import weaponProficiency
 import time
 
 defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')
@@ -466,7 +467,8 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                 return
 
             # Do damage to the PC here
-            if attackRoll(players[s1id]['luc']):
+            if attackRoll(players[s1id]['luc'] + \
+                          weaponProficiency(s1id, players, weaponType, characterClassDB)):
                     damageValue,armorClass,damageDescription = \
                         calculateDamage(weaponDamage(s1id,players,itemsDB,weaponType,characterClassDB),
                                         weaponDefense(s2id,players,itemsDB,racesDB,weaponType,characterClassDB))
@@ -535,7 +537,8 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                 return
 
             # Do damage to the NPC here
-            if attackRoll(players[s1id]['luc']):
+            if attackRoll(players[s1id]['luc'] + \
+                          weaponProficiency(s1id, players, weaponType, characterClassDB)):
                 damageValue,armorClass,damageDescription = \
                     calculateDamage(weaponDamage(s1id,players,itemsDB,weaponType,characterClassDB),
                                     weaponDefense(s2id,npcs,itemsDB,racesDB,weaponType,characterClassDB))
@@ -599,9 +602,11 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
     if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
         return
 
+    weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
+
     # Do the damage to PC here
-    if attackRoll(npcs[s1id]['luc']):
-            weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
+    if attackRoll(npcs[s1id]['luc'] + \
+                  weaponProficiency(s1id, npcs, weaponType, characterClassDB)):
             damageValue,armorClass,damageDescription = \
                 calculateDamage(weaponDamage(s1id,npcs,itemsDB,weaponType,characterClassDB),
                                 weaponDefense(s2id,players,itemsDB,racesDB,weaponType,characterClassDB))
