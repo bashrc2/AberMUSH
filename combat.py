@@ -152,7 +152,7 @@ def npcWearsArmor(id,npcs,itemsDB):
             # Wear the armor
             npcs[id][c]=itemID
 
-def weaponDamage(id,players,itemsDB):
+def weaponDamage(id,players,itemsDB,weaponType,characterClassDB):
     """Calculates the amount of damage which a player can do
        with weapons held
     """
@@ -165,6 +165,10 @@ def weaponDamage(id,players,itemsDB):
     itemID=players[id]['clo_rhand']
     if itemID>0:
         damage = damage + itemsDB[itemID]['mod_str']
+
+    # Extra damage based on proficiencies
+    if damage > 0:
+        damageProficiency(id, players, weaponType, characterClassDB)
 
     # Total damage inflicted by weapons
     return damage
@@ -458,7 +462,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
             # Do damage to the PC here
             if attackRoll(players[s1id]['luc']):
                     damageValue,armorClass,damageDescription = \
-                        calculateDamage(weaponDamage(s1id,players,itemsDB),
+                        calculateDamage(weaponDamage(s1id,players,itemsDB,weaponType,characterClassDB),
                                         weaponDefense(s2id,players,itemsDB,racesDB,weaponType))
                     if roundsOfFire<1:
                         roundsOfFire=1
@@ -527,7 +531,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
             # Do damage to the NPC here
             if attackRoll(players[s1id]['luc']):
                 damageValue,armorClass,damageDescription = \
-                    calculateDamage(weaponDamage(s1id,players,itemsDB),
+                    calculateDamage(weaponDamage(s1id,players,itemsDB,weaponType,characterClassDB),
                                     weaponDefense(s2id,npcs,itemsDB,racesDB,weaponType))
 
                 npcWearsArmor(s2id,npcs,itemsDB)
@@ -593,7 +597,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
     if attackRoll(npcs[s1id]['luc']):
             weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,npcs,itemsDB)
             damageValue,armorClass,damageDescription = \
-                calculateDamage(weaponDamage(s1id,npcs,itemsDB),
+                calculateDamage(weaponDamage(s1id,npcs,itemsDB,weaponType,characterClassDB),
                                 weaponDefense(s2id,players,itemsDB,racesDB,weaponType))
             if roundsOfFire<1:
                 roundsOfFire=1

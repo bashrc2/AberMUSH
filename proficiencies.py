@@ -72,11 +72,12 @@ def damageProficiency(id, players, weaponType, characterClassDB):
     if not players[id].get('race'):
         return 0
 
+    playerRace=players[id]['race']
+    
     if not characterClassDB.get(playerRace):
         return 0
 
     damage=0
-    playerRace=players[id]['race']
     for lvl in range(1,players[id]['lvl']):
         if characterClassDB[playerRace].get(str(lvl)):
             damage = damage + \
