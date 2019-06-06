@@ -422,7 +422,7 @@ def calculateDamage(weapons, defense):
         damageValue = damageValue*2
     return damageValue,armorClass,damageDescription
 
-def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB):
+def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -493,7 +493,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                     if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                             del fights[fight]
 
-def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB):
+def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -563,7 +563,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                     if fightsCopy[fight]['s1id'] == s1id and fightsCopy[fight]['s2id'] == s2id:
                             del fights[fight]
 
-def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB):
+def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -617,19 +617,19 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
             mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has missed you completely!\n')
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
-def runFights(mud,players,npcs,fights,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB):
+def runFights(mud,players,npcs,fights,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB):
     """Handles fights
     """
     for (fid, pl) in list(fights.items()):
             # PC -> PC
             if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-                runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB)
+                runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB)
             # PC -> NPC
             elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-                runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB)
+                runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB)
             # NPC -> PC
             elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-                runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB)
+                runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB)
             # NPC -> NPC
             elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
                     test = 1

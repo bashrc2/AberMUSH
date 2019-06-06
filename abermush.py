@@ -424,7 +424,7 @@ while True:
         runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
         # Handle Fights
-        runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB)
+        runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms,maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB)
 
         # Iterate through NPCs, check if its time to talk, then check if anyone is attacking it
         runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate)
