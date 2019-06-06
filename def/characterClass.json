@@ -18,11 +18,11 @@
 	"13": [ "Indomitable (2)" ],
 	"14": [ "Ability Score Improvement" ],
 	"15": [ "Martial Archetype feature" ],
-	"15": [ "Ability Score Improvement" ],
-	"15": [ "Action Surge (two uses), Indomitable (3)" ],
-	"15": [ "Martial Archetype feature" ],
-	"15": [ "Ability Score Improvement" ],
-	"15": [ "Extra Attack (3)" ]
+	"16": [ "Ability Score Improvement" ],
+	"17": [ "Action Surge (two uses), Indomitable (3)" ],
+	"18": [ "Martial Archetype feature" ],
+	"19": [ "Ability Score Improvement" ],
+	"20": [ "Extra Attack (3)" ]
     },
     "witch": {
 	"1": [ "Spellcasting", "Arcane Recovery", "Cantrips (3)", ["Spell", 2]],
