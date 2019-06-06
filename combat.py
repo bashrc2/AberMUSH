@@ -16,7 +16,7 @@ from functions import stowHands
 from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
-
+from proficiencies import damageProficiency
 import time
 
 defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')

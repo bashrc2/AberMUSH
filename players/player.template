@@ -59,5 +59,8 @@
     "bodyType": "",
     "race": "human",
     "characterClass": "warrior",
-    "proficiencies": []
+    "proficiencies": [],
+    "fightingStyle": "",
+    "restRequired": 0,
+    "enemy": ""
 }

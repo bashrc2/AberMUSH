@@ -215,6 +215,8 @@ for k in npcsDB:
                        v == "race" or \
                        v == "characterClass" or \
                        v == "proficiencies" or \
+                       v == "fightingStyle" or \
+                       v == "enemy" or \
                        v == "conv" or \
                        v == "path" or \
                        v == "follow" or \
@@ -689,6 +691,9 @@ while True:
                                         players[id]['race'] = dbResponse[58]
                                         players[id]['characterClass'] = dbResponse[59]
                                         players[id]['proficiencies'] = dbResponse[60]
+                                        players[id]['fightingStyle'] = dbResponse[61]
+                                        players[id]['restRequired'] = dbResponse[62]
+                                        players[id]['enemy'] = dbResponse[63]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])
