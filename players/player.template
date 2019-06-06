@@ -58,5 +58,6 @@
     "ref": 1,
     "bodyType": "",
     "race": "human",
-    "characterClass": "warrior"
+    "characterClass": "warrior",
+    "proficiencies": []
 }

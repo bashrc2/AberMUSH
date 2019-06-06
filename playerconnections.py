@@ -100,7 +100,8 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'ref': None,
                         'bodyType': None,
                         'race': None,
-                        'characterClass': None
+                        'characterClass': None,
+                        'proficiencies': None
                 }
 
                 # Read in the MOTD file and send to the player

@@ -1,4 +1,7 @@
 {
+    "ghost": {
+	"1": []
+    },
     "warrior": {
 	"1": [ "Fighting Style", "Second Wind" ],
 	"2": [ "Action Surge (1)" ],

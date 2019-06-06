@@ -212,6 +212,9 @@ for k in npcsDB:
                        v == "inv" or \
                        v == "speakLanguage" or \
                        v == "language" or \
+                       v == "race" or \
+                       v == "characterClass" or \
+                       v == "proficiencies" or \
                        v == "conv" or \
                        v == "path" or \
                        v == "follow" or \
@@ -233,6 +236,11 @@ with open(str(Config.get('Races', 'Definition')), "r") as read_file:
         racesDB = commentjson.load(read_file)
 
 log("Races loaded: " + str(len(racesDB)), "info")
+
+with open(str(Config.get('CharacterClass', 'Definition')), "r") as read_file:
+        characterClassDB = commentjson.load(read_file)
+
+log("Character Classes loaded: " + str(len(characterClassDB)), "info")
 
 # List NPC dictionary for debugging purposes
 #print(" ")
@@ -680,6 +688,7 @@ while True:
                                         players[id]['bodyType'] = dbResponse[57]
                                         players[id]['race'] = dbResponse[58]
                                         players[id]['characterClass'] = dbResponse[59]
+                                        players[id]['proficiencies'] = dbResponse[60]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])
