@@ -173,7 +173,7 @@ def weaponProficiency(id, players, weaponType, characterClassDB):
     if not characterClassDB.get(playerRace):
         return 0
 
-    competence=0
+    competence=int(players[id]['lvl'])-1
     for lvl in range(1,players[id]['lvl']):
         if characterClassDB[playerRace].get(str(lvl)):
             profList=characterClassDB[playerRace][str(lvl)]

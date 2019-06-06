@@ -62,5 +62,6 @@
     "proficiencies": [],
     "fightingStyle": "",
     "restRequired": 0,
-    "enemy": ""
+    "enemy": "",
+    "archetype": ""
 }
