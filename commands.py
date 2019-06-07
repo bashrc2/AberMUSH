@@ -339,6 +339,7 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         target = params.partition(' ')[0]
         message = params.replace(target, "")[1:]
         if len(target) != 0 and len(message) != 0:
+                cantStr=thievesCant(message)
                 for p in players:
                         if players[p]['authenticated'] != None and players[p]['name'].lower() == target.lower():
                                 #print("sending a tell")
@@ -359,7 +360,10 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                 if players[id]['speakLanguage'] in players[p]['language']:
                                                         addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message, p, eventSchedule, eventDB)
                                                 else:
-                                                        addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage'], p, eventSchedule, eventDB)
+                                                        if players[id]['speakLanguage'] != 'cant':
+                                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage'], p, eventSchedule, eventDB)
+                                                        else:
+                                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + cantStr, p, eventSchedule, eventDB)
                                         mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message + "\n")
                                         told = True
                                         break
@@ -387,6 +391,7 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         #print(str(len(message)))
         if len(target) > 0:
                 if len(message) > 0:
+                        cantStr=thievesCant(message)
                         for p in players:
                                 if players[p]['name'] != None and players[p]['name'].lower() == target.lower():
                                         if players[p]['room'] == players[id]['room']:
@@ -406,7 +411,10 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                                                                 
                                                                         mud.send_message(p, "<f162>" + players[id]['name'] + " whispers: " + message[1:] + '\n')
                                                                 else:
-                                                                        mud.send_message(p, "<f162>" + players[id]['name'] + " whispers something in " + players[id]['speakLanguage'] + '\n')
+                                                                        if players[id]['speakLanguage'] != 'cant':
+                                                                                mud.send_message(p, "<f162>" + players[id]['name'] + " whispers something in " + players[id]['speakLanguage'] + '\n')
+                                                                        else:
+                                                                                mud.send_message(p, "<f162>" + players[id]['name'] + " whispers:  " + cantStr  + '\n')
                                                         messageSent = True
                                                         break
                                                 else:
