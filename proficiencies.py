@@ -186,4 +186,40 @@ def weaponProficiency(id, players, weaponType, characterClassDB):
 
     return competence
 
-    
+def thievesCantCountChars(txt):
+    result = 0
+    for char in txt.lower():
+        if char == 'a' or char == 'e' or char == 'i' or char == 'o' or char == 'u':
+            result = result + 1
+    return result
+
+def thievesCant(spokenText):
+    cantCode=(
+        "Hey, girl, hey!",
+        "Look what the cat dragged in",
+        "Yo ho",
+        "Is that you?",
+        "What do we have here?",
+        "Ain’t you a sight for sore eyes",
+        "My, my, don’t that beat all",
+        "Well aren’t you a piece of work",
+        "Howdy Pardner",
+        "At your service",
+        "Cheerio, old chap",
+        "You got some fried potatoes to go with that Lamb Chop?",
+        "You got some fried potatoes to go with that Beefcake?",
+        "Hey, beautiful",
+        "Hey, handsome",
+        "‘Ello Guv’nor",
+        "I haven’t seen you in 6 months",
+        "Wow, it’s been a few years",
+        "Can you believe it’s been over 10 years?",
+        "Seems like you left the village a lifetime ago",
+        "Gosh, it feels like forever since I’ve seen you",
+        "Will I see you at the harvest festival (or any other hometown gathering) this year?",
+        "Yes, I’ll be there",
+        "No, I am otherwise engaged",
+        "Give my regards to your Granny",
+        "…and have your pets spayed")
+    index = (thievesCantCountChars(spokenText) + len(spokenText.split(' '))) % len(cantCode)
+    return cantCode[index]

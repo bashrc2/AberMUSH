@@ -23,6 +23,8 @@ from functions import stowHands
 from environment import runTide
 from environment import assignCoordinates
 
+from proficiencies import thievesCant
+
 from npcs import npcConversation
 
 import os
@@ -493,6 +495,7 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                                 break
                         
                 # go through every player in the game
+                cantStr=thievesCant(params)
                 for (pid, pl) in list(players.items()):
                         # if they're in the same room as the player
                         if players[pid]['room'] == players[id]['room']:
@@ -501,7 +504,10 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                                                 # send them a message telling them what the player said
                                                 mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
                                         else:
-                                                mud.send_message(pid, '<f220>{}<r> says something in <f159>{}<r>'.format(players[id]['name'], players[id]['speakLanguage']) + "\n\n")
+                                                if players[id]['speakLanguage'] != 'cant':
+                                                        mud.send_message(pid, '<f220>{}<r> says something in <f159>{}<r>'.format(players[id]['name'], players[id]['speakLanguage']) + "\n\n")
+                                                else:
+                                                        mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], cantStr) + "\n\n")
         else:
                 mud.send_message(id, 'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
