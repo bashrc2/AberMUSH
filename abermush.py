@@ -525,11 +525,52 @@ while True:
                         players[id]['exAttribute0'] = 1003
                         break
 
+
+
                 if players[id]['exAttribute0'] == 1003:
                         players[id]['idleStart'] = int(time.time())
                         selectedRace = command.lower().strip()
                         if not racesDB.get(selectedRace):
                                 mud.send_message(id, "<f220>\nUnrecognized character race.<r>\n\n")
+                                players[id]['exAttribute0'] = 1000
+                                mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
+                                break
+                        
+                        if not os.path.isfile("witches"):
+                                command='witch'
+                                players[id]['exAttribute0'] = 1004
+                        else:                                
+                                mud.send_message(id, "<f220>\nSelect your character class:\n\n")
+                                ctr=0
+                                classStr='  '
+                                for (name, p) in list(characterClassDB.items()):
+                                        if name == 'witch' or name == 'ghost':
+                                                continue
+                                        if ctr>0:
+                                                classStr = classStr + ', <f220>' + name + '<r>'
+                                        else:
+                                                classStr = classStr + '<f220>' + name + '<r>'
+                                        ctr = ctr + 1
+                                        if ctr > 7:
+                                                classStr = classStr + '\n  '
+                                                ctr = 0
+                                mud.send_message(id, classStr+'\n\n')
+                                players[id]['exAttribute0'] = 1004
+                                break
+
+                if players[id]['exAttribute0'] == 1004:
+                        players[id]['idleStart'] = int(time.time())
+                        selectedCharacterClass = command.lower().strip()
+                        unrecognized=False
+                        if selectedCharacterClass == 'witch':
+                                if os.path.isfile("witches"):
+                                        unrecognized=True
+                        
+                        if not characterClassDB.get(selectedCharacterClass) or selectedCharacterClass == 'ghost':
+                                unrecognized=True
+
+                        if unrecognized:
+                                mud.send_message(id, "<f220>\nUnrecognized character class.<r>\n\n")
                                 players[id]['exAttribute0'] = 1000
                                 mud.send_message(id, "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
                                 break
@@ -543,6 +584,8 @@ while True:
                         # Make required changes to template before saving again into <Name>.player
                         template['name'] = players[id]['exAttribute1']
                         template['pwd'] = hash_password(players[id]['exAttribute2'])
+
+                        template['characterClass']=selectedCharacterClass
                         
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
@@ -556,12 +599,12 @@ while True:
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 
-                        # populate initial inventory
+                        # populate initial inventory from character class
                         template['inv']=[]
                         for invItem in characterClassDB[template['characterClass']]['inv']:
                                 template['inv'].append(invItem)
 
-                        # populate proficencies
+                        # populate proficencies from character class
                         template['proficiencies']=[]
                         for prof in characterClassDB[template['characterClass']][str(template['lvl'])]:
                                 template['proficiencies'].append(prof)

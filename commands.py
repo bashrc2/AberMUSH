@@ -469,7 +469,8 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  destroy npc [target]                    - Removes a named NPC from the room')
                 mud.send_message(id, '  destroy [item]                          - Removes an item from the room')
                 mud.send_message(id, '  resetuniverse                           - Resets the universe, losing any changes from defaults')
-                mud.send_message(id, '  shutdown                                - Shuts down the game server\n\n')
+                mud.send_message(id, '  shutdown                                - Shuts down the game server')
+        mud.send_message(id, '\n\n')
 
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea):
         lang=params.lower().strip()
@@ -1213,7 +1214,6 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                         if len(players[id]['language'])>1:
                                 languagesStr=''
                                 langCtr=0
-                                print("language: " + str(players[id]['language']))
                                 for lang in players[id]['language']:
                                         if langCtr>0:
                                                 languagesStr = languagesStr + ', ' + lang
