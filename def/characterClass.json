@@ -1,10 +1,12 @@
 {
     "ghost": {
 	"inv": [],
+	"extraLanguage": [],
 	"1": []
     },
     "warrior": {
 	"inv": [ 1366, 981 ],
+	"extraLanguage": [],
 	"1": [ "Fighting Style", "Second Wind" ],
 	"2": [ "Action Surge (1)" ],
 	"3": [ "Martial Archetype" ],
@@ -28,6 +30,7 @@
     },
     "ranger": {
 	"inv": [ 1394, 1397 ],
+	"extraLanguage": [],
 	"1": [ "Favored Enemy", "Natural Explorer" ],
 	"2": [ "Fighting Style", "Spellcasting", ["Spell",2,2] ],
 	"3": [ "Ranger Archetype", "Primeval Awareness", ["Spell",3,3] ],
@@ -51,6 +54,7 @@
     },
     "sorcerer": {
 	"inv": [ 628 ],
+	"extraLanguage": [],
 	"1": [ "Spellcasting", "Sorcerous Origin", ["Spell",4,2,2] ],
 	"2": [ "Font of Magic", ["Spell",4,3,3] ],
 	"3": [ "Metamagic", ["Spell",4,4,4,2] ],
@@ -74,6 +78,7 @@
     },
     "witch": {
 	"inv": [ 197 ],
+	"extraLanguage": [],
 	"1": [ "Spellcasting", "Arcane Recovery", "Cantrips (3)", ["Spell", 2]],
 	"2": [ "Arcane Tradition", "Cantrips (3)", ["Spell", 3]],
 	"3": [ "Cantrips (3)", ["Spell", 4,2]],

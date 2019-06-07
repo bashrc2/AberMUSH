@@ -609,6 +609,10 @@ while True:
                         for prof in characterClassDB[template['characterClass']][str(template['lvl'])]:
                                 template['proficiencies'].append(prof)
 
+                        # additional languages for the character class
+                        for lang in characterClassDB[template['characterClass']]['extraLanguage']:
+                                template['language'].append(lang)
+
                         # Save template into a new player file
                         # print(template)
                         with open(str(Config.get('Players', 'Location')) + "/" + template['name'] + ".player", 'w') as fp:
