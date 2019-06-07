@@ -1,8 +1,10 @@
 {
     "ghost": {
+	"inv": [],
 	"1": []
     },
     "warrior": {
+	"inv": [ 1366, 981 ],
 	"1": [ "Fighting Style", "Second Wind" ],
 	"2": [ "Action Surge (1)" ],
 	"3": [ "Martial Archetype" ],
@@ -25,6 +27,7 @@
 	"20": [ "Extra Attack (3)" ]
     },
     "witch": {
+	"inv": [ 197 ],
 	"1": [ "Spellcasting", "Arcane Recovery", "Cantrips (3)", ["Spell", 2]],
 	"2": [ "Arcane Tradition", "Cantrips (3)", ["Spell", 3]],
 	"3": [ "Cantrips (3)", ["Spell", 4,2]],

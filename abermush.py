@@ -543,7 +543,7 @@ while True:
                         # Make required changes to template before saving again into <Name>.player
                         template['name'] = players[id]['exAttribute1']
                         template['pwd'] = hash_password(players[id]['exAttribute2'])
-
+                        
                         # First player becomes a witch
                         if not os.path.isfile("witches"):
                             template['characterClass']='witch'
@@ -555,6 +555,11 @@ while True:
                                                     template['language'].append(lang)
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
+
+                        # populate initial inventory
+                        template['inv']=[]
+                        for invItem in characterClassDB[template['characterClass']]['inv']:
+                                template['inv'].append(invItem)
 
                         # Save template into a new player file
                         # print(template)
