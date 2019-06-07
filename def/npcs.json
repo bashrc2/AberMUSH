@@ -661,8 +661,11 @@
         "language": ["common"],
         "conv" : [
             [["hello","hi","greet"],"Get lost!"],
+            [["language=cant","hello","hi","greet"],"Greetings!"],
             [["mug","help"],"Bugger off!"],
-            [["e"],"Go away!"]
+            [["language=cant","mug","help"],"I have no advice for you"],
+            [["e"],"Go away!"],
+            [["language=cant","e"],"I don't know anything about that"]
         ],
         "path" : ["$rid=434$","$rid=433$","$rid=435$","$rid=422$"],
         "bodyType": "",
@@ -674,8 +677,8 @@
         "follow" : "",
         "canWield" : "1",
         "canWear" : "1",
-        "race": "",
-        "characterClass": "",
+        "race": "human",
+        "characterClass": "rogue",
         "archetype": "",
         "proficiencies": [],
         "fightingStyle": "",

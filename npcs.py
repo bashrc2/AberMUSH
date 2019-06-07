@@ -177,63 +177,70 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         
     varStr = word.lower().split(conditionType)[0].strip()
     currValue=-99999
-    targetValue = int(word.lower().split(conditionType)[1].strip())
+    targetValue = None
 
-    if varStr is 'str' or \
-       varStr is 'strength':
+    if varStr == 'str' or \
+       varStr == 'strength':
         currValue=players[id]['str']
-    if varStr is 'wei' or \
-       varStr is 'weight':
+    if varStr == 'wei' or \
+       varStr == 'weight':
         currValue=players[id]['wei']
-    if varStr is 'per' or \
-       varStr is 'perception':
+    if varStr == 'per' or \
+       varStr == 'perception':
         currValue=players[id]['per']
-    if varStr is 'lvl' or \
-       varStr is 'level':
+    if varStr == 'lvl' or \
+       varStr == 'level':
         currValue=players[id]['lvl']
-    if varStr is 'exp' or \
-       varStr is 'experience':
+    if varStr == 'exp' or \
+       varStr == 'experience':
         currValue=players[id]['exp']
-    if varStr is 'endu' or \
-       varStr is 'endurance':
+    if varStr == 'endu' or \
+       varStr == 'endurance':
         currValue=players[id]['endu']
-    if varStr is 'cha' or \
-       varStr is 'charisma':
+    if varStr == 'cha' or \
+       varStr == 'charisma':
         currValue=players[id]['cha']
-    if varStr is 'int' or \
-       varStr is 'intelligence':
+    if varStr == 'int' or \
+       varStr == 'intelligence':
         currValue=players[id]['int']
-    if varStr is 'agi' or \
-       varStr is 'agility':
+    if varStr == 'agi' or \
+       varStr == 'agility':
         currValue=players[id]['agi']
-    if varStr is 'luc' or \
-       varStr is 'luck':
+    if varStr == 'luc' or \
+       varStr == 'luck':
         currValue=players[id]['luc']
-    if varStr is 'cred':
+    if varStr == 'cred':
         currValue=players[id]['cred']
-    if varStr is 'reflex':
+    if varStr == 'reflex':
         currValue=players[id]['ref']
-    if varStr is 'cool':
+    if varStr == 'cool':
         currValue=players[id]['cool']
-    if varStr is 'rest':
+    if varStr == 'rest':
         currValue=players[id]['restRequired']
-    if varStr is 'language':
+    if varStr == 'language':
         currValue=players[id]['speakLanguage'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
-    if varStr is 'race':
+    if varStr == 'race':
         currValue=players[id]['race'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
-    if varStr is 'characterclass':
+    if varStr == 'characterclass':
         currValue=players[id]['characterClass'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
-    if varStr is 'enemy':
+    if varStr == 'enemy':
         currValue=players[id]['enemy'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
 
+    print("varStr " + str(varStr))
+    print("targetValue " + str(targetValue))
+    if  targetValue == None:
+        print("Test 2")    
+        targetValue = int(word.lower().split(conditionType)[1].strip())
+    print("targetValue2 " + str(targetValue))
+        
     if currValue == -99999:
         return False,True,match_ctr
 
