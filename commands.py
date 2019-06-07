@@ -702,11 +702,21 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if len(message) == 0:
                                 playerinv = list(players[id]['inv'])
                                 if len(playerinv) > 0:
+                                        invItemFound=False
                                         for i in playerinv:
-                                                if param in itemsDB[int(i)]['name'].lower():
+                                                if param == itemsDB[int(i)]['name'].lower():
                                                         message += itemsDB[int(i)]['long_description']
                                                         message += describeContainerContents(mud, id, itemsDB, int(i), True)
                                                         itemName = itemsDB[int(i)]['article'] + " " + itemsDB[int(i)]['name']
+                                                        invItemFound=True
+                                                        break
+                                        if not invItemFound:
+                                                for i in playerinv:
+                                                        if param in itemsDB[int(i)]['name'].lower():
+                                                                message += itemsDB[int(i)]['long_description']
+                                                                message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                                itemName = itemsDB[int(i)]['article'] + " " + itemsDB[int(i)]['name']
+                                                                break
 
                         if len(message) > 0:
                                 mud.send_message(id, "It's " + itemName + ".")
