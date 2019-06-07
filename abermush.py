@@ -561,6 +561,11 @@ while True:
                         for invItem in characterClassDB[template['characterClass']]['inv']:
                                 template['inv'].append(invItem)
 
+                        # populate proficencies
+                        template['proficiencies']=[]
+                        for prof in characterClassDB[template['characterClass']][str(template['lvl'])]:
+                                template['proficiencies'].append(prof)
+
                         # Save template into a new player file
                         # print(template)
                         with open(str(Config.get('Players', 'Location')) + "/" + template['name'] + ".player", 'w') as fp:
