@@ -660,7 +660,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["hello","hi","who"],"Get lost!"],
+            [["hello","hi","greet"],"Get lost!"],
             [["mug","help"],"Bugger off!"],
             [["e"],"Go away!"]
         ],

@@ -215,6 +215,24 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         currValue=players[id]['ref']
     if varStr is 'cool':
         currValue=players[id]['cool']
+    if varStr is 'rest':
+        currValue=players[id]['restRequired']
+    if varStr is 'language':
+        currValue=players[id]['speakLanguage'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType='='
+    if varStr is 'race':
+        currValue=players[id]['race'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType='='
+    if varStr is 'characterclass':
+        currValue=players[id]['characterClass'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType='='
+    if varStr is 'enemy':
+        currValue=players[id]['enemy'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType='='
 
     if currValue == -99999:
         return False,True,match_ctr
