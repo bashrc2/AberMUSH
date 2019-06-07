@@ -12393,7 +12393,7 @@
     },
     "628": {
         "name": "rowan staff",
-        "short_description": "A long rowan staff lies here.",
+        "short_description": "A long rowan staff.",
         "long_description": "A long staff carved in the likeness of a snake.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -12416,7 +12416,7 @@
         "imp_lleg": 0,
         "imp_rleg": 0,
         "imp_feet": 0,
-        "mod_str": 0,
+        "mod_str": 10,
         "mod_per": 0,
         "mod_endu": 0,
         "mod_cha": 0,
