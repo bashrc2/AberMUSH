@@ -658,7 +658,7 @@
         "name": "the mugger",
         "inv" : ["169"],
         "speakLanguage": "common",
-        "language": ["common"],
+        "language": ["common","cant"],
         "conv" : [
             [["hello","hi","greet"],"Get lost!"],
             [["language=cant","hello","hi","greet"],"Greetings!"],

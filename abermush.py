@@ -597,6 +597,7 @@ while True:
                                     for lang in raceStats['language']:
                                             if lang not in template['language']:
                                                     template['language'].append(lang)
+                            template['language'].append('cant')
                             with open("witches", "w") as witches_file:
                                 witches_file.write(template['name'])
 
