@@ -20870,7 +20870,7 @@
         "imp_lleg": 5,
         "imp_rleg": 5,
         "imp_feet": 2,
-        "mod_str": 0,
+        "mod_str": 10,
         "mod_per": 0,
         "mod_endu": 0,
         "mod_cha": 0,

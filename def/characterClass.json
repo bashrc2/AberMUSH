@@ -2,11 +2,13 @@
     "ghost": {
 	"inv": [],
 	"extraLanguage": [],
+	"archetype": [],
 	"1": []
     },
     "warrior": {
 	"inv": [ 1366, 981 ],
 	"extraLanguage": [],
+	"archetype": ["champion","archer"],
 	"1": [ "Fighting Style", "Second Wind" ],
 	"2": [ "Action Surge (1)" ],
 	"3": [ "Martial Archetype" ],
@@ -28,9 +30,35 @@
 	"19": [ "Ability Score Improvement" ],
 	"20": [ "Extra Attack (3)" ]
     },
+    "rogue": {
+	"inv": [ 1393, 1398, 1074 ],
+	"extraLanguage": ["cant"],
+	"archetype": ["fast hands", "second story work", "supreme sneak", "use magic device", "thief's reflexes"],
+	"1": [ "Expertise", "Sneak Attack" ],
+	"2": [ "Cunning Action" ],
+	"3": [ "Roguish Archetype" ],
+	"4": [ "Ability Score Improvement" ],
+	"5": [ "Uncanny Dodge" ],
+	"6": [ "Expertise" ],
+	"7": [ "Evasion" ],
+	"8": [ "Ability Score Improvement" ],
+	"9": [ "Roguish Archetype feature" ],
+	"10": [ "Ability Score Improvement" ],
+	"11": [ "Reliable Talent" ],
+	"12": [ "Ability Score Improvement" ],
+	"13": [ "Roguish Archetype feature" ],
+	"14": [ "Blindsense" ],
+	"15": [ "Slippery Mind" ],
+	"16": [ "Ability Score Improvement" ],
+	"17": [ "Roguish Archetype feature" ],
+	"18": [ "Elusive" ],
+	"19": [ "Ability Score Improvement" ],
+	"20": [ "Stroke of Luck" ]
+    },
     "ranger": {
 	"inv": [ 1394, 1397 ],
 	"extraLanguage": [],
+	"archetype": ["Colossus Slayer", "Giant Killer", "Horde Breaker", "Escape the Horde", "Multiattack Defense", "Volley", "Whirlwind Attack", "Evasion", "Stand against the Tide", "Uncanny Dodge"],
 	"1": [ "Favored Enemy", "Natural Explorer" ],
 	"2": [ "Fighting Style", "Spellcasting", ["Spell",2,2] ],
 	"3": [ "Ranger Archetype", "Primeval Awareness", ["Spell",3,3] ],
@@ -53,8 +81,9 @@
 	"20": [ "Foe Slayer", ["Spell",11,4,3,3,3,2] ]
     },
     "sorcerer": {
-	"inv": [ 628 ],
+	"inv": [ 1157 ],
 	"extraLanguage": [],
+	"archetype": [],
 	"1": [ "Spellcasting", "Sorcerous Origin", ["Spell",4,2,2] ],
 	"2": [ "Font of Magic", ["Spell",4,3,3] ],
 	"3": [ "Metamagic", ["Spell",4,4,4,2] ],
@@ -79,6 +108,7 @@
     "witch": {
 	"inv": [ 197 ],
 	"extraLanguage": [],
+	"archetype": [],
 	"1": [ "Spellcasting", "Arcane Recovery", "Cantrips (3)", ["Spell", 2]],
 	"2": [ "Arcane Tradition", "Cantrips (3)", ["Spell", 3]],
 	"3": [ "Cantrips (3)", ["Spell", 4,2]],
