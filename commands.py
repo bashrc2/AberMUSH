@@ -702,6 +702,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if len(message) == 0:
                                 playerinv = list(players[id]['inv'])
                                 if len(playerinv) > 0:
+                                        # check for exact match of item name
                                         invItemFound=False
                                         for i in playerinv:
                                                 if param == itemsDB[int(i)]['name'].lower():
@@ -711,6 +712,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                         invItemFound=True
                                                         break
                                         if not invItemFound:
+                                                # check for partial match of item name
                                                 for i in playerinv:
                                                         if param in itemsDB[int(i)]['name'].lower():
                                                                 message += itemsDB[int(i)]['long_description']
