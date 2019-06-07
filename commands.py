@@ -693,8 +693,16 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         for i in items:
                                 if items[i]['room'].lower() == players[id]['room'] and param in itemsDB[items[i]['id']]['name'].lower():
                                         if itemCounter == 0:
-                                                message += itemsDB[items[i]['id']]['long_description']
-                                                message += describeContainerContents(mud, id, itemsDB, items[i]['id'], True)
+                                                itemLanguage=itemsDB[int(i)]['language']
+                                                if len(itemLanguage)==0:                                                
+                                                        message += itemsDB[items[i]['id']]['long_description']
+                                                        message += describeContainerContents(mud, id, itemsDB, items[i]['id'], True)
+                                                else:
+                                                        if itemLanguage in players[id]['language']:
+                                                                message += itemsDB[items[i]['id']]['long_description']
+                                                                message += describeContainerContents(mud, id, itemsDB, items[i]['id'], True)
+                                                        else:
+                                                                message += "It's written in " + itemLanguage
                                                 itemName = itemsDB[items[i]['id']]['article'] + " " + itemsDB[items[i]['id']]['name']
                                         itemCounter += 1
 
@@ -706,8 +714,16 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                         invItemFound=False
                                         for i in playerinv:
                                                 if param == itemsDB[int(i)]['name'].lower():
-                                                        message += itemsDB[int(i)]['long_description']
-                                                        message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                        itemLanguage=itemsDB[int(i)]['language']
+                                                        if len(itemLanguage)==0:
+                                                                message += itemsDB[int(i)]['long_description']
+                                                                message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                        else:
+                                                                if itemLanguage in players[id]['language']:
+                                                                        message += itemsDB[int(i)]['long_description']
+                                                                        message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                                else:
+                                                                        message += "It's written in " + itemLanguage
                                                         itemName = itemsDB[int(i)]['article'] + " " + itemsDB[int(i)]['name']
                                                         invItemFound=True
                                                         break
@@ -715,8 +731,17 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                 # check for partial match of item name
                                                 for i in playerinv:
                                                         if param in itemsDB[int(i)]['name'].lower():
-                                                                message += itemsDB[int(i)]['long_description']
-                                                                message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                                itemLanguage=itemsDB[int(i)]['language']
+                                                                if len(itemLanguage)==0:
+                                                                        message += itemsDB[int(i)]['long_description']
+                                                                        message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                                else:
+                                                                        if itemLanguage in players[id]['language']:
+                                                                                message += itemsDB[int(i)]['long_description']
+                                                                                message += describeContainerContents(mud, id, itemsDB, int(i), True)
+                                                                        else:
+                                                                                message += "It's written in " + itemLanguage
+
                                                                 itemName = itemsDB[int(i)]['article'] + " " + itemsDB[int(i)]['name']
                                                                 break
 

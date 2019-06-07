@@ -282,6 +282,7 @@ for k in itemsDB:
                        v == "open_failed_description" or \
                        v == "close_description" or \
                        v == "room" or \
+                       v == "language" or \
                        v == "state" or \
                        v == "type" or \
                        v == "writeWithItems" or \
