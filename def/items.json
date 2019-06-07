@@ -3538,7 +3538,7 @@
     "197": {
         "name": "athame",
         "short_description": "Umm oww! very sharp.",
-        "long_description": "A razor sharp athame rests on the eastern edge of the altar.",
+        "long_description": "The athame blade is razor sharp and has a black handle inscribed with arcane markings.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
