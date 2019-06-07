@@ -234,12 +234,8 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
 
-    print("varStr " + str(varStr))
-    print("targetValue " + str(targetValue))
     if  targetValue == None:
-        print("Test 2")    
         targetValue = int(word.lower().split(conditionType)[1].strip())
-    print("targetValue2 " + str(targetValue))
         
     if currValue == -99999:
         return False,True,match_ctr
