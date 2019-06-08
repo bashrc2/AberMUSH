@@ -138,6 +138,7 @@ transport [room ID]                  - Moves the player to a different room
 taxi [room ID] [itemID]              - Moves the player to a different room in exchange for an inventory item
 date [dd/mm]                         - Conversation can only occur on a given day of the year
 buy [obtain item ID] [give item ID]  - Obtains one item in exchange for another
+experience [points]                  - Increase player experience
 ```
 
 ### Spoken Languages

@@ -341,6 +341,20 @@ def conversationSkill(best_match,best_match_action,best_match_action_param0,best
             return False
     return False
 
+def conversationExperience(best_match,best_match_action,best_match_action_param0,best_match_action_param1,players,id,mud,npcs,nid,itemsDB,puzzledStr):
+    """Conversation in which an NPC increases your experience
+    """
+    if best_match_action == 'exp' or \
+       best_match_action == 'experience':
+        if len(best_match_action_param0)>0:
+            expValue=int(best_match_action_param0)
+            players[id]['exp'] = players[id]['exp'] + expValue
+            return True
+        else:
+            mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
+            return False
+    return False
+
 def conversationTransport(best_match_action,best_match_action_param0,mud,id,players,best_match,npcs,nid,puzzledStr):
     """Conversation in which an NPC transports you to some location
     """
@@ -535,6 +549,13 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                                              best_match_action_param0, \
                                              best_match_action_param1,players, \
                                              id,mud,npcs,nid,itemsDB,puzzledStr):
+                            return
+
+                        # increase experience
+                        if conversationExperience(best_match,best_match_action, \
+                                                  best_match_action_param0, \
+                                                  best_match_action_param1,players, \
+                                                  id,mud,npcs,nid,itemsDB,puzzledStr):
                             return
 
                         # transport (free taxi)
