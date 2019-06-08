@@ -477,7 +477,7 @@ def conversationBuyOrExchange(best_match,best_match_action,best_match_action_par
             return True
     return False    
 
-def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
+def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message,characterClassDB):
         """Conversation with an NPC
            This typically works by matching some words and then producing a corresponding response and/or action
         """
@@ -555,7 +555,8 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message):
                         if conversationExperience(best_match,best_match_action, \
                                                   best_match_action_param0, \
                                                   best_match_action_param1,players, \
-                                                  id,mud,npcs,nid,itemsDB,puzzledStr):
+                                                  id,mud,npcs,nid,itemsDB,puzzledStr,
+                                                  characterClassDB):
                             return
 
                         # transport (free taxi)

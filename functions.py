@@ -21,6 +21,21 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def levelUp(id, players, characterClassDB, increment):
+        players[id]['exp'] = players[id]['exp'] + increment
+        level = players[id]['lvl']
+        if level < 20:
+                if players[id]['exp'] > (level+1)*1000:
+                        players[id]['lvl'] = level + 1
+                        # remove any existing spell lists
+                        for prof in players[id]['proficiencies']:
+                                if prof is list:
+                                        players[id]['proficiencies'].remove(prof)
+                        # update proficiencies
+                        for prof in characterClassDB[template['characterClass']][str(players[id]['lvl'])]:
+                                if prof not in players[id]['proficiencies']:
+                                        players[id]['proficiencies'].append(prof)
+
 def stowHands(id,players,itemsDB,mud):
         if int(players[id]['clo_rhand']) > 0:
                 itemID=int(players[id]['clo_rhand'])
