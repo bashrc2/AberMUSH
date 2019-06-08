@@ -1616,6 +1616,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "follow" : "", \
                    "canWield" : 0, \
                    "canWear" : 0, \
+                   "hpMax" : 100, \
                    "hp" : 100, \
                    "charge" : 1233, \
                    "lvl" : 5, \

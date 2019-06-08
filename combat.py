@@ -28,7 +28,7 @@ def playersRest(players):
     """
     for p in players:
         if players[p]['name'] != None and players[p]['authenticated'] != None:
-            if players[p]['hp'] < 100:
+            if players[p]['hp'] < players[p]['hpMax']:
                 if randint(0,100)>97:
                     players[p]['hp'] = players[p]['hp'] + 1
             else:

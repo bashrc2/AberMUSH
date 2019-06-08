@@ -40,6 +40,7 @@
     "imp_lleg": 0,
     "imp_rleg": 0,
     "imp_feet": 0,
+    "hpMax": 100,
     "hp": 100,
     "charge": 0,
     "inDescription": "arrives",
