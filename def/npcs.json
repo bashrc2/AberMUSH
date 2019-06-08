@@ -1959,9 +1959,15 @@
         "name": "the librarian",
         "inv" : [],
         "speakLanguage": "common",
-        "language": ["common"],
+        "language": ["common","dwarvish","elvish","draconic","druidic"],
         "conv" : [
-            [["book"],"Take your pick"]
+            [["potter","rowling","pratchet"],"I don't think we have that title"],
+            [["borrow","book"],"We are not lending at this time"],
+            [["book"],"Take your pick","state:askbook1"],
+            [["state:askbook1","book"],"There are many to choose from","state:askbook2"],
+            [["state:askbook2","book"],"We have new scrolls and old scrolls","state:askbook3"],
+            [["state:askbook3","book"],"Good literature is the best intoxicant","state:askbook4"],
+            [["state:askbook4","book"],"Read some if you like","state:askbook1"]
         ],
         "path" : [],
         "bodyType": "",
