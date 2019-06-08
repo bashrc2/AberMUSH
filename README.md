@@ -129,6 +129,17 @@ the old inn-keeper says: We only serve the more disreputable wine.
 
 The NPC can also give an item if some words are matched, or exchange/buy/barter an item such as a gold coin for a small dagger. The numbers refer to item numbers within `items.json`.
 
+Possible types of actions within NPC conversations are:
+
+``` bash
+give [item ID]                       - Gives an item
+teach [skill] [adjustment value]     - Adjusts a skill level
+transport [room ID]                  - Moves the player to a different room
+taxi [room ID] [itemID]              - Moves the player to a different room in exchange for an inventory item
+date [dd/mm]                         - Conversation can only occur on a given day of the year
+buy [obtain item ID] [give item ID]  - Obtains one item in exchange for another
+```
+
 ### Spoken Languages
 
 Players and NPCs have their own languages: `common`, `dwarvish`, `elvish`, `draconic` and `druidic`. Goblins and humans may not be able to understand each other.
