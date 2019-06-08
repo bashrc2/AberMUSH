@@ -179,6 +179,10 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
     currValue=-99999
     targetValue = None
 
+    if varStr == 'hp' or varStr == 'hitpoints':
+        currValue=players[id]['hp']
+    if varStr == 'hpPercent' or varStr == 'hitpointspercent':
+        currValue=int(players[id]['hp']*100/players[id]['hp'])
     if varStr == 'str' or \
        varStr == 'strength':
         currValue=players[id]['str']
