@@ -13,7 +13,7 @@ __status__ = "Production"
 from functions import log
 from functions import playerInventoryWeight
 from functions import stowHands
-from functions import learnSpells
+from functions import prepareSpells
 from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
@@ -54,7 +54,7 @@ def playersRest(mud,players):
             else:
                 players[p]['hp'] = players[p]['hpMax'] + players[p]['tempHitPoints']
                 players[p]['restRequired']=0
-                learnSpells(mud,p,players)
+                prepareSpells(mud,p,players)
 
 def itemInNPCInventory(npcs,id,itemName,itemsDB):
         if len(list(npcs[id]['inv'])) > 0:

@@ -65,12 +65,12 @@
     "restRequired": 0,
     "enemy": "",
     "archetype": "",
-    "knownSpells": {},
+    "preparedSpells": {},
     "spellSlots": {},
     "tempHitPoints": 0,
     "tempHitPointsStart": 0,
     "tempHitPointsDuration": 0,
-    "learnSpell": "",
-    "learnSpellProgress": 0,
-    "learnSpellTime": 0 
+    "prepareSpell": "",
+    "prepareSpellProgress": 0,
+    "prepareSpellTime": 0 
 }

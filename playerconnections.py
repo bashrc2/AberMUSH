@@ -106,14 +106,14 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'restRequired': None,
                         'enemy': None,
                         'archetype': None,
-                        'knownSpells': None,
+                        'preparedSpells': None,
                         'spellSlots': None,
                         'tempHitPoints': None,
                         'tempHitPointsStart': None,
                         'tempHitPointsDuration': None,
-                        'learnSpell': None,
-                        'learnSpellProgress': None,
-                        'learnSpellTime': None
+                        'prepareSpell': None,
+                        'prepareSpellProgress': None,
+                        'prepareSpellTime': None
                 }
 
                 # Read in the MOTD file and send to the player

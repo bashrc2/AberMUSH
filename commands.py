@@ -497,16 +497,22 @@ def spellTimeToSec(durationStr):
                 return int(dur[0])*60*60*24
         return 0
 
-def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def spells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        mud.send_message(id, 'Your spellbook:\n')
+        for name,details in players[id]['preparedSpells'].items():
+                mud.send_message(id, '  <b234>'+name+'<r>')
+        mud.send_message(id, '\n')        
+
+def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         spellName=params.lower().strip()
         if len(spellName)==0:
-                # list spells which can be learned
-                mud.send_message(id, 'Spells you can learn are:\n')
+                # list spells which can be prepared
+                mud.send_message(id, 'Spells you can prepare are:\n')
                 for level in range(1,players[id]['lvl']+1):
                         if not spellsDB.get(str(level)):
                                 continue
                         for name,details in spellsDB[str(level)].items():
-                                if name.lower() not in players[id]['knownSpells']:
+                                if name.lower() not in players[id]['preparedSpells']:
                                         spellClasses=spellsDB[str(level)][name]['classes']
                                         if players[id]['characterClass'] in spellClasses or \
                                            len(spellClasses)==0:
@@ -517,8 +523,8 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                         spellName = spellName.replace('the spell ','')
                 if spellName.startswith('spell '):
                         spellName = spellName.replace('spell ','')
-                if spellName == players[id]['learnSpell']:
-                        mud.send_message(id, 'You are already learning that.\n\n')
+                if spellName == players[id]['prepareSpell']:
+                        mud.send_message(id, 'You are already preparing that.\n\n')
                         return
                         
                 for level in range(1,players[id]['lvl']+1):
@@ -526,9 +532,9 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                                 continue
                         for name,details in spellsDB[str(level)].items():
                                 if name.lower() == spellName:
-                                        if name.lower() not in players[id]['knownSpells']:
+                                        if name.lower() not in players[id]['preparedSpells']:
                                                 if len(spellsDB[str(level)][name]['items'])==0:
-                                                        players[id]['knownSpells'][name]=0
+                                                        players[id]['preparedSpells'][name]=0
                                                 else:
                                                         for required in spellsDB[str(level)][name]['items']:
                                                                 requiredItemFound=False
@@ -539,10 +545,10 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                                                                 if not requiredItemFound:
                                                                         mud.send_message(id, 'You need <b234>' + itemsDB[required]['name'] + '<r>\n\n')
                                                                         return
-                                                players[id]['learnSpell'] = spellName
-                                                players[id]['learnSpellProgress'] = 0
-                                                players[id]['learnSpellTime'] = spellTimeToSec(details['learningTime'])
-                                                mud.send_message(id, 'You begin studying <b234>' + spellName + '<r>. It will take ' + details['learningTime'] + '.\n\n')
+                                                players[id]['prepareSpell'] = spellName
+                                                players[id]['prepareSpellProgress'] = 0
+                                                players[id]['prepareSpellTime'] = spellTimeToSec(details['learningTime'])
+                                                mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>. It will take ' + details['learningTime'] + '.\n\n')
                                         return
 
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
@@ -1690,7 +1696,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "tempHitPointsStart": 0, \
                    "tempHitPoints": 0, \
                    "spellSlots": {}, \
-                   "knownSpells": {}, \
+                   "preparedSpells": {}, \
                    "hpMax" : 100, \
                    "hp" : 100, \
                    "charge" : 1233, \
@@ -2389,8 +2395,11 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "cancel": destroy,
                 "banish": destroy,
                 "speak": speak,
-                "learn": learnSpell,
+                "learn": prepareSpell,
+                "prepare": prepareSpell,
                 "destroy": destroy,
+                "spells": spells,
+                "spellbook": spells,
                 "resetuniverse": resetUniverse,
                 "shutdown": shutdown
         }

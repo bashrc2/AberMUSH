@@ -408,19 +408,20 @@ def setRace(template,racesDB,name):
         template['cool'] = racesDB[name]['cool']
         template['ref'] = racesDB[name]['ref']
 
-def learnSpells(mud,id,players):
-    """Player learns spells, called once per second
+def prepareSpells(mud,id,players):
+    """Player prepares spells, called once per second
     """
-    if len(players[id]['learnSpell'])==0:
+    if len(players[id]['prepareSpell'])==0:
             return
 
-    if players[id]['learnSpellTime']>0:
-            if players[id]['learnSpellProgress'] >= players[id]['learnSpellTime']:
-                    spellName=players[id]['learnSpell']
-                    players[id]['knownSpells'][spellName]=int(time.time())
-                    players[id]['learnSpell']=""
-                    players[id]['learnSpellProgress']=0
-                    players[id]['learnSpellTime']=0
-                    mud.send_message(id, "You learned the spell <f220>" + spellName + "<r>\n\n")
+    if players[id]['prepareSpellTime']>0:
+            if players[id]['prepareSpellProgress'] >= players[id]['prepareSpellTime']:
+                    spellName=players[id]['prepareSpell']
+                    players[id]['preparedSpells'][spellName]=0
+                    players[id]['spellSlots'][spellName]=0
+                    players[id]['prepareSpell']=""
+                    players[id]['prepareSpellProgress']=0
+                    players[id]['prepareSpellTime']=0
+                    mud.send_message(id, "You prepared the spell <f220>" + spellName + "<r>\n\n")
             else:
-                    players[id]['learnSpellProgress'] = players[id]['learnSpellProgress'] + 1
+                    players[id]['prepareSpellProgress'] = players[id]['prepareSpellProgress'] + 1
