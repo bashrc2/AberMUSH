@@ -9,6 +9,33 @@
 	    "range": 60,
 	    "items": [],
 	    "damage": 6,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "attack"
+	},
+	"shocking grasp": {
+	    "description": "Lightning springs from your hand to deliver a shock to {}",
+	    "description_second": "fires lighning from their hand at {}",
+	    "learningTime": "",
+	    "Duration": "",
+	    "classes": ["sorcerer","witch"],
+	    "range": 0,
+	    "items": [],
+	    "damage": 8,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "attack"
+	},
+	"vicious mockery": {
+	    "description": "You unleash a string of insults at {}",
+	    "description_second": "unleashes a string of insults at {}",
+	    "learningTime": "",
+	    "Duration": "",
+	    "classes": ["bard"],
+	    "range": 0,
+	    "items": [],
+	    "damage": 8,
+	    "damageType": "cha",
 	    "hp": 0,
 	    "action": "attack"
 	}
@@ -23,6 +50,7 @@
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
+	    "damageType": "",
 	    "hp": 0,
 	    "action": "friend"
 	},
@@ -35,6 +63,7 @@
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
+	    "damageType": "",
 	    "hp": 0,
 	    "action": "freeze"
 	},
@@ -47,6 +76,7 @@
 	    "range": 120,
 	    "items": [],
 	    "damage": 5,
+	    "damageType": "",
 	    "hp": 0,
 	    "action": "attack"
 	},
@@ -59,6 +89,7 @@
 	    "range": 120,
 	    "items": [],
 	    "damage": 0,
+	    "damageType": "",
 	    "armor": 0,
 	    "hp": 0,
 	    "action": "defense"
@@ -74,6 +105,7 @@
 	    "range": 90,
 	    "items": [],
 	    "damage": 8,
+	    "damageType": "",
 	    "hp": 0,
 	    "action": "attack"
 	},
@@ -86,6 +118,7 @@
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
+	    "damageType": "",
 	    "hp": 5,
 	    "action": "protect"
 	}
@@ -97,5 +130,11 @@
     "5": {
     },
     "6": {
+    },
+    "7": {
+    },
+    "8": {
+    },
+    "9": {
     }
 }
