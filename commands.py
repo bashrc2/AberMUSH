@@ -482,6 +482,22 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  shutdown                                - Shuts down the game server')
         mud.send_message(id, '\n\n')
 
+def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        spellName=params.lower().strip()
+        if len(spellName)==0:
+                # list spells which can be learned
+                mud.send_message(id, 'Spells you can learn are:\n')
+                for level in range(1,players[id]['lvl']+1):
+                        if not spellsDB.get(str(level)):
+                                continue
+                        for name,details in spellsDB[str(level)].items():
+                                if name.lower() not in players[id]['knownSpells']:
+                                        spellClasses=spellsDB[str(level)][name]['classes']
+                                        if players[id]['characterClass'] in spellClasses or \
+                                           len(spellClasses)==0:
+                                                mud.send_message(id, '  <b234>'+name+'<r>')
+                mud.send_message(id, '\n')
+
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         lang=params.lower().strip()
         if lang not in players[id]['language']:
@@ -2326,6 +2342,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "cancel": destroy,
                 "banish": destroy,
                 "speak": speak,
+                "learn": learnSpell,
                 "destroy": destroy,
                 "resetuniverse": resetUniverse,
                 "shutdown": shutdown

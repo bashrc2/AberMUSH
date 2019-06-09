@@ -16,7 +16,7 @@
     	    "description": "You convince {} that you mean no harm",
 	    "description_second": "convinces {} that they mean no harm",
 	    "time": "24 hours",
-	    "classes": ["bard","driud","ranger","witch"],
+	    "classes": ["bard","druid","ranger","witch"],
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
