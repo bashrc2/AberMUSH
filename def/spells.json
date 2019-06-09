@@ -3,46 +3,91 @@
 	"acid splash": {
 	    "description": "You hurl a bubble of acid at {}",
 	    "description_second": "hurls a bubble of acid at {}",
-	    "time": "",
+	    "learningTime": "",
+	    "Duration": "",
 	    "classes": [],
 	    "range": 60,
 	    "items": [],
 	    "damage": 6,
-	    "hp": 0
+	    "hp": 0,
+	    "action": "attack"
 	}
     },
     "1": {
         "animal friendship": {
     	    "description": "You convince {} that you mean no harm",
 	    "description_second": "convinces {} that they mean no harm",
-	    "time": "24 hours",
+	    "learningTime": "24 hours",
+	    "Duration": "",
 	    "classes": ["bard","druid","ranger","witch"],
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
-	    "hp": 0
+	    "hp": 0,
+	    "action": "friend"
+	},
+        "hideous laughter": {
+    	    "description": "{} giggles",
+	    "description_second": "",
+	    "learningTime": "1 min",
+	    "Duration": "1 min",
+	    "classes": ["witch"],
+	    "range": 30,
+	    "items": [],
+	    "damage": 0,
+	    "hp": 0,
+	    "action": "freeze"
+	},
+        "magic missile": {
+    	    "description": "You create three glowing darts of magical force which simultaneously strike {}",
+	    "description_second": "created three glowing darts of magical force which simultaneously struck {}",
+	    "learningTime": "1 min",
+	    "Duration": "1 min",
+	    "classes": ["sorcerer","witch"],
+	    "range": 120,
+	    "items": [],
+	    "damage": 5,
+	    "hp": 0,
+	    "action": "attack"
+	},
+        "magic shield": {
+    	    "description": "An invisible barrier of magical force appears and protects you.",
+	    "description_second": "",
+	    "learningTime": "1 min",
+	    "Duration": "1 min",
+	    "classes": ["sorcerer","witch"],
+	    "range": 120,
+	    "items": [],
+	    "damage": 0,
+	    "armor": 0,
+	    "hp": 0,
+	    "action": "defense"
 	}
     },
     "2": {
         "acid arrow": {
     	    "description": "A shimmering green arrow streaks toward {} and bursts in a spray of acid",
 	    "description_second": "",
-	    "time": "1 action",
+	    "learningTime": "1 action",
+	    "Duration": "",
 	    "classes": [],
 	    "range": 90,
 	    "items": [],
 	    "damage": 8,
-	    "hp": 0
+	    "hp": 0,
+	    "action": "attack"
 	},
         "aid": {
-    	    "description": "Your spell bolsters your allies with toughness and resolve",
-	    "description_second": "casts a spell bolstering their allies with toughness and resolve",
-	    "time": "8 hours",
+    	    "description": "Your spell bolsters {} with toughness and resolve",
+	    "description_second": "casts a spell bolstering {} with toughness and resolve",
+	    "learningTime": "8 hours",
+	    "Duration": "1 hour",
 	    "classes": ["cleric","paladin"],
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
-	    "hp": 5
+	    "hp": 5,
+	    "action": "protect"
 	}
     },
     "3": {

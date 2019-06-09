@@ -482,6 +482,21 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, '  shutdown                                - Shuts down the game server')
         mud.send_message(id, '\n\n')
 
+def spellTimeToSec(durationStr):
+        """Converts a description of a duration such as '1 hour'
+           into a number of seconds
+        """
+        if ' ' not in durationStr:
+                return 0
+        dur = surationStr.split(' ')
+        if dur[1].startswith('min'):
+                return int(dur[0])*60
+        if dur[1].startswith('hour') or dur[1].startswith('hr'):
+                return int(dur[0])*60*60
+        if dur[1].startswith('day'):
+                return int(dur[0])*60*60*24
+        return 0
+
 def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         spellName=params.lower().strip()
         if len(spellName)==0:
@@ -497,6 +512,33 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                                            len(spellClasses)==0:
                                                 mud.send_message(id, '  <b234>'+name+'<r>')
                 mud.send_message(id, '\n')
+        else:
+                if spellName == players[id]['learnSpell']:
+                        mud.send_message(id, 'You are already learning that.\n')
+                        return
+                        
+                for level in range(1,players[id]['lvl']+1):
+                        if not spellsDB.get(str(level)):
+                                continue
+                        for name,details in spellsDB[str(level)].items():
+                                if name.lower() == spellName:
+                                        if name.lower() not in players[id]['knownSpells']:
+                                                if len(spellsDB[str(level)]['items'])==0:
+                                                        players[id]['knownSpells'][name]=0
+                                                else:
+                                                        for required in spellsDB[str(level)]['items']:
+                                                                requiredItemFound=False
+                                                                for i in list(players[id]['inv']):
+                                                                        if int(i) == required:
+                                                                                requiredItemFound=True
+                                                                                break
+                                                                if not requiredItemFound:
+                                                                        mud.send_message(id, 'You need ' + itemsDB[required]['name'] + '\n')
+                                                                        return
+                                                players[id]['learnSpell'] = spellName
+                                                players[id]['learnSpellStart'] = int(time.time())
+                                                players[id]['learnSpellTime'] = spellTimeToSec(details['learningTime'])
+                                        return
 
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         lang=params.lower().strip()

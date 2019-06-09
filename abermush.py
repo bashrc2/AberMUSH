@@ -778,6 +778,9 @@ while True:
                                         players[id]['tempHitPoints'] = dbResponse[68]
                                         players[id]['tempHitPointsStart'] = dbResponse[69]
                                         players[id]['tempHitPointsDuration'] = dbResponse[70]
+                                        players[id]['learnSpell'] = dbResponse[71]
+                                        players[id]['learnSpellStart'] = dbResponse[72]
+                                        players[id]['learnSpellDuration'] = dbResponse[73]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])

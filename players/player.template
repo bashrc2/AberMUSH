@@ -69,5 +69,8 @@
     "spellSlots": {},
     "tempHitPoints": 0,
     "tempHitPointsStart": 0,
-    "tempHitPointsDuration": 0
+    "tempHitPointsDuration": 0,
+    "learnSpell": "",
+    "learnSpellStart": 0,
+    "learnSpellDuration": 0    
 }
