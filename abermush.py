@@ -33,6 +33,7 @@ from events import evaluateEvent
 from commands import runCommand
 from combat import runFights
 from combat import playersRest
+from combat import updateTemporaryHitPoints
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
 from npcs import npcRespawns
@@ -382,6 +383,9 @@ windDirection=int(r1.random()*359)
 windDirection=generateCloud(r1, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)
 log("Clouds generated. Wind direction " + str(windDirection), "info")
 
+lastTempHitPointsUpdate = int(time.time())
+tempHitPointsUpdateInterval=60
+
 blocklist=[]
 if loadBlocklist("blocked.txt", blocklist):
         log("Blocklist loaded", "info")
@@ -391,8 +395,14 @@ while True:
         # print(int(time.time()))
 
         now = int(time.time())
-        if int(now >= lastWeatherUpdate + weatherUpdateInterval):
-                lastWeatherUpdate = int(time.time())
+        if now >= lastTempHitPointsUpdate + tempHitPointsUpdateInterval:
+                lastTempHitPointsUpdate=now
+                updateTemporaryHitPoints(mud,players,False)
+                updateTemporaryHitPoints(mud,npcs,True)
+
+        now = int(time.time())
+        if now >= lastWeatherUpdate + weatherUpdateInterval:
+                lastWeatherUpdate = now
                 temperature=getTemperature()
                 #print("Temperature " + str(temperature))
                 windDirection=generateCloud(r1, rooms, mapArea, clouds, cloudGrid, tileSize, windDirection)

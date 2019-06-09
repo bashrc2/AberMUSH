@@ -23,6 +23,25 @@ import time
 
 defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')
 
+def updateTemporaryHitPoints(mud,players,isNPC):
+    """Updates any hit points added for a temporary period
+       as the result of a spell
+    """
+    now = int(time.time())
+    for p in players:
+        if players[p]['tempHitPoints']==0:
+            continue
+        if players[p]['tempHitPointsStart']==0 and \
+           players[p]['tempHitPointsDuration']>0:
+            players[p]['tempHitPointsStart']=now
+        else:
+            if now >= players[p]['tempHitPointsStart'] + players[p]['tempHitPointsDuration']:
+                players[p]['tempHitPoints']=0
+                players[p]['tempHitPointsStart']=0
+                players[p]['tempHitPointsDuration']=0
+                if not isNPC:
+                    mud.send_message(p, "<f220>Your magical protection expires.<r>\n\n")
+
 def playersRest(players):
     """Rest restores hit points
     """
