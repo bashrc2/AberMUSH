@@ -479,8 +479,10 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                         if players[s1id]['hp'] > 0:
                             modifierStr=''
                             for firingRound in range(roundsOfFire):
-                                modifier = randint(0, 10) + (damageValue*roundsOfFire) - armorClass
+                                modifier = randint(0, 10) + (damageValue*roundsOfFire) - armorClass - players[s1id]['tempHitPoints']
                                 damagePoints = players[s1id]['str'] + modifier
+                                if damagePoints<0:
+                                    damagePoints=0
                                 players[s2id]['hp'] = players[s2id]['hp'] - damagePoints
                                 if len(modifierStr)==0:
                                     modifierStr = modifierStr + str(damagePoints)
@@ -552,8 +554,10 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                     if players[s1id]['hp'] > 0:
                         modifierStr=''
                         for firingRound in range(roundsOfFire):
-                            modifier = randint(0, 10) + damageValue - armorClass
+                            modifier = randint(0, 10) + damageValue - armorClass - players[s1id]['tempHitPoints']
                             damagePoints = players[s1id]['str'] + modifier
+                            if damagePoints<0:
+                                damagePoints=0
                             npcs[s2id]['hp'] = npcs[s2id]['hp'] - damagePoints
                             if len(modifierStr)==0:
                                 modifierStr = modifierStr + str(damagePoints)
@@ -617,8 +621,10 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
                 if npcs[s1id]['hp'] > 0:
                     modifierStr=''
                     for firingRound in range(roundsOfFire):
-                        modifier = randint(0, 10) + damageValue - armorClass
+                        modifier = randint(0, 10) + damageValue - armorClass - npcs[s1id]['tempHitPoints']
                         damagePoints = npcs[s1id]['str'] + modifier
+                        if damagePoints<0:
+                            damagePoints=0
                         players[s2id]['hp'] = players[s2id]['hp'] - damagePoints
                         if len(modifierStr)==0:
                             modifierStr = modifierStr + str(damagePoints)

@@ -765,6 +765,9 @@ while True:
                                         players[id]['archetype'] = dbResponse[65]
                                         players[id]['knownSpells'] = dbResponse[66]
                                         players[id]['spellSlots'] = dbResponse[67]
+                                        players[id]['tempHitPoints'] = dbResponse[68]
+                                        players[id]['tempHitPointsStart'] = dbResponse[69]
+                                        players[id]['tempHitPointsDuration'] = dbResponse[70]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])

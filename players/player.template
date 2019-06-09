@@ -66,5 +66,8 @@
     "enemy": "",
     "archetype": "",
     "knownSpells": {},
-    "spellSlots": {}
+    "spellSlots": {},
+    "tempHitPoints": 0,
+    "tempHitPointsStart": 0,
+    "tempHitPointsDuration": 0
 }
