@@ -536,7 +536,7 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                                                                         mud.send_message(id, 'You need ' + itemsDB[required]['name'] + '\n')
                                                                         return
                                                 players[id]['learnSpell'] = spellName
-                                                players[id]['learnSpellStart'] = int(time.time())
+                                                players[id]['learnSpellProgress'] = 0
                                                 players[id]['learnSpellTime'] = spellTimeToSec(details['learningTime'])
                                         return
 

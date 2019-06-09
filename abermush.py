@@ -386,6 +386,8 @@ log("Clouds generated. Wind direction " + str(windDirection), "info")
 lastTempHitPointsUpdate = int(time.time())
 tempHitPointsUpdateInterval=60
 
+lastRestUpdate = int(time.time())
+
 blocklist=[]
 if loadBlocklist("blocked.txt", blocklist):
         log("Blocklist loaded", "info")
@@ -466,9 +468,12 @@ while True:
 
         runPlayerConnections(mud,id,players,playersDB,fights,Config)
 
-        # rest restores hp
-        playersRest(players)
-        npcsRest(npcs)
+        # rest restores hp and allows spell learning
+        now = int(time.time())
+        if now >= lastRestUpdate + 1:
+                lastRestUpdate=now
+                playersRest(players)
+                npcsRest(npcs)
 
         # go through any new commands sent from players
         for (id, command, params) in mud.get_commands():
@@ -779,7 +784,7 @@ while True:
                                         players[id]['tempHitPointsStart'] = dbResponse[69]
                                         players[id]['tempHitPointsDuration'] = dbResponse[70]
                                         players[id]['learnSpell'] = dbResponse[71]
-                                        players[id]['learnSpellStart'] = dbResponse[72]
+                                        players[id]['learnSpellProgress'] = dbResponse[72]
                                         players[id]['learnSpellDuration'] = dbResponse[73]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")

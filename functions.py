@@ -407,3 +407,17 @@ def setRace(template,racesDB,name):
         template['luc'] = racesDB[name]['luc']
         template['cool'] = racesDB[name]['cool']
         template['ref'] = racesDB[name]['ref']
+
+def learnSpells(id,players):
+    """Player learns spells, called once per second
+    """
+    if len(players[id]['learnSpell'])==0:
+            return
+    if players[id]['learnSpellDuration']>0:
+            if players[id]['learnSpellProgress'] >= players[id]['learnSpellDuration']:
+                    spellName=players[id]['learnSpell']
+                    players[id]['knownSpells'][spellName]=int(time.time())
+                    players[id]['learnSpell']=""
+                    players[id]['learnSpellProgress']=0
+                    players[id]['learnSpellDuration']=0
+                    mud.send_message(id, "You learned the spell <f220>" + spellName + "<r>\n\n")

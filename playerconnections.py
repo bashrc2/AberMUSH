@@ -112,7 +112,7 @@ def runNewPlayerConnections(mud,id,players,playersDB,fights,Config):
                         'tempHitPointsStart': None,
                         'tempHitPointsDuration': None,
                         'learnSpell': None,
-                        'learnSpellStart': None,
+                        'learnSpellProgress': None,
                         'learnSpellDuration': None
                 }
 

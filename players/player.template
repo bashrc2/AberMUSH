@@ -71,6 +71,6 @@
     "tempHitPointsStart": 0,
     "tempHitPointsDuration": 0,
     "learnSpell": "",
-    "learnSpellStart": 0,
-    "learnSpellDuration": 0    
+    "learnSpellProgress": 0,
+    "learnSpellDuration": 0 
 }
