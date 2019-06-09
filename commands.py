@@ -487,7 +487,7 @@ def spellTimeToSec(durationStr):
            into a number of seconds
         """
         if ' ' not in durationStr:
-                return 0
+                return 1
         dur = durationStr.split(' ')
         if dur[1].startswith('min'):
                 return int(dur[0])*60
@@ -495,15 +495,18 @@ def spellTimeToSec(durationStr):
                 return int(dur[0])*60*60
         if dur[1].startswith('day'):
                 return int(dur[0])*60*60*24
-        return 0
+        return 1
 
 def spells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
-        mud.send_message(id, 'Your spellbook:\n')
-        for name,details in players[id]['preparedSpells'].items():
-                mud.send_message(id, '  <b234>'+name+'<r>')
-        mud.send_message(id, '\n')        
+        if len(players[id]['preparedSpells'])>0:
+                mud.send_message(id, 'Your prepared spells:\n')
+                for name,details in players[id]['preparedSpells'].items():
+                        mud.send_message(id, '  <b234>'+name+'<r>')
+                mud.send_message(id, '\n')
+        else:
+                mud.send_message(id, 'You have no spells prepared.\n\n')
 
-def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,level):
+def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,level):
         for name,details in spellsDB[level].items():
                 if name.lower() == spellName:
                         if name.lower() not in players[id]['preparedSpells']:
@@ -522,7 +525,10 @@ def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, it
                                 players[id]['prepareSpell'] = spellName
                                 players[id]['prepareSpellProgress'] = 0
                                 players[id]['prepareSpellTime'] = spellTimeToSec(details['learningTime'])
-                                mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>. It will take ' + details['learningTime'] + '.\n\n')
+                                if len(details['learningTime'])>0:
+                                        mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>. It will take ' + details['learningTime'] + '.\n\n')
+                                else:
+                                        mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>.\n\n')
                                 return True
         return False
 
@@ -560,13 +566,13 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                         return
 
                 if spellsDB.get('cantrip'):
-                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,'cantrip'):
+                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,'cantrip'):
                                 return
 
                 for level in range(1,players[id]['lvl']+1):                        
                         if not spellsDB.get(str(level)):
                                 continue
-                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,str(level)):
+                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,str(level)):
                                 break
 
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
