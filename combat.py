@@ -47,10 +47,11 @@ def playersRest(players):
     """
     for p in players:
         if players[p]['name'] != None and players[p]['authenticated'] != None:
-            if players[p]['hp'] < players[p]['hpMax']:
+            if players[p]['hp'] < players[p]['hpMax'] + players[p]['tempHitPoints']:
                 if randint(0,100)>97:
                     players[p]['hp'] = players[p]['hp'] + 1
             else:
+                players[p]['hp'] = players[p]['hpMax'] + players[p]['tempHitPoints']
                 players[p]['restRequired']=0
 
 def itemInNPCInventory(npcs,id,itemName,itemsDB):
@@ -498,7 +499,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                         if players[s1id]['hp'] > 0:
                             modifierStr=''
                             for firingRound in range(roundsOfFire):
-                                modifier = randint(0, 10) + (damageValue*roundsOfFire) - armorClass - players[s1id]['tempHitPoints']
+                                modifier = randint(0, 10) + (damageValue*roundsOfFire) - armorClass
                                 damagePoints = players[s1id]['str'] + modifier
                                 if damagePoints<0:
                                     damagePoints=0
@@ -573,7 +574,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                     if players[s1id]['hp'] > 0:
                         modifierStr=''
                         for firingRound in range(roundsOfFire):
-                            modifier = randint(0, 10) + damageValue - armorClass - players[s1id]['tempHitPoints']
+                            modifier = randint(0, 10) + damageValue - armorClass
                             damagePoints = players[s1id]['str'] + modifier
                             if damagePoints<0:
                                 damagePoints=0

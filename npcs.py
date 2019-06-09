@@ -24,9 +24,12 @@ def npcsRest(npcs):
     """Rest restores hit points of NPCs
     """
     for p in npcs:
-        if npcs[p]['hp'] < 100:
+        if npcs[p]['hp'] < npcs[p]['hpMax'] + npcs[p]['tempHitPoints']:
             if randint(0,100)>97:
                 npcs[p]['hp'] = npcs[p]['hp'] + 1
+        else:
+            npcs[p]['hp'] = npcs[p]['hpMax'] + npcs[p]['tempHitPoints']
+            npcs[p]['restRequired']=0
 
 def npcRespawns(npcs):
     """Respawns inactive NPCs
