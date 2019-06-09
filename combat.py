@@ -43,7 +43,7 @@ def updateTemporaryHitPoints(mud,players,isNPC):
                 if not isNPC:
                     mud.send_message(p, "<f220>Your magical protection expires.<r>\n\n")
 
-def playersRest(players):
+def playersRest(mud,players):
     """Rest restores hit points
     """
     for p in players:
@@ -54,7 +54,7 @@ def playersRest(players):
             else:
                 players[p]['hp'] = players[p]['hpMax'] + players[p]['tempHitPoints']
                 players[p]['restRequired']=0
-                learnSpells(p,players)
+                learnSpells(mud,p,players)
 
 def itemInNPCInventory(npcs,id,itemName,itemsDB):
         if len(list(npcs[id]['inv'])) > 0:

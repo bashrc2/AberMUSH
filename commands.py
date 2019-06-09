@@ -488,7 +488,7 @@ def spellTimeToSec(durationStr):
         """
         if ' ' not in durationStr:
                 return 0
-        dur = surationStr.split(' ')
+        dur = durationStr.split(' ')
         if dur[1].startswith('min'):
                 return int(dur[0])*60
         if dur[1].startswith('hour') or dur[1].startswith('hr'):
@@ -513,8 +513,12 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                                                 mud.send_message(id, '  <b234>'+name+'<r>')
                 mud.send_message(id, '\n')
         else:
+                if spellName.startswith('the spell '):
+                        spellName = spellName.replace('the spell ','')
+                if spellName.startswith('spell '):
+                        spellName = spellName.replace('spell ','')
                 if spellName == players[id]['learnSpell']:
-                        mud.send_message(id, 'You are already learning that.\n')
+                        mud.send_message(id, 'You are already learning that.\n\n')
                         return
                         
                 for level in range(1,players[id]['lvl']+1):
@@ -523,21 +527,22 @@ def learnSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                         for name,details in spellsDB[str(level)].items():
                                 if name.lower() == spellName:
                                         if name.lower() not in players[id]['knownSpells']:
-                                                if len(spellsDB[str(level)]['items'])==0:
+                                                if len(spellsDB[str(level)][name]['items'])==0:
                                                         players[id]['knownSpells'][name]=0
                                                 else:
-                                                        for required in spellsDB[str(level)]['items']:
+                                                        for required in spellsDB[str(level)][name]['items']:
                                                                 requiredItemFound=False
                                                                 for i in list(players[id]['inv']):
                                                                         if int(i) == required:
                                                                                 requiredItemFound=True
                                                                                 break
                                                                 if not requiredItemFound:
-                                                                        mud.send_message(id, 'You need ' + itemsDB[required]['name'] + '\n')
+                                                                        mud.send_message(id, 'You need <b234>' + itemsDB[required]['name'] + '<r>\n\n')
                                                                         return
                                                 players[id]['learnSpell'] = spellName
                                                 players[id]['learnSpellProgress'] = 0
                                                 players[id]['learnSpellTime'] = spellTimeToSec(details['learningTime'])
+                                                mud.send_message(id, 'You begin studying <b234>' + spellName + '<r>. It will take ' + details['learningTime'] + '.\n\n')
                                         return
 
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):

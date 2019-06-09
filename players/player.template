@@ -72,5 +72,5 @@
     "tempHitPointsDuration": 0,
     "learnSpell": "",
     "learnSpellProgress": 0,
-    "learnSpellDuration": 0 
+    "learnSpellTime": 0 
 }

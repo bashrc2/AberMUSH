@@ -472,7 +472,7 @@ while True:
         now = int(time.time())
         if now >= lastRestUpdate + 1:
                 lastRestUpdate=now
-                playersRest(players)
+                playersRest(mud,players)
                 npcsRest(npcs)
 
         # go through any new commands sent from players
@@ -785,7 +785,7 @@ while True:
                                         players[id]['tempHitPointsDuration'] = dbResponse[70]
                                         players[id]['learnSpell'] = dbResponse[71]
                                         players[id]['learnSpellProgress'] = dbResponse[72]
-                                        players[id]['learnSpellDuration'] = dbResponse[73]
+                                        players[id]['learnSpellTime'] = dbResponse[73]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])
