@@ -218,6 +218,8 @@ for k in npcsDB:
                        v == "proficiencies" or \
                        v == "fightingStyle" or \
                        v == "enemy" or \
+                       v == "knownSpells" or \
+                       v == "spellSlots" or \
                        v == "conv" or \
                        v == "path" or \
                        v == "follow" or \
@@ -244,6 +246,11 @@ with open(str(Config.get('CharacterClass', 'Definition')), "r") as read_file:
         characterClassDB = commentjson.load(read_file)
 
 log("Character Classes loaded: " + str(len(characterClassDB)), "info")
+
+with open(str(Config.get('Spells', 'Definition')), "r") as read_file:
+        spellsDB = commentjson.load(read_file)
+
+log("Spells loaded: " + str(len(spellsDB)), "info")
 
 # List NPC dictionary for debugging purposes
 #print(" ")
@@ -756,6 +763,8 @@ while True:
                                         players[id]['restRequired'] = dbResponse[63]
                                         players[id]['enemy'] = dbResponse[64]
                                         players[id]['archetype'] = dbResponse[65]
+                                        players[id]['knownSpells'] = dbResponse[66]
+                                        players[id]['spellSlots'] = dbResponse[67]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])
@@ -786,4 +795,4 @@ while True:
                         players[id]['idleStart'] = int(time.time())
                         if players[id]['exAttribute0'] < 1000:
                                 if len(command) > 0:
-                                        runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist, mapArea, characterClassDB)
+                                        runCommand(command.lower(), params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, scriptedEventsDB, eventSchedule, id, fights, corpses, blocklist, mapArea, characterClassDB, spellsDB)

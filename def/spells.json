@@ -1,0 +1,56 @@
+{
+    "cantrip": {
+	"acid splash": {
+	    "description": "You hurl a bubble of acid at {}",
+	    "description_second": "hurls a bubble of acid at {}",
+	    "time": "",
+	    "classes": [],
+	    "range": 60,
+	    "items": [],
+	    "damage": 6,
+	    "hp": 0
+	}
+    },
+    "1": {
+        "animal friendship": {
+    	    "description": "You convince {} that you mean no harm",
+	    "description_second": "convinces {} that they mean no harm",
+	    "time": "24 hours",
+	    "classes": ["bard","driud","ranger","witch"],
+	    "range": 30,
+	    "items": [],
+	    "damage": 0,
+	    "hp": 0
+	}
+    },
+    "2": {
+        "acid arrow": {
+    	    "description": "A shimmering green arrow streaks toward {} and bursts in a spray of acid",
+	    "description_second": "",
+	    "time": "1 action",
+	    "classes": [],
+	    "range": 90,
+	    "items": [],
+	    "damage": 8,
+	    "hp": 0
+	},
+        "aid": {
+    	    "description": "Your spell bolsters your allies with toughness and resolve",
+	    "description_second": "casts a spell bolstering their allies with toughness and resolve",
+	    "time": "8 hours",
+	    "classes": ["cleric","paladin"],
+	    "range": 30,
+	    "items": [],
+	    "damage": 0,
+	    "hp": 5
+	}
+    },
+    "3": {
+    },
+    "4": {
+    },
+    "5": {
+    },
+    "6": {
+    }
+}
