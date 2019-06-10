@@ -360,14 +360,14 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                         
                                         if not selfOnly:
                                                 if players[id]['speakLanguage'] in players[p]['language']:
-                                                        addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message, p, eventSchedule, eventDB)
+                                                        addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message + '\n', p, eventSchedule, eventDB)
                                                         increaseAffinityBetweenPlayers(players,id,players,p)
                                                 else:
                                                         if players[id]['speakLanguage'] != 'cant':
-                                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage'], p, eventSchedule, eventDB)
+                                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage']+'\n', p, eventSchedule, eventDB)
                                                         else:
-                                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + cantStr, p, eventSchedule, eventDB)
-                                        mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message + "\n")
+                                                                addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + cantStr + '\n', p, eventSchedule, eventDB)
+                                        mud.send_message(id, "<f90>To " + players[p]['name'] + ": " + message + "\n\n")
                                         told = True
                                         break
                 if told == False:
@@ -379,9 +379,9 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                                 break
 
                 if told == False:
-                        mud.send_message(id, "<f32>" + target + "<r> does not appear to be reachable at this moment.\n")
+                        mud.send_message(id, "<f32>" + target + "<r> does not appear to be reachable at this moment.\n\n")
         else:
-                mud.send_message(id, "Huh?\n")
+                mud.send_message(id, "Huh?\n\n")
 
 def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         target = params.partition(' ')[0]
