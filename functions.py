@@ -21,6 +21,17 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def getSentiment(text, sentimentDB):
+        """Returns a sentiment score for the given text
+           which can be positive or negative
+        """
+        textLower=text.lower()
+        sentiment=0
+        for word,value in sentimentDB.items():
+                if word in textLower:
+                        sentiment = sentiment + value
+        return sentiment
+
 def increaseAffinityBetweenPlayers(players,id,npcs,p):
         """Increases the affinity level between two players
         """
@@ -38,6 +49,10 @@ def decreaseAffinityBetweenPlayers(players,id,npcs,p):
         if players[id]['affinity'].get(recipientName):
                 players[id]['affinity'][recipientName] = \
                         players[id]['affinity'][recipientName] - 1
+
+                # Avoid zero values
+                if players[id]['affinity'][recipientName] == 0:
+                        players[id]['affinity'][recipientName]=-1
         else:
                 players[id]['affinity'][recipientName]=-1
                 

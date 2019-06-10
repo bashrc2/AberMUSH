@@ -21,7 +21,7 @@ from functions import sizeFromDescription
 from functions import stowHands
 from functions import randomDescription
 from functions import increaseAffinityBetweenPlayers
-
+from functions import getSentiment
 from environment import runTide
 from environment import assignCoordinates
 
@@ -42,7 +42,7 @@ from random import randint
 '''
 Command function template:
 
-def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         print("I'm in!")
 '''
 
@@ -55,7 +55,7 @@ def removeItemFromClothing(players,id,itemID):
                 if int(players[id][c]) == itemID:
                         players[id][c] = 0
 
-def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def sendCommandError(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
 def isWitch(id, players):
@@ -95,7 +95,7 @@ def enableRegistrations(mud, id, players):
         os.remove(".disableRegistrations")
         mud.send_message(id, "New player registrations are now permitted.\n\n")
 
-def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
                 targetLocation = params[0:].strip().lower().replace('to the ', '').replace('to ', '')
@@ -114,7 +114,7 @@ def teleport(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
             else:
                 mud.send_message(id, "You don't have enough powers for that.\n\n")
 
-def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
                 targetPlayer = params[0:].strip().lower()
@@ -133,7 +133,7 @@ def summon(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
             else:
                 mud.send_message(id, "You don't have enough powers for that.\n\n")
 
-def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
                 target = params.partition(' ')[0]
@@ -149,7 +149,7 @@ def mute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                 mud.send_message(id, "You try to mute " + target + " but their power is too strong.\n\n")
                             return
 
-def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
                 target = params.partition(' ')[0]
@@ -164,7 +164,7 @@ def unmute(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                     mud.send_message(id, "You have unmuted " + target + "\n\n")
                                 return
 
-def freeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def freeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
                 target = params.partition(' ')[0]
@@ -179,7 +179,7 @@ def freeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                 mud.send_message(id, "You try to freeze " + target + " but their power is too strong.\n\n")
                             return
 
-def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['permissionLevel'] == 0:
             if isWitch(id,players):
                 target = params.partition(' ')[0]
@@ -193,7 +193,7 @@ def unfreeze(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                     mud.send_message(id, "You have unfrozen " + target + "\n\n")
                                 return
 
-def showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have sufficient powers to do that.\n")
                 return
@@ -206,13 +206,13 @@ def showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB,
                 
         mud.send_message(id, "Blocked strings are:\n\n" + blockStr + '\n')
                         
-def block(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def block(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have sufficient powers to do that.\n")
                 return
 
         if len(params)==0:
-                showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
                 return
 
         blockedstr=params.lower().strip().replace('"','')
@@ -233,13 +233,13 @@ def block(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
         else:
                 mud.send_message(id, "That's already in the blocklist.\n")
 
-def unblock(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def unblock(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have sufficient powers to do that.\n")
                 return
 
         if len(params)==0:
-                showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
                 return
 
         unblockedstr=params.lower().strip().replace('"','')
@@ -260,7 +260,7 @@ def unblock(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         else:
                 mud.send_message(id, "That's not in the blocklist.\n")
 
-def kick(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def kick(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 return
         
@@ -275,7 +275,7 @@ def kick(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         mud._handle_disconnect(pid)
                         break
                 
-def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have enough power to do that.\n\n")
                 return
@@ -290,7 +290,7 @@ def shutdown(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
         log("Shutting down", "info")
         sys.exit()
 
-def resetUniverse(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def resetUniverse(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have enough power to do that.\n\n")
                 return
@@ -302,10 +302,10 @@ def resetUniverse(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB,
         log("Shutting down", "info")
         sys.exit()
         
-def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def quit(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         mud._handle_disconnect(id)
 
-def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         counter = 1
         if players[id]['permissionLevel'] == 0:
                 is_witch = isWitch(id,players)
@@ -336,7 +336,7 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
                 
-def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea, characterClassDB,spellsDB):
+def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea, characterClassDB,spellsDB,sentimentDB):
         told = False
         target = params.partition(' ')[0]
         message = params.replace(target, "")[1:]
@@ -361,7 +361,10 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                         if not selfOnly:
                                                 if players[id]['speakLanguage'] in players[p]['language']:
                                                         addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message + '\n', p, eventSchedule, eventDB)
-                                                        increaseAffinityBetweenPlayers(players,id,players,p)
+                                                        if getSentiment(message,sentimentDB)>=0:
+                                                                increaseAffinityBetweenPlayers(players,id,players,p)
+                                                        else:
+                                                                decreaseAffinityBetweenPlayers(players,id,players,p)
                                                 else:
                                                         if players[id]['speakLanguage'] != 'cant':
                                                                 addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage']+'\n', p, eventSchedule, eventDB)
@@ -374,7 +377,7 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         for (nid, pl) in list(npcs.items()):
                                 if npcs[nid]['room'] == players[id]['room']:
                                         if target.lower() in npcs[nid]['name'].lower():
-                                                npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message.lower(),characterClassDB)
+                                                npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message.lower(),characterClassDB,sentimentDB)
                                                 told = True
                                                 break
 
@@ -383,7 +386,7 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         else:
                 mud.send_message(id, "Huh?\n\n")
 
-def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         target = params.partition(' ')[0]
         message = params.replace(target, "")
         
@@ -408,6 +411,11 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                                                                         selfOnly=True
                                                                         break
 
+                                                        if getSentiment(message[1:],sentimentDB)>=0:
+                                                                increaseAffinityBetweenPlayers(players,id,players,p)
+                                                        else:
+                                                                decreaseAffinityBetweenPlayers(players,id,players,p)
+
                                                         mud.send_message(id, "You whisper to <f32>" + players[p]['name'] + "<r>: " + message[1:] + '\n')
                                                         if not selfOnly:
                                                                 if players[id]['speakLanguage'] in players[p]['language']:
@@ -431,7 +439,7 @@ def whisper(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         else:
                 mud.send_message(id, "Who would you like to whisper to??\n")
 
-def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         mud.send_message(id, 'Commands:')
         mud.send_message(id, '  bio [description]                       - Set a description of yourself')
         mud.send_message(id, '  change password [newpassword]           - Change your password')
@@ -556,7 +564,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
 
         removePreparedSpell(players,id,spellName)
 
-def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
                 mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
@@ -621,7 +629,7 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
                 return                
 
-def clearSpells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def clearSpells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if len(players[id]['preparedSpells'])>0:
                 players[id]['preparedSpells'].clear()
                 players[id]['spellSlots'].clear()
@@ -630,7 +638,7 @@ def clearSpells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 
         mud.send_message(id, "Your don't have any spells prepared.\n\n")
 
-def spells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def spells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if len(players[id]['preparedSpells'])>0:
                 mud.send_message(id, 'Your prepared spells:\n')
                 for name,details in players[id]['preparedSpells'].items():
@@ -713,7 +721,7 @@ def getPlayerUsedSlotsAtSpellLevel(players,id, spellLevel, spellsDB):
                         usedCounter = usedCounter + 1
         return usedCounter
 
-def playerPreparedCantrips(players,id,spellsDB):
+def playerPreparedCantrips(players,id,spellsDB,sentimentDB):
         """Returns the number of cantrips which the player has prepared
         """
         preparedCounter=0
@@ -724,7 +732,7 @@ def playerPreparedCantrips(players,id,spellsDB):
                                 break
         return preparedCounter
 
-def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         spellName=params.lower().strip()
 
         # "learn spells" or "prepare spells" shows list of spells
@@ -793,7 +801,7 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
 
                 mud.send_message(id, "That's not a spell.\n\n")
 
-def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         lang=params.lower().strip()
         if lang not in players[id]['language']:
                 mud.send_message(id, "You don't know how to speak " + lang + "\n\n")
@@ -801,7 +809,7 @@ def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
         players[id]['speakLanguage'] = lang
         mud.send_message(id, "You switch to speaking in " + lang + "\n\n")        
                 
-def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         # print(channels)
         if players[id]['canSay'] == 1:
 
@@ -820,6 +828,13 @@ def say(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                         if players[pid]['room'] == players[id]['room']:
                                 if selfOnly == False or pid == id:
                                         if players[id]['speakLanguage'] in players[pid]['language']:
+                                                if getSentiment(params,sentimentDB)>=0:
+                                                        increaseAffinityBetweenPlayers(players,id,players,pid)
+                                                        increaseAffinityBetweenPlayers(players,pid,players,id)
+                                                else:
+                                                        decreaseAffinityBetweenPlayers(players,id,players,pid)
+                                                        decreaseAffinityBetweenPlayers(players,pid,players,id)
+                                                                
                                                 # send them a message telling them what the player said
                                                 mud.send_message(pid, '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
                                         else:
@@ -918,7 +933,7 @@ def conditionalRoomDescription(description,tideOutDescription,conditional,id,pla
 
         return roomDescription
         
-def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['canLook'] == 1:
                 if len(params) < 1:
                         # If no arguments are given, then look around and describe surroundings
@@ -1083,7 +1098,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         else:
                 mud.send_message(id, 'You somehow cannot muster enough perceptive powers to perceive and describe your immediate surroundings...\n')
 
-def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
                 mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
@@ -1159,7 +1174,7 @@ def itemInInventory(players,id,itemName,itemsDB):
                                 return True
         return False
 
-def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have enough powers.\n\n")
                 return
@@ -1250,7 +1265,7 @@ def describe(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, item
                                         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
                                         return
                                 
-def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         mud.send_message(id, 'You check your inventory.')
         if len(list(players[id]['inv'])) > 0:
                 mud.send_message(id, 'You are currently in possession of:\n')
@@ -1275,7 +1290,7 @@ def checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB
         else:
                 mud.send_message(id, 'You haven`t got any items on you.\n\n')
 
-def changeSetting(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def changeSetting(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         newPassword=''
         if params.startswith('password '):
                 newPassword=params.replace('password ','')
@@ -1290,7 +1305,7 @@ def changeSetting(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB,
             saveState(players[id],playersDB,True)
             mud.send_message(id, "Your password has been changed.\n\n")
 
-def writeOnItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def writeOnItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if ' on ' not in params:
                 if ' onto ' not in params:
                         if ' in ' not in params:
@@ -1312,15 +1327,15 @@ def writeOnItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         if len(msg)>64:
                 mud.send_message(id, 'That message is too long.\n\n')
 
-def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if params.lower() == 'inventory' or params.lower() == 'inv':
-                checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                checkInventory(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
         elif params.lower() == 'stats':
                 mud.send_message(id, 'You check your character sheet.\n')
         else:
                 mud.send_message(id, 'Check what?\n')
 
-def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
                 mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
@@ -1390,7 +1405,7 @@ def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
         mud.send_message(id, "You can't wear that\n\n")
 
-def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
                 mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
@@ -1489,7 +1504,7 @@ def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 players[id]['clo_rhand'] = itemID
                 mud.send_message(id, 'You hold <b234>' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '<r> in your right hand.\n\n')
                 
-def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if len(list(players[id]['inv'])) == 0:
                 return
 
@@ -1505,7 +1520,7 @@ def stow(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                         if int(players[id]['clo_rleg']) != itemID:
                                 players[id]['clo_lleg'] = itemID
 
-def unwear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def unwear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if len(list(players[id]['inv'])) == 0:
                 return
 
@@ -1671,7 +1686,7 @@ def bioOfPlayer(mud,id,pid,players,itemsDB):
                 mud.send_message(id,wearingMsg + '.\n')
         mud.send_message(id,'\n')
 
-def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if len(params) == 0:
                 bioOfPlayer(mud,id,id,players,itemsDB)
                 return
@@ -1705,7 +1720,7 @@ def bio(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         players[id]['lookDescription'] = params
         mud.send_message(id,"Your bio has been set.\n\n")
 
-def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         food = params.lower()
         foodItemID=0
         if len(list(players[id]['inv'])) > 0:
@@ -1742,7 +1757,7 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
         if int(players[id]['clo_lhand']) == foodItemID:
                 players[id]['clo_lhand'] = 0
 
-def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
                 mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
@@ -1818,7 +1833,7 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
         else:
                 mud.send_message(id, 'Somehow, your legs refuse to obey your will.\n')
 
-def conjureRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def conjureRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         params = params.replace('room ','')
         roomDirection = params.lower().strip()
         possibleDirections=('north','south','east','west','up','down','in','out')
@@ -1861,7 +1876,7 @@ def conjureRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
         mud.send_message(id, 'Room created.\n\n')
                 
-def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         itemName = params.lower()
         if len(itemName)==0:
                 mud.send_message(id, "Specify the name of an item to conjure.\n\n")
@@ -1910,7 +1925,7 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
                 return True
         return False
 
-def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not params.startswith('npc '):
                 return False
         
@@ -2014,7 +2029,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
         mud.send_message(id, npcName + ' spontaneously appears.\n\n')
         return True
 
-def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have enough powers.\n\n")
                 return
@@ -2022,18 +2037,18 @@ def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         if params.startswith('room '):
                 conjureRoom(params, mud, playersDB, players, rooms, npcsDB, \
                             npcs, itemsDB, items, envDB, env, eventDB, \
-                            eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                            eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
         else:
                 if not conjureItem(params, mud, playersDB, players, rooms, \
                                    npcsDB, npcs, itemsDB, items, envDB, env, \
                                    eventDB, eventSchedule, id, fights, \
-                                   corpses, blocklist, mapArea,characterClassDB,spellsDB):
+                                   corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
                         conjureNPC(params, mud, playersDB, players, rooms, \
                                    npcsDB, npcs, itemsDB, items, envDB, env, \
                                    eventDB, eventSchedule, id, fights, corpses, \
-                                   blocklist, mapArea,characterClassDB,spellsDB)
+                                   blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
 
-def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         itemName = params.lower()
         if len(itemName)==0:
                 mud.send_message(id, "Specify the name of an item to destroy.\n\n")
@@ -2058,7 +2073,7 @@ def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
         return True
 
-def destroyNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def destroyNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         npcName = params.lower().replace('npc ','').strip().replace('"','')
         if len(npcName)==0:
                 mud.send_message(id, "Specify the name of an NPC to destroy.\n\n")
@@ -2085,7 +2100,7 @@ def destroyNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
         return True
 
-def destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         params = params.replace('room ','')
         roomDirection = params.lower().strip()
         possibleDirections=('north','south','east','west','up','down','in','out')
@@ -2123,7 +2138,7 @@ def destroyRoom(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
         mud.send_message(id, "Room destroyed.\n\n")
         return True
 
-def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have enough powers.\n\n")
                 return
@@ -2131,20 +2146,20 @@ def destroy(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         if params.startswith('room '):
                 destroyRoom(params, mud, playersDB, players, rooms, npcsDB, \
                             npcs, itemsDB, items, envDB, env, eventDB, \
-                            eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                            eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
         else:
                 if params.startswith('npc '):
                         destroyNPC(params, mud, playersDB, players, rooms, \
                                    npcsDB, npcs, itemsDB, items, envDB, env, \
                                    eventDB, eventSchedule, id, fights, \
-                                   corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                                   corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
                 else:
                         destroyItem(params, mud, playersDB, players, rooms, \
                                     npcsDB, npcs, itemsDB, items, envDB, env, \
                                     eventDB, eventSchedule, id, fights, \
-                                    corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                                    corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
 
-def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def drop(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         # Check if inventory is empty
         if len(list(players[id]['inv'])) == 0:
                 mud.send_message(id, 'You don`t have that!\n\n')
@@ -2316,7 +2331,7 @@ def openItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
         else:
                 mud.send_message(id, 'You open ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '\n\n')
 
-def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def openItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         target=params.lower()
 
         if target.startswith('registration'):
@@ -2385,7 +2400,7 @@ def closeItemDoor(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB,
         else:
                 mud.send_message(id, 'You close ' + itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name'] + '\n\n')
 
-def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         target=params.lower()
 
         if target.startswith('registration'):
@@ -2403,7 +2418,7 @@ def closeItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                                     closeItemContainer(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, target, itemsInWorldCopy, iid)
                                     break
 
-def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if ' in ' not in params:
                 if ' on ' not in params:
                         if ' into ' not in params:
@@ -2486,7 +2501,7 @@ def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 
         mud.send_message(id, "You don't see " + containerName + ".\n\n")
 
-def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
                 mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
@@ -2601,7 +2616,7 @@ def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
                 itemPickedUp = False
 
-def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         switcher = {
                 "sendCommandError": sendCommandError,
                 "go": go,
@@ -2674,7 +2689,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
         }
 
         try:
-                switcher[command](params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                switcher[command](params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
         except Exception as e:
                 # print(str(e))
-                switcher["sendCommandError"](e, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB)
+                switcher["sendCommandError"](e, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)

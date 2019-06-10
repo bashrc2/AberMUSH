@@ -501,7 +501,7 @@ def conversationBuyOrExchange(best_match,best_match_action,best_match_action_par
             return True
     return False    
 
-def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message,characterClassDB):
+def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message,characterClassDB,sentimentDB):
         """Conversation with an NPC
            This typically works by matching some words and then producing a corresponding response and/or action
         """
@@ -554,6 +554,14 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message,characterClass
                                                 best_match_action_param0=conv[3]
                                             if len(conv)>=5:
                                                 best_match_action_param1=conv[4]
+
+        if getSentiment(message,sentimentDB)>=0:                        
+            increaseAffinityBetweenPlayers(players,id,npcs,nid)
+            increaseAffinityBetweenPlayers(npcs,nid,players,id)
+        else:
+            decreaseAffinityBetweenPlayers(players,id,npcs,nid)
+            decreaseAffinityBetweenPlayers(npcs,nid,players,id)
+                                
         if len(best_match)>0:
                 # There were some word matches
             
@@ -613,11 +621,8 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message,characterClass
                                                      npcs,nid,mud,id,players, \
                                                      itemsDB,puzzledStr):
                             return
-                        
-                increaseAffinityBetweenPlayers(players,id,npcs,nid)
-                increaseAffinityBetweenPlayers(npcs,nid,players,id)
+
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
         else:
                 # No word matches
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
-
