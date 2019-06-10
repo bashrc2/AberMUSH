@@ -32,6 +32,22 @@ def getSentiment(text, sentimentDB):
                         sentiment = sentiment + value
         return sentiment
 
+def baselineAffinity(players,id):
+        """Returns the average affinity value for the player
+        """
+        averageAffinity=0
+        ctr=0
+        for name,value in players[id]['affinity'].items():
+                averageAffinity=averageAffinity+value
+                ctr = ctr + 1
+
+        if ctr>0:
+                averageAffinity=int(averageAffinity/ctr)
+
+        if averageAffinity==0:
+                averageAffinity=1
+        return averageAffinity
+
 def increaseAffinityBetweenPlayers(players,id,npcs,p):
         """Increases the affinity level between two players
         """
@@ -40,7 +56,8 @@ def increaseAffinityBetweenPlayers(players,id,npcs,p):
                 players[id]['affinity'][recipientName] = \
                         players[id]['affinity'][recipientName] + 1
         else:
-                players[id]['affinity'][recipientName]=1
+                # set the affinity to an assumed average
+                players[id]['affinity'][recipientName]=baselineAffinity(players,id)
 
 def decreaseAffinityBetweenPlayers(players,id,npcs,p):
         """Decreases the affinity level between two players
@@ -54,7 +71,8 @@ def decreaseAffinityBetweenPlayers(players,id,npcs,p):
                 if players[id]['affinity'][recipientName] == 0:
                         players[id]['affinity'][recipientName]=-1
         else:
-                players[id]['affinity'][recipientName]=-1
+                # set the affinity to an assumed average
+                players[id]['affinity'][recipientName]=baselineAffinity(players,id)
                 
 def randomDescription(descriptionList):
     if '|' in descriptionList:
