@@ -561,12 +561,12 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
         castAt=''
         spellName=''
         if ' at ' in castStr:
-                spellName=castStr.split(' at ')[0]
-                castAt=castStr.split(' at ')[1]
+                spellName=castStr.split(' at ')[0].strip()
+                castAt=castStr.split(' at ')[1].strip()
         else:
                 if ' on ' in castStr:
-                        spellName=castStr.split(' on ')[0]
-                        castAt=castStr.split(' on ')[1]
+                        spellName=castStr.split(' on ')[0].strip()
+                        castAt=castStr.split(' on ')[1].strip()
 
         if len(castAt)==0:
                 mud.send_message(id, 'Who to cast at?\n\n')
@@ -590,7 +590,7 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 return
 
         for p in players:
-                if players[p]['name'].lower() != castAt:
+                if castAt not in players[p]['name'].lower():
                         continue
                 if p == id:
                         mud.send_message(id, "This is not a hypnosis spell.\n\n")
@@ -599,7 +599,7 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 return
 
         for p in npcs:
-                if npcs[p]['name'].lower() != castAt:
+                if castAt not in npcs[p]['name'].lower():
                         continue
                 castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
                 return                
@@ -627,7 +627,7 @@ def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 if name.lower() == spellName:
                         if name.lower() not in players[id]['preparedSpells']:
                                 if len(spellsDB[level][name]['items'])==0:
-                                        players[id]['preparedSpells'][name]=0
+                                        players[id]['preparedSpells'][name]=1
                                 else:
                                         for required in spellsDB[level][name]['items']:
                                                 requiredItemFound=False

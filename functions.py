@@ -417,8 +417,8 @@ def prepareSpells(mud,id,players):
     if players[id]['prepareSpellTime']>0:
             if players[id]['prepareSpellProgress'] >= players[id]['prepareSpellTime']:
                     spellName=players[id]['prepareSpell']
-                    players[id]['preparedSpells'][spellName]=0
-                    players[id]['spellSlots'][spellName]=0
+                    players[id]['preparedSpells'][spellName]=1
+                    players[id]['spellSlots'][spellName]=1
                     players[id]['prepareSpell']=""
                     players[id]['prepareSpellProgress']=0
                     players[id]['prepareSpellTime']=0
