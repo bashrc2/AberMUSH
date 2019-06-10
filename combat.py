@@ -479,6 +479,11 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
     if players[s1id]['room'] != players[s2id]['room']:
         return
 
+    # is the player frozen?
+    if players[s1id]['frozenStart']>0 or players[s1id]['canAttack']==0:
+        mud.send_message(s2id, players[s1id]['frozenDescription'] + '\n')
+        return
+    
     currRoom=players[s1id]['room']
     weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB)/20)
     temperatureDifficulty = getTemperatureDifficulty(currRoom,rooms,mapArea,clouds)
@@ -491,7 +496,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
     if players[s2id]['isAttackable'] == 1:
             players[s1id]['isInCombat'] = 1
             players[s2id]['isInCombat'] = 1
-
+                
             weaponID,weaponType,roundsOfFire=getWeaponHeld(s1id,players,itemsDB)
             if not canUseWeapon(s1id, players, itemsDB, weaponID):
                 lockItemID=itemsDB[weaponID]['lockedWithItem']
@@ -551,6 +556,11 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
     # In the same room?
     if players[s1id]['room'] != npcs[s2id]['room']:
+        return
+
+    # is the player frozen?
+    if players[s1id]['frozenStart']>0 or players[s1id]['canAttack']==0:
+        mud.send_message(s2id, players[s1id]['frozenDescription'] + '\n')
         return
 
     currRoom=players[s1id]['room']
@@ -624,6 +634,11 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
 
     # In the same room?
     if npcs[s1id]['room'] != players[s2id]['room']:
+        return
+
+    # is the player frozen?
+    if npcs[s1id]['frozenStart']>0 or npcs[s1id]['canAttack']==0:
+        mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + "<r> tries to attack but can't move\n")
         return
 
     currRoom=npcs[s1id]['room']
