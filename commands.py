@@ -631,6 +631,43 @@ def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, it
                                 return True
         return False
 
+def playerMaxCantrips(players,id):
+        """Returns the maximum number of cantrips which the player can prepare
+        """
+        maxCantrips=0
+        for prof in players[id]['proficiencies']:
+                if type(prof)==list:
+                        continue
+                print("prof: " + str(prof))
+                if prof.lower().startswith('cantrip'):
+                        if '(' in prof and ')' in prof:
+                                cantrips=int(prof.split('(')[1].replace(')',''))
+                                if cantrips>maxCantrips:
+                                        maxCantrips=cantrips
+        return maxCantrips
+
+def getPlayerMaxSpellLevel(players,id):
+        """Returns the maximum spell level of the player
+        """
+        for prof in players[id]['proficiencies']:                
+                if type(prof)==list:           
+                        spellList=list(prof)
+                        if len(spellList)>0:
+                                if spellList[0].lower()=='spell':
+                                        return len(spellList)-1
+        return -1
+
+def playerPreparedCantrips(players,id,spellsDB):
+        """Returns the number of cantrips which the player has prepared
+        """
+        preparedCounter=0
+        for spellName in players[id]['preparedSpells']:
+                for cantripName,details in spellsDB['cantrip'].items():
+                        if cantripName == spellName:
+                                preparedCounter=preparedCounter+1
+                                break
+        return preparedCounter
+
 def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         spellName=params.lower().strip()
 
@@ -638,11 +675,18 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
         if spellName=='spell' or spellName=='spells':
                 spellName=''
 
+        maxCantrips=playerMaxCantrips(players,id)
+        maxSpellLevel=getPlayerMaxSpellLevel(players,id)
+
+        if maxSpellLevel<0 and maxCantrips==0:
+                mud.send_message(id, "You can't prepare spells.\n\n")
+                return
+
         if len(spellName)==0:
                 # list spells which can be prepared
                 mud.send_message(id, 'Spells you can prepare are:\n')
 
-                if spellsDB.get('cantrip'):
+                if maxCantrips>0 and spellsDB.get('cantrip'):
                         for name,details in spellsDB['cantrip'].items():
                                 if name.lower() not in players[id]['preparedSpells']:
                                         spellClasses=spellsDB['cantrip'][name]['classes']
@@ -650,15 +694,16 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                                            len(spellClasses)==0:
                                                 mud.send_message(id, '  <b234>'+name+'<r>')
                 
-                for level in range(1,players[id]['lvl']+1):
-                        if not spellsDB.get(str(level)):
-                                continue
-                        for name,details in spellsDB[str(level)].items():
-                                if name.lower() not in players[id]['preparedSpells']:
-                                        spellClasses=spellsDB[str(level)][name]['classes']
-                                        if players[id]['characterClass'] in spellClasses or \
-                                           len(spellClasses)==0:
-                                                mud.send_message(id, '  <b234>'+name+'<r>')
+                if maxSpellLevel>0:
+                        for level in range(1,maxSpellLevel+1):
+                                if not spellsDB.get(str(level)):
+                                        continue
+                                for name,details in spellsDB[str(level)].items():
+                                        if name.lower() not in players[id]['preparedSpells']:
+                                                spellClasses=spellsDB[str(level)][name]['classes']
+                                                if players[id]['characterClass'] in spellClasses or \
+                                                   len(spellClasses)==0:
+                                                        mud.send_message(id, '  <b234>'+name+'<r>')
                 mud.send_message(id, '\n')
         else:
                 if spellName.startswith('the spell '):
@@ -669,15 +714,19 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                         mud.send_message(id, 'You are already preparing that.\n\n')
                         return
 
-                if spellsDB.get('cantrip'):
-                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,'cantrip'):
-                                return
+                if maxCantrips>0 and spellsDB.get('cantrip'):
+                        if playerPreparedCantrips(players,id,spellsDB) < maxCantrips:
+                                if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,'cantrip'):
+                                        return
+                        else:
+                                mud.send_message(id, "You can't prepare any more cantrips.\n\n")
 
-                for level in range(1,players[id]['lvl']+1):                        
-                        if not spellsDB.get(str(level)):
-                                continue
-                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,str(level)):
-                                break
+                if maxSpellLevel>0:
+                        for level in range(1,maxSpellLevel+1):                        
+                                if not spellsDB.get(str(level)):
+                                        continue
+                                if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,str(level)):
+                                        break
 
                 mud.send_message(id, "That's not a spell.\n\n")
 

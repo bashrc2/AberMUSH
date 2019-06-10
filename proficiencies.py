@@ -38,7 +38,7 @@ def profFightingStyleDamage(id,players,weaponType,value):
                     return 2
 
 def damageProficiencyItem(prof, id, players, weaponType):
-    if prof is list:
+    if type(prof)==list:
         return 0
 
     profName = proficiencyName(prof)
@@ -103,7 +103,7 @@ def profIndomitable(id,players,profValue):
     return randint(1,10)
 
 def defenseProficiencyItem(prof, id, players):
-    if prof is list:
+    if type(prof)==list:
         return 0
 
     profName = proficiencyName(prof)
@@ -144,7 +144,7 @@ def defenseProficiency(id, players, characterClassDB):
     return damage
 
 def weaponProficiencyItem(prof, id, players, weaponType):
-    if prof is list:
+    if type(prof)==list:
         return 0
 
     profName = proficiencyName(prof)

@@ -29,7 +29,7 @@ def levelUp(id, players, characterClassDB, increment):
                         players[id]['lvl'] = level + 1
                         # remove any existing spell lists
                         for prof in players[id]['proficiencies']:
-                                if prof is list:
+                                if type(prof)==list:
                                         players[id]['proficiencies'].remove(prof)
                         # update proficiencies
                         for prof in characterClassDB[template['characterClass']][str(players[id]['lvl'])]:
