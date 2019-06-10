@@ -394,6 +394,8 @@ The system keeps track of affinity levels between players, including between pla
 ],
 ```
 
+In some cases this may mean that you need to sufficiently charm an NPC before it will give you an item, skill or clue.
+
 You can also see your affinity level with other players or NPCs with the command:
 
 ``` bash
