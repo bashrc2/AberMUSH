@@ -21,6 +21,12 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def randomDescription(descriptionList):
+    if '|' in descriptionList:
+        descList=descriptionList.split('|')
+        return descList[randint(0,len(descList)+1)]
+    return descriptionList
+
 def levelUp(id, players, characterClassDB, increment):
         players[id]['exp'] = players[id]['exp'] + increment
         level = players[id]['lvl']

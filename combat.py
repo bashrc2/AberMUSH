@@ -14,6 +14,7 @@ from functions import log
 from functions import playerInventoryWeight
 from functions import stowHands
 from functions import prepareSpells
+from functions import randomDescription
 from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
@@ -481,7 +482,7 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
 
     # is the player frozen?
     if players[s1id]['frozenStart']>0 or players[s1id]['canAttack']==0:
-        mud.send_message(s2id, players[s1id]['frozenDescription'] + '\n')
+        mud.send_message(s2id, randomDescription(players[s1id]['frozenDescription']) + '\n')
         return
     
     currRoom=players[s1id]['room']
@@ -560,7 +561,7 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
 
     # is the player frozen?
     if players[s1id]['frozenStart']>0 or players[s1id]['canAttack']==0:
-        mud.send_message(s2id, players[s1id]['frozenDescription'] + '\n')
+        mud.send_message(s2id, randomDescription(players[s1id]['frozenDescription']) + '\n')
         return
 
     currRoom=players[s1id]['room']

@@ -19,6 +19,7 @@ from functions import saveUniverse
 from functions import updatePlayerAttributes
 from functions import sizeFromDescription
 from functions import stowHands
+from functions import randomDescription
 
 from environment import runTide
 from environment import assignCoordinates
@@ -542,7 +543,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
 
 def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
-                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
 
         if len(params.strip())==0:
@@ -1069,7 +1070,7 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
 def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
-                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
 
         if players[id]['canAttack'] == 1:
@@ -1306,7 +1307,7 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
 
 def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
-                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
 
         if len(params) < 1:
@@ -1376,7 +1377,7 @@ def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
 
 def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
-                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
 
         if len(params) < 1:
@@ -1728,7 +1729,7 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
 
 def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
-                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
                 
         if players[id]['canGo'] == 1:
@@ -2468,7 +2469,7 @@ def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
 
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
-                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                mud.send_message(id, randomDescription(players[id]['frozenDescription']) + '\n\n')
                 return
 
         if len(str(params)) < 3:
