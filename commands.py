@@ -530,9 +530,9 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
                 npcs[p]['frozenDuration']=spellTimeToSec(spellDetails['duration'])
                 npcs[p]['frozenStart']=int(time.time())
 
-        mud.send_message(id, spellDetails['desciption'].format('<f32>'+npcs[p]['name']+'<r>') + '\n\n')
+        mud.send_message(id, spellDetails['description'].format('<f32>'+npcs[p]['name']+'<r>') + '\n\n')
         
-        secondDesc=spellDetails['desciption_second']
+        secondDesc=spellDetails['description_second']
         if npcs==players and len(secondDesc)>0:
                 mud.send_message(p, secondDesc.format(players[id]['name'],'you') + '\n\n')
 
@@ -572,21 +572,22 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 mud.send_message(id, 'Who to cast at?\n\n')
                 return
 
-        if not players[id]['preparedSpells'][spellName]:
+        if not players[id]['preparedSpells'].get(spellName):
                 mud.send_message(id, "That's not a prepared spell.\n\n")
                 return
 
         spellDetails=None
         if spellsDB.get('cantrip'):
-                if spellsDB['cantrip'][spellName]:
+                if spellsDB['cantrip'].get(spellName):
                         spellDetails=spellsDB['cantrip'][spellName]
-        if spellDetails != None:
-                for level in range(1,players[id]['lvl']):
-                        if spellsDB[str(level)][spellName]:
+        if spellDetails == None:
+                maxSpellLevel=getPlayerMaxSpellLevel(players,id)         
+                for level in range(1,maxSpellLevel+1):
+                        if spellsDB[str(level)].get(spellName):
                                 spellDetails=spellsDB[str(level)][spellName]
                                 break
         if spellDetails == None:
-                mud.send_message(id, "No definition found for spell" + spellName + ".\n\n")
+                mud.send_message(id, "No definition found for spell " + spellName + ".\n\n")
                 return
 
         for p in players:
