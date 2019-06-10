@@ -637,7 +637,7 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
         return
 
     # is the player frozen?
-    if npcs[s1id]['frozenStart']>0 or npcs[s1id]['canAttack']==0:
+    if npcs[s1id]['frozenStart']>0:
         mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + "<r> tries to attack but can't move\n")
         return
 
