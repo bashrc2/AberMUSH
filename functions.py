@@ -28,10 +28,11 @@ def randomDescription(descriptionList):
     return descriptionList
 
 def levelUp(id, players, characterClassDB, increment):
-        players[id]['exp'] = players[id]['exp'] + increment
         level = players[id]['lvl']
         if level < 20:
+                players[id]['exp'] = players[id]['exp'] + increment
                 if players[id]['exp'] > (level+1)*1000:
+                        players[id]['hpMax'] = players[id]['hpMax'] + randint(1,9)
                         players[id]['lvl'] = level + 1
                         # remove any existing spell lists
                         for prof in players[id]['proficiencies']:
