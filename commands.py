@@ -452,6 +452,14 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  tell/ask [target] [message]             - Send a tell message to another player or NPC')
         mud.send_message(id, '  open [item]                             - Open an item or door')
         mud.send_message(id, '  close [item]                            - Close an item or door')
+        mud.send_message(id, '')
+        mud.send_message(id, 'Spell commands:')
+        mud.send_message(id, '  prepare spells                          - List spells which can be prepared')
+        mud.send_message(id, '  prepare [spell name]                    - Prepares a spell')
+        mud.send_message(id, '  spells                                  - Lists your prepared spells')
+        mud.send_message(id, '  clear spells                            - Clears your prepared spells list')
+        mud.send_message(id, '  cast [spell name] on [target]           - Cast a spell on a player or NPC')
+        
         if isWitch(id,players):
                 mud.send_message(id, '')
                 mud.send_message(id, 'Witch Commands:')

@@ -52,6 +52,20 @@ open [item]                             - Open an item or door
 close [item]                            - Close an item or door
 ```
 
+## Spell Commands
+
+Some characters can use magic with the following commands:
+
+``` bash
+prepare spells                          - List spells which can be prepared
+prepare [spell name]                    - Prepares a spell
+spells                                  - Lists your prepared spells
+clear spells                            - Clears your prepared spells list
+cast [spell name] on [target]           - Cast a spell on a player or NPC
+```
+
+Spells are defined within `spells.json` and the system for spellcasting is a simplified version of the one within conventional D&D games. You prepare a spell, it gets added to your list and then you can cast it and it disappears from the prepared list. Some spells require certain items to be in the player's inventory.
+
 ![AberMUSH](docs/skull.png)
 
 ## Witch Commands
