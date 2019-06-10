@@ -604,6 +604,15 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
                 return                
 
+def clearSpells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if len(players[id]['preparedSpells'])>0:
+                players[id]['preparedSpells'].clear()
+                players[id]['spellSlots'].clear()
+                mud.send_message(id, 'Your prepared spells list has been cleared.\n\n')
+                return
+
+        mud.send_message(id, "Your don't have any spells prepared.\n\n")
+
 def spells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if len(players[id]['preparedSpells'])>0:
                 mud.send_message(id, 'Your prepared spells:\n')
@@ -2637,6 +2646,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "cast": castSpell,
                 "spell": castSpell,
                 "spells": spells,
+                "clear": clearSpells,
                 "spellbook": spells,
                 "resetuniverse": resetUniverse,
                 "shutdown": shutdown
