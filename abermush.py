@@ -125,6 +125,13 @@ channels = {}
 # Specify allowe player idle time
 allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 
+print("Loading sentiment...");
+
+with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
+        sentimentDB = commentjson.load(read_file)
+
+log("Sentiment loaded: " + str(len(sentimentDB)), "info")
+
 print("Loading rooms...");
 
 # Loading rooms
