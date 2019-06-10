@@ -619,8 +619,8 @@ def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, it
                                                                 requiredItemFound=True
                                                                 break
                                                 if not requiredItemFound:
-                                                        mud.send_message(id, 'You need <b234>' + itemsDB[required]['name'] + '<r>\n\n')
-                                                        return False
+                                                        mud.send_message(id, 'You need <b234>' + itemsDB[required]['article'] + ' ' + itemsDB[required]['name'] + '<r>\n\n')
+                                                        return True
                                 players[id]['prepareSpell'] = spellName
                                 players[id]['prepareSpellProgress'] = 0
                                 players[id]['prepareSpellTime'] = spellTimeToSec(details['prepareTime'])
