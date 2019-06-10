@@ -638,7 +638,6 @@ def playerMaxCantrips(players,id):
         for prof in players[id]['proficiencies']:
                 if type(prof)==list:
                         continue
-                print("prof: " + str(prof))
                 if prof.lower().startswith('cantrip'):
                         if '(' in prof and ')' in prof:
                                 cantrips=int(prof.split('(')[1].replace(')',''))
@@ -656,6 +655,29 @@ def getPlayerMaxSpellLevel(players,id):
                                 if spellList[0].lower()=='spell':
                                         return len(spellList)-1
         return -1
+
+def getPlayerSpellSlotsAtSpellLevel(players,id, spellLevel):
+        """Returns the maximum spell slots at the given spell level
+        """
+        for prof in players[id]['proficiencies']:                
+                if type(prof)==list:           
+                        spellList=list(prof)
+                        if len(spellList)>0:
+                                if spellList[0].lower()=='spell':
+                                        return spellList[spellLevel]
+        return 0
+
+def getPlayerUsedSlotsAtSpellLevel(players,id, spellLevel, spellsDB):
+        """Returns the used spell slots at the given spell level
+        """
+        if not spellsDB.get(str(spellLevel)):
+                return 0
+
+        usedCounter=0
+        for spellName,details in spellsDB[str(spellLevel)].items():
+                if spellName in players[id]['preparedSpells']:
+                        usedCounter = usedCounter + 1
+        return usedCounter
 
 def playerPreparedCantrips(players,id,spellsDB):
         """Returns the number of cantrips which the player has prepared
@@ -692,7 +714,7 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                                         spellClasses=spellsDB['cantrip'][name]['classes']
                                         if players[id]['characterClass'] in spellClasses or \
                                            len(spellClasses)==0:
-                                                mud.send_message(id, '  <b234>'+name+'<r>')
+                                                mud.send_message(id, '  <f220>-'+name+'<r>')
                 
                 if maxSpellLevel>0:
                         for level in range(1,maxSpellLevel+1):
@@ -720,13 +742,20 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                                         return
                         else:
                                 mud.send_message(id, "You can't prepare any more cantrips.\n\n")
+                                return
 
                 if maxSpellLevel>0:
                         for level in range(1,maxSpellLevel+1):                        
                                 if not spellsDB.get(str(level)):
                                         continue
-                                if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,str(level)):
-                                        break
+                                maxSlots=getPlayerSpellSlotsAtSpellLevel(players,id,level)
+                                usedSlots=getPlayerUsedSlotsAtSpellLevel(players,id,level,spellsDB)
+                                if usedSlots<maxSlots:
+                                        if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,str(level)):
+                                                return
+                                else:
+                                        mud.send_message(id, "You have prepared the maximum level" + str(level) + " spells.\n\n")
+                                        return
 
                 mud.send_message(id, "That's not a spell.\n\n")
 
