@@ -92,9 +92,11 @@ def sizeFromDescription(description):
         return size
 
 def updatePlayerAttributes(id, players, itemsDB, itemID, mult):
-        playerAttributes=('luc','per','cha','int','cool')
+        playerAttributes=('luc','per','cha','int','cool','exp')
         for attr in playerAttributes:
                 players[id][attr] = players[id][attr] + (mult*itemsDB[itemID]['mod_'+attr])
+        # experience returns to zero
+        itemsDB[itemID]['mod_exp']=0
 
 def playerInventoryWeight(id, players, itemsDB):
     """Returns the total weight of a player's inventory
