@@ -544,11 +544,11 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
 
         if spellDetails['action'].startswith('attack'):
                 if len(spellDetails['damageType'])==0 or spellDetails['damageType']=='str':
-                        npcs[p]['hp'] = npcs[p]['hp'] - spellDetails['damage']
+                        npcs[p]['hp'] = npcs[p]['hp'] - randint(1,spellDetails['damage'])
                 else:
                         damageType=spellDetails['damageType']
                         if npcs[p].get(damageType):
-                                npcs[p][damageType] = npcs[p][damageType] - spellDetails['damage']
+                                npcs[p][damageType] = npcs[p][damageType] - randint(1,spellDetails['damage'])
                                 if npcs[p][damageType]<0:
                                         npcs[p][damageType]=0
                 
