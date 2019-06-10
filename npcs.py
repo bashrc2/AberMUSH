@@ -242,7 +242,10 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
     if varStr == 'affinity':
-        currValue=npcs[nid]['affinity'][players[id]['name']]
+        if npcs[nid]['affinity'].get(players[id]['name']):
+            currValue=npcs[nid]['affinity'][players[id]['name']]
+        else:
+            currValue=0
 
     if  targetValue == None:
         targetValue = int(word.lower().split(conditionType)[1].strip())
