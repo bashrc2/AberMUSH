@@ -20,6 +20,7 @@ from functions import updatePlayerAttributes
 from functions import sizeFromDescription
 from functions import stowHands
 from functions import randomDescription
+from functions import increaseAffinityBetweenPlayers
 
 from environment import runTide
 from environment import assignCoordinates
@@ -334,8 +335,8 @@ def who(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                 mud.send_message(id, "\n")
         else:
                 mud.send_message(id, "You do not have permission to do this.\n")
-
-def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea, characterClassDB):
+                
+def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea, characterClassDB,spellsDB):
         told = False
         target = params.partition(' ')[0]
         message = params.replace(target, "")[1:]
@@ -360,6 +361,7 @@ def tell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                                         if not selfOnly:
                                                 if players[id]['speakLanguage'] in players[p]['language']:
                                                         addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": " + message, p, eventSchedule, eventDB)
+                                                        increaseAffinityBetweenPlayers(players,id,players,p)
                                                 else:
                                                         if players[id]['speakLanguage'] != 'cant':
                                                                 addToScheduler("0|msg|<f90>From " + players[id]['name'] + ": something in " + players[id]['speakLanguage'], p, eventSchedule, eventDB)

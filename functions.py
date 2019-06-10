@@ -21,6 +21,26 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def increaseAffinityBetweenPlayers(players,id,npcs,p):
+        """Increases the affinity level between two players
+        """
+        recipientName=npcs[p]['name']
+        if players[id]['affinity'].get(recipientName):
+                players[id]['affinity'][recipientName] = \
+                        players[id]['affinity'][recipientName] + 1
+        else:
+                players[id]['affinity'][recipientName]=1
+
+def decreaseAffinityBetweenPlayers(players,id,npcs,p):
+        """Decreases the affinity level between two players
+        """
+        recipientName=npcs[p]['name']
+        if players[id]['affinity'].get(recipientName):
+                players[id]['affinity'][recipientName] = \
+                        players[id]['affinity'][recipientName] - 1
+        else:
+                players[id]['affinity'][recipientName]=-1
+                
 def randomDescription(descriptionList):
     if '|' in descriptionList:
         descList=descriptionList.split('|')

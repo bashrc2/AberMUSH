@@ -15,6 +15,7 @@ from functions import log
 from functions import moveNPCs
 from functions import playerInventoryWeight
 from functions import updatePlayerAttributes
+from functions import increaseAffinityBetweenPlayers
 from random import randint
 from copy import deepcopy
 
@@ -240,6 +241,8 @@ def conversationCondition(word,conversation_states,nid,npcs,match_ctr,players,id
         currValue=players[id]['enemy'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType='='
+    if varStr == 'affinity':
+        currValue=npcs[nid]['affinity'][players[id]['name']]
 
     if  targetValue == None:
         targetValue = int(word.lower().split(conditionType)[1].strip())
@@ -306,6 +309,8 @@ def conversationGive(best_match,best_match_action,best_match_action_param0,playe
                 players[id]['inv'].append(str(itemID))
                 updatePlayerAttributes(id,players,itemsDB,itemID,1)
                 players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
+                increaseAffinityBetweenPlayers(players,id,npcs,nid)
+                increaseAffinityBetweenPlayers(npcs,nid,players,id)
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + \
                                  itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
@@ -336,7 +341,10 @@ def conversationSkill(best_match,best_match_action,best_match_action_param0,best
                 else:
                     # set skill to absolute value
                     players[id][newSkill] = players[id][newSkill] + int(skillValueStr)
-            
+
+            increaseAffinityBetweenPlayers(players,id,npcs,nid)
+            increaseAffinityBetweenPlayers(npcs,nid,players,id)
+                    
             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
             return True
         else:
@@ -352,6 +360,8 @@ def conversationExperience(best_match,best_match_action,best_match_action_param0
         if len(best_match_action_param0)>0:
             expValue=int(best_match_action_param0)
             players[id]['exp'] = players[id]['exp'] + expValue
+            increaseAffinityBetweenPlayers(players,id,npcs,nid)
+            increaseAffinityBetweenPlayers(npcs,nid,players,id)
             return True
         else:
             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> looks " + puzzledStr + ".\n\n")
@@ -370,6 +380,8 @@ def conversationTransport(best_match_action,best_match_action_param0,mud,id,play
             messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
             players[id]['room'] = roomID
             npcs[nid]['room'] = roomID
+            increaseAffinityBetweenPlayers(players,id,npcs,nid)
+            increaseAffinityBetweenPlayers(npcs,nid,players,id)            
             messageToPlayersInRoom(mud,players,id,'<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
             mud.send_message(id, "You are in " + rooms[roomID]['name'] + "\n\n")
             return True
@@ -387,6 +399,8 @@ def conversationTaxi(best_match_action,best_match_action_param0,best_match_actio
             if str(itemBuyID) in list(players[id]['inv']):
                 players[id]['inv'].remove(str(itemBuyID))
 
+                increaseAffinityBetweenPlayers(players,id,npcs,nid)
+                increaseAffinityBetweenPlayers(npcs,nid,players,id)
                 mud.send_message(id, best_match)
                 messageToPlayersInRoom(mud,players,id,'<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
                 players[id]['room'] = roomID
@@ -418,7 +432,9 @@ def conversationGiveOnDate(best_match_action,best_match_action_param0,best_match
                         if monthNumber == int(datetime.datetime.utcnow().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
                             players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
-                            updatePlayerAttributes(id,players,itemsDB,itemID,1)                            
+                            updatePlayerAttributes(id,players,itemsDB,itemID,1)
+                            increaseAffinityBetweenPlayers(players,id,npcs,nid)
+                            increaseAffinityBetweenPlayers(npcs,nid,players,id)            
                             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                             mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + \
                                              itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
@@ -453,7 +469,9 @@ def conversationBuyOrExchange(best_match,best_match_action,best_match_action_par
                         players[id]['wei'] = playerInventoryWeight(id, players, itemsDB)
                         updatePlayerAttributes(id,players,itemsDB,itemSellID,1)                        
                         if str(itemBuyID) not in list(npcs[nid]['inv']):
-                            npcs[nid]['inv'].append(str(itemBuyID))                            
+                            npcs[nid]['inv'].append(str(itemBuyID))
+                        increaseAffinityBetweenPlayers(players,id,npcs,nid)
+                        increaseAffinityBetweenPlayers(npcs,nid,players,id)
                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                         mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> gives you " + \
                                          itemsDB[itemID]['article'] + ' ' + itemsDB[itemID]['name']  + ".\n\n")
@@ -592,7 +610,9 @@ def npcConversation(mud,npcs,players,itemsDB,rooms,id,nid,message,characterClass
                                                      npcs,nid,mud,id,players, \
                                                      itemsDB,puzzledStr):
                             return
-
+                        
+                increaseAffinityBetweenPlayers(players,id,npcs,nid)
+                increaseAffinityBetweenPlayers(npcs,nid,players,id)
                 mud.send_message(id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".\n\n")
         else:
                 # No word matches

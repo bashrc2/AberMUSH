@@ -15,6 +15,7 @@ from functions import playerInventoryWeight
 from functions import stowHands
 from functions import prepareSpells
 from functions import randomDescription
+from functions import decreaseAffinityBetweenPlayers
 from random import randint
 from copy import deepcopy
 from environment import getTemperatureAtCoords
@@ -530,6 +531,9 @@ def runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB,rooms,maxTerrain
                                     modifierStr = modifierStr + str(damagePoints)
                                 else:
                                     modifierStr = modifierStr + ' + ' + str(damagePoints)
+
+                            decreaseAffinityBetweenPlayers(players,s2id,players,s1id)
+                            decreaseAffinityBetweenPlayers(players,s1id,players,s2id)                            
                             mud.send_message(s1id, 'You ' + attackDescriptionFirst + ' <f32><u>' + players[s2id]['name'] + '<r> for <f15><b2> * ' + modifierStr + ' *<r> points of ' + damageDescription + '.\n')
                             mud.send_message(s2id, '<f32>' + players[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + modifierStr + ' *<r> points of ' + damageDescription + '.\n')
                     else:
@@ -611,6 +615,8 @@ def runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB,rooms,maxTe
                             else:
                                 modifierStr = modifierStr + ' + ' + str(damagePoints)
 
+                        decreaseAffinityBetweenPlayers(npcs,s2id,players,s1id)
+                        decreaseAffinityBetweenPlayers(players,s1id,npcs,s2id)
                         mud.send_message(s1id, 'You '+ attackDescriptionFirst + ' <f220>' + npcs[s2id]['name'] + '<r> for <b2><f15> * ' + modifierStr  + ' * <r> points of ' + damageDescription + '\n')
                 else:
                     if players[s1id]['hp'] > 0:
@@ -682,6 +688,8 @@ def runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items,itemsDB,rooms
                             modifierStr = modifierStr + str(damagePoints)
                         else:
                             modifierStr = modifierStr + ' + ' + str(damagePoints)
+                    decreaseAffinityBetweenPlayers(npcs,s1id,players,s2id)
+                    decreaseAffinityBetweenPlayers(players,s2id,npcs,s1id)
                     mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you for <f15><b88> * ' + modifierStr + ' * <r> points of ' + damageDescription + '.\n')
             else:
                 mud.send_message(s2id, '<f220>' + npcs[s1id]['name'] + '<r> has ' + attackDescriptionSecond + ' you but it is deflected by your armor.\n')
