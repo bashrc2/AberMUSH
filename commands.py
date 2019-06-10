@@ -506,6 +506,10 @@ def spellTimeToSec(durationStr):
                 return int(dur[0])*60*60*24
         return 1
 
+def removePreparedSpell(players,id,spellName):
+        del players[id]['preparedSpells'][spellName]
+        del players[id]['spellSlots'][spellName]
+
 def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
         if npcs[p]['room'] != players[id]['room']:
                 mud.send_message(id, "They're not here.\n\n")
@@ -515,6 +519,17 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
                 npcs[p]['tempHitPoints']=spellDetails['hp']
                 npcs[p]['tempHitPointsDuration']=spellTimeToSec(spellDetails['duration'])
                 npcs[p]['tempHitPointsStart']=int(time.time())
+
+        if spellDetails['action'].startswith('friend'):
+                if players[id]['cha'] < npcs[p]['cha']:
+                        removePreparedSpell(players,id,spellName)
+                        mud.send_message(id, "You don't have enough charisma.\n\n")
+                        return
+                playerName=players[id]['name']
+                if npcs[p]['affinity'].get(playerName):
+                        npcs[p]['affinity'][playerName]=npcs[p]['affinity'][playerName]+1
+                else:
+                        npcs[p]['affinity'][playerName]=1
 
         if spellDetails['action'].startswith('attack'):
                 if len(spellDetails['damageType'])==0 or spellDetails['damageType']=='str':
@@ -537,9 +552,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
         if npcs==players and len(secondDesc)>0:
                 mud.send_message(p, secondDesc.format(players[id]['name'],'you') + '\n\n')
 
-        # remove spell after use
-        del players[id]['preparedSpells'][spellName]
-        del players[id]['spellSlots'][spellName]
+        removePreparedSpell(players,id,spellName)
 
 def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if players[id]['frozenStart']!=0:
@@ -1984,7 +1997,11 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "canGo": 0, \
                    "canLook": 1, \
                    "canWield": 0, \
-                   "canWear": 0
+                   "canWear": 0, \
+                   "frozenStart": 0, \
+                   "frozenDuration": 0, \
+                   "frozenDescription": "", \
+                   "affinity": {}
         }
 
         npcsKey=getFreeKey(npcs)

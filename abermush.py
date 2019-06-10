@@ -220,6 +220,7 @@ for k in npcsDB:
                        v == "proficiencies" or \
                        v == "fightingStyle" or \
                        v == "enemy" or \
+                       v == "affinity" or \
                        v == "preparedSpells" or \
                        v == "spellSlots" or \
                        v == "conv" or \
@@ -793,6 +794,7 @@ while True:
                                         players[id]['frozenDescription'] = dbResponse[74]
                                         players[id]['frozenStart'] = dbResponse[75]
                                         players[id]['frozenDuration'] = dbResponse[76]
+                                        players[id]['affinity'] = dbResponse[77]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])
