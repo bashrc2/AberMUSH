@@ -34,6 +34,7 @@ from commands import runCommand
 from combat import runFights
 from combat import playersRest
 from combat import updateTemporaryHitPoints
+from combat import updateTemporaryIncapacitation
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
 from npcs import npcRespawns
@@ -232,6 +233,7 @@ for k in npcsDB:
                        v == "lookDescription" or \
                        v == "lastRoom" or \
                        v == "loot" or \
+                       v == "frozenDescription" or \
                        v == "bodyType" or \
                        v == "whenDied"):
                         npcsDB[k][v] = int(npcsDB[k][v])
@@ -401,6 +403,8 @@ while True:
                 lastTempHitPointsUpdate=now
                 updateTemporaryHitPoints(mud,players,False)
                 updateTemporaryHitPoints(mud,npcs,True)
+                updateTemporaryIncapacitation(mud,players,False)
+                updateTemporaryIncapacitation(mud,npcs,True)
 
         now = int(time.time())
         if now >= lastWeatherUpdate + weatherUpdateInterval:
@@ -786,6 +790,9 @@ while True:
                                         players[id]['prepareSpell'] = dbResponse[71]
                                         players[id]['prepareSpellProgress'] = dbResponse[72]
                                         players[id]['prepareSpellTime'] = dbResponse[73]
+                                        players[id]['frozenDescription'] = dbResponse[74]
+                                        players[id]['frozenStart'] = dbResponse[75]
+                                        players[id]['frozenDuration'] = dbResponse[76]
 
                                         log("Client ID: " + str(id) + " has successfully authenticated user " + players[id]['name'], "info")
                                         # print(players[id])

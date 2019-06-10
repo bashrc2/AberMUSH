@@ -24,6 +24,20 @@ import time
 
 defenseClothing=('clo_chest','clo_head','clo_larm','clo_rarm','clo_lleg','clo_rleg','clo_lwrist','clo_rwrist')
 
+def updateTemporaryIncapacitation(mud,players,isNPC):
+    """Checks if players are incapacitated by spells and removes them
+       after the duration has elapsed
+    """
+    now = int(time.time())
+    for p in players:
+        if players[p]['frozenStart']!=0:
+            if now >= players[p]['frozenStart'] + players[p]['frozenDuration']:
+                players[p]['frozenStart']=0
+                players[p]['frozenDuration']=0
+                players[p]['frozenDescription']=""            
+                if not isNPC:
+                    mud.send_message(p, "<f220>You find that you can move again.<r>\n\n")
+
 def updateTemporaryHitPoints(mud,players,isNPC):
     """Updates any hit points added for a temporary period
        as the result of a spell

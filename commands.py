@@ -497,6 +497,105 @@ def spellTimeToSec(durationStr):
                 return int(dur[0])*60*60*24
         return 1
 
+def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
+        if npcs[p]['room'] != players[id]['room']:
+                mud.send_message(id, "They're not here.\n\n")
+                return
+
+        if spellDetails['action'].startswith('protect'):
+                npcs[p]['tempHitPoints']=spellDetails['hp']
+                npcs[p]['tempHitPointsDuration']=spellTimeToSec(spellDetails['duration'])
+                npcs[p]['tempHitPointsStart']=int(time.time())
+
+        if spellDetails['action'].startswith('attack'):
+                if len(spellDetails['damageType'])==0 or spellDetails['damageType']=='str':
+                        npcs[p]['hp'] = npcs[p]['hp'] - spellDetails['damage']
+                else:
+                        damageType=spellDetails['damageType']
+                        if npcs[p].get(damageType):
+                                npcs[p][damageType] = npcs[p][damageType] - spellDetails['damage']
+                                if npcs[p][damageType]<0:
+                                        npcs[p][damageType]=0
+                
+        if spellDetails['action'].startswith('frozen'):
+                npcs[p]['frozenDescription']=spellDetails['actionDescription']
+                npcs[p]['frozenDuration']=spellTimeToSec(spellDetails['duration'])
+                npcs[p]['frozenStart']=int(time.time())
+
+        mud.send_message(id, spellDetails['desciption'].format('<f32>'+npcs[p]['name']+'<r>') + '\n\n')
+        
+        secondDesc=spellDetails['desciption_second']
+        if npcs==players and len(secondDesc)>0:
+                mud.send_message(p, secondDesc.format(players[id]['name'],'you') + '\n\n')
+
+        # remove spell after use
+        del players[id]['preparedSpells'][spellName]
+        del players[id]['spellSlots'][spellName]
+
+def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if players[id]['frozenStart']!=0:
+                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                return
+
+        if len(params.strip())==0:
+                mud.send_message(id, 'You try to cast a spell but fail horribly.\n\n')
+                return
+
+        castStr=params.lower().strip()
+        if castStr.startswith('the spell '):
+                castStr = castStr.replace('the spell ','',1)
+        if castStr.startswith('a '):
+                castStr = castStr.replace('a ','',1)
+        if castStr.startswith('the '):
+                castStr = castStr.replace('the ','',1)
+        if castStr.startswith('spell '):
+                castStr = castStr.replace('spell ','',1)
+        castAt=''
+        spellName=''
+        if ' at ' in castStr:
+                spellName=castStr.split(' at ')[0]
+                castAt=castStr.split(' at ')[1]
+        else:
+                if ' on ' in castStr:
+                        spellName=castStr.split(' on ')[0]
+                        castAt=castStr.split(' on ')[1]
+
+        if len(castAt)==0:
+                mud.send_message(id, 'Who to cast at?\n\n')
+                return
+
+        if not players[id]['preparedSpells'][spellName]:
+                mud.send_message(id, "That's not a prepared spell.\n\n")
+                return
+
+        spellDetails=None
+        if spellsDB.get('cantrip'):
+                if spellsDB['cantrip'][spellName]:
+                        spellDetails=spellsDB['cantrip'][spellName]
+        if spellDetails != None:
+                for level in range(1,players[id]['lvl']):
+                        if spellsDB[str(level)][spellName]:
+                                spellDetails=spellsDB[str(level)][spellName]
+                                break
+        if spellDetails == None:
+                mud.send_message(id, "No definition found for spell" + spellName + ".\n\n")
+                return
+
+        for p in players:
+                if players[p]['name'].lower() != castAt:
+                        continue
+                if p == id:
+                        mud.send_message(id, "This is not a hypnosis spell.\n\n")
+                        return
+                castSpellOnPlayer(mud, spellName, players, id, players, p, spellDetails)
+                return
+
+        for p in npcs:
+                if npcs[p]['name'].lower() != castAt:
+                        continue
+                castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
+                return                
+
 def spells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         if len(players[id]['preparedSpells'])>0:
                 mud.send_message(id, 'Your prepared spells:\n')
@@ -524,9 +623,9 @@ def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, it
                                                         return False
                                 players[id]['prepareSpell'] = spellName
                                 players[id]['prepareSpellProgress'] = 0
-                                players[id]['prepareSpellTime'] = spellTimeToSec(details['learningTime'])
-                                if len(details['learningTime'])>0:
-                                        mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>. It will take ' + details['learningTime'] + '.\n\n')
+                                players[id]['prepareSpellTime'] = spellTimeToSec(details['prepareTime'])
+                                if len(details['prepareTime'])>0:
+                                        mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>. It will take ' + details['prepareTime'] + '.\n\n')
                                 else:
                                         mud.send_message(id, 'You begin preparing the spell <b234>' + spellName + '<r>.\n\n')
                                 return True
@@ -534,6 +633,11 @@ def prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, it
 
 def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         spellName=params.lower().strip()
+
+        # "learn spells" or "prepare spells" shows list of spells
+        if spellName=='spell' or spellName=='spells':
+                spellName=''
+
         if len(spellName)==0:
                 # list spells which can be prepared
                 mud.send_message(id, 'Spells you can prepare are:\n')
@@ -574,6 +678,8 @@ def prepareSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, 
                                 continue
                         if prepareSpellAtLevel(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,spellName,str(level)):
                                 break
+
+                mud.send_message(id, "That's not a spell.\n\n")
 
 def speak(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
         lang=params.lower().strip()
@@ -866,6 +972,10 @@ def look(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
                 mud.send_message(id, 'You somehow cannot muster enough perceptive powers to perceive and describe your immediate surroundings...\n')
 
 def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if players[id]['frozenStart']!=0:
+                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                return
+
         if players[id]['canAttack'] == 1:
                 isAlreadyAttacking = False
                 target = params #.lower()
@@ -1099,6 +1209,10 @@ def check(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, 
                 mud.send_message(id, 'Check what?\n')
 
 def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if players[id]['frozenStart']!=0:
+                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                return
+
         if len(params) < 1:
                 mud.send_message(id, 'Specify an item from your inventory.\n\n')
                 return
@@ -1165,6 +1279,10 @@ def wear(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, "You can't wear that\n\n")
 
 def wield(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if players[id]['frozenStart']!=0:
+                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                return
+
         if len(params) < 1:
                 mud.send_message(id, 'Specify an item from your inventory.\n\n')
                 return
@@ -1513,6 +1631,10 @@ def eat(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, en
                 players[id]['clo_lhand'] = 0
 
 def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if players[id]['frozenStart']!=0:
+                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                return
+                
         if players[id]['canGo'] == 1:
                 # store the exit name
                 ex = params.lower()
@@ -2249,6 +2371,10 @@ def putItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
         mud.send_message(id, "You don't see " + containerName + ".\n\n")
 
 def take(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB):
+        if players[id]['frozenStart']!=0:
+                mud.send_message(id, players[id]['frozenDescription'] + '\n\n')
+                return
+
         if len(str(params)) < 3:
             return
 
@@ -2422,6 +2548,8 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "learn": prepareSpell,
                 "prepare": prepareSpell,
                 "destroy": destroy,
+                "cast": castSpell,
+                "spell": castSpell,
                 "spells": spells,
                 "spellbook": spells,
                 "resetuniverse": resetUniverse,

@@ -2,89 +2,95 @@
     "cantrip": {
 	"acid splash": {
 	    "description": "You hurl a bubble of acid at {}",
-	    "description_second": "hurls a bubble of acid at {}",
-	    "learningTime": "",
-	    "Duration": "",
+	    "description_second": "{} hurls a bubble of acid at {}",
+	    "prepareTime": "",
+	    "duration": "",
 	    "classes": [],
 	    "range": 60,
 	    "items": [],
 	    "damage": 6,
 	    "damageType": "",
 	    "hp": 0,
-	    "action": "attack"
+	    "action": "attack",
+	    "actionDescription": ""
 	},
 	"shocking grasp": {
 	    "description": "Lightning springs from your hand to deliver a shock to {}",
-	    "description_second": "fires lighning from their hand at {}",
-	    "learningTime": "",
-	    "Duration": "",
+	    "description_second": "{} fires lightning from their hand at {}",
+	    "prepareTime": "",
+	    "duration": "",
 	    "classes": ["sorcerer","witch"],
 	    "range": 0,
 	    "items": [],
 	    "damage": 8,
 	    "damageType": "",
 	    "hp": 0,
-	    "action": "attack"
+	    "action": "attack",
+	    "actionDescription": ""
 	},
 	"vicious mockery": {
 	    "description": "You unleash a string of insults at {}",
-	    "description_second": "unleashes a string of insults at {}",
-	    "learningTime": "",
-	    "Duration": "",
+	    "description_second": "{} unleashes a string of insults at {}",
+	    "prepareTime": "",
+	    "duration": "",
 	    "classes": ["bard"],
 	    "range": 0,
 	    "items": [],
 	    "damage": 8,
 	    "damageType": "cha",
 	    "hp": 0,
-	    "action": "attack"
+	    "action": "attack",
+	    "actionDescription": ""
 	}
     },
     "1": {
         "animal friendship": {
     	    "description": "You convince {} that you mean no harm",
-	    "description_second": "convinces {} that they mean no harm",
-	    "learningTime": "24 hours",
-	    "Duration": "",
+	    "description_second": "{} convinces {} that they mean no harm",
+	    "prepareTime": "24 hours",
+	    "duration": "",
 	    "classes": ["bard","druid","ranger","witch"],
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
 	    "damageType": "",
 	    "hp": 0,
-	    "action": "friend"
+	    "action": "friend",
+	    "actionDescription": ""
 	},
         "hideous laughter": {
     	    "description": "{} giggles",
-	    "description_second": "",
-	    "learningTime": "1 min",
-	    "Duration": "1 min",
+	    "description_second": "{} casts a laughter spell on {}",
+	    "prepareTime": "1 min",
+	    "duration": "1 min",
 	    "classes": ["witch"],
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
 	    "damageType": "",
 	    "hp": 0,
-	    "action": "freeze"
+	    "action": "frozen",
+	    "actionDescription": "Every movement that you attempt to make seems hillarious."
 	},
         "magic missile": {
     	    "description": "You create three glowing darts of magical force which simultaneously strike {}",
-	    "description_second": "created three glowing darts of magical force which simultaneously struck {}",
-	    "learningTime": "1 min",
-	    "Duration": "1 min",
+	    "description_second": "{} created three glowing darts of magical force which simultaneously strike {}",
+	    "prepareTime": "1 min",
+	    "duration": "1 min",
 	    "classes": ["sorcerer","witch"],
 	    "range": 120,
 	    "items": [],
 	    "damage": 5,
 	    "damageType": "",
 	    "hp": 0,
-	    "action": "attack"
+	    "action": "attack",
+	    "actionDescription": ""
 	},
         "magic shield": {
     	    "description": "An invisible barrier of magical force appears and protects you.",
 	    "description_second": "",
-	    "learningTime": "1 min",
-	    "Duration": "1 min",
+	    "prepareTime": "1 min",
+	    "duration": "1 min",
 	    "classes": ["sorcerer","witch"],
 	    "range": 120,
 	    "items": [],
@@ -92,35 +98,38 @@
 	    "damageType": "",
 	    "armor": 0,
 	    "hp": 0,
-	    "action": "defense"
+	    "action": "defense",
+	    "actionDescription": ""
 	}
     },
     "2": {
         "acid arrow": {
     	    "description": "A shimmering green arrow streaks toward {} and bursts in a spray of acid",
 	    "description_second": "",
-	    "learningTime": "1 action",
-	    "Duration": "",
+	    "prepareTime": "1 action",
+	    "duration": "",
 	    "classes": [],
 	    "range": 90,
 	    "items": [],
 	    "damage": 8,
 	    "damageType": "",
 	    "hp": 0,
-	    "action": "attack"
+	    "action": "attack",
+	    "actionDescription": ""
 	},
         "aid": {
     	    "description": "Your spell bolsters {} with toughness and resolve",
-	    "description_second": "casts a spell bolstering {} with toughness and resolve",
-	    "learningTime": "8 hours",
-	    "Duration": "1 hour",
+	    "description_second": "{} casts a spell bolstering {} with toughness and resolve",
+	    "prepareTime": "8 hours",
+	    "duration": "1 hour",
 	    "classes": ["cleric","paladin"],
 	    "range": 30,
 	    "items": [],
 	    "damage": 0,
 	    "damageType": "",
 	    "hp": 5,
-	    "action": "protect"
+	    "action": "protect",
+	    "actionDescription": ""
 	}
     },
     "3": {

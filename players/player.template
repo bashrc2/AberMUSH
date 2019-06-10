@@ -72,5 +72,8 @@
     "tempHitPointsDuration": 0,
     "prepareSpell": "",
     "prepareSpellProgress": 0,
-    "prepareSpellTime": 0 
+    "prepareSpellTime": 0,
+    "frozenDescription": "",
+    "frozenStart": 0,
+    "frozenDuration": 0
 }
