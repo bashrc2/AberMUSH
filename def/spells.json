@@ -100,6 +100,20 @@
 	    "action": "attack",
 	    "actionDescription": ""
 	},
+        "burning hands": {
+    	    "description": "As you hold your hands with thumbs touching and fingers spread, a thin sheet of flames shoots forth from your outstretched fingertips and hits {}",
+	    "description_second": "{} threw a thin sheet of flames from their hands at {}",
+	    "prepareTime": "10 min",
+	    "duration": "",
+	    "classes": ["sorcerer","witch"],
+	    "range": 15,
+	    "items": [702],
+	    "damage": 18,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "attack",
+	    "actionDescription": ""
+	},
         "magic shield": {
     	    "description": "An invisible barrier of magical force appears and protects you.",
 	    "description_second": "",
