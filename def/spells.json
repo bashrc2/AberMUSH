@@ -1,7 +1,7 @@
 {
     "cantrip": {
 	"acid splash": {
-	    "description": "You hurl a bubble of acid at {}",
+	    "description": "You hurl a bubble of acid at {}|You throw a bubble of acid at {}",
 	    "description_second": "{} hurls a bubble of acid at {}",
 	    "prepareTime": "",
 	    "duration": "",
@@ -15,7 +15,7 @@
 	    "actionDescription": ""
 	},
 	"shocking grasp": {
-	    "description": "Lightning springs from your hand to deliver a shock to {}",
+	    "description": "Lightning springs from your hand to deliver a shock to {}|A bolt of lightning from your hand shocks {}",
 	    "description_second": "{} fires lightning from their hand at {}",
 	    "prepareTime": "",
 	    "duration": "",
@@ -29,8 +29,8 @@
 	    "actionDescription": ""
 	},
 	"vicious mockery": {
-	    "description": "You unleash a string of insults at {}",
-	    "description_second": "{} unleashes a string of insults at {}",
+	    "description": "You unleash a string of insults at {}|You hurl a string of insults at {}",
+	    "description_second": "{} unleashes a string of insults at {}|{} hurls a string of insults at {}",
 	    "prepareTime": "",
 	    "duration": "",
 	    "classes": ["bard"],
@@ -58,8 +58,22 @@
 	    "action": "friend",
 	    "actionDescription": ""
 	},
+        "cat nap": {
+    	    "description": "{} feels drowsy|{} is sleepy|{} begins to snore|{} yawns",
+	    "description_second": "{} casts a sleeping spell on {}",
+	    "prepareTime": "10 min",
+	    "duration": "1 min",
+	    "classes": ["ranger"],
+	    "range": 30,
+	    "items": [702],
+	    "damage": 0,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "freeze",
+	    "actionDescription": "You struggle to stay awake.|You feel very sleepy.|You feel tired.|Lethargy overcomes you."
+	},
         "hideous laughter": {
-    	    "description": "{} giggles",
+    	    "description": "{} giggles|{} laughs hysterically|{} rolls on the floor laughing|{} finds everything funny|{} bursts into laughter",
 	    "description_second": "{} casts a laughter spell on {}",
 	    "prepareTime": "1 min",
 	    "duration": "1 min",
@@ -70,7 +84,7 @@
 	    "damageType": "",
 	    "hp": 0,
 	    "action": "frozen",
-	    "actionDescription": "Every movement that you attempt to make seems hillarious."
+	    "actionDescription": "Every movement that you attempt to make seems hillarious.|You laugh uncontrollably.|You roll on the floor laughing.|You cackle hysterically."
 	},
         "magic missile": {
     	    "description": "You create three glowing darts of magical force which simultaneously strike {}",
@@ -105,7 +119,7 @@
     "2": {
         "acid arrow": {
     	    "description": "A shimmering green arrow streaks toward {} and bursts in a spray of acid",
-	    "description_second": "",
+	    "description_second": "{} fires a shimmering green arrow toward {} and it bursts in a spray of acid",
 	    "prepareTime": "1 action",
 	    "duration": "",
 	    "classes": [],
@@ -118,7 +132,7 @@
 	    "actionDescription": ""
 	},
         "aid": {
-    	    "description": "Your spell bolsters {} with toughness and resolve",
+    	    "description": "Your spell bolsters {} with toughness and resolve|You cast a protective spell on {}",
 	    "description_second": "{} casts a spell bolstering {} with toughness and resolve",
 	    "prepareTime": "8 hours",
 	    "duration": "1 hour",

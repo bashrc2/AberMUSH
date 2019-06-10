@@ -531,9 +531,9 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
                 npcs[p]['frozenDuration']=spellTimeToSec(spellDetails['duration'])
                 npcs[p]['frozenStart']=int(time.time())
 
-        mud.send_message(id, spellDetails['description'].format('<f32>'+npcs[p]['name']+'<r>') + '\n\n')
+        mud.send_message(id, randomDescription(spellDetails['description']).format('<f32>'+npcs[p]['name']+'<r>') + '\n\n')
         
-        secondDesc=spellDetails['description_second']
+        secondDesc=randomDescription(spellDetails['description_second'])
         if npcs==players and len(secondDesc)>0:
                 mud.send_message(p, secondDesc.format(players[id]['name'],'you') + '\n\n')
 
