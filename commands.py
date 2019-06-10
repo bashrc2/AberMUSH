@@ -629,6 +629,20 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
                 return                
 
+def affinity(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
+        otherPlayer=params.lower().strip()
+        if len(otherPlayer)==0:
+                mud.send_message(id, 'With which player?\n\n')
+                return
+        if players[id]['affinity'].get(otherPlayer):
+                affinity=players[id]['affinity'][otherPlayer]
+                if affinity>=0:
+                        mud.send_message(id, 'Your affinity with <f32><u>' + otherPlayer + '<r> is <f15><b2>+' + str(affinity) + '<r>\n\n')
+                else:
+                        mud.send_message(id, 'Your affinity with <f32><u>' + otherPlayer + '<r> is <f15><b88>' + str(affinity) + '<r>\n\n')
+                return
+        mud.send_message(id, "You don't have any affinity with them.\n\n")
+
 def clearSpells(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if len(players[id]['preparedSpells'])>0:
                 players[id]['preparedSpells'].clear()
@@ -2684,6 +2698,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "spells": spells,
                 "clear": clearSpells,
                 "spellbook": spells,
+                "affinity": affinity,
                 "resetuniverse": resetUniverse,
                 "shutdown": shutdown
         }
