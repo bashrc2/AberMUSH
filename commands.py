@@ -463,6 +463,7 @@ def help(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, e
         mud.send_message(id, '  tell/ask [target] [message]             - Send a tell message to another player or NPC')
         mud.send_message(id, '  open [item]                             - Open an item or door')
         mud.send_message(id, '  close [item]                            - Close an item or door')
+        mud.send_message(id, '  affinity [player name]                  - Shows your affinity level with another player')
         mud.send_message(id, '')
         mud.send_message(id, 'Spell commands:')
         mud.send_message(id, '  prepare spells                          - List spells which can be prepared')

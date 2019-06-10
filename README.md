@@ -50,6 +50,7 @@ wear [item]                             - Wear an item
 remove/unwear [item]                    - Remove a worn item
 open [item]                             - Open an item or door
 close [item]                            - Close an item or door
+affinity [player name]                  - Shows your affinity level with another player
 ```
 
 ## Spell Commands
@@ -381,6 +382,23 @@ NPCs are able to pick up and use any weapons or armor available in the vicinity.
 If you don't want certain words or phrases to be used by players then you can create a file called `blocked.txt` containing them in the same directory that you run `abermush.py` from. Entries can be on separate lines or comma separated and the matching is case insensitive. This then alters the `say`, `tell` and `whisper` commands such that recipients won't receive messages containing blocked text.
 
 You can also use the commands `block` and `unblock` to update the blocklist without restarting the server.
+
+### Affinity Levels
+
+The system keeps track of affinity levels between players, including between players and NPCs, via sentiment analysis and friendly or unfriendly actions. This enables NPCs to adjust their narrative based upon how friendly or hostile a player is towards them or other individuals which they know. For example:
+
+``` bash
+"conv" : [
+    [["affinity>0","serve","ale","?"], "Yes, of course"],
+    [["affinity<0","serve","ale","?"], "Begone, scoundrel!"]
+],
+```
+
+You can also see your affinity level with other players or NPCs with the command:
+
+``` bash
+affinity [player name]
+```
 
 ### Constructing the Universe
 
