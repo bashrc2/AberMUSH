@@ -51,6 +51,14 @@ def baselineAffinity(players,id):
 def increaseAffinityBetweenPlayers(players,id,npcs,p):
         """Increases the affinity level between two players
         """
+        # You can't gain affinity with low intelligence creatures
+        # by talking to them
+        if players[id]['int']<2:
+                return
+        # Animals you can't gain affinity with by talking
+        if players[id].get('animalType'):
+                if len(players[id]['animalType'])>0:
+                        return
         recipientName=npcs[p]['name']
         if players[id]['affinity'].get(recipientName):
                 players[id]['affinity'][recipientName] = \
@@ -62,6 +70,14 @@ def increaseAffinityBetweenPlayers(players,id,npcs,p):
 def decreaseAffinityBetweenPlayers(players,id,npcs,p):
         """Decreases the affinity level between two players
         """
+        # You can't gain affinity with low intelligence creatures
+        # by talking to them
+        if players[id]['int']<2:
+                return
+        # Animals you can't gain affinity with by talking
+        if players[id].get('animalType'):
+                if len(players[id]['animalType'])>0:
+                        return
         recipientName=npcs[p]['name']
         if players[id]['affinity'].get(recipientName):
                 players[id]['affinity'][recipientName] = \
