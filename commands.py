@@ -627,6 +627,11 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
         for p in npcs:
                 if castAt not in npcs[p]['name'].lower():
                         continue
+
+                if npcs[p]['familiarOf'] == id:
+                        mud.send_message(id, "You can't cast a spell on your own familiar!\n\n")
+                        return
+
                 castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
                 return                
 
@@ -1158,6 +1163,10 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                                                 targetFound = True
                                                                 # print('target found!')
                                                                 if players[id]['room'] == npcs[nid]['room']:
+                                                                        if npcs[nid]['familiarOf'] == id:
+                                                                                mud.send_message(id, "You can't attack your own familiar!\n\n")
+                                                                                return
+
                                                                         fights[len(fights)] = { 's1': players[id]['name'], 's2': nid, 's1id': attackerId, 's2id': victimId, 's1type': 'pc', 's2type': 'npc', 'retaliated': 0 }
                                                                         mud.send_message(id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
                                                                 else:

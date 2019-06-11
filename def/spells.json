@@ -58,6 +58,20 @@
 	    "action": "friend",
 	    "actionDescription": ""
 	},
+        "find familiar": {
+    	    "description": "Your familiar appears",
+	    "description_second": "A familiar of {} appears",
+	    "prepareTime": "1 hour",
+	    "duration": "",
+	    "classes": ["druid","sorcerer","witch"],
+	    "range": 10,
+	    "items": [702],
+	    "damage": 0,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "familiar",
+	    "actionDescription": ""
+	},
         "cat nap": {
     	    "description": "{} feels drowsy|{} is sleepy|{} begins to snore|{} yawns",
 	    "description_second": "{} casts a sleeping spell on {}",
