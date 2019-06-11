@@ -76,5 +76,6 @@
     "frozenDescription": "",
     "frozenStart": 0,
     "frozenDuration": 0,
-    "affinity": {}
+    "affinity": {},
+    "familiar": 0
 }

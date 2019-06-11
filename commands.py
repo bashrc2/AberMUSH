@@ -2033,7 +2033,11 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "frozenStart": 0, \
                    "frozenDuration": 0, \
                    "frozenDescription": "", \
-                   "affinity": {}
+                   "affinity": {},
+                   "familiar": 0,
+                   "familiarOf": 0,
+                   "familiarType": "",
+                   "animalType": ""
         }
 
         npcsKey=getFreeKey(npcs)
