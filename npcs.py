@@ -834,6 +834,17 @@ def npcConversation(
        This typically works by matching some words and then producing a corresponding response and/or action
     """
 
+    if len(npcs[nid]['familiarOf'])>0:
+        # is this a familiar of another player?
+        if npcs[nid]['familiarOf'] != players[id]['name']:
+            # familiar only talks to its assigned player
+            mud.send_message(
+                id,
+                "<f220>" +
+                npcs[nid]['name'] +
+                "<r> ignores you.\n\n")
+            return
+
     puzzledStr = 'puzzled'
     if randint(0, 1) == 1:
         puzzledStr = 'confused'
@@ -965,13 +976,25 @@ def npcConversation(
                                          itemsDB, puzzledStr):
                 return
 
-        mud.send_message(
-            id,
-            "<f220>" +
-            npcs[nid]['name'] +
-            "<r> says: " +
-            best_match +
-            ".\n\n")
+        if npcs[nid]['familiarOf'] == players[id]['name'] or \
+           len(npcs[nid]['animalType'])>0:
+            # Talking with a familiar or animal can include
+            # non-verbal responses so we remove 'says'
+            mud.send_message(
+                id,
+                "<f220>" +
+                npcs[nid]['name'] +
+                "<r> " +
+                best_match +
+                ".\n\n")
+        else:
+            mud.send_message(
+                id,
+                "<f220>" +
+                npcs[nid]['name'] +
+                "<r> says: " +
+                best_match +
+                ".\n\n")
     else:
         # No word matches
         mud.send_message(
