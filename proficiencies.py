@@ -12,33 +12,37 @@ __status__ = "Production"
 import types
 from random import randint
 
+
 def proficiencyName(prof):
     if '(' not in prof:
         return prof
 
     return prof.split('(')[0].strip()
 
+
 def proficiencyParam(prof):
     if '(' not in prof:
         return 0
 
-    return int(prof.split('(')[1].replace(')','').strip())
+    return int(prof.split('(')[1].replace(')', '').strip())
 
-def profFightingStyleDamage(id,players,weaponType,value):
+
+def profFightingStyleDamage(id, players, weaponType, value):
     if not players[id].get('fightingStyle'):
         return 0
-    fightStyle=players[id]['fightingStyle'].lower()
-    if fightStyle=='archery':
+    fightStyle = players[id]['fightingStyle'].lower()
+    if fightStyle == 'archery':
         if 'bow' in weaponType:
             return 2
     if fightStyle.startswith('duel'):
         if 'ranged' not in weaponType:
             if 'fist' not in weaponType:
-                if players[id]['clo_lhand']==0 or players[id]['clo_rhand']==0:
+                if players[id]['clo_lhand'] == 0 or players[id]['clo_rhand'] == 0:
                     return 2
 
+
 def damageProficiencyItem(prof, id, players, weaponType):
-    if type(prof)==list:
+    if isinstance(prof, list):
         return 0
 
     profName = proficiencyName(prof)
@@ -46,15 +50,15 @@ def damageProficiencyItem(prof, id, players, weaponType):
 
     switcher = {
         "Fighting Style": profFightingStyleDamage,
-#        "Second Wind": profSecondWind,
-#        "Action Surge": profActionSurge,
+        #        "Second Wind": profSecondWind,
+        #        "Action Surge": profActionSurge,
         "Martial Archetype": profMartialArchetype,
         "Ability Score Improvement": profAbilityScore,
         "Extra Attack": profExtraAttack,
         "Martial Archetype feature": profMartialArchetypeFeature,
-#        "Indomitable": profIndomitable,
+        #        "Indomitable": profIndomitable,
         "Spellcasting": profSpellcasting,
-#        "Arcane Recovery": profArcaneRecovery,
+        #        "Arcane Recovery": profArcaneRecovery,
         "Cantrips": profCantrips,
         "Arcane Tradition": profArcaneTradition,
         "Arcane Tradition feature": profArcaneTraditionFeature,
@@ -66,44 +70,48 @@ def damageProficiencyItem(prof, id, players, weaponType):
         return 0
 
     try:
-        return switcher[profName](id,players,weaponType,profValue)
+        return switcher[profName](id, players, weaponType, profValue)
     except Exception as e:
         print("damageProficiencyItem error " + prof)
 
-    return 0    
+    return 0
+
 
 def damageProficiency(id, players, weaponType, characterClassDB):
     if not players[id].get('race'):
         return 0
 
-    playerRace=players[id]['race']
-    
+    playerRace = players[id]['race']
+
     if not characterClassDB.get(playerRace):
         return 0
 
-    damage=0
-    for lvl in range(1,players[id]['lvl']):
+    damage = 0
+    for lvl in range(1, players[id]['lvl']):
         if characterClassDB[playerRace].get(str(lvl)):
-            profList=characterClassDB[playerRace][str(lvl)]
+            profList = characterClassDB[playerRace][str(lvl)]
             for p in profList:
                 damage = damage + \
                     damageProficiencyItem(p, id, players, weaponType)
     return damage
 
-def profSecondWind(id,players,profValue):
-    if players[id]['restRequired'] != 0:
-        return 0
-    players[id]['restRequired']=1
-    return randint(1,10)
 
-def profIndomitable(id,players,profValue):
+def profSecondWind(id, players, profValue):
     if players[id]['restRequired'] != 0:
         return 0
-    players[id]['restRequired']=1
-    return randint(1,10)
+    players[id]['restRequired'] = 1
+    return randint(1, 10)
+
+
+def profIndomitable(id, players, profValue):
+    if players[id]['restRequired'] != 0:
+        return 0
+    players[id]['restRequired'] = 1
+    return randint(1, 10)
+
 
 def defenseProficiencyItem(prof, id, players):
-    if type(prof)==list:
+    if isinstance(prof, list):
         return 0
 
     profName = proficiencyName(prof)
@@ -119,72 +127,76 @@ def defenseProficiencyItem(prof, id, players):
         return 0
 
     try:
-        return switcher[profName](id,players,profValue)
+        return switcher[profName](id, players, profValue)
     except Exception as e:
         print("defenseProficiencyItem error " + prof)
 
-    return 0    
+    return 0
+
 
 def defenseProficiency(id, players, characterClassDB):
     if not players[id].get('race'):
         return 0
 
-    playerRace=players[id]['race']
-    
+    playerRace = players[id]['race']
+
     if not characterClassDB.get(playerRace):
         return 0
 
-    defense=0
-    for lvl in range(1,players[id]['lvl']):
+    defense = 0
+    for lvl in range(1, players[id]['lvl']):
         if characterClassDB[playerRace].get(str(lvl)):
-            profList=characterClassDB[playerRace][str(lvl)]
+            profList = characterClassDB[playerRace][str(lvl)]
             for p in profList:
                 defense = defense + \
                     defenseProficiencyItem(p, id, players)
     return damage
 
+
 def weaponProficiencyItem(prof, id, players, weaponType):
-    if type(prof)==list:
+    if isinstance(prof, list):
         return 0
 
     profName = proficiencyName(prof)
     profValue = proficiencyParam(prof)
 
     switcher = {
-        #"Second Wind": profSecondWind
+        # "Second Wind": profSecondWind
     }
 
     if not switcher.get(profName):
         return 0
-    
+
     try:
-        return switcher[profName](id,players,profValue)
+        return switcher[profName](id, players, profValue)
     except Exception as e:
         print("defenseProficiencyItem error " + prof)
 
-    return 0    
+    return 0
+
 
 def weaponProficiency(id, players, weaponType, characterClassDB):
     if not players[id].get('race'):
         return 0
 
-    playerRace=players[id]['race']
-    
+    playerRace = players[id]['race']
+
     if not characterClassDB.get(playerRace):
         return 0
 
-    competence=int(players[id]['lvl'])-1
-    for lvl in range(1,players[id]['lvl']):
+    competence = int(players[id]['lvl']) - 1
+    for lvl in range(1, players[id]['lvl']):
         if characterClassDB[playerRace].get(str(lvl)):
-            profList=characterClassDB[playerRace][str(lvl)]
+            profList = characterClassDB[playerRace][str(lvl)]
             for p in profList:
                 competence = competence + \
                     weaponProficiencyItem(p, id, players, weaponType)
 
-    if competence>4:
-        competence=4
+    if competence > 4:
+        competence = 4
 
     return competence
+
 
 def thievesCantCountChars(txt):
     result = 0
@@ -193,8 +205,9 @@ def thievesCantCountChars(txt):
             result = result + 1
     return result
 
+
 def thievesCant(spokenText):
-    cantCode=(
+    cantCode = (
         "Hey, girl, hey!",
         "Look what the cat dragged in",
         "Yo ho",
@@ -221,5 +234,6 @@ def thievesCant(spokenText):
         "No, I am otherwise engaged",
         "Give my regards to your Granny",
         "…and have your pets spayed")
-    index = (thievesCantCountChars(spokenText) + len(spokenText.split(' '))) % len(cantCode)
+    index = (thievesCantCountChars(spokenText) +
+             len(spokenText.split(' '))) % len(cantCode)
     return cantCode[index]
