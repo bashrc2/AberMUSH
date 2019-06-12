@@ -21,6 +21,8 @@ from copy import deepcopy
 
 import time
 
+# Movement modes for familiars
+familiarModes = ("follow","scout")
 
 def familiarRecall(mud, players, id, npcs, npcsDB):
     """Move any familiar to the player's location
@@ -529,6 +531,36 @@ def conversationExperience(
             return False
     return False
 
+def conversationFamiliarMode(
+        best_match,
+        best_match_action,
+        best_match_action_param0,
+        players,
+        id,
+        mud,
+        npcs,
+        nid,
+        itemsDB,
+        puzzledStr):
+    """Switches the mode of a familiar
+    """
+    if best_match_action == 'familiar':
+        if len(best_match_action_param0) > 0:
+            if players[id]['familiar'] != -1:
+                mode=best_match_action_param0.lower().strip()
+                if mode in familiarModes:
+                    npcs[nid]['familiarMode']=mode
+                    return True
+        else:
+            mud.send_message(
+                id,
+                "<f220>" +
+                npcs[nid]['name'] +
+                "<r> looks " +
+                puzzledStr +
+                ".\n\n")
+            return False
+    return False
 
 def conversationTransport(
         best_match_action,
@@ -914,6 +946,13 @@ def npcConversation(
                                       best_match_action_param1, players,
                                       id, mud, npcs, nid, itemsDB, puzzledStr,
                                       characterClassDB):
+                return
+
+            if conversationFamiliarMode(best_match, best_match_action,
+                                        best_match_action_param0,
+                                        players,
+                                        id, mud, npcs, nid, itemsDB, puzzledStr,
+                                        characterClassDB):
                 return
 
             # transport (free taxi)
