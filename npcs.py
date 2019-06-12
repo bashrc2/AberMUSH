@@ -80,7 +80,7 @@ def runNPCs(
                         if len(npcs[nid]['vocabulary']) > 1:
                             #mud.send_message(pid, npcs[nid]['vocabulary'][rnd])
                             msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + \
-                                npcs[nid]['vocabulary'][rnd] + "\n"
+                                npcs[nid]['vocabulary'][rnd] + "\n\n"
                             mud.send_message(pid, msg)
                             npcs[nid]['randomizer'] = randint(
                                 0, npcs[nid]['randomFactor'])
@@ -89,7 +89,7 @@ def runNPCs(
                         else:
                             #mud.send_message(pid, npcs[nid]['vocabulary'][0])
                             msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + \
-                                npcs[nid]['vocabulary'][0] + "\n"
+                                npcs[nid]['vocabulary'][0] + "\n\n"
                             mud.send_message(pid, msg)
                             npcs[nid]['randomizer'] = randint(
                                 0, npcs[nid]['randomFactor'])
