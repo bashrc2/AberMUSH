@@ -3979,8 +3979,8 @@
         "imp_feet" : "0"
     },
     "1104": {
-        "inDescription": "arrives",
-        "outDescription": "goes",
+        "inDescription": "wanders in",
+        "outDescription": "saunters out",
         "lookDescription": "watches you",
         "name": "the black cat",
         "inv" : [],
