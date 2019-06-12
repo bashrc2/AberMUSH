@@ -170,6 +170,10 @@ def runNPCs(
             npcs[nid]['isInCombat'] = 0
             npcs[nid]['lastRoom'] = npcs[nid]['room']
             npcs[nid]['whenDied'] = int(time.time())
+            # detach familiar from player
+            for pl in players:
+                if players[pl]['familiar']==int(nid):
+                    players[pl]['familiar']=-1
             fightsCopy = deepcopy(fights)
             for (fight, pl) in fightsCopy.items():
                 if fightsCopy[fight]['s1id'] == nid or \
