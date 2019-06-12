@@ -2131,13 +2131,27 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
 
 def dismiss(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if params.lower().startswith('familiar'):
+                players[id]['familiar'] = -1
+                familiarRemoved=False
+                removals=[]
                 for (index,details) in npcsDB.items():
                         if details['familiarOf'] == players[id]['name']:
-                                players[id]['familiar'] = -1
-                                del npcs[index]
-                                del npcsDB[index]
-                                mud.send_message(id, "Your familiar vanishes.\n\n")
-                                break
+                                removals.append(index)
+                                familiarRemoved=True
+                for index in removals:
+                        del npcsDB[index]
+
+                removals.clear()
+                for (index,details) in npcs.items():
+                        if details['familiarOf'] == players[id]['name']:
+                                removals.append(index)
+                for index in removals:
+                        del npcs[index]
+
+                if familiarRemoved:
+                        mud.send_message(id, "Your familiar vanishes.\n\n")
+                else:
+                        mud.send_message(id, "\n\n")
 
 def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
