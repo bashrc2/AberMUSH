@@ -512,6 +512,7 @@ def conversationFamiliarMode(
         best_match,
         best_match_action,
         best_match_action_param0,
+        best_match_action_param1,
         players,
         id,
         mud,
@@ -525,7 +526,9 @@ def conversationFamiliarMode(
         if len(best_match_action_param0) > 0:
             if npcs[nid]['familiarOf']==players[id]['name']:
                 mode=best_match_action_param0.lower().strip()
-                if mode in getFamiliarModes:
+                if len(best_match_action_param1) > 0:
+                    mode=mode+' '+best_match_action_param1
+                if mode in getFamiliarModes():
                     npcs[nid]['familiarMode']=mode
                     return True
             else:
@@ -940,8 +943,10 @@ def npcConversation(
                                       characterClassDB):
                 return
 
+            # Switch familiar into different modes
             if conversationFamiliarMode(best_match, best_match_action,
                                         best_match_action_param0,
+                                        best_match_action_param1,
                                         players,
                                         id, mud, npcs, nid, itemsDB, puzzledStr,
                                         characterClassDB):
