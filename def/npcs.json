@@ -1077,7 +1077,15 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["follow","me"],"Follows behind","familiar","follow"],
+	    [["scout"],"Begins roaming","familiar","scout","any"],
+            [["help"],"Watches you curiously"],
+            [["attack"],"Sits with its wings folded"],
+            [["you"],"Sits and wiggles its feet"],
+            [["magic","spell"],"Prods cautiously at an object"],
+            [["say","speak"],"Grins"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",

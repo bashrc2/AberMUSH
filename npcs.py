@@ -18,6 +18,7 @@ from functions import updatePlayerAttributes
 from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
+from functions import randomDescription
 from random import randint
 from copy import deepcopy
 from familiar import getFamiliarModes
@@ -884,7 +885,7 @@ def npcConversation(
             # store the best match
             if match_ctr > max_match_ctr:
                 max_match_ctr = match_ctr
-                best_match = conv[1]
+                best_match = randomDescription(conv[1])
                 best_match_action = ''
                 best_match_action_param0 = ''
                 best_match_action_param1 = ''
