@@ -61,7 +61,7 @@
         "find familiar": {
     	    "description": "Your familiar appears",
 	    "description_second": "A familiar of {} appears",
-	    "prepareTime": "1 hour",
+	    "prepareTime": "1 min",
 	    "duration": "",
 	    "classes": ["druid","sorcerer","witch"],
 	    "range": 10,

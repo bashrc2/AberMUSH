@@ -541,7 +541,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
                         npcs[p]['affinity'][playerName]=npcs[p]['affinity'][playerName]+1
                 else:
                         npcs[p]['affinity'][playerName]=1
-
+                
         if spellDetails['action'].startswith('attack'):
                 if len(spellDetails['damageType'])==0 or spellDetails['damageType']=='str':
                         npcs[p]['hp'] = npcs[p]['hp'] - randint(1,spellDetails['damage'])
@@ -564,6 +564,10 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
                 mud.send_message(p, secondDesc.format(players[id]['name'],'you') + '\n\n')
 
         removePreparedSpell(players,id,spellName)
+
+def castSpellUndirected(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB,spellName,spellDetails):
+        if spellDetails['action'].startswith('familiar'):
+                conjureNPC(spellDetails['action'], mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
 
 def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if players[id]['frozenStart']!=0:
@@ -592,10 +596,8 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 if ' on ' in castStr:
                         spellName=castStr.split(' on ')[0].strip()
                         castAt=castStr.split(' on ')[1].strip()
-
-        if len(castAt)==0:
-                mud.send_message(id, 'Who to cast at?\n\n')
-                return
+                else:
+                        spellName=castStr.strip()
 
         if not players[id]['preparedSpells'].get(spellName):
                 mud.send_message(id, "That's not a prepared spell.\n\n")
@@ -612,10 +614,11 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                                 spellDetails=spellsDB[str(level)][spellName]
                                 break
         if spellDetails == None:
-                mud.send_message(id, "No definition found for spell " + spellName + ".\n\n")
+                mud.send_message(id, "You have no knowledge of that spell.\n\n")
                 return
 
-        for p in players:
+        if len(castAt)>0:
+            for p in players:
                 if castAt not in players[p]['name'].lower():
                         continue
                 if p == id:
@@ -624,7 +627,7 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 castSpellOnPlayer(mud, spellName, players, id, players, p, spellDetails)
                 return
 
-        for p in npcs:
+            for p in npcs:
                 if castAt not in npcs[p]['name'].lower():
                         continue
 
@@ -633,7 +636,9 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                         return
 
                 castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails)
-                return                
+                return
+        else:
+                castSpellUndirected(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB,spellName,spellDetails)
 
 def affinity(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         otherPlayer=params.lower().strip()
@@ -741,7 +746,7 @@ def getPlayerUsedSlotsAtSpellLevel(players,id, spellLevel, spellsDB):
                         usedCounter = usedCounter + 1
         return usedCounter
 
-def playerPreparedCantrips(players,id,spellsDB,sentimentDB):
+def playerPreparedCantrips(players,id,spellsDB):
         """Returns the number of cantrips which the player has prepared
         """
         preparedCounter=0
