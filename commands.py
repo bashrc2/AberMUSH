@@ -1805,14 +1805,16 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']), \
                                                id, eventSchedule, eventDB)
 
-                        # Does the player have any follower NPCs?
+                        # Does the player have any follower NPCs or familiars?
                         followersMsg=""
                         for (nid, pl) in list(npcs.items()):
-                                if npcs[nid]['follow'] == players[id]['name']:
+                                if npcs[nid]['follow'] == players[id]['name'] or \
+                                   (npcs[nid]['familiarOf'] == id and npcs[nid]['familiarMode'] == 'follow'):
                                         # is the npc in the same room as the player?
                                         if npcs[nid]['room'] == players[id]['room']:
                                                 # is the player within the permitted npc path?
-                                                if rm['exits'][ex] in list(npcs[nid]['path']):
+                                                if rm['exits'][ex] in list(npcs[nid]['path']) or \
+                                                   npcs[nid]['familiarOf'] == id:
                                                         npcs[nid]['room'] = rm['exits'][ex]
                                                         followersMsg=followersMsg+'<f32>' + \
                                                                 npcs[nid]['name'] + '<r> ' + \
@@ -1949,12 +1951,67 @@ def conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
                 return True
         return False
 
+def randomFamiliar(npcsDB):
+        """Picks a familiar at random and returns its index
+        """
+        possibleFamiliars=[]
+        for index,details in npcsDB.items():
+                if len(details['familiarType'])>0:
+                        if details['familiarOf']==-1:
+                                possibleFamiliars.append(int(index))
+        if len(possibleFamiliars)>0:
+                return possibleFamiliars[randint(0,len(possibleFamiliars)+1)]
+        return -1
+
 def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not params.startswith('npc '):
-                return False
-        
-        npcName = params.replace('npc ','').strip().replace('"','')
-        if len(npcName)==0:
+                if not params.startswith('familiar'):
+                        return False
+
+        npcHitPoints=100
+        isFamiliar=False
+        npcType='NPC'
+        if params.startswith('familiar'):
+                isFamiliar=True
+                npcType='Familiar'
+                npcIndex=randomFamiliar(npcsDB)
+                if npcIndex<0:
+                        mud.send_message(id, "No familiars known.\n\n")
+                        return
+                npcName=npcsDB[npcIndex]['name']
+                npcHitPoints=5
+                npcSize=1
+                npcStrength=5
+                npcFamiliarOf=id
+                npcAnimalType=npcsDB[npcIndex]['animalType']
+                npcFamiliarType=npcsDB[npcIndex]['familiarType']
+                npcFamiliarMode="follow"
+                npcConv=deepcopy(npcsDB[npcIndex]['conv'])
+                npcVocabulary=deepcopy(npcsDB[npcIndex]['vocabulary'])
+                npcTalkDelay=npcsDB[npcIndex]['talkDelay']
+                npcRandomFactor=npcsDB[npcIndex]['randomFactor']
+                npcLookDescription=npcsDB[npcIndex]['lookDescription']
+                npcInDescription=npcsDB[npcIndex]['inDescription']
+                npcOutDescription=npcsDB[npcIndex]['outDescription']
+                npcMoveDelay=npcsDB[npcIndex]['moveDelay']
+        else:
+                npcName = params.replace('npc ','',1).strip().replace('"','')
+                npcSize=sizeFromDescription(npcName)
+                npcStrength=80
+                npcFamiliarOf=-1
+                npcAnimalType=""
+                npcFamiliarType=""
+                npcFamiliarMode=""
+                npcConv=[]
+                npcVocabulary=[""]
+                npcTalkDelay=300
+                npcRandomFactor=100
+                npcLookDescription="A new NPC, not yet described"
+                npcInDescription="arrives"
+                npcOutDescription="goes"
+                npcMoveDelay=300
+
+        if len(npcName) == 0:
                 mud.send_message(id, "Specify the name of an NPC to conjure.\n\n")
                 return False
 
@@ -1970,15 +2027,18 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
         newNPC = { "name": npcName, \
                    "whenDied": None, \
                    "inv" : [], \
-                   "conv" : [], \
+                   "conv" : npcConv, \
                    "room" : players[id]['room'], \
                    "path" : [], \
                    "bodyType": "", \
-                   "moveDelay" : 300, \
+                   "moveDelay" : npcMoveDelay, \
                    "moveType" : "", \
-                   "vocabulary" : [""], \
-                   "talkDelay" : 300, \
-                   "randomFactor" : 100, \
+                   "vocabulary" : npcVocabulary, \
+                   "talkDelay" : npcTalkDelay, \
+                   "timeTalked": 0, \
+                   "lastSaid": 0, \
+                   "randomizer": 0, \
+                   "randomFactor" : npcRandomFactor, \
                    "follow" : "", \
                    "canWield" : 0, \
                    "canWear" : 0, \
@@ -1994,13 +2054,13 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "tempHitPoints": 0, \
                    "spellSlots": {}, \
                    "preparedSpells": {}, \
-                   "hpMax" : 100, \
-                   "hp" : 100, \
+                   "hpMax" : npcHitPoints, \
+                   "hp" : npcHitPoints, \
                    "charge" : 1233, \
                    "lvl" : 5, \
                    "exp" : 32, \
-                   "str" : 80, \
-                   "siz" : sizeFromDescription(npcName), \
+                   "str" : npcStrength, \
+                   "siz" : npcSize, \
                    "wei" : 100, \
                    "per" : 3, \
                    "endu" : 1, \
@@ -2032,9 +2092,9 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "imp_lleg" : 0, \
                    "imp_rleg" : 0, \
                    "imp_feet" : 0, \
-                   "inDescription": "arrives", \
-                   "outDescription": "goes", \
-                   "lookDescription": "A new NPC, not yet described", \
+                   "inDescription": npcInDescription, \
+                   "outDescription": npcOutDescription, \
+                   "lookDescription": npcLookDescription, \
                    "canGo": 0, \
                    "canLook": 1, \
                    "canWield": 0, \
@@ -2042,19 +2102,31 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                    "frozenStart": 0, \
                    "frozenDuration": 0, \
                    "frozenDescription": "", \
-                   "affinity": {},
-                   "familiar": 0,
-                   "familiarOf": 0,
-                   "familiarType": "",
-                   "animalType": ""
+                   "affinity": {}, \
+                   "familiar": -1, \
+                   "familiarOf": npcFamiliarOf, \
+                   "familiarType": npcFamiliarType, \
+                   "familiarMode": npcFamiliarMode, \
+                   "animalType": npcAnimalType
         }
 
-        npcsKey=getFreeKey(npcs)
+        if isFamiliar:
+                if players[id]['familiar'] != -1:
+                        npcsKey=players[id]['familiar']
+                else:
+                        npcsKey=getFreeKey(npcs)
+                        players[id]['familiar']=npcsKey
+        else:
+                npcsKey=getFreeKey(npcs)
+                
         npcs[npcsKey]=newNPC
         npcsDB[npcsKey]=newNPC
-        log('NPC ' + npcName + ' generated in ' + players[id]['room'] + ' with key ' + str(npcsKey), 'info')
+        log(npcType + ' ' + npcName + ' generated in ' + players[id]['room'] + ' with key ' + str(npcsKey), 'info')
+        if isFamiliar:
+                mud.send_message(id, 'Your familiar, ' + npcName + ', spontaneously appears.\n\n')
+        else:
+                mud.send_message(id, npcName + ' spontaneously appears.\n\n')
         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
-        mud.send_message(id, npcName + ' spontaneously appears.\n\n')
         return True
 
 def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
@@ -2062,19 +2134,30 @@ def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items
                 mud.send_message(id, "You don't have enough powers.\n\n")
                 return
 
+        if params.startswith('familiar'):
+                conjureNPC(params, mud, playersDB, players, rooms, \
+                           npcsDB, npcs, itemsDB, items, envDB, env, \
+                           eventDB, eventSchedule, id, fights, corpses, \
+                           blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
+                return
+        
         if params.startswith('room '):
                 conjureRoom(params, mud, playersDB, players, rooms, npcsDB, \
                             npcs, itemsDB, items, envDB, env, eventDB, \
                             eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
-        else:
-                if not conjureItem(params, mud, playersDB, players, rooms, \
-                                   npcsDB, npcs, itemsDB, items, envDB, env, \
-                                   eventDB, eventSchedule, id, fights, \
-                                   corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
-                        conjureNPC(params, mud, playersDB, players, rooms, \
-                                   npcsDB, npcs, itemsDB, items, envDB, env, \
-                                   eventDB, eventSchedule, id, fights, corpses, \
-                                   blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
+                return
+
+        if params.startswith('npc '):
+                conjureNPC(params, mud, playersDB, players, rooms, \
+                           npcsDB, npcs, itemsDB, items, envDB, env, \
+                           eventDB, eventSchedule, id, fights, corpses, \
+                           blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
+                return
+        
+        conjureItem(params, mud, playersDB, players, rooms, \
+                    npcsDB, npcs, itemsDB, items, envDB, env, \
+                    eventDB, eventSchedule, id, fights, \
+                    corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB)
 
 def destroyItem(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         itemName = params.lower()
