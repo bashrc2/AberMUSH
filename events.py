@@ -668,6 +668,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
                                    'affinity': npcsDB[int(body[0])]['affinity'],
                                    'familiar': npcsDB[int(body[0])]['familiar'],
                                    'familiarOf': npcsDB[int(body[0])]['familiarOf'],
+                                   'familiarTarget': npcsDB[int(body[0])]['familiarTarget'],
                                    'familiarType': npcsDB[int(body[0])]['familiarType'],
                                    'familiarMode': npcsDB[int(body[0])]['familiarMode'],
                                    'animalType': npcsDB[int(body[0])]['animalType']}

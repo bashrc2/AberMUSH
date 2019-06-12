@@ -18,38 +18,9 @@ from functions import updatePlayerAttributes
 from functions import increaseAffinityBetweenPlayers
 from random import randint
 from copy import deepcopy
+from familiar import getFamiliarModes
 
 import time
-
-# Movement modes for familiars
-familiarModes = ("follow","scout")
-
-def familiarRecall(mud, players, id, npcs, npcsDB):
-    """Move any familiar to the player's location
-    """
-    # remove any existing familiars
-    removals = []
-    for (index, details) in npcs.items():
-        if details['familiarOf'] == players[id]['name']:
-            removals.append(index)
-
-    for index in removals:
-        del npcs[index]
-
-    # By default player has no familiar
-    players[id]['familiar'] = -1
-
-    # Find familiar and set its room to that of the player
-    for (index, details) in npcsDB.items():
-        if details['familiarOf'] == players[id]['name']:
-            players[id]['familiar'] = int(index)
-            details['room'] = players[id]['room']
-            if not npcs.get(str(index)):
-                npcs[str(index)] = deepcopy(npcsDB[index])
-            npcs[str(index)]['room'] = players[id]['room']
-            mud.send_message(id, "Your familiar is recalled.\n\n")
-            break
-
 
 def npcsRest(npcs):
     """Rest restores hit points of NPCs
@@ -552,7 +523,7 @@ def conversationFamiliarMode(
         if len(best_match_action_param0) > 0:
             if npcs[nid]['familiarOf']==players[id]['name']:
                 mode=best_match_action_param0.lower().strip()
-                if mode in familiarModes:
+                if mode in getFamiliarModes:
                     npcs[nid]['familiarMode']=mode
                     return True
             else:

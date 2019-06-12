@@ -40,7 +40,7 @@ from playerconnections import disconnectIdlePlayers
 from npcs import npcRespawns
 from npcs import runNPCs
 from npcs import npcsRest
-from npcs import familiarRecall
+from familiar import familiarRecall
 from reaper import removeCorpses
 from reaper import runDeaths
 from scheduler import runSchedule
@@ -224,6 +224,7 @@ for k in npcsDB:
                v == "language" or
                v == "race" or
                v == "familiarOf" or
+               v == "familiarTarget" or
                v == "familiarType" or
                v == "familiarMode" or
                v == "animalType" or

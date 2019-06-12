@@ -3778,6 +3778,7 @@ def conjureNPC(
               "affinity": {},
               "familiar": -1,
               "familiarOf": npcFamiliarOf,
+              "familiarTarget": "",
               "familiarType": npcFamiliarType,
               "familiarMode": npcFamiliarMode,
               "animalType": npcAnimalType
