@@ -21,6 +21,17 @@ from copy import deepcopy
 
 import time
 
+def familiarRecall(mud,players,id,npcs,npcsDB):
+    """Move any familiar to the player's location
+    """
+    for (index,details) in npcsDB.items():
+        if details['familiarOf'] == id:
+            players[id]['familiar'] = int(index)
+            details['room']=players[id]['room']
+            npcs[str(index)]['room']=players[id]['room']
+            mud.send_message(id, "Your familiar is recalled.\n\n")            
+            break                                       
+
 def npcsRest(npcs):
     """Rest restores hit points of NPCs
     """

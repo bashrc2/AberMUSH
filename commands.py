@@ -2129,6 +2129,16 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
         saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env)
         return True
 
+def dismiss(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
+        if params.lower().startswith('familiar'):
+                for (index,details) in npcsDB.items():
+                        if details['familiarOf'] == id:
+                                players[id]['familiar'] = -1
+                                del npcs[index]
+                                del npcsDB[index]
+                                mud.send_message(id, "Your familiar vanishes.\n\n")
+                                break
+
 def conjure(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if not isWitch(id,players):
                 mud.send_message(id, "You don't have enough powers.\n\n")
@@ -2793,6 +2803,7 @@ def runCommand(command, params, mud, playersDB, players, rooms, npcsDB, npcs, it
                 "cast": castSpell,
                 "spell": castSpell,
                 "spells": spells,
+                "dismiss": dismiss,
                 "clear": clearSpells,
                 "spellbook": spells,
                 "affinity": affinity,

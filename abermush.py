@@ -40,6 +40,7 @@ from playerconnections import disconnectIdlePlayers
 from npcs import npcRespawns
 from npcs import runNPCs
 from npcs import npcsRest
+from npcs import familiarRecall
 from reaper import removeCorpses
 from reaper import runDeaths
 from scheduler import runSchedule
@@ -821,6 +822,8 @@ while True:
                                         mud.send_message(id, '\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
                                         mud.send_message(id, '\n<f255>Hello there traveller! You have connected to an AberMUSH server. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the repo for further info. Thanks for your interest in AberMUSH.')
                                         mud.send_message(id, "\n<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions. Have fun!\n\n")
+
+                                        familiarRecall(mud,players,id,npcs,npcsDB)
                                 else:
                                         mud.send_message(id, '<f202>This character is already in the world!')
                                         log("Client ID: " + str(id) + " has requested a character which is already in the world!", "info")
