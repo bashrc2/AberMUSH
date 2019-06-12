@@ -62,6 +62,8 @@ prepare spells                          - List spells which can be prepared
 prepare [spell name]                    - Prepares a spell
 spells                                  - Lists your prepared spells
 clear spells                            - Clears your prepared spells list
+cast find familiar                      - Summons a familiar with random form
+dismiss familiar                        - Dismisses a familiar
 cast [spell name] on [target]           - Cast a spell on a player or NPC
 ```
 

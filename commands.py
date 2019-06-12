@@ -1065,6 +1065,12 @@ def help(
         '  clear spells                            - Clears your prepared spells list')
     mud.send_message(
         id,
+        '  cast find familiar                      - Summons a familiar with random form')
+    mud.send_message(
+        id,
+        '  dismiss familiar                        - Dismisses a familiar')
+    mud.send_message(
+        id,
         '  cast [spell name] on [target]           - Cast a spell on a player or NPC')
 
     if isWitch(id, players):
