@@ -33,7 +33,10 @@ def familiarRecall(mud,players,id,npcs,npcsDB):
     for index in removals:
         del npcs[index]
 
+    # By default player has no familiar
     players[id]['familiar'] = -1
+
+    # Find familiar and set its room to that of the player
     for (index,details) in npcsDB.items():
         if details['familiarOf'] == players[id]['name']:
             players[id]['familiar'] = int(index)
