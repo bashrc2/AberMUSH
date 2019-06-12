@@ -550,11 +550,15 @@ def conversationFamiliarMode(
     """
     if best_match_action == 'familiar':
         if len(best_match_action_param0) > 0:
-            if players[id]['familiar'] != -1:
+            if npcs[nid]['familiarOf']==players[id]['name']:
                 mode=best_match_action_param0.lower().strip()
                 if mode in familiarModes:
                     npcs[nid]['familiarMode']=mode
                     return True
+            else:
+                mud.send_message(
+                    id,
+                    npcs[nid]['name'] + " is not your familiar.\n\n")
         else:
             mud.send_message(
                 id,

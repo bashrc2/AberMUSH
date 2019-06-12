@@ -251,6 +251,8 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
+	    [["follow"],"Begins scouting.","familiar","follow"],
+	    [["scout"],"Begins scouting.","familiar","scout"],
             [["e"],"Eeeeek!"]
         ],
         "path" : ["$rid=82$","$rid=80$","$rid=84$","$rid=86$","$rid=68$"],
