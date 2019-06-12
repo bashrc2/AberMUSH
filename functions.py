@@ -99,7 +99,7 @@ def decreaseAffinityBetweenPlayers(players, id, npcs, p):
 def randomDescription(descriptionList):
     if '|' in descriptionList:
         descList = descriptionList.split('|')
-        return descList[randint(0, len(descList) + 1)]
+        return descList[randint(0, len(descList) - 1)]
     return descriptionList
 
 

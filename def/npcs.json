@@ -3987,13 +3987,13 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-	    [["follow","me"],"Follows casually along","familiar","follow"],
-	    [["scout"],"Begins hunting","familiar","scout","any"],
-            [["help"],"Watches you curiously"],
-            [["attack"],"Sits with its paws outstretched"],
-            [["you"],"Sits and licks one of its paws"],
-            [["magic","spell"],"Sniffs at an object"],
-            [["say","speak"],"Meows"]
+	    [["follow","me"],"Follows casually along|Reluctantly follows you","familiar","follow"],
+	    [["scout"],"Begins hunting|Starts prowling","familiar","scout","any"],
+            [["help"],"Watches you curiously|Purrs|Yawns|Sits with their feet tucked under"],
+            [["attack"],"Sits with their paws outstretched|Twitches their ears back"],
+            [["you"],"Sits and licks one of their paws|Twitches their whiskers"],
+            [["magic","spell"],"Sniffs at an object|Pricks up their ears"],
+            [["say","speak"],"Meows|Yawns|Growls"]
 	],
         "path" : [],
         "bodyType": "",

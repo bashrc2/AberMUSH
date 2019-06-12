@@ -531,6 +531,13 @@ def conversationFamiliarMode(
                     mode=mode+' '+best_match_action_param1
                 if mode in getFamiliarModes():
                     npcs[nid]['familiarMode']=mode
+                    mud.send_message(
+                        id,
+                        "<f220>" +
+                        npcs[nid]['name'] +
+                        "<r> " +
+                        best_match +
+                        ".\n\n")                    
                     return True
             else:
                 mud.send_message(
