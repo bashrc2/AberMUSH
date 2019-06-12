@@ -3612,9 +3612,9 @@ def randomFamiliar(npcsDB):
             if len(details['familiarOf']) == 0:
                 possibleFamiliars.append(int(index))
     if len(possibleFamiliars) > 0:
-        return possibleFamiliars[randint(0, len(possibleFamiliars) + 1)]
+        randIndex=len(possibleFamiliars)-1
+        return possibleFamiliars[randint(0, randIndex)]
     return -1
-
 
 def conjureNPC(
         params,

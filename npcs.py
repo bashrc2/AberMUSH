@@ -939,8 +939,7 @@ def npcConversation(
             if conversationExperience(best_match, best_match_action,
                                       best_match_action_param0,
                                       best_match_action_param1, players,
-                                      id, mud, npcs, nid, itemsDB, puzzledStr,
-                                      characterClassDB):
+                                      id, mud, npcs, nid, itemsDB, puzzledStr):
                 return
 
             # Switch familiar into different modes
@@ -948,8 +947,7 @@ def npcConversation(
                                         best_match_action_param0,
                                         best_match_action_param1,
                                         players,
-                                        id, mud, npcs, nid, itemsDB, puzzledStr,
-                                        characterClassDB):
+                                        id, mud, npcs, nid, itemsDB, puzzledStr):
                 return
 
             # transport (free taxi)
