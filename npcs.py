@@ -16,6 +16,8 @@ from functions import moveNPCs
 from functions import playerInventoryWeight
 from functions import updatePlayerAttributes
 from functions import increaseAffinityBetweenPlayers
+from functions import decreaseAffinityBetweenPlayers
+from functions import getSentiment
 from random import randint
 from copy import deepcopy
 from familiar import getFamiliarModes

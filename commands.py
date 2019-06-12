@@ -21,6 +21,7 @@ from functions import sizeFromDescription
 from functions import stowHands
 from functions import randomDescription
 from functions import increaseAffinityBetweenPlayers
+from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from environment import runTide
 from environment import assignCoordinates
