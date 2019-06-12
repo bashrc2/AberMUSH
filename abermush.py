@@ -223,6 +223,7 @@ for k in npcsDB:
                        v == "speakLanguage" or \
                        v == "language" or \
                        v == "race" or \
+                       v == "familiarOf" or \
                        v == "familiarType" or \
                        v == "familiarMode" or \
                        v == "animalType" or \

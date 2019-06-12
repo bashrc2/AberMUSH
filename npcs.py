@@ -25,12 +25,14 @@ def familiarRecall(mud,players,id,npcs,npcsDB):
     """Move any familiar to the player's location
     """
     for (index,details) in npcsDB.items():
-        if details['familiarOf'] == id:
+        if details['familiarOf'] == players[id]['name']:
             players[id]['familiar'] = int(index)
             details['room']=players[id]['room']
+            if not npcs.get(str(index)):
+                npcs[str(index)]=deepcopy(npcsDB[index])
             npcs[str(index)]['room']=players[id]['room']
             mud.send_message(id, "Your familiar is recalled.\n\n")            
-            break                                       
+            break                     
 
 def npcsRest(npcs):
     """Rest restores hit points of NPCs
@@ -49,10 +51,11 @@ def npcRespawns(npcs):
     for (nid, pl) in list(npcs.items()):
         if npcs[nid]['whenDied'] is not None and \
            int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
-            npcs[nid]['whenDied'] = None
-            #npcs[nid]['room'] = npcsTemplate[nid]['room']
-            npcs[nid]['room'] = npcs[nid]['lastRoom']
-            log("respawning " + npcs[nid]['name'] + " with " + str(npcs[nid]['hp']) + " hit points","info")
+            if len(npcs[nid]['familiarOf'])==0:
+                npcs[nid]['whenDied'] = None
+                #npcs[nid]['room'] = npcsTemplate[nid]['room']
+                npcs[nid]['room'] = npcs[nid]['lastRoom']
+                log("respawning " + npcs[nid]['name'] + " with " + str(npcs[nid]['hp']) + " hit points","info")
 
 def runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB,npcsTemplate):
         """Updates all NPCs

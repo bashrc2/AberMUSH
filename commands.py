@@ -628,7 +628,7 @@ def castSpell(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, ite
                 if castAt not in npcs[p]['name'].lower():
                         continue
 
-                if npcs[p]['familiarOf'] == id:
+                if npcs[p]['familiarOf'] == players[id]['name']:
                         mud.send_message(id, "You can't cast a spell on your own familiar!\n\n")
                         return
 
@@ -1163,7 +1163,7 @@ def attack(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items,
                                                                 targetFound = True
                                                                 # print('target found!')
                                                                 if players[id]['room'] == npcs[nid]['room']:
-                                                                        if npcs[nid]['familiarOf'] == id:
+                                                                        if npcs[nid]['familiarOf'] == players[id]['name']:
                                                                                 mud.send_message(id, "You can't attack your own familiar!\n\n")
                                                                                 return
 
@@ -1809,12 +1809,12 @@ def go(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, env
                         followersMsg=""
                         for (nid, pl) in list(npcs.items()):
                                 if npcs[nid]['follow'] == players[id]['name'] or \
-                                   (npcs[nid]['familiarOf'] == id and npcs[nid]['familiarMode'] == 'follow'):
+                                   (npcs[nid]['familiarOf'] == players[id]['name'] and npcs[nid]['familiarMode'] == 'follow'):
                                         # is the npc in the same room as the player?
                                         if npcs[nid]['room'] == players[id]['room']:
                                                 # is the player within the permitted npc path?
                                                 if rm['exits'][ex] in list(npcs[nid]['path']) or \
-                                                   npcs[nid]['familiarOf'] == id:
+                                                   npcs[nid]['familiarOf'] == players[id]['name']:
                                                         npcs[nid]['room'] = rm['exits'][ex]
                                                         followersMsg=followersMsg+'<f32>' + \
                                                                 npcs[nid]['name'] + '<r> ' + \
@@ -1957,7 +1957,7 @@ def randomFamiliar(npcsDB):
         possibleFamiliars=[]
         for index,details in npcsDB.items():
                 if len(details['familiarType'])>0:
-                        if details['familiarOf']==-1:
+                        if len(details['familiarOf'])==0:
                                 possibleFamiliars.append(int(index))
         if len(possibleFamiliars)>0:
                 return possibleFamiliars[randint(0,len(possibleFamiliars)+1)]
@@ -1982,7 +1982,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                 npcHitPoints=5
                 npcSize=1
                 npcStrength=5
-                npcFamiliarOf=id
+                npcFamiliarOf=players[id]['name']
                 npcAnimalType=npcsDB[npcIndex]['animalType']
                 npcFamiliarType=npcsDB[npcIndex]['familiarType']
                 npcFamiliarMode="follow"
@@ -1998,7 +1998,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
                 npcName = params.replace('npc ','',1).strip().replace('"','')
                 npcSize=sizeFromDescription(npcName)
                 npcStrength=80
-                npcFamiliarOf=-1
+                npcFamiliarOf=""
                 npcAnimalType=""
                 npcFamiliarType=""
                 npcFamiliarMode=""
@@ -2132,7 +2132,7 @@ def conjureNPC(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, it
 def dismiss(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
         if params.lower().startswith('familiar'):
                 for (index,details) in npcsDB.items():
-                        if details['familiarOf'] == id:
+                        if details['familiarOf'] == players[id]['name']:
                                 players[id]['familiar'] = -1
                                 del npcs[index]
                                 del npcsDB[index]
