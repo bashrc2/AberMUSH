@@ -24,6 +24,16 @@ import time
 def familiarRecall(mud,players,id,npcs,npcsDB):
     """Move any familiar to the player's location
     """
+    # remove any existing familiars
+    removals=[]
+    for (index,details) in npcs.items():
+        if details['familiarOf'] == players[id]['name']:
+            removals.append(index)
+
+    for index in removals:
+        del npcs[index]
+
+    players[id]['familiar'] = -1
     for (index,details) in npcsDB.items():
         if details['familiarOf'] == players[id]['name']:
             players[id]['familiar'] = int(index)
