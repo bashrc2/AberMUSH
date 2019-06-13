@@ -404,6 +404,59 @@ You can also see your affinity level with other players or NPCs with the command
 affinity [player name]
 ```
 
+![AberMUSH](docs/familiars.png)
+
+### Interacting with Familiars
+
+Some characters can have familiars, which are arcane spirits in the form of an animal and with a telepathic link to the player who summons them. Familiars follow the player and can also be commanded to scout, hide or distract other players. They don't have much strength or intelligence and so can easily be killed, but can be summoned again if that happens. Every time a familiar is summoned it takes a random animal form.
+
+To summon a familiar:
+
+``` bash
+prepare find familiar
+cast find familiar
+```
+
+or witches may use the `conjure` command:
+
+``` bash
+conjure familiar
+```
+
+By default the familiar will follow you, or you can tell it to:
+
+``` bash
+ask familiar to follow
+```
+
+You can have it scout around in the local area:
+
+``` bash
+ask familiar to scout
+```
+
+or in a particular direction:
+
+``` bash
+ask familiar to scout north
+```
+
+When scouting familiars will be visible and attackable by other players or NPCs.
+
+Familiars are small and so can easily conceal themselves in obscure nooks and corners. To make the familiar hide:
+
+``` bash
+ask familiar to hide
+```
+
+Once hidden a familiar will remain in place regardless of where the player moves. Only the player can see the familiar once it is hidden.
+
+It is also possible to ask the familiar what it sees. Because it is a spirit from the arcane realm it is only able to describe the scene in abstract elemental terms. It can see other players and has a sense about whether they are friendly and how large they are.
+
+``` bash
+ask familiar what do you see?
+```
+
 ### Constructing the Universe
 
 AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
