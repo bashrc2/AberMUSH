@@ -49,3 +49,53 @@ def familiarRecall(mud, players, id, npcs, npcsDB):
             npcs[str(index)]['room'] = players[id]['room']
             mud.send_message(id, "Your familiar is recalled.\n\n")
             break
+
+def familiarDefaultMode(nid, npcs, npcsDB):
+    npcs[nid]['familiarMode']="follow"
+    npcsDB[nid]['familiarMode']="follow"
+    npcs[nid]['moveType']=""
+    npcsDB[nid]['moveType']=""
+    npcs[nid]['path']=[]
+    npcsDB[nid]['path']=[]
+
+def familiarScoutAnyDirection(startRoomID, roomExits):
+    """Scout in any direction
+    """
+    newPath=[startRoomID]
+    for ex,rm in roomExits.items():
+        newPath.append(rm)
+        newPath.append(startRoomID)
+    if len(newPath)==1:
+        newPath.clear()
+    return newPath
+
+def familiarScoutInDirection(startRoomID, roomExits, direction):
+    """Scout in the given direction
+    """
+    newPath=[]
+    if roomExits.get(direction):
+        newPath=[startRoomID, roomExits[direction]]
+    return newPath
+
+def familiarScout(nid, npcs, npcsDB, rooms, direction):
+    """familiar begins scouting the surrounding rooms
+    """
+    startRoomID = npcs[nid]['room']
+    roomExits = rooms[startRoomID]['exits']
+
+    newPath=[]
+
+    if direction=='any' or direction=='all' or len(direction)==0:
+        newPath=familiarScoutAnyDirection(startRoomID, roomExits)
+    else:
+        newPath=familiarScoutInDirection(startRoomID, roomExits, direction)
+
+    if len(newPath)>0:
+        npcs[nid]['familiarMode']="scout"
+        npcs[nid]['moveType']="patrol"
+        npcs[nid]['path']=deepcopy(newPath)
+        npcsDB[nid]['familiarMode']="scout"
+        npcsDB[nid]['moveType']="patrol"
+        npcsDB[nid]['path']=deepcopy(newPath)
+    else:
+        familiarDefaultMode(nid, npcs, npcsDB)

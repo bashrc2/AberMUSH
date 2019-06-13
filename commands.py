@@ -849,6 +849,7 @@ def tell(
                         npcConversation(
                             mud,
                             npcs,
+                            npcsDB,
                             players,
                             itemsDB,
                             rooms,
@@ -3379,7 +3380,7 @@ def go(
         if ex in rm['exits']:
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   players[id]['outDescription'] +
+                                   randomDescription(players[id]['outDescription']) +
                                    " via exit " + ex + '\n')
 
             # Trigger old room eventOnLeave for the player
@@ -3400,7 +3401,7 @@ def go(
                             npcs[nid]['room'] = rm['exits'][ex]
                             followersMsg = followersMsg + '<f32>' + \
                                 npcs[nid]['name'] + '<r> ' + \
-                                npcs[nid]['inDescription'] + '.\n'
+                                randomDescription(npcs[nid]['inDescription']) + '.\n\n'
                             messageToPlayersInRoom(
                                 mud,
                                 players,
@@ -3408,7 +3409,7 @@ def go(
                                 '<f32>' +
                                 npcs[nid]['name'] +
                                 '<r> ' +
-                                npcs[nid]['outDescription'] +
+                                randomDescription(npcs[nid]['outDescription']) +
                                 " via exit " +
                                 ex +
                                 '\n')
@@ -3432,7 +3433,7 @@ def go(
 
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   players[id]['inDescription'] + "\n")
+                                   randomDescription(players[id]['inDescription']) + "\n\n")
 
             # send the player a message telling them where they are now
             #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))
@@ -3711,6 +3712,7 @@ def conjureNPC(
               "talkDelay": npcTalkDelay,
               "timeTalked": 0,
               "lastSaid": 0,
+              "lastMoved": 0,
               "randomizer": 0,
               "randomFactor": npcRandomFactor,
               "follow": "",

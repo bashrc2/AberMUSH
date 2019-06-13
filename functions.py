@@ -341,7 +341,7 @@ def moveNPCs(npcs, players, mud, now, nid):
                     '<f220>' +
                     npcs[nid]['name'] +
                     "<r> " +
-                    npcs[nid]['outDescription'] +
+                    randomDescription(npcs[nid]['outDescription']) +
                     "\n\n")
         rm = npcs[nid]['path'][npcRoomIndex]
         npcs[nid]['room'] = rm
@@ -353,7 +353,7 @@ def moveNPCs(npcs, players, mud, now, nid):
                     '<f220>' +
                     npcs[nid]['name'] +
                     "<r> " +
-                    npcs[nid]['inDescription'] +
+                    randomDescription(npcs[nid]['inDescription']) +
                     "\n\n")
         npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
         npcs[nid]['lastMoved'] = now
