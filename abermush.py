@@ -615,7 +615,7 @@ while True:
                     typesStr = typesStr + ', <f220>' + name + '<r>'
                 else:
                     typesStr = typesStr + '<f220>' + name + '<r>'
-                ctr = ctr + 1
+                ctr += 1
                 if ctr > 7:
                     typesStr = typesStr + '\n  '
                     ctr = 0
@@ -650,7 +650,7 @@ while True:
                         classStr = classStr + ', <f220>' + name + '<r>'
                     else:
                         classStr = classStr + '<f220>' + name + '<r>'
-                    ctr = ctr + 1
+                    ctr += 1
                     if ctr > 7:
                         classStr = classStr + '\n  '
                         ctr = 0

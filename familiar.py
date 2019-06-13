@@ -157,15 +157,15 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
         if items[iid]['room'] == npcs[nid]['room']:
             if items[iid].get('weight'):
                 if items[iid]['weight']>0:
-                    itemsInRoom = ItemsInRoom + 1
+                    itemsInRoom += 1
                     if items[iid]['mod_str']>0 and \
                        (items[iid]['clo_lhand']>0 or items[iid]['clo_rhand']>0):
-                        weaponsInRoom = weaponsInRoom + 1
+                        weaponsInRoom += 1
                     if items[iid]['mod_endu']>0 and \
                        items[iid]['clo_chest']>0:
-                        armorInRoom = armorInRoom + 1
+                        armorInRoom += 1
                     if items[iid]['edible']!=0:
-                        edibleInRoom = ebibleInRoom + 1
+                        edibleInRoom += 1
     if armorInRoom>0 and weaponsInRoom>0:
         mud.send_message(id,'There are some weapons and armor here.')
     else:

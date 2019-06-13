@@ -1200,7 +1200,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
             return
         playerName = players[id]['name']
         if npcs[p]['affinity'].get(playerName):
-            npcs[p]['affinity'][playerName] = npcs[p]['affinity'][playerName] + 1
+            npcs[p]['affinity'][playerName] += 1
         else:
             npcs[p]['affinity'][playerName] = 1
 
@@ -1648,7 +1648,7 @@ def getPlayerUsedSlotsAtSpellLevel(players, id, spellLevel, spellsDB):
     usedCounter = 0
     for spellName, details in spellsDB[str(spellLevel)].items():
         if spellName in players[id]['preparedSpells']:
-            usedCounter = usedCounter + 1
+            usedCounter += 1
     return usedCounter
 
 
@@ -1659,7 +1659,7 @@ def playerPreparedCantrips(players, id, spellsDB):
     for spellName in players[id]['preparedSpells']:
         for cantripName, details in spellsDB['cantrip'].items():
             if cantripName == spellName:
-                preparedCounter = preparedCounter + 1
+                preparedCounter += 1
                 break
     return preparedCounter
 
@@ -3175,7 +3175,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                         languagesStr = languagesStr + ', ' + lang
                     else:
                         languagesStr = languagesStr + lang
-                    langCtr = langCtr + 1
+                    langCtr += 1
                 mud.send_message(id, 'Languages: ' + languagesStr + '\n')
 
     mud.send_message(id, randomDescription(players[pid]['lookDescription']) + '\n')
@@ -3187,21 +3187,21 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
     # count items of clothing
     wearingCtr = 0
     if int(players[pid]['clo_head']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_neck']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_chest']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_feet']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_lleg']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_rleg']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_larm']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
     if int(players[pid]['clo_rarm']) > 0:
-        wearingCtr = wearingCtr + 1
+        wearingCtr += 1
 
     playerName = 'You'
     playerName2 = 'your'
@@ -3249,7 +3249,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                     wearingMsg = wearingMsg + ' on ' + playerName2 + ' left leg'
                 if cl.endswith('rleg'):
                     wearingMsg = wearingMsg + ' on ' + playerName2 + ' right leg'
-                wearingCtr2 = wearingCtr2 + 1
+                wearingCtr2 += 1
         mud.send_message(id, wearingMsg + '.\n')
     mud.send_message(id, '\n')
 
@@ -4400,7 +4400,7 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
 
         containerMsg = containerMsg + \
             itemsDB[int(contentsID)]['article'] + ' <b234>' + itemsDB[int(contentsID)]['name'] + '<r>'
-        itemCtr = itemCtr + 1
+        itemCtr += 1
 
     containerMsg = containerMsg + '.\n'
     if returnMsg:

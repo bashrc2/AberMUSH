@@ -202,7 +202,7 @@ def thievesCantCountChars(txt):
     result = 0
     for char in txt.lower():
         if char == 'a' or char == 'e' or char == 'i' or char == 'o' or char == 'u':
-            result = result + 1
+            result += 1
     return result
 
 

@@ -36,7 +36,7 @@ def npcsRest(npcs):
     for p in npcs:
         if npcs[p]['hp'] < npcs[p]['hpMax'] + npcs[p]['tempHitPoints']:
             if randint(0, 100) > 97:
-                npcs[p]['hp'] = npcs[p]['hp'] + 1
+                npcs[p]['hp'] += 1
         else:
             npcs[p]['hp'] = npcs[p]['hpMax'] + npcs[p]['tempHitPoints']
             npcs[p]['restRequired'] = 0
@@ -365,7 +365,7 @@ def conversationWordCount(
 
             if not matched:
                 if word_match.lower() in message:
-                    match_ctr = match_ctr + 1
+                    match_ctr += 1
     return match_ctr
 
 

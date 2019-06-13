@@ -81,7 +81,7 @@ def playersRest(mud, players):
             if players[p]['hp'] < players[p]['hpMax'] + \
                     players[p]['tempHitPoints']:
                 if randint(0, 100) > 90:
-                    players[p]['hp'] = players[p]['hp'] + 1
+                    players[p]['hp'] += 1
             else:
                 players[p]['hp'] = players[p]['hpMax'] + \
                     players[p]['tempHitPoints']

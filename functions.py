@@ -42,7 +42,7 @@ def baselineAffinity(players, id):
     ctr = 0
     for name, value in players[id]['affinity'].items():
         averageAffinity = averageAffinity + value
-        ctr = ctr + 1
+        ctr += 1
 
     if ctr > 0:
         averageAffinity = int(averageAffinity / ctr)

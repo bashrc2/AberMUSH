@@ -81,7 +81,7 @@ def assignTerrainDifficulty(rooms):
             difficulty = 0
             for w in terrainDifficultyWords:
                 if w in roomDescription:
-                    difficulty = difficulty + 1
+                    difficulty += 1
             rooms[rm]['terrainDifficulty'] = difficulty
         if difficulty > maxTerrainDifficulty:
             maxTerrainDifficulty = difficulty
@@ -108,47 +108,47 @@ def findRoomWithoutCoords(rooms):
                 if len(rm2['coords']) == 0:
                     if ex == 'north':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][0] = rm2['coords'][0] + 1
+                        rm2['coords'][0] += 1
                         return rm2
                     if ex == 'northeast':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][0] = rm2['coords'][0] + 1
-                        rm2['coords'][1] = rm2['coords'][1] - 1
+                        rm2['coords'][0] += 1
+                        rm2['coords'][1] -= 1
                         return rm2
                     if ex == 'northwest':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][0] = rm2['coords'][0] + 1
-                        rm2['coords'][1] = rm2['coords'][1] + 1
+                        rm2['coords'][0] += 1
+                        rm2['coords'][1] += 1
                         return rm2
                     if ex == 'south':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][0] = rm2['coords'][0] - 1
+                        rm2['coords'][0] -= 1
                         return rm2
                     if ex == 'southeast':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][0] = rm2['coords'][0] - 1
-                        rm2['coords'][1] = rm2['coords'][1] - 1
+                        rm2['coords'][0] -= 1
+                        rm2['coords'][1] -= 1
                         return rm2
                     if ex == 'southwest':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][0] = rm2['coords'][0] - 1
-                        rm2['coords'][1] = rm2['coords'][1] + 1
+                        rm2['coords'][0] -= 1
+                        rm2['coords'][1] += 1
                         return rm2
                     if ex == 'east':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][1] = rm2['coords'][1] - 1
+                        rm2['coords'][1] -= 1
                         return rm2
                     if ex == 'west':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][1] = rm2['coords'][1] + 1
+                        rm2['coords'][1] += 1
                         return rm2
                     if ex == 'up':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][2] = rm2['coords'][2] + 1
+                        rm2['coords'][2] += 1
                         return rm2
                     if ex == 'down':
                         rm2['coords'] = rooms[rm]['coords'].copy()
-                        rm2['coords'][2] = rm2['coords'][2] - 1
+                        rm2['coords'][2] -= 1
                         return rm2
     for rm in rooms:
         # Room without coords
