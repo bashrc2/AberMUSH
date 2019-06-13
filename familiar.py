@@ -24,6 +24,15 @@ familiarModes = ("follow","scout")
 def getFamiliarModes():
     return familiarModes
 
+def getFamiliarName(players,id,npcs):
+    """Returns the name of the familiar of the given player
+    """
+    if players[id]['familiar']!=-1:
+        for (nid, pl) in list(npcs.items()):
+            if npcs[nid]['familiarOf'] == players[id]['name']:
+                return npcs[nid]['name']
+    return ''
+
 def familiarRecall(mud, players, id, npcs, npcsDB):
     """Move any familiar to the player's location
     """

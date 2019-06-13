@@ -30,6 +30,8 @@ from proficiencies import thievesCant
 
 from npcs import npcConversation
 
+from familiar import getFamiliarName
+
 import os
 import re
 import sys
@@ -748,8 +750,7 @@ def who(
         mud.send_message(id, "\n")
     else:
         mud.send_message(id, "You do not have permission to do this.\n")
-
-
+    
 def tell(
         params,
         mud,
@@ -774,6 +775,14 @@ def tell(
         sentimentDB):
     told = False
     target = params.partition(' ')[0]
+
+    # replace "familiar" with their NPC name
+    # as in: "ask familiar to follow"
+    if target.lower()=='familiar':
+        newTarget=getFamiliarName(players,id,npcs)
+        if len(newTarget)>0:
+            target=newTarget
+
     message = params.replace(target, "")[1:]
     if len(target) != 0 and len(message) != 0:
         cantStr = thievesCant(message)
@@ -842,7 +851,7 @@ def tell(
                         "\n\n")
                     told = True
                     break
-        if not told:
+        if not told:            
             for (nid, pl) in list(npcs.items()):
                 if npcs[nid]['room'] == players[id]['room']:
                     if target.lower() in npcs[nid]['name'].lower():
@@ -2095,14 +2104,24 @@ def look(
         else:
             # If argument is given, then evaluate it
             param = params.lower()
+
+            if param.startswith('my '):
+                param = params.replace('my ', '',1)
+                
+            # replace "familiar" with the name of the familiar
+            if param.startswith('familiar'):
+                familiarName=getFamiliarName(players,id,npcs)
+                if len(familiarName)>0:
+                    param = param.replace('familiar',familiarName,1)
+            
             if param.startswith('at the '):
-                param = params.lower().replace('at the ', '')
+                param = param.replace('at the ', '')
             if param.startswith('the '):
-                param = params.lower().replace('the ', '')
+                param = param.replace('the ', '')
             if param.startswith('at '):
-                param = params.lower().replace('at ', '')
+                param = param.replace('at ', '')
             if param.startswith('a '):
-                param = params.lower().replace('a ', '')
+                param = param.replace('a ', '')
             messageSent = False
 
             # Go through all players in game
@@ -3149,7 +3168,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                     langCtr = langCtr + 1
                 mud.send_message(id, 'Languages: ' + languagesStr + '\n')
 
-    mud.send_message(id, players[pid]['lookDescription'] + '\n')
+    mud.send_message(id, randomDescription(players[pid]['lookDescription']) + '\n')
 
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:
@@ -5109,6 +5128,9 @@ def runCommand(
         "freeze": freeze,
         "unfreeze": unfreeze,
         "tell": tell,
+        "command": tell,
+        "instruct": tell,
+        "order": tell,
         "ask": tell,
         "open": openItem,
         "close": closeItem,
