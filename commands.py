@@ -788,8 +788,7 @@ def tell(
     if len(target) != 0 and len(message) != 0:
         cantStr = thievesCant(message)
         for p in players:
-            if players[p]['authenticated'] is not None and players[p]['name'].lower(
-            ) == target.lower():
+            if players[p]['authenticated'] is not None and players[p]['name'].lower() == target.lower():
                 #print("sending a tell")
                 if players[id]['name'].lower() == target.lower():
                     mud.send_message(
@@ -854,7 +853,8 @@ def tell(
                     break
         if not told:            
             for (nid, pl) in list(npcs.items()):
-                if npcs[nid]['room'] == players[id]['room']:
+                if (npcs[nid]['room'] == players[id]['room']) or \
+                   npcs[nid]['familiarOf'] == players[id]['name']:
                     if target.lower() in npcs[nid]['name'].lower():
                         npcConversation(
                             mud,
@@ -3178,7 +3178,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                 mud.send_message(id, 'Languages: ' + languagesStr + '\n')
 
     mud.send_message(id, randomDescription(players[pid]['lookDescription']) + '\n')
-
+    
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:
             mud.send_message(id, 'They are frozen.\n')
@@ -3683,7 +3683,7 @@ def conjureNPC(
             return
         npcName = npcsDB[npcIndex]['name']
         npcHitPoints = 5
-        npcSize = 1
+        npcSize = 0
         npcStrength = 5
         npcFamiliarOf = players[id]['name']
         npcAnimalType = npcsDB[npcIndex]['animalType']

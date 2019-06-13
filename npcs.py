@@ -26,6 +26,7 @@ from familiar import familiarDefaultMode
 from familiar import familiarScout
 from familiar import familiarHide
 from familiar import familiarIsHidden
+from familiar import familiarSight
 
 import time
 
@@ -534,8 +535,6 @@ def conversationFamiliarMode(
             if npcs[nid]['familiarOf']==players[id]['name']:
                 mode=best_match_action_param0.lower().strip()
                 if mode in getFamiliarModes():
-                    if mode == 'scout':
-                        familiarScout(nid, npcs, npcsDB, rooms, best_match_action_param1)
                     if mode == 'follow':
                         familiarDefaultMode(nid, npcs, npcsDB) 
                     if mode == 'hide':
@@ -547,6 +546,10 @@ def conversationFamiliarMode(
                         "<r> " +
                         best_match +
                         ".\n\n")                    
+                    if mode == 'scout':
+                        familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, best_match_action_param1)
+                    if mode == 'see':
+                        familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, itemsDB) 
                     return True
             else:
                 mud.send_message(
