@@ -256,6 +256,7 @@
         "conv" : [
 	    [["follow","me"],"Scurries behind you","familiar","follow"],
 	    [["scout"],"Begins scouting","familiar","scout","any"],
+	    [["hide","hidden"],"Scrambles down a hole","familiar","hide"],
             [["attack","kill","bite"],"Eyes you suspiciously as if you are up to no good"],
             [["scratch","itch"],"Scratches itself"],
             [["dance","party","fun","excit"],"Scurries arround in a series of little springy jumps"],
@@ -911,6 +912,7 @@
         "conv" : [
 	    [["follow","me"],"Perches on your shoulder","familiar","follow"],
 	    [["scout"],"Flies off","familiar","scout","any"],
+	    [["hide","hidden"],"Blends into the shadows","familiar","hide"],
             [["help"],"Eyes you suspiciously"],
             [["you"],"preens their feathers"],
             [["magic","spell"],"Flutters their wings"],
@@ -1080,6 +1082,7 @@
         "conv" : [
 	    [["follow","me"],"Follows behind","familiar","follow"],
 	    [["scout"],"Begins roaming","familiar","scout","any"],
+	    [["hide","hidden"],"Scurries away into a corner","familiar","hide"],
             [["help"],"Watches you curiously"],
             [["attack"],"Sits with its wings folded"],
             [["you"],"Sits and wiggles its feet"],
@@ -3657,6 +3660,7 @@
         "conv" : [
 	    [["follow","me"],"Follows obediently","familiar","follow"],
 	    [["scout"],"Begins hunting around","familiar","scout","any"],
+	    [["hide","hidden"],"Stealthily conceals itself","familiar","hide"],
             [["help"],"Watches you carefully"],
             [["you"],"Sits and pants"],
             [["magic","spell"],"Wags its tail"],
@@ -3989,6 +3993,7 @@
         "conv" : [
 	    [["follow","me"],"Follows casually along|Reluctantly follows you","familiar","follow"],
 	    [["scout"],"Begins hunting|Starts prowling","familiar","scout","any"],
+	    [["hide","hidden"],"Finds a dark corner and disappears into it","familiar","hide"],
             [["help"],"Watches you curiously|Purrs|Yawns|Sits with their feet tucked under"],
             [["attack"],"Sits with their paws outstretched|Twitches their ears back"],
             [["you"],"Sits and licks one of their paws|Twitches their whiskers"],

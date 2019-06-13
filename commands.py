@@ -31,6 +31,7 @@ from proficiencies import thievesCant
 from npcs import npcConversation
 
 from familiar import getFamiliarName
+from familiar import familiarIsHidden
 
 import os
 import re
@@ -2074,7 +2075,10 @@ def look(
             ##### Show NPCs in the room #####
             for (nid, pl) in list(npcs.items()):
                 if npcs[nid]['room'] == players[id]['room']:
-                    playershere.append(npcs[nid]['name'])
+                    # Don't show hidden familiars
+                    if npcs[nid]['familiarMode'] != 'hide' or \
+                       (len(npcs[nid]['familiarOf'])>0 and npcs[nid]['familiarOf']==players[id]['name']):
+                        playershere.append(npcs[nid]['name'])
 
             # Show items in the room
             for (item, pl) in list(items.items()):
@@ -2136,10 +2140,15 @@ def look(
 
             # Go through all NPCs in game
             for n in npcs:
-                if param in npcs[n]['name'].lower(
-                ) and npcs[n]['room'] == players[id]['room']:
-                    bioOfPlayer(mud, id, n, npcs, itemsDB)
-                    messageSent = True
+                if param in npcs[n]['name'].lower() \
+                   and npcs[n]['room'] == players[id]['room']:
+                    if npcs[n]['familiarMode']!='hide':
+                        bioOfPlayer(mud, id, n, npcs, itemsDB)
+                        messageSent = True
+                    else:
+                        if npcs[n]['familiarOf']==players[id]['name']:
+                            message="They are hiding somewhere here."
+                            messageSent = True
 
             if len(message) > 0:
                 mud.send_message(id, message + "\n\n")
@@ -2150,8 +2159,8 @@ def look(
             # Go through all Items in game
             itemCounter = 0
             for i in items:
-                if items[i]['room'].lower(
-                ) == players[id]['room'] and param in itemsDB[items[i]['id']]['name'].lower():
+                if items[i]['room'].lower() == players[id]['room'] and \
+                   param in itemsDB[items[i]['id']]['name'].lower():
                     if itemCounter == 0:
                         itemLanguage = itemsDB[int(i)]['language']
                         if len(itemLanguage) == 0:

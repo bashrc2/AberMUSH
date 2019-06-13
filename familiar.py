@@ -19,7 +19,7 @@ from copy import deepcopy
 import time
 
 # Movement modes for familiars
-familiarModes = ("follow","scout")
+familiarModes = ("follow","scout","hide")
 
 def getFamiliarModes():
     return familiarModes
@@ -66,6 +66,18 @@ def familiarDefaultMode(nid, npcs, npcsDB):
     npcsDB[nid]['moveType']=""
     npcs[nid]['path']=[]
     npcsDB[nid]['path']=[]
+
+def familiarHide(nid, npcs, npcsDB):
+    npcs[nid]['familiarMode']="hide"
+    npcsDB[nid]['familiarMode']="hide"
+
+def familiarIsHidden(players, id, npcs):
+    if players[id]['familiar']!=-1:
+        for (nid, pl) in list(npcs.items()):
+            if npcs[nid]['familiarOf'] == players[id]['name']:
+                if npcs[nid]['familiarMode'] == 'hide':
+                    return True
+    return False
 
 def familiarScoutAnyDirection(startRoomID, roomExits):
     """Scout in any direction

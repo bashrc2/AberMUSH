@@ -24,6 +24,8 @@ from copy import deepcopy
 from familiar import getFamiliarModes
 from familiar import familiarDefaultMode
 from familiar import familiarScout
+from familiar import familiarHide
+from familiar import familiarIsHidden
 
 import time
 
@@ -535,7 +537,9 @@ def conversationFamiliarMode(
                     if mode == 'scout':
                         familiarScout(nid, npcs, npcsDB, rooms, best_match_action_param1)
                     if mode == 'follow':
-                        familiarDefaultMode(nid, npcs, npcsDB)
+                        familiarDefaultMode(nid, npcs, npcsDB) 
+                    if mode == 'hide':
+                        familiarHide(nid, npcs, npcsDB) 
                     mud.send_message(
                         id,
                         "<f220>" +
