@@ -27,7 +27,7 @@ You now should be able to connect to your server on `<server IP/hostname>:35123`
 
 All players can use the following commands:
 
-``` bash
+``` text
 bio [description]                       - Set a description of yourself
 change password [newpassword]           - Change your password
 who                                     - List players and where they are
@@ -57,7 +57,7 @@ affinity [player name]                  - Shows your affinity level with another
 
 Some characters can use magic with the following commands:
 
-``` bash
+``` text
 prepare spells                          - List spells which can be prepared
 prepare [spell name]                    - Prepares a spell
 spells                                  - Lists your prepared spells
@@ -75,7 +75,7 @@ Spells are defined within `spells.json` and the system for spellcasting is a sim
 
 Witches are the admins of the system, and have additional supernatural powers. The first user to create an account gains witch status. Additional witches may be assigned by appending them to the `witches` file, which is located in the same directory as `abermush.py` is run from.
 
-``` bash
+``` text
 close registrations                - Closes registrations of new players
 open registrations                 - Allows registrations of new players
 mute/silence [target]              - Mutes a player and prevents them from attacking
@@ -123,7 +123,7 @@ The speed at which NPCs move between rooms is defined by `moveDelay` and `random
 
 You can create simple kinds of conversations with NPCs by editing `npcs.json` and adding line entries within the `conv` parameter. For example:
 
-``` bash
+``` text
 "conv" : [
     [["serve","beer","?"], "Yes, of course"],
     [["serve","wine","?"], "We only serve the more disreputable wine"],
@@ -134,13 +134,13 @@ You can create simple kinds of conversations with NPCs by editing `npcs.json` an
 
 You can then tell the NPC something like:
 
-``` bash
+``` text
 ask inn-keeper Do you serve wine?
 ```
 
 The system will then try to match words within your `ask` command and pick the most appropriate reply:
 
-``` bash
+``` text
 the old inn-keeper says: We only serve the more disreputable wine.
 ```
 
@@ -148,7 +148,7 @@ The NPC can also give an item if some words are matched, or exchange/buy/barter 
 
 Possible types of actions within NPC conversations are:
 
-``` bash
+``` text
 give [item ID]                       - Gives an item
 teach [skill] [adjustment value]     - Adjusts a skill level
 transport [room ID]                  - Moves the player to a different room
@@ -164,14 +164,14 @@ Players and NPCs have their own languages: `common`, `dwarvish`, `elvish`, `drac
 
 The language spoken and understood by NPCs can be defined with two parameters within `npcs.json`. `language` is a list of languages which the NPC understands and `speakLanguage` is the language which they are currently using to communicate.
 
-``` bash
+``` text
 "speakLanguage": "common",
 "language": ["common","dwarvish"],
 ```
 
 Players also have the same parameters and if they are multi-lingual then they can switch between languages using the `speak` command. For example:
 
-``` bash
+``` text
 speak common
 speak dwarvish
 ```
@@ -180,7 +180,7 @@ speak dwarvish
 
 It may be useful for an NPC to keep track of the state of your conversation and it's possible to do this via state variables. There is only one conversation state variable per NPC/player combination and it can be named anything you like. For example:
 
-``` bash
+``` text
 "conv" : [
     [["order","beer","please"],"Free as in beer","state:beer given","give","114"],
     [["state:beer given","order","beer","please"],"Have another one then","give","114"]
@@ -193,7 +193,7 @@ Here whenever you ask for a beer the state variable `beer given` will be set for
 
 It's also possible to add extra conditions to the conversation response selection.
 
-``` bash
+``` text
 "conv" : [
     [["order","ale","please"],"Have an ale!","state:beer given","give","114"],
     [["strength>90","order","ale","please"],"I'm sorry, we don't serve bodybuilders here."]
@@ -205,7 +205,7 @@ The variables available are the various player attributes: `level`, `experience`
 
 You may want the description of a room to change if some condition is met. For example, within `rooms.json`:
 
-``` bash
+``` text
 "conditional": [
     ["hour","<2","The night's drinking is over and amidst occasional complaining the inn-keeper is kicking the remaining crowd out of this disreputable establishment. Displaced coasters, drug paraphenalia and cutlery remain strewn around. The door leading back out looks inviting."],
     ["hour","<10","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is still around, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out looks tempting."],
@@ -224,7 +224,7 @@ You can use this to do things like describing a dark cave by default but changin
 
 To add a door, or other object to be opened or closed you will need a pair of items, like the following:
 
-``` bash
+``` text
     "429": {
         "name": "old trapdoor",
         ...
@@ -263,7 +263,7 @@ If you need a key to open the door then specify the item number within the `lock
 
 Other than opening and closing doors you may also want to have items which can be opened or closed, and have things removed or put into them. For example a treasure chest containing gold coins. To define an item as openable the relevant attributes are similar to the following:
 
-``` bash
+``` text
     "207": {
         "name": "clothes chest",
         ...
@@ -277,7 +277,7 @@ Other than opening and closing doors you may also want to have items which can b
 
 The state of the item can be `container open` or `container closed`. You can then use commands such as:
 
-``` bash
+``` text
 open chest
 examine chest
 take hat from chest
@@ -287,7 +287,7 @@ close chest
 
 Similar to doors, items may be locked with another item which could be a key. Tables can be a special type of always open item.
 
-``` bash
+``` text
     "1289": {
         "name": "inn table",
         ...
@@ -297,14 +297,14 @@ Similar to doors, items may be locked with another item which could be a key. Ta
 
 You can then use a command such as:
 
-``` bash
+``` text
 put hat on table
 ```
 
 It's also possible to have items which can be opened and closed but which can't have things put into them. Use `noput` within the state parameter to indicate this.
 
 
-``` bash
+``` text
     "1289": {
         "name": "dusty book",
         ...
@@ -316,7 +316,7 @@ It's also possible to have items which can be opened and closed but which can't 
 
 With commands such as:
 
-``` bash
+``` text
 open book
 close book
 ```
@@ -339,14 +339,14 @@ For coastal locations an optional alternative description may be entered into `t
 
 Collecting weapons or armor will alter your chances of success in combat. In order to use a weapon you first need to be holding it. Merely having it in your inventory isn't enough for it to be effective. For example:
 
-``` bash
+``` text
 take dagger
 hold dagger
 ```
 
 You can also choose which hand.
 
-``` bash
+``` text
 hold dagger right
 hold dagger left
 ```
@@ -356,14 +356,14 @@ With the possibility of using two weapons at the same time.
 Similar applies with armour:
 
 
-``` bash
+``` text
 take chainmail
 wear chainmail
 ```
 
 To see what you or other players are wearing or holding use the `bio` command or:
 
-``` bash
+``` text
 examine [player]
 ```
 
@@ -389,7 +389,7 @@ You can also use the commands `block` and `unblock` to update the blocklist with
 
 The system keeps track of affinity levels between players, including between players and NPCs, via sentiment analysis and friendly or unfriendly actions. This enables NPCs to adjust their narrative based upon how friendly or hostile a player is towards them or other individuals which they know. For example:
 
-``` bash
+``` text
 "conv" : [
     [["affinity>0","serve","ale","?"], "Yes, of course"],
     [["affinity<0","serve","ale","?"], "Begone, scoundrel!"]
@@ -400,7 +400,7 @@ In some cases this may mean that you need to sufficiently charm an NPC before it
 
 You can also see your affinity level with other players or NPCs with the command:
 
-``` bash
+``` text
 affinity [player name]
 ```
 
@@ -412,32 +412,32 @@ Some characters can have familiars, which are arcane spirits in the form of an a
 
 To summon a familiar:
 
-``` bash
+``` text
 prepare find familiar
 cast find familiar
 ```
 
 or witches may use the `conjure` command:
 
-``` bash
+``` text
 conjure familiar
 ```
 
 By default the familiar will follow you, or you can tell it to:
 
-``` bash
+``` text
 ask familiar to follow
 ```
 
 You can have it scout around in the local area:
 
-``` bash
+``` text
 ask familiar to scout
 ```
 
 or in a particular direction:
 
-``` bash
+``` text
 ask familiar to scout north
 ```
 
@@ -445,7 +445,7 @@ When scouting familiars will be visible and attackable by other players or NPCs.
 
 Familiars are small and so can easily conceal themselves in obscure nooks and corners. To make the familiar hide:
 
-``` bash
+``` text
 ask familiar to hide
 ```
 
@@ -453,7 +453,7 @@ Once hidden a familiar will remain in place regardless of where the player moves
 
 It is also possible to ask the familiar what it sees. Because it is a spirit from the arcane realm it is only able to describe the scene in abstract elemental terms. It can see other players and has a sense about whether they are friendly and how large they are.
 
-``` bash
+``` text
 ask familiar what do you see?
 ```
 
@@ -463,20 +463,20 @@ AberMUSH is already large by the standards of the late 1980s when AberMUD was or
 
 To change the description of a room:
 
-``` bash
+``` text
 describe "This is a new description of the room."
 look
 ```
 
 You can also change the name of the room:
 
-``` bash
+``` text
 describe "room" "New room title"
 ```
 
 To create and describe a new room:
 
-``` bash
+``` text
 conjure room south
 go south
 describe "room" "Cave Entrance"
@@ -485,21 +485,21 @@ describe "The cave entrance is narrow with rocks strewn around."
 
 To remove the room just created:
 
-``` bash
+``` text
 go north
 destroy room south
 ```
 
 You can also create and remove items in a room:
 
-``` bash
+``` text
 conjure sword
 destroy sword
 ```
 
 And similar with NPCs:
 
-``` bash
+``` text
 conjure npc "Huge Ogre"
 describe npc "The ogre is huge and angry looking."
 destroy ogre
