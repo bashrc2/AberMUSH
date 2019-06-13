@@ -861,6 +861,7 @@ def tell(
                             npcs,
                             npcsDB,
                             players,
+                            items,
                             itemsDB,
                             rooms,
                             id,

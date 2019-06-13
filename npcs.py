@@ -526,6 +526,7 @@ def conversationFamiliarMode(
         npcsDB,
         rooms,
         nid,
+        items,
         itemsDB,
         puzzledStr):
     """Switches the mode of a familiar
@@ -549,7 +550,7 @@ def conversationFamiliarMode(
                     if mode == 'scout':
                         familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, best_match_action_param1)
                     if mode == 'see':
-                        familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, itemsDB) 
+                        familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB) 
                     return True
             else:
                 mud.send_message(
@@ -849,6 +850,7 @@ def npcConversation(
         npcs,
         npcsDB,
         players,
+        items,
         itemsDB,
         rooms,
         id,
@@ -969,7 +971,7 @@ def npcConversation(
                                         best_match_action_param1,
                                         players,
                                         id, mud, npcs, npcsDB, rooms,
-                                        nid, itemsDB, puzzledStr):
+                                        nid, items, itemsDB, puzzledStr):
                 return
 
             # transport (free taxi)

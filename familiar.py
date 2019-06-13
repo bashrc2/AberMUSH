@@ -68,7 +68,7 @@ def familiarDefaultMode(nid, npcs, npcsDB):
     npcs[nid]['path']=[]
     npcsDB[nid]['path']=[]
 
-def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, itemsDB):
+def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
     """familiar reports what it sees
     """
     startRoomID = npcs[nid]['room']
@@ -132,10 +132,10 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, itemsDB):
         if len(creaturesRaces)>0:
             creaturesMsg=creaturesMsg + 'They are '
             if len(creaturesRaces)==1:
-                creaturesMsg=creaturesMsg + '<f220>' + creaturesRaces[0] + 's<r>.\n'
+                creaturesMsg=creaturesMsg + '<f220>' + creaturesRaces[0] + 's<r>.'
             else:
                 if len(creaturesRaces)==2:
-                    creaturesMsg=creaturesMsg + '<f220>' + creaturesRaces[0] + 's<r> and <f220>' + creaturesRaces[1] + 's<r>.\n'
+                    creaturesMsg=creaturesMsg + '<f220>' + creaturesRaces[0] + 's<r> and <f220>' + creaturesRaces[1] + 's<r>.'
                 else:
                     ctr=0
                     for r in creaturesRaces:
@@ -145,15 +145,50 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, itemsDB):
                             if ctr<len(creaturesRaces)-1:
                                 creaturesMsg= creaturesMsg + ', <f220>' + r + 's<r>'
                             else:
-                                creaturesMsg=creaturesMsg + ' and <f220>' + r + 's<r>.\n'
+                                creaturesMsg=creaturesMsg + ' and <f220>' + r + 's<r>.'
                         ctr=ctr+1
-        mud.send_message(id,creaturesMsg+'\n')
+        mud.send_message(id,creaturesMsg)
+
+    itemsInRoom=0
+    weaponsInRoom=0
+    armorInRoom=0
+    edibleInRoom=0
+    for (iid, pl) in list(items.items()):
+        if items[iid]['room'] == npcs[nid]['room']:
+            if items[iid].get('weight'):
+                if items[iid]['weight']>0:
+                    itemsInRoom = ItemsInRoom + 1
+                    if items[iid]['mod_str']>0 and \
+                       (items[iid]['clo_lhand']>0 or items[iid]['clo_rhand']>0):
+                        weaponsInRoom = weaponsInRoom + 1
+                    if items[iid]['mod_endu']>0 and \
+                       items[iid]['clo_chest']>0:
+                        armorInRoom = armorInRoom + 1
+                    if items[iid]['edible']!=0:
+                        edibleInRoom = ebibleInRoom + 1
+    if armorInRoom>0 and weaponsInRoom>0:
+        mud.send_message(id,'There are some weapons and armor here.')
+    else:
+        if armorInRoom>0:
+            mud.send_message(id,'There is some armor here.')
+        else:
+            if weaponsInRoom>0:
+                mud.send_message(id,'There are some weapons here.')
+            else:
+                mud.send_message(id,'There are some items here.')                
+    if edibleInRoom:
+        mud.send_message(id,'There are some edibles here.')
+    mud.send_message(id,'\n\n')
 
 def familiarHide(nid, npcs, npcsDB):
+    """Causes a familiar to hide
+    """
     npcs[nid]['familiarMode']="hide"
     npcsDB[nid]['familiarMode']="hide"
 
 def familiarIsHidden(players, id, npcs):
+    """Returns true if the familiar of the player is hidden
+    """
     if players[id]['familiar']!=-1:
         for (nid, pl) in list(npcs.items()):
             if npcs[nid]['familiarOf'] == players[id]['name']:
