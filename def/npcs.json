@@ -827,18 +827,19 @@
     "165": {
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "lurks in the shadows",
-        "name": "the mugger",
+        "lookDescription": "Wearing rough clothes and a hood the beggar rests uneasily against a wall|The beggar is a gaunt hooded figure in rough clothing|A shabby looking fellow wearing rough clothing. His face is obscured by a hood",
+        "name": "the beggar",
         "inv" : ["169"],
         "speakLanguage": "common",
         "language": ["common","cant"],
         "conv" : [
-            [["hello","hi","greet"],"Get lost!"],
-            [["language=cant","hello","hi","greet"],"Greetings!"],
-            [["mug","help"],"Bugger off!"],
-            [["language=cant","mug","help"],"I have no advice for you"],
-            [["e"],"Go away!"],
-            [["language=cant","e"],"I don't know anything about that"]
+            [["hello","hi","greet"],"Consideration for a poor man|Have pity upon a humble wretch|Mercy on a poor man. He slowly stretches out his hand towards you"],
+            [["language=cant","hello","hi","greet"],"Greetings to you"],
+            [["affinity<-5","hello","hi","greet"],"Begone scoundrel!"],
+            [["affinity<0","hello","hi","greet"],"Begone!"],
+            [["affinity<0","language=cant","help"],"I'm not inclined to assist one such as yourself"],
+            [["affinity>=0","language=cant","help"],"I have no advice for you"],
+            [["language=cant","what","who","where","when"],"I don't know anything about that"]
         ],
         "path" : ["$rid=434$","$rid=433$","$rid=435$","$rid=422$"],
         "bodyType": "",
