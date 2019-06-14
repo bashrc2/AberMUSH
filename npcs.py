@@ -40,13 +40,30 @@ def npcsRest(npcs):
             npcs[p]['hp'] = npcs[p]['hpMax'] + npcs[p]['tempHitPoints']
             npcs[p]['restRequired'] = 0
 
+def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
+    """An NPC follows another NPC or player
+       Enabling NPCs to move around in groups
+    """
+    if moveType.startswith('leader:'):
+        leaderName=moveType.split(':')[1]        
+        if len(leaderName) > 0:
+            for (lid, pl) in list(npcs.items()):
+                if npcs[lid]['name']==leaderName:
+                    if npcs[lid]['room'] != npcs[nid]['room']:
+                        return npcs[lid]['room']
+            for (pid, pl) in list(players.items()):
+                if players[pid]['name']==leaderName:
+                    if players[pid]['room'] != npcs[nid]['room']:
+                        return players[pid]['room']
+    return ''
+
 def moveNPCs(npcs, players, mud, now, nid):
     """If movement is defined for an NPC this moves it around
     """
     if now > npcs[nid]['lastMoved'] + \
             int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
         # Move types:
-        #   random, cycle, inverse cycle, patrol, follow
+        #   random, cycle, inverse cycle, patrol, follow, leader:name
 
         moveTypeLower = npcs[nid]['moveType'].lower()
 
@@ -101,7 +118,9 @@ def moveNPCs(npcs, players, mud, now, nid):
                     else:
                         npcRoomIndex = len(npcs[nid]['path']) - 1
             else:
-                npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
+                npcRoomIndex = moveNPCsFollowLeader(npcs, players, mud, now, nid, moveTypeLower)
+                if len(npcRoomIndex)==0:
+                    npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
 
         for (pid, pl) in list(players.items()):
             if npcs[nid]['room'] == players[pid]['room']:

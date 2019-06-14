@@ -112,6 +112,7 @@ NPCs defined within `def/npcs.json` have a few different modes. The rooms which 
  * *random* - Move to random rooms in the list
  * *patrol* - Move from the start to the end of the list, then back again
  * *follow* - Look for players and follow them around
+ * *leader:name* - Follow a named leader, which may be a player or NPC
 
 If no `moveType` is specified then random movement is the default.
 
