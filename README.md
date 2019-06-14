@@ -132,6 +132,8 @@ You can create simple kinds of conversations with NPCs by editing `npcs.json` an
 ],
 ```
 
+This uses a simple "bag of words" matching, so `serve` and `wine` could be in any order.
+
 You can then tell the NPC something like:
 
 ``` text
