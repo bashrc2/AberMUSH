@@ -39,9 +39,9 @@ def familiarRecall(mud, players, id, npcs, npcsDB):
     """
     # remove any existing familiars
     removals = []
-    for (index, details) in npcs.items():
-        if details['familiarOf'] == players[id]['name']:
-            removals.append(index)
+    for (nid, pl) in list(npcs.items()):
+        if pl['familiarOf'] == players[id]['name']:
+            removals.append(nid)
 
     for index in removals:
         del npcs[index]
@@ -50,13 +50,12 @@ def familiarRecall(mud, players, id, npcs, npcsDB):
     players[id]['familiar'] = -1
 
     # Find familiar and set its room to that of the player
-    for (index, details) in npcsDB.items():
-        if details['familiarOf'] == players[id]['name']:
-            players[id]['familiar'] = int(index)
-            details['room'] = players[id]['room']
-            if not npcs.get(str(index)):
-                npcs[str(index)] = deepcopy(npcsDB[index])
-            npcs[str(index)]['room'] = players[id]['room']
+    for (nid, pl) in list(npcsDB.items()):
+        if pl['familiarOf'] == players[id]['name']:
+            players[id]['familiar'] = int(nid)
+            if not npcs.get(nid):
+                npcs[nid] = deepcopy(npcsDB[nid])
+            npcs[nid]['room'] = players[id]['room']
             mud.send_message(id, "Your familiar is recalled.\n\n")
             break
 
