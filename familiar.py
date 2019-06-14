@@ -12,7 +12,6 @@ __status__ = "Production"
 
 import os
 from functions import log
-from functions import moveNPCs
 from functions import randomDescription
 from random import randint
 from copy import deepcopy

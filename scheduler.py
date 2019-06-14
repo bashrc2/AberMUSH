@@ -12,10 +12,10 @@ __status__ = "Production"
 
 import os
 from functions import log
-from functions import moveNPCs
 from events import evaluateEvent
 from random import randint
 from copy import deepcopy
+from npcs import moveNPCs
 
 import time
 

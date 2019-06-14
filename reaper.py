@@ -34,8 +34,8 @@ __status__ = "Production"
 
 import os
 from functions import log
-from functions import moveNPCs
 from functions import addToScheduler
+from npcs import moveNPCs
 from random import randint
 from copy import deepcopy
 

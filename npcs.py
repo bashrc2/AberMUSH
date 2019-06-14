@@ -12,7 +12,6 @@ __status__ = "Production"
 
 import os
 from functions import log
-from functions import moveNPCs
 from functions import playerInventoryWeight
 from functions import updatePlayerAttributes
 from functions import increaseAffinityBetweenPlayers
@@ -41,6 +40,92 @@ def npcsRest(npcs):
             npcs[p]['hp'] = npcs[p]['hpMax'] + npcs[p]['tempHitPoints']
             npcs[p]['restRequired'] = 0
 
+def moveNPCs(npcs, players, mud, now, nid):
+    """If movement is defined for an NPC this moves it around
+    """
+    if now > npcs[nid]['lastMoved'] + \
+            int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
+        # Move types:
+        #   random, cycle, inverse cycle, patrol, follow
+
+        moveTypeLower = npcs[nid]['moveType'].lower()
+
+        followCycle = False
+        if moveTypeLower.startswith('f'):
+            if len(npcs[nid]['follow']) == 0:
+                followCycle = True
+                # Look for a player to follow
+                for (pid, pl) in list(players.items()):
+                    if npcs[nid]['room'] == players[pid]['room']:
+                        # follow by name
+                        #print(npcs[nid]['name'] + ' starts following ' + players[pid]['name'] + '\n')
+                        npcs[nid]['follow'] = players[pid]['name']
+                        followCycle = False
+            if not followCycle:
+                return
+
+        if moveTypeLower.startswith(
+                'c') or moveTypeLower.startswith('p') or followCycle:
+            npcRoomIndex = 0
+            npcRoomCurr = npcs[nid]['room']
+            for npcRoom in npcs[nid]['path']:
+                if npcRoom == npcRoomCurr:
+                    npcRoomIndex = npcRoomIndex + 1
+                    break
+                npcRoomIndex = npcRoomIndex + 1
+            if npcRoomIndex >= len(npcs[nid]['path']):
+                if moveTypeLower.startswith('p'):
+                    npcs[nid]['moveType'] = 'back'
+                    npcRoomIndex = len(npcs[nid]['path']) - 1
+                    if npcRoomIndex > 0:
+                        npcRoomIndex = npcRoomIndex - 1
+                else:
+                    npcRoomIndex = 0
+        else:
+            if moveTypeLower.startswith('i') or moveTypeLower.startswith('b'):
+                npcRoomIndex = 0
+                npcRoomCurr = npcs[nid]['room']
+                for npcRoom in npcs[nid]['path']:
+                    if npcRoom == npcRoomCurr:
+                        npcRoomIndex = npcRoomIndex - 1
+                        break
+                    npcRoomIndex = npcRoomIndex + 1
+                if npcRoomIndex >= len(npcs[nid]['path']):
+                    npcRoomIndex = len(npcs[nid]['path']) - 1
+                if npcRoomIndex < 0:
+                    if moveTypeLower.startswith('b'):
+                        npcs[nid]['moveType'] = 'patrol'
+                        npcRoomIndex = 0
+                        if npcRoomIndex < len(npcs[nid]['path']) - 1:
+                            npcRoomIndex = npcRoomIndex + 1
+                    else:
+                        npcRoomIndex = len(npcs[nid]['path']) - 1
+            else:
+                npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
+
+        for (pid, pl) in list(players.items()):
+            if npcs[nid]['room'] == players[pid]['room']:
+                mud.send_message(
+                    pid,
+                    '<f220>' +
+                    npcs[nid]['name'] +
+                    "<r> " +
+                    randomDescription(npcs[nid]['outDescription']) +
+                    "\n\n")
+        rm = npcs[nid]['path'][npcRoomIndex]
+        npcs[nid]['room'] = rm
+        npcs[nid]['lastRoom'] = rm
+        for (pid, pl) in list(players.items()):
+            if npcs[nid]['room'] == players[pid]['room']:
+                mud.send_message(
+                    pid,
+                    '<f220>' +
+                    npcs[nid]['name'] +
+                    "<r> " +
+                    randomDescription(npcs[nid]['inDescription']) +
+                    "\n\n")
+        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
+        npcs[nid]['lastMoved'] = now
 
 def npcRespawns(npcs):
     """Respawns inactive NPCs
