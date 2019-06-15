@@ -233,8 +233,8 @@ for k in npcsDB:
                v == "proficiencies" or
                v == "fightingStyle" or
                v == "enemy" or
-               v == "collective" or
-               v == "collectiveRole" or
+               v == "guild" or
+               v == "guildRole" or
                v == "affinity" or
                v == "preparedSpells" or
                v == "spellSlots" or
@@ -270,6 +270,11 @@ with open(str(Config.get('Spells', 'Definition')), "r") as read_file:
     spellsDB = commentjson.load(read_file)
 
 log("Spells loaded: " + str(len(spellsDB)), "info")
+
+with open(str(Config.get('Guilds', 'Definition')), "r") as read_file:
+    guildsDB = commentjson.load(read_file)
+
+log("Guilds loaded: " + str(len(guildsDB)), "info")
 
 # List NPC dictionary for debugging purposes
 #print(" ")
@@ -890,8 +895,8 @@ while True:
                     players[id]['fightingStyle'] = dbResponse[62]
                     players[id]['restRequired'] = dbResponse[63]
                     players[id]['enemy'] = dbResponse[64]
-                    players[id]['collective'] = dbResponse[65]
-                    players[id]['collectiveRole'] = dbResponse[66]
+                    players[id]['guild'] = dbResponse[65]
+                    players[id]['guildRole'] = dbResponse[66]
                     players[id]['archetype'] = dbResponse[67]
                     players[id]['preparedSpells'] = dbResponse[68]
                     players[id]['spellSlots'] = dbResponse[69]
@@ -972,4 +977,5 @@ while True:
                         mapArea,
                         characterClassDB,
                         spellsDB,
-                        sentimentDB)
+                        sentimentDB,
+                        guildsDB)

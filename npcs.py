@@ -50,12 +50,12 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
             for (lid, pl) in list(npcs.items()):
                 if npcs[lid]['name']==leaderName:
                     if npcs[lid]['room'] != npcs[nid]['room']:
-                        npcs[nid]['collective']=npcs[lid]['collective']
+                        npcs[nid]['guild']=npcs[lid]['guild']
                         return npcs[lid]['room']
             for (pid, pl) in list(players.items()):
                 if players[pid]['name']==leaderName:
                     if players[pid]['room'] != npcs[nid]['room']:
-                        npcs[nid]['collective']=players[pid]['collective']
+                        npcs[nid]['guild']=players[pid]['guild']
                         return players[pid]['room']
     return ''
 
@@ -398,12 +398,12 @@ def conversationCondition(
         currValue = players[id]['speakLanguage'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '!='
-    if varStr == 'collective':
-        currValue = players[id]['collective'].lower()
+    if varStr == 'guild':
+        currValue = players[id]['guild'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
-    if varStr == 'notcollective':
-        currValue = players[id]['collective'].lower()
+    if varStr == 'notguild':
+        currValue = players[id]['guild'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '!='
     if varStr == 'race':
@@ -648,7 +648,7 @@ def conversationExperience(
             return False
     return False
 
-def conversationJoinCollective(
+def conversationJoinGuild(
         best_match,
         best_match_action,
         best_match_action_param0,
@@ -660,17 +660,16 @@ def conversationJoinCollective(
         nid,
         itemsDB,
         puzzledStr):
-    """Conversation in which an NPC adds you to a collective
+    """Conversation in which an NPC adds you to a guild
     """
     if best_match_action == 'clan' or \
        best_match_action == 'guild' or \
        best_match_action == 'tribe' or \
-       best_match_action == 'house' or \
-       best_match_action == 'collective':
+       best_match_action == 'house':
         if len(best_match_action_param0) > 0:
-            players[id]['collective'] = best_match_action_param0
+            players[id]['guild'] = best_match_action_param0
             if len(best_match_action_param1) > 0:
-                players[id]['collectiveRole'] = best_match_action_param1
+                players[id]['guildRole'] = best_match_action_param1
             increaseAffinityBetweenPlayers(players, id, npcs, nid)
             increaseAffinityBetweenPlayers(npcs, nid, players, id)
             return True
@@ -1028,7 +1027,8 @@ def npcConversation(
         nid,
         message,
         characterClassDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     """Conversation with an NPC
        This typically works by matching some words and then producing a corresponding response and/or action
     """
@@ -1136,11 +1136,11 @@ def npcConversation(
                                       id, mud, npcs, nid, itemsDB, puzzledStr):
                 return
             
-            # Join a collective
-            if conversationJoinCollective(best_match, best_match_action,
-                                          best_match_action_param0,
-                                          best_match_action_param1, players,
-                                          id, mud, npcs, nid, itemsDB, puzzledStr):
+            # Join a guild
+            if conversationJoinGuild(best_match, best_match_action,
+                                     best_match_action_param0,
+                                     best_match_action_param1, players,
+                                     id, mud, npcs, nid, itemsDB, puzzledStr):
                 return
 
             # Switch familiar into different modes

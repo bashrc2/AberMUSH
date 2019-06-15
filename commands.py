@@ -46,7 +46,7 @@ from random import randint
 '''
 Command function template:
 
-def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB):
+def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB):
         print("I'm in!")
 '''
 
@@ -94,7 +94,8 @@ def sendCommandError(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
 
@@ -159,7 +160,8 @@ def teleport(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             targetLocation = params[0:].strip().lower().replace(
@@ -210,7 +212,8 @@ def summon(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             targetPlayer = params[0:].strip().lower()
@@ -259,7 +262,8 @@ def mute(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -299,7 +303,8 @@ def unmute(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -337,7 +342,8 @@ def freeze(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -376,7 +382,8 @@ def unfreeze(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -413,7 +420,8 @@ def showBlocklist(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -448,7 +456,8 @@ def block(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -475,7 +484,8 @@ def block(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
         return
 
     blockedstr = params.lower().strip().replace('"', '')
@@ -518,7 +528,8 @@ def unblock(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -545,7 +556,8 @@ def unblock(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
         return
 
     unblockedstr = params.lower().strip().replace('"', '')
@@ -588,7 +600,8 @@ def kick(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         return
 
@@ -625,7 +638,8 @@ def shutdown(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -662,7 +676,8 @@ def resetUniverse(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -696,7 +711,8 @@ def quit(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     mud._handle_disconnect(id)
 
 
@@ -721,7 +737,8 @@ def who(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     counter = 1
     if players[id]['permissionLevel'] == 0:
         is_witch = isWitch(id, players)
@@ -773,7 +790,8 @@ def tell(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     told = False
     target = params.partition(' ')[0]
 
@@ -868,7 +886,8 @@ def tell(
                             nid,
                             message.lower(),
                             characterClassDB,
-                            sentimentDB)
+                            sentimentDB,
+                            guildsDB)
                         told = True
                         break
 
@@ -903,7 +922,8 @@ def whisper(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     target = params.partition(' ')[0]
     message = params.replace(target, "")
 
@@ -994,7 +1014,8 @@ def help(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     mud.send_message(id, 'Commands:')
     mud.send_message(
         id,
@@ -1288,7 +1309,8 @@ def castSpellUndirected(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
 
 
 def castSpell(
@@ -1312,7 +1334,8 @@ def castSpell(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -1445,7 +1468,8 @@ def affinity(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     otherPlayer = params.lower().strip()
     if len(otherPlayer) == 0:
         mud.send_message(id, 'With which player?\n\n')
@@ -1493,7 +1517,8 @@ def clearSpells(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if len(players[id]['preparedSpells']) > 0:
         players[id]['preparedSpells'].clear()
         players[id]['spellSlots'].clear()
@@ -1524,7 +1549,8 @@ def spells(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if len(players[id]['preparedSpells']) > 0:
         mud.send_message(id, 'Your prepared spells:\n')
         for name, details in players[id]['preparedSpells'].items():
@@ -1685,7 +1711,8 @@ def prepareSpell(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     spellName = params.lower().strip()
 
     # "learn spells" or "prepare spells" shows list of spells
@@ -1826,7 +1853,8 @@ def speak(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     lang = params.lower().strip()
     if lang not in players[id]['language']:
         mud.send_message(id, "You don't know how to speak " + lang + "\n\n")
@@ -1856,7 +1884,8 @@ def say(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     # print(channels)
     if players[id]['canSay'] == 1:
 
@@ -2032,7 +2061,8 @@ def look(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['canLook'] == 1:
         if len(params) < 1:
             # If no arguments are given, then look around and describe
@@ -2271,7 +2301,8 @@ def attack(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -2404,7 +2435,8 @@ def describe(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -2554,7 +2586,8 @@ def checkInventory(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     mud.send_message(id, 'You check your inventory.')
     if len(list(players[id]['inv'])) > 0:
         mud.send_message(id, 'You are currently in possession of:\n')
@@ -2632,7 +2665,8 @@ def changeSetting(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     newPassword = ''
     if params.startswith('password '):
         newPassword = params.replace('password ', '')
@@ -2670,7 +2704,8 @@ def writeOnItem(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if ' on ' not in params:
         if ' onto ' not in params:
             if ' in ' not in params:
@@ -2714,7 +2749,8 @@ def check(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if params.lower() == 'inventory' or params.lower() == 'inv':
         checkInventory(
             params,
@@ -2737,7 +2773,8 @@ def check(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
     elif params.lower() == 'stats':
         mud.send_message(id, 'You check your character sheet.\n')
     else:
@@ -2765,7 +2802,8 @@ def wear(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -2907,7 +2945,8 @@ def wield(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -3042,7 +3081,8 @@ def stow(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if len(list(players[id]['inv'])) == 0:
         return
 
@@ -3080,7 +3120,8 @@ def unwear(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if len(list(players[id]['inv'])) == 0:
         return
 
@@ -3274,7 +3315,8 @@ def bio(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if len(params) == 0:
         bioOfPlayer(mud, id, id, players, itemsDB)
         return
@@ -3331,7 +3373,8 @@ def eat(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     food = params.lower()
     foodItemID = 0
     if len(list(players[id]['inv'])) > 0:
@@ -3390,7 +3433,8 @@ def go(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -3500,7 +3544,8 @@ def conjureRoom(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     params = params.replace('room ', '')
     roomDirection = params.lower().strip()
     possibleDirections = (
@@ -3582,7 +3627,8 @@ def conjureItem(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     itemName = params.lower()
     if len(itemName) == 0:
         mud.send_message(id, "Specify the name of an item to conjure.\n\n")
@@ -3666,7 +3712,8 @@ def conjureNPC(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not params.startswith('npc '):
         if not params.startswith('familiar'):
             return False
@@ -3753,7 +3800,8 @@ def conjureNPC(
               "fightingStyle": "",
               "restRequired": 0,
               "enemy": "",
-              "collective": "",              
+              "guild": "",              
+              "guildRole": "",              
               "tempHitPointsDuration": 0,
               "tempHitPointsStart": 0,
               "tempHitPoints": 0,
@@ -3862,7 +3910,8 @@ def dismiss(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if params.lower().startswith('familiar'):
         players[id]['familiar'] = -1
         familiarRemoved = False
@@ -3908,7 +3957,8 @@ def conjure(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -3917,7 +3967,8 @@ def conjure(
         conjureNPC(params, mud, playersDB, players, rooms,
                    npcsDB, npcs, itemsDB, items, envDB, env,
                    eventDB, eventSchedule, id, fights, corpses,
-                   blocklist, mapArea, characterClassDB, spellsDB, sentimentDB)
+                   blocklist, mapArea, characterClassDB,
+                   spellsDB, sentimentDB, guildsDB)
         return
 
     if params.startswith('room '):
@@ -3942,14 +3993,16 @@ def conjure(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
         return
 
     if params.startswith('npc '):
         conjureNPC(params, mud, playersDB, players, rooms,
                    npcsDB, npcs, itemsDB, items, envDB, env,
                    eventDB, eventSchedule, id, fights, corpses,
-                   blocklist, mapArea, characterClassDB, spellsDB, sentimentDB)
+                   blocklist, mapArea, characterClassDB,
+                   spellsDB, sentimentDB, guildsDB)
         return
 
     conjureItem(
@@ -3973,7 +4026,8 @@ def conjure(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB)
+        sentimentDB,
+        guildsDB)
 
 
 def destroyItem(
@@ -3997,7 +4051,8 @@ def destroyItem(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     itemName = params.lower()
     if len(itemName) == 0:
         mud.send_message(id, "Specify the name of an item to destroy.\n\n")
@@ -4045,7 +4100,8 @@ def destroyNPC(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     npcName = params.lower().replace('npc ', '').strip().replace('"', '')
     if len(npcName) == 0:
         mud.send_message(id, "Specify the name of an NPC to destroy.\n\n")
@@ -4095,7 +4151,8 @@ def destroyRoom(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     params = params.replace('room ', '')
     roomDirection = params.lower().strip()
     possibleDirections = (
@@ -4163,7 +4220,8 @@ def destroy(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -4190,7 +4248,8 @@ def destroy(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
     else:
         if params.startswith('npc '):
             destroyNPC(
@@ -4214,7 +4273,8 @@ def destroy(
                 mapArea,
                 characterClassDB,
                 spellsDB,
-                sentimentDB)
+                sentimentDB,
+                guildsDB)
         else:
             destroyItem(
                 params,
@@ -4237,7 +4297,8 @@ def destroy(
                 mapArea,
                 characterClassDB,
                 spellsDB,
-                sentimentDB)
+                sentimentDB,
+                guildsDB)
 
 
 def drop(
@@ -4261,7 +4322,8 @@ def drop(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     # Check if inventory is empty
     if len(list(players[id]['inv'])) == 0:
         mud.send_message(id, 'You don`t have that!\n\n')
@@ -4538,7 +4600,8 @@ def openItem(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4726,7 +4789,8 @@ def closeItem(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4805,7 +4869,8 @@ def putItem(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if ' in ' not in params:
         if ' on ' not in params:
             if ' into ' not in params:
@@ -4926,7 +4991,8 @@ def take(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -5099,7 +5165,8 @@ def runCommand(
         mapArea,
         characterClassDB,
         spellsDB,
-        sentimentDB):
+        sentimentDB,
+        guildsDB):
     switcher = {
         "sendCommandError": sendCommandError,
         "go": go,
@@ -5198,7 +5265,8 @@ def runCommand(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
     except Exception as e:
         # print(str(e))
         switcher["sendCommandError"](
@@ -5222,4 +5290,5 @@ def runCommand(
             mapArea,
             characterClassDB,
             spellsDB,
-            sentimentDB)
+            sentimentDB,
+            guildsDB)
