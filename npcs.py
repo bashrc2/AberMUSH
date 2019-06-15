@@ -648,6 +648,42 @@ def conversationExperience(
             return False
     return False
 
+def conversationJoinCollective(
+        best_match,
+        best_match_action,
+        best_match_action_param0,
+        best_match_action_param1,
+        players,
+        id,
+        mud,
+        npcs,
+        nid,
+        itemsDB,
+        puzzledStr):
+    """Conversation in which an NPC adds you to a collective
+    """
+    if best_match_action == 'clan' or \
+       best_match_action == 'tribe' or \
+       best_match_action == 'house' or \
+       best_match_action == 'collective':
+        if len(best_match_action_param0) > 0:
+            players[id]['collective'] = best_match_action_param0
+            if len(best_match_action_param1) > 0:
+                players[id]['collectiveRole'] = best_match_action_param1
+            increaseAffinityBetweenPlayers(players, id, npcs, nid)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id)
+            return True
+        else:
+            mud.send_message(
+                id,
+                "<f220>" +
+                npcs[nid]['name'] +
+                "<r> looks " +
+                puzzledStr +
+                ".\n\n")
+            return False
+    return False
+
 def conversationFamiliarMode(
         best_match,
         best_match_action,
@@ -1097,6 +1133,13 @@ def npcConversation(
                                       best_match_action_param0,
                                       best_match_action_param1, players,
                                       id, mud, npcs, nid, itemsDB, puzzledStr):
+                return
+            
+            # Join a collective
+            if conversationJoinCollective(best_match, best_match_action,
+                                          best_match_action_param0,
+                                          best_match_action_param1, players,
+                                          id, mud, npcs, nid, itemsDB, puzzledStr):
                 return
 
             # Switch familiar into different modes
