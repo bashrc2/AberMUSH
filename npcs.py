@@ -663,6 +663,7 @@ def conversationJoinCollective(
     """Conversation in which an NPC adds you to a collective
     """
     if best_match_action == 'clan' or \
+       best_match_action == 'guild' or \
        best_match_action == 'tribe' or \
        best_match_action == 'house' or \
        best_match_action == 'collective':

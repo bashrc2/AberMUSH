@@ -234,6 +234,7 @@ for k in npcsDB:
                v == "fightingStyle" or
                v == "enemy" or
                v == "collective" or
+               v == "collectiveRole" or
                v == "affinity" or
                v == "preparedSpells" or
                v == "spellSlots" or
@@ -890,20 +891,21 @@ while True:
                     players[id]['restRequired'] = dbResponse[63]
                     players[id]['enemy'] = dbResponse[64]
                     players[id]['collective'] = dbResponse[65]
-                    players[id]['archetype'] = dbResponse[66]
-                    players[id]['preparedSpells'] = dbResponse[67]
-                    players[id]['spellSlots'] = dbResponse[68]
-                    players[id]['tempHitPoints'] = dbResponse[69]
-                    players[id]['tempHitPointsStart'] = dbResponse[70]
-                    players[id]['tempHitPointsDuration'] = dbResponse[71]
-                    players[id]['prepareSpell'] = dbResponse[72]
-                    players[id]['prepareSpellProgress'] = dbResponse[73]
-                    players[id]['prepareSpellTime'] = dbResponse[74]
-                    players[id]['frozenDescription'] = dbResponse[75]
-                    players[id]['frozenStart'] = dbResponse[76]
-                    players[id]['frozenDuration'] = dbResponse[77]
-                    players[id]['affinity'] = dbResponse[78]
-                    players[id]['familiar'] = dbResponse[79]
+                    players[id]['collectiveRole'] = dbResponse[66]
+                    players[id]['archetype'] = dbResponse[67]
+                    players[id]['preparedSpells'] = dbResponse[68]
+                    players[id]['spellSlots'] = dbResponse[69]
+                    players[id]['tempHitPoints'] = dbResponse[70]
+                    players[id]['tempHitPointsStart'] = dbResponse[71]
+                    players[id]['tempHitPointsDuration'] = dbResponse[72]
+                    players[id]['prepareSpell'] = dbResponse[73]
+                    players[id]['prepareSpellProgress'] = dbResponse[74]
+                    players[id]['prepareSpellTime'] = dbResponse[75]
+                    players[id]['frozenDescription'] = dbResponse[76]
+                    players[id]['frozenStart'] = dbResponse[77]
+                    players[id]['frozenDuration'] = dbResponse[78]
+                    players[id]['affinity'] = dbResponse[79]
+                    players[id]['familiar'] = dbResponse[80]
 
                     log("Client ID: " +
                         str(id) +

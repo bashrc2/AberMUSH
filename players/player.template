@@ -65,6 +65,7 @@
     "restRequired": 0,
     "enemy": "",
     "collective": "",
+    "collectiveRole": "",
     "archetype": "",
     "preparedSpells": {},
     "spellSlots": {},
