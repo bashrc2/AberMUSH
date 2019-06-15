@@ -1,162 +1,202 @@
 {
     "Apothecaries": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Armourers and Brasiers": {
 	"description": "Armour-makers and workers in brass",
+	"roles": [],
 	"affinity": {}
     },
     "Bakers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Barbers": {
 	"description": "Barbers, surgeons and dentists",
+	"roles": [],
 	"affinity": {}
     },
     "Basketmakers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Blacksmiths": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Bowyers": {
 	"description": "Longbow makers",
+	"roles": [],
 	"affinity": {}
     },
     "Brewers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Broderers": {
         "description": "Embroiderers",
+	"roles": [],
 	"affinity": {}
     },
     "Butchers": {
         "description": "Carpenters",
+	"roles": [],
 	"affinity": {}
     },
     "Chandlers": {
 	"description": "Candle makers",
+	"roles": [],
 	"affinity": {}
     },
     "Clothworkers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Cordwainers": {
 	"description": "Workers in fine leather",
+	"roles": [],
 	"affinity": {}
     },
     "Curriers": {
 	"description": "Dressers of tanned leather",
+	"roles": [],
 	"affinity": {}
     },
     "Cutlers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Dyers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Farriers": {
 	"description": "Shoers of horses",
+	"roles": [],
 	"affinity": {}
     },
     "Fishmongers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Fletchers": {
 	"description": "Arrow makers",
+	"roles": [],
 	"affinity": {}
     },
     "Girdlers": {
 	"description": "Girdles and belts as clothing",
+	"roles": [],
 	"affinity": {}
     },
     "Goldsmiths": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Loriners": {
 	"description": "Stirrups and other harness for horses",
+	"roles": [],
 	"affinity": {}
     },
     "Masons": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Mercers": {
 	"description": "General merchants",
+	"roles": [],
 	"affinity": {}
     },
     "Needlemakers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Pattenmakers": {
 	"description": "Makers of wooden clog-style footwear",
+	"roles": [],
 	"affinity": {}
     },
     "Plaisterers": {
 	"description": "Plasterers",
+	"roles": [],
 	"affinity": {}
     },
     "Plumbers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Poulters": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Saddlers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Salters": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Scriveners": {
 	"description": "Writers of court letters and legal documents",
+	"roles": [],
 	"affinity": {}
     },
     "Skinners": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Tallow chandlers": {
 	"description": "Candle makers",
+	"roles": [],
 	"affinity": {}
     },
     "Upholders": {
 	"description": "Upholsterers",
+	"roles": [],
 	"affinity": {}
     },
     "Vintners": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Wax Chandlers": {
 	"description": "Candle makers",
+	"roles": [],
 	"affinity": {}
     },
     "Weavers": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Wheelwrights": {
 	"description": "",
+	"roles": [],
 	"affinity": {}
     },
     "Woolmen": {
 	"description": "Winders and packers of wool",
+	"roles": [],
 	"affinity": {}
     }
 }
