@@ -394,6 +394,10 @@ def conversationCondition(
         currValue = players[id]['speakLanguage'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
+    if varStr == 'notlanguage':
+        currValue = players[id]['speakLanguage'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '!='
     if varStr == 'collective':
         currValue = players[id]['collective'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
@@ -406,14 +410,26 @@ def conversationCondition(
         currValue = players[id]['race'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
+    if varStr == 'notrace':
+        currValue = players[id]['race'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '!='
     if varStr == 'characterclass':
         currValue = players[id]['characterClass'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
+    if varStr == 'notcharacterclass':
+        currValue = players[id]['characterClass'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '!='
     if varStr == 'enemy':
         currValue = players[id]['enemy'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
+    if varStr == 'notenemy':
+        currValue = players[id]['enemy'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '!='
     if varStr == 'affinity':
         if npcs[nid]['affinity'].get(players[id]['name']):
             currValue = npcs[nid]['affinity'][players[id]['name']]
