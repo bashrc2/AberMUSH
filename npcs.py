@@ -50,10 +50,12 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
             for (lid, pl) in list(npcs.items()):
                 if npcs[lid]['name']==leaderName:
                     if npcs[lid]['room'] != npcs[nid]['room']:
+                        npcs[nid]['collective']=npcs[lid]['collective']
                         return npcs[lid]['room']
             for (pid, pl) in list(players.items()):
                 if players[pid]['name']==leaderName:
                     if players[pid]['room'] != npcs[nid]['room']:
+                        npcs[nid]['collective']=players[pid]['collective']
                         return players[pid]['room']
     return ''
 
