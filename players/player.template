@@ -64,6 +64,7 @@
     "fightingStyle": "",
     "restRequired": 0,
     "enemy": "",
+    "collective": "",
     "archetype": "",
     "preparedSpells": {},
     "spellSlots": {},

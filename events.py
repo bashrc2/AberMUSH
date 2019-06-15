@@ -656,6 +656,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
                                    'fightingStyle': npcsDB[int(body[0])]['fightingStyle'],
                                    'restRequired': npcsDB[int(body[0])]['restRequired'],
                                    'enemy': npcsDB[int(body[0])]['enemy'],
+                                   'collective': npcsDB[int(body[0])]['collective'],
                                    'archetype': npcsDB[int(body[0])]['archetype'],
                                    'preparedSpells': npcsDB[int(body[0])]['preparedSpells'],
                                    'spellSlots': npcsDB[int(body[0])]['spellSlots'],

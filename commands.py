@@ -2296,8 +2296,7 @@ def attack(
         if not isAlreadyAttacking:
             if players[id]['name'].lower() != target.lower():
                 for (pid, pl) in players.items():
-                    if players[pid]['authenticated'] and players[pid]['name'].lower(
-                    ) == target.lower():
+                    if players[pid]['authenticated'] and players[pid]['name'].lower() == target.lower():
                         targetFound = True
                         victimId = pid
                         attackerId = id
@@ -3754,6 +3753,7 @@ def conjureNPC(
               "fightingStyle": "",
               "restRequired": 0,
               "enemy": "",
+              "collective": "",              
               "tempHitPointsDuration": 0,
               "tempHitPointsStart": 0,
               "tempHitPoints": 0,

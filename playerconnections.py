@@ -106,6 +106,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
             'fightingStyle': None,
             'restRequired': None,
             'enemy': None,
+            'collective': None,
             'archetype': None,
             'preparedSpells': None,
             'spellSlots': None,
