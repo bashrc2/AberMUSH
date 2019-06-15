@@ -394,6 +394,14 @@ def conversationCondition(
         currValue = players[id]['speakLanguage'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
+    if varStr == 'collective':
+        currValue = players[id]['collective'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '='
+    if varStr == 'notcollective':
+        currValue = players[id]['collective'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '!='
     if varStr == 'race':
         currValue = players[id]['race'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
@@ -428,6 +436,10 @@ def conversationCondition(
 
     if conditionType == '=':
         if currValue != targetValue:
+            return False, False, match_ctr
+
+    if conditionType == '!=':
+        if currValue == targetValue:
             return False, False, match_ctr
 
     if conditionType == '>=':
