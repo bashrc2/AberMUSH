@@ -458,7 +458,7 @@ def saveState(player, masterDB, savePassword):
     #masterDB = loadPlayersDB()
 
 
-def saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env):
+def saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB):
     # save rooms
     with open("universe.json", 'w') as fp:
         commentjson.dump(rooms, fp, indent=4, sort_keys=True)

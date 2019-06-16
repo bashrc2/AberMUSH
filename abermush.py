@@ -35,6 +35,7 @@ from combat import runFights
 from combat import playersRest
 from combat import updateTemporaryHitPoints
 from combat import updateTemporaryIncapacitation
+from combat import updateTemporaryCharm
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
 from npcs import npcRespawns
@@ -233,6 +234,7 @@ for k in npcsDB:
                v == "proficiencies" or
                v == "fightingStyle" or
                v == "enemy" or
+               v == "tempCharmTarget" or
                v == "guild" or
                v == "guildRole" or
                v == "affinity" or
@@ -439,6 +441,8 @@ while True:
         updateTemporaryHitPoints(mud, npcs, True)
         updateTemporaryIncapacitation(mud, players, False)
         updateTemporaryIncapacitation(mud, npcs, True)
+        updateTemporaryCharm(mud, players, False)
+        updateTemporaryCharm(mud, npcs, True)
 
     now = int(time.time())
     if now >= lastWeatherUpdate + weatherUpdateInterval:
@@ -483,7 +487,7 @@ while True:
                 playersDB = loadPlayersDB()
                 # State Save logic End
                 lastStateSave = now
-        saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+        saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
         lastStateSave = now
 
     # Handle Player Deaths
@@ -895,22 +899,26 @@ while True:
                     players[id]['fightingStyle'] = dbResponse[62]
                     players[id]['restRequired'] = dbResponse[63]
                     players[id]['enemy'] = dbResponse[64]
-                    players[id]['guild'] = dbResponse[65]
-                    players[id]['guildRole'] = dbResponse[66]
-                    players[id]['archetype'] = dbResponse[67]
-                    players[id]['preparedSpells'] = dbResponse[68]
-                    players[id]['spellSlots'] = dbResponse[69]
-                    players[id]['tempHitPoints'] = dbResponse[70]
-                    players[id]['tempHitPointsStart'] = dbResponse[71]
-                    players[id]['tempHitPointsDuration'] = dbResponse[72]
-                    players[id]['prepareSpell'] = dbResponse[73]
-                    players[id]['prepareSpellProgress'] = dbResponse[74]
-                    players[id]['prepareSpellTime'] = dbResponse[75]
-                    players[id]['frozenDescription'] = dbResponse[76]
-                    players[id]['frozenStart'] = dbResponse[77]
-                    players[id]['frozenDuration'] = dbResponse[78]
-                    players[id]['affinity'] = dbResponse[79]
-                    players[id]['familiar'] = dbResponse[80]
+                    players[id]['tempCharm'] = dbResponse[65]
+                    players[id]['tempCharmTarget'] = dbResponse[66]
+                    players[id]['tempCharmDuration'] = dbResponse[67]
+                    players[id]['tempCharmStart'] = dbResponse[68]
+                    players[id]['guild'] = dbResponse[69]
+                    players[id]['guildRole'] = dbResponse[70]
+                    players[id]['archetype'] = dbResponse[71]
+                    players[id]['preparedSpells'] = dbResponse[72]
+                    players[id]['spellSlots'] = dbResponse[73]
+                    players[id]['tempHitPoints'] = dbResponse[74]
+                    players[id]['tempHitPointsStart'] = dbResponse[75]
+                    players[id]['tempHitPointsDuration'] = dbResponse[76]
+                    players[id]['prepareSpell'] = dbResponse[77]
+                    players[id]['prepareSpellProgress'] = dbResponse[78]
+                    players[id]['prepareSpellTime'] = dbResponse[79]
+                    players[id]['frozenDescription'] = dbResponse[80]
+                    players[id]['frozenStart'] = dbResponse[81]
+                    players[id]['frozenDuration'] = dbResponse[82]
+                    players[id]['affinity'] = dbResponse[83]
+                    players[id]['familiar'] = dbResponse[84]
 
                     log("Client ID: " +
                         str(id) +

@@ -61,7 +61,7 @@
         "find familiar": {
     	    "description": "Your familiar appears",
 	    "description_second": "A familiar of {} appears",
-	    "prepareTime": "1 min",
+	    "prepareTime": "1 hour",
 	    "duration": "",
 	    "classes": ["druid","sorcerer","witch"],
 	    "range": 10,
@@ -70,6 +70,20 @@
 	    "damageType": "",
 	    "hp": 0,
 	    "action": "familiar",
+	    "actionDescription": ""
+	},
+        "charm person": {
+    	    "description": "You charm {}",
+	    "description_second": "",
+	    "prepareTime": "1 hour",
+	    "duration": "1 hour",
+	    "classes": ["druid","sorcerer","witch"],
+	    "range": 30,
+	    "items": [702],
+	    "damage": 0,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "charm",
 	    "actionDescription": ""
 	},
         "cat nap": {

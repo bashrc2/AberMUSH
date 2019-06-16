@@ -645,7 +645,7 @@ def shutdown(
         return
 
     mud.send_message(id, "\n\nShutdown commenced.\n\n")
-    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     mud.send_message(id, "\n\nUniverse saved.\n\n")
     log("Universe saved", "info")
     for (pid, pl) in list(players.items()):
@@ -1210,9 +1210,20 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
 
     if spellDetails['action'].startswith('protect'):
         npcs[p]['tempHitPoints'] = spellDetails['hp']
-        npcs[p]['tempHitPointsDuration'] = spellTimeToSec(
-            spellDetails['duration'])
+        npcs[p]['tempHitPointsDuration'] = spellTimeToSec(spellDetails['duration'])
         npcs[p]['tempHitPointsStart'] = int(time.time())
+
+    if spellDetails['action'].startswith('charm'):
+        charmTarget=players[id]['name']
+        charmValue=int(npcs[p]['cha'] + players[id]['cha'])
+        npcs[p]['tempCharm'] = charmValue
+        npcs[p]['tempCharmTarget'] = charmTarget
+        npcs[p]['tempCharmDuration'] = spellTimeToSec(spellDetails['duration'])
+        npcs[p]['tempCharmStart'] = int(time.time())
+        if npcs[p]['affinity'].get(charmTarget):
+            npcs[p]['affinity'][charmTarget]+=charmValue
+        else:
+            npcs[p]['affinity'][charmTarget]=charmValue
 
     if spellDetails['action'].startswith('friend'):
         if players[id]['cha'] < npcs[p]['cha']:
@@ -2460,7 +2471,7 @@ def describe(
     if len(descriptionStrings) == 1:
         rooms[rm]['description'] = descriptionStrings[0]
         mud.send_message(id, 'Room description set.\n\n')
-        saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+        saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
         return
 
     if len(descriptionStrings) == 2:
@@ -2482,13 +2493,13 @@ def describe(
                 'Room name changed to ' +
                 thingDescription +
                 '.\n\n')
-            saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+            saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
             return
 
         if thingDescribed == 'tide':
             rooms[rm]['tideOutDescription'] = thingDescription
             mud.send_message(id, 'Tide out description set.\n\n')
-            saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+            saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
             return
 
         # change the description of an item in the room
@@ -2504,7 +2515,7 @@ def describe(
                                      itemsDB[items[item]['id']]['name'] +
                                      '.\n\n')
                     saveUniverse(
-                        rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+                        rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
 
         # Change the description of an NPC in the room
@@ -2518,7 +2529,7 @@ def describe(
                         npcs[nid]['name'] +
                         '.\n\n')
                     saveUniverse(
-                        rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+                        rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
 
     if len(descriptionStrings) == 3:
@@ -2547,7 +2558,7 @@ def describe(
                                      itemsDB[items[item]['id']]['name'] +
                                      '.\n\n')
                     saveUniverse(
-                        rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+                        rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
 
         # Change the name of an NPC in the room
@@ -2561,7 +2572,7 @@ def describe(
                         npcs[nid]['name'] +
                         '.\n\n')
                     saveUniverse(
-                        rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+                        rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
 
 
@@ -3602,7 +3613,7 @@ def conjureRoom(
     mapArea = assignCoordinates(rooms)
 
     log("New room: " + roomID, 'info')
-    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     mud.send_message(id, 'Room created.\n\n')
 
 
@@ -3673,7 +3684,7 @@ def conjureItem(
         mud.send_message(id, itemsDB[itemID]['article'] + ' ' +
                          itemsDB[itemID]['name'] +
                          ' spontaneously materializes in front of you.\n\n')
-        saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+        saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
         return True
     return False
 
@@ -3885,7 +3896,7 @@ def conjureNPC(
             ', spontaneously appears.\n\n')
     else:
         mud.send_message(id, npcName + ' spontaneously appears.\n\n')
-    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     return True
 
 
@@ -4075,7 +4086,7 @@ def destroyItem(
     del items[item]
     log("Item destroyed: " + destroyedName +
         ' in ' + players[id]['room'], 'info')
-    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     return True
 
 
@@ -4126,7 +4137,7 @@ def destroyNPC(
     del npcsDB[npcID]
     log("NPC destroyed: " + destroyedName +
         ' in ' + players[id]['room'], 'info')
-    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     return True
 
 
@@ -4194,7 +4205,7 @@ def destroyRoom(
     mapArea = assignCoordinates(rooms)
 
     log("Room destroyed: " + roomToDestroyID, 'info')
-    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     mud.send_message(id, "Room destroyed.\n\n")
     return True
 

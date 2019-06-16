@@ -63,7 +63,7 @@ def updateTemporaryHitPoints(mud, players, isNPC):
            players[p]['tempHitPointsDuration'] > 0:
             players[p]['tempHitPointsStart'] = now
         else:
-            if now >= players[p]['tempHitPointsStart'] + \
+            if now > players[p]['tempHitPointsStart'] + \
                     players[p]['tempHitPointsDuration']:
                 players[p]['tempHitPoints'] = 0
                 players[p]['tempHitPointsStart'] = 0
@@ -72,6 +72,28 @@ def updateTemporaryHitPoints(mud, players, isNPC):
                     mud.send_message(
                         p, "<f220>Your magical protection expires.<r>\n\n")
 
+def updateTemporaryCharm(mud, players, isNPC):
+    """Updates any charm added for a temporary period
+       as the result of a spell
+    """
+    now = int(time.time())
+    for p in players:
+        if players[p]['tempCharm'] == 0:
+            continue
+        if players[p]['tempCharmStart'] == 0 and \
+           players[p]['tempCharmDuration'] > 0:
+            players[p]['tempCharmStart'] = now
+        else:
+            if now > players[p]['tempCharmStart'] + \
+                    players[p]['tempCharmDuration']:
+                players[p]['tempCharmStart'] = 0
+                players[p]['tempCharmDuration'] = 0
+                if players[p]['affinity'].get(players[p]['tempCharmTarget']):
+                    players[p]['affinity'][players[p]['tempCharmTarget']]-=players[p]['tempCharm']
+                players[p]['tempCharm'] = 0
+                if not isNPC:
+                    mud.send_message(
+                        p, "<f220>A charm spell wears off.<r>\n\n")
 
 def playersRest(mud, players):
     """Rest restores hit points
