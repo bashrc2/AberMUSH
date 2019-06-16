@@ -542,5 +542,37 @@
  	"resist_magic": 7,
 	"resist_negative": 7,
  	"resist_water": 7		
-    }
+    },
+    "undead": {
+	"language": ["common"],
+        "str": 3,
+        "siz": 2,
+        "per": 3,
+        "endu": 1,
+        "cha": 4,
+        "int": 3,
+        "agi": 6,
+        "luc": 3,
+        "cool": 0,
+        "ref": 1,
+ 	"resist_acid": 30,
+	"resist_bludgeoning": 6,
+ 	"resist_cold": 0,
+	"resist_fire": 0,
+ 	"resist_force": -20,
+	"resist_lightning": -102,
+ 	"resist_necro": 0,
+ 	"resist_piercing": 7,
+ 	"resist_poison": 0,
+ 	"resist_psy": 0,
+ 	"resist_radiant": 0,	
+ 	"resist_slashing": 0,
+	"resist_thunder": 0,	
+ 	"resist_air": -39,
+ 	"resist_disease": 0,
+ 	"resist_earth": 0,
+ 	"resist_magic": 0,
+	"resist_negative": 27,
+ 	"resist_water": 0		
+    }    
 }
