@@ -1213,6 +1213,12 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
         npcs[p]['tempHitPointsDuration'] = spellTimeToSec(spellDetails['duration'])
         npcs[p]['tempHitPointsStart'] = int(time.time())
 
+    if spellDetails['action'].startswith('cure'):
+        if npcs[p]['hp'] < npcs[p]['hpMax']:
+            npcs[p]['hp'] += randint(1,spellDetails['hp'])
+            if npcs[p]['hp'] > npcs[p]['hpMax']:
+                npcs[p]['hp'] = npcs[p]['hpMax']
+
     if spellDetails['action'].startswith('charm'):
         charmTarget=players[id]['name']
         charmValue=int(npcs[p]['cha'] + players[id]['cha'])
