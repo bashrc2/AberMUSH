@@ -114,6 +114,20 @@
 	    "action": "attack",
 	    "actionDescription": ""
 	},
+        "chaos bolt": {
+    	    "description": "You fire a mass of chaotic energy at {}",
+	    "description_second": "{} fires a mass of chaotic energy at {}",
+	    "prepareTime": "10 min",
+	    "duration": "",
+	    "classes": ["sorcerer","witch"],
+	    "range": 120,
+	    "items": [702],
+	    "damage": 16,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "attack",
+	    "actionDescription": ""
+	},
         "cat nap": {
     	    "description": "{} feels drowsy|{} is sleepy|{} begins to snore|{} yawns",
 	    "description_second": "{} casts a sleeping spell on {}",
