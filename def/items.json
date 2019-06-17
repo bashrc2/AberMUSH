@@ -10757,9 +10757,9 @@
         "close_description": "You push the lever up",
         "contains": [],
         "lockedWithItem": 0,
-        "exitName": "",
-        "linkedItem": 0,
-        "exit": "",
+        "exitName": "east|west",
+        "linkedItem": 526,
+        "exit": "$rid=528$",
         "article": "an"
     },
     "520": {
@@ -10873,7 +10873,7 @@
     "526": {
         "name": "wooden door",
         "short_description": "The door is closed.",
-        "long_description": "It's as if you can almost feel the presence of the door.",
+        "long_description": "The old wooden door made from solid oak beams is closed.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10918,7 +10918,7 @@
         "open_failed_description": "",
         "close_description": "",
         "contains": [],
-        "lockedWithItem": 0,
+        "lockedWithItem": 518,
         "exitName": "east|west",
         "linkedItem": 527,
         "exit": "$rid=528$",
@@ -10927,7 +10927,7 @@
     "527": {
         "name": "wooden door",
         "short_description": "The door is closed.",
-        "long_description": "It's as if you can almost feel the presence of the door.",
+        "long_description": "The old wooden door made from solid oak beams is closed.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10972,7 +10972,7 @@
         "open_failed_description": "",
         "close_description": "",
         "contains": [],
-        "lockedWithItem": 0,
+        "lockedWithItem": 518,
         "exitName": "west|east",
         "linkedItem": 526,
         "exit": "$rid=530$",
