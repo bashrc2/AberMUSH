@@ -100,6 +100,20 @@
 	    "action": "cure",
 	    "actionDescription": "Your wounds are magically cured"
 	},
+        "witch bolt": {
+    	    "description": "You fire a bolt of lighning at {}",
+	    "description_second": "{} fires a bolt of lightning at {}",
+	    "prepareTime": "5 min",
+	    "duration": "",
+	    "classes": ["witch"],
+	    "range": 30,
+	    "items": [702],
+	    "damage": 12,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "attack",
+	    "actionDescription": ""
+	},
         "cat nap": {
     	    "description": "{} feels drowsy|{} is sleepy|{} begins to snore|{} yawns",
 	    "description_second": "{} casts a sleeping spell on {}",
