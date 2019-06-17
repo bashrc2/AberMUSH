@@ -2483,7 +2483,7 @@
         "coords": []
     },
     "$rid=473$": {
-        "name": "Standing on the Dumb Waiter.",
+        "name": "Standing on the Dumb Waiter",
         "description": "You are standing on top of the dumb waiter.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2533,7 +2533,7 @@
             "west": "$rid=478$",
             "in": "$rid=478$"
         },
-        "name": "Birfle's Research Lab.",
+        "name": "Birfle's Research Lab",
         "description": "You are in a laboratory which was once used for research into unearthly magics. The majority of the equipment is in a state of disrepair, showing that this lab hasn't been used in ages. There is a row of shelves along the north wall, ",
         "conditional": [],
         "eventOnEnter": "",
@@ -2544,7 +2544,7 @@
         "coords": []
     },
     "$rid=492$": {
-        "name": "The Tin Bath.",
+        "name": "The Tin Bath",
         "description": "You are in a small tin bath. It is fairly dirty and unpleasant. The bottom of the bath is very bright and shiny, as if it has just been polished.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2572,7 +2572,7 @@
         }
     },
     "$rid=498$": {
-        "name": "The Iron Maiden.",
+        "name": "The Iron Maiden",
         "description": "You are in the iron maiden. It is a good job the door is open, because the room is adorned with several long, intermeshing, steel spikes.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2585,7 +2585,7 @@
         }
     },
     "$rid=514$": {
-        "name": "The Torture Chamber.",
+        "name": "The Torture Chamber",
         "description": "You are in an old dingy room. It is obviously the torture chamber, judging by the blood stains on the walls, and also on the stone floor. Exits lead north and west.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2600,7 +2600,7 @@
         }
     },
     "$rid=519$": {
-        "name": "The Smelly Dungeon.",
+        "name": "The Smelly Dungeon",
         "description": "You are in a smelly dungeon deep underground. The hard stone floor is strewn with a thin covering of old, smelly, rotting straw.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2628,7 +2628,7 @@
         "coords": []
     },
     "$rid=528$": {
-        "name": "The Wet Passage.",
+        "name": "The Wet Passage",
         "description": "You are in a very wet part of the passage. There is water running down the walls, and forming large puddles on the muddy floor.  There is a sturdy, wooden door in the west wall. The way north has been blocked by fallen rocks.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2642,7 +2642,7 @@
         }
     },
     "$rid=530$": {
-        "name": "The Dry Cavern.",
+        "name": "The Dry Cavern",
         "description": "You are in a small, dry cavern deep underneath the island rock. There is a wooden door in the east wall. To the west is a small doorway.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2658,7 +2658,7 @@
         }
     },
     "$rid=531$": {
-        "name": "The Small Cavemouth.",
+        "name": "The Small Cavemouth",
         "description": "This is a small cavemouth. The rusty hinges on one wall, and the rotten remains of a door suggest that this was the back entrance to something. A large pile of rubble completely blocks the way north.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2732,7 +2732,7 @@
         "coords": []
     },
     "$rid=542$": {
-        "name": "The Underground Passage.",
+        "name": "The Underground Passage",
         "description": "This is a very long underground passage leading from north to south. It extends out of sight beyond your pool of light. The muddy floor is now quite rough and has become fairly treacherous.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2747,7 +2747,7 @@
         }
     },
     "$rid=543$": {
-        "name": "The Damp Passage.",
+        "name": "The Damp Passage",
         "description": "You are in a damp passage deep underneath the island. The walls are green with algae and slimy to the touch. There are several large cracks in the roof. The floor is wet and muddy, with several deep puddles here and there.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2764,7 +2764,7 @@
         "exits": {
             "east": "$rid=615$"
         },
-        "name": "The Tunnel Entrance.",
+        "name": "The Tunnel Entrance",
         "description": "This is a small, unexciting room at the top of a smooth, polished stone slide cut into the rock.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2775,7 +2775,7 @@
         "coords": []
     },
     "$rid=556$": {
-        "name": "The Low Tunnel.",
+        "name": "The Low Tunnel",
         "description": "You are in a damp tunnel. There are quite sizeable cracks in the wall of the tunnel where it meets the floor, which probably serve as drains. A set of rough stone steps leads west. A large rock fall to the north blocks the tunnel completely in that direction.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2791,7 +2791,7 @@
         }
     },
     "$rid=557$": {
-        "name": "The North End of the Dry Lake.",
+        "name": "The North End of the Dry Lake",
         "description": "This is the northern end of the large cavern. You can see a low tunnel in the north wall. Southwards, the cavern extends into the inky darkness.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2820,7 +2820,7 @@
         }
     },
     "$rid=562$": {
-        "name": "The Dry Underground Lake.",
+        "name": "The Dry Underground Lake",
         "description": "This is a large, deep cavern. The walls are wet to the touch, and there are puddles of water everywhere. The cavern extends northwards as far as you can see. Bolted to the south wall is a set of rusty iron rungs which lead up to an archway high up in the wall, near the roof.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2835,7 +2835,7 @@
         }
     },
     "$rid=563$": {
-        "name": "Underground Lake.",
+        "name": "Underground Lake",
         "description": "You are boating on an underground lake. The water looks dark and foreboding. Northwards, the lake extends beyond the edge of your pool of light. To the south you can see an archway cut into the rock wall.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2856,7 +2856,7 @@
             "south": "$rid=584$",
             "west": "$rid=1002$"
         },
-        "name": "Rough Sea.",
+        "name": "Rough Sea",
         "description": "You are some way from land, and the sea has become quite rough.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2867,7 +2867,7 @@
         "coords": []
     },
     "$rid=578$": {
-        "name": "Island Coast.",
+        "name": "Island Coast",
         "description": "You are rounding the south-east corner of the island.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2883,7 +2883,7 @@
         }
     },
     "$rid=579$": {
-        "name": "Island Coast.",
+        "name": "Island Coast",
         "description": "You are rowing around the north-west corner of the island.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2898,7 +2898,7 @@
         }
     },
     "$rid=580$": {
-        "name": "Narrow Straits.",
+        "name": "Narrow Straits",
         "description": "You are rowing through a narrow channel between the island on your west, and a large volcano on your east. You can see no place to land on the island, but the volcano slopes gently into the sea, before becoming very steep near the summit.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2930,7 +2930,7 @@
         }
     },
     "$rid=582$": {
-        "name": "Island Coastline.",
+        "name": "Island Coastline",
         "description": "You are rounding a tall cliff on the south-west corner of the island. The land here makes it impossible to beach your boat.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2961,7 +2961,7 @@
         }
     },
     "$rid=584$": {
-        "name": "The North Coast of the Island.",
+        "name": "The North Coast of the Island",
         "description": "You are rowing past the north coast of the island. The forest extends right to the edge, and the abundance of jagged rocks prevents any sort of landing by boat.",
         "conditional": [],
         "eventOnEnter": "",
@@ -2994,7 +2994,7 @@
         }
     },
     "$rid=586$": {
-        "name": "The Sandy Beach.",
+        "name": "The Sandy Beach",
         "description": "This is a long stretch of golden sand. The beach quickly reaches a line of palm trees and disappears into a thick jungle.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3009,7 +3009,7 @@
         }
     },
     "$rid=587$": {
-        "name": "The Tall Cliff.",
+        "name": "The Tall Cliff",
         "description": "You stand on a tall cliff at the corner of the island. From the top you can see far in all directions. Far away to the north, on the horizon, you can just make out the mainland, while nearer to you this island is completely forested with palm trees.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3023,7 +3023,7 @@
         }
     },
     "$rid=588$": {
-        "name": "The Sandy Beach.",
+        "name": "The Sandy Beach",
         "description": "A short stretch of golden sand, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3038,7 +3038,7 @@
         }
     },
     "$rid=589$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3054,7 +3054,7 @@
         }
     },
     "$rid=590$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3070,7 +3070,7 @@
         }
     },
     "$rid=591$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. The jungle opens out here into a large clearing. A camp fire still smoulders in one corner.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3087,7 +3087,7 @@
         }
     },
     "$rid=592$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3103,7 +3103,7 @@
         }
     },
     "$rid=593$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth. A large fallen log blocks the way west.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3119,7 +3119,7 @@
         }
     },
     "$rid=594$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3136,7 +3136,7 @@
         }
     },
     "$rid=595$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3152,7 +3152,7 @@
         }
     },
     "$rid=596$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3167,7 +3167,7 @@
         }
     },
     "$rid=597$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3183,7 +3183,7 @@
         }
     },
     "$rid=598$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3199,7 +3199,7 @@
         }
     },
     "$rid=599$": {
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3222,7 +3222,7 @@
             "south": "$rid=595$",
             "west": "$rid=594$"
         },
-        "name": "The Thick Jungle.",
+        "name": "The Thick Jungle",
         "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth. There is a cave mouth here.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3250,7 +3250,7 @@
     "$rid=621$": {
         "exits": {
         },
-        "name": "The Island Passage.",
+        "name": "The Island Passage",
         "description": "You are in a tunnel which is obviously man-made. The floor is completely smooth and level. The walls arch up and meet in the middle of the roof. There is a red door in the west wall, a green door in the south wall, and a blue door in the east wall.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3265,7 +3265,7 @@
             "west": "$rid=600$",
             "up": "$rid=600$"
         },
-        "name": "The Island Cave.",
+        "name": "The Island Cave",
         "description": "You are in a low cave. Stalactites hang from the roof, and stalagmites grow up from the earthen floor. The cave entrance is to the west, up a flight of steps. There is a door in the east wall.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3276,7 +3276,7 @@
         "coords": []
     },
     "$rid=629$": {
-        "name": "The Treasure Chamber.",
+        "name": "The Treasure Chamber",
         "description": "This is the ransacked treasure chamber of Birfle the Mage. All the obvious treasures are long gone, though it is rumoured that the greatest jewel has yet to be found.",
         "conditional": [],
         "eventOnEnter": "",
@@ -3291,7 +3291,7 @@
         }
     },
     "$rid=630$": {
-        "name": "The Square Storeroom.",
+        "name": "The Square Storeroom",
         "description": "This is a small, square storeroom, divided in two by a wide chasm. On the other side of the chasm is a descending flight of stairs. In the northwest corner of the room the skeletal remains of a man lie scattered about. On the wall, above the bones, is written in blood in a strikingly demonic hand, 'Birfle WAS here.' ",
         "conditional": [],
         "eventOnEnter": "",

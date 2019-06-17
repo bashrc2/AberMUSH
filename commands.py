@@ -164,8 +164,7 @@ def teleport(
         guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
-            targetLocation = params[0:].strip().lower().replace(
-                'to the ', '').replace('to ', '')
+            targetLocation = params[0:].strip().lower().replace('to ', '',1)
             if len(targetLocation) != 0:
                 currRoom = players[id]['room']
                 if rooms[currRoom]['name'].strip().lower() == targetLocation:
@@ -4534,6 +4533,128 @@ def openItemContainer(
         mud.send_message(id, itemsDB[itemID]['open_description'] + '\n')
     describeContainerContents(mud, id, itemsDB, itemID, False)
 
+def leverUp(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        target,
+        itemsInWorldCopy,
+        iid):
+    itemID = items[iid]['id']
+    linkedItemID = int(itemsDB[itemID]['linkedItem'])
+    roomID = itemsDB[itemID]['exit']
+
+    itemsDB[itemID]['state'] = 'lever up'
+    itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
+        'down', 'up')
+    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
+        'down', 'up')
+    if '|' in itemsDB[itemID]['exitName']:
+        exitName = itemsDB[itemID]['exitName'].split('|')
+
+        if linkedItemID > 0:
+            itemsDB[linkedItemID]['short_description'] = itemsDB[linkedItemID]['short_description'].replace(
+                'open', 'closed')
+            itemsDB[linkedItemID]['long_description'] = itemsDB[linkedItemID]['long_description'].replace(
+                'open', 'closed')
+            itemsDB[linkedItemID]['state'] = 'closed'
+
+        if len(roomID) > 0:
+            rm = players[id]['room']
+            if exitName[0] in rooms[rm]['exits']:
+                del rooms[rm]['exits'][exitName[0]]
+
+            rm = roomID
+            if exitName[1] in rooms[rm]['exits']:
+                del rooms[rm]['exits'][exitName[1]]
+
+    if len(itemsDB[itemID]['close_description']) > 0:
+        mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
+    else:
+        mud.send_message(
+            id,
+            'You push ' +
+            itemsDB[itemID]['article'] +
+            ' ' +
+            itemsDB[itemID]['name'] +
+            '\n\n')
+    
+def leverDown(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        target,
+        itemsInWorldCopy,
+        iid):
+    if not openItemUnlock(items, itemsDB, id, iid, players, mud):
+        return
+
+    itemID = items[iid]['id']
+    linkedItemID = int(itemsDB[itemID]['linkedItem'])
+    roomID = itemsDB[itemID]['exit']
+
+    itemsDB[itemID]['state'] = 'lever down'
+    itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
+        'up', 'down')
+    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
+        'up', 'down')
+    if '|' in itemsDB[itemID]['exitName']:
+        exitName = itemsDB[itemID]['exitName'].split('|')
+
+        if linkedItemID > 0:
+            itemsDB[linkedItemID]['short_description'] = itemsDB[linkedItemID]['short_description'].replace(
+                'closed', 'open')
+            itemsDB[linkedItemID]['long_description'] = itemsDB[linkedItemID]['long_description'].replace(
+                'closed', 'open')
+            itemsDB[linkedItemID]['state'] = 'open'
+
+        if len(roomID) > 0:
+            rm = players[id]['room']
+            if exitName[0] in rooms[rm]['exits']:
+                del rooms[rm]['exits'][exitName[0]]
+            rooms[rm]['exits'][exitName[0]] = roomID
+
+            rm = roomID
+            if exitName[1] in rooms[rm]['exits']:
+                del rooms[rm]['exits'][exitName[1]]
+            rooms[rm]['exits'][exitName[1]] = players[id]['room']
+
+    if len(itemsDB[itemID]['open_description']) > 0:
+        mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
+    else:
+        mud.send_message(
+            id,
+            'You pull ' +
+            itemsDB[itemID]['article'] +
+            ' ' +
+            itemsDB[itemID]['name'] +
+            '\n\n')
 
 def openItemDoor(
         params,
@@ -4678,6 +4799,121 @@ def openItem(
                         iid)
                     break
 
+def pullLever(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    target = params.lower()
+
+    if target.startswith('registration'):
+        enableRegistrations(mud, id, players)
+        return
+
+    itemsInWorldCopy = deepcopy(items)
+    for (iid, pl) in list(itemsInWorldCopy.items()):
+        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+            if target in itemsDB[items[iid]['id']]['name'].lower():
+                if itemsDB[items[iid]['id']]['state'] == 'lever up':
+                    leverDown(
+                        params,
+                        mud,
+                        playersDB,
+                        players,
+                        rooms,
+                        npcsDB,
+                        npcs,
+                        itemsDB,
+                        items,
+                        envDB,
+                        env,
+                        eventDB,
+                        eventSchedule,
+                        id,
+                        fights,
+                        corpses,
+                        target,
+                        itemsInWorldCopy,
+                        iid)
+                    break
+                else:
+                    mud.send_message(id, 'Nothing happens.\n\n')
+
+def pushLever(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    target = params.lower()
+
+    if target.startswith('registration'):
+        enableRegistrations(mud, id, players)
+        return
+
+    itemsInWorldCopy = deepcopy(items)
+    for (iid, pl) in list(itemsInWorldCopy.items()):
+        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+            if target in itemsDB[items[iid]['id']]['name'].lower():
+                if itemsDB[items[iid]['id']]['state'] == 'lever down':
+                    leverUp(
+                        params,
+                        mud,
+                        playersDB,
+                        players,
+                        rooms,
+                        npcsDB,
+                        npcs,
+                        itemsDB,
+                        items,
+                        envDB,
+                        env,
+                        eventDB,
+                        eventSchedule,
+                        id,
+                        fights,
+                        corpses,
+                        target,
+                        itemsInWorldCopy,
+                        iid)
+                    break                    
+                else:
+                    mud.send_message(id, 'Nothing happens.\n\n')
 
 def closeItemContainer(
         params,
@@ -4868,6 +5104,61 @@ def closeItem(
                         iid)
                     break
 
+def pushLever(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    target = params.lower()
+
+    if target.startswith('registration'):
+        disableRegistrations(mud, id, players)
+        return
+
+    itemsInWorldCopy = deepcopy(items)
+    for (iid, pl) in list(itemsInWorldCopy.items()):
+        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+            if target in itemsDB[items[iid]['id']]['name'].lower():
+                if itemsDB[items[iid]['id']]['state'] == 'lever down':
+                    leverUp(
+                        params,
+                        mud,
+                        playersDB,
+                        players,
+                        rooms,
+                        npcsDB,
+                        npcs,
+                        itemsDB,
+                        items,
+                        envDB,
+                        env,
+                        eventDB,
+                        eventSchedule,
+                        id,
+                        fights,
+                        corpses,
+                        target,
+                        itemsInWorldCopy,
+                        iid)
+                    break
 
 def putItem(
         params,
@@ -5232,6 +5523,8 @@ def runCommand(
         "ask": tell,
         "open": openItem,
         "close": closeItem,
+        "pull": pullLever,
+        "push": pushLever,
         "write": writeOnItem,
         "tag": writeOnItem,
         "eat": eat,
