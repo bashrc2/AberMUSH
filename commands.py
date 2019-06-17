@@ -2205,20 +2205,18 @@ def look(
 
             # Go through all Items in game
             itemCounter = 0
-            for i in items:
+            for i in items:                
                 if items[i]['room'].lower() == players[id]['room'] and \
                    param in itemsDB[items[i]['id']]['name'].lower():
                     if itemCounter == 0:
-                        itemLanguage = itemsDB[int(i)]['language']
+                        itemLanguage = itemsDB[items[i]['id']]['language']
                         if len(itemLanguage) == 0:
-                            message += itemsDB[items[i]
-                                               ['id']]['long_description']
+                            message += itemsDB[items[i]['id']]['long_description']
                             message += describeContainerContents(
                                 mud, id, itemsDB, items[i]['id'], True)
                         else:
                             if itemLanguage in players[id]['language']:
-                                message += itemsDB[items[i]
-                                                   ['id']]['long_description']
+                                message += itemsDB[items[i]['id']]['long_description']
                                 message += describeContainerContents(
                                     mud, id, itemsDB, items[i]['id'], True)
                             else:
