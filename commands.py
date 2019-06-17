@@ -2282,7 +2282,7 @@ def look(
                         id,
                         "You can see " +
                         str(itemCounter) +
-                        " of those in the vicinity.\n")
+                        " of those in the vicinity.\n\n")
 
             # If no message has been sent, it means no player/npc/item was
             # found
