@@ -3632,6 +3632,8 @@ def conjureRoom(
         'conditional': [],
         'eventOnEnter': "",
         'eventOnLeave': "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
         'weather': 0,
         'tideOutDescription': "",
         'terrainDifficulty': 0,
