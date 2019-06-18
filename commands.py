@@ -1331,7 +1331,8 @@ def castSpellUndirected(
             spellsDB,
             sentimentDB,
             guildsDB)
-
+        return
+    mud.send_message(id, "Nothing happens.\n\n")
 
 def castSpell(
         params,
