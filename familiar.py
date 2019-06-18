@@ -194,23 +194,32 @@ def familiarIsHidden(players, id, npcs):
                     return True
     return False
 
-def familiarScoutAnyDirection(startRoomID, roomExits):
+def familiarScoutAnyDirection(familiarSize, startRoomID, roomExits, rooms):
     """Scout in any direction
     """
     newPath=[startRoomID]
     for ex,rm in roomExits.items():
+        if rooms[rm]['maxPlayerSize']>-1:
+            if familiarSize > rooms[rm]['maxPlayerSize']:
+                continue
         newPath.append(rm)
         newPath.append(startRoomID)
     if len(newPath)==1:
         newPath.clear()
     return newPath
 
-def familiarScoutInDirection(mud, players, id, startRoomID, roomExits, direction):
+def familiarScoutInDirection(mud, players, id, startRoomID, roomExits, direction, rooms):
     """Scout in the given direction
     """
     newPath=[]
     if roomExits.get(direction):
-        newPath=[startRoomID, roomExits[direction]]
+        if rooms[roomExits[direction]]['maxPlayerSize']>-1:
+            if players[id]['siz'] <= rooms[roomExits[direction]]['maxPlayerSize']:
+                newPath=[startRoomID, roomExits[direction]]
+            else:
+                mud.send_message(id, "It's too small to enter!\n\n")
+        else:
+            newPath=[startRoomID, roomExits[direction]]
     else:
         mud.send_message(id, "I can't go that way!\n\n")
     return newPath
@@ -224,9 +233,9 @@ def familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, direction):
     newPath=[]
 
     if direction=='any' or direction=='all' or len(direction)==0:
-        newPath=familiarScoutAnyDirection(startRoomID, roomExits)
+        newPath=familiarScoutAnyDirection(npcs[nid]['siz'], startRoomID, roomExits, rooms)
     else:
-        newPath=familiarScoutInDirection(mud, players, id, startRoomID, roomExits, direction)
+        newPath=familiarScoutInDirection(mud, players, id, startRoomID, roomExits, direction, rooms)
 
     if len(newPath)>0:
         npcs[nid]['familiarMode']="scout"
