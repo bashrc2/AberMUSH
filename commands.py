@@ -1082,6 +1082,10 @@ def help(
     mud.send_message(
         id, '  close [item]                            - Close an item or door')
     mud.send_message(
+        id, '  push [item]                             - Pushes a lever')
+    mud.send_message(
+        id, '  pull [item]                             - Pulls a lever')
+    mud.send_message(
         id,
         '  affinity [player name]                  - Shows your affinity level with another player')
     mud.send_message(id, '')

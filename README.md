@@ -50,6 +50,8 @@ wear [item]                             - Wear an item
 remove/unwear [item]                    - Remove a worn item
 open [item]                             - Open an item or door
 close [item]                            - Close an item or door
+push [item]                             - Pushes a lever
+pull [item]                             - Pulls a lever
 affinity [player name]                  - Shows your affinity level with another player
 ```
 
