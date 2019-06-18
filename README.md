@@ -262,6 +262,65 @@ You should make some vague suggestion that these items can be opened within thei
 
 If you need a key to open the door then specify the item number within the `lockedWithItem` parameter.
 
+### Lever Operated Doors
+
+It's possible to have doors which can't be manually opened but are lever operated.
+
+To define a lever:
+
+``` text
+    "518": {
+        "name": "ivory lever",
+        "short_description": "There is an ivory lever set in the wall, next to the door.",
+        "long_description": "It is highly polished, and the end is ornately carved in the shape of a skull. It is in the up position.",
+        "state": "lever up",
+        "open_description": "With great effort you yank the lever down",
+        "open_failed_description": "It doesn't appear to have any handle",
+        "close_description": "You push the lever up",
+        "lockedWithItem": 0,
+        "exitName": "east|west",
+        "linkedItem": 526,
+        "exit": "$rid=528$",
+    },
+```
+
+Here `linkedItem` is the item number of the door which will be opened and `exit` is the room which it goes to. `exitName` defines the door as heading east from its location, with the opposite direction back to this location being west. The `state` variable can be `lever up` or `lever down`.
+
+The door is then defined with:
+
+``` text
+    "526": {
+        "name": "wooden door",
+        "short_description": "The door is closed.",
+        "long_description": "The old wooden door made from solid oak beams is closed.",
+        "state": "closed",
+        "lockedWithItem": 518,
+        "exitName": "east|west",
+        "linkedItem": 527,
+        "exit": "$rid=528$",
+    },
+    "527": {
+        "name": "wooden door",
+        "short_description": "The door is closed.",
+        "long_description": "The old wooden door made from solid oak beams is closed.",
+        "state": "closed",
+        "lockedWithItem": 520,
+        "exitName": "west|east",
+        "linkedItem": 526,
+        "exit": "$rid=530$",
+    }
+```
+
+`lockedWithItem` indicates that the door can only be opened with the lever with the given item number.
+
+You can then use the following command to open the door:
+
+``` text
+pull ivory lever
+```
+
+You can get as devious as you like with this and have levers which open or close doors in some entirely different location, or one way doors which once shut with the lever can't be opened from the other side.
+
 ![AberMUSH](docs/chest.png)
 
 ### Containers, Chests and Tables
