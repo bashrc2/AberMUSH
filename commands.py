@@ -4827,7 +4827,7 @@ def openItem(
                         target,
                         itemsInWorldCopy,
                         iid)
-                    break
+                    return
                 if itemsDB[items[iid]['id']]['state'] == 'container closed':
                     openItemContainer(
                         params,
@@ -4849,7 +4849,8 @@ def openItem(
                         target,
                         itemsInWorldCopy,
                         iid)
-                    break
+                    return
+    mud.send_message(id, "You can't open it.\n\n")
 
 def pullLever(
         params,
@@ -5135,7 +5136,7 @@ def closeItem(
                         target,
                         itemsInWorldCopy,
                         iid)
-                    break
+                    return
                 if itemsDB[items[iid]['id']]['state'].startswith(
                         'container open'):
                     closeItemContainer(
@@ -5158,7 +5159,8 @@ def closeItem(
                         target,
                         itemsInWorldCopy,
                         iid)
-                    break
+                    return
+    mud.send_message(id, "You can't close it.\n\n")
 
 def pushLever(
         params,
