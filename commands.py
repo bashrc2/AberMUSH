@@ -3515,21 +3515,26 @@ def go(
                         # is the player within the permitted npc path?
                         if rm['exits'][ex] in list(npcs[nid]['path']) or \
                            npcs[nid]['familiarOf'] == players[id]['name']:
-                            npcs[nid]['room'] = rm['exits'][ex]
-                            followersMsg = followersMsg + '<f32>' + \
-                                npcs[nid]['name'] + '<r> ' + \
-                                randomDescription(npcs[nid]['inDescription']) + '.\n\n'
-                            messageToPlayersInRoom(
-                                mud,
-                                players,
-                                id,
-                                '<f32>' +
-                                npcs[nid]['name'] +
-                                '<r> ' +
-                                randomDescription(npcs[nid]['outDescription']) +
-                                " via exit " +
-                                ex +
-                                '\n')
+                            followerRoomID=rm['exits'][ex]
+                            if npcs[nid]['siz'] <= rooms[followerRoomID]['maxPlayerSize']:
+                                npcs[nid]['room'] = followerRoomID
+                                followersMsg = followersMsg + '<f32>' + \
+                                    npcs[nid]['name'] + '<r> ' + \
+                                    randomDescription(npcs[nid]['inDescription']) + '.\n\n'
+                                messageToPlayersInRoom(
+                                    mud,
+                                    players,
+                                    id,
+                                    '<f32>' +
+                                    npcs[nid]['name'] +
+                                    '<r> ' +
+                                    randomDescription(npcs[nid]['outDescription']) +
+                                    " via exit " +
+                                    ex +
+                                    '\n')
+                            else:
+                                # The room height is too small for the follower
+                                npcs[nid]['follow'] = ""                                
                         else:
                             # not within the npc path, stop following
                             #print(npcs[nid]['name'] + ' stops following (out of path)\n')

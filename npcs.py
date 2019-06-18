@@ -83,8 +83,8 @@ def moveNPCs(npcs, players, mud, now, nid):
             if not followCycle:
                 return
 
-        if moveTypeLower.startswith(
-                'c') or moveTypeLower.startswith('p') or followCycle:
+        if moveTypeLower.startswith('c') or \
+           moveTypeLower.startswith('p') or followCycle:
             npcRoomIndex = 0
             npcRoomCurr = npcs[nid]['room']
             for npcRoom in npcs[nid]['path']:
