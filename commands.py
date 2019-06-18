@@ -4559,19 +4559,26 @@ def leverUp(
     roomID = itemsDB[itemID]['exit']
 
     itemsDB[itemID]['state'] = 'lever up'
-    itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
-        'down', 'up')
-    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
-        'down', 'up')
+    itemsDB[itemID]['short_description'] = \
+        itemsDB[itemID]['short_description'].replace('down', 'up')
+    itemsDB[itemID]['long_description'] = \
+        itemsDB[itemID]['long_description'].replace('down', 'up')
     if '|' in itemsDB[itemID]['exitName']:
         exitName = itemsDB[itemID]['exitName'].split('|')
 
         if linkedItemID > 0:
-            itemsDB[linkedItemID]['short_description'] = itemsDB[linkedItemID]['short_description'].replace(
-                'open', 'closed')
-            itemsDB[linkedItemID]['long_description'] = itemsDB[linkedItemID]['long_description'].replace(
-                'open', 'closed')
+            itemsDB[linkedItemID]['short_description'] = \
+                itemsDB[linkedItemID]['short_description'].replace('open', 'closed')
+            itemsDB[linkedItemID]['long_description'] = \
+                itemsDB[linkedItemID]['long_description'].replace('open', 'closed')
             itemsDB[linkedItemID]['state'] = 'closed'
+            linkedItemID2 = int(itemsDB[linkedItemID]['linkedItem'])
+            if linkedItemID2 > 0:
+                itemsDB[linkedItemID2]['short_description'] = \
+                    itemsDB[linkedItemID2]['short_description'].replace('open', 'closed')
+                itemsDB[linkedItemID2]['long_description'] = \
+                    itemsDB[linkedItemID2]['long_description'].replace('open', 'closed')
+                itemsDB[linkedItemID2]['state'] = 'closed'
 
         if len(roomID) > 0:
             rm = players[id]['room']
@@ -4621,19 +4628,26 @@ def leverDown(
     roomID = itemsDB[itemID]['exit']
 
     itemsDB[itemID]['state'] = 'lever down'
-    itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
-        'up', 'down')
-    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
-        'up', 'down')
+    itemsDB[itemID]['short_description'] = \
+        itemsDB[itemID]['short_description'].replace('up', 'down')
+    itemsDB[itemID]['long_description'] = \
+        itemsDB[itemID]['long_description'].replace('up', 'down')
     if '|' in itemsDB[itemID]['exitName']:
         exitName = itemsDB[itemID]['exitName'].split('|')
 
         if linkedItemID > 0:
-            itemsDB[linkedItemID]['short_description'] = itemsDB[linkedItemID]['short_description'].replace(
-                'closed', 'open')
-            itemsDB[linkedItemID]['long_description'] = itemsDB[linkedItemID]['long_description'].replace(
-                'closed', 'open')
+            itemsDB[linkedItemID]['short_description'] = \
+                itemsDB[linkedItemID]['short_description'].replace('closed', 'open')
+            itemsDB[linkedItemID]['long_description'] = \
+                itemsDB[linkedItemID]['long_description'].replace('closed', 'open')
             itemsDB[linkedItemID]['state'] = 'open'
+            linkedItemID2 = int(itemsDB[linkedItemID]['linkedItem'])
+            if linkedItemID2 > 0:
+                itemsDB[linkedItemID2]['short_description'] = \
+                    itemsDB[linkedItemID2]['short_description'].replace('closed', 'open')
+                itemsDB[linkedItemID2]['long_description'] = \
+                    itemsDB[linkedItemID2]['long_description'].replace('closed', 'open')
+                itemsDB[linkedItemID2]['state'] = 'open'
 
         if len(roomID) > 0:
             rm = players[id]['room']
@@ -4687,16 +4701,16 @@ def openItemDoor(
         exitName = itemsDB[itemID]['exitName'].split('|')
 
         itemsDB[itemID]['state'] = 'open'
-        itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
-            'closed', 'open')
-        itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
-            'closed', 'open')
+        itemsDB[itemID]['short_description'] = \
+            itemsDB[itemID]['short_description'].replace('closed', 'open')
+        itemsDB[itemID]['long_description'] = \
+            itemsDB[itemID]['long_description'].replace('closed', 'open')
 
         if linkedItemID > 0:
-            itemsDB[linkedItemID]['short_description'] = itemsDB[linkedItemID]['short_description'].replace(
-                'closed', 'open')
-            itemsDB[linkedItemID]['long_description'] = itemsDB[linkedItemID]['long_description'].replace(
-                'closed', 'open')
+            itemsDB[linkedItemID]['short_description'] = \
+                itemsDB[linkedItemID]['short_description'].replace('closed', 'open')
+            itemsDB[linkedItemID]['long_description'] = \
+                itemsDB[linkedItemID]['long_description'].replace('closed', 'open')
             itemsDB[linkedItemID]['state'] = 'open'
 
         if len(roomID) > 0:
@@ -4720,7 +4734,6 @@ def openItemDoor(
             ' ' +
             itemsDB[itemID]['name'] +
             '\n\n')
-
 
 def openItem(
         params,
