@@ -521,6 +521,24 @@ It is also possible to ask the familiar what it sees. Because it is a spirit fro
 ask familiar what do you see?
 ```
 
+### Room height and capacity
+
+Within `rooms.json` the parameters `maxPlayers` and `maxPlayerSize` can be used to define the maximum number of players which a room can contain (including NPCs) and also the height of the room. The numbers corresponding to player size are:
+
+``` text
+0 - Tiny (raven, cat, imp)
+1 - Small (dwarf, halfling, goblin)
+2 - medium (human, elf, witch)
+3 - Large (giant)
+4 - Huge (ogre, dragon)
+```
+
+Thus you can have rooms which are accessible to halflings or familiars but not to humans, which could add an extra element to the story. Maybe certain rooms enable humans to escape from giants.
+
+For small rooms you might want to only allow one or two players to occupy it at any point in time.
+
+If these values are set to -1 then there are no limits on player size or numbers.
+
 ### Constructing the Universe
 
 AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
