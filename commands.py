@@ -2059,6 +2059,21 @@ def conditionalRoomDescription(
 
     return roomDescription
 
+def playersInRoom(targetRoom,players,npcs):
+    """Returns the number of players in the given room.
+       This includes NPCs.
+    """
+    playersCtr=0
+    for (pid, pl) in list(players.items()):
+        # if they're in the same room as the player
+        if players[pid]['room'] == targetRoom:
+            playersCtr += 1
+
+    for (nid, pl) in list(npcs.items()):
+        if npcs[nid]['room'] == targetRoom:
+            playersCtr += 1
+
+    return playersCtr
 
 def look(
         params,
@@ -2581,8 +2596,7 @@ def describe(
                     saveUniverse(
                         rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
-
-
+    
 def checkInventory(
         params,
         mud,
@@ -3468,6 +3482,19 @@ def go(
 
         # if the specified exit is found in the room's exits list
         if ex in rm['exits']:
+            # check if there is enough room
+            targetRoom=rm['exits'][ex]
+            if rooms[targetRoom]['maxPlayers']>-1:
+                if playersInRoom(targetRoom,players,npcs) >= rooms[targetRoom]['maxPlayers']:
+                    mud.send_message(id, 'The room is full.\n\n')
+                    return
+
+            #Check that the player is not too tall
+            if rooms[targetRoom]['maxPlayerSize']>-1:
+                if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
+                    mud.send_message(id, "The entrance is too small for you to enter.\n\n")
+                    return
+            
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
                                    randomDescription(players[id]['outDescription']) +
