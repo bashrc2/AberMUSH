@@ -4905,9 +4905,11 @@ def pullLever(
                         target,
                         itemsInWorldCopy,
                         iid)
-                    break
+                    return
                 else:
                     mud.send_message(id, 'Nothing happens.\n\n')
+                    return
+    mud.send_message(id, "There's nothing to pull.\n\n")
 
 def pushLever(
         params,
@@ -4963,9 +4965,11 @@ def pushLever(
                         target,
                         itemsInWorldCopy,
                         iid)
-                    break                    
+                    return
                 else:
                     mud.send_message(id, 'Nothing happens.\n\n')
+                    return
+    mud.send_message(id, "There's nothing to push.\n\n")
 
 def closeItemContainer(
         params,
