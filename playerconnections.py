@@ -122,8 +122,8 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
             'prepareSpellProgress': None,
             'prepareSpellTime': None,
             'frozenDescription': None,
-            'frozenStart': None,
-            'frozenDuration': None,
+            'frozenStart': 0,
+            'frozenDuration': 0,
             'affinity': None,
             'familiar': None
         }

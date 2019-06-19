@@ -40,7 +40,7 @@ def updateTemporaryIncapacitation(mud, players, isNPC):
        after the duration has elapsed
     """
     now = int(time.time())
-    for p in players:
+    for p in players:        
         if players[p]['frozenStart'] != 0:
             if now >= players[p]['frozenStart'] + players[p]['frozenDuration']:
                 players[p]['frozenStart'] = 0
