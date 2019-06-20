@@ -368,7 +368,7 @@
         }
     },
     "$rid=47$": {
-        "name": "Smelly Cell.",
+        "name": "Smelly Cell",
         "description": "This cell appears to have been inhabited by a most insanitary monk. There is nothing of value that you wish to pick up here.",
         "conditional": [],
         "eventOnEnter": "",
@@ -1528,7 +1528,7 @@
         "maxPlayerSize": -1,
         "maxPlayers": -1,
         "weather": 1,
-        "tideOutDescription" : "",
+        "tideOutDescription" : "You are standing at the top of the small tower. The parapet is a little low, but you can see in all directions over it. To the north is the town of Tranoch. The sea appears calm to the west. Your view south is limited by the woodland, but moorland can be glimpsed beyond it. To the east, the mountains rear.",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2071,7 +2071,10 @@
     "$rid=344$": {
         "name": "The Dark Cave",
         "description": "You stand at the entrance to a dark gloomy cave. Light floods in from the north, but soon fades into blackness and shadows. A thick mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You stand at the moonlit entrance to a dark gloomy cave. A dense mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little."],
+	    ["hour",">9","You stand at the moonlit entrance to a dark gloomy cave. A dense mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2194,7 +2197,10 @@
     "$rid=359$": {
         "name": "The Reed Marsh",
         "description": "You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come endless chirpings and the rustle of animals. To the west you can cross a narrow stream into woodland.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."],
+	    ["hour",">9","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2242,7 +2248,10 @@
     "$rid=383$": {
         "name": "Stream Bank",
         "description": "A gentle stream gurgles tunefully amidst the gently shading trees. The light from overhead shines through the green canopy and glitters on the waters surface. It is very restful, and you could sit for hours, watching kingfishers dart through the air and strike the water. A narrow path winds back westwards through the trees.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","A gentle stream gurgles tunefully amidst the overhanging trees. It is very restful, and you could sit for hours, watching the dark waters passing by. A narrow path winds back westwards through the trees."],
+	    ["hour",">9","A gentle stream gurgles tunefully amidst the overhanging trees. It is very restful, and you could sit for hours, watching the dark waters passing by. A narrow path winds back westwards through the trees."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2309,7 +2318,7 @@
     },
     "$rid=403$": {
         "name": "Large Cave",
-        "description": "You stand in a large, rough cave. The walls slope crazily as does the floor, forcing you to stagger and clamber your way around. There appears to have been a rockslide or two here recently. A single narrow passage leads east out of the cave.",
+        "description": "You stand in a large, rough cave. The walls slope jaggedly as does the floor, forcing you to stagger and clamber your way around. There appears to have been a rockslide or two here recently. A single narrow passage leads east out of the cave.",
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
