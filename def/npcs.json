@@ -2248,7 +2248,7 @@
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
-        "moveTimes": [],
+        "moveTimes": [["hour",8,19]],
         "vocabulary": "",
         "talkDelay" : "300",
         "randomFactor" : "100",

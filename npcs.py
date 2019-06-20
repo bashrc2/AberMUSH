@@ -11,6 +11,7 @@ __status__ = "Production"
 # -*- coding: utf-8 -*-
 
 import os
+import datetime
 from functions import log
 from functions import playerInventoryWeight
 from functions import updatePlayerAttributes
@@ -28,6 +29,9 @@ from familiar import familiarIsHidden
 from familiar import familiarSight
 
 import time
+
+# Where NPCs go when inactive by default
+purgatoryRoom="$rid=1386$"
 
 def npcsRest(npcs):
     """Rest restores hit points of NPCs
@@ -59,6 +63,55 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
                         return players[pid]['room']
     return ''
 
+def npcIsActive(moveTimes):
+    if len(moveTimes)==0:
+        return True
+
+    for timeRange in moveTimes:
+        if len(timeRange) != 3:
+            continue
+        timeRangeType=timeRange[0].lower()
+        timeRangeStart=timeRange[1]
+        timeRangeEnd=timeRange[2]
+
+        # hour of day
+        if timeRangeType.startswith('hour'):
+            currHour=datetime.datetime.utcnow().hour
+            startHour=timeRangeStart
+            endHour=timeRangeEnd
+            if endHour>=startHour:
+                if currHour<startHour or currHour>endHour:
+                    return False
+            else:
+                if currHour>endHour and currHour<startHour:
+                    return False
+
+        # between months
+        if timeRangeType.startswith('month'):
+            currMonth=datetime.datetime.utcnow().strftime("%m")
+            startMonth=timeRangeStart
+            endMonth=timeRangeEnd
+            if endMonth>=startMonth:
+                if currMonth<startMonth or currMonth>endMonth:
+                    return False
+            else:
+                if currMonth>endMonth and currMonth<startMonth:
+                    return False
+
+        # between days of year
+        if timeRangeType.startswith('day'):
+            currDayOfYear=datetime.datetime.utcnow().strftime("%d")
+            startDay=timeRangeStart
+            endDay=timeRangeEnd
+            if endDay>=startDay:
+                if currDayOfYear<startDay or currDayOfYear>endDay:
+                    return False
+            else:
+                if currDayOfYear>endDay and currDayOfYear<startDay:
+                    return False
+
+    return True
+
 def moveNPCs(npcs, players, mud, now, nid):
     """If movement is defined for an NPC this moves it around
     """
@@ -66,7 +119,6 @@ def moveNPCs(npcs, players, mud, now, nid):
             int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
         # Move types:
         #   random, cycle, inverse cycle, patrol, follow, leader:name
-
         moveTypeLower = npcs[nid]['moveType'].lower()
 
         followCycle = False
@@ -148,6 +200,26 @@ def moveNPCs(npcs, players, mud, now, nid):
         npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
         npcs[nid]['lastMoved'] = now
 
+def removeInactiveNPC(nid, npcs, npcActive):
+    for timeRange in npcs[nid]['moveTimes']:
+        if len(timeRange) == 2:
+            if timeRange[0].startswith('inactive') or \
+               timeRange[0].startswith('home'):
+                purgatoryRoom="$rid="+str(timeRange[1])+"$"
+            break
+
+    if npcs[nid]['room']==purgatoryRoom:
+        if npcActive:
+            # recover from puratory
+            npcs[nid]['room']=npcs[nid]['lastRoom']
+        return
+
+    if not npcActive:
+        # Move the NPC to purgatory
+        npcs[nid]['lastRoom'] = npcs[nid]['room']
+        npcs[nid]['room']=purgatoryRoom
+        return
+        
 def npcRespawns(npcs):
     """Respawns inactive NPCs
     """
@@ -176,9 +248,14 @@ def runNPCs(
         npcsTemplate):
     """Updates all NPCs
     """
+
     for (nid, pl) in list(npcs.items()):
-                # Check if any player is in the same room, then send a random
-                # message to them
+        npcActive=npcIsActive(npcs[nid]['moveTimes'])
+        removeInactiveNPC(nid,npcs,npcActive)
+        if not npcActive:
+            continue
+        # Check if any player is in the same room, then send a random
+        # message to them
         now = int(time.time())
         if npcs[nid]['vocabulary'][0]:
             if now > npcs[nid]['timeTalked'] + \

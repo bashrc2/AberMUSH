@@ -3700,6 +3700,7 @@ def conjureNPC(
               "talkDelay": npcTalkDelay,
               "timeTalked": 0,
               "lastSaid": 0,
+              "lastRoom": None,
               "lastMoved": 0,
               "randomizer": 0,
               "randomFactor": npcRandomFactor,

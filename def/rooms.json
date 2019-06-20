@@ -9887,5 +9887,20 @@
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1386$": {
+        "description": "Where NPCs go when not active",
+        "conditional": [],
+        "exits": {
+        },
+        "name": "purgatory",
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }
