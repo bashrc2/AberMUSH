@@ -70,6 +70,8 @@ def assignTerrainDifficulty(rooms):
         'forest',
         'tangle',
         'thick',
+        'rubble',
+        'ruin',
         'tough',
         'snow',
         'ice')
