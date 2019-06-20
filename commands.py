@@ -1995,12 +1995,19 @@ def conditionalRoom(condType, cond, description, id, players):
                 if players[id][skillType] == skillValue:
                     return True
 
-    if condType == 'date' or condType == 'day':
+    if condType == 'date' or condType == 'dayofmonth':
         dayNumber = int(cond.split('/')[0])
         if dayNumber == int(datetime.datetime.today().strftime("%d")):
             monthNumber = int(cond.split('/')[1])
             if monthNumber == int(datetime.datetime.today().strftime("%m")):
                 return True
+
+    if condType == 'day' or \
+       condType == 'dayofweek' or condType == 'dow' or \
+       condType == 'weekday':
+        dayOfWeek = int(cond)
+        if dayOfWeek == datetime.datetime.today().weekday():
+            return True
 
     if condType == 'held' or condType.startswith('hold'):
         if players[id]['clo_lhand'] == int(cond) or \
