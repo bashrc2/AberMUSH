@@ -156,6 +156,20 @@
 	    "action": "frozen",
 	    "actionDescription": "Every movement that you attempt to make seems hillarious.|You laugh uncontrollably.|You roll on the floor laughing.|You cackle hysterically."
 	},
+        "frozen asset": {
+    	    "description": "{} is surrounded by an icy haze|{} is surrounded by an icy mist",
+	    "description_second": "{} casts a freeze spell on {}",
+	    "prepareTime": "1 min",
+	    "duration": "2 min",
+	    "classes": ["sorcerer","witch"],
+	    "range": 30,
+	    "items": [702,76],
+	    "damage": 0,
+	    "damageType": "",
+	    "hp": 0,
+	    "action": "frozen",
+	    "actionDescription": "You try to move but find yourself surrounded by a barrier of ice|You try to move but are frozen|You attempt to move but a cold mist deadens your limbs"
+	},
         "magic missile": {
     	    "description": "You create three glowing darts of magical force which simultaneously strike {}",
 	    "description_second": "{} created three glowing darts of magical force which simultaneously strike {}",
