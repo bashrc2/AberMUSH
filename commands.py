@@ -2002,6 +2002,17 @@ def conditionalRoom(condType, cond, description, id, players):
             if monthNumber == int(datetime.datetime.today().strftime("%m")):
                 return True
 
+    if condType == 'month':
+        if '|' in cond:
+            months = cond.split('|')
+            for m in months:
+                if int(m) == int(datetime.datetime.today().strftime("%m")):
+                    return True
+        else:
+            monthNumber = int(cond)
+            if monthNumber == int(datetime.datetime.today().strftime("%m")):
+                return True
+
     if condType == 'day' or \
        condType == 'dayofweek' or condType == 'dow' or \
        condType == 'weekday':
