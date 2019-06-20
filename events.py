@@ -606,6 +606,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
                                    'path': npcsDB[int(body[0])]['path'],
                                    'moveDelay': npcsDB[int(body[0])]['moveDelay'],
                                    'moveType': npcsDB[int(body[0])]['moveType'],
+                                   'moveTimes': npcsDB[int(body[0])]['moveTimes'],
                                    'isAttackable': int(body[2]),
                                    'isStealable': int(body[3]),
                                    'isKillable': int(body[4]),

@@ -242,6 +242,7 @@ for k in npcsDB:
                v == "spellSlots" or
                v == "conv" or
                v == "path" or
+               v == "moveTimes" or
                v == "follow" or
                v == "moveDelay" or
                v == "moveType" or

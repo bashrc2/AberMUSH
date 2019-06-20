@@ -3695,6 +3695,7 @@ def conjureNPC(
               "bodyType": "",
               "moveDelay": npcMoveDelay,
               "moveType": "",
+              "moveTimes": [],
               "vocabulary": npcVocabulary,
               "talkDelay": npcTalkDelay,
               "timeTalked": 0,
