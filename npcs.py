@@ -30,9 +30,6 @@ from familiar import familiarSight
 
 import time
 
-# Where NPCs go when inactive by default
-purgatoryRoom="$rid=1386$"
-
 def npcsRest(npcs):
     """Rest restores hit points of NPCs
     """
@@ -68,6 +65,34 @@ def npcIsActive(moveTimes):
         return True
 
     for timeRange in moveTimes:
+        if len(timeRange) >= 2:
+            timeRangeType=timeRange[0].lower()
+            if timeRangeType == 'day' or \
+               timeRangeType == 'weekday' or \
+               timeRangeType == 'dayofweek' or \
+               timeRangeType == 'dow':
+                currDayOfWeek=datetime.datetime.utcnow().weekday()
+                dowMatched=False
+                for dow in range(1,len(timeRange)-1):
+                    dayOfWeek=timeRange[dow].lower()
+                    if dayOfWeek.startswith('m') and currDayOfWeek == 0:
+                        dowMatched=True
+                    if dayOfWeek.startswith('tu') and currDayOfWeek == 1:
+                        dowMatched=True
+                    if dayOfWeek.startswith('w') and currDayOfWeek == 2:
+                        dowMatched=True
+                    if dayOfWeek.startswith('th') and currDayOfWeek == 3:
+                        dowMatched=True
+                    if dayOfWeek.startswith('f') and currDayOfWeek == 4:
+                        dowMatched=True
+                    if dayOfWeek.startswith('sa') and currDayOfWeek == 5:
+                        dowMatched=True
+                    if dayOfWeek.startswith('su') and currDayOfWeek == 6:
+                        dowMatched=True
+                if not dowMatched:
+                    return False
+            continue
+
         if len(timeRange) != 3:
             continue
         timeRangeType=timeRange[0].lower()
@@ -99,7 +124,7 @@ def npcIsActive(moveTimes):
                     return False
 
         # between days of year
-        if timeRangeType.startswith('day'):
+        if timeRangeType == 'daysofyear':
             currDayOfYear=datetime.datetime.utcnow().strftime("%d")
             startDay=timeRangeStart
             endDay=timeRangeEnd
@@ -201,6 +226,9 @@ def moveNPCs(npcs, players, mud, now, nid):
         npcs[nid]['lastMoved'] = now
 
 def removeInactiveNPC(nid, npcs, npcActive):
+    # Where NPCs go when inactive by default
+    purgatoryRoom="$rid=1386$"
+
     for timeRange in npcs[nid]['moveTimes']:
         if len(timeRange) == 2:
             if timeRange[0].startswith('inactive') or \

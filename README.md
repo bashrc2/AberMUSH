@@ -120,6 +120,16 @@ If no `moveType` is specified then random movement is the default.
 
 The speed at which NPCs move between rooms is defined by `moveDelay` and `randomFactor` parameters. RandomFactor just makes the delay between movements not completely predictable.
 
+### NPC Presence
+
+NPCs may be present at certain times of day or days of the year. To define this use the `moveTimes` list within `npcs.json`.
+
+``` text
+"moveTimes": [["hour",8,19],["day","saturday","sunday"],["inactive",238]],
+```
+
+In the above example the NPC will be active between 8:00 (8am) and 19:00 (7pm) on the weekend and when inactive will be in room 238. So for example a cleric might be present at a church only on Sunday between certain hours and then be at a monestary at other times. If the `inactive` list isn't specified then when inactive an NPC will go to a default purgatory room.
+
 ![AberMUSH](docs/griffin.png)
 
 ### NPC Conversations
