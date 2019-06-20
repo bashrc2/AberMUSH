@@ -73,7 +73,7 @@
         "description": "Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter, and the twittering of birds rises from the hedgerows.",
         "conditional": [
 	    ["hour","<8","Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."],
-	    ["hour",">9","Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."]
+	    ["hour",">20","Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1113,7 +1113,7 @@
         "description": "Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones, and the gentle chirping of birds. Everything is still and quiet as if the bustle of the world has passed this quiet corner by.",
         "conditional": [
 	    ["hour","<8","Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones. Everything is still and quiet."],
-	    ["hour",">9","Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones. Everything is still and quiet."]
+	    ["hour",">20","Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones. Everything is still and quiet."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1214,7 +1214,7 @@
         "description": "You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and large ugly looking ravens croak and flap around you.",
         "conditional": [
 	    ["hour","<8","You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and ravens roost quietly."],
-	    ["hour",">9","You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and ravens roost quietly."]
+	    ["hour",">20","You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and ravens roost quietly."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1417,7 +1417,7 @@
         "description": "On the south side of the house, this pond enjoys lots of sun. It is small, and you can walk around it easily. The water is very clear. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west.",
         "conditional": [
 	    ["hour","<8","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."],
-	    ["hour",">9","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."]
+	    ["hour",">20","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1488,7 +1488,7 @@
         "description": "This garden was once clearly used to cultivate herbs. It occupies a sunny spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north.",
         "conditional": [
 	    ["hour","<8","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."],
-	    ["hour",">9","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."]
+	    ["hour",">20","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1539,7 +1539,7 @@
         "description": "The windows on the south side of this room are unusually large, allowing space for the sun to stream in. Despite this, the room has a desolate air.",
         "conditional": [
 	    ["hour","<8","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
-	    ["hour",">9","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
+	    ["hour",">20","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
 	    ["hour",">5","The windows on the south side of this room are unusually large, allowing space for evening sunlight to cast shifting shadows. The room has a desolate feeling about it."]
 	],
         "eventOnEnter": "",
@@ -1685,7 +1685,7 @@
         "description": "You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge. The sounds of birdsong fill your ears.",
         "conditional": [
 	    ["hour","<8","You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge."],
-	    ["hour",">9","You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge."]
+	    ["hour",">20","You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2013,8 +2013,8 @@
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 1,
+        "maxPlayers": 3,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -2073,7 +2073,7 @@
         "description": "You stand at the entrance to a dark gloomy cave. Light floods in from the north, but soon fades into blackness and shadows. A thick mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little.",
         "conditional": [
 	    ["hour","<8","You stand at the moonlit entrance to a dark gloomy cave. A dense mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little."],
-	    ["hour",">9","You stand at the moonlit entrance to a dark gloomy cave. A dense mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little."]
+	    ["hour",">20","You stand at the moonlit entrance to a dark gloomy cave. A dense mist billows up around you hiding the floor. You peer uncertainly into the shadows but you can see little."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2199,7 +2199,7 @@
         "description": "You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come endless chirpings and the rustle of animals. To the west you can cross a narrow stream into woodland.",
         "conditional": [
 	    ["hour","<8","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."],
-	    ["hour",">9","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."]
+	    ["hour",">20","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2250,7 +2250,7 @@
         "description": "A gentle stream gurgles tunefully amidst the gently shading trees. The light from overhead shines through the green canopy and glitters on the waters surface. It is very restful, and you could sit for hours, watching kingfishers dart through the air and strike the water. A narrow path winds back westwards through the trees.",
         "conditional": [
 	    ["hour","<8","A gentle stream gurgles tunefully amidst the overhanging trees. It is very restful, and you could sit for hours, watching the dark waters passing by. A narrow path winds back westwards through the trees."],
-	    ["hour",">9","A gentle stream gurgles tunefully amidst the overhanging trees. It is very restful, and you could sit for hours, watching the dark waters passing by. A narrow path winds back westwards through the trees."]
+	    ["hour",">20","A gentle stream gurgles tunefully amidst the overhanging trees. It is very restful, and you could sit for hours, watching the dark waters passing by. A narrow path winds back westwards through the trees."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2302,7 +2302,7 @@
         "description": "You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. Birds twitter and sing around you, and animals scurry amidst the thick bushes. To the south the lane plunges over a stile and into some woods.",
         "conditional": [
 	    ["hour","<8","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."],
-	    ["hour",">9","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."]
+	    ["hour",">20","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2422,7 +2422,7 @@
         "description": "The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean, and the birds still sing and twitter in the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire.",
         "conditional": [
 	    ["hour","<8","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."],
-	    ["hour",">9","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."]
+	    ["hour",">20","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -8120,8 +8120,8 @@
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 3,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -9324,7 +9324,7 @@
         "description": "You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage cutting off most of the light. From the gloomy shadows between the boughs comes the ever present chitter of birds, and the rustle of animals.",
         "conditional": [
 	    ["hour","<8","You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage creating almost total darkness."],
-	    ["hour",">9","You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage creating almost total darkness."]
+	    ["hour",">20","You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage creating almost total darkness."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9363,8 +9363,8 @@
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 4,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -9381,8 +9381,8 @@
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 10,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -9391,10 +9391,13 @@
     "$rid=1330$": {
         "name": "Under The Burial Mound",
         "description": "You are standing in a low, dark chamber beneath the mound. The walls and ceiling are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound. Up above a hole allows a little light in from outside.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You are standing in a low, dark chamber beneath the mound. The walls and ceiling are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound. Up above a hole allows in a little night air."],
+	    ["hour",">20","You are standing in a low, dark chamber beneath the mound. The walls and ceiling are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound. Up above a hole allows in a little night air."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
+        "maxPlayerSize": 2,
         "maxPlayers": -1,
         "weather": 0,
         "tideOutDescription" : "",
