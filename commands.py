@@ -2009,8 +2009,22 @@ def conditionalRoom(condType, cond, description, id, players):
                 if int(m) == int(datetime.datetime.today().strftime("%m")):
                     return True
         else:
+            currMonthNumber=int(datetime.datetime.today().strftime("%m"))
+            if cond=='spring':
+                if currMonthNumber > 1 and currMonthNumber <= 4:
+                    return True
+            if cond=='summer':
+                if currMonthNumber > 4 and currMonthNumber <= 9:
+                    return True
+            if cond=='autumn':
+                if currMonthNumber > 9 and currMonthNumber <= 10:
+                    return True
+            if cond=='winter':
+                if currMonthNumber > 10 or currMonthNumber <= 1:
+                    return True
+                
             monthNumber = int(cond)
-            if monthNumber == int(datetime.datetime.today().strftime("%m")):
+            if monthNumber == currMonthNumber:
                 return True
 
     if condType == 'day' or \
