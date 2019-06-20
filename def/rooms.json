@@ -1702,15 +1702,14 @@
     },
     "$rid=298$": {
         "exits": {
-            "up": "$rid=299$"
         },
         "name": "Dark Crypt",
         "description": "You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.",
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 4,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -1729,8 +1728,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "west": "$rid=304$",
-            "down": "$rid=298$"
+            "west": "$rid=304$"
         }
     },
     "$rid=300$": {
