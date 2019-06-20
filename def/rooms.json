@@ -1468,11 +1468,14 @@
         },
         "name": "Garden Shed",
         "description": "You are standing in a dimly-lit shed. All the garden tools were kept here.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You are standing in a darkened shed. All the garden tools were kept here."],
+	    ["hour",">20","You are standing in a darkened shed. Garden tools are usually kept here."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 4,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -1540,7 +1543,7 @@
         "conditional": [
 	    ["hour","<8","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
 	    ["hour",">20","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
-	    ["hour",">5","The windows on the south side of this room are unusually large, allowing space for evening sunlight to cast shifting shadows. The room has a desolate feeling about it."]
+	    ["hour",">17","The windows on the south side of this room are unusually large, allowing space for evening sunlight to cast shifting shadows. The room has a desolate feeling about it."]
 	],
         "eventOnEnter": "",
         "eventOnLeave": "",
