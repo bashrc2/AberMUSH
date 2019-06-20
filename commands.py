@@ -2813,7 +2813,6 @@ def check(
     else:
         mud.send_message(id, 'Check what?\n')
 
-
 def wear(
         params,
         mud,
@@ -2837,7 +2836,6 @@ def wear(
         spellsDB,
         sentimentDB,
         guildsDB):
-    print("Test1")
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -2848,12 +2846,10 @@ def wear(
         mud.send_message(id, 'Specify an item from your inventory.\n\n')
         return
 
-    print("Test2")
     if len(list(players[id]['inv'])) == 0:
         mud.send_message(id, 'You are not carrying that.\n\n')
         return
 
-    print("Test3")
     itemName = params.lower()
     if itemName.startswith('the '):
         itemName = itemName.replace('the ', '')
@@ -2862,7 +2858,6 @@ def wear(
     if itemName.startswith('your '):
         itemName = itemName.replace('your ', '')
 
-    print("Test4")
     itemID = 0
     for i in list(players[id]['inv']):
         if itemsDB[int(i)]['name'].lower() == itemName:
@@ -2873,120 +2868,16 @@ def wear(
             if itemName in itemsDB[int(i)]['name'].lower():
                 itemID = int(i)
 
-    print("Test5")
     if itemID == 0:
         mud.send_message(id, itemName + " is not in your inventory.\n\n")
         return
 
-    print("Test6")
-    if itemsDB[itemID]['clo_head'] > 0:
-        players[id]['clo_head'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:
-            mud.send_message(
-                id,
-                'You don ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '\n\n')
-        return
-    if itemsDB[itemID]['clo_neck'] > 0:
-        players[id]['clo_neck'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You wear ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '<r> around your neck\n\n')
-        return
-    if itemsDB[itemID]['clo_rarm'] > 0:
-        players[id]['clo_rarm'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You wear ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '<r> on your right arm\n\n')
-        return
-    if itemsDB[itemID]['clo_larm'] > 0:
-        players[id]['clo_larm'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You wear ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '<r> on your left arm\n\n')
-        return
-    if itemsDB[itemID]['clo_rwrist'] > 0:
-        players[id]['clo_rwrist'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You wear ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '<r> on your right wrist\n\n')
-        return
-    if itemsDB[itemID]['clo_lwrist'] > 0:
-        players[id]['clo_lwrist'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You wear ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '<r> on your left wrist\n\n')
-        return
-    print("Test7: " + str(itemsDB[itemID]['clo_chest']))
-    if itemsDB[itemID]['clo_chest'] > 0:
-        players[id]['clo_chest'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You wear ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '\n\n')
-        return
-    if itemsDB[itemID]['clo_feet'] > 0:
-        players[id]['clo_feet'] = itemID
-        if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
-        else:    
-            mud.send_message(
-                id,
-                'You put on ' +
-                itemsDB[itemID]['article'] +
-                ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '\n\n')
-        return
+    wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet')
+    for clothingType in wearLocation:
+        if wearClothing(itemID,players,id,clothingType,mud,itemsDB):
+            return
 
     mud.send_message(id, "You can't wear that\n\n")
-
 
 def wield(
         params,
@@ -3162,7 +3053,33 @@ def stow(
             if int(players[id]['clo_rleg']) != itemID:
                 players[id]['clo_lleg'] = itemID
 
+def wearClothing(itemID,players,id,clothingType,mud,itemsDB):
+    if itemsDB[itemID]['clo_'+clothingType] > 0:
+        players[id]['clo_'+clothingType] = itemID
+        if len(itemsDB[itemID]['open_description'])>0:
+            mud.send_message(id, randomDescription(itemsDB[itemID]['open_description']) + '\n\n')
+        else:
+            mud.send_message(
+                id,
+                'You put on ' +
+                itemsDB[itemID]['article'] +
+                ' <b234>' +
+                itemsDB[itemID]['name'] +
+                '\n\n')
+        return True
+    return False
 
+def unwearClothing(players,id,clothingType,mud,itemsDB):
+    if int(players[id]['clo_'+clothingType]) > 0:
+        itemID = int(players[id]['clo_'+clothingType])
+        if len(itemsDB[itemID]['close_description'])>0:
+            mud.send_message(id, randomDescription(itemsDB[itemID]['close_description']) + '\n\n')
+        else:    
+            mud.send_message(id, 'You remove ' +
+                             itemsDB[itemID]['article'] + ' <b234>' +
+                             itemsDB[itemID]['name'] + '\n\n')
+        players[id]['clo_'+clothingType] = 0
+    
 def unwear(
         params,
         mud,
@@ -3189,86 +3106,9 @@ def unwear(
     if len(list(players[id]['inv'])) == 0:
         return
 
-    if int(players[id]['clo_head']) > 0:
-        itemID = int(players[id]['clo_head'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You remove ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_head'] = 0
-
-    if int(players[id]['clo_neck']) > 0:
-        itemID = int(players[id]['clo_neck'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You take off ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_neck'] = 0
-
-    if int(players[id]['clo_lwrist']) > 0:
-        itemID = int(players[id]['clo_lwrist'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You take off ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_lwrist'] = 0
-
-    if int(players[id]['clo_rwrist']) > 0:
-        itemID = int(players[id]['clo_rwrist'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You take off ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_rwrist'] = 0
-
-    if int(players[id]['clo_larm']) > 0:
-        itemID = int(players[id]['clo_larm'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You take off ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_larm'] = 0
-
-    if int(players[id]['clo_rarm']) > 0:
-        itemID = int(players[id]['clo_rarm'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You take off ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_rarm'] = 0
-
-    if int(players[id]['clo_chest']) > 0:
-        itemID = int(players[id]['clo_chest'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You remove ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_chest'] = 0
-
-    if int(players[id]['clo_feet']) > 0:
-        itemID = int(players[id]['clo_feet'])
-        if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
-        else:    
-            mud.send_message(id, 'You take off ' +
-                             itemsDB[itemID]['article'] + ' <b234>' +
-                             itemsDB[itemID]['name'] + '\n\n')
-        players[id]['clo_feet'] = 0
-
+    unwearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet')
+    for clothingType in unwearLocation:
+        unwearClothing(players,id,clothingType,mud,itemsDB)
 
 def messageToPlayersInRoom(mud, players, id, msg):
     # go through all the players in the game
