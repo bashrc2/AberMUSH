@@ -71,7 +71,10 @@
         },
         "name": "The Hidden Garden",
         "description": "Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter, and the twittering of birds rises from the hedgerows.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."],
+	    ["hour",">9","Small and completely hemmed in by hedges the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -821,7 +824,7 @@
         "maxPlayerSize": -1,
         "maxPlayers": -1,
         "weather": 1,
-        "tideOutDescription" : "",
+        "tideOutDescription" : "You stand on the jumbled ice and rocks at the end of the fjord, gazing westwards across the sullen moaning sea. There is an icy wind. A narrow path leads eastwards through the ice into some trees, and another dangerous-looking trail climbs southwards up the side of the fjord itself.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1108,7 +1111,10 @@
         },
         "name": "Silent Graveyard",
         "description": "Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones, and the gentle chirping of birds. Everything is still and quiet as if the bustle of the world has passed this quiet corner by.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones. Everything is still and quiet."],
+	    ["hour",">9","Mist weaves gently around the dark gloomy stones. In the quiet hush of contemplation you can hear the bushes sigh as the wind weaves amongst the stones. Everything is still and quiet."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -1206,7 +1212,10 @@
     "$rid=167$": {
         "name": "Western Tower",
         "description": "You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and large ugly looking ravens croak and flap around you.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and ravens roost quietly."],
+	    ["hour",">9","You emerge back outside after trudging up the tower steps. Almost immediately you are hit by the pong of millions of birds. The source of the smell is all too apparent. All around the tower, in every nook and cranny, nests have been built, and ravens roost quietly."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -1222,7 +1231,10 @@
     "$rid=168$": {
         "name": "Western Tower",
         "description": "You stand at the base of the western tower. The stairs upwards have crumbled a lot, and are covered in bird mess. Branches and sticks lie all over the floor, and from above comes a lot of squawking.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You stand at the base of the western tower. The stairs upwards have crumbled a lot, and are covered in bird mess. Branches and sticks lie all over the floor."],
+	    ["hour","<8","You stand at the base of the western tower. The stairs upwards have crumbled a lot, and are covered in bird mess. Branches and sticks lie all over the floor."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -1403,7 +1415,10 @@
         },
         "name": "Old Pond",
         "description": "On the south side of the house, this pond enjoys lots of sun. It is small, and you can walk around it easily. The water is very clear. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."],
+	    ["hour",">9","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -1471,7 +1486,10 @@
         },
         "name": "Herb Garden",
         "description": "This garden was once clearly used to cultivate herbs. It occupies a sunny spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."],
+	    ["hour",">9","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -1487,7 +1505,7 @@
             "west": "$rid=239$"
         },
         "name": "Fountain Walk",
-        "description": "",
+        "description": "A narrow path leads west besides a fountain.",
         "conditional": [],
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1519,7 +1537,11 @@
         },
         "name": "Soler",
         "description": "The windows on the south side of this room are unusually large, allowing space for the sun to stream in. Despite this, the room has a desolate air.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
+	    ["hour",">9","The windows on the south side of this room are unusually large. The room has a desolate feeling about it."],
+	    ["hour",">5","The windows on the south side of this room are unusually large, allowing space for evening sunlight to cast shifting shadows. The room has a desolate feeling about it."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -1661,7 +1683,10 @@
     "$rid=291$": {
         "name": "The Sheltered Path",
         "description": "You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge. The sounds of birdsong fill your ears.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge."],
+	    ["hour",">9","You are strolling down a narrow path which leads west down to a pair of gates. The lane is out through the eastern hedge."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2266,7 +2291,10 @@
     "$rid=396$": {
         "name": "The Pleasant Lane",
         "description": "You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. Birds twitter and sing around you, and animals scurry amidst the thick bushes. To the south the lane plunges over a stile and into some woods.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."],
+	    ["hour",">9","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2383,7 +2411,10 @@
     "$rid=420$": {
         "name": "High Corner",
         "description": "The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean, and the birds still sing and twitter in the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."],
+	    ["hour",">9","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -9281,8 +9312,11 @@
     },
     "$rid=1319$": {
         "name": "The Wide Track",
-        "description": "You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their thick foilage cutting off most of the light. From the gloomy shadows between the boughs comes the ever present chitter of birds, and the rustle of animals.",
-        "conditional": [],
+        "description": "You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage cutting off most of the light. From the gloomy shadows between the boughs comes the ever present chitter of birds, and the rustle of animals.",
+        "conditional": [
+	    ["hour","<8","You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage creating almost total darkness."],
+	    ["hour",">9","You are following a wide east-west track through the tangled forest. The thick intertwined trees press in all around, their dense foilage creating almost total darkness."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
