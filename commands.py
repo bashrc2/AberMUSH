@@ -1944,7 +1944,7 @@ def say(
 
 def conditionalRoom(condType, cond, description, id, players):
     if condType == 'hour':
-        currHour = datetime.datetime.utcnow().hour
+        currHour = datetime.datetime.today().hour
         condHour = cond.replace(
             '>',
             '').replace(
@@ -1997,9 +1997,9 @@ def conditionalRoom(condType, cond, description, id, players):
 
     if condType == 'date' or condType == 'day':
         dayNumber = int(cond.split('/')[0])
-        if dayNumber == int(datetime.datetime.utcnow().strftime("%d")):
+        if dayNumber == int(datetime.datetime.today().strftime("%d")):
             monthNumber = int(cond.split('/')[1])
-            if monthNumber == int(datetime.datetime.utcnow().strftime("%m")):
+            if monthNumber == int(datetime.datetime.today().strftime("%m")):
                 return True
 
     if condType == 'held' or condType.startswith('hold'):

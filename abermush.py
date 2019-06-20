@@ -394,10 +394,10 @@ playerList = []
 mud = MudServer()
 
 # weather
-currHour = datetime.datetime.utcnow().hour
-currMin = datetime.datetime.utcnow().minute
+currHour = datetime.datetime.today().hour
+currMin = datetime.datetime.today().minute
 daysSinceEpoch = (
-    datetime.datetime.utcnow() -
+    datetime.datetime.today() -
     datetime.datetime(
         1970,
         1,

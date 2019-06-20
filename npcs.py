@@ -71,7 +71,7 @@ def npcIsActive(moveTimes):
                timeRangeType == 'weekday' or \
                timeRangeType == 'dayofweek' or \
                timeRangeType == 'dow':
-                currDayOfWeek=datetime.datetime.utcnow().weekday()
+                currDayOfWeek=datetime.datetime.today().weekday()
                 dowMatched=False
                 for dow in range(1,len(timeRange)-1):
                     dayOfWeek=timeRange[dow].lower()
@@ -101,7 +101,7 @@ def npcIsActive(moveTimes):
 
         # hour of day
         if timeRangeType.startswith('hour'):
-            currHour=datetime.datetime.utcnow().hour
+            currHour=datetime.datetime.today().hour
             startHour=timeRangeStart
             endHour=timeRangeEnd
             if endHour>=startHour:
@@ -113,7 +113,7 @@ def npcIsActive(moveTimes):
 
         # between months
         if timeRangeType.startswith('month'):
-            currMonth=datetime.datetime.utcnow().strftime("%m")
+            currMonth=datetime.datetime.today().strftime("%m")
             startMonth=timeRangeStart
             endMonth=timeRangeEnd
             if endMonth>=startMonth:
@@ -125,7 +125,7 @@ def npcIsActive(moveTimes):
 
         # between days of year
         if timeRangeType == 'daysofyear':
-            currDayOfYear=datetime.datetime.utcnow().strftime("%d")
+            currDayOfYear=datetime.datetime.today().strftime("%d")
             startDay=timeRangeStart
             endDay=timeRangeEnd
             if endDay>=startDay:
@@ -971,11 +971,11 @@ def conversationGiveOnDate(
                 if '/' in best_match_action_param1:
                     dayNumber = int(best_match_action_param1.split('/')[0])
                     if dayNumber == int(
-                            datetime.datetime.utcnow().strftime("%d")):
+                            datetime.datetime.today().strftime("%d")):
                         monthNumber = int(
                             best_match_action_param1.split('/')[1])
                         if monthNumber == int(
-                                datetime.datetime.utcnow().strftime("%m")):
+                                datetime.datetime.today().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
                             players[id]['wei'] = playerInventoryWeight(
                                 id, players, itemsDB)

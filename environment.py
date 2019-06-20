@@ -28,13 +28,13 @@ def runTide():
     lunar_orbit_mins = 39312
 
     daysSinceEpoch = (
-        datetime.datetime.utcnow() -
+        datetime.datetime.today() -
         datetime.datetime(
             1970,
             1,
             1)).days
-    currHour = datetime.datetime.utcnow().hour
-    currMin = datetime.datetime.utcnow().minute
+    currHour = datetime.datetime.today().hour
+    currMin = datetime.datetime.today().minute
     timeMins = (daysSinceEpoch * 60 * 24) + (currHour * 60) + currMin
 
     lunarMins = timeMins % int(lunar_orbit_mins)
@@ -406,7 +406,7 @@ def plotClouds(rooms, mapArea, clouds, temperature):
 def getTemperatureSeasonal():
     """Average temperature for the time of year
     """
-    dayOfYear = int(datetime.datetime.utcnow().strftime("%j"))
+    dayOfYear = int(datetime.datetime.today().strftime("%j"))
     tempFraction = (
         (sin((0.75 + (dayOfYear / 365.0)) * 2 * 3.1415927) + 1) / 2.0)
     return 8 + (7 * tempFraction)
@@ -418,7 +418,7 @@ def getTemperature():
     avTemp = getTemperatureSeasonal()
 
     daysSinceEpoch = (
-        datetime.datetime.utcnow() -
+        datetime.datetime.today() -
         datetime.datetime(
             1970,
             1,
@@ -429,8 +429,8 @@ def getTemperature():
     dailyVariance = avTemp * 0.4 * (r1.random() - 0.5)
 
     # Calculate number of minutes elapsed in the day so far
-    currHour = datetime.datetime.utcnow().hour
-    currMin = datetime.datetime.utcnow().minute
+    currHour = datetime.datetime.today().hour
+    currMin = datetime.datetime.today().minute
     dayMins = (currHour * 60) + currMin
 
     # Seed number generator for the current minute of the day
