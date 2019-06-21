@@ -231,9 +231,18 @@ You may want the description of a room to change if some condition is met. For e
 
 This provides different room descriptions in the morning to at other times.
 
-Possible condition types are `hour`, `date`, `skill`, `hold` and `wear`.
+Possible condition types are `hour`, `month`, `season`, `dayofweek`, `date`, `skill`, `hold` and `wear`.
 
-You can use this to do things like describing a dark cave by default but changing the description if you are holding a lamp.
+You can use this to do things like describing a dark cave by default but changing the description if you are holding a lamp, of having different descriptions for different seasons of the year.
+
+``` text
+"conditional": [
+    ["season","spring","You are in an orchard with blossoming trees"],
+    ["season","summer","Bright sunlight casts shadows through the trees"],
+    ["season","autumn","The ground is covered with leaves."],
+    ["season","winter","The trees look bleak and bare"]
+],
+```
 
 ### Adding Doors and Opening things
 

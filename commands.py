@@ -2002,7 +2002,7 @@ def conditionalRoom(condType, cond, description, id, players):
             if monthNumber == int(datetime.datetime.today().strftime("%m")):
                 return True
 
-    if condType == 'month':
+    if condType == 'month' or condType == 'season':
         if '|' in cond:
             months = cond.split('|')
             for m in months:
