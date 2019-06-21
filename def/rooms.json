@@ -2126,7 +2126,11 @@
     "$rid=347$": {
         "name": "Dark Woods",
         "description": "You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves blocking the sun, and hiding the ground in shadow. There are no visible paths to guide you, and you cannot see far into the trees.",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves. There are no visible paths to guide you, and you cannot see far into the trees."],
+	    ["season","autumn","You stand deep within the dark woods. A thick layer of golden brown leaves covers the ground. There are no visible paths to guide you, and you cannot see far into the trees."],
+	    ["season","winter","You stand deep within the dark woods. The trees bare branches create a dense entangled. There are no visible paths to guide you, and you cannot see far into the trees."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2144,7 +2148,11 @@
     "$rid=348$": {
         "name": "Dark Woods",
         "description": "You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves blocking the sun, and hiding the ground in shadow. There are no visible paths to guide you, and you cannot see far into the trees.",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves. There are no visible paths to guide you, and you cannot see far into the trees."],
+	    ["season","autumn","You stand deep within the dark woods. A thick layer of golden brown leaves covers the ground. There are no visible paths to guide you, and you cannot see far into the trees."],
+	    ["season","winter","You stand deep within the dark woods. The trees bare branches create a dense entangled. There are no visible paths to guide you, and you cannot see far into the trees."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2162,7 +2170,11 @@
     "$rid=349$": {
         "name": "Dark Woods",
         "description": "You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves blocking the sun, and hiding the ground in shadow. There are no visible paths to guide you, and you cannot see far into the trees.",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves. There are no visible paths to guide you, and you cannot see far into the trees."],
+	    ["season","autumn","You stand deep within the dark woods. A thick layer of golden brown leaves covers the ground. There are no visible paths to guide you, and you cannot see far into the trees."],
+	    ["season","winter","You stand deep within the dark woods. The trees bare branches create a dense entangled. There are no visible paths to guide you, and you cannot see far into the trees."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -2185,7 +2197,10 @@
         },
         "name": "Thick Woodland",
         "description": "You are deep in the woods. The trees are thick dark and tangled, and branches spread out above you, hiding the sky. Its hard to tell where you can wander from here, amidst the thickets and bushes.",
-        "conditional": [],
+        "conditional": [
+	    ["season","autumn","You are deep in the woods. The trees are thick dark and tangled, and branches spread out above you. A dense coverage of leaves rustles under your feet as you walk. Its hard to tell where you can wander from here, amidst the thickets and bushes."],
+	    ["season","winter","You are deep in the woods. The bleak trees are thick dark and tangled, and branches spread out above you. Its hard to tell where you can wander from here. The trees look similar in all directions."]
+	],
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
