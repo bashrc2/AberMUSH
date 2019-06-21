@@ -5158,6 +5158,7 @@ def putItem(
                     inon = ' on '
                     target = params.split(' on ')
                 else:
+                    inon = ' within '
                     target = params.split(' within ')
 
     if len(target) != 2:
@@ -5193,19 +5194,26 @@ def putItem(
                 if itemsDB[items[iid]['id']]['state'].startswith(
                         'container open'):
                     if ' noput' not in itemsDB[items[iid]['id']]['state']:
-                        players[id]['inv'].remove(str(itemID))
-                        removeItemFromClothing(players, id, itemID)
-                        itemsDB[items[iid]['id']]['contains'].append(
-                            str(itemID))
-                        mud.send_message(id, 'You put ' +
-                                         itemsDB[itemID]['article'] +
-                                         ' ' +
-                                         itemsDB[itemID]['name'] +
-                                         inon +
-                                         itemsDB[items[iid]['id']]['article'] +
-                                         ' ' +
-                                         itemsDB[items[iid]['id']]['name'] +
-                                         '.\n\n')
+                        maxItemsInContainer=itemsDB[items[iid]['id']]['useTimes']
+                        if maxItemsInContainer==0 or \
+                           len(itemsDB[items[iid]['id']]['contains'])<maxItemsInContainer:
+                            players[id]['inv'].remove(str(itemID))
+                            removeItemFromClothing(players, id, itemID)
+                            itemsDB[items[iid]['id']]['contains'].append(str(itemID))
+                            mud.send_message(id, 'You put ' +
+                                             itemsDB[itemID]['article'] +
+                                             ' ' +
+                                             itemsDB[itemID]['name'] +
+                                             inon +
+                                             itemsDB[items[iid]['id']]['article'] +
+                                             ' ' +
+                                             itemsDB[items[iid]['id']]['name'] +
+                                             '.\n\n')
+                        else:
+                            mud.send_message(
+                                id, 'No more items can be put ' + inon + ' ' + \
+                                itemsDB[items[iid]['id']]['article'] + ' ' + \
+                                itemsDB[items[iid]['id']]['name'] + ".\n\n")                            
                     else:
                         if 'on' in inon:
                             mud.send_message(
