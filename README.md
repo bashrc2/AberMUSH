@@ -356,6 +356,7 @@ Other than opening and closing doors you may also want to have items which can b
         "open_description": "Tiny moths flutter out as you open the clothes chest.",
         "close_description": "The clothes chest closes with a satisfying thud.",
         "contains": ["107","1386","1389","1390"],
+	"useTimes": 10,
         "lockedWithItem": 0,
     },
 ```
@@ -369,6 +370,8 @@ take hat from chest
 wear hat
 close chest
 ```
+
+The `useTimes` parameter defines the maximum number of items which can be put into a container.
 
 Similar to doors, items may be locked with another item which could be a key. Tables can be a special type of always open item.
 
