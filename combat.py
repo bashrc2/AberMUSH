@@ -22,6 +22,7 @@ from environment import getTemperatureAtCoords
 from proficiencies import damageProficiency
 from proficiencies import defenseProficiency
 from proficiencies import weaponProficiency
+from traps import playerIsTrapped
 import time
 
 defenseClothing = (
@@ -664,6 +665,9 @@ def runFightsBetweenPlayers(
                 players[s1id]['frozenDescription']) + '\n')
         return
 
+    if playerIsTrapped(s1id,players,rooms):
+        return
+
     currRoom = players[s1id]['room']
     weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB) / 20)
     temperatureDifficulty = getTemperatureDifficulty(
@@ -837,6 +841,9 @@ def runFightsBetweenPlayerAndNPC(
         mud.send_message(
             s2id, randomDescription(
                 players[s1id]['frozenDescription']) + '\n')
+        return
+
+    if playerIsTrapped(s1id,players,rooms):
         return
 
     currRoom = players[s1id]['room']

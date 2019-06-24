@@ -7621,7 +7621,7 @@
 	    "trapDamagedMax": 20,
 	    "trapDamaged": 0,
 	    "trapEscapeDescription": "",
-	    "trapDuration": "1 hour",
+	    "trapDuration": "5 min",
 	    "trapPenaltyType": "hp",
 	    "trapPenalty": 0,
 	    "trapResetTime": "1 hour",
