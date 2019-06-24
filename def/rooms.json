@@ -7624,7 +7624,7 @@
 	    "trapDuration": "5 min",
 	    "trapPenaltyType": "hp",
 	    "trapPenalty": 0,
-	    "trapResetTime": "1 hour",
+	    "trapResetTime": "2 hours",
 	    "trappedPlayers": []
 	},
         "eventOnEnter": "",

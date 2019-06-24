@@ -113,6 +113,17 @@ def escapeFromTrap(mud,id,players,rooms,itemsDB):
     if 'slash' in escapeMethod:
         escapeWithCuttingTool(mud,id,players,rooms,itemsDB)
 
+def trapActivationDescribe(mud,id,players,roomID,rooms):
+    if rooms[roomID]['trap']['trapType'] == 'net' or \
+       rooms[roomID]['trap']['trapType'] == 'chain net':
+        if rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
+            mud.send_message(id, randomDescription(trapTag+"You hear a click as you step onto a pressure plate. A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
+        else:
+            mud.send_message(id, randomDescription(trapTag+"A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
+
+    if rooms[roomID]['trap']['trapType'].startswith('dart'):
+        mud.send_message(id, randomDescription(trapTag+"Poisoned darts emerge from holes in the wall and impale you|You are impaled by a poisoned dart")+'.<r>\n\n')
+
 def trapActivation(mud,id,players,rooms,exitDirection):
     """Activates a trap
     """
@@ -134,9 +145,7 @@ def trapActivation(mud,id,players,rooms,exitDirection):
                 if len(rooms[roomID]['trap']['trapActivationDescription'])>0:
                     mud.send_message(id, trapTag+randomDescription(rooms[roomID]['trap']['trapActivationDescription'])+'.<r>\n\n')
                 else:
-                    if rooms[roomID]['trap']['trapType'] == 'net' or \
-                       rooms[roomID]['trap']['trapType'] == 'chain net':
-                        mud.send_message(id, randomDescription(trapTag+"A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
+                    trapActivationDescribe(mud,id,players,roomID,rooms)
                 return True
 
     #pressure plate
@@ -149,9 +158,7 @@ def trapActivation(mud,id,players,rooms,exitDirection):
                 if len(rooms[roomID]['trap']['trapActivationDescription'])>0:
                     mud.send_message(id, trapTag+randomDescription(rooms[roomID]['trap']['trapActivationDescription'])+'.<r>\n\n')
                 else:
-                    if rooms[roomID]['trap']['trapType'] == 'net' or \
-                       rooms[roomID]['trap']['trapType'] == 'chain net':
-                        mud.send_message(id, randomDescription(trapTag+"You hear a click as you step onto a pressure plate. A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
+                    trapActivationDescribe(mud,id,players,roomID,rooms)
                 return True
             
     return False
