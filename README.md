@@ -591,7 +591,7 @@ To set a dart trap when exiting north within `rooms.json`:
 },
 ```
 
-This causes a sting of up to 10 hit points. `trapPerception` specified the minimum perception (`per` value) needed to see the trap, and it gets reset after two hours if activated.
+This causes a sting of up to 10 hit points. `trapPerception` specifies the minimum perception (`per` value in player json file) needed to see the trap, and it gets reset after two hours if activated.
 
 To create a falling net trap activated by a pressure plate:
 
