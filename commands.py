@@ -2129,10 +2129,13 @@ def look(
 
             if rm['trap'].get('trapActivation') and rm['trap'].get('trapPerception'):
                 if randint(1,players[id]['per'])>rm['trap']['trapPerception']:
-                    if rm['trap']['trapActivation']=='tripwire':
-                        roomDescription += ' A tripwire is carefully set along the floor.'
-                    if rm['trap']['trapActivation'].startswith('pressure'):
-                        roomDescription += ' The faint outline of a pressure plate can be seen on the floor.'
+                    if rm['trap']['trapType'].startswith('dart') and randint(0,1)==1:
+                        roomDescription += randomDescription(" You notice some tiny holes in the wall.| There are some small holes in the wall.|You observe some tiny holes in the wall.")
+                    else:
+                        if rm['trap']['trapActivation']=='tripwire':
+                            roomDescription += randomDescription(" A tripwire is carefully set along the floor.| You notice a thin wire across the floor.| An almost invisible wire runs along the floor.")
+                        if rm['trap']['trapActivation'].startswith('pressure'):
+                            roomDescription += randomDescription(" The faint outline of a pressure plate can be seen on the floor.| The outline of a pressure plate is visible on the floor.")
 
             mud.send_message(id, "\n<f230>" + roomDescription)
             playershere = []

@@ -7611,7 +7611,7 @@
         "description": "You are in a low passageway. Mould covers the walls and floor, making it slippery and quite treacherous. To the north is a beautiful cave, while to the south the mould seems to get even thicker.",
         "conditional": [],
         "trap": {
-	    "trapType": "net",
+	    "trapType": "dart",
 	    "trapExit": "north",
 	    "trapPerception": 2,
 	    "trapActivation": "pressure",
@@ -7621,9 +7621,9 @@
 	    "trapDamagedMax": 20,
 	    "trapDamaged": 0,
 	    "trapEscapeDescription": "",
-	    "trapDuration": "5 min",
+	    "trapDuration": "0 min",
 	    "trapPenaltyType": "hp",
-	    "trapPenalty": 0,
+	    "trapPenalty": 10,
 	    "trapResetTime": "2 hours",
 	    "trappedPlayers": []
 	},

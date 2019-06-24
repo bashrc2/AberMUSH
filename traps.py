@@ -30,7 +30,7 @@ def describeTrappedPlayer(mud,id,players,rooms):
     roomID=players[id]['room']
     if not rooms[roomID]['trap'].get('trapType'):
         return
-    
+
     if rooms[roomID]['trap']['trapType']=='net':
         mud.send_message(id, randomDescription("You struggle with the net but it's pinning you down|You seem to be trapped in a net|Being covered by a net makes it difficult to move")+'.\n\n')
 
@@ -113,7 +113,7 @@ def escapeFromTrap(mud,id,players,rooms,itemsDB):
     if 'slash' in escapeMethod:
         escapeWithCuttingTool(mud,id,players,rooms,itemsDB)
 
-def trapActivationDescribe(mud,id,players,roomID,rooms):
+def trapActivationDescribe(mud,id,players,roomID,rooms,penaltyValue,trapTag):
     if rooms[roomID]['trap']['trapType'] == 'net' or \
        rooms[roomID]['trap']['trapType'] == 'chain net':
         if rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
@@ -122,7 +122,7 @@ def trapActivationDescribe(mud,id,players,roomID,rooms):
             mud.send_message(id, randomDescription(trapTag+"A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
 
     if rooms[roomID]['trap']['trapType'].startswith('dart'):
-        mud.send_message(id, randomDescription(trapTag+"Poisoned darts emerge from holes in the wall and impale you|You are impaled by a poisoned dart")+'.<r>\n\n')
+        mud.send_message(id, randomDescription(trapTag+"Poisoned darts emerge from holes in the wall and sting you for <r><f15><b88>* " + str(penaltyValue) + " *<r>" + trapTag + " hit points")+'.<r>\n\n')
 
 def trapActivation(mud,id,players,rooms,exitDirection):
     """Activates a trap
@@ -140,12 +140,16 @@ def trapActivation(mud,id,players,rooms,exitDirection):
         if rooms[roomID]['trap'].get('trapExit'):
             if rooms[roomID]['trap']['trapExit'] == exitDirection:
                 rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
-                rooms[roomID]['trap']['trapActivationTime'] = int(time.time())
+                if TimeStringToSec(rooms[roomID]['trap']['trapDuration'])>0:
+                    rooms[roomID]['trap']['trapActivationTime'] = int(time.time())
                 rooms[roomID]['trap']['trapDamaged'] = 0
+                penaltyType=rooms[roomID]['trap']['trapPenaltyType']
+                penaltyValue=randint(1,rooms[roomID]['trap']['trapPenalty'])
+                players[id][penaltyType] -= penaltyValue
                 if len(rooms[roomID]['trap']['trapActivationDescription'])>0:
                     mud.send_message(id, trapTag+randomDescription(rooms[roomID]['trap']['trapActivationDescription'])+'.<r>\n\n')
                 else:
-                    trapActivationDescribe(mud,id,players,roomID,rooms)
+                    trapActivationDescribe(mud,id,players,roomID,rooms,penaltyValue,trapTag)
                 return True
 
     #pressure plate
@@ -153,12 +157,16 @@ def trapActivation(mud,id,players,rooms,exitDirection):
         if rooms[roomID]['trap'].get('trapExit'):
             if rooms[roomID]['trap']['trapExit'] == exitDirection:
                 rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
-                rooms[roomID]['trap']['trapActivationTime'] = int(time.time())
+                if TimeStringToSec(rooms[roomID]['trap']['trapDuration'])>0:
+                    rooms[roomID]['trap']['trapActivationTime'] = int(time.time())
                 rooms[roomID]['trap']['trapDamaged'] = 0
+                penaltyType=rooms[roomID]['trap']['trapPenaltyType']
+                penaltyValue=randint(1,rooms[roomID]['trap']['trapPenalty'])
+                players[id][penaltyType] -= penaltyValue
                 if len(rooms[roomID]['trap']['trapActivationDescription'])>0:
                     mud.send_message(id, trapTag+randomDescription(rooms[roomID]['trap']['trapActivationDescription'])+'.<r>\n\n')
                 else:
-                    trapActivationDescribe(mud,id,players,roomID,rooms)
+                    trapActivationDescribe(mud,id,players,roomID,rooms,penaltyValue,trapTag)
                 return True
             
     return False
