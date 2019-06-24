@@ -1087,6 +1087,9 @@ def help(
     mud.send_message(
         id,
         '  cut/escape                              - Attempt to escape from a trap')
+    mud.send_message(
+        id,
+        '  step over tripwire [exit]               - Step over a tripwire in the given direction')
     mud.send_message(id, '')
     mud.send_message(id, 'Spell commands:')
     mud.send_message(
