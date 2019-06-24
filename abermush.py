@@ -52,6 +52,7 @@ from environment import assignCoordinates
 from environment import plotClouds
 from environment import generateCloud
 from environment import getTemperature
+from traps import runTraps
 
 import datetime
 import time
@@ -444,6 +445,7 @@ while True:
         updateTemporaryIncapacitation(mud, npcs, True)
         updateTemporaryCharm(mud, players, False)
         updateTemporaryCharm(mud, npcs, True)
+        runTraps(mud,rooms,players,npcs)
 
     now = int(time.time())
     if now >= lastWeatherUpdate + weatherUpdateInterval:

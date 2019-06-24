@@ -53,6 +53,7 @@ close [item]                            - Close an item or door
 push [item]                             - Pushes a lever
 pull [item]                             - Pulls a lever
 affinity [player name]                  - Shows your affinity level with another player
+cut/escape                              - Attempt to escape from a trap
 ```
 
 ## Spell Commands

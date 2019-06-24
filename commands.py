@@ -7,6 +7,7 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
+from functions import TimeStringToSec
 from functions import addToScheduler
 from functions import getFreeKey
 from functions import getFreeRoomKey
@@ -25,6 +26,11 @@ from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from environment import runTide
 from environment import assignCoordinates
+from traps import playerIsTrapped
+from traps import describeTrappedPlayer
+from traps import trapActivation
+from traps import teleportFromTrap
+from traps import escapeFromTrap
 
 from proficiencies import thievesCant
 
@@ -151,6 +157,9 @@ def teleport(
         guildsDB):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
+            if playerIsTrapped(id,players,rooms):
+                teleportFromTrap(mud,id,players,rooms)
+
             targetLocation = params[0:].strip().lower().replace('to ', '',1)
             if len(targetLocation) != 0:
                 currRoom = players[id]['room']
@@ -1075,6 +1084,9 @@ def help(
     mud.send_message(
         id,
         '  affinity [player name]                  - Shows your affinity level with another player')
+    mud.send_message(
+        id,
+        '  cut/escape                              - Attempt to escape from a trap')
     mud.send_message(id, '')
     mud.send_message(id, 'Spell commands:')
     mud.send_message(
@@ -1172,22 +1184,6 @@ def help(
     mud.send_message(id, '\n\n')
 
 
-def spellTimeToSec(durationStr):
-    """Converts a description of a duration such as '1 hour'
-       into a number of seconds
-    """
-    if ' ' not in durationStr:
-        return 1
-    dur = durationStr.split(' ')
-    if dur[1].startswith('min'):
-        return int(dur[0]) * 60
-    if dur[1].startswith('hour') or dur[1].startswith('hr'):
-        return int(dur[0]) * 60 * 60
-    if dur[1].startswith('day'):
-        return int(dur[0]) * 60 * 60 * 24
-    return 1
-
-
 def removePreparedSpell(players, id, spellName):
     del players[id]['preparedSpells'][spellName]
     del players[id]['spellSlots'][spellName]
@@ -1200,7 +1196,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
 
     if spellDetails['action'].startswith('protect'):
         npcs[p]['tempHitPoints'] = spellDetails['hp']
-        npcs[p]['tempHitPointsDuration'] = spellTimeToSec(spellDetails['duration'])
+        npcs[p]['tempHitPointsDuration'] = TimeStringToSec(spellDetails['duration'])
         npcs[p]['tempHitPointsStart'] = int(time.time())
 
     if spellDetails['action'].startswith('cure'):
@@ -1214,7 +1210,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
         charmValue=int(npcs[p]['cha'] + players[id]['cha'])
         npcs[p]['tempCharm'] = charmValue
         npcs[p]['tempCharmTarget'] = charmTarget
-        npcs[p]['tempCharmDuration'] = spellTimeToSec(spellDetails['duration'])
+        npcs[p]['tempCharmDuration'] = TimeStringToSec(spellDetails['duration'])
         npcs[p]['tempCharmStart'] = int(time.time())
         if npcs[p]['affinity'].get(charmTarget):
             npcs[p]['affinity'][charmTarget]+=charmValue
@@ -1246,7 +1242,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
 
     if spellDetails['action'].startswith('frozen'):
         npcs[p]['frozenDescription'] = spellDetails['actionDescription']
-        npcs[p]['frozenDuration'] = spellTimeToSec(spellDetails['duration'])
+        npcs[p]['frozenDuration'] = TimeStringToSec(spellDetails['duration'])
         npcs[p]['frozenStart'] = int(time.time())
 
     mud.send_message(
@@ -1614,7 +1610,7 @@ def prepareSpellAtLevel(
                             return True
                 players[id]['prepareSpell'] = spellName
                 players[id]['prepareSpellProgress'] = 0
-                players[id]['prepareSpellTime'] = spellTimeToSec(
+                players[id]['prepareSpellTime'] = TimeStringToSec(
                     details['prepareTime'])
                 if len(details['prepareTime']) > 0:
                     mud.send_message(
@@ -2131,6 +2127,11 @@ def look(
                                                rm['conditional'],
                                                id, players)
 
+            if rm['trap'].get('trapActivation') and rm['trap'].get('trapPerception'):
+                if randint(1,players[id]['per'])>rm['trap']['trapPerception']:
+                    if rm['trap']['trapActivation']=='tripwire':
+                        roomDescription += ' A tripwire is carefully set along the floor.'
+
             mud.send_message(id, "\n<f230>" + roomDescription)
             playershere = []
 
@@ -2328,6 +2329,42 @@ def look(
             id,
             'You somehow cannot muster enough perceptive powers to perceive and describe your immediate surroundings...\n')
 
+def escapeTrap(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    if not playerIsTrapped(id,players,rooms):
+        mud.send_message(
+            id, randomDescription(
+                "You try to escape but find there's nothing to escape from") + '\n\n')
+        
+    if players[id]['frozenStart'] != 0:
+        mud.send_message(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '\n\n')
+        return
+
+    if players[id]['canAttack'] == 1:
+        escapeFromTrap(mud,id,players,rooms,itemsDB)                
 
 def attack(
         params,
@@ -2359,6 +2396,13 @@ def attack(
         return
 
     if players[id]['canAttack'] == 1:
+
+        if playerIsTrapped(id,players,rooms):
+            mud.send_message(
+                id, randomDescription(
+                    "You're trapped") + '.\n\n')
+            return
+        
         isAlreadyAttacking = False
         target = params  # .lower()
         if target.startswith('at '):
@@ -3365,6 +3409,10 @@ def go(
                 players[id]['frozenDescription']) + '\n\n')
         return
 
+    if playerIsTrapped(id,players,rooms):
+        describeTrappedPlayer(mud,id,players,rooms)
+        return
+
     if players[id]['canGo'] == 1:
         # store the exit name
         ex = params.lower()
@@ -3386,7 +3434,10 @@ def go(
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
                     mud.send_message(id, "The entrance is too small for you to enter.\n\n")
                     return
-            
+
+            if trapActivation(mud,id,players,rooms,ex):
+                return
+
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
                                    randomDescription(players[id]['outDescription']) +
@@ -3527,7 +3578,7 @@ def conjureRoom(
         'name': 'Empty room',
         'description': "You are in an empty room. There is a triangular symbol carved into the wall depicting a peasant digging with a spade. Underneath it is an inscription which reads 'aedificium'.",
         'conditional': [],
-        'trap': [],
+        'trap': {},
         'eventOnEnter': "",
         'eventOnLeave': "",
         "maxPlayerSize": -1,
@@ -4314,10 +4365,16 @@ def drop(
                         break
 
     if itemInDB and itemInInventory:
+        if playerIsTrapped(id,players,rooms):
+            mud.send_message(
+                id, randomDescription(
+                    "You're trapped|The trap restricts your ability to drop anything|The trap restricts your movement") + '.\n\n')
+            return
+
         inventoryCopy = deepcopy(players[id]['inv'])
         for i in inventoryCopy:
             if int(i) == itemID:
-                    # Remove first matching item from inventory
+                # Remove first matching item from inventory
                 players[id]['inv'].remove(i)
                 updatePlayerAttributes(id, players, itemsDB, itemID, -1)
                 break
@@ -5340,6 +5397,12 @@ def take(
                                 id, "You can't carry any more.\n\n")
                             return
 
+                        if playerIsTrapped(id,players,rooms):
+                            mud.send_message(
+                                id, randomDescription(
+                                    "You're trapped|The trap restricts your ability to take anything|The trap restricts your movement") + '.\n\n')
+                            return
+
                         players[id]['inv'].append(str(items[iid]['id']))
                         players[id]['wei'] = playerInventoryWeight(
                             id, players, itemsDB)
@@ -5514,6 +5577,9 @@ def runCommand(
         "clear": clearSpells,
         "spellbook": spells,
         "affinity": affinity,
+        "escape": escapeTrap,
+        "cut": escapeTrap,
+        "slash": escapeTrap,
         "resetuniverse": resetUniverse,
         "shutdown": shutdown
     }

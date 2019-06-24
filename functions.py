@@ -22,6 +22,22 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+def TimeStringToSec(durationStr):
+    """Converts a description of a duration such as '1 hour'
+       into a number of seconds
+    """
+    if ' ' not in durationStr:
+        return 1
+    dur = durationStr.lower().split(' ')
+    if dur[1].startswith('s'):
+        return int(dur[0])
+    if dur[1].startswith('min'):
+        return int(dur[0]) * 60
+    if dur[1].startswith('hour') or dur[1].startswith('hr'):
+        return int(dur[0]) * 60 * 60
+    if dur[1].startswith('day'):
+        return int(dur[0]) * 60 * 60 * 24
+    return 1
 
 def getSentiment(text, sentimentDB):
     """Returns a sentiment score for the given text
