@@ -3385,6 +3385,72 @@ def eat(
         players[id]['clo_lhand'] = 0
 
 
+def stepOver(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    roomID=players[id]['room']
+    if not rooms[roomID]['trap'].get('trapActivation'):
+        mud.send_message(
+            id, randomDescription(
+                "You don't notice a tripwire") + '.\n\n')
+        return
+    if rooms[roomID]['trap']['trapActivation']!='tripwire':
+        mud.send_message(
+            id, randomDescription(
+                "You don't notice a tripwire|You don't see a tripwire") + '.\n\n')
+        return
+    if 'over ' not in params:
+        mud.send_message(
+            id, randomDescription(
+                "Do what?|Eh?") + '.\n\n')
+        return
+        
+    for direction,ex in rooms[roomID]['exits'].items():
+        if direction in params:
+            go('######step######'+direction,
+               mud,
+               playersDB,
+               players,
+               rooms,
+               npcsDB,
+               npcs,
+               itemsDB,
+               items,
+               envDB,
+               env,
+               eventDB,
+               eventSchedule,
+               id,
+               fights,
+               corpses,
+               blocklist,
+               mapArea,
+               characterClassDB,
+               spellsDB,
+               sentimentDB,
+               guildsDB)
+            break
+
 def go(
         params,
         mud,
@@ -3422,6 +3488,13 @@ def go(
         # store the exit name
         ex = params.lower()
 
+        stepping=False
+        if '######step######' in ex:
+            if rooms[players[id]['room']]['trap'].get('trapActivation'):
+                if rooms[players[id]['room']]['trap']['trapActivation']=='tripwire':
+                    ex=ex.replace('######step######','')
+                    stepping=True
+
         # store the player's current room
         rm = rooms[players[id]['room']]
 
@@ -3440,8 +3513,9 @@ def go(
                     mud.send_message(id, "The entrance is too small for you to enter.\n\n")
                     return
 
-            if trapActivation(mud,id,players,rooms,ex):
-                return
+            if not stepping:
+                if trapActivation(mud,id,players,rooms,ex):
+                    return
 
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
@@ -5536,6 +5610,7 @@ def runCommand(
         "wield": wield,
         "brandish": wield,
         "stow": stow,
+        "step": stepOver,
         "whisper": whisper,
         "teleport": teleport,
         "summon": summon,

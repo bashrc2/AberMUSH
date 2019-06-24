@@ -7614,7 +7614,7 @@
 	    "trapType": "dart",
 	    "trapExit": "north",
 	    "trapPerception": 2,
-	    "trapActivation": "pressure",
+	    "trapActivation": "tripwire",
 	    "trapActivationTime": 0,
 	    "trapActivationDescription": "",
 	    "trapEscapeMethod": "slashing",
