@@ -565,6 +565,58 @@ For small rooms you might want to only allow one or two players to occupy it at 
 
 If these values are set to -1 then there are no limits on player size or numbers.
 
+### Traps
+
+Various kinds of traps can cause minor damage to players or prevent them from moving temporarily. After being activated they get reset again after a period of time.
+
+To set a dart trap when exiting north within `rooms.json`:
+
+``` text
+"trap": {
+    "trapType": "dart",
+    "trapExit": "north",
+    "trapPerception": 2,
+    "trapActivation": "tripwire",
+    "trapActivationTime": 0,
+    "trapActivationDescription": "",
+    "trapEscapeMethod": "",
+    "trapDamagedMax": 1,
+    "trapDamaged": 0,
+    "trapEscapeDescription": "",
+    "trapDuration": "0 min",
+    "trapPenaltyType": "hp",
+    "trapPenalty": 10,
+    "trapResetTime": "2 hours",
+    "trappedPlayers": []
+},
+```
+
+This causes a sting of up to 10 hit points. `trapPerception` specified the minimum perception (`per` value) needed to see the trap, and it gets reset after two hours if activated.
+
+To create a falling net trap activated by a pressure plate:
+
+``` text
+"trap": {
+    "trapType": "net",
+    "trapExit": "north",
+    "trapPerception": 2,
+    "trapActivation": "pressure",
+    "trapActivationTime": 0,
+    "trapActivationDescription": "",
+    "trapEscapeMethod": "slashing",
+    "trapDamagedMax": 20,
+    "trapDamaged": 0,
+    "trapEscapeDescription": "",
+    "trapDuration": "5 min",
+    "trapPenaltyType": "hp",
+    "trapPenalty": 0,
+    "trapResetTime": "2 hours",
+    "trappedPlayers": []
+},
+```
+
+When the net falls on a player it will prevent them from moving for up to 5 mins. During that time they can try to cut themselves out if they are holding a `slashing` type weapon. They will need to do 20 points of damage to the net to escape. Hence with a sword it may be easy to break free, but with a small dagger it may take a while. If you're trapped by a net then other players or NPCs have an advantage when attacking you.
+
 ### Constructing the Universe
 
 AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
