@@ -138,7 +138,22 @@ def trapActivation(mud,id,players,rooms,exitDirection):
                        rooms[roomID]['trap']['trapType'] == 'chain net':
                         mud.send_message(id, randomDescription(trapTag+"A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
                 return True
-        
+
+    #pressure plate
+    if rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
+        if rooms[roomID]['trap'].get('trapExit'):
+            if rooms[roomID]['trap']['trapExit'] == exitDirection:
+                rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
+                rooms[roomID]['trap']['trapActivationTime'] = int(time.time())
+                rooms[roomID]['trap']['trapDamaged'] = 0
+                if len(rooms[roomID]['trap']['trapActivationDescription'])>0:
+                    mud.send_message(id, trapTag+randomDescription(rooms[roomID]['trap']['trapActivationDescription'])+'.<r>\n\n')
+                else:
+                    if rooms[roomID]['trap']['trapType'] == 'net' or \
+                       rooms[roomID]['trap']['trapType'] == 'chain net':
+                        mud.send_message(id, randomDescription(trapTag+"You hear a click as you step onto a pressure plate. A " + rooms[roomID]['trap']['trapType'] + " falls from above and pins you down")+'.<r>\n\n')
+                return True
+            
     return False
 
 def runTraps(mud,rooms,players,npcs):

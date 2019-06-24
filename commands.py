@@ -2131,6 +2131,8 @@ def look(
                 if randint(1,players[id]['per'])>rm['trap']['trapPerception']:
                     if rm['trap']['trapActivation']=='tripwire':
                         roomDescription += ' A tripwire is carefully set along the floor.'
+                    if rm['trap']['trapActivation'].startswith('pressure'):
+                        roomDescription += ' The faint outline of a pressure plate can be seen on the floor.'
 
             mud.send_message(id, "\n<f230>" + roomDescription)
             playershere = []

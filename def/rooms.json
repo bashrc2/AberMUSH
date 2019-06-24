@@ -7614,7 +7614,7 @@
 	    "trapType": "net",
 	    "trapExit": "north",
 	    "trapPerception": 2,
-	    "trapActivation": "tripwire",
+	    "trapActivation": "pressure",
 	    "trapActivationTime": 0,
 	    "trapActivationDescription": "",
 	    "trapEscapeMethod": "slashing",
