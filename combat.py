@@ -85,6 +85,8 @@ def updateTemporaryCharm(mud, players, isNPC):
            players[p]['tempCharmDuration'] > 0:
             players[p]['tempCharmStart'] = now
         else:
+            if not players[p].get('tempCharmDuration'):
+                return
             if now > players[p]['tempCharmStart'] + \
                     players[p]['tempCharmDuration']:
                 players[p]['tempCharmStart'] = 0
