@@ -36,7 +36,7 @@ defenseClothing = (
     'clo_rwrist')
 
 
-def updateTemporaryIncapacitation(mud, players, isNPC):
+def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
     """Checks if players are incapacitated by spells and removes them
        after the duration has elapsed
     """
@@ -52,7 +52,7 @@ def updateTemporaryIncapacitation(mud, players, isNPC):
                         p, "<f220>You find that you can move again.<r>\n\n")
 
 
-def updateTemporaryHitPoints(mud, players, isNPC):
+def updateTemporaryHitPoints(mud, players: {}, isNPC: bool) -> None:
     """Updates any hit points added for a temporary period
        as the result of a spell
     """
@@ -73,7 +73,7 @@ def updateTemporaryHitPoints(mud, players, isNPC):
                     mud.send_message(
                         p, "<f220>Your magical protection expires.<r>\n\n")
 
-def updateTemporaryCharm(mud, players, isNPC):
+def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
     """Updates any charm added for a temporary period
        as the result of a spell
     """
@@ -98,7 +98,7 @@ def updateTemporaryCharm(mud, players, isNPC):
                     mud.send_message(
                         p, "<f220>A charm spell wears off.<r>\n\n")
 
-def playersRest(mud, players):
+def playersRest(mud, players: {}) -> None:
     """Rest restores hit points
     """
     for p in players:
@@ -114,7 +114,7 @@ def playersRest(mud, players):
                 prepareSpells(mud, p, players)
 
 
-def itemInNPCInventory(npcs, id, itemName, itemsDB):
+def itemInNPCInventory(npcs, id: int, itemName: str, itemsDB: {}) -> bool:
     if len(list(npcs[id]['inv'])) > 0:
         itemNameLower = itemName.lower()
         for i in list(npcs[id]['inv']):
@@ -123,7 +123,7 @@ def itemInNPCInventory(npcs, id, itemName, itemsDB):
     return False
 
 
-def npcUpdateLuck(nid, npcs, items, itemsDB):
+def npcUpdateLuck(nid, npcs: {}, items: {}, itemsDB: {}) -> None:
     """Calculate the luck of an NPC based on what items they are carrying
     """
     luck = 0
@@ -132,7 +132,7 @@ def npcUpdateLuck(nid, npcs, items, itemsDB):
     npcs[nid]['luc'] = luck
 
 
-def npcWieldsWeapon(mud, id, nid, npcs, items, itemsDB):
+def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {}, itemsDB: {}) -> bool:
     """what is the best weapon which the NPC is carrying?
     """
     itemID = 0
@@ -254,7 +254,7 @@ def npcWieldsWeapon(mud, id, nid, npcs, items, itemsDB):
     return False
 
 
-def npcWearsArmor(id, npcs, itemsDB):
+def npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
     """An NPC puts on armor
     """
     if len(npcs[id]['inv']) == 0:
@@ -275,7 +275,7 @@ def npcWearsArmor(id, npcs, itemsDB):
             npcs[id][c] = itemID
 
 
-def weaponDamage(id, players, itemsDB, weaponType, characterClassDB):
+def weaponDamage(id: int, players: {}, itemsDB: {}, weaponType: str, characterClassDB: {}) -> int:
     """Calculates the amount of damage which a player can do
        with weapons held
     """
@@ -297,7 +297,7 @@ def weaponDamage(id, players, itemsDB, weaponType, characterClassDB):
     return damage
 
 
-def raceResistance(id, players, racesDB, weaponType):
+def raceResistance(id: int, players: {}, racesDB: {}, weaponType: str) -> int:
     """How much resistance does the player have to the weapon type
        based upon their race
     """
@@ -319,7 +319,7 @@ def raceResistance(id, players, racesDB, weaponType):
     return resistance
 
 
-def weaponDefense(id, players, itemsDB, racesDB, weaponType, characterClassDB):
+def weaponDefense(id: int, players: {}, itemsDB: {}, racesDB: {}, weaponType: str, characterClassDB: {}) -> int:
     """How much defense does a player have due to armor worn?
     """
     defense = raceResistance(id, players, racesDB, weaponType)
@@ -336,7 +336,7 @@ def weaponDefense(id, players, itemsDB, racesDB, weaponType, characterClassDB):
     return defense
 
 
-def armorAgility(id, players, itemsDB):
+def armorAgility(id: int, players: {}, itemsDB: {}) -> int:
     """Modify agility based on armor worn
     """
     agility = 0
@@ -350,7 +350,7 @@ def armorAgility(id, players, itemsDB):
     return agility
 
 
-def canUseWeapon(id, players, itemsDB, itemID):
+def canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
     if itemID == 0:
         return True
     lockItemID = itemsDB[itemID]['lockedWithItem']
@@ -363,8 +363,8 @@ def canUseWeapon(id, players, itemsDB, itemID):
     return True
 
 
-def getWeaponHeld(id, players, itemsDB):
-    """Returns the type of weapon held, or fists if none is held
+def getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int,str,int):
+    """Returns the type of weapon held, or fists if none is held and the rounds of fire
     """
     if players[id]['clo_rhand'] > 0 and players[id]['clo_lhand'] == 0:
         # something in right hand
@@ -401,7 +401,7 @@ def getWeaponHeld(id, players, itemsDB):
     return 0, "fists", 1
 
 
-def getAttackDescription(weaponType):
+def getAttackDescription(weaponType: str) -> (str,str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -594,7 +594,7 @@ def getAttackDescription(weaponType):
     return attackDescriptionFirst, attackDescriptionSecond
 
 
-def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
+def getTemperatureDifficulty(rm: str, rooms: {}, mapArea: [], clouds: {}) -> int:
     """Returns a difficulty factor based on the ambient
        temperature
     """
@@ -608,7 +608,7 @@ def getTemperatureDifficulty(rm, rooms, mapArea, clouds):
     return -(temperature - 5)
 
 
-def attackRoll(luck):
+def attackRoll(luck: int) -> bool:
     """Did an attack succeed?
     """
     if luck > 6:
@@ -618,7 +618,7 @@ def attackRoll(luck):
     return False
 
 
-def criticalHit():
+def criticalHit() -> bool:
     """Is this a critical hit (extra damage)?
     """
     if randint(1, 20) == 20:
@@ -626,7 +626,7 @@ def criticalHit():
     return False
 
 
-def calculateDamage(weapons, defense):
+def calculateDamage(weapons: int, defense: int) -> (int,int,str):
     """Returns the amount of damage an attack causes
     """
     damageDescription = 'damage'
@@ -640,17 +640,17 @@ def calculateDamage(weapons, defense):
 
 def runFightsBetweenPlayers(
         mud,
-        players,
-        npcs,
+        players: {},
+        npcs: {},
         fights,
         fid,
-        itemsDB,
-        rooms,
+        itemsDB: {},
+        rooms: {},
         maxTerrainDifficulty,
-        mapArea,
-        clouds,
-        racesDB,
-        characterClassDB):
+        mapArea: [],
+        clouds: {},
+        racesDB: {},
+        characterClassDB: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -818,17 +818,17 @@ def runFightsBetweenPlayers(
 
 def runFightsBetweenPlayerAndNPC(
         mud,
-        players,
-        npcs,
+        players: {},
+        npcs: {},
         fights,
         fid,
-        itemsDB,
-        rooms,
+        itemsDB: {},
+        rooms: {},
         maxTerrainDifficulty,
-        mapArea,
-        clouds,
-        racesDB,
-        characterClassDB):
+        mapArea: [],
+        clouds: {},
+        racesDB: {},
+        characterClassDB: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -956,18 +956,18 @@ def runFightsBetweenPlayerAndNPC(
 
 def runFightsBetweenNPCAndPlayer(
         mud,
-        players,
-        npcs,
+        players: {},
+        npcs: {},
         fights,
         fid,
-        items,
-        itemsDB,
-        rooms,
+        items: {},
+        itemsDB: {},
+        rooms: {},
         maxTerrainDifficulty,
         mapArea,
-        clouds,
-        racesDB,
-        characterClassDB):
+        clouds: {},
+        racesDB: {},
+        characterClassDB: {}):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -1065,17 +1065,17 @@ def runFightsBetweenNPCAndPlayer(
 
 def runFights(
         mud,
-        players,
-        npcs,
+        players: {},
+        npcs: {},
         fights,
-        items,
-        itemsDB,
-        rooms,
+        items: {},
+        itemsDB: {},
+        rooms: {},
         maxTerrainDifficulty,
-        mapArea,
-        clouds,
-        racesDB,
-        characterClassDB):
+        mapArea: [],
+        clouds: {},
+        racesDB: {},
+        characterClassDB: {}):
     """Handles fights
     """
     for (fid, pl) in list(fights.items()):
