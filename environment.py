@@ -22,7 +22,7 @@ import time
 rainThreshold = 230
 
 
-def runTide():
+def runTide() -> float:
     """Calculates the tide level as the addition of sine waves
     """
     lunar_orbit_mins = 39312
@@ -48,7 +48,7 @@ def runTide():
     return daily + lunar + solar
 
 
-def assignTerrainDifficulty(rooms):
+def assignTerrainDifficulty(rooms: {}) -> int:
     """Updates the terrain difficulty for each room and returns the maximum
     """
     terrainDifficultyWords = (
@@ -90,14 +90,14 @@ def assignTerrainDifficulty(rooms):
     return maxTerrainDifficulty
 
 
-def assignInitialCoordinates(rooms, rm):
+def assignInitialCoordinates(rooms: {}, rm: str) -> None:
     """Sets initial zero room coordinates
     """
     if len(rooms[rm]['coords']) == 0:
         rooms[rm]['coords'] = [0, 0, 0]
 
 
-def findRoomWithoutCoords(rooms):
+def findRoomWithoutCoords(rooms: {}):
     """Finds the next room without assigned coordinates
     """
     for rm in rooms:
@@ -161,7 +161,7 @@ def findRoomWithoutCoords(rooms):
     return None
 
 
-def assignCoordinates(rooms):
+def assignCoordinates(rooms: {}) -> []:
     """Assigns cartesian coordinates to each room and returns the limits
     """
     mapArea = [[9999, -9999], [9999, -9999], [9999, -9999]]
@@ -190,7 +190,7 @@ def assignCoordinates(rooms):
     return mapArea
 
 
-def highestPointAtCoord(rooms, mapArea, x, y):
+def highestPointAtCoord(rooms: {}, mapArea: [], x: int, y: int) -> float:
     """Returns the highest elevation at the given location
     """
     highest = 0
@@ -209,13 +209,13 @@ def highestPointAtCoord(rooms, mapArea, x, y):
 
 
 def generateCloud(
-        randnumgen,
-        rooms,
-        mapArea,
-        clouds,
-        cloudGrid,
-        tileSize,
-        windDirection):
+        randnumgen: int,
+        rooms: {},
+        mapArea: [],
+        clouds: {},
+        cloudGrid: {},
+        tileSize: int,
+        windDirection: int) -> int:
     """Weather simulation
        This uses a simple cloud model adjusted for topology in which
        clouds get smaller as temperature increases and bigger with
@@ -328,19 +328,19 @@ def generateCloud(
     return windDirection
 
 
-def getCloudThreshold(temperature):
+def getCloudThreshold(temperature: float) -> float:
     """Temperature threshold at which cloud is formed
     """
     return (10 + temperature) * 7
 
 
-def altitudeTemperatureAdjustment(rooms, mapArea, x, y):
+def altitudeTemperatureAdjustment(rooms: {}, mapArea: [], x: int, y: int) -> float:
     """Temperature decreases with altitude
     """
     return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
 
 
-def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
+def terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [], x: int, y: int) -> float:
     """Temperature is adjusted for different types of terrain
     """
     terrainFreezingWords = ('snow', 'ice')
@@ -379,7 +379,7 @@ def terrainTemperatureAdjustment(temperature, rooms, mapArea, x, y):
     return temperature
 
 
-def plotClouds(rooms, mapArea, clouds, temperature):
+def plotClouds(rooms: {}, mapArea: [], clouds: {}, temperature: float) -> None:
     """Show clouds as ASCII diagram for debugging purposes
     """
     cloudThreshold = getCloudThreshold(temperature)
@@ -403,7 +403,7 @@ def plotClouds(rooms, mapArea, clouds, temperature):
     print('\n')
 
 
-def getTemperatureSeasonal():
+def getTemperatureSeasonal() -> float:
     """Average temperature for the time of year
     """
     dayOfYear = int(datetime.datetime.today().strftime("%j"))
@@ -412,7 +412,7 @@ def getTemperatureSeasonal():
     return 8 + (7 * tempFraction)
 
 
-def getTemperature():
+def getTemperature() -> float:
     """Average daily seasonal temperature for the universe
     """
     avTemp = getTemperatureSeasonal()
@@ -444,7 +444,7 @@ def getTemperature():
     return avTemp + dailyVariance + solarCycle
 
 
-def getTemperatureAtCoords(coords, rooms, mapArea, clouds):
+def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> float:
     """Returns the temperature at the given coordinates
     """
     x = coords[1] - mapArea[1][0]
