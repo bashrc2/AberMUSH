@@ -61,7 +61,7 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 # maximum weight of items which can be carried
 maxWeight = 100
 
-def removeItemFromClothing(players, id, itemID):
+def removeItemFromClothing(players: {}, id: int, itemID: {}) -> None:
     for c in wearLocation:
         if int(players[id]['clo_'+c]) == itemID:
             players[id]['clo_'+c] = 0
@@ -69,30 +69,30 @@ def removeItemFromClothing(players, id, itemID):
 def sendCommandError(
         params,
         mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
+        playersDB: {},
+        players: {},
+        rooms: {},
+        npcsDB: {},
+        npcs: {},
+        itemsDB: {},
+        items: {},
+        envDB: {},
         env,
-        eventDB,
+        eventDB: {},
         eventSchedule,
-        id,
-        fights,
+        id: int,
+        fights: {},
         corpses,
         blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
+        mapArea: [],
+        characterClassDB: {},
+        spellsDB: {},
+        sentimentDB: {},
+        guildsDB: {}) -> None:
     mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
 
-def isWitch(id, players):
+def isWitch(id: int, players: {}) -> bool:
     name = players[id]['name']
 
     if not os.path.isfile("witches"):
@@ -109,7 +109,7 @@ def isWitch(id, players):
     return False
 
 
-def disableRegistrations(mud, id, players):
+def disableRegistrations(mud, id: int, players: {}) -> None:
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -121,7 +121,7 @@ def disableRegistrations(mud, id, players):
     mud.send_message(id, "New player registrations are now closed.\n\n")
 
 
-def enableRegistrations(mud, id, players):
+def enableRegistrations(mud, id: int, players: {}) -> None:
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -135,26 +135,26 @@ def enableRegistrations(mud, id, players):
 def teleport(
         params,
         mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
+        playersDB: {},
+        players: {},
+        rooms: {},
+        npcsDB: {},
+        npcs: {},
+        itemsDB: {},
+        items: {},
+        envDB: {},
         env,
-        eventDB,
+        eventDB: {},
         eventSchedule,
-        id,
-        fights,
-        corpses,
+        id: int,
+        fights: {},
+        corpses: {},
         blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
+        mapArea: [],
+        characterClassDB: {},
+        spellsDB: {},
+        sentimentDB: {},
+        guildsDB: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             if playerIsTrapped(id,players,rooms):
@@ -189,26 +189,26 @@ def teleport(
 def summon(
         params,
         mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
+        playersDB: {},
+        players: {},
+        rooms: {},
+        npcsDB: {},
+        npcs: {},
+        itemsDB: {},
+        items: {},
+        envDB: {},
         env,
-        eventDB,
+        eventDB: {},
         eventSchedule,
-        id,
-        fights,
-        corpses,
+        id: int,
+        fights: {},
+        corpses: {},
         blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
+        mapArea: [],
+        characterClassDB: {},
+        spellsDB: {},
+        sentimentDB: {},
+        guildsDB: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             targetPlayer = params[0:].strip().lower()
@@ -239,26 +239,26 @@ def summon(
 def mute(
         params,
         mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
+        playersDB: {},
+        players: {},
+        rooms: {},
+        npcsDB: {},
+        npcs: {},
+        itemsDB: {},
+        items: {},
+        envDB: {},
         env,
-        eventDB,
+        eventDB: {},
         eventSchedule,
-        id,
-        fights,
-        corpses,
+        id: int,
+        fights: {},
+        corpses: {},
         blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
+        mapArea: [],
+        characterClassDB: {},
+        spellsDB: {},
+        sentimentDB: {},
+        guildsDB: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -280,26 +280,26 @@ def mute(
 def unmute(
         params,
         mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
+        playersDB: {},
+        players: {},
+        rooms: {},
+        npcsDB: {},
+        npcs: {},
+        itemsDB: {},
+        items: {},
+        envDB: {},
         env,
-        eventDB,
+        eventDB: {},
         eventSchedule,
-        id,
-        fights,
-        corpses,
+        id: int,
+        fights: {},
+        corpses: {},
         blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
+        mapArea: [],
+        characterClassDB: {},
+        spellsDB: {},
+        sentimentDB: {},
+        guildsDB: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -319,26 +319,26 @@ def unmute(
 def freeze(
         params,
         mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
+        playersDB: {},
+        players: {},
+        rooms: {},
+        npcsDB: {},
+        npcs: {},
+        itemsDB: {},
+        items: {},
+        envDB: {},
         env,
-        eventDB,
+        eventDB: {},
         eventSchedule,
-        id,
-        fights,
-        corpses,
+        id: int,
+        fights: {},
+        corpses: {},
         blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
+        mapArea: [],
+        characterClassDB: {},
+        spellsDB: {},
+        sentimentDB: {},
+        guildsDB: {}):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
