@@ -17,7 +17,15 @@ telnet [hostname] 35123
 1. Update your system `sudo apt update && sudo apt upgrade`
 2. Get the repo `git clone https://code.freedombone.net/bashrc/AberMUSH`
 3. CD into 'AberMUSH' and install the server `sudo ./installer.sh`
-4. Run it by typing `python3 abermush.py`
+
+If you want to add a firewall which only allows logins via ssh or telnet:
+
+`sudo cp /opt/abermush/firewall.nft /etc/firewall.conf`
+`sudo nft -f /etc/firewall.conf`
+`sudo echo '#!/bin/sh' > /etc/network/if-up.d/firewall`
+`sudo echo 'nft flush ruleset' >> /etc/network/if-up.d/firewall`
+`sudo echo 'nft -f /etc/firewall.conf' >> /etc/network/if-up.d/firewall`
+`sudo chmod +x /etc/network/if-up.d/firewall`
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
 
