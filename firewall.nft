@@ -28,9 +28,6 @@ table inet filter {
         tcp dport { 22,35123 } ct state new accept
 
         tcp dport { 80, 443, 90, pop2, pop3, 118, nntp, loc-srv, 222, courier, nntps, 843, pop3s, 2022, 2122, 2323, 3333, 5900, 9389 } add @blackhole { ip saddr timeout 1d }  counter packets 0 bytes 0 drop comment "portscan"
-
-        tcp dport 22 meter test-22-count-meter size 65535 { ip saddr & 255.255.255.0 ct count over 3 }  counter packets 0 bytes 0 reject with tcp reset
-        tcp dport 35123 meter test-35123-count-meter size 65535 { ip saddr & 255.255.255.0 ct count over 128 }  counter packets 0 bytes 0 reject with tcp reset
     }
 
     chain FORWARD {
