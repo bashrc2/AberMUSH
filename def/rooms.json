@@ -1500,7 +1500,7 @@
         "description": "On the south side of the house, this pond enjoys lots of sun. It is small, and you can walk around it easily. The water is very clear. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west.",
         "conditional": [
 	    ["hour","<8","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."],
-	    ["hour",">20","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."]
+	    ["hour",">20","On the south side of the house, this pond reflects the dim night stars. It is small, and easy to walk around its perimeter. The water is murky and stagnant. The garden is surrounded by the main walls of the grounds to the south and east and by the house to the north. There is an archway to the west."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -1556,7 +1556,7 @@
         "description": "You are standing in a dimly-lit shed. All the garden tools were kept here.",
         "conditional": [
 	    ["hour","<8","You are standing in a darkened shed. All the garden tools were kept here."],
-	    ["hour",">20","You are standing in a darkened shed. Garden tools are usually kept here."]
+	    ["hour",">20","You are standing in a dark shed. Garden tools are usually kept here."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -1578,7 +1578,7 @@
         "description": "This garden was once clearly used to cultivate herbs. It occupies a sunny spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north.",
         "conditional": [
 	    ["hour","<8","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."],
-	    ["hour",">20","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."]
+	    ["hour",">20","This garden was once used to cultivate herbs of ancient varieties. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -2689,7 +2689,7 @@
     },
     "$rid=431$": {
         "name": "The Cellars",
-        "description": "The cellars have clearly been used for centuries to store the beers. Unfortunately that was probably the last time they were cleaned. Rack after rack of heavy barrels are securely chained down here, adding year by year to the unmistakable smell of rotting wood and spilt alcohol.     A doorway leads south into the southern end of the cellar.",
+        "description": "The cellars have clearly been used for centuries to store the beers. Unfortunately that was probably the last time they were cleaned. Rack after rack of heavy barrels are securely chained down here, adding year by year to the unmistakable smell of rotting wood and spilt alcohol. A doorway leads south into the southern end of the cellar.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",

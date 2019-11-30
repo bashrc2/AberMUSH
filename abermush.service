@@ -1,0 +1,15 @@
+[Unit]
+Description=AberMUSH
+After=syslog.target
+After=network.target
+
+[Service]
+User=abermush
+Group=abermush
+WorkingDirectory=/opt/abermush;
+ExecStart=/usr/bin/python3 /opt/abermush/abermush.py";
+Environment=PATH=/usr/bin:/usr/local/bin
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
