@@ -11,7 +11,9 @@ yes | sudo pip3 install commentjson
 yes | sudo pip3 install websocket-client
 $INSTALL_PACKAGE git-core
 if [ ! -d /opt/abermush ]; then
+    sudo useradd -d /opt/abermush/ abermush
     sudo git clone https://code.freedombone.net/bashrc/AberMUSH /opt/abermush
+    chown -R abermush:abermush abermush
 fi
 if [ -d /etc/systemd/system ]; then
     sudo cp /opt/abermush/abermush.service /etc/systemd/system/abermush.service
