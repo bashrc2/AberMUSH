@@ -21,11 +21,17 @@ telnet [hostname] 35123
 If you want to add a firewall which only allows logins via ssh or telnet:
 
 `sudo cp /opt/abermush/firewall.nft /etc/firewall.conf`
+
 `sudo apt -y install nftables`
+
 `sudo nft -f /etc/firewall.conf`
+
 `sudo echo '#!/bin/sh' > /etc/network/if-up.d/firewall`
+
 `sudo echo 'nft flush ruleset' >> /etc/network/if-up.d/firewall`
+
 `sudo echo 'nft -f /etc/firewall.conf' >> /etc/network/if-up.d/firewall`
+
 `sudo chmod +x /etc/network/if-up.d/firewall`
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
