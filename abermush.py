@@ -637,7 +637,7 @@ while True:
                         id, "\n\n<f220>New messages in message_of_the_day:")
                     mud.send_message(
                         id, "\n\n<f220>Welcome to the GCOS System.")
-                    mud.send_message(id, "\n\n>\n\n")
+                    mud.send_message(id, "\n\n>")
                     taken = True
                     break
                     
