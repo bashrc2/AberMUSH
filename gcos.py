@@ -102,11 +102,11 @@ def terminalEmulator(command: str,mud,id) -> bool:
         mud.send_message(
             id, "\n<f220>GCOS-3 TSS Aberystwyth Computing Research Centre (Channel d.h000)")
         mud.send_message(
-            id, "\n<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
+            id, "<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
         mud.send_message(
-            id, "\n<f220>You are protected from preemption.")
+            id, "<f220>You are protected from preemption.")
         mud.send_message(
-            id, "\n<f220>Logged in from ASCII terminal \"cormorant\"")
+            id, "<f220>Logged in from ASCII terminal \"cormorant\"")
         mud.send_message(
             id, "\n\n<f220>New messages in message_of_the_day:")
         mud.send_message(
