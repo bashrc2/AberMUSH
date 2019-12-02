@@ -552,7 +552,7 @@ while True:
 
     channels.clear()
 
-    runPlayerConnections(mud, id, players, playersDB, fights, Config)
+    runPlayerConnections(mud,id,players,playersDB,fights,Config,terminalMode)
 
     # rest restores hp and allows spell learning
     now = int(time.time())
@@ -622,27 +622,28 @@ while True:
                             " logged into GCOS-3/TSS with command - " +
                             command, "info")
 
-            if command.strip().isdigit():
-                mud.send_message(
-                    id, "\n<f220>Name cannot be a digit")
-                mud.send_message(id, "Press ENTER to continue...\n\n")
-                taken = True
-
-            if not taken:
-                if len(command.strip())<2:
+            if not terminalMode.get(str(id)):
+                if command.strip().isdigit():
                     mud.send_message(
-                        id, "\n<f220>Name must be at least two characters")
+                        id, "\n<f220>Name cannot be a digit")
                     mud.send_message(id, "Press ENTER to continue...\n\n")
                     taken = True
 
-            if not taken:
-                for p in playersDB:
-                    if playersDB[p]['name'].lower() == command.lower():
+                if not taken:
+                    if len(command.strip())<2:
                         mud.send_message(
-                            id, "\n<f220>This character name is already taken!")
+                            id, "\n<f220>Name must be at least two characters")
                         mud.send_message(id, "Press ENTER to continue...\n\n")
                         taken = True
-                        break
+
+                if not taken:
+                    for p in playersDB:
+                        if playersDB[p]['name'].lower() == command.lower():
+                            mud.send_message(
+                                id, "\n<f220>This character name is already taken!")
+                            mud.send_message(id, "Press ENTER to continue...\n\n")
+                            taken = True
+                            break
 
             if not taken:
                 if terminalEmulator(command,mud,id):
@@ -814,17 +815,18 @@ while True:
                 players[id]['idleStart'] = int(time.time())
                 dbResponse = None
 
-                if command.strip().isdigit():
-                    mud.send_message(
-                        id, "\n<f220>Name cannot be a digit")
-                    mud.send_message(id, "Press ENTER to continue...\n\n")
-                    command=''
+                if not terminalMode.get(str(id)):
+                    if command.strip().isdigit():
+                        mud.send_message(
+                            id, "\n<f220>Name cannot be a digit")
+                        mud.send_message(id, "Press ENTER to continue...\n\n")
+                        command=''
 
-                if len(command.strip())<2:
-                    mud.send_message(
-                        id, "\n<f220>Name must be at least two characters")
-                    mud.send_message(id, "Press ENTER to continue...\n\n")
-                    command=''
+                    if len(command.strip())<2:
+                        mud.send_message(
+                            id, "\n<f220>Name must be at least two characters")
+                        mud.send_message(id, "Press ENTER to continue...\n\n")
+                        command=''
 
                 if terminalEmulator(command,mud,id):
                     terminalMode[str(id)]=True

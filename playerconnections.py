@@ -151,7 +151,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
         log("Client ID: " + str(id) + " has connected", "info")
 
 
-def runPlayerDisconnections(mud, id, players, playersDB, fights, Config):
+def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminalMode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
 
@@ -160,6 +160,7 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights, Config):
         if id not in players:
             continue
 
+        terminalMode[str(id)]=False
         log("Player ID: " + str(id) + " has disconnected (" +
             str(players[id]['name']) + ")", "info")
 
@@ -193,9 +194,9 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights, Config):
         del players[id]
 
 
-def runPlayerConnections(mud, id, players, playersDB, fights, Config):
-    runNewPlayerConnections(mud, id, players, playersDB, fights, Config)
-    runPlayerDisconnections(mud, id, players, playersDB, fights, Config)
+def runPlayerConnections(mud,id,players,playersDB,fights,Config,terminalMode: {}):
+    runNewPlayerConnections(mud,id,players,playersDB,fights,Config)
+    runPlayerDisconnections(mud,id,players,playersDB,fights,Config,terminalMode)
 
 
 def disconnectIdlePlayers(mud, players, allowedPlayerIdle):
