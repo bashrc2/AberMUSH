@@ -412,7 +412,6 @@ weatherUpdateInterval = 120
 clouds = {}
 cloudGrid = {}
 tileSize = 2
-terminalMode=False
 temperature = getTemperature()
 r1 = random.Random((daysSinceEpoch * 1440) + dayMins)
 windDirection = int(r1.random() * 359)
@@ -434,6 +433,8 @@ lastRestUpdate = int(time.time())
 blocklist = []
 if loadBlocklist("blocked.txt", blocklist):
     log("Blocklist loaded", "info")
+
+terminalMode={}
 
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
@@ -600,7 +601,22 @@ while True:
 
         if players[id]['exAttribute0'] == 1001:
             players[id]['idleStart'] = int(time.time())
-            taken = False
+            taken=False
+
+            if terminalMode.get(str(id))==True:
+                taken=True
+                if terminalEmulator(command,mud,id):
+                    terminalMode[str(id)]=True
+                    log("Client ID: " +
+                        str(id) +
+                        " logged into GCOS-3/TSS with command - " +
+                        command, "info")
+                else:
+                    if command.startswith('restart') or command.startswith('shutdown'):
+                        terminalMode[str(id)]=False
+                        mud.send_message(id, "\nBYE\n\n")
+                    else:
+                        mud.send_message(id, "\n>")
 
             if command.strip().isdigit():
                 mud.send_message(
@@ -626,12 +642,12 @@ while True:
 
             if not taken:
                 if terminalEmulator(command,mud,id):
-                    terminalMode=True
+                    terminalMode[str(id)]=True
                     taken = True
                     log("Client ID: " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
-                        command, "info")
+                        command, "info")                
 
             if not taken:
                 players[id]['exAttribute1'] = command.strip()
@@ -807,7 +823,7 @@ while True:
                     command=''
 
                 if terminalEmulator(command,mud,id):
-                    terminalMode=True
+                    terminalMode[str(id)]=True
                     command=''
                     log("Client ID: " +
                         str(id) +
@@ -829,7 +845,7 @@ while True:
                     mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
                     mud.send_message(id, '<f15>What is your password?\n\n')
                 else:
-                    if not terminalMode:
+                    if not terminalMode.get(str(id)):
                         mud.send_message(
                             id,
                             '<f202>User <f32>' +
@@ -841,8 +857,6 @@ while True:
                             " has requested non existent user (" +
                             command +
                             ")", "info")
-                    else:
-                        terminalMode=False
             else:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
@@ -875,13 +889,22 @@ while True:
             if players[id]['name'] == 'Guest':
                 dbPass = hash_password(pl['pwd'])
 
-            if terminalEmulator(players[id]['name'],mud,id):
-                terminalMode=True
+            if terminalMode.get(str(id))==True:
                 taken = True
-                log("Client ID: " +
-                    str(id) +
-                    " logged into GCOS-3/TSS with command - " +
-                    players[id]['name'], "info")
+                if not terminalEmulator(players[id]['name'],mud,id):
+                    if players[id]['name'].startswith('restart') or players[id]['name'].startswith('shutdown'):
+                        terminalMode[str(id)]=False
+                        mud.send_message(id, "\nBYE\n\n")
+                    else:
+                        mud.send_message(id, "\n>")                        
+            else:
+                if terminalEmulator(players[id]['name'],mud,id):
+                    terminalMode[str(id)]=True
+                    taken = True
+                    log("Client ID: " +
+                        str(id) +
+                        " logged into GCOS-3/TSS with command - " +
+                        players[id]['name'], "info")
 
             # Iterate through players in game and see if our newly connected
             # players is not already in game.
