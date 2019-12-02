@@ -494,9 +494,8 @@ while True:
                 playersDB = loadPlayersDB()
                 # State Save logic End
                 lastStateSave = now
-        if rooms and npcs and items and env:
-            saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
-            lastStateSave = now
+        saveUniverse(rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, guildsDB)
+        lastStateSave = now
 
     # Handle Player Deaths
     runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB)
