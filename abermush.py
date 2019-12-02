@@ -598,13 +598,29 @@ while True:
         if players[id]['exAttribute0'] == 1001:
             players[id]['idleStart'] = int(time.time())
             taken = False
-            for p in playersDB:
-                if playersDB[p]['name'].lower() == command.lower():
+
+            if command.strip().isdigit():
+                mud.send_message(
+                    id, "\n<f220>Name cannot be a digit")
+                mud.send_message(id, "Press ENTER to continue...\n\n")
+                taken = True
+
+            if not taken:
+                if len(command.strip())>1:
                     mud.send_message(
-                        id, "\n<f220>This character name is already taken!")
+                        id, "\n<f220>Name must be at least two characters")
                     mud.send_message(id, "Press ENTER to continue...\n\n")
                     taken = True
-                    break
+
+            if not taken:
+                for p in playersDB:
+                    if playersDB[p]['name'].lower() == command.lower():
+                        mud.send_message(
+                            id, "\n<f220>This character name is already taken!")
+                        mud.send_message(id, "Press ENTER to continue...\n\n")
+                        taken = True
+                        break
+
             if not taken:
                 players[id]['exAttribute1'] = command
                 mud.send_message(
