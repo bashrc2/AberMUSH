@@ -626,7 +626,7 @@ while True:
                 invalidNames=("chcon","chgrp","chown","chmod","cp","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","who","whoami","yes")
                 if command.strip().lower() in invalidNames:
                     mud.send_message(
-                        id, "\n<f220>Multics MR12.5 Aberystwyth Computing Research Centre (Channel d.h000)")
+                        id, "\n<f220>Multics MR12.2 Aberystwyth Computing Research Centre (Channel d.h000)")
                     mud.send_message(
                         id, "\n<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
                     mud.send_message(
