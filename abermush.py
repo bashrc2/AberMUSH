@@ -130,14 +130,14 @@ channels = {}
 # Specify allowe player idle time
 allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 
-print("Loading sentiment...")
+log("Loading sentiment...", "info")
 
 with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
     sentimentDB = commentjson.load(read_file)
 
 log("Sentiment loaded: " + str(len(sentimentDB)), "info")
 
-print("Loading rooms...")
+log("Loading rooms...", "info")
 
 # Loading rooms
 if os.path.isfile("universe.json"):
@@ -197,7 +197,7 @@ log("Environment Actors loaded: " + str(len(envDB)), "info")
 # for y in env[x]:
 # print (y,':',env[x][y])
 
-print("Loading NPCs...")
+log("Loading NPCs...", "info")
 if os.path.isfile("universe_npcs.json"):
     with open("universe_npcs.json", "r") as read_file:
         npcs = commentjson.load(read_file)
