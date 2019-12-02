@@ -622,7 +622,7 @@ while True:
                         break
 
             if not taken:
-                players[id]['exAttribute1'] = command
+                players[id]['exAttribute1'] = command.strip()
                 mud.send_message(
                     id, "<f220>Now what would you like your password to be?\n\n")
                 players[id]['exAttribute0'] = 1002
@@ -635,7 +635,7 @@ while True:
         if players[id]['exAttribute0'] == 1002:
             # store the password
             mud.send_message(id, "<f220>\nOk, got that.\n")
-            players[id]['exAttribute2'] = command
+            players[id]['exAttribute2'] = command.strip()
 
             players[id]['idleStart'] = int(time.time())
             mud.send_message(id, "<f220>\nSelect your character race:\n\n")
