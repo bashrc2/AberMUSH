@@ -15,8 +15,9 @@ def terminalEmulator(command: str,mud,id) -> bool:
     """
     command=command.strip().lower()
 
-    if command=='ls' or command.startswith('ls ') or \
-       command=='dir' or command.startswith('dir '):
+    if command=='ls' or command=='dir':
+        mud.send_message(id, "<f220>.")
+        mud.send_message(id, "<f220>..")
         mud.send_message(
             id, "<f220>drwxr-xr-x 105   09:41 am/")
         mud.send_message(
@@ -31,127 +32,100 @@ def terminalEmulator(command: str,mud,id) -> bool:
             id, "<f220>drwxr-xr-x 105   09:41 sss/")
         mud.send_message(
             id, "<f220>drwxr-xr-x 105   09:41 udd/")
-        mud.send_message(
-            id, "\n>")
+        mud.send_message(id, "\n>")
         return True        
 
-    if command.startswith('mkdir') or \
-       command.startswith('rm ') or \
-       command.startswith('rmdir ') or \
-       command.startswith('echo '):
-        mud.send_message(
-            id, "<f220>OK")
-        mud.send_message(
-            id, "\n>")
+    if command=='mkdir' or \
+       command=='rm' or \
+       command=='rmdir' or \
+       command=='echo':
+        mud.send_message(id, "<f220>OK")
+        mud.send_message(id, "\n>")
         return True        
 
-    if command.startswith('telnet'):
-        mud.send_message(
-            id, "<f220>Connected to tape drive 0")
-        mud.send_message(
-            id, "\n<f220>Datanet 1200 open")
-        mud.send_message(
-            id, "\n>")
+    if command=='passwd' or command=='pass':
+        mud.send_message(id, "<f220>New password:")
+        mud.send_message(id, "\n>")
+        return True
+
+    if command=='telnet':
+        mud.send_message(id, "<f220>Connected to tape drive 0")
+        mud.send_message(id, "\n<f220>Datanet 1200 open")
+        mud.send_message(id, "\n>")
         return True        
     
-    if command=='cat' or command=='chown':
-        mud.send_message(
-            id, "<f220>Load tape drive")
-        mud.send_message(
-            id, "\n>")
+    if command=='chown':
+        mud.send_message(id, "<f220>Load tape drive")
+        mud.send_message(id, "\n>")
         return True        
 
-    if command=='mount' or command=='unmount' or command=='umount':
-        mud.send_message(
-            id, "<f220>Tape drive 1 spinup")
-        mud.send_message(
-            id, "\n>")
-        return True
-
-    if command.startswith('mount ') or command.startswith('unmount '):
-        mud.send_message(
-            id, "<f220>Tape drive 1 mounted")
-        mud.send_message(
-            id, "\n>")
+    if command=='cat':
+        mud.send_message(id, "<f220>There is a fair fort upon the sea-shore.\nPleasantly, each is given his desire.\nAsk Gwynedd, let it be yours.\nRough, stiff spears they earned.\nOn Wednesday, I saw men in conflict;\non Thursday, it was reproaches they contended with.\nAnd hair was red with blood, and lamenting on harps.\nWeary were the men of Gwynedd the day they came,\nand atop the stone of Maelwy they shelter shields.\nA host of kinsmen fell by the descendant.")
+        mud.send_message(id, "\n>")
         return True        
 
-    if command.startswith('shred ') or command=='dd' or command.startswith('dd '):
-        mud.send_message(
-            id, "<f220>ERROR 7291")
-        mud.send_message(
-            id, "\n>")
+    if command=='unmount':
+        mud.send_message(id, "<f220>Tape drive 1 spinup")
+        mud.send_message(id, "\n>")
         return True
 
-    if command.startswith('chmod'):
-        mud.send_message(
-            id, "<f220>Confirmed")
-        mud.send_message(
-            id, "\n>")
+    if command=='mount':
+        mud.send_message(id, "<f220>Tape drive 1 mounted")
+        mud.send_message(id, "\n>")
+        return True        
+
+    if command=='shred ' or command=='dd':
+        mud.send_message(id, "<f220>ERROR 7291")
+        mud.send_message(id, "\n>")
         return True
 
-    if command=='pwd' or command.startswith('dirname'):
-        mud.send_message(
-            id, "<f220>/udd/acrc/cormorant")
-        mud.send_message(
-            id, "\n>")
+    if command=='chmod':
+        mud.send_message(id, "<f220>Confirmed")
+        mud.send_message(id, "\n>")
         return True
 
-    if command.startswith('nmap '):
-        mud.send_message(
-            id, "<f220>Press START")
-        mud.send_message(
-            id, "\n>")
+    if command=='pwd' or command=='dirname':
+        mud.send_message(id, "<f220>/udd/acrc/cormorant")
+        mud.send_message(id, "\n>")
         return True
 
-    if command.startswith('shutdown') or command.startswith('reset'):
-        mud.send_message(
-            id, "<f220>Tape drive 0 spindown")
-        mud.send_message(
-            id, "<f220>Tape drive 1 spindown")
-        mud.send_message(
-            id, ">")
+    if command=='nmap':
+        mud.send_message(id, "<f220>Press START")
+        mud.send_message(id, "\n>")
         return True
 
-    if command=='uname' or command.startswith('arch '):
-        mud.send_message(
-            id, "<f220>GCOS-3 TSS")
-        mud.send_message(
-            id, "\n>")
+    if command=='shutdown' or command=='reset':
+        mud.send_message(id, "<f220>Tape drive 0 spindown")
+        mud.send_message(id, "<f220>Tape drive 1 spindown")
+        mud.send_message(id, ">")
         return True
 
-    if command=='who' or command=='whoami' or command.startswith('whois '):
-        mud.send_message(
-            id, "<f220>cormorant")
-        mud.send_message(
-            id, "<f220>Data Services Division. Room 5A")
-        mud.send_message(
-            id, "<f220>Aberystwyth Computing Research Centre")
-        mud.send_message(
-            id, "\n>")
+    if command=='uname' or command=='arch':
+        mud.send_message(id, "<f220>GCOS-3 TSS")
+        mud.send_message(id, "\n>")
         return True
 
-    if command.startswith('useradd') or command.startswith('adduser'):
-        mud.send_message(
-            id, "<f220>Rewind tape drive 1")
-        mud.send_message(
-            id, "\n>")
+    if command=='who' or command=='whoami' or command=='whois':
+        mud.send_message(id, "<f220>cormorant")
+        mud.send_message(id, "<f220>Data Services Division. Room 5A")
+        mud.send_message(id, "<f220>Aberystwyth Computing Research Centre")
+        mud.send_message(id, "\n>")
+        return True
+
+    if command=='useradd' or command=='adduser':
+        mud.send_message(id, "<f220>Rewind tape drive 1")
+        mud.send_message(id, "\n>")
         return True        
 
     invalidNames=("sh","bash","chcon","chgrp","chown","chmod","cp","cd","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","useradd","adduser","who","whoami","yes")
     if command in invalidNames:
-        mud.send_message(
-            id, "\n<f220>GCOS-3 Time Sharing Environment")
-        mud.send_message(
-            id, "<f220>Aberystwyth Computing Research Centre (Channel d.h000)")
-        mud.send_message(
-            id, "<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
-        mud.send_message(
-            id, "<f220>You are protected from preemption.")
-        mud.send_message(
-            id, "<f220>Logged in from ASCII terminal \"CORMORANT\"")
-        mud.send_message(
-            id, "\n<f220>Welcome to terminal services.")
+        mud.send_message(id, "\n<f220>GCOS-3 Time Sharing Environment")
+        mud.send_message(id, "<f220>Aberystwyth Computing Research Centre (Channel d.h000)")
+        mud.send_message(id, "<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
+        mud.send_message(id, "<f220>You are protected from preemption.")
+        mud.send_message(id, "<f220>Logged in from ASCII terminal \"CORMORANT\"")
+        mud.send_message(id, "\n<f220>Welcome to terminal services.")
         mud.send_message(id, "\n\n>")
-
         return True
+
     return False
