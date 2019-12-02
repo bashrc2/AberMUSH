@@ -616,7 +616,7 @@ while True:
                         terminalMode[str(id)]=False
                         mud.send_message(id, "\nBYE\n\n")
                     else:
-                        mud.send_message(id, "\n>")
+                        mud.send_message(id, ">")
                         log("Client ID: " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
@@ -652,7 +652,14 @@ while True:
                     log("Client ID: " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
-                        command, "info")                
+                        command, "info")
+                else:
+                    if terminalMode.get(str(id))==True:
+                        mud.send_message(id, ">")                    
+                        log("Client ID: " +
+                            str(id) +
+                            " logged into GCOS-3/TSS with command - " +
+                            command, "info")
 
             if not taken:
                 players[id]['exAttribute1'] = command.strip()
@@ -835,6 +842,9 @@ while True:
                         " logged into GCOS-3/TSS with command - " +
                         command, "info")
                     command=''
+                else:
+                    if terminalMode.get(str(id))==True:
+                        mud.send_message(id, ">")                    
 
                 if command:
                     file = loadPlayer(command, playersDB)
@@ -902,7 +912,7 @@ while True:
                         terminalMode[str(id)]=False
                         mud.send_message(id, "\nBYE\n\n")
                     else:
-                        mud.send_message(id, "\n>")                        
+                        mud.send_message(id, ">")                        
                         log("Client ID: " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +

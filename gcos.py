@@ -22,7 +22,7 @@ def terminalEmulator(command: str,mud,id) -> bool:
         mud.send_message(
             id, "<f220>drwxr-xr-x 92387 12:17 SPOOL")
         mud.send_message(
-            id, "<f220>drwxr-xr-x 92387 12:17 TELNET/")
+            id, "<f220>drwxr-xr-x 539   12:17 TELNET/")
         mud.send_message(
             id, "<f220>drwxr-xr-x 7252  09:48 USERS.TXT")
         mud.send_message(
@@ -41,9 +41,9 @@ def terminalEmulator(command: str,mud,id) -> bool:
 
     if command.startswith('telnet'):
         mud.send_message(
-            id, "<f220>Connected to tape drive 0")
+            id, "<f220>CONNECTED TO TAPE 0")
         mud.send_message(
-            id, "\n<f220>Escape character is '^]'.")
+            id, "\n<f220>DATANET 1200 OPEN")
         mud.send_message(
             id, "\n>")
         return True        
@@ -83,9 +83,36 @@ def terminalEmulator(command: str,mud,id) -> bool:
             id, "\n>")
         return True
 
+    if command.startswith('nmap '):
+        mud.send_message(
+            id, "<f220>PRESS PLAY")
+        mud.send_message(
+            id, "\n>")
+        return True
+
+    if command.startswith('shutdown') or command.startswith('reset'):
+        mud.send_message(
+            id, "<f220>TAPE 0 SPINDOWN")
+        mud.send_message(
+            id, "<f220>TAPE 1 SPINDOWN")
+        mud.send_message(
+            id, ">")
+        return True
+
     if command=='uname' or command.startswith('arch '):
         mud.send_message(
             id, "<f220>GCOS TSS")
+        mud.send_message(
+            id, "\n>")
+        return True
+
+    if command=='who' or command=='whoami' or command.startswith('whois '):
+        mud.send_message(
+            id, "<f220>CORMORANT")
+        mud.send_message(
+            id, "<f220>Data Services Division. Room 5A")
+        mud.send_message(
+            id, "<f220>Aberystwyth Computing Research Centre")
         mud.send_message(
             id, "\n>")
         return True
@@ -100,17 +127,15 @@ def terminalEmulator(command: str,mud,id) -> bool:
     invalidNames=("sh","bash","chcon","chgrp","chown","chmod","cp","cd","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","useradd","adduser","who","whoami","yes")
     if command in invalidNames:
         mud.send_message(
-            id, "\n<f220>GCOS-3 TSS Aberystwyth Computing Research Centre (Channel d.h000)")
+            id, "\n<f220>GCOS-III TSS Aberystwyth Computing Research Centre (Channel d.h000)")
         mud.send_message(
             id, "<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
         mud.send_message(
             id, "<f220>You are protected from preemption.")
         mud.send_message(
-            id, "<f220>Logged in from ASCII terminal \"cormorant\"")
+            id, "<f220>Logged in from ASCII terminal \"CORMORANT\"")
         mud.send_message(
-            id, "\n<f220>New messages in message_of_the_day:")
-        mud.send_message(
-            id, "\n<f220>Welcome to the GCOS System.")
+            id, "\n<f220>Welcome to terminal services.")
         mud.send_message(id, "\n\n>")
 
         return True
