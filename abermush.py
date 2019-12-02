@@ -830,11 +830,11 @@ while True:
 
                 if terminalEmulator(command,mud,id):
                     terminalMode[str(id)]=True
-                    command=''
                     log("Client ID: " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
                         command, "info")
+                    command=''
 
                 if command:
                     file = loadPlayer(command, playersDB)

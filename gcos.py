@@ -20,11 +20,11 @@ def terminalEmulator(command: str,mud,id) -> bool:
         mud.send_message(
             id, "<f220>drwxr-xr-x 105   09:41 README.TXT")
         mud.send_message(
-            id, "\n<f220>drwxr-xr-x 92387 12:17 SPOOL")
+            id, "<f220>drwxr-xr-x 92387 12:17 SPOOL")
         mud.send_message(
-            id, "\n<f220>drwxr-xr-x 92387 12:17 TELNET/")
+            id, "<f220>drwxr-xr-x 92387 12:17 TELNET/")
         mud.send_message(
-            id, "\n<f220>drwxr-xr-x 7252  09:48 USERS.TXT")
+            id, "<f220>drwxr-xr-x 7252  09:48 USERS.TXT")
         mud.send_message(
             id, "\n>")
         return True        
