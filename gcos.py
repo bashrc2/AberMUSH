@@ -108,9 +108,9 @@ def terminalEmulator(command: str,mud,id) -> bool:
         mud.send_message(
             id, "<f220>Logged in from ASCII terminal \"cormorant\"")
         mud.send_message(
-            id, "\n\n<f220>New messages in message_of_the_day:")
+            id, "\n<f220>New messages in message_of_the_day:")
         mud.send_message(
-            id, "\n\n<f220>Welcome to the GCOS System.")
+            id, "\n<f220>Welcome to the GCOS System.")
         mud.send_message(id, "\n\n>")
 
         return True
