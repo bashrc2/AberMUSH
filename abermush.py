@@ -617,6 +617,10 @@ while True:
                         mud.send_message(id, "\nBYE\n\n")
                     else:
                         mud.send_message(id, "\n>")
+                        log("Client ID: " +
+                            str(id) +
+                            " logged into GCOS-3/TSS with command - " +
+                            command, "info")
 
             if command.strip().isdigit():
                 mud.send_message(
@@ -897,6 +901,10 @@ while True:
                         mud.send_message(id, "\nBYE\n\n")
                     else:
                         mud.send_message(id, "\n>")                        
+                        log("Client ID: " +
+                            str(id) +
+                            " logged into GCOS-3/TSS with command - " +
+                            players[id]['name'], "info")
             else:
                 if terminalEmulator(players[id]['name'],mud,id):
                     terminalMode[str(id)]=True
