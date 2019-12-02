@@ -41,7 +41,7 @@ def terminalEmulator(command: str,mud,id) -> bool:
 
     if command.startswith('telnet'):
         mud.send_message(
-            id, "<f220>CONNECTED TO TAPE 0")
+            id, "<f220>CONNECTED TO TAPE DRIVE 0")
         mud.send_message(
             id, "\n<f220>DATANET 1200 OPEN")
         mud.send_message(
@@ -57,7 +57,7 @@ def terminalEmulator(command: str,mud,id) -> bool:
 
     if command.startswith('mount ') or command=='mount':
         mud.send_message(
-            id, "<f220>TAPE DRIVE MOUNTED")
+            id, "<f220>TAPE DRIVE 1 MOUNTED")
         mud.send_message(
             id, "\n>")
         return True        
@@ -92,9 +92,9 @@ def terminalEmulator(command: str,mud,id) -> bool:
 
     if command.startswith('shutdown') or command.startswith('reset'):
         mud.send_message(
-            id, "<f220>TAPE 0 SPINDOWN")
+            id, "<f220>TAPE DRIVE 0 SPINDOWN")
         mud.send_message(
-            id, "<f220>TAPE 1 SPINDOWN")
+            id, "<f220>TAPE DRIVE 1 SPINDOWN")
         mud.send_message(
             id, ">")
         return True
