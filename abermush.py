@@ -606,7 +606,7 @@ while True:
                 taken = True
 
             if not taken:
-                if len(command.strip())>1:
+                if len(command.strip())<2:
                     mud.send_message(
                         id, "\n<f220>Name must be at least two characters")
                     mud.send_message(id, "Press ENTER to continue...\n\n")
