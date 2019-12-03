@@ -89,6 +89,22 @@ def terminalEmulator(command: str,mud,id) -> bool:
         mud.send_message(id, "\n>")
         return True
 
+    if command=='whoami':
+        mud.send_message(id, "<f220>cormorant")
+        mud.send_message(id, "\n>")
+        return True
+
+    if command=='who':
+        mud.send_message(id, "<f220>amsys")
+        mud.send_message(id, "<f220>blacksmith")
+        mud.send_message(id, "<f220>cormorant")
+        mud.send_message(id, "<f220>greenman")
+        mud.send_message(id, "<f220>solo")
+        mud.send_message(id, "<f220>titan2")
+        mud.send_message(id, "<f220>vulcan")
+        mud.send_message(id, "\n>")
+        return True
+
     if command=='nmap':
         mud.send_message(id, "<f220>Press START")
         mud.send_message(id, "\n>")
@@ -117,15 +133,12 @@ def terminalEmulator(command: str,mud,id) -> bool:
         mud.send_message(id, "\n>")
         return True        
 
-    invalidNames=("sh","bash","chcon","chgrp","chown","chmod","cp","cd","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","useradd","adduser","who","whoami","yes")
+    invalidNames=("sh","bash","chcon","chgrp","chown","chmod","cp","cd","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","useradd","adduser","yes")
     if command in invalidNames:
-        mud.send_message(id, "\n<f220>GCOS 3 Time Sharing Command Environment")
-        mud.send_message(id, "<f220>Aberystwyth Computing Research Centre (Channel d.h000)")
-        mud.send_message(id, "<f220>Load = 7.0 out of 90.0 units: users = 7, 14/07/1989  1531.6 gmt Sun")
-        mud.send_message(id, "<f220>You are protected from preemption.")
-        mud.send_message(id, "<f220>Logged in from ASCII terminal \"CORMORANT\"")
-        mud.send_message(id, "\n<f220>Welcome to terminal services.")
-        mud.send_message(id, "\n\n>")
+        mud.send_message(id, "<f220>System GCOS3 MOD400 - S104 -0714/1417")
+        mud.send_message(id, "<f220>Aberystwyth Computing Research Group ready!")
+        mud.send_message(id, "<f220>Logged in from DLCP terminal \"cormorant\"")
+        mud.send_message(id, "\n>")
         return True
 
     return False
