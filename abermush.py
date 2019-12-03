@@ -11,6 +11,7 @@ __status__ = "Production"
 # -*- coding: utf-8 -*-
 
 import os
+import json
 
 from cmsg import cmsg
 
@@ -133,7 +134,7 @@ allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 log("Loading sentiment...", "info")
 
 with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
-    sentimentDB = commentjson.load(read_file)
+    sentimentDB = json.loads(read_file.read())
 
 log("Sentiment loaded: " + str(len(sentimentDB)), "info")
 
@@ -142,13 +143,13 @@ log("Loading rooms...", "info")
 # Loading rooms
 if os.path.isfile("universe.json"):
     with open("universe.json", "r") as read_file:
-        rooms = commentjson.load(read_file)
+        rooms = json.loads(read_file.read())
     # Clear room coordinates
     for rm in rooms:
         rooms[rm]['coords'] = []
 else:
     with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
-        rooms = commentjson.load(read_file)
+        rooms = json.loads(read_file.read())
 
 log("Rooms loaded: " + str(len(rooms)), "info")
 
@@ -163,13 +164,13 @@ log("Map coordinates:" + str(mapArea), "info")
 # Loading environment actors
 if os.path.isfile("universe_actors.json"):
     with open("universe_actors.json", "r") as read_file:
-        env = commentjson.load(read_file)
+        env = json.loads(read_file.read())
 if os.path.isfile("universe_actorsdb.json"):
     with open("universe_actorsdb.json", "r") as read_file:
-        envDB = commentjson.load(read_file)
+        envDB = json.loads(read_file.read())
 else:
     with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
-        envDB = commentjson.load(read_file)
+        envDB = json.loads(read_file.read())
 
 output_dict = {}
 for key, value in envDB.items():
@@ -200,14 +201,14 @@ log("Environment Actors loaded: " + str(len(envDB)), "info")
 log("Loading NPCs...", "info")
 if os.path.isfile("universe_npcs.json"):
     with open("universe_npcs.json", "r") as read_file:
-        npcs = commentjson.load(read_file)
+        npcs = json.loads(read_file.read())
 
 if os.path.isfile("universe_npcsdb.json"):
     with open("universe_npcsdb.json", "r") as read_file:
-        npcsDB = commentjson.load(read_file)
+        npcsDB = json.loads(read_file.read())
 else:
     with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
-        npcsDB = commentjson.load(read_file)
+        npcsDB = json.loads(read_file.read())
 
 output_dict = {}
 for key, value in npcsDB.items():
@@ -263,22 +264,22 @@ for k in npcsDB:
 log("NPCs loaded: " + str(len(npcsDB)), "info")
 
 with open(str(Config.get('Races', 'Definition')), "r") as read_file:
-    racesDB = commentjson.load(read_file)
+    racesDB = json.loads(read_file.read())
 
 log("Races loaded: " + str(len(racesDB)), "info")
 
 with open(str(Config.get('CharacterClass', 'Definition')), "r") as read_file:
-    characterClassDB = commentjson.load(read_file)
+    characterClassDB = json.loads(read_file.read())
 
 log("Character Classes loaded: " + str(len(characterClassDB)), "info")
 
 with open(str(Config.get('Spells', 'Definition')), "r") as read_file:
-    spellsDB = commentjson.load(read_file)
+    spellsDB = json.loads(read_file.read())
 
 log("Spells loaded: " + str(len(spellsDB)), "info")
 
 with open(str(Config.get('Guilds', 'Definition')), "r") as read_file:
-    guildsDB = commentjson.load(read_file)
+    guildsDB = json.loads(read_file.read())
 
 log("Guilds loaded: " + str(len(guildsDB)), "info")
 
@@ -295,14 +296,14 @@ log("Guilds loaded: " + str(len(guildsDB)), "info")
 # Loading Items
 if os.path.isfile("universe_items.json"):
     with open("universe_items.json", "r") as read_file:
-        itemsInWorld = commentjson.load(read_file)
+        itemsInWorld = json.loads(read_file.read())
 
 if os.path.isfile("universe_itemsdb.json"):
     with open("universe_itemsdb.json", "r") as read_file:
-        itemsDB = commentjson.load(read_file)
+        itemsDB = json.loads(read_file.read())
 else:
     with open(str(Config.get('Items', 'Definition')), "r") as read_file:
-        itemsDB = commentjson.load(read_file)
+        itemsDB = json.loads(read_file.read())
 
 output_dict = {}
 for key, value in itemsDB.items():
@@ -751,7 +752,7 @@ while True:
 
             # Load the player template from a file
             with open(str(Config.get('Players', 'Location')) + "/player.template", "r") as read_file:
-                template = commentjson.load(read_file)
+                template = json.loads(read_file.read())
 
             setRace(template, racesDB, selectedRace)
 

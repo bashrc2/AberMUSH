@@ -1,6 +1,3 @@
-// FIlename: actors.json
-// Description: File containing definitions of all in-game environment actors
-
 {
     "1": {
         "name": "Customers",
@@ -8,7 +5,6 @@
         "talkDelay": "200",
         "randomFactor": "10",
 
-        // --- Do not modify below this line ---
         "room": "0",
         "randomizer": "0",
         "timeTalked": "0",
@@ -20,7 +16,6 @@
         "talkDelay": "200",
         "randomFactor": "15",
 
-        // --- Do not modify below this line ---
         "room": "0",
         "randomizer": "0",
         "timeTalked": "0",
