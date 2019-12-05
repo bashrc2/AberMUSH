@@ -5826,7 +5826,7 @@
         "exits": {
             "north": "$rid=853$",
             "east": "$rid=854$",
-            "west": "$rid=844$",
+            "west": "$rid=1396$",
             "down": "$rid=844$"
         },
         "name": "Misty Moor",
@@ -10513,6 +10513,215 @@
         "maxPlayerSize": -1,
         "maxPlayers": -1,
         "weather": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1387$": {
+        "exits": {
+            "north": "$rid=1388$",
+            "east": "$rid=1389$",
+            "west": "$rid=1390$",
+            "south": "$rid=844$"
+        },
+        "name": "Large Roundhouse",
+        "description": "The roundhouse has a large conical thatched roof which undulates upwards over an entrance to the north. Near to the entrance is a circular marking with a vertical line through it, painted in red. There are two other similar looking roundhouses to the east and west.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1388$": {
+        "exits": {
+            "south": "$rid=1387$"
+        },
+        "name": "Inside the Large Roundhouse",
+        "description": "You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the south.",
+        "conditional": [
+	    ["hour","<7","You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
+	    ["hour","<9","You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the south."],
+	    ["hour",">20","You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 8,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1389$": {
+        "exits": {
+            "west": "$rid=1387$",
+            "east": "$rid=1392$"
+        },
+        "name": "East Roundhouse",
+        "description": "The eastern roundhouse has a conical thatched roof which undulates upwards over an entrance to the north. Near to the entrance is a circular marking with a horizontal line through it, painted in red. There are two other similar looking roundhouses to the west.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1390$": {
+        "exits": {
+            "east": "$rid=1387$",
+            "west": "$rid=1391$"
+        },
+        "name": "West Roundhouse",
+        "description": "The western roundhouse has a conical thatched roof which undulates upwards over an entrance to the north. Near to the entrance is a circular marking with a cross through it, painted in red. There are two other similar looking roundhouses to the east.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1391$": {
+        "exits": {
+            "east": "$rid=1390$"
+        },
+        "name": "Inside the West Roundhouse",
+        "description": "You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the east.",
+        "conditional": [
+	    ["hour","<7","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
+	    ["hour","<9","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the east."],
+	    ["hour",">20","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 5,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1392$": {
+        "exits": {
+            "west": "$rid=1389$"
+        },
+        "name": "Inside the East Roundhouse",
+        "description": "You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the west.",
+        "conditional": [
+	    ["hour","<7","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
+	    ["hour","<9","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the west."],
+	    ["hour",">20","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 5,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1393$": {
+        "exits": {
+            "north": "$rid=1387$",
+            "south": "$rid=1394$",
+	    "west": "$rid=1397$"
+        },
+        "name": "Small Village",
+        "description": "You are standing on a small grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. To the north are a huddled group of roundhouses and to the west is a stone walled sheepfold.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1394$": {
+        "exits": {
+            "north": "$rid=1393$",
+            "south": "$rid=1395$"
+        },
+        "name": "Circular ditch",
+        "description": "You are at the northern end of the causeway. To the east and west a shallow ditch filled with water encircles a small village to the north. To the south a wooden causeway leads through the boggy marsh.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1395$": {
+        "exits": {
+            "north": "$rid=1394$",
+            "south": "$rid=844$"
+        },
+        "name": "Wooden causeway",
+        "description": "You on a narrow wooden causeway leading through a boggy marsh. Tall wooden posts protrude vertically from the mud on either side of you. Thin poles have been lashed together to form a sturdy boardwalk underfoot.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1396$": {
+        "exits": {
+            "north": "$rid=1395$",
+            "east": "$rid=856$"
+        },
+        "name": "Causeway entrance",
+        "description": "You are at the entrance to a wooden causeway, which leads northwards over marshy terrain. To the east are misty moorlands.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1397$": {
+        "exits": {
+            "east": "$rid=1393$"
+        },
+        "name": "Sheepfold",
+        "description": "You are in a sheepfold. Its dry stone walls are covered in mosses and form an approximately rectangular enclosure. An exit to the east leads to the middle of the village.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 4,
+        "weather": 1,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
