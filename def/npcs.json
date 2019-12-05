@@ -4637,8 +4637,8 @@
         "imp_lleg" : "0",
         "imp_rleg" : "0",
         "imp_feet" : "0",
-        "inDescription": "",
-        "outDescription": "",
+        "inDescription": "arrives",
+        "outDescription": "goes",
         "lookDescription": "stands around|is sitting"
     }    
 }
