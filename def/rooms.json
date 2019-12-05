@@ -10541,12 +10541,12 @@
         "exits": {
             "south": "$rid=1387$"
         },
-        "name": "Inside the Large Roundhouse",
-        "description": "You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the south.",
+        "name": "Large Roundhouse interior",
+        "description": "You are inside of a large roundhouse. A thatched conical roof supported by impressive timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the south.",
         "conditional": [
-	    ["hour","<7","You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
-	    ["hour","<9","You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the south."],
-	    ["hour",">20","You are inside of a large roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
+	    ["hour","<7","You are inside of a large roundhouse. A thatched conical roof supported by impressive timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
+	    ["hour","<9","You are inside of a large roundhouse. A thatched conical roof supported by impressive timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the south."],
+	    ["hour",">20","You are inside of a large roundhouse. A thatched conical roof supported by impressive timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -10598,7 +10598,7 @@
         "exits": {
             "east": "$rid=1390$"
         },
-        "name": "Inside the West Roundhouse",
+        "name": "West Roundhouse interior",
         "description": "You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the east.",
         "conditional": [
 	    ["hour","<7","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
@@ -10619,7 +10619,7 @@
         "exits": {
             "west": "$rid=1389$"
         },
-        "name": "Inside the East Roundhouse",
+        "name": "East Roundhouse interior",
         "description": "You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the west.",
         "conditional": [
 	    ["hour","<7","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
