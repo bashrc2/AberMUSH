@@ -4550,7 +4550,7 @@
         "imp_feet" : "0",
         "inDescription": "wanders in|struts in|runs in|flutters in",
         "outDescription": "wanders out|ruffles its feathers and trots off|flutters off",
-        "lookDescription": "continues pecking, disregarding you entirely|scratches at the ground with its foot|looks around, as if startled"
+        "lookDescription": "The chicken continues pecking, disregarding you entirely|The chicken scratches at the ground with its foot|The chicken looks around, as if startled"
     },
     "1106": {
         "name": "the sheep",
@@ -4639,6 +4639,6 @@
         "imp_feet" : "0",
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "stands around|is sitting"
+        "lookDescription": "The sheep stands around looking bored|The sheep chews and looks blankly at you"
     }    
 }
