@@ -10553,7 +10553,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 8,
-        "weather": 1,
+        "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
@@ -10610,7 +10610,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 5,
-        "weather": 1,
+        "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
@@ -10631,7 +10631,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 5,
-        "weather": 1,
+        "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
@@ -10640,10 +10640,11 @@
         "exits": {
             "north": "$rid=1387$",
             "south": "$rid=1394$",
-	    "west": "$rid=1397$"
+	    "west": "$rid=1397$",
+	    "east": "$rid=1399$"
         },
         "name": "Small Village",
-        "description": "You are standing on a grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. To the north are a huddled group of roundhouses and to the west is a stone walled sheepfold.",
+        "description": "You are standing on a grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. To the north are a huddled group of roundhouses. To the west is a stone walled sheepfold and to the east is a crannog bridge over the marsh waters.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -10721,6 +10722,45 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 4,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1398$": {
+        "exits": {
+            "west": "$rid=1399$"
+        },
+        "name": "Crannog Roundhouse interior",
+        "description": "You are inside of the crannog roundhouse. A thatched conical roof supported by timber beams is overhead and the floor is made from a fine layer of sand. There is a charcoal hearth in the centre and sunlight filters through the apex of the roof and entrance to the west.",
+        "conditional": [
+	    ["hour","<7","You are inside of the crannog roundhouse. A thatched conical roof supported by timber beams is overhead and the floor is made from a fine layer of sand. The interior of the roundhouse is dark, illuminated only by the glowing embers of the central charcoal hearth."],
+	    ["hour","<9","You are inside of the crannog roundhouse. A thatched conical roof supported by timber beams is overhead and the floor is made from a fine layer of sand. There is a charcoal hearth in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the west."],
+	    ["hour",">20","You are inside of the crannog roundhouse. A thatched conical roof supported by timber beams is overhead and the floor is made from a fine layer of sand. The interior of the roundhouse is dark, illuminated only by the glowing embers of the central charcoal hearth."]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 5,
+        "weather": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1399$": {
+        "exits": {
+            "west": "$rid=1393$",
+            "east": "$rid=1398$"
+        },
+        "name": "Crannog bridge",
+        "description": "You are standing on the wooden crannog bridge. Shallow marshland water and reeds are visible below you. Not far away to the east is the crannog roundhouse with its impressively sculpted thatch roof and a whisp of smoke rising from the apex.",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
         "weather": 1,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
