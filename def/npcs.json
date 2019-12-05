@@ -4466,7 +4466,7 @@
         "name": "the chicken",
         "inv" : [],
         "speakLanguage": "common",
-        "language": ["common"],
+        "language": ["common","dwarvish","elvish","draconic","druidic"],
         "conv" : [
             [["e"],"Cluck-cluck!"],
             [["a"],"The chicken pauses to look at you for a moment, then continues pecking the ground."]
@@ -4556,7 +4556,7 @@
         "name": "the sheep",
         "inv" : [],
         "speakLanguage": "common",
-        "language": ["common"],
+        "language": ["common","dwarvish","elvish","draconic","druidic"],
         "conv" : [
             [["e"],"Baaah!"]
         ],
