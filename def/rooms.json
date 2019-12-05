@@ -10564,7 +10564,7 @@
             "east": "$rid=1392$"
         },
         "name": "East Roundhouse",
-        "description": "The eastern roundhouse has a conical thatched roof which undulates upwards over an entrance to the north. Near to the entrance is a circular marking with a horizontal line through it, painted in red. There are two other similar looking roundhouses to the west.",
+        "description": "The eastern roundhouse has a conical thatched roof which undulates upwards over an entrance to the east. Near to the entrance is a circular marking with a horizontal line through it, painted in red. There are two other similar looking roundhouses to the west.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -10582,7 +10582,7 @@
             "west": "$rid=1391$"
         },
         "name": "West Roundhouse",
-        "description": "The western roundhouse has a conical thatched roof which undulates upwards over an entrance to the north. Near to the entrance is a circular marking with a cross through it, painted in red. There are two other similar looking roundhouses to the east.",
+        "description": "The western roundhouse has a conical thatched roof which undulates upwards over an entrance to the west. Near to the entrance is a circular marking with a cross through it, painted in red. There are two other similar looking roundhouses to the east.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
