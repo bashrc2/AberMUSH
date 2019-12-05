@@ -10643,8 +10643,8 @@
 	    "west": "$rid=1397$",
 	    "east": "$rid=1399$"
         },
-        "name": "Small Village",
-        "description": "You are standing on a grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. To the north are a huddled group of roundhouses. To the west is a stone walled sheepfold and to the east is a crannog bridge over the marsh waters.",
+        "name": "Island Village Centre",
+        "description": "You are standing on a grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. Being sited on an island in a marsh, the village is well defended from enemies, wolves or bear attacks. To the north are a huddled group of roundhouses. To the west is a stone walled sheepfold. To the east is a crannog bridge over the marsh waters and to the south is a causeway.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -10661,8 +10661,8 @@
             "north": "$rid=1393$",
             "south": "$rid=1395$"
         },
-        "name": "Circular ditch",
-        "description": "You are at the northern end of the causeway. To the east and west a shallow ditch filled with water encircles a small village to the north. To the south a wooden causeway leads through the boggy marsh.",
+        "name": "Island Village",
+        "description": "You are at the northern end of the causeway which connects a small island to the mainland. There are a number of dwellings to the north. To the east and west are watery marshes dense with reeds. To the south a wooden causeway leads through the boggy marsh.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
