@@ -10643,7 +10643,7 @@
 	    "west": "$rid=1397$"
         },
         "name": "Small Village",
-        "description": "You are standing on a small grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. To the north are a huddled group of roundhouses and to the west is a stone walled sheepfold.",
+        "description": "You are standing on a grassy patch in the middle of a small village. It's evidently a meeting point for the inhabitants. To the north are a huddled group of roundhouses and to the west is a stone walled sheepfold.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
