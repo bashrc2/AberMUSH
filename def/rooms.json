@@ -10620,11 +10620,11 @@
             "west": "$rid=1389$"
         },
         "name": "East Roundhouse interior",
-        "description": "You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the west.",
+        "description": "You are inside of the east roundhouse. Its conical roof is lined by neat rows of thatching between timber beams. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the west.",
         "conditional": [
-	    ["hour","<7","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
-	    ["hour","<9","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the west."],
-	    ["hour",">20","You are inside of the east roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
+	    ["hour","<7","You are inside of the east roundhouse. Its conical roof is lined by neat rows of thatching between timber beams. The interior of the roundhouse is dark, illuminated only by the flickering embers of the central fireplace."],
+	    ["hour","<9","You are inside of the east roundhouse. Its conical roof is lined by neat rows of thatching between timber beams. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the west."],
+	    ["hour",">20","You are inside of the east roundhouse. Its conical roof is lined by neat rows of thatching between timber beams. The interior of the roundhouse is dark and the glowing embers of the central fireplace cast shifting orange shadows on the walls."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -10659,6 +10659,7 @@
     "$rid=1394$": {
         "exits": {
             "north": "$rid=1393$",
+            "east": "$rid=1400$",
             "south": "$rid=1395$"
         },
         "name": "Island Village",
@@ -10761,6 +10762,27 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 2,
+        "weather": 1,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1400$": {
+        "exits": {
+            "west": "$rid=1394$"
+        },
+        "name": "Dense marshes",
+        "description": "You are in an area of dense marshland packed with reeds and shallow water.",
+        "conditional": [
+	    ["hour","<7","You are in an area of dense marshland packed with reeds and shallow water. Starlight glints off of the shallow water surface."],
+	    ["hour","<21","You are in an area of dense marshland packed with reeds and shallow water. Waterfowl occasionally call and swim past in the distance."],
+	    ["hour",">20","You are in an area of dense marshland packed with reeds. Starlight glints off of the shallow water surface."]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
         "weather": 1,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,

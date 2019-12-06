@@ -74,7 +74,8 @@ def assignTerrainDifficulty(rooms: {}) -> int:
         'ruin',
         'tough',
         'snow',
-        'ice')
+        'ice',
+        'marsh')
     maxTerrainDifficulty = 1
     for rm in rooms:
         difficulty = rooms[rm]['terrainDifficulty']
