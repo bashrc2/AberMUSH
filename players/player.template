@@ -15,6 +15,7 @@
     "cool": 0,
     "cred": 0,
     "inv": [],
+    "visibleWhenWearing": [],
     "speakLanguage": "common",
     "language": ["common"],
     "convstate": {},

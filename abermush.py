@@ -225,6 +225,7 @@ for k in npcsDB:
         if not(v == "name" or
                v == "room" or
                v == "inv" or
+               v == "visibleWhenWearing" or
                v == "speakLanguage" or
                v == "language" or
                v == "race" or

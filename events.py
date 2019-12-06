@@ -594,6 +594,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
                                    'follow': npcsDB[int(body[0])]['follow'],
                                    'bodyType': npcsDB[int(body[0])]['bodyType'],
                                    'canWear': npcsDB[int(body[0])]['canWear'],
+                                   'visibleWhenWearing': npcsDB[int(body[0])]['visibleWhenWearing'],
                                    'canWield': npcsDB[int(body[0])]['canWield'],
                                    'luc': npcsDB[int(body[0])]['luc'],
                                    'cool': npcsDB[int(body[0])]['cool'],
