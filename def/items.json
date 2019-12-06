@@ -27448,7 +27448,7 @@
     "1403": {
         "name": "bronze dagger",
         "short_description": "A small polished bronze dagger.",
-        "long_description": "The small polished bronze dagger has an elaborately patterned grip.",
+        "long_description": "The small polished bronze dagger has an elaborately patterned grip with three sets of concentric circles either side.|The bronze dagger is carefully polished and looks like it may be primarily a status symbol for its owner. It has elaborate circular markings on the handle.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27472,7 +27472,7 @@
         "imp_feet": 0,
         "mod_str": 9,
         "mod_exp": 0,
-        "mod_per": 0,
+        "mod_per": 10,
         "mod_endu": 0,
         "mod_cha": 0,
         "mod_int": 0,
