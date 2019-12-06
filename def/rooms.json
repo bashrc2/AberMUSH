@@ -10599,11 +10599,11 @@
             "east": "$rid=1390$"
         },
         "name": "West Roundhouse interior",
-        "description": "You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and sunlight filters through the apex of the roof and entrance to the east.",
+        "description": "You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a stone hearth in the centre and sunlight filters through the apex of the roof and entrance to the east.",
         "conditional": [
-	    ["hour","<7","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."],
-	    ["hour","<9","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a fireplace in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the east."],
-	    ["hour",">20","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central fireplace."]
+	    ["hour","<7","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central stone hearth."],
+	    ["hour","<9","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. There is a stone hearth in the centre and dim shards of morning sunlight filters through the apex of the roof and entrance to the east."],
+	    ["hour",">20","You are inside of the west roundhouse. A thatched conical roof supported by timber beams is overhead. The interior of the roundhouse is dark, illuminated only by the embers of the central stone hearth."]
 	],
         "trap": {},
         "eventOnEnter": "",
