@@ -824,7 +824,7 @@ while True:
         if players[id]['name'] is None and players[id]['exAttribute0'] is None:
             if command.lower() != "new":                
                 players[id]['idleStart'] = int(time.time())
-                dbResponse = None
+                dbResponse=None
                 
                 # check for logins with CONNECT username password
                 connectStr=command.strip().lower()
@@ -837,8 +837,8 @@ while True:
                         connectPassword=params.split(' ',1)[1].strip()
                         pl=loadPlayer(connectUsername, playersDB)
                         if pl is not None:
-                            dbResponse = tuple(pl.values())                        
-                            dbPass = pl['pwd']
+                            dbResponse=tuple(pl.values())                        
+                            dbPass=pl['pwd']
                             if connectUsername == 'Guest':
                                 dbPass=hash_password(pl['pwd'])
                             if verify_password(dbPass,connectPassword):
@@ -846,7 +846,7 @@ while True:
                                     players[id]['exAttribute1'] = connectUsername
                                     players[id]['exAttribute2'] = connectPassword
                                     players[id]['exAttribute0'] = None
-                                    initialSetupAfterLogin(mud,id,players,pl)
+                                    initialSetupAfterLogin(mud,id,players,dbResponse)
                                     familiarRecall(mud,players,id,npcs,npcsDB)
                                     mud.send_message(id, "CONNECT login success\n\n")
                                     connectCommand=True
@@ -884,7 +884,7 @@ while True:
                 if command:
                     file = loadPlayer(command, playersDB)
                     if file is not None:
-                        dbResponse = tuple(file.values())
+                        dbResponse=tuple(file.values())
 
                 # print(dbResponse)
 
