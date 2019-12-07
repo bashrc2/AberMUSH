@@ -829,9 +829,25 @@ while True:
                 connectStr=command.strip().lower()
                 connectCommand=False
                 if connectStr.lower()=='connect':
-                    mud.send_message(id, "CONNECT with params: "+params+"\n\n")
-                    connectCommand=True
-                    taken=True
+                    mud.send_message(id, "Login via CONNECT\n\n")
+                    if ' ' in params:
+                        connectUsername=params.split(' ',1)[0]
+                        players[id]['name']=connectUsername
+                        connectPassword=params.split(' ',1)[1].strip()
+                        pl=loadPlayer(connectUsername, playersDB)
+                        dbPass = pl['pwd']
+                        if connectUsername == 'Guest':
+                            dbPass=hash_password(pl['pwd'])
+                        if verify_password(dbPass,connectPassword):
+                            if not playerInGame(id,players):
+                                players[id]['exAttribute1'] = connectUsername
+                                players[id]['exAttribute2'] = connectPassword
+                                players[id]['exAttribute0'] = 1003
+                                mud.send_message(id, "CONNECT login success\n\n")
+                                connectCommand=True
+                            else:
+                                mud.send_message(id, "CONNECT login failed: player already in game\n\n")
+                    command=''
 
                 if not terminalMode.get(str(id)):
                     if command.strip().isdigit():
@@ -872,9 +888,7 @@ while True:
                     mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
                     mud.send_message(id, '<f15>What is your password?\n\n')
                 else:
-                    if connectCommand:
-                        mud.send_message(id, '<f15>Login via CONNECT\n\n')
-                    else:
+                    if not connectCommand:
                         if not terminalMode.get(str(id)):
                             mud.send_message(
                                 id,
