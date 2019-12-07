@@ -888,7 +888,7 @@ while True:
 
                 # print(dbResponse)
 
-                if dbResponse is not None:
+                if dbResponse is not None and not connectCommand:
                     players[id]['name'] = dbResponse[0]
 
                     log("Client ID: " + str(id) +
@@ -909,6 +909,8 @@ while True:
                                 " has requested non existent user (" +
                                 command +
                                 ")", "info")
+                    else:
+                        mud.send_message(id, 'Hi <u><f32>' + players[id]['name'] + '<r>!\n\n')
             else:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
