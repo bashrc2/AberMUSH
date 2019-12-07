@@ -2690,6 +2690,11 @@ def describe(
                     return
 
 def isWearing(id,players: {},itemList: []) -> bool:
+    """Given a list of possible item IDs is the player wearing any of them?
+    """
+    if not itemList:
+        return False
+
     for itemID in itemList:
         if int(players[id]['clo_lhand']) == int(itemID) or \
            int(players[id]['clo_rhand']) == int(itemID) or \
