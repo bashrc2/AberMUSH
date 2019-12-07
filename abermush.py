@@ -607,21 +607,8 @@ while True:
             taken=False
 
             # check for logins with CONNECT username password
-            connectStr=command.strip()
-            if connectStr.lower().startswith('connect '):
-                loginStr=commandStr.split(' ',1)[1]
-                if ' ' in loginStr:
-                    connectUsername=loginStr.split(' ',1)[0]
-                    connectPassword=loginStr.split(' ',1)[1]
-
-                    pl=loadPlayer(connectUsername,playersDB)
-                    dbPass=pl['pwd']
-                    if connectUsername == 'Guest':
-                        dbPass=hash_password(pl['pwd'])
-                    if verify_password(dbPass,connectPassword):
-                        players[id]['exAttribute1']=connectUsername
-                        players[id]['exAttribute2']=connectPassword
-                        players[id]['exAttribute0'] = 1003   
+            connectStr=command.strip().lower()
+            if connectStr.lower()=='connect':
                 taken=True
 
             if not taken and terminalMode.get(str(id))==True:
@@ -844,23 +831,10 @@ while True:
                 dbResponse = None
 
                 # check for logins with CONNECT username password
-                connectStr=command.strip()
-                playerLoggedIn=False
-                if connectStr.lower().startswith('connect '):
-                    loginStr=commandStr.split(' ',1)[1]
-                    if ' ' in loginStr:
-                        connectUsername=loginStr.split(' ',1)[0]
-                        connectPassword=loginStr.split(' ',1)[1]
-
-                        pl=loadPlayer(connectUsername,playersDB)
-                        dbPass=pl['pwd']
-                        if connectUsername == 'Guest':
-                            dbPass=hash_password(pl['pwd'])
-                        if verify_password(dbPass,connectPassword):
-                            players[id]['exAttribute1']=connectUsername
-                            players[id]['exAttribute2']=connectPassword
-                            players[id]['exAttribute0'] = 1003   
-                            playerLoggedIn=True
+                connectStr=command.strip().lower()
+                connectCommand=False
+                if connectStr=='connect':
+                    connectCommand=True
                     command=''
                 
                 if not terminalMode.get(str(id)):
@@ -894,32 +868,29 @@ while True:
 
                 # print(dbResponse)
 
-                if dbResponse is not None or playerLoggedIn:
-                    if playerLoggedIn:
-                        players[id]['name'] = players[id]['exAttribute1']
-                        log("Client ID: " + str(id) +
-                            " has logged in (" + players[id]['name'] + ")", "info")
-                        mud.send_message(id, 'Hi <u><f32>' + players[id]['name'] + '<r>!')
-                    else:
-                        players[id]['name'] = dbResponse[0]
+                if dbResponse is not None:
+                    players[id]['name'] = dbResponse[0]
 
-                        log("Client ID: " + str(id) +
-                            " has requested existing user (" + command + ")", "info")
-                        mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
-                        mud.send_message(id, '<f15>What is your password?\n\n')
+                    log("Client ID: " + str(id) +
+                        " has requested existing user (" + command + ")", "info")
+                    mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
+                    mud.send_message(id, '<f15>What is your password?\n\n')
                 else:
-                    if not terminalMode.get(str(id)):
-                        mud.send_message(
-                            id,
-                            '<f202>User <f32>' +
-                            command +
-                            '<r> was not found!\n')
-                        mud.send_message(id, '<f15>What is your username?\n\n')
-                        log("Client ID: " +
-                            str(id) +
-                            " has requested non existent user (" +
-                            command +
-                            ")", "info")
+                    if connectCommand:
+                        mud.send_message(id, '<f15>Login via CONNECT\n\n')
+                    else:
+                        if not terminalMode.get(str(id)):
+                            mud.send_message(
+                                id,
+                                '<f202>User <f32>' +
+                                command +
+                                '<r> was not found!\n')
+                            mud.send_message(id, '<f15>What is your username?\n\n')
+                            log("Client ID: " +
+                                str(id) +
+                                " has requested non existent user (" +
+                                command +
+                                ")", "info")
             else:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
