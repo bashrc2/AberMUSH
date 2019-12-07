@@ -361,6 +361,12 @@ You can get as devious as you like with this and have levers which open or close
 
 ![AberMUSH](docs/chest.png)
 
+### Visibility
+
+Some wearable items may allow the player to see things which are otherwise hidden. So for example wearing a certain necklace might allow you to see an ancester spirit or hidden treasure.
+
+Within *items.json* and *npcs.json* the list called *visibleWhenWearing* can contain the ID numbers of wearable items. If the player is wearing any of the items in the list then they will be able to see the NPC or item.
+
 ### Containers, Chests and Tables
 
 Other than opening and closing doors you may also want to have items which can be opened or closed, and have things removed or put into them. For example a treasure chest containing gold coins. To define an item as openable the relevant attributes are similar to the following:
