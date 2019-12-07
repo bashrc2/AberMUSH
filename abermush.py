@@ -323,6 +323,7 @@ for k in itemsDB:
                v == "room" or
                v == "language" or
                v == "state" or
+               v == "visibleWhenWearing" or
                v == "type" or
                v == "writeWithItems" or
                v == "written" or

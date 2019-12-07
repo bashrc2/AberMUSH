@@ -2099,6 +2099,15 @@ def playerIsVisible(observerId,otherPlayerId,players: {}) -> bool:
         return True
     return False
 
+def itemIsVisible(observerId,players: {},itemId,items: {}) -> bool:
+    """Is the item visible to the observer?
+    """
+    if not items[itemId].get('visibleWhenWearing'):
+        return True
+    if isWearing(observerId,players,items[itemId]['visibleWhenWearing']):
+        return True
+    return False
+
 def look(
         params,
         mud,
@@ -2185,8 +2194,9 @@ def look(
             # Show items in the room
             for (item, pl) in list(items.items()):
                 if items[item]['room'] == players[id]['room']:
-                    itemshere.append(
-                        itemsDB[items[item]['id']]['article'] + ' ' + itemsDB[items[item]['id']]['name'])
+                    if itemIsVisible(id,players,item,items):
+                        itemshere.append(
+                            itemsDB[items[item]['id']]['article'] + ' ' + itemsDB[items[item]['id']]['name'])
 
             # send player a message containing the list of players in the room
             if len(playershere) > 0:
@@ -2265,22 +2275,23 @@ def look(
             for i in items:                
                 if items[i]['room'].lower() == players[id]['room'] and \
                    param in itemsDB[items[i]['id']]['name'].lower():
-                    if itemCounter == 0:
-                        itemLanguage = itemsDB[items[i]['id']]['language']
-                        if len(itemLanguage) == 0:
-                            message += itemsDB[items[i]['id']]['long_description']
-                            message += describeContainerContents(
-                                mud, id, itemsDB, items[i]['id'], True)
-                        else:
-                            if itemLanguage in players[id]['language']:
+                    if itemIsVisible(id,players,i,items):                    
+                        if itemCounter == 0:
+                            itemLanguage = itemsDB[items[i]['id']]['language']
+                            if len(itemLanguage) == 0:
                                 message += itemsDB[items[i]['id']]['long_description']
                                 message += describeContainerContents(
                                     mud, id, itemsDB, items[i]['id'], True)
                             else:
-                                message += "It's written in " + itemLanguage
-                        itemName = itemsDB[items[i]['id']]['article'] + \
-                            " " + itemsDB[items[i]['id']]['name']
-                    itemCounter += 1
+                                if itemLanguage in players[id]['language']:
+                                    message += itemsDB[items[i]['id']]['long_description']
+                                    message += describeContainerContents(
+                                        mud, id, itemsDB, items[i]['id'], True)
+                                else:
+                                    message += "It's written in " + itemLanguage
+                            itemName = itemsDB[items[i]['id']]['article'] + \
+                                " " + itemsDB[items[i]['id']]['name']
+                        itemCounter += 1
 
             # Examine items in inventory
             if len(message) == 0:
@@ -2678,7 +2689,7 @@ def describe(
                         rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
 
-def isWearing(id,players,itemList: []) -> bool:
+def isWearing(id,players: {},itemList: []) -> bool:
     for itemID in itemList:
         if int(players[id]['clo_lhand']) == int(itemID) or \
            int(players[id]['clo_rhand']) == int(itemID) or \
@@ -4625,14 +4636,13 @@ def openItemContainer(
         mud.send_message(id, "It's already open\n\n")
         return
 
-    itemsDB[itemID]['state'] = itemsDB[itemID]['state'].replace(
-        'closed', 'open')
-    itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
-        'closed', 'open')
-    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
-        'closed', 'open')
-    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
-        'shut', 'open')
+    itemsDB[itemID]['state'] = itemsDB[itemID]['state'].replace('closed', 'open')
+    itemsDB[itemID]['short_description'] = \
+        itemsDB[itemID]['short_description'].replace('closed', 'open')
+    itemsDB[itemID]['long_description'] = \
+        itemsDB[itemID]['long_description'].replace('closed', 'open')
+    itemsDB[itemID]['long_description'] = \
+        itemsDB[itemID]['long_description'].replace('shut', 'open')
 
     if len(itemsDB[itemID]['open_description']) > 0:
         mud.send_message(id, itemsDB[itemID]['open_description'] + '\n')
