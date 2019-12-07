@@ -359,13 +359,13 @@ pull ivory lever
 
 You can get as devious as you like with this and have levers which open or close doors in some entirely different location, or one way doors which once shut with the lever can't be opened from the other side.
 
-![AberMUSH](docs/chest.png)
-
 ### Visibility
 
 Some wearable items may allow the player to see things which are otherwise hidden. So for example wearing a certain necklace might allow you to see an ancester spirit or hidden treasure.
 
 Within *items.json* and *npcs.json* the list called *visibleWhenWearing* can contain the ID numbers of wearable items. If the player is wearing any of the items in the list then they will be able to see the NPC or item.
+
+![AberMUSH](docs/chest.png)
 
 ### Containers, Chests and Tables
 
