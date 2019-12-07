@@ -3650,7 +3650,7 @@ def go(
 def goNorth(params,mud,playersDB,players,rooms, \
             npcsDB,npcs,itemsDB,items,envDB, \
             env,eventDB,eventSchedule,id,fights, \
-            corpses,blocklist,mapArea,characterClassDB, \            
+            corpses,blocklist,mapArea,characterClassDB, \
             spellsDB,sentimentDB,guildsDB) -> None:
     go('north',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3660,7 +3660,7 @@ def goNorth(params,mud,playersDB,players,rooms, \
 def goSouth(params,mud,playersDB,players,rooms, \
             npcsDB,npcs,itemsDB,items,envDB, \
             env,eventDB,eventSchedule,id,fights, \
-            corpses,blocklist,mapArea,characterClassDB, \            
+            corpses,blocklist,mapArea,characterClassDB, \
             spellsDB,sentimentDB,guildsDB) -> None:
     go('south',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3670,7 +3670,7 @@ def goSouth(params,mud,playersDB,players,rooms, \
 def goEast(params,mud,playersDB,players,rooms, \
            npcsDB,npcs,itemsDB,items,envDB, \
            env,eventDB,eventSchedule,id,fights, \
-           corpses,blocklist,mapArea,characterClassDB, \            
+           corpses,blocklist,mapArea,characterClassDB, \
            spellsDB,sentimentDB,guildsDB) -> None:
     go('east',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3680,7 +3680,7 @@ def goEast(params,mud,playersDB,players,rooms, \
 def goEast(params,mud,playersDB,players,rooms, \
            npcsDB,npcs,itemsDB,items,envDB, \
            env,eventDB,eventSchedule,id,fights, \
-           corpses,blocklist,mapArea,characterClassDB, \            
+           corpses,blocklist,mapArea,characterClassDB, \
            spellsDB,sentimentDB,guildsDB) -> None:
     go('west',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3690,7 +3690,7 @@ def goEast(params,mud,playersDB,players,rooms, \
 def goUp(params,mud,playersDB,players,rooms, \
          npcsDB,npcs,itemsDB,items,envDB, \
          env,eventDB,eventSchedule,id,fights, \
-         corpses,blocklist,mapArea,characterClassDB, \            
+         corpses,blocklist,mapArea,characterClassDB, \
          spellsDB,sentimentDB,guildsDB) -> None:
     go('up',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3700,7 +3700,7 @@ def goUp(params,mud,playersDB,players,rooms, \
 def goDown(params,mud,playersDB,players,rooms, \
            npcsDB,npcs,itemsDB,items,envDB, \
            env,eventDB,eventSchedule,id,fights, \
-           corpses,blocklist,mapArea,characterClassDB, \            
+           corpses,blocklist,mapArea,characterClassDB, \
            spellsDB,sentimentDB,guildsDB) -> None:
     go('down',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3710,7 +3710,7 @@ def goDown(params,mud,playersDB,players,rooms, \
 def goIn(params,mud,playersDB,players,rooms, \
          npcsDB,npcs,itemsDB,items,envDB, \
          env,eventDB,eventSchedule,id,fights, \
-         corpses,blocklist,mapArea,characterClassDB, \            
+         corpses,blocklist,mapArea,characterClassDB, \
          spellsDB,sentimentDB,guildsDB) -> None:
     go('in',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3720,7 +3720,7 @@ def goIn(params,mud,playersDB,players,rooms, \
 def goOut(params,mud,playersDB,players,rooms, \
           npcsDB,npcs,itemsDB,items,envDB, \
           env,eventDB,eventSchedule,id,fights, \
-          corpses,blocklist,mapArea,characterClassDB, \            
+          corpses,blocklist,mapArea,characterClassDB, \
           spellsDB,sentimentDB,guildsDB) -> None:
     go('out',mud,playersDB,players,rooms,npcsDB, \
        npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
