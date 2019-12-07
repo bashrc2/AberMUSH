@@ -843,6 +843,7 @@ while True:
                                 players[id]['exAttribute1'] = connectUsername
                                 players[id]['exAttribute2'] = connectPassword
                                 players[id]['exAttribute0'] = None
+                                players[id]['authenticated'] = True                                
                                 mud.send_message(id, "CONNECT login success\n\n")
                                 connectCommand=True
                             else:
@@ -926,7 +927,7 @@ while True:
                     mud.send_message(
                         id, "<f230>Press ENTER to continue...\n\n")
         elif players[id]['name'] is not None \
-                and players[id]['authenticated'] is None:
+             and players[id]['authenticated'] is None:
             pl = loadPlayer(players[id]['name'], playersDB)
             # print(pl)
             dbPass = pl['pwd']
@@ -956,7 +957,6 @@ while True:
                         players[id]['name'], "info")
 
             playerFound=playerInGame(id,players)
-
             if verify_password(dbPass, command):
                 if not playerFound:
                     players[id]['authenticated'] = True
