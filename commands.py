@@ -2004,29 +2004,31 @@ def conditionalRoom(condType, cond, description, id, players):
             if monthNumber == int(datetime.datetime.today().strftime("%m")):
                 return True
 
-    if condType == 'month' or condType == 'season':
+    if condType == 'month':
         if '|' in cond:
             months = cond.split('|')
             for m in months:
                 if int(m) == int(datetime.datetime.today().strftime("%m")):
                     return True
         else:
-            currMonthNumber=int(datetime.datetime.today().strftime("%m"))
-            if cond=='spring':
-                if currMonthNumber > 1 and currMonthNumber <= 4:
-                    return True
-            if cond=='summer':
-                if currMonthNumber > 4 and currMonthNumber <= 9:
-                    return True
-            if cond=='autumn':
-                if currMonthNumber > 9 and currMonthNumber <= 10:
-                    return True
-            if cond=='winter':
-                if currMonthNumber > 10 or currMonthNumber <= 1:
-                    return True
-                
+            currMonthNumber=int(datetime.datetime.today().strftime("%m"))                
             monthNumber = int(cond)
             if monthNumber == currMonthNumber:
+                return True
+
+    if condType == 'season':
+        currMonthNumber=int(datetime.datetime.today().strftime("%m"))
+        if cond=='spring':
+            if currMonthNumber > 1 and currMonthNumber <= 4:
+                return True
+        elif cond=='summer':
+            if currMonthNumber > 4 and currMonthNumber <= 9:
+                return True
+        elif cond=='autumn':
+            if currMonthNumber > 9 and currMonthNumber <= 10:
+                return True
+        elif cond=='winter':
+            if currMonthNumber > 10 or currMonthNumber <= 1:
                 return True
 
     if condType == 'day' or \
