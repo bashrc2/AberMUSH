@@ -1385,7 +1385,7 @@
         "imp_feet" : "0",
         "inDescription": "stumbles in",
         "outDescription": "shuffles out",
-        "lookDescription": "gazes mindlessly at you while raising its singular appendage"
+        "lookDescription": "A shambolic figure with a single arm. It gazes mindlessly at you."
     },
     "336": {
         "inDescription": "makes an unpleasant dragging noise",
@@ -1480,7 +1480,7 @@
     "337": {
         "inDescription": "lurches into view",
         "outDescription": "lurches away",
-        "lookDescription": "turns slowly to follow you",
+        "lookDescription": "The grey zombie is thin, with ragged scraps of dusty clothing draping from it. turns slowly to follow you.",
         "name": "the grey zombie",
         "inv" : [],
         "speakLanguage": "common",
@@ -1686,7 +1686,7 @@
         "imp_feet" : "0",
         "inDescription": "shuffles in",
         "outDescription": "shuffles out",
-        "lookDescription": "A putrid purple smoke rises from its chest"
+        "lookDescription": "Putrid smoke rises from the chest of the purple zombie. Its face seems almost entirely decayed with unrecognizable features."
     },
     "340": {
         "name": "the green zombie",
@@ -1807,7 +1807,7 @@
         "imp_feet" : "0",
         "inDescription": "stumbles and almost falls over",
         "outDescription": "stumbles away",
-        "lookDescription": "stands vacantly here in a lurid shade of green"
+        "lookDescription": "A lurid shade of green, the zombie barely manages to stand and its dark eye sockets stare vacantly in your direction."
     },
     "342": {
         "name": "the necromancer",
