@@ -849,29 +849,30 @@ while True:
                                 mud.send_message(id, "CONNECT login failed: player already in game\n\n")
                     command=''
 
-                if not terminalMode.get(str(id)):
-                    if command.strip().isdigit():
-                        mud.send_message(
-                            id, "\n<f220>Name cannot be a digit")
-                        mud.send_message(id, "Press ENTER to continue...\n\n")
-                        command=''
+                if not connectCommand:
+                    if not terminalMode.get(str(id)):
+                        if command.strip().isdigit():
+                            mud.send_message(
+                                id, "\n<f220>Name cannot be a digit")
+                            mud.send_message(id, "Press ENTER to continue...\n\n")
+                            command=''
 
-                    if len(command.strip())<2:
-                        mud.send_message(
-                            id, "\n<f220>Name must be at least two characters")
-                        mud.send_message(id, "Press ENTER to continue...\n\n")
-                        command=''
+                        if len(command.strip())<2:
+                            mud.send_message(
+                                id, "\n<f220>Name must be at least two characters")
+                            mud.send_message(id, "Press ENTER to continue...\n\n")
+                            command=''
 
-                if terminalEmulator(command,mud,id):
-                    terminalMode[str(id)]=True
-                    log("Client ID: " +
-                        str(id) +
-                        " logged into GCOS-3/TSS with command - " +
-                        command+' '+params, "info")
-                    command=''
-                else:
-                    if terminalMode.get(str(id))==True:
-                        mud.send_message(id, ">")                    
+                    if terminalEmulator(command,mud,id):
+                        terminalMode[str(id)]=True
+                        log("Client ID: " +
+                            str(id) +
+                            " logged into GCOS-3/TSS with command - " +
+                            command+' '+params, "info")
+                        command=''
+                    else:
+                        if terminalMode.get(str(id))==True:
+                            mud.send_message(id, ">")                    
 
                 if command:
                     file = loadPlayer(command, playersDB)
