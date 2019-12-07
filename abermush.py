@@ -1028,6 +1028,7 @@ while True:
                     players[id]['frozenDuration'] = dbResponse[82]
                     players[id]['affinity'] = dbResponse[83]
                     players[id]['familiar'] = dbResponse[84]
+                    players[id]['visibleWhenWearing'] = dbResponse[85]
 
                     log("Client ID: " +
                         str(id) +

@@ -15,7 +15,6 @@
     "cool": 0,
     "cred": 0,
     "inv": [],
-    "visibleWhenWearing": [],
     "speakLanguage": "common",
     "language": ["common"],
     "convstate": {},
@@ -84,5 +83,6 @@
     "frozenStart": 0,
     "frozenDuration": 0,
     "affinity": {},
-    "familiar": -1
+    "familiar": -1,
+    "visibleWhenWearing": []
 }

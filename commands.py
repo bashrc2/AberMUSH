@@ -2090,6 +2090,15 @@ def playersInRoom(targetRoom,players,npcs):
 
     return playersCtr
 
+def playerIsVisible(observerId,otherPlayerId,players: {}) -> bool:
+    """Is the other player visible to the observer?
+    """
+    if not players[otherPlayerId].get('visibleWhenWearing'):
+        return True
+    if isWearing(observerId,players,players[otherPlayerId]['visibleWhenWearing']):
+        return True
+    return False
+
 def look(
         params,
         mud,
@@ -2151,12 +2160,13 @@ def look(
                 if players[pid]['room'] == players[id]['room']:
                     # ... and they have a name to be shown
                     if players[pid]['name'] is not None and players[pid]['name'] is not players[id]['name']:
-                        # add their name to the list
-                        if players[pid]['prefix'] == "None":
-                            playershere.append(players[pid]['name'])
-                        else:
-                            playershere.append(
-                                "[" + players[pid]['prefix'] + "] " + players[pid]['name'])
+                        if playerIsVisible(id,pid,players):
+                            # add their name to the list
+                            if players[pid]['prefix'] == "None":
+                                playershere.append(players[pid]['name'])
+                            else:
+                                playershere.append(
+                                    "[" + players[pid]['prefix'] + "] " + players[pid]['name'])
 
             # Show corpses in the room
             for (corpse, pl) in list(corpses.items()):
@@ -2169,7 +2179,8 @@ def look(
                     # Don't show hidden familiars
                     if npcs[nid]['familiarMode'] != 'hide' or \
                        (len(npcs[nid]['familiarOf'])>0 and npcs[nid]['familiarOf']==players[id]['name']):
-                        playershere.append(npcs[nid]['name'])
+                        if playerIsVisible(id,nid,npcs):
+                            playershere.append(npcs[nid]['name'])
 
             # Show items in the room
             for (item, pl) in list(items.items()):
@@ -2224,8 +2235,9 @@ def look(
                 if players[p]['authenticated'] is not None:
                     if players[p]['name'].lower(
                     ) == param and players[p]['room'] == players[id]['room']:
-                        bioOfPlayer(mud, id, p, players, itemsDB)
-                        messageSent = True
+                        if playerIsVisible(id,p,players):
+                            bioOfPlayer(mud, id, p, players, itemsDB)
+                            messageSent = True
 
             message = ""
 
@@ -2233,13 +2245,14 @@ def look(
             for n in npcs:
                 if param in npcs[n]['name'].lower() \
                    and npcs[n]['room'] == players[id]['room']:
-                    if npcs[n]['familiarMode']!='hide':
-                        bioOfPlayer(mud, id, n, npcs, itemsDB)
-                        messageSent = True
-                    else:
-                        if npcs[n]['familiarOf']==players[id]['name']:
-                            message="They are hiding somewhere here."
+                    if playerIsVisible(id,n,npcs):
+                        if npcs[n]['familiarMode']!='hide':
+                            bioOfPlayer(mud, id, n, npcs, itemsDB)
                             messageSent = True
+                        else:
+                            if npcs[n]['familiarOf']==players[id]['name']:
+                                message="They are hiding somewhere here."
+                                messageSent = True
 
             if len(message) > 0:
                 mud.send_message(id, message + "\n\n")
@@ -2664,7 +2677,24 @@ def describe(
                     saveUniverse(
                         rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
                     return
-    
+
+def isWearing(id,players,itemList: []) -> bool:
+    for itemID in itemList:
+        if int(players[id]['clo_lhand']) == int(itemID) or \
+           int(players[id]['clo_rhand']) == int(itemID) or \
+           int(players[id]['clo_lleg']) == int(itemID) or \
+           int(players[id]['clo_rleg']) == int(itemID) or \
+           int(players[id]['clo_head']) == int(itemID) or \
+           int(players[id]['clo_lwrist']) == int(itemID) or \
+           int(players[id]['clo_rwrist']) == int(itemID) or \
+           int(players[id]['clo_larm']) == int(itemID) or \
+           int(players[id]['clo_rarm']) == int(itemID) or \
+           int(players[id]['clo_neck']) == int(itemID) or \
+           int(players[id]['clo_chest']) == int(itemID) or \
+           int(players[id]['clo_feet']) == int(itemID):
+            return True
+    return False
+                
 def checkInventory(
         params,
         mud,
@@ -3182,8 +3212,8 @@ def messageToPlayersInRoom(mud, players, id, msg):
         # sending the command
         if players[pid]['room'] == players[id]['room'] \
                 and pid != id:
-            mud.send_message(pid, msg)
-
+            if playerIsVisible(pid,id,players):
+                mud.send_message(pid, msg)
 
 def bioOfPlayer(mud, id, pid, players, itemsDB):
     if players[pid].get('race'):
