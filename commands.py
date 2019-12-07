@@ -1864,7 +1864,7 @@ def speak(
         guildsDB):
     lang = params.lower().strip()
     if lang not in players[id]['language']:
-        mud.send_message(id, "You don't know how to speak " + lang + "\n\n")
+        mud.send_message(id, "You don't know how to speak that language\n\n")
         return
     players[id]['speakLanguage'] = lang
     mud.send_message(id, "You switch to speaking in " + lang + "\n\n")
@@ -5699,6 +5699,7 @@ def runCommand(
         "cancel": destroy,
         "banish": destroy,
         "speak": speak,
+        "talk": speak,
         "learn": prepareSpell,
         "prepare": prepareSpell,
         "destroy": destroy,
