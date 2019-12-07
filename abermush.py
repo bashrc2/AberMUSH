@@ -842,7 +842,7 @@ while True:
                             if not playerInGame(id,players):
                                 players[id]['exAttribute1'] = connectUsername
                                 players[id]['exAttribute2'] = connectPassword
-                                players[id]['exAttribute0'] = 1003
+                                players[id]['exAttribute0'] = None
                                 mud.send_message(id, "CONNECT login success\n\n")
                                 connectCommand=True
                             else:
