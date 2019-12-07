@@ -1909,6 +1909,8 @@ def say(
         for (pid, pl) in list(players.items()):
             # if they're in the same room as the player
             if players[pid]['room'] == players[id]['room']:
+                if not playerIsVisible(id,pid,players):
+                    continue
                 if selfOnly == False or pid == id:
                     if players[id]['speakLanguage'] in players[pid]['language']:
                         if getSentiment(params, sentimentDB) >= 0:
