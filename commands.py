@@ -3677,7 +3677,7 @@ def goEast(params,mud,playersDB,players,rooms, \
        id,fights,corpses,blocklist,mapArea,characterClassDB, \
        spellsDB,sentimentDB,guildsDB)
 
-def goEast(params,mud,playersDB,players,rooms, \
+def goWest(params,mud,playersDB,players,rooms, \
            npcsDB,npcs,itemsDB,items,envDB, \
            env,eventDB,eventSchedule,id,fights, \
            corpses,blocklist,mapArea,characterClassDB, \
