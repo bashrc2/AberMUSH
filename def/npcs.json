@@ -1390,7 +1390,7 @@
     "336": {
         "inDescription": "makes an unpleasant dragging noise",
         "outDescription": "drags itself away",
-        "lookDescription": "moves clumsily around",
+        "lookDescription": "The crawler zombie looks vaguely like it was previously some kind of human, but it has no legs and its upper body is extensively decayed. It pulls its tattered torso around with its arms in a grotesque manner.",
         "name": "the crawler zombie",
         "inv" : [],
         "speakLanguage": "common",
