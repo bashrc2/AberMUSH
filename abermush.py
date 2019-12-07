@@ -39,6 +39,7 @@ from combat import updateTemporaryIncapacitation
 from combat import updateTemporaryCharm
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
+from playerconnections import playerInGame
 from npcs import npcRespawns
 from npcs import runNPCs
 from npcs import npcsRest
@@ -605,7 +606,22 @@ while True:
             players[id]['idleStart'] = int(time.time())
             taken=False
 
-            if command.strip().lower()=='connect':
+            # check for logins with CONNECT username password
+            connectStr=command.strip().lower()
+            if connectStr.startswith('connect '):
+                loginStr=commandStr.split(' ',1)[1]
+                if ' ' in loginStr:
+                    connectUsername=loginStr.split(' ',1)[0]
+                    connectPassword=loginStr.split(' ',1)[1]
+
+                    pl=loadPlayer(connectUsername,playersDB)
+                    dbPass=pl['pwd']
+                    if connectUsername == 'Guest':
+                        dbPass=hash_password(pl['pwd'])
+                    if verify_password(dbPass,connectPassword):
+                        players[id]['exAttribute1']=connectUsername
+                        players[id]['exAttribute2']=connectPassword
+                        players[id]['exAttribute0'] = 1003   
                 taken=True
 
             if not taken and terminalMode.get(str(id))==True:
@@ -931,12 +947,7 @@ while True:
                         " logged into GCOS-3/TSS with command - " +
                         players[id]['name'], "info")
 
-            # Iterate through players in game and see if our newly connected
-            # players is not already in game.
-            playerFound = False
-            for pl in players:
-                if players[id]['name'] is not None and players[pl]['name'] is not None and players[id]['name'] == players[pl]['name'] and pl != id:
-                    playerFound = True
+            playerFound=playerInGame(id,players)
 
             if verify_password(dbPass, command):
                 if not playerFound:
