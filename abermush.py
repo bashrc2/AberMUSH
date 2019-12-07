@@ -609,6 +609,7 @@ while True:
             # check for logins with CONNECT username password
             connectStr=command.strip().lower()
             if connectStr.lower()=='connect':
+                mud.send_message(id, "CONNECT with params: "+params+"\n\n")
                 taken=True
 
             if not taken and terminalMode.get(str(id))==True:
@@ -715,7 +716,7 @@ while True:
                 break
 
             if not os.path.isfile("witches"):
-                command = 'witch'
+                command='witch'
                 players[id]['exAttribute0'] = 1004
             else:
                 mud.send_message(
@@ -829,13 +830,6 @@ while True:
             if command.lower() != "new":                
                 players[id]['idleStart'] = int(time.time())
                 dbResponse = None
-
-                # check for logins with CONNECT username password
-                connectStr=command.strip().lower()
-                connectCommand=False
-                if connectStr=='connect':
-                    connectCommand=True
-                    command=''
                 
                 if not terminalMode.get(str(id)):
                     if command.strip().isdigit():
