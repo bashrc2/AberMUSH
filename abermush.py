@@ -843,6 +843,24 @@ while True:
                 players[id]['idleStart'] = int(time.time())
                 dbResponse = None
 
+                # check for logins with CONNECT username password
+                connectStr=command.strip().lower()
+                if connectStr.startswith('connect '):
+                    loginStr=commandStr.split(' ',1)[1]
+                    if ' ' in loginStr:
+                        connectUsername=loginStr.split(' ',1)[0]
+                        connectPassword=loginStr.split(' ',1)[1]
+
+                        pl=loadPlayer(connectUsername,playersDB)
+                        dbPass=pl['pwd']
+                        if connectUsername == 'Guest':
+                            dbPass=hash_password(pl['pwd'])
+                        if verify_password(dbPass,connectPassword):
+                            players[id]['exAttribute1']=connectUsername
+                            players[id]['exAttribute2']=connectPassword
+                            players[id]['exAttribute0'] = 1003   
+                    command=''
+                
                 if not terminalMode.get(str(id)):
                     if command.strip().isdigit():
                         mud.send_message(
