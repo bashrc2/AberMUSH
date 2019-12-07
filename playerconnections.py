@@ -219,13 +219,13 @@ def disconnectIdlePlayers(mud, players, allowedPlayerIdle):
             del players[p]
             mud._handle_disconnect(p)
 
-def playerInGame(id,players: {}) -> bool:
+def playerInGame(id,username: str,players: {}) -> bool:
     """ is the given player already logged in?
     """
     for pl in players:
-        if players[id]['name'] is not None and \
+        if username is not None and \
            players[pl]['name'] is not None and \
-           players[id]['name'] == players[pl]['name'] and \
+           username == players[pl]['name'] and \
            pl != id:
             return True
     return False

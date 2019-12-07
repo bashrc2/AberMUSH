@@ -839,7 +839,7 @@ while True:
                         if connectUsername == 'Guest':
                             dbPass=hash_password(pl['pwd'])
                         if verify_password(dbPass,connectPassword):
-                            if not playerInGame(id,players):
+                            if not playerInGame(id,connectUsername,players):
                                 players[id]['exAttribute1'] = connectUsername
                                 players[id]['exAttribute2'] = connectPassword
                                 players[id]['exAttribute0'] = None
@@ -956,7 +956,7 @@ while True:
                         " logged into GCOS-3/TSS with command - " +
                         players[id]['name'], "info")
 
-            playerFound=playerInGame(id,players)
+            playerFound=playerInGame(id,players[id]['name'],players)
             if verify_password(dbPass, command):
                 if not playerFound:
                     players[id]['authenticated'] = True
