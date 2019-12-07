@@ -613,7 +613,7 @@ while True:
                     log("Client ID: " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
-                        command, "info")
+                        command+' '+params, "info")
                 else:
                     if command.startswith('restart') or command.startswith('shutdown'):
                         terminalMode[str(id)]=False
@@ -623,7 +623,7 @@ while True:
                         log("Client ID: " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
-                            command, "info")
+                            command+' '+params, "info")
 
             if not taken and not terminalMode.get(str(id)):
                 if command.strip().isdigit():
@@ -655,14 +655,14 @@ while True:
                     log("Client ID: " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
-                        command, "info")
+                        command+' '+params, "info")
                 else:
                     if terminalMode.get(str(id))==True:
                         mud.send_message(id, ">")                    
                         log("Client ID: " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
-                            command, "info")
+                            command+' '+params, "info")
 
             if not taken:
                 players[id]['exAttribute1'] = command.strip()
@@ -851,7 +851,7 @@ while True:
                     log("Client ID: " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
-                        command, "info")
+                        command+' '+params, "info")
                     command=''
                 else:
                     if terminalMode.get(str(id))==True:
