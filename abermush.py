@@ -605,7 +605,10 @@ while True:
             players[id]['idleStart'] = int(time.time())
             taken=False
 
-            if terminalMode.get(str(id))==True:
+            if command.strip().lower()=='connect':
+                taken=True
+
+            if not taken and terminalMode.get(str(id))==True:
                 taken=True
                 if terminalEmulator(command,mud,id):
                     terminalMode[str(id)]=True
@@ -624,7 +627,7 @@ while True:
                             " logged into GCOS-3/TSS with command - " +
                             command, "info")
 
-            if not terminalMode.get(str(id)):
+            if not taken and not terminalMode.get(str(id)):
                 if command.strip().isdigit():
                     mud.send_message(
                         id, "\n<f220>Name cannot be a digit")
