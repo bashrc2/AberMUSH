@@ -607,8 +607,8 @@ while True:
             taken=False
 
             # check for logins with CONNECT username password
-            connectStr=command.strip().lower()
-            if connectStr.startswith('connect '):
+            connectStr=command.strip()
+            if connectStr.lower().startswith('connect '):
                 loginStr=commandStr.split(' ',1)[1]
                 if ' ' in loginStr:
                     connectUsername=loginStr.split(' ',1)[0]
@@ -844,9 +844,9 @@ while True:
                 dbResponse = None
 
                 # check for logins with CONNECT username password
-                connectStr=command.strip().lower()
+                connectStr=command.strip()
                 playerLoggedIn=False
-                if connectStr.startswith('connect '):
+                if connectStr.lower().startswith('connect '):
                     loginStr=commandStr.split(' ',1)[1]
                     if ' ' in loginStr:
                         connectUsername=loginStr.split(' ',1)[0]
