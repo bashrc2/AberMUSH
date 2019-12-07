@@ -606,12 +606,6 @@ while True:
             players[id]['idleStart'] = int(time.time())
             taken=False
 
-            # check for logins with CONNECT username password
-            connectStr=command.strip().lower()
-            if connectStr.lower()=='connect':
-                mud.send_message(id, "CONNECT with params: "+params+"\n\n")
-                taken=True
-
             if not taken and terminalMode.get(str(id))==True:
                 taken=True
                 if terminalEmulator(command,mud,id):
@@ -831,6 +825,14 @@ while True:
                 players[id]['idleStart'] = int(time.time())
                 dbResponse = None
                 
+                # check for logins with CONNECT username password
+                connectStr=command.strip().lower()
+                connectCommand=False
+                if connectStr.lower()=='connect':
+                    mud.send_message(id, "CONNECT with params: "+params+"\n\n")
+                    connectCommand=True
+                    taken=True
+
                 if not terminalMode.get(str(id)):
                     if command.strip().isdigit():
                         mud.send_message(
