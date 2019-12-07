@@ -3647,6 +3647,86 @@ def go(
         mud.send_message(id, 'Somehow, your legs refuse to obey your will.\n')
 
 
+def goNorth(params,mud,playersDB,players,rooms, \
+            npcsDB,npcs,itemsDB,items,envDB, \
+            env,eventDB,eventSchedule,id,fights, \
+            corpses,blocklist,mapArea,characterClassDB, \            
+            spellsDB,sentimentDB,guildsDB) -> None:
+    go('north',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goSouth(params,mud,playersDB,players,rooms, \
+            npcsDB,npcs,itemsDB,items,envDB, \
+            env,eventDB,eventSchedule,id,fights, \
+            corpses,blocklist,mapArea,characterClassDB, \            
+            spellsDB,sentimentDB,guildsDB) -> None:
+    go('south',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goEast(params,mud,playersDB,players,rooms, \
+           npcsDB,npcs,itemsDB,items,envDB, \
+           env,eventDB,eventSchedule,id,fights, \
+           corpses,blocklist,mapArea,characterClassDB, \            
+           spellsDB,sentimentDB,guildsDB) -> None:
+    go('east',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goEast(params,mud,playersDB,players,rooms, \
+           npcsDB,npcs,itemsDB,items,envDB, \
+           env,eventDB,eventSchedule,id,fights, \
+           corpses,blocklist,mapArea,characterClassDB, \            
+           spellsDB,sentimentDB,guildsDB) -> None:
+    go('west',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goUp(params,mud,playersDB,players,rooms, \
+         npcsDB,npcs,itemsDB,items,envDB, \
+         env,eventDB,eventSchedule,id,fights, \
+         corpses,blocklist,mapArea,characterClassDB, \            
+         spellsDB,sentimentDB,guildsDB) -> None:
+    go('up',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goDown(params,mud,playersDB,players,rooms, \
+           npcsDB,npcs,itemsDB,items,envDB, \
+           env,eventDB,eventSchedule,id,fights, \
+           corpses,blocklist,mapArea,characterClassDB, \            
+           spellsDB,sentimentDB,guildsDB) -> None:
+    go('down',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goIn(params,mud,playersDB,players,rooms, \
+         npcsDB,npcs,itemsDB,items,envDB, \
+         env,eventDB,eventSchedule,id,fights, \
+         corpses,blocklist,mapArea,characterClassDB, \            
+         spellsDB,sentimentDB,guildsDB) -> None:
+    go('in',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
+def goOut(params,mud,playersDB,players,rooms, \
+          npcsDB,npcs,itemsDB,items,envDB, \
+          env,eventDB,eventSchedule,id,fights, \
+          corpses,blocklist,mapArea,characterClassDB, \            
+          spellsDB,sentimentDB,guildsDB) -> None:
+    go('out',mud,playersDB,players,rooms,npcsDB, \
+       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
+       id,fights,corpses,blocklist,mapArea,characterClassDB, \
+       spellsDB,sentimentDB,guildsDB)
+
 def conjureRoom(
         params,
         mud,
@@ -5641,6 +5721,20 @@ def runCommand(
     switcher = {
         "sendCommandError": sendCommandError,
         "go": go,
+        "north": goNorth,
+        "n": goNorth,
+        "south": goSouth,
+        "s": goSouth,
+        "east": goEast,
+        "e": goEast,
+        "west": goWest,
+        "w": goWest,
+        "up": goUp,
+        "u": goUp,
+        "down": goDown,
+        "d": goDown,
+        "in": goIn,
+        "out": goOut,
         "bio": bio,
         "who": who,
         "quit": quit,
@@ -5720,6 +5814,7 @@ def runCommand(
         "resetuniverse": resetUniverse,
         "shutdown": shutdown,
         "inv": checkInventory,
+        "i": checkInventory,
         "inventory": checkInventory
     }
 
