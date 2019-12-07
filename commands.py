@@ -5711,7 +5711,9 @@ def runCommand(
         "cut": escapeTrap,
         "slash": escapeTrap,
         "resetuniverse": resetUniverse,
-        "shutdown": shutdown
+        "shutdown": shutdown,
+        "inv": checkInventory,
+        "inventory": checkInventory
     }
 
     try:
