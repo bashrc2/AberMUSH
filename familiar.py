@@ -85,6 +85,8 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
     creaturesFriendly=0
     creaturesRaces=[]
     for p in players:
+        if players[p]['name'] is None:
+            continue
         if players[p]['room']==npcs[nid]['room']:
             creaturesCount=creaturesCount+1
             if players[p]['race'] not in creaturesRaces:

@@ -41,7 +41,9 @@ def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
        after the duration has elapsed
     """
     now = int(time.time())
-    for p in players:        
+    for p in players:
+        if players[p]['name'] is None:
+            continue
         if players[p]['frozenStart'] != 0:
             if now >= players[p]['frozenStart'] + players[p]['frozenDuration']:
                 players[p]['frozenStart'] = 0
@@ -58,6 +60,8 @@ def updateTemporaryHitPoints(mud, players: {}, isNPC: bool) -> None:
     """
     now = int(time.time())
     for p in players:
+        if players[p]['name'] is None:
+            continue
         if players[p]['tempHitPoints'] == 0:
             continue
         if players[p]['tempHitPointsStart'] == 0 and \
@@ -79,6 +83,8 @@ def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
     """
     now = int(time.time())
     for p in players:
+        if players[p]['name'] is None:
+            continue
         if players[p]['tempCharm'] == 0:
             continue
         if players[p]['tempCharmStart'] == 0 and \

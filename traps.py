@@ -51,6 +51,8 @@ def describeTrapDeactivation(mud,roomID,trap,players):
     """Describes when a trap gets reset
     """
     for id in players:
+        if players[id]['name'] is None:
+            continue
         if players[id]['room'] != roomID:
             continue
         if players[id]['name'] in trap['trappedPlayers']:

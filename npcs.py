@@ -362,6 +362,8 @@ def runNPCs(
             npcs[nid]['whenDied'] = int(time.time())
             # detach familiar from player
             for pl in players:
+                if players[pl]['name'] is None:
+                    continue
                 if players[pl]['familiar']==int(nid):
                     players[pl]['familiar']=-1
             fightsCopy = deepcopy(fights)
@@ -403,6 +405,8 @@ def runNPCs(
             # death
             if len(droppedItems) > 0:
                 for p in players:
+                    if players[p]['name'] is None:
+                        continue
                     if players[p]['room'] == npcs[nid]['lastRoom']:
                         mud.send_message(
                             p,
