@@ -609,7 +609,7 @@ while True:
 
             if not taken and terminalMode.get(str(id))==True:
                 taken=True
-                if terminalEmulator(command,mud,id):
+                if terminalEmulator(command,params,mud,id):
                     terminalMode[str(id)]=True
                     log("Client ID: " +
                         str(id) +
@@ -650,7 +650,7 @@ while True:
                             break
 
             if not taken:
-                if terminalEmulator(command,mud,id):
+                if terminalEmulator(command,params,mud,id):
                     terminalMode[str(id)]=True
                     taken = True
                     log("Client ID: " +
@@ -870,7 +870,7 @@ while True:
                             mud.send_message(id, "Press ENTER to continue...\n\n")
                             command=''
 
-                    if terminalEmulator(command,mud,id):
+                    if terminalEmulator(command,params,mud,id):
                         terminalMode[str(id)]=True
                         log("Client ID: " +
                             str(id) +
@@ -945,7 +945,7 @@ while True:
 
             if terminalMode.get(str(id))==True:
                 taken = True
-                if not terminalEmulator(players[id]['name'],mud,id):
+                if not terminalEmulator(players[id]['name'],'',mud,id):
                     if players[id]['name'].startswith('restart') or players[id]['name'].startswith('shutdown'):
                         terminalMode[str(id)]=False
                         mud.send_message(id, "\nBYE\n\n")
@@ -956,7 +956,7 @@ while True:
                             " logged into GCOS-3/TSS with command - " +
                             players[id]['name'], "info")
             else:
-                if terminalEmulator(players[id]['name'],mud,id):
+                if terminalEmulator(players[id]['name'],'',mud,id):
                     terminalMode[str(id)]=True
                     taken = True
                     log("Client ID: " +
