@@ -155,7 +155,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
                     shellParam=params.split(possShell,1)[1].strip()
                     shellResponse=shellResponse.replace('VAR',shellParam)
                     mud.send_message(id, "\n>"+possShell+' '+shellParam)
-                    mud.send_message(id, "\n"+shellParam)
+                    mud.send_message(id, "\n"+shellResponse)
                     mud.send_message(id, "\n>")
                     return True
         mud.send_message(id, "\n>")
