@@ -131,7 +131,13 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
     if command=='useradd' or command=='adduser':
         mud.send_message(id, "<f220>Rewind tape drive 1")
         mud.send_message(id, "\n>")
-        return True        
+        return True
+
+    if command=='wget':
+        mud.send_message(id, "100%[=============================================================================================>]   1.41K  --.-KB/s    in 1s")
+        mud.send_message(id, "1989-12-08 10:39:10 (1 KB/s) - saved to tape 0 [232/232]")
+        mud.send_message(id, "\n>")        
+        return True
 
     invalidNames=("sh","bash","chcon","chgrp","chown","chmod","cp","cd","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","useradd","adduser","yes","/bin/busybox","busybox","/bin/bash","bash","/bin/sh")
     if command in invalidNames:
