@@ -739,18 +739,18 @@ def who(
         is_witch = isWitch(id, players)
         for p in players:
             if players[p]['name'] is None:
-                name = "None"
+                continue
+
+            if not is_witch:
+                name = players[p]['name']
             else:
-                if not is_witch:
-                    name = players[p]['name']
-                else:
-                    if not isWitch(p, players):
-                        if players[p]['canSay'] == 1:
-                            name = players[p]['name']
-                        else:
-                            name = players[p]['name'] + " (muted)"
+                if not isWitch(p, players):
+                    if players[p]['canSay'] == 1:
+                        name = players[p]['name']
                     else:
-                        name = "<f32>" + players[p]['name'] + "<r>"
+                        name = players[p]['name'] + " (muted)"
+                else:
+                    name = "<f32>" + players[p]['name'] + "<r>"
 
             if players[p]['room'] is None:
                 room = "None"
