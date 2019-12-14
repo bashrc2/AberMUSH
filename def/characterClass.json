@@ -106,7 +106,7 @@
 	"20": [ "Sorcerous Restoration", ["Spell",6,15,4,3,3,3,3,2,2,1,1] ]
     },
     "witch": {
-	"inv": [ 197,702 ],
+	"inv": [ 197,702,1410 ],
 	"extraLanguage": [],
 	"archetype": [],
 	"1": [ "Spellcasting", "Arcane Recovery", "Cantrips (3)", ["Spell", 2]],

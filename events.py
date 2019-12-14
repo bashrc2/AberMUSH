@@ -281,6 +281,27 @@ def setPlayerClo_rhand(
         envDB):
     tempVar = 0
 
+def setPlayerClo_lfinger(
+        etarget,
+        ebody,
+        players,
+        npcs,
+        items,
+        env,
+        npcsDB,
+        envDB):
+    tempVar = 0
+
+def setPlayerClo_rfinger(
+        etarget,
+        ebody,
+        players,
+        npcs,
+        items,
+        env,
+        npcsDB,
+        envDB):
+    tempVar = 0
 
 def setPlayerClo_chest(
         etarget,
@@ -621,6 +642,8 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
             'clo_rarm': npcsDB[int(body[0])]['clo_rarm'],
             'clo_lhand': npcsDB[int(body[0])]['clo_lhand'],
             'clo_rhand': npcsDB[int(body[0])]['clo_rhand'],
+            'clo_lfinger': npcsDB[int(body[0])]['clo_lfinger'],
+            'clo_rfinger': npcsDB[int(body[0])]['clo_rfinger'],
             'clo_chest': npcsDB[int(body[0])]['clo_chest'],
             'clo_lleg': npcsDB[int(body[0])]['clo_lleg'],
             'clo_rleg': npcsDB[int(body[0])]['clo_rleg'],
@@ -629,7 +652,9 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
             'imp_larm': npcsDB[int(body[0])]['imp_larm'],
             'imp_rarm': npcsDB[int(body[0])]['imp_rarm'],
             'imp_lhand': npcsDB[int(body[0])]['imp_lhand'],
+            'imp_lfinger': npcsDB[int(body[0])]['imp_lfinger'],
             'imp_rhand': npcsDB[int(body[0])]['imp_rhand'],
+            'imp_rfinger': npcsDB[int(body[0])]['imp_rfinger'],
             'imp_chest': npcsDB[int(body[0])]['imp_chest'],
             'imp_lleg': npcsDB[int(body[0])]['imp_lleg'],
             'imp_rleg': npcsDB[int(body[0])]['imp_rleg'],
@@ -761,6 +786,8 @@ def evaluateEvent(
         "setPlayerClo_rarm": setPlayerClo_rarm,
         "setPlayerClo_lhand": setPlayerClo_lhand,
         "setPlayerClo_rhand": setPlayerClo_rhand,
+        "setPlayerClo_lfinger": setPlayerClo_lfinger,
+        "setPlayerClo_rfinger": setPlayerClo_rfinger,
         "setPlayerClo_lwrist": setPlayerClo_lwrist,
         "setPlayerClo_rwrist": setPlayerClo_rwrist,
         "setPlayerClo_chest": setPlayerClo_chest,

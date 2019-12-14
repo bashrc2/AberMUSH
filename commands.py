@@ -3287,11 +3287,23 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                          itemsDB[players[pid]['clo_rhand']]['article'] +
                          ' ' + itemsDB[players[pid]['clo_rhand']]['name'] +
                          ' in ' + playerName2 + ' right hand.\n')
+    if players[pid].get('clo_rfinger'):
+        if int(players[pid]['clo_rfinger']) > 0:
+            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
+                             itemsDB[players[pid]['clo_rfinger']]['article'] +
+                             ' ' + itemsDB[players[pid]['clo_rfinger']]['name'] +
+                             ' on the finger of ' + playerName2 + ' right hand.\n')
     if int(players[pid]['clo_lhand']) > 0:
         mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
                          itemsDB[players[pid]['clo_lhand']]['article'] +
                          ' ' + itemsDB[players[pid]['clo_lhand']]['name'] +
                          ' in ' + playerName2 + ' left hand.\n')
+    if players[pid].get('clo_lfinger'):
+        if int(players[pid]['clo_lfinger']) > 0:
+            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
+                             itemsDB[players[pid]['clo_lfinger']]['article'] +
+                             ' ' + itemsDB[players[pid]['clo_lfinger']]['name'] +
+                             ' on the finger of ' + playerName2 + ' left hand.\n')
 
     if wearingCtr > 0:
         wearingMsg = playerName + ' are wearing'
@@ -4046,6 +4058,8 @@ def conjureNPC(
               "clo_rarm": 0,
               "clo_lhand": 0,
               "clo_rhand": 0,
+              "clo_lfinger": 0,
+              "clo_rfinger": 0,
               "clo_rwrist": 0,
               "clo_lwrist": 0,
               "clo_chest": 0,
