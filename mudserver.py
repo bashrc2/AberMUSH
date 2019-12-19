@@ -202,7 +202,20 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
-        self._attempt_send(to, "\n" + message)
+        try:
+            # look up the client in the client map and use 'sendall' to send
+            # the message string on the socket. 'sendall' ensures that all of
+            # the data is sent in one go
+            self._clients[to].socket.sendall(bytearray(message))
+        # KeyError will be raised if there is no client with the given id in
+        # the map
+        except KeyError:
+            pass
+        # If there is a connection problem with the client (e.g. they have
+        # disconnected) a socket error will be raised
+        except socket.error:
+            self._handle_disconnect(to)
+        
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
