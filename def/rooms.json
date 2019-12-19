@@ -1700,7 +1700,7 @@
         "exits": {
             "west": "$rid=279$"
         },
-        "name": "Music Room ",
+        "name": "Music Room",
         "description": "This room was obviously designed for a musician. A clavichord stands in one corner, a stool before it. The stone walls have been plastered and painted with figures of bards, minstrels and troubadours. There is an archway leading west and a door in the east wall.",
         "conditional": [],
         "trap": {},
