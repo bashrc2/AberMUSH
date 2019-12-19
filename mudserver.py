@@ -195,7 +195,11 @@ class MudServer(object):
         # message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
-        self._attempt_send(to, "\n" + cmsg(message))
+        sendCtr=0
+        while not self._attempt_send(to, "\n" + cmsg(message)):
+            sendCtr+=1
+            if sendCtr>4:
+                break
 
     def send_image(self, to, message):
         """Sends the ANSI image in the 'message' parameter to the player with
@@ -206,16 +210,20 @@ class MudServer(object):
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
-            self._clients[to].socket.sendall(bytearray(message,'iso-8859-1'))
+            self._clients[to].socket.sendall(bytearray(message,'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
-        except KeyError:
+        except KeyError as e:
+            print("Couldnt send image, socket error: "+str(e))
+            pass
+        except BlockingIOError as e:
+            print("Couldnt send image, socket error: "+str(e))
             pass
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
-        except socket.error:
-            self._handle_disconnect(to)
-        
+        except socket.error as e:
+            print("Couldnt send image, socket error: "+str(e))
+            self._handle_disconnect(to)        
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
@@ -229,7 +237,7 @@ class MudServer(object):
         # stop listening for new clients
         self._listen_socket.close()
 
-    def _attempt_send(self, clid, data):
+    def _attempt_send(self, clid, data) -> bool:
         # python 2/3 compatability fix - convert non-unicode string to unicode
         if sys.version < '3' and not isinstance(data, unicode):
             data = unicode(data, "latin1")
@@ -238,14 +246,24 @@ class MudServer(object):
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
             self._clients[clid].socket.sendall(bytearray(data, "latin1"))
+            return True
         # KeyError will be raised if there is no client with the given id in
         # the map
-        except KeyError:
+        except KeyError as e:
+            print("attempt_send, socket error: "+str(e))
             pass
+            return False
+        except BlockingIOError as e:
+            print("attempt_send, socket error: "+str(e))
+            pass
+            return False
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
-        except socket.error:
+        except socket.error as e:
+            print("attempt_send, socket error: "+str(e))
             self._handle_disconnect(clid)
+            return False
+        return True
 
     def _check_for_new_connections(self):
 
