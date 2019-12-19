@@ -197,6 +197,7 @@ class MudServer(object):
         # self._attempt_send(to, cmsg(message)+"\n\r")
         sendCtr=0
         while not self._attempt_send(to, "\n" + cmsg(message)):
+            time.sleep(1)
             sendCtr+=1
             if sendCtr>4:
                 break
