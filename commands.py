@@ -2121,7 +2121,7 @@ def showRoomImage(mud,id,roomId) -> None:
     if not os.path.isfile(roomImageFilename):
         return
     with open(roomImageFilename, 'r') as roomFile:
-        mud.send_image(id,roomFile.read()+'\n')
+        mud.send_image(id,'\n'+roomFile.read())
 
 def showItemImage(mud,id,itemId) -> None:
     """Shows an image for the item if it exists
@@ -2130,7 +2130,7 @@ def showItemImage(mud,id,itemId) -> None:
     if not os.path.isfile(itemImageFilename):
         return
     with open(itemImageFilename, 'r') as itemFile:
-        mud.send_image(id,itemFile.read()+'\n')
+        mud.send_image(id,'\n'+itemFile.read())
 
 def look(
         params,
