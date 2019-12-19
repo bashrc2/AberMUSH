@@ -2113,26 +2113,24 @@ def itemIsVisible(observerId,players: {},itemId,items: {}) -> bool:
         return True
     return False
 
-def getRoomImage(roomId) -> str:
-    """Returns an image for the room if it exists
+def showRoomImage(mud,id,roomId) -> None:
+    """Shows an image for the room if it exists
     """
     roomIdStr=str(roomId).replace('rid=','').replace('$','')
     roomImageFilename='images/rooms/'+roomIdStr
     if not os.path.isfile(roomImageFilename):
-        return ''
+        return
     with open(roomImageFilename, 'r') as roomFile:
-        return roomFile.read()+'\n'
-    return ''
+        mud.send_image(id,roomFile.read()+'\n')
 
-def getItemImage(itemId) -> str:
-    """Returns an image for the item if it exists
+def showItemImage(mud,id,itemId) -> None:
+    """Shows an image for the item if it exists
     """
     itemImageFilename='images/items/'+str(itemId)
     if not os.path.isfile(itemImageFilename):
-        return ''
+        return
     with open(itemImageFilename, 'r') as itemFile:
-        return itemFile.read()+'\n'
-    return ''
+        mud.send_image(id,itemFile.read()+'\n')
 
 def look(
         params,
@@ -2166,7 +2164,8 @@ def look(
             rm = rooms[players[id]['room']]
 
             # send the player back the description of their current room
-            roomDescription = getRoomImage(players[id]['room'])+rm['description']
+            showRoomImage(mud,id,players[id]['room'])
+            roomDescription = rm['description']
             if len(rm['conditional']) > 0:
                 roomDescription = \
                     conditionalRoomDescription(roomDescription,
@@ -2328,7 +2327,7 @@ def look(
                     for i in playerinv:
                         if param == itemsDB[int(i)]['name'].lower():
                             itemLanguage = itemsDB[int(i)]['language']
-                            message+=getItemImage(int(i))
+                            showItemImage(mud,id,int(i))
                             if len(itemLanguage) == 0:
                                 message += itemsDB[int(i)]['long_description']
                                 message += describeContainerContents(

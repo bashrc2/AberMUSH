@@ -197,6 +197,13 @@ class MudServer(object):
         # self._attempt_send(to, cmsg(message)+"\n\r")
         self._attempt_send(to, "\n" + cmsg(message))
 
+    def send_image(self, to, message):
+        """Sends the ANSI image in the 'message' parameter to the player with
+        the id number given in the 'to' parameter. The text will be
+        printed out in the player's terminal.
+        """
+        self._attempt_send(to, "\n" + message)
+
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
         closing the listen socket.
