@@ -2116,7 +2116,8 @@ def itemIsVisible(observerId,players: {},itemId,items: {}) -> bool:
 def getRoomImage(roomId) -> str:
     """Returns an image for the room if it exists
     """
-    roomImageFilename='images/rooms/'+str(roomId)
+    roomIdStr=str(roomId).replace('rid=','').replace('$','')
+    roomImageFilename='images/rooms/'+roomIdStr
     if not os.path.isfile(roomImageFilename):
         return ''
     with open(roomImageFilename, 'r') as roomFile:
