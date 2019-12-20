@@ -2750,7 +2750,7 @@
     },
     "$rid=434$": {
         "name": "Dark Alley",
-        "description": "You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy, and everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you.     The alley follows the wall both east, and west opening up at either end.",
+        "description": "You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy, and everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you. The alley follows the wall both east, and west opening up at either end.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -2804,7 +2804,7 @@
     },
     "$rid=442$": {
         "name": "The Eastern Gate",
-        "description": "The narrow street comes to a small, stout looking gatehouse. A narrow  cobbled lane runs east through the gate out into the wide world beyond.",
+        "description": "The narrow street comes to a small, stout looking gatehouse. A narrow cobbled lane runs east through the gate out into the wide world beyond.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
