@@ -2349,8 +2349,8 @@ def look(
                         for i in playerinv:
                             if param in itemsDB[int(i)]['name'].lower():
                                 itemLanguage = itemsDB[int(i)]['language']
-                                message+=getItemImage(int(i))
-                                if len(itemLanguage) == 0:                                    
+                                showItemImage(mud,id,int(i))
+                                if len(itemLanguage) == 0:
                                     message += itemsDB[int(i)
                                                        ]['long_description']
                                     message += describeContainerContents(
