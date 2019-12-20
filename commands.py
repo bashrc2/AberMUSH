@@ -49,7 +49,7 @@ import os.path
 import commentjson
 from random import randint
 
-wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet')
+wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger')
 
 '''
 Command function template:
