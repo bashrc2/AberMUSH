@@ -2762,60 +2762,81 @@ def checkInventory(
         sentimentDB,
         guildsDB):
     mud.send_message(id, 'You check your inventory.')
-    if len(list(players[id]['inv'])) > 0:
-        mud.send_message(id, 'You are currently in possession of:\n')
-        for i in list(players[id]['inv']):
-            if int(players[id]['clo_lhand']) == int(i):
-                mud.send_message(id, ' * ' +
-                                 itemsDB[int(i)]['article'] +
-                                 ' <b234>' +
-                                 itemsDB[int(i)]['name'] +
-                                 '<r> (left hand)')
-            else:
-                if int(players[id]['clo_lleg']) == int(i):
-                    mud.send_message(id, ' * ' +
-                                     itemsDB[int(i)]['article'] +
-                                     ' <b234>' +
-                                     itemsDB[int(i)]['name'] +
-                                     '<r> (left leg)')
-                else:
-                    if int(players[id]['clo_rleg']) == int(i):
-                        mud.send_message(id, ' * ' +
-                                         itemsDB[int(i)]['article'] +
-                                         ' <b234>' +
-                                         itemsDB[int(i)]['name'] +
-                                         '<r> (right leg)')
-                    else:
-                        if int(players[id]['clo_rhand']) == int(i):
-                            mud.send_message(id, ' * ' +
-                                             itemsDB[int(i)]['article'] +
-                                             ' <b234>' +
-                                             itemsDB[int(i)]['name'] +
-                                             '<r> (right hand)')
-                        else:
-                            if int(
-                                players[id]['clo_head']) == int(i) or int(
-                                players[id]['clo_lwrist']) == int(i) or int(
-                                players[id]['clo_rwrist']) == int(i) or int(
-                                players[id]['clo_larm']) == int(i) or int(
-                                players[id]['clo_rarm']) == int(i) or int(
-                                players[id]['clo_neck']) == int(i) or int(
-                                players[id]['clo_chest']) == int(i) or int(
-                                    players[id]['clo_feet']) == int(i):
-                                mud.send_message(id, ' * ' +
-                                                 itemsDB[int(i)]['article'] +
-                                                 ' <b234>' +
-                                                 itemsDB[int(i)]['name'] +
-                                                 '<r> (worn)')
-                            else:
-                                mud.send_message(id, ' * ' +
-                                                 itemsDB[int(i)]['article'] +
-                                                 ' <b234>' +
-                                                 itemsDB[int(i)]['name'])
-        mud.send_message(id, "\n\n")
-    else:
+    if len(list(players[id]['inv'])) == 0:
         mud.send_message(id, 'You haven`t got any items on you.\n\n')
+        return
 
+    mud.send_message(id, 'You are currently in possession of:\n')
+    for i in list(players[id]['inv']):
+        if int(players[id]['clo_lhand']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (left hand)\n\n')
+            break
+
+        if int(players[id]['clo_lleg']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (left leg)\n\n')
+            break
+
+        if int(players[id]['clo_rleg']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (right leg)\n\n')
+            break
+
+        if int(players[id]['clo_rhand']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (right hand)\n\n')
+            break
+
+        if int(players[id]['clo_lfinger']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (finger of left hand)\n\n')
+            break
+
+        if int(players[id]['clo_rfinger']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (finger of right hand)\n\n')
+            break
+
+        if int(players[id]['clo_head']) == int(i) or \
+           int(players[id]['clo_lwrist']) == int(i) or \
+           int(players[id]['clo_rwrist']) == int(i) or \
+           int(players[id]['clo_larm']) == int(i) or \
+           int(players[id]['clo_rarm']) == int(i) or \
+           int(players[id]['clo_lfinger']) == int(i) or \
+           int(players[id]['clo_rfinger']) == int(i) or \
+           int(players[id]['clo_neck']) == int(i) or \
+           int(players[id]['clo_chest']) == int(i) or \
+           int(players[id]['clo_feet']) == int(i):
+            mud.send_message(id, ' * ' +
+                             itemsDB[int(i)]['article'] +
+                             ' <b234>' +
+                             itemsDB[int(i)]['name'] +
+                             '<r> (worn)\n\n')
+            break
+
+        mud.send_message(id, ' * ' +
+                         itemsDB[int(i)]['article'] +
+                         ' <b234>' +
+                         itemsDB[int(i)]['name']+'\n\n')
 
 def changeSetting(
         params,
