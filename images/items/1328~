@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/usr/local/bin/climage", line 10, in <module>
+    sys.exit(main())
+  File "/usr/local/lib/python3.7/dist-packages/climage/__main__.py", line 131, in main
+    print(convert(infile, is_unicode=is_unicode, is_truecolor=is_truecolor, is_256color=is_256color, is_16color=is_16color, is_8color=is_8color, width=num_cols, palette=palette))
+  File "/usr/local/lib/python3.7/dist-packages/climage/__main__.py", line 45, in convert
+    im = Image.open(filename).convert('RGB')
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 2634, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/home/bashrc/talisman.png'
