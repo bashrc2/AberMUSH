@@ -4,11 +4,15 @@ A modern MU* engine with [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Softwa
 
 Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
 
+![AberMUSH](docs/screenshot.jpg)
+
 You can also use a mud client of your choice if you wish - use connection details below:
 
 ```
 telnet [hostname] 35123
 ```
+
+Use UTF-8 terminal encoding.
 
 ## Running the Server
 ```diff
