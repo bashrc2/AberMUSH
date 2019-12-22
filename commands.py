@@ -3689,10 +3689,13 @@ def go(
                                    players[id]['name'] + '<r> ' +
                                    randomDescription(players[id]['inDescription']) + "\n\n")
 
-            # send the player a message telling them where they are now
-            #mud.send_message(id, 'You arrive at {}'.format(players[id]['room']))
+            # send the player a message telling them where they are now            
             mud.send_message(id, 'You arrive at <f106>{}'.format(
                 rooms[players[id]['room']]['name']) + "\n\n")
+            look(params,mud,playersDB,players,rooms,npcsDB,npcs, \
+                 itemsDB,items,envDB,env,eventDB,eventSchedule, \
+                 id,fights,corpses,blocklist,mapArea,characterClassDB, \
+                 spellsDB,sentimentDB,guildsDB)            
             # report any followers
             if len(followersMsg) > 0:
                 messageToPlayersInRoom(mud, players, id, followersMsg)
