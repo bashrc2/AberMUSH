@@ -196,7 +196,7 @@ class MudServer(object):
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
         sendCtr=0
-        while not self._attempt_send(to, "\n" + cmsg(message)):
+        while not self._attempt_send(to, "\n" + cmsg('<b0>'+message)):
             time.sleep(1)
             sendCtr+=1
             if sendCtr>4:
@@ -211,7 +211,7 @@ class MudServer(object):
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
-            self._clients[to].socket.sendall(bytearray(message+"\u001b[38;5;0m\u001b[48;5;0m\u001b[48;5;0m\u001b[48;5;0m",'utf-8'))
+            self._clients[to].socket.sendall(bytearray(message+cmsg('<b0>'),'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
