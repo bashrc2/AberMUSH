@@ -8260,7 +8260,7 @@
             "west": "$rid=1135$"
         },
         "name": "Arched Entry",
-        "description": "You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors like in rotting pieces on the floor, and water drips down the moss covered stonework.",
+        "description": "You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors lie in rotting pieces on the floor, and water drips down the moss covered stonework.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
