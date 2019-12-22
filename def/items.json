@@ -5070,7 +5070,7 @@
         "lockedWithItem": 0,
         "exitName": "north|south",
         "linkedItem": 228,
-        "exit": "$rid=228$",
+        "exit": "$rid=232$",
         "article": "some"
     },
     "228": {
@@ -5129,7 +5129,7 @@
         "lockedWithItem": 0,
         "exitName": "south|north",
         "linkedItem": 227,
-        "exit": "$rid=227$",
+        "exit": "$rid=233$",
         "article": "some"
     },
     "229": {
