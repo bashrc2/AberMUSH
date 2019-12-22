@@ -1470,8 +1470,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=231$",
-            "south": "$rid=233$"
+            "north": "$rid=231$"
         }
     },
     "$rid=233$": {
@@ -1488,7 +1487,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=232$",
             "south": "$rid=653$"
         }
     },
