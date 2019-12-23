@@ -2314,11 +2314,13 @@ def look(
                         if itemCounter == 0:
                             itemLanguage = itemsDB[items[i]['id']]['language']
                             if len(itemLanguage) == 0:
+                                showItemImage(mud,id,int(items[i]['id']))
                                 message += itemsDB[items[i]['id']]['long_description']
                                 message += describeContainerContents(
                                     mud, id, itemsDB, items[i]['id'], True)
                             else:
                                 if itemLanguage in players[id]['language']:
+                                    showItemImage(mud,id,int(items[i]['id']))
                                     message += itemsDB[items[i]['id']]['long_description']
                                     message += describeContainerContents(
                                         mud, id, itemsDB, items[i]['id'], True)
