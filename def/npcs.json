@@ -859,7 +859,7 @@
         "language": ["common"],
         "conv" : [
 	    [["fur"], "I'm only a fake fur trapper|Fur as in furry|What?"],
-	    [["cruel"], "Yes, I agree|Er...yes|Heck|Ugh"],
+	    [["cruel"], "Yes, I agree|Er...yes|Heck yeah|I hadn't thought of that|You may be right"],
 	    [["trap"], "My traps are never very successful|I keep trying to trap things and they keep getting away|I make the world's least successful traps"],
 	    [["who","?"], "I have no idea who|Who?|What?|Oh|Aaaah"],
 	    [["what","?"], "That's a great question|What indeed|I don't know|No idea"],
