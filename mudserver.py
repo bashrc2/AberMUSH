@@ -197,7 +197,7 @@ class MudServer(object):
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
         wrapped=textwrap.wrap(message)
-        prependChar='<f0><b0>'
+        prependChar='<f15><b0>'
         for messageLine in wrapped:
             sendCtr=0
             while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n'):
