@@ -206,6 +206,7 @@ class MudServer(object):
                 if sendCtr>4:
                     break
             prependChar=''
+        self._attempt_send(to, '\n')
 
     def send_image(self, to, message):
         """Sends the ANSI image in the 'message' parameter to the player with
