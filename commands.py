@@ -2132,10 +2132,10 @@ def showItemImage(mud,id,itemId) -> None:
     with open(itemImageFilename, 'r') as itemFile:
         mud.send_image(id,'\n'+itemFile.read())
 
-def showNPCImage(mud,id,npcId) -> None:
+def showNPCImage(mud,id,npcName) -> None:
     """Shows an image for a NPC
     """
-    npcImageFilename='images/npcs/'+str(npcId)
+    npcImageFilename='images/npcs/'+npcName.replace(' ','_')
     if not os.path.isfile(npcImageFilename):
         return
     with open(npcImageFilename, 'r') as npcFile:
@@ -2291,7 +2291,7 @@ def look(
                    and npcs[n]['room'] == players[id]['room']:
                     if playerIsVisible(id,n,npcs):
                         if npcs[n]['familiarMode']!='hide':
-                            showNPCImage(mud,id,n)
+                            showNPCImage(mud,id,npcs[n]['name'].lower())
                             bioOfPlayer(mud, id, n, npcs, itemsDB)
                             messageSent = True
                         else:
