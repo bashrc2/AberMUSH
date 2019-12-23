@@ -2382,7 +2382,7 @@ def look(
 
             if len(message) > 0:
                 mud.send_message(id, "It's " + itemName + ".")
-                mud.send_message(id, message + "\n\n")
+                mud.send_message_wrap(id, message + "\n\n")
                 messageSent = True
                 if itemCounter > 1:
                     mud.send_message(
