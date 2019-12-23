@@ -187,7 +187,7 @@ class MudServer(object):
         # return the info list
         return retval
 
-    def send_message(self, to, message):
+    def send_message_wrap(self, to, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -205,6 +205,22 @@ class MudServer(object):
                 sendCtr+=1
                 if sendCtr>4:
                     break
+
+    def send_message(self, to, message):
+        """Sends the text in the 'message' parameter to the player with
+        the id number given in the 'to' parameter. The text will be
+        printed out in the player's terminal.
+        """
+        # we make sure to put a newline on the end so the client receives the
+        # message on its own line
+        # print("sending...")
+        # self._attempt_send(to, cmsg(message)+"\n\r")
+        sendCtr=0
+        while not self._attempt_send(to, cmsg('<f15><b0>'+message)+'\n'):
+            time.sleep(1)
+            sendCtr+=1
+            if sendCtr>4:
+                break
 
     def send_image(self, to, message):
         """Sends the ANSI image in the 'message' parameter to the player with
