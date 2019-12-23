@@ -2372,7 +2372,7 @@
             [["serve","ale","?"], "Yes, of course|Oh, yes"],
             [["serve","wine","?"], "We don't serve wine in this establishment, only ale|Ale only, I'm afraid|It's ale or nothing"],
             [["have","order","buy","sell","purchase","trade","like","weapon","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","169","1367"],
-	    [["abermush","abermud"], "I might get around to playing it, but I'm too busy"]
+	    [["abermush","abermud","mud","mush","game"], "I might get around to playing it, but I'm too busy|I've vaguely heard of it|Don't do much gaming myself. Too busy|I don't have time for games|Isn't that some ancient thing nobody plays anymore?"]
         ],
         "path" : [],
         "bodyType": "",
