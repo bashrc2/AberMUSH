@@ -418,8 +418,7 @@ def runNPCs(
                                 ', '.join(droppedItems)) +
                             "\n")
 
-
-def conversationState(word, conversation_states, nid, npcs, match_ctr):
+def conversationState(word, conversation_states, nid, npcs, match_ctr) -> (bool,bool,int):
     """Is the conversations with this npc in the given state?
        Returns True if the conversation is in the given state
        Also returns True if subsequent words can also be matched
@@ -591,17 +590,25 @@ def conversationWordCount(
     """
     match_ctr = 0
     for word_match in words_list:
+        if word_match.lower().startswith('image:'):
+            continue
+
         # Is the conversation required to be in a certain state?
-        matched, continueMatching, match_ctr = conversationState(
-            word_match, conversation_states, nid, npcs, match_ctr)
+        matched, continueMatching, match_ctr = \
+            conversationState(word_match, \
+                              conversation_states, \
+                              nid, npcs, match_ctr)
 
         if not continueMatching:
             break
 
         if not matched:
             # match conditions such as "strength < 10"
-            matched, continueMatching, match_ctr = conversationCondition(
-                word_match, conversation_states, nid, npcs, match_ctr, players, id)
+            matched, continueMatching, match_ctr = \
+                conversationCondition(word_match, \
+                                      conversation_states, \
+                                      nid, npcs, \
+                                      match_ctr, players, id)
 
             if not continueMatching:
                 break
@@ -1172,6 +1179,7 @@ def npcConversation(
     best_match_action = ''
     best_match_action_param0 = ''
     best_match_action_param1 = ''
+    imageName=None
     max_match_ctr = 0
 
     conversation_states = players[id]['convstate']
@@ -1179,11 +1187,13 @@ def npcConversation(
 
     # for each entry in the conversation list
     for conv in npcs[nid]['conv']:
-            # entry must contain matching words and resulting reply
+        # entry must contain matching words and resulting reply
         if len(conv) >= 2:
-                        # count the number of matches for this line
-            match_ctr = conversationWordCount(
-                message, conv[0], npcs, nid, conversation_states, players, id)
+            # count the number of matches for this line
+            match_ctr = \
+                conversationWordCount(message, conv[0], npcs, \
+                                      nid, conversation_states, \
+                                      players, id)
             # store the best match
             if match_ctr > max_match_ctr:
                 max_match_ctr = match_ctr
@@ -1193,7 +1203,11 @@ def npcConversation(
                 best_match_action_param1 = ''
                 currIndex = 2
                 conversation_new_state = ''
+                imageName=None
                 if len(conv) >= 3:
+                    if conv[2].lower().startswith('image:'):
+                        imageName = conv[2].lower().split(':')[1].strip()
+                        
                     if conv[2].lower().startswith('state:'):
                         conversation_new_state = conv[2].lower().split(':')[
                             1].strip()
@@ -1220,8 +1234,14 @@ def npcConversation(
     if len(best_match) > 0:
         # There were some word matches
 
+        if imageName:
+            imageFilename='images/events/'+imageName
+            if os.path.isfile(imageFilename):
+                with open(imageFilename, 'r') as imageFile:
+                    mud.send_image(id,'\n'+imageFile.read())
+        
         if len(conversation_new_state) > 0:
-                    # set the new conversation state with this npc
+            # set the new conversation state with this npc
             conversation_states[npcs[nid]['name']] = conversation_new_state
 
         if len(best_match_action) > 0:
