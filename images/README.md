@@ -1,4 +1,4 @@
-These are 8 bit ANSI images, created using climage.
+These are 8 bit ANSI images, created using climage. They're derived from CC0 licensed images on https://free-images.com or Wikimedia.
 
 To install:
 
