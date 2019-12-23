@@ -857,7 +857,14 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["fur"], "I'm only a fake fur trapper|Fur as in furry|What?"],
+	    [["cruel"], "Yes, I agree|Er...yes|Heck|Ugh"],
+	    [["trap"], "My traps are never very successful|I keep trying to trap things and they keep getting away|I make the world's least successful traps"],
+	    [["who","?"], "I have no idea who|Who?|What?|Oh|Aaaah"],
+	    [["what","?"], "That's a great question|What indeed|I don't know|No idea"],
+	    [["rubble","?"], "I seem to be standing next to a pile of rubble, but have no idea how this happened|Rubble, you say?|Rubble trouble|Well, this is a fine mess"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -942,7 +949,7 @@
         "imp_feet" : "0",
         "inDescription": "wanders in",
         "outDescription": "pads quietly",
-        "lookDescription": "watches you suspiciously from amongst the trees. The trapper is"
+        "lookDescription": "watches you suspiciously from amongst the trees."
     },
     "165": {
         "inDescription": "arrives",
