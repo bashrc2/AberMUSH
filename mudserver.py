@@ -198,16 +198,14 @@ class MudServer(object):
         # self._attempt_send(to, cmsg(message)+"\n\r")
         wrapped=textwrap.wrap(message)
         prependChar='<b0>'
-        linebreakChar='\n'
         for messageLine in wrapped:
             sendCtr=0
-            while not self._attempt_send(to, linebreakChar + cmsg(prependChar+messageLine)):
+            while not self._attempt_send(to, '\n' + cmsg(prependChar+messageLine)):
                 time.sleep(1)
                 sendCtr+=1
                 if sendCtr>4:
                     break
             prependChar=''
-            linebreakChar=''
 
     def send_image(self, to, message):
         """Sends the ANSI image in the 'message' parameter to the player with
