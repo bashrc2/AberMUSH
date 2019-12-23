@@ -1351,7 +1351,7 @@
         "imp_feet" : "0",
         "inDescription": "walks in, cleaning and polishing|trundles in|arrives|wanders in",
         "outDescription": "trundles off|wanders off|leaves",
-        "lookDescription": "The imp hums and fusses about the the state of this place|The imp stands grinning at you cheekily|The imp is doing some kind of impish dance|The imp hovers and observes anyone passing by"
+        "lookDescription": "The imp hums and fusses about the state of this place|The imp stands grinning at you cheekily|The imp is doing some kind of impish dance|The imp hovers and observes anyone passing by"
     },
     "303": {
         "name": "the one-armed zombie",
