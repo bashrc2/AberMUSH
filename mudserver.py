@@ -21,6 +21,7 @@ import socket
 import select
 import time
 import sys
+import textwrap
 from cmsg import cmsg
 
 
@@ -195,12 +196,14 @@ class MudServer(object):
         # message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
-        sendCtr=0
-        while not self._attempt_send(to, "\n" + cmsg('<b0>'+message)):
-            time.sleep(1)
-            sendCtr+=1
-            if sendCtr>4:
-                break
+        wrapped=textwrap.wrap(message)
+        for messageLine in wrapped:
+            sendCtr=0
+            while not self._attempt_send(to, "\n" + cmsg('<b0>'+messageLine)):
+                time.sleep(1)
+                sendCtr+=1
+                if sendCtr>4:
+                    break
 
     def send_image(self, to, message):
         """Sends the ANSI image in the 'message' parameter to the player with
