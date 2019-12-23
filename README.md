@@ -194,6 +194,16 @@ buy [obtain item ID] [give item ID]  - Obtains one item in exchange for another
 experience [points]                  - Increase player experience
 ```
 
+To show an image during a conversation:
+
+``` text
+"conv" : [
+    [["have","order","like","beer","ale","drink","please"],"Here you go","image:givedrink","give","114"]
+],
+```
+
+If an image then exists in `images/events` called `givedrink` then it will be shown when the conversation event happens.
+
 ### Spoken Languages
 
 Players and NPCs have their own languages: `common`, `dwarvish`, `elvish`, `draconic` and `druidic`. Goblins and humans may not be able to understand each other.
