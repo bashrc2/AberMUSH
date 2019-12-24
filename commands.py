@@ -5817,6 +5817,7 @@ def runCommand(
         "quit": quit,
         "exit": quit,
         "look": look,
+        "read": look,
         "l": look,
         "examine": look,
         "ex": look,
