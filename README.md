@@ -151,7 +151,7 @@ NPCs may be present at certain times of day or days of the year. To define this 
 
 In the above example the NPC will be active between 8:00 (8am) and 19:00 (7pm) on the weekend and when inactive will be in room 238. So for example a cleric might be present at a church only on Sunday between certain hours and then be at a monestary at other times. If the `inactive` list isn't specified then when inactive an NPC will go to a default purgatory room.
 
-![AberMUSH](docs/griffin.png)
+![AberMUSH](docs/crossbow.jpg)
 
 ### NPC Conversations
 
