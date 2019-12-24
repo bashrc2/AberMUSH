@@ -2192,7 +2192,7 @@ def look(
                         if rm['trap']['trapActivation'].startswith('pressure'):
                             roomDescription += randomDescription(" The faint outline of a pressure plate can be seen on the floor.| The outline of a pressure plate is visible on the floor.")
 
-            mud.send_message_wrap(id, "\n<f230>" + roomDescription.strip())
+            mud.send_message_wrap(id, '<f230>', "\n<f230>" + roomDescription.strip())
             playershere = []
 
             itemshere = []
@@ -2246,7 +2246,7 @@ def look(
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
-                mud.send_message_wrap(id, \
+                mud.send_message_wrap(id,'<f220>', \
                                       '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
 
             mud.send_message(id, "\n")
@@ -2381,7 +2381,7 @@ def look(
 
             if len(message) > 0:
                 mud.send_message(id, "It's " + itemName + ".")
-                mud.send_message_wrap(id, message + "\n\n")
+                mud.send_message_wrap(id, '', message + "\n\n")
                 messageSent = True
                 if itemCounter > 1:
                     mud.send_message(
@@ -3317,7 +3317,8 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                     langCtr += 1
                 mud.send_message(id, 'Languages: ' + languagesStr + '\n')
 
-    mud.send_message_wrap(id, randomDescription(players[pid]['lookDescription']) + '\n')
+    mud.send_message_wrap(id, '', \
+                          randomDescription(players[pid]['lookDescription']) + '\n')
     
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:

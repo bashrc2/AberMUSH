@@ -187,7 +187,7 @@ class MudServer(object):
         # return the info list
         return retval
 
-    def send_message_wrap(self, to, message):
+    def send_message_wrap(self, prefix, to, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -198,6 +198,8 @@ class MudServer(object):
         # self._attempt_send(to, cmsg(message)+"\n\r")
         wrapped=textwrap.wrap(message)
         prependChar='<f15><b0>'
+        if prefix:
+            prependChar=prefix
         for messageLine in wrapped:
             sendCtr=0
             while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n'):
