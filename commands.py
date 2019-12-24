@@ -4749,7 +4749,8 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
     containerMsg = 'You see '
 
     if noOfItems == 0:
-        mud.send_message(id, containerMsg + 'nothing.\n')
+        if 'open always' not in itemsDB[itemID]['state']:
+            mud.send_message(id, containerMsg + 'nothing.\n')
         return ''
 
     itemCtr = 0
