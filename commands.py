@@ -2246,9 +2246,8 @@ def look(
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
-                mud.send_message(
-                    id, '<f230>You notice: <f220>{}'.format(
-                        ', '.join(itemshere)))
+                mud.send_message_wrap(id, \
+                                      '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
 
             mud.send_message(id, "\n")
         else:
