@@ -3318,7 +3318,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                     langCtr += 1
                 mud.send_message(id, 'Languages: ' + languagesStr + '\n')
 
-    mud.send_message(id, randomDescription(players[pid]['lookDescription']) + '\n')
+    mud.send_message_wrap(id, randomDescription(players[pid]['lookDescription']) + '\n')
     
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:
