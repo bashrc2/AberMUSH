@@ -7553,7 +7553,7 @@
     },
     "318": {
         "name": "black cloak",
-        "short_description": "",
+        "short_description": "A long and fine jet black cloak.",
         "long_description": "A long and fine jet black cloak.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -8851,8 +8851,8 @@
     },
     "413": {
         "name": "clock hands",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "The hands of the clock move inperceptably",
+        "long_description": "The hands of the clock move inperceptably",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10816,8 +10816,8 @@
     },
     "496": {
         "name": "maiden door",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "The maiden door is lined with vicious spikes",
+        "long_description": "The maiden door is lined with vicious spikes",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10875,8 +10875,8 @@
     },
     "497": {
         "name": "maiden door",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "The maiden door is lined with vicious spikes",
+        "long_description": "The maiden door is lined with vicious spikes",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12173,8 +12173,8 @@
     },
     "548": {
         "name": "spider web",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "The spider's web is an elaborate geometric maze of threads",
+        "long_description": "The spider's web is an elaborate geometric maze of threads",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -16185,8 +16185,8 @@
     },
     "730": {
         "name": "tall archway",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "The archway is high overhead",
+        "long_description": "The archway is high overhead",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -16244,8 +16244,8 @@
     },
     "733": {
         "name": "tatty blob",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "This blob is tatty",
+        "long_description": "This blob is tatty",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -16834,8 +16834,8 @@
     },
     "748": {
         "name": "secret section",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "A secret section",
+        "long_description": "A secret section",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -17129,7 +17129,7 @@
     },
     "795": {
         "name": "black scythe",
-        "short_description": "",
+        "short_description": "A jet black scythe, which you could easily imagine helping poor souls to the afterlife...",
         "long_description": "A jet black scythe, which you could easily imagine helping poor souls to the afterlife...",
         "clo_head": 0,
         "clo_neck": 0,
@@ -17306,7 +17306,7 @@
     },
     "799": {
         "name": "piece of pork",
-        "short_description": "",
+        "short_description": "Hmmmmmmmm !",
         "long_description": "Hmmmmmmmm !",
         "clo_head": 0,
         "clo_neck": 0,
@@ -17660,7 +17660,7 @@
     },
     "813": {
         "name": "altar",
-        "short_description": "",
+        "short_description": "The altar seems to radiate stillness and peace.",
         "long_description": "The altar seems to radiate stillness and peace.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -18309,7 +18309,7 @@
     },
     "885": {
         "name": "pool",
-        "short_description": "",
+        "short_description": "The pool is stagnant and the smell is enough to make your eyes water. Hundreds of flies and other insects swarm across the water in great clouds.",
         "long_description": "The pool is stagnant and the smell is enough to make your eyes water. Hundreds of flies and other insects swarm across the water in great clouds.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -18368,7 +18368,7 @@
     },
     "888": {
         "name": "bush",
-        "short_description": "",
+        "short_description": "The bushes are thick and almost imprenetrable.",
         "long_description": "The bushes are thick and almost imprenetrable.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -20079,7 +20079,7 @@
     },
     "970": {
         "name": "throne",
-        "short_description": "",
+        "short_description": "Beautiful.",
         "long_description": "Beautiful.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -21436,7 +21436,7 @@
     },
     "1045": {
         "name": "tangled bushes",
-        "short_description": "",
+        "short_description": "The bushes are thick and prickly.",
         "long_description": "The bushes are thick and prickly.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -21495,8 +21495,8 @@
     },
     "1047": {
         "name": "Anarchy",
-        "short_description": "",
-        "long_description": "",
+        "short_description": "Anarchy",
+        "long_description": "Anarchy",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -22793,7 +22793,7 @@
     },
     "1121": {
         "name": "bell rope",
-        "short_description": "",
+        "short_description": "Good strong rope",
         "long_description": "Good strong rope",
         "clo_head": 0,
         "clo_neck": 0,
@@ -23501,7 +23501,7 @@
     },
     "1166": {
         "name": "pool",
-        "short_description": "",
+        "short_description": "The pool is murky dark and still, what lies beneath is unknown, and perhaps best that way.",
         "long_description": "The pool is murky dark and still, what lies beneath is unknown, and perhaps best that way.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -23973,7 +23973,7 @@
     },
     "1199": {
         "name": "scarred shelves",
-        "short_description": "",
+        "short_description": "Anything of any value has been burned away.",
         "long_description": "Anything of any value has been burned away.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -24976,7 +24976,7 @@
     },
     "1231": {
         "name": "dark shroud",
-        "short_description": "",
+        "short_description": "The shrouds are incredibly dark, and seem to be sticky, as if soaked in blood. Behind one of the shrouds are the words 'Know me, the fire, the blood that burns in sacrifice. Serve me and I grant you the power to produce flame, and the power of zombie in return for blood. Serve me right or burn forever.'",
         "long_description": "The shrouds are incredibly dark, and seem to be sticky, as if soaked in blood. Behind one of the shrouds are the words 'Know me, the fire, the blood that burns in sacrifice. Serve me and I grant you the power to produce flame, and the power of zombie in return for blood. Serve me right or burn forever.'",
         "clo_head": 0,
         "clo_neck": 0,
@@ -25507,7 +25507,7 @@
     },
     "1251": {
         "name": "old shields",
-        "short_description": "",
+        "short_description": "Remnants of ancient heroes and glories.",
         "long_description": "Remnants of ancient heroes and glories.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -25566,7 +25566,7 @@
     },
     "1255": {
         "name": "huge crystal",
-        "short_description": "",
+        "short_description": "You gaze into the crystal for a while, but even your finely honed mind cannot follow the action within.",
         "long_description": "You gaze into the crystal for a while, but even your finely honed mind cannot follow the action within.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -25861,7 +25861,7 @@
     },
     "1266": {
         "name": "old runes",
-        "short_description": "",
+        "short_description": "The runes are difficult to follow and decipher, but seem to be directions to some of the arcane magical arts, and detail some of the movements to be associated with spells.",
         "long_description": "The runes are difficult to follow and decipher, but seem to be directions to some of the arcane magical arts, and detail some of the movements to be associated with spells.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -25920,7 +25920,7 @@
     },
     "1269": {
         "name": "small well",
-        "short_description": "",
+        "short_description": "It appears to have dried up.",
         "long_description": "It appears to have dried up.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -26156,7 +26156,7 @@
     },
     "1281": {
         "name": "wooden sign",
-        "short_description": "",
+        "short_description": "It is battered and has seen too many years exposure to the driving salt soaked winds that howl in from the sea.",
         "long_description": "It is battered and has seen too many years exposure to the driving salt soaked winds that howl in from the sea.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -26451,7 +26451,7 @@
     },
     "1288": {
         "name": "log bench",
-        "short_description": "",
+        "short_description": "Solid, but a little uncomfortable.",
         "long_description": "Solid, but a little uncomfortable.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -26510,7 +26510,7 @@
     },
     "1289": {
         "name": "inn table",
-        "short_description": "",
+        "short_description": "Good solid tables.",
         "long_description": "Good solid tables.",
         "clo_head": 0,
         "clo_neck": 0,
