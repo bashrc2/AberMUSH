@@ -187,7 +187,7 @@ class MudServer(object):
         # return the info list
         return retval
 
-    def send_message_wrap(self, prefix, to, message):
+    def send_message_wrap(self, to, prefix, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
