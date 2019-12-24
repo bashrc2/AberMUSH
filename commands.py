@@ -4744,15 +4744,16 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
             return ''
         else:
             return
-    noOfItems = len(itemsDB[itemID]['contains'])
+    containsList=itemsDB[itemID]['contains']
+    noOfItems = len(containsList)
     containerMsg = 'You see '
 
     if noOfItems == 0:
-        mud.send_message(id, containerMsg + ' nothing.\n\n')
-        return
+        # if there is nothing inside the container describe the container itself
+        return itemsDB[itemID]['long_description']
 
     itemCtr = 0
-    for contentsID in itemsDB[itemID]['contains']:
+    for contentsID in containsList:
         if itemCtr > 0:
             if itemCtr < noOfItems - 1:
                 containerMsg = containerMsg + ', '
