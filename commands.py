@@ -1082,6 +1082,8 @@ def help(
     mud.send_message(
         id, '  pull [item]                             - Pulls a lever')
     mud.send_message(
+        id, '  wind [item]                             - Winds a lever')
+    mud.send_message(
         id,
         '  affinity [player name]                  - Shows your affinity level with another player')
     mud.send_message(
@@ -5213,6 +5215,126 @@ def pushLever(
                     return
     mud.send_message(id, "There's nothing to push.\n\n")
 
+def windLever(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    target = params.lower()
+
+    if target.startswith('registration'):
+        enableRegistrations(mud, id, players)
+        return
+
+    itemsInWorldCopy = deepcopy(items)
+    for (iid, pl) in list(itemsInWorldCopy.items()):
+        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+            if target in itemsDB[items[iid]['id']]['name'].lower():
+                if itemsDB[items[iid]['id']]['state'] == 'lever up':
+                    leverDown(
+                        params,
+                        mud,
+                        playersDB,
+                        players,
+                        rooms,
+                        npcsDB,
+                        npcs,
+                        itemsDB,
+                        items,
+                        envDB,
+                        env,
+                        eventDB,
+                        eventSchedule,
+                        id,
+                        fights,
+                        corpses,
+                        target,
+                        itemsInWorldCopy,
+                        iid)
+                    return
+                else:
+                    mud.send_message(id, 'Nothing happens.\n\n')
+                    return
+    mud.send_message(id, "There's nothing to wind.\n\n")
+
+def unwindLever(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    target = params.lower()
+
+    if target.startswith('registration'):
+        enableRegistrations(mud, id, players)
+        return
+
+    itemsInWorldCopy = deepcopy(items)
+    for (iid, pl) in list(itemsInWorldCopy.items()):
+        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+            if target in itemsDB[items[iid]['id']]['name'].lower():
+                if itemsDB[items[iid]['id']]['state'] == 'lever down':
+                    leverUp(
+                        params,
+                        mud,
+                        playersDB,
+                        players,
+                        rooms,
+                        npcsDB,
+                        npcs,
+                        itemsDB,
+                        items,
+                        envDB,
+                        env,
+                        eventDB,
+                        eventSchedule,
+                        id,
+                        fights,
+                        corpses,
+                        target,
+                        itemsInWorldCopy,
+                        iid)
+                    return
+                else:
+                    mud.send_message(id, 'Nothing happens.\n\n')
+                    return
+    mud.send_message(id, "There's nothing to unwind.\n\n")
+
 def closeItemContainer(
         params,
         mud,
@@ -5857,6 +5979,8 @@ def runCommand(
         "ask": tell,
         "open": openItem,
         "close": closeItem,
+        "wind": windLever,
+        "unwind": unwindLever,
         "pull": pullLever,
         "push": pushLever,
         "write": writeOnItem,
