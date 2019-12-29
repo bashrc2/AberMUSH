@@ -652,6 +652,24 @@ To create a falling net trap activated by a pressure plate:
 
 When the net falls on a player it will prevent them from moving for up to 5 mins. During that time they can try to cut themselves out if they are holding a `slashing` type weapon. They will need to do 20 points of damage to the net to escape. Hence with a sword it may be easy to break free, but with a small dagger it may take a while. If you're trapped by a net then other players or NPCs have an advantage when attacking you.
 
+### Room images
+
+These are 8 bit ANSI images, created using climage. They're derived from CC0 licensed images on https://free-images.com or Wikimedia.
+
+To install:
+
+``` bash
+sudo pip3 install climage
+```
+
+To convert an image:
+
+``` bash
+climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]
+```
+
+The numbers should correspond to room ID or item ID.
+
 ### Constructing the Universe
 
 AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
