@@ -5271,7 +5271,7 @@ def windLever(
                         iid)
                     return
                 else:
-                    mud.send_message(id, 'Nothing happens.\n\n')
+                    mud.send_message(id, "It's wound all the way.\n\n")
                     return
     mud.send_message(id, "There's nothing to wind.\n\n")
 
@@ -5331,7 +5331,7 @@ def unwindLever(
                         iid)
                     return
                 else:
-                    mud.send_message(id, 'Nothing happens.\n\n')
+                    mud.send_message(id, "It's unwound all the way.\n\n")
                     return
     mud.send_message(id, "There's nothing to unwind.\n\n")
 
