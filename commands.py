@@ -2131,9 +2131,9 @@ def roomIllumination(roomImage,outdoors: bool):
     sunSetTime = sun.get_local_sunset_time(currTime).hour
     if currHour>sunRiseTime+1 and currHour<sunSetTime-1:
         return roomImage
-    brightness=85
+    brightness=70
     if currHour<sunRiseTime or currHour>sunSetTime:
-        brightness=70
+        brightness=50
 
     pixels=roomImage.split('[')
 
@@ -2147,7 +2147,7 @@ def roomIllumination(roomImage,outdoors: bool):
         ctr=0
         for v in values:
             if ctr>1:
-                v=int(v)/4
+                v=int(int(v)*brightness/100)
                 averageIntensity+=int(v)
                 averageIntensityCtr+=1
             ctr+=1
@@ -2170,7 +2170,7 @@ def roomIllumination(roomImage,outdoors: bool):
         ctr=0
         for v in values:
             if ctr>1:
-                v=int(v)/4
+                v=int(int(v)*brightness/100)
                 v = v-int((v-averageIntensity)/2)
             values[ctr]=int(v)
             ctr+=1
