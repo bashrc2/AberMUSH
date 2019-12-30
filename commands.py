@@ -2118,7 +2118,75 @@ def itemIsVisible(observerId,players: {},itemId,items: {}) -> bool:
         return True
     return False
 
-def showRoomImage(mud,id,roomId) -> None:
+def roomIllumination(roomImage,outdoors: bool):
+    """Alters the brightness and contrast of the image to simulate
+    evening and night conditions
+    """
+    if not outdoors:
+        return roomImage
+    currTime = datetime.datetime.today()
+    currHour=currTime.hour
+    sun = Sun(52.414, 4.081)
+    sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+    sunSetTime = sun.get_local_sunset_time(currTime).hour
+    if currHour>sunRiseTime+1 and currHour<sunSetTime-1:
+        return roomImage
+    brightness=70
+    if currHour<sunRiseTime or currHour>sunSetTime:
+        brightness=50
+
+    pixels=roomImage.split('[')
+
+    averageIntensity=0
+    averageIntensityCtr=0
+    for p in pixels:
+        values=p.split(';')
+        if len(values)!=5:
+            continue
+        values[4]=values[4].split('m')[0]
+        ctr=0
+        for v in values:
+            if ctr>1:
+                v=int(v)/4
+                averageIntensity+=int(v)
+                averageIntensityCtr+=1
+            ctr+=1
+    averageIntensity/=averageIntensityCtr
+
+    newRoomImage=''
+    trailing=None
+    firstValue=True
+    for p in pixels:
+        if firstValue:
+            newRoomImage+=p+'['
+            firstValue=False
+            continue
+        values=p.split(';')
+        if len(values)!=5:
+            newRoomImage+=p+'['
+            continue
+        trailing=values[4].split('m')[1]
+        values[4]=values[4].split('m')[0]
+        ctr=0
+        for v in values:
+            if ctr>1:
+                v=int(v)/4
+                v = v-int((v-averageIntensity)/2)
+            values[ctr]=int(v)
+            ctr+=1
+        darkStr=trailing+'['
+        darkStr=''
+        ctr=0
+        for v in values:
+            if ctr<4:
+                darkStr+=str(v)+';'
+            else:
+                darkStr+=str(v)+'m'
+            ctr+=1
+        newRoomImage+=darkStr+trailing+'['
+    return newRoomImage
+
+def showRoomImage(mud,id,roomId,outdoors: bool) -> None:
     """Shows an image for the room if it exists
     """
     roomIdStr=str(roomId).replace('rid=','').replace('$','')
@@ -2133,7 +2201,7 @@ def showRoomImage(mud,id,roomId) -> None:
     if not os.path.isfile(roomImageFilename):
         return
     with open(roomImageFilename, 'r') as roomFile:
-        mud.send_image(id,'\n'+roomFile.read())
+        mud.send_image(id,'\n'+roomIllumination(roomFile.read(),outdoors))
 
 def showItemImage(mud,id,itemId) -> None:
     """Shows an image for the item if it exists
@@ -2185,7 +2253,11 @@ def look(
             rm = rooms[players[id]['room']]
 
             # send the player back the description of their current room
-            showRoomImage(mud,id,players[id]['room'])
+            playerRoomId=players[id]['room']
+            outdoors=False
+            if rooms[playerRoomId]['weather']==1:
+                outdoors=True                
+            showRoomImage(mud,id,playerRoomId,outdoors)
             roomDescription = rm['description']
             if len(rm['conditional']) > 0:
                 roomDescription = \
