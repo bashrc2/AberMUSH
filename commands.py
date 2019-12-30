@@ -31,7 +31,6 @@ from traps import describeTrappedPlayer
 from traps import trapActivation
 from traps import teleportFromTrap
 from traps import escapeFromTrap
-from suntime import Sun
 
 from proficiencies import thievesCant
 
@@ -49,6 +48,9 @@ import datetime
 import os.path
 import commentjson
 from random import randint
+
+from dateutil import tz
+from suntime import Sun
 
 wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger')
 
@@ -2124,9 +2126,9 @@ def showRoomImage(mud,id,roomId) -> None:
     if os.path.isfile(roomImageFilename+'_night'):
         currTime = datetime.datetime.today()
         sun = Sun(52.414, 4.081)
-        sunRiseTime = sun.get_local_sunrise_time(currTime)
-        sunSetTime = sun.get_local_sunset_time(currTime)
-        if currTime<sunRiseTime or currTime>sunSetTime:
+        sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+        sunSetTime = sun.get_local_sunset_time(currTime).hour
+        if currTime.hour<sunRiseTime or currTime.hour>sunSetTime:
             roomImageFilename=roomImageFilename+'_night'
     if not os.path.isfile(roomImageFilename):
         return
