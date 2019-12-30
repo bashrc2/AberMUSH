@@ -8,6 +8,7 @@ fi
 $INSTALL_PACKAGE telnet
 $INSTALL_PACKAGE $PYTHON_PACKAGE
 $INSTALL_PACKAGE $PYTHON_PACKAGE-pip
+$INSTALL_PACKAGE $PYTHON_PACKAGE-dateutil
 yes | sudo pip3 install commentjson
 yes | sudo pip3 install websocket-client
 $INSTALL_PACKAGE git-core
