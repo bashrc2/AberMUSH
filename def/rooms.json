@@ -8945,7 +8945,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "tideOutDescription" : "You are clambering across steep jagged rocks. The sharp slanted edges make climbing difficult. To the north the rocks become slippery and treacherous, while to the south they drop a sheer twenty feet down into a wide water filled channel which churns and froths at a terrific rate, east from a narrow but very deep gorge. The sheer cliff walls make it impossible to reach the gorge entry from upon the rocks.",
         "terrainDifficulty": 0,
         "coords": []
@@ -9314,7 +9314,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "tideOutDescription" : "You are on a short section of gently shelving beach with the tide out. To the north the beach swings around following the edge of a river mouth. To the south it gives way to jagged, slippery rocks. Gazing west, you can look up the hill, past the village to the mighty snowcapped mountains beyond.",
         "terrainDifficulty": 0,
         "coords": [],
