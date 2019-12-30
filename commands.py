@@ -2184,7 +2184,7 @@ def roomIllumination(roomImage,outdoors: bool):
                 darkStr+=str(v)+'m'
             ctr+=1
         newRoomImage+=darkStr+trailing+'['
-    return newRoomImage
+    return newRoomImage[:len(newRoomImage)-1]
 
 def showRoomImage(mud,id,roomId,outdoors: bool) -> None:
     """Shows an image for the room if it exists
