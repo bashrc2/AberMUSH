@@ -2131,9 +2131,9 @@ def roomIllumination(roomImage,outdoors: bool):
     sunSetTime = sun.get_local_sunset_time(currTime).hour
     if currHour>sunRiseTime+1 and currHour<sunSetTime-1:
         return roomImage
-    brightness=70
+    brightness=60
     if currHour<sunRiseTime or currHour>sunSetTime:
-        brightness=50
+        brightness=40
 
     pixels=roomImage.split('[')
 
