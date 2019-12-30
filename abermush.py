@@ -130,7 +130,7 @@ eventSchedule = {}
 # Declare channels message queue dictionary
 channels = {}
 
-# Specify allowe player idle time
+# Specify allowed player idle time
 allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 
 log("Loading sentiment...", "info")

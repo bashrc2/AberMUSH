@@ -31,6 +31,7 @@ from traps import describeTrappedPlayer
 from traps import trapActivation
 from traps import teleportFromTrap
 from traps import escapeFromTrap
+from suntime import Sun
 
 from proficiencies import thievesCant
 
@@ -2120,6 +2121,13 @@ def showRoomImage(mud,id,roomId) -> None:
     """
     roomIdStr=str(roomId).replace('rid=','').replace('$','')
     roomImageFilename='images/rooms/'+roomIdStr
+    if os.path.isfile(roomImageFilename+'_night'):
+        currTime = datetime.datetime.today()
+        sun = Sun(52.414, 4.081)
+        sunRiseTime = sun.get_local_sunrise_time(currTime)
+        sunSetTime = sun.get_local_sunset_time(currTime)
+        if currTime<sunRiseTime or currTime>sunSetTime:
+            roomImageFilename=roomImageFilename+'_night'
     if not os.path.isfile(roomImageFilename):
         return
     with open(roomImageFilename, 'r') as roomFile:
