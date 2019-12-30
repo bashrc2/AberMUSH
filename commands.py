@@ -2198,6 +2198,7 @@ def showRoomImage(mud,id,roomId,outdoors: bool) -> None:
         sunSetTime = sun.get_local_sunset_time(currTime).hour
         if currTime.hour<sunRiseTime or currTime.hour>sunSetTime:
             roomImageFilename=roomImageFilename+'_night'
+            outdoors=False
     if not os.path.isfile(roomImageFilename):
         return
     with open(roomImageFilename, 'r') as roomFile:
