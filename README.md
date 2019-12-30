@@ -670,6 +670,12 @@ climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]
 
 The numbers should correspond to room ID or item ID.
 
+You can also add a night time version of the image by appending _night to the filename.
+
+``` bash
+climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]_night
+```
+
 ### Constructing the Universe
 
 AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
