@@ -3710,7 +3710,8 @@ def climb(
                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
                                id, eventSchedule, eventDB)
             # update the player's current room to the one the exit leads to
-            players[id]['room'] = rooms[targetRoom]
+            otherRoom = rooms[targetRoom]
+            players[id]['room'] = otherRoom
             # climbing message
             mud.send_message(id, randomDescription(itemsDB[itemId]['climbThrough'])+"\n\n")
             # trigger new room eventOnEnter for the player
