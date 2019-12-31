@@ -56,6 +56,7 @@ speak [language]                        - Switch to speaking a different languag
 say [message]                           - Says something out loud
 look/examine                            - Examines the surroundings
 go [exit]                               - Moves through the exit specified
+climb though [exit]                     - Try to climb through an exit
 attack [target]                         - Attack another player or NPC
 check inventory                         - Check the contents of your inventory
 take/get [item]                         - Pick up an item
@@ -372,6 +373,28 @@ pull ivory lever
 ```
 
 You can get as devious as you like with this and have levers which open or close doors in some entirely different location, or one way doors which once shut with the lever can't be opened from the other side.
+
+### Climbing through windows
+
+You can add items to a room, such as windows which the player can then climb through. Size restrictions apply and so this could be another way to escape from ogres or dragons. This can also be used to set up non-obvious exits as a puzzle.
+
+``` text
+    "1293": {
+        "name": "large window",
+        "short_description": "A huge window looks out across the snows.",
+        "long_description": "It looks out over the snows. You could climb out of the window and down the snowbanks outside, providing of course they will take your weight. It is difficult to tell if they will though.",
+        "climbThrough": "With considerable effort you scramble through the window.",
+        "exit": "$rid=1294$",
+		...
+```
+
+The exit is the room to move to when climbing through.
+
+You can then use the command:
+
+``` text
+climb through window
+```
 
 ### Visibility
 
