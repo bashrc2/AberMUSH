@@ -28045,7 +28045,7 @@
     "1366": {
         "name": "shortsword",
         "short_description": "A strong stabbing weapon.",
-        "long_description": "A sharp shortsword.",
+        "long_description": "A sharp shortsword.|A strong stabbing weapon.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28104,7 +28104,7 @@
     "1367": {
         "name": "small dagger",
         "short_description": "Although small it is very sharp.",
-        "long_description": "A small dagger has been dropped here.",
+        "long_description": "A small dagger has been dropped here.|Although small it is very sharp.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28163,7 +28163,7 @@
     "1368": {
         "name": "door",
         "short_description": "It is a stout door.",
-        "long_description": "The west door is closed.",
+        "long_description": "The west door is closed.|It is a stout door.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28222,7 +28222,7 @@
     "1369": {
         "name": "door",
         "short_description": "The door is closed.",
-        "long_description": "A good stout door.",
+        "long_description": "A good stout door. It is closed.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28281,7 +28281,7 @@
     "1371": {
         "name": "old horseshoe",
         "short_description": "Well it didnt bring the horse any luck.",
-        "long_description": "An old horseshoe has been discarded here.",
+        "long_description": "An old horseshoe has been discarded here.|Well it didnt bring the horse any luck.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
