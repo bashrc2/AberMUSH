@@ -9619,10 +9619,7 @@
     "$rid=1294$": {
         "exits": {
             "north": "$rid=1292$",
-            "east": "$rid=1312$",
-            "south": "$rid=1277$",
-            "down": "$rid=1312$",
-            "out": "$rid=1312$"
+            "south": "$rid=1277$"
         },
         "name": "Behind The Window",
         "description": "You are standing in a long north-south passage beside a large unglazed window roughly hewn in the rock. Ice and snow howls in through the window piling up in drifts on the far side.",
@@ -9821,8 +9818,7 @@
         "coords": [],
         "exits": {
             "north": "$rid=1311$",
-            "south": "$rid=1313$",
-            "up": "$rid=1294$"
+            "south": "$rid=1313$"
         }
     },
     "$rid=1313$": {
