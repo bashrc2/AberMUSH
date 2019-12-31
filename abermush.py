@@ -331,6 +331,7 @@ for k in itemsDB:
                v == "written" or
                v == "written_description" or
                v == "contains" or
+               v == "climbThrough" or
                v == "exit" or
                v == "exitName" or
                v == "article"):
