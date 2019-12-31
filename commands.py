@@ -6178,6 +6178,8 @@ def runCommand(
         "inv": checkInventory,
         "i": checkInventory,
         "inventory": checkInventory,
+        "squeeze": climb,
+        "clamber": climb,
         "climb": climb
     }
 
