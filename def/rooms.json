@@ -3048,8 +3048,8 @@
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
         "weather": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -3079,8 +3079,7 @@
     "$rid=480$": {
         "exits": {
             "east": "$rid=530$",
-            "west": "$rid=473$",
-            "in": "$rid=473$"
+            "west": "$rid=473$"
         },
         "name": "The Small Kitchen.",
         "description": "You are in a small kitchen. There is a hole in the west wall.",

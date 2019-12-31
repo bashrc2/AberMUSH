@@ -10438,8 +10438,8 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
-        "state": "",
+        "climbThrough": "Somehow, you squeeze into the dumbwaiter hole in the wall.",
+        "state": "container open always",
         "visibleWhenWearing": [],
         "type": "",
         "rof": 0,
@@ -10455,7 +10455,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=473$",
         "article": "a"
     },
     "478": {
