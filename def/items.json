@@ -7262,7 +7262,7 @@
     "288": {
         "name": "rusted gates",
         "short_description": "A pair of gates westwards are closed.",
-        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.",
+        "long_description": "The closed gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -7322,7 +7322,7 @@
     "289": {
         "name": "rusted gates",
         "short_description": "A pair of rusted gates lean against each other, blocking your road out.",
-        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.",
+        "long_description": "The gates are old and worn, hanging from their hinges sadly. With a little effort, they can probably be shifted a few feet.|A pair of rusted gates lean against each other.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -7442,7 +7442,7 @@
     "295": {
         "name": "massive tomb",
         "short_description": "A huge sealed tomb sits in the centre of the chamber.",
-        "long_description": "Huge and heavy. Sealed rock, and immovable. It bears the inscription 'Here lies Mighty King Isldor, and his queen Harian, who gave her life to be with him in death'.",
+        "long_description": "Huge and heavy. Sealed rock, and immovable. It bears the inscription 'Here lies Mighty King Isldor, and his queen Harian, who gave her life to be with him in death'.|A huge sealed tomb sits in the centre of the chamber.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -7622,7 +7622,7 @@
     "310": {
         "name": "glowing orb",
         "short_description": "A glowing orb lies here.",
-        "long_description": "Beautiful, and very brightly glowing.",
+        "long_description": "Beautiful, and very brightly glowing.|A glowing orb is here.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -7862,7 +7862,7 @@
     "326": {
         "name": "necronomicon",
         "short_description": "A copy of the dread necronomicon sits on the pillar.",
-        "long_description": "A copy of the necronomicon lies darkly before you, its pages bound in flayed human skin.",
+        "long_description": "A copy of the necronomicon lies darkly before you, its pages bound in flayed human skin.|A copy of the dread necronomicon sits on the pillar.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -8101,7 +8101,7 @@
     },
     "331": {
         "name": "iron door",
-        "short_description": "The door is open.",
+        "short_description": "The door is closed.",
         "long_description": "The door is closed.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -8222,7 +8222,7 @@
     "370": {
         "name": "sack",
         "short_description": "It looks like quite a strong sack.",
-        "long_description": "A sack marked 'Dragon Food' has been dumped here. Someone has left it open.",
+        "long_description": "A sack marked 'Dragon Food' has been dumped here. It is open.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -8260,7 +8260,7 @@
         "weight": 0,
         "edible": 0,
         "climbThrough": "",
-        "state": "",
+        "state": "container open",
         "visibleWhenWearing": [],
         "type": "",
         "rof": 0,
@@ -8342,7 +8342,7 @@
     "372": {
         "name": "leather leash",
         "short_description": "A name tag on the collar reads 'Tiddles'.",
-        "long_description": "An enormous leather leash hangs up on a hook on the wall.",
+        "long_description": "An enormous leather leash hangs up on a hook on the wall.|A name tag on the collar reads 'Tiddles'.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -8702,7 +8702,7 @@
     "389": {
         "name": "crystal decanter",
         "short_description": "A large crystal decanter has been placed here.",
-        "long_description": "A large, heavy, carved crystal decanter, with gold fittings.",
+        "long_description": "A large, heavy, carved crystal decanter, with gold fittings.|A large crystal decanter has been placed here.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -8762,7 +8762,7 @@
     "390": {
         "name": "bottle of wine",
         "short_description": "It is a bottle of fine vintage claret.",
-        "long_description": "A large bottle of wine has been left here.",
+        "long_description": "A large bottle of wine has been left here.|It is a bottle of fine vintage claret.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -8822,7 +8822,7 @@
     "404": {
         "name": "iron poker",
         "short_description": "A long iron poker lies here.",
-        "long_description": "Bent from several heavy blows.",
+        "long_description": "Bent from several heavy blows.|A long iron poker lies here.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9062,7 +9062,7 @@
     "414": {
         "name": "dusty book",
         "short_description": "A large, dusty book has been left here.",
-        "long_description": "The sands of Time have been flowing around this book for many years.",
+        "long_description": "The sands of Time have been flowing around this book for many years.|A large, dusty book has been left here.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9182,7 +9182,7 @@
     "426": {
         "name": "barrels",
         "short_description": "A collection of old barrels",
-        "long_description": "The barrels have been moved, revealing an exit east.",
+        "long_description": "The barrels have been moved, revealing an exit east.|A collection of old barrels",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9302,7 +9302,7 @@
     "430": {
         "name": "old trapdoor",
         "short_description": "Old and battered.",
-        "long_description": "The trapdoor is closed.",
+        "long_description": "The trapdoor is closed.|Old and battered.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9362,7 +9362,7 @@
     "437": {
         "name": "pendulum",
         "short_description": "The pendulum hangs straight down, and is still.",
-        "long_description": "It is connected to the inner workings of the clock.",
+        "long_description": "It is connected to the inner workings of the clock.|The pendulum hangs straight down, and is still.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9621,7 +9621,7 @@
     "441": {
         "name": "grandfather clock",
         "short_description": "A grandfather clock stands in the corner.",
-        "long_description": "It is a tall, polished, wooden grandfather clock. You notice that it has only got one hand.",
+        "long_description": "It is a tall, polished, wooden grandfather clock. You notice that it has only got one hand.|A grandfather clock stands in the corner.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9681,7 +9681,7 @@
     "445": {
         "name": "wooden box",
         "short_description": "It is a dilapidated old wooden tea chest.",
-        "long_description": "A small, wooden box has been placed on a shelf.",
+        "long_description": "A small, wooden box has been placed on a shelf.|It is a dilapidated old wooden tea chest.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -9861,7 +9861,7 @@
     "450": {
         "name": "light",
         "short_description": "It sits there and glows oddly and faintly.",
-        "long_description": "A faint patch of glowing light hangs in the air.",
+        "long_description": "A faint patch of glowing light hangs in the air.|It sits there and glows oddly and faintly.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10521,7 +10521,7 @@
     "479": {
         "name": "dead cat",
         "short_description": "There is a dead cat here.",
-        "long_description": "It has used up all nine of its lives.",
+        "long_description": "It has used up all nine of its lives.|There is a dead cat here.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10641,7 +10641,7 @@
     "488": {
         "name": "lump of chalk",
         "short_description": "A small piece of natural white chalk.",
-        "long_description": "A small lump of chalk has been left here.",
+        "long_description": "A small lump of chalk has been left here.|A small piece of natural white chalk.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10858,7 +10858,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "Slowly you lower yourself into the tin bath.|Holding onto both sides you carefully lower yourself into the tin bath.",
         "state": "container open always",
         "visibleWhenWearing": [],
         "type": "",
@@ -10875,7 +10875,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=492$",
         "article": "a"
     },
     "493": {
