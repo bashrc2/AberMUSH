@@ -3704,15 +3704,13 @@ def climb(
                     return
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['outDescription']) +
-                                   " via exit " + ex + '\n')
+                                   randomDescription(players[id]['outDescription']) + '\n')
             # Trigger old room eventOnLeave for the player
             if rooms[players[id]['room']]['eventOnLeave'] is not "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
                                id, eventSchedule, eventDB)
             # update the player's current room to the one the exit leads to
-            rm = rooms[targetRoom]
-            players[id]['room'] = rm
+            players[id]['room'] = rooms[targetRoom]
             # climbing message
             mud.send_message(id, randomDescription(itemsDB[itemId]['climbThrough'])+"\n\n")
             # trigger new room eventOnEnter for the player
