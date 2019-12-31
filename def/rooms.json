@@ -3081,7 +3081,7 @@
             "east": "$rid=530$",
             "west": "$rid=473$"
         },
-        "name": "The Small Kitchen.",
+        "name": "The Small Kitchen",
         "description": "You are in a small kitchen. There is a hole in the west wall.",
         "conditional": [],
         "trap": {},
