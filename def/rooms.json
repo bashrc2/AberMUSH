@@ -3043,7 +3043,7 @@
     },
     "$rid=473$": {
         "name": "Standing on the Dumbwaiter",
-        "description": "You are standing on top of the dumbwaiter.",
+        "description": "You are standing on top of the dumbwaiter. It's quite dark and cramped in here.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -3055,7 +3055,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=480$",
             "out": "$rid=480$"
         }
     },
