@@ -4932,8 +4932,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=775$",
-            "south": "$rid=770$",
             "up": "$rid=770$",
             "down": "$rid=775$"
         }
@@ -4952,7 +4950,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=769$",
             "west": "$rid=773$",
             "down": "$rid=769$"
         }
