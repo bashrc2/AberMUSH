@@ -376,7 +376,7 @@ You can get as devious as you like with this and have levers which open or close
 
 ### Climbing through windows
 
-You can add items to a room, such as windows which the player can then climb through. Size restrictions apply and so this could be another way to escape from ogres or dragons. This can also be used to set up non-obvious exits as a puzzle.
+You can add items to a room such as windows which the player can then climb through. Size restrictions apply and so this could be another way to escape from ogres or dragons. This can also be used to set up non-obvious exits as a puzzle.
 
 ``` text
     "1293": {
