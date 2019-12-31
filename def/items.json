@@ -20847,7 +20847,7 @@
     "1015": {
         "name": "monolith",
         "short_description": "A huge stone monolith towers above the pool, it's black stone bulk reflected in the waters.",
-        "long_description": "An ancient standing stone, which some say has mystical powers. Parts of the stone are worn smooth, from countless people touching its surface.",
+        "long_description": "An ancient standing stone, which some say has mystical powers. Parts of the stone are worn smooth, from countless people touching its surface.|A huge stone monolith towers above the pool, it's black stone bulk reflected in the waters.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,

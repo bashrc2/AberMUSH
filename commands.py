@@ -2399,13 +2399,13 @@ def look(
                             itemLanguage = itemsDB[items[i]['id']]['language']
                             if len(itemLanguage) == 0:
                                 showItemImage(mud,id,int(items[i]['id']))
-                                message += itemsDB[items[i]['id']]['long_description']
+                                message += randomDescription(itemsDB[items[i]['id']]['long_description'])
                                 message += describeContainerContents(
                                     mud, id, itemsDB, items[i]['id'], True)
                             else:
                                 if itemLanguage in players[id]['language']:
                                     showItemImage(mud,id,int(items[i]['id']))
-                                    message += itemsDB[items[i]['id']]['long_description']
+                                    message += randomDescription(itemsDB[items[i]['id']]['long_description'])
                                     message += describeContainerContents(
                                         mud, id, itemsDB, items[i]['id'], True)
                                 else:
@@ -2425,13 +2425,12 @@ def look(
                             itemLanguage = itemsDB[int(i)]['language']
                             showItemImage(mud,id,int(i))
                             if len(itemLanguage) == 0:
-                                message += itemsDB[int(i)]['long_description']
+                                message += randomDescription(itemsDB[int(i)]['long_description'])
                                 message += describeContainerContents(
                                     mud, id, itemsDB, int(i), True)
                             else:
                                 if itemLanguage in players[id]['language']:
-                                    message += itemsDB[int(i)
-                                                       ]['long_description']
+                                    message += randomDescription(itemsDB[int(i)]['long_description'])
                                     message += describeContainerContents(
                                         mud, id, itemsDB, int(i), True)
                                 else:
@@ -2447,14 +2446,12 @@ def look(
                                 itemLanguage = itemsDB[int(i)]['language']
                                 showItemImage(mud,id,int(i))
                                 if len(itemLanguage) == 0:
-                                    message += itemsDB[int(i)
-                                                       ]['long_description']
+                                    message += randomDescription(itemsDB[int(i)]['long_description'])
                                     message += describeContainerContents(
                                         mud, id, itemsDB, int(i), True)
                                 else:
                                     if itemLanguage in players[id]['language']:
-                                        message += itemsDB[int(i)
-                                                           ]['long_description']
+                                        message += randomDescription(itemsDB[int(i)]['long_description'])
                                         message += describeContainerContents(
                                             mud, id, itemsDB, int(i), True)
                                     else:
@@ -2744,8 +2741,7 @@ def describe(
             if items[item]['room'] == players[id]['room']:
                 if thingDescribed in itemsDB[items[item]
                                              ['id']]['name'].lower():
-                    itemsDB[items[item]['id']
-                            ]['long_description'] = thingDescription
+                    itemsDB[items[item]['id']]['long_description'] = thingDescription
                     mud.send_message(id, 'New description set for ' +
                                      itemsDB[items[item]['id']]['article'] +
                                      ' ' +
