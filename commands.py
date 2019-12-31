@@ -3693,7 +3693,7 @@ def climb(
                 if 'open' not in itemsDB[itemId]['state']:
                     mud.send_message(id, itemsDB[itemId]['name']+ \
                                      " is closed.\n\n")
-                        continue
+                    continue
             targetRoom=itemsDB[itemId]['exit']
             if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
                 mud.send_message(id, "You're too big.\n\n")
