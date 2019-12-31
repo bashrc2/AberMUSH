@@ -3042,8 +3042,8 @@
         "coords": []
     },
     "$rid=473$": {
-        "name": "Standing on the Dumb Waiter",
-        "description": "You are standing on top of the dumb waiter.",
+        "name": "Standing on the Dumbwaiter",
+        "description": "You are standing on top of the dumbwaiter.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -3098,8 +3098,7 @@
     "$rid=482$": {
         "exits": {
             "east": "$rid=514$",
-            "west": "$rid=478$",
-            "in": "$rid=478$"
+            "west": "$rid=478$"
         },
         "name": "Birfle's Research Lab",
         "description": "You are in a laboratory which was once used for research into unearthly magics. The majority of the equipment is in a state of disrepair, showing that this lab hasn't been used in ages. There is a row of shelves along the north wall, ",

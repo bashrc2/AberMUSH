@@ -10400,8 +10400,8 @@
     },
     "476": {
         "name": "hole",
-        "short_description": "It looks like the hole for a dumb waiter.",
-        "long_description": "It looks like the hole for a dumb waiter.",
+        "short_description": "It looks like the hole for a dumbwaiter.",
+        "long_description": "It looks like the hole for a dumbwaiter.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10461,7 +10461,7 @@
     "478": {
         "name": "hole",
         "short_description": "and a hole in the east wall.",
-        "long_description": "It looks like the hole for a dumb waiter.",
+        "long_description": "It looks like the hole for a dumbwaiter.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
