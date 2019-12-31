@@ -2644,12 +2644,12 @@
         "imp_feet" : "0",
         "inDescription": "slithers in",
         "outDescription": "slithers",
-        "lookDescription": "is here, its forked tongue flicking in and out"
+        "lookDescription": "The giant snake looks like an anaconda. Its forked tongue flicking in and out. Its reptillian eyes observe you suspiciously."
     },
     "536": {
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "stands before you squeaking and showing its teeth",
+        "lookDescription": "The giant rat stands before you squeaking and showing its teeth",
         "name": "the giant rat",
         "inv" : [],
         "speakLanguage": "common",
