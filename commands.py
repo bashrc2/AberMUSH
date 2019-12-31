@@ -5889,6 +5889,15 @@ def take(
                 players[id]['frozenDescription']) + '\n\n')
         return
 
+    if params:
+        # get into, get through
+        if params.startswith('into') or params.startswith('through'):
+            climb(params,mud,playersDB,players,rooms,npcsDB,npcs, \
+                  itemsDB,items,envDB,env,eventDB,eventSchedule, \
+                  id,fights,corpses,blocklist,mapArea,characterClassDB, \
+                  spellsDB,sentimentDB,guildsDB)
+            return
+
     if len(str(params)) < 3:
         return
 
