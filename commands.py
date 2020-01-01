@@ -1253,14 +1253,13 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
         npcs[p]['frozenDuration'] = TimeStringToSec(spellDetails['duration'])
         npcs[p]['frozenStart'] = int(time.time())
 
+    showSpellImage(mud,id,spellName.replace(' ','_'))
+
     mud.send_message(
         id,
-        randomDescription(
-            spellDetails['description']).format(
-            '<f32>' +
-            npcs[p]['name'] +
-            '<r>') +
-        '\n\n')
+        randomDescription(spellDetails['description']).format('<f32>' + \
+                                                              npcs[p]['name'] + \
+                                                              '<r>') + '\n\n')
 
     secondDesc = randomDescription(spellDetails['description_second'])
     if npcs == players and len(secondDesc) > 0:
@@ -1405,13 +1404,7 @@ def castSpell(
                 mud.send_message(id, "This is not a hypnosis spell.\n\n")
                 return
             castSpellOnPlayer(
-                mud,
-                spellName,
-                players,
-                id,
-                players,
-                p,
-                spellDetails)
+                mud,spellName,players,id,players,p,spellDetails)
             return
 
         for p in npcs:
@@ -2203,6 +2196,15 @@ def showRoomImage(mud,id,roomId,outdoors: bool) -> None:
         return
     with open(roomImageFilename, 'r') as roomFile:
         mud.send_image(id,'\n'+roomIllumination(roomFile.read(),outdoors))
+
+def showSpellImage(mud,id,spellId) -> None:
+    """Shows an image for a spell
+    """
+    spellImageFilename='images/spells/'+spellId
+    if not os.path.isfile(spellImageFilename):
+        return
+    with open(spellImageFilename, 'r') as spellFile:
+        mud.send_image(id,'\n'+spellFile.read())
 
 def showItemImage(mud,id,itemId) -> None:
     """Shows an image for the item if it exists
