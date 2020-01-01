@@ -677,47 +677,46 @@ def runFightsBetweenPlayers(
         return
 
     currRoom = players[s1id]['room']
-    weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB) / 20)
+    weightDifficulty = \
+        int(playerInventoryWeight(s1id, players, itemsDB) / 20)
     temperatureDifficulty = getTemperatureDifficulty(
         currRoom, rooms, mapArea, clouds)
-    terrainDifficulty = rooms[players[s1id]['room']
-                              ]['terrainDifficulty'] * 10 / maxTerrainDifficulty
+    terrainDifficulty = \
+        rooms[players[s1id]['room']]['terrainDifficulty'] * \
+        10 / maxTerrainDifficulty
 
     # Agility of player
-    if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(
-            s1id, players, itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
+    if int(time.time()) < \
+       players[s1id]['lastCombatAction'] + \
+       10 - players[s1id]['agi'] - \
+       armorAgility(s1id, players, itemsDB) + \
+       terrainDifficulty + temperatureDifficulty + weightDifficulty:
         return
 
     if players[s2id]['isAttackable'] == 1:
         players[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
 
-        weaponID, weaponType, roundsOfFire = getWeaponHeld(
-            s1id, players, itemsDB)
+        weaponID, weaponType, roundsOfFire = \
+            getWeaponHeld(s1id, players, itemsDB)
         if not canUseWeapon(s1id, players, itemsDB, weaponID):
             lockItemID = itemsDB[weaponID]['lockedWithItem']
             mud.send_message(
-                s1id,
-                'You take aim, but find you have no ' +
-                itemsDB[lockItemID]['name'].lower() +
-                '.\n')
+                s1id,'You take aim, but find you have no ' +
+                itemsDB[lockItemID]['name'].lower() + '.\n')
             mud.send_message(
-                s2id,
-                '<f32>' +
+                s2id,'<f32>' +
                 players[s1id]['name'] +
                 '<r> takes aim, but finds they have no ' +
-                itemsDB[lockItemID]['name'].lower() +
-                '.\n')
+                itemsDB[lockItemID]['name'].lower() + '.\n')
             stowHands(s1id, players, itemsDB, mud)
             mud.send_message(
-                s2id,
-                '<f32>' +
+                s2id,'<f32>' +
                 players[s1id]['name'] +
                 '<r> stows ' +
                 itemsDB[itemID]['article'] +
                 ' <b234>' +
-                itemsDB[itemID]['name'] +
-                '\n\n')
+                itemsDB[itemID]['name'] + '\n\n')
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
@@ -729,14 +728,13 @@ def runFightsBetweenPlayers(
                 players,
                 weaponType,
                 characterClassDB)):
-            damageValue, armorClass, damageDescription = calculateDamage(
-                weaponDamage(
-                    s1id, players, itemsDB, weaponType, characterClassDB), weaponDefense(
-                    s2id, players, itemsDB, racesDB, weaponType, characterClassDB))
+            damageValue, armorClass, damageDescription = \
+                calculateDamage(weaponDamage(s1id, players, itemsDB, weaponType, characterClassDB), \
+                                weaponDefense(s2id, players, itemsDB, racesDB, weaponType, characterClassDB))
             if roundsOfFire < 1:
                 roundsOfFire = 1
-            attackDescriptionFirst, attackDescriptionSecond = getAttackDescription(
-                weaponType)
+            attackDescriptionFirst, attackDescriptionSecond = \
+                getAttackDescription(weaponType)
             if armorClass <= damageValue:
                 if players[s1id]['hp'] > 0:
                     modifierStr = ''
@@ -746,12 +744,13 @@ def runFightsBetweenPlayers(
                         damagePoints = players[s1id]['str'] + modifier
                         if damagePoints < 0:
                             damagePoints = 0
-                        players[s2id]['hp'] = players[s2id]['hp'] - \
-                            damagePoints
+                        players[s2id]['hp'] = \
+                            players[s2id]['hp'] - damagePoints
                         if len(modifierStr) == 0:
                             modifierStr = modifierStr + str(damagePoints)
                         else:
-                            modifierStr = modifierStr + \
+                            modifierStr = \
+                                modifierStr + \
                                 ' + ' + str(damagePoints)
 
                     decreaseAffinityBetweenPlayers(
@@ -759,62 +758,53 @@ def runFightsBetweenPlayers(
                     decreaseAffinityBetweenPlayers(
                         players, s1id, players, s2id)
                     mud.send_message(
-                        s1id,
-                        'You ' +
-                        attackDescriptionFirst +
-                        ' <f32><u>' +
-                        players[s2id]['name'] +
-                        '<r> for <f15><b2> * ' +
-                        modifierStr +
-                        ' *<r> points of ' +
-                        damageDescription +
-                        '.\n')
+                        s1id,'You ' + \
+                        attackDescriptionFirst + \
+                        ' <f32><u>' + \
+                        players[s2id]['name'] + \
+                        '<r> for <f15><b2> * ' + \
+                        modifierStr + \
+                        ' *<r> points of ' + \
+                        damageDescription + '.\n')
                     mud.send_message(
-                        s2id,
-                        '<f32>' +
-                        players[s1id]['name'] +
-                        '<r> has ' +
-                        attackDescriptionSecond +
-                        ' you for <f15><b88> * ' +
-                        modifierStr +
-                        ' *<r> points of ' +
-                        damageDescription +
-                        '.\n')
+                        s2id,'<f32>' + \
+                        players[s1id]['name'] + \
+                        '<r> has ' + \
+                        attackDescriptionSecond + \
+                        ' you for <f15><b88> * ' + \
+                        modifierStr + \
+                        ' *<r> points of ' + \
+                        damageDescription + '.\n')
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
                     mud.send_message(
-                        s1id,
-                        'You ' +
-                        attackDescriptionFirst +
-                        ' <f32><u>' +
-                        players[s2id]['name'] +
+                        s1id,'You ' + \
+                        attackDescriptionFirst + \
+                        ' <f32><u>' + \
+                        players[s2id]['name'] + \
                         '<r> but their armor deflects it.\n')
                     mud.send_message(
-                        s2id,
-                        '<f32>' +
-                        players[s1id]['name'] +
-                        '<r> has ' +
-                        attackDescriptionSecond +
+                        s2id,'<f32>' + \
+                        players[s1id]['name'] + \
+                        '<r> has ' + \
+                        attackDescriptionSecond + \
                         ' you but it is deflected by your armor.\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
             mud.send_message(
-                s1id,
-                'You miss trying to hit <f32><u>' +
-                players[s2id]['name'] +
-                '\n')
+                s1id,'You miss trying to hit <f32><u>' + \
+                players[s2id]['name'] + '\n')
             mud.send_message(
-                s2id,
-                '<f32><u>' +
-                players[s1id]['name'] +
+                s2id,'<f32><u>' + \
+                players[s1id]['name'] + \
                 '<r> missed while trying to hit you!\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
         mud.send_message(
-            s1id,
-            '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <f32>' +
-            players[s2id]['name'] +
+            s1id, \
+            '<f225>Suddenly you stop. It wouldn`t be a good idea to attack <f32>' + \
+            players[s2id]['name'] + \
             ' at this time.\n')
         fightsCopy = deepcopy(fights)
         for (fight, pl) in fightsCopy.items():
