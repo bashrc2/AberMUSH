@@ -1265,10 +1265,8 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
     if npcs == players and len(secondDesc) > 0:
         mud.send_message(
             p,
-            secondDesc.format(
-                players[id]['name'],
-                'you') +
-            '\n\n')
+            secondDesc.format(players[id]['name'], \
+                              'you') + '\n\n')
 
     removePreparedSpell(players, id, spellName)
 
