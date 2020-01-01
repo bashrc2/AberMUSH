@@ -1296,6 +1296,7 @@ def castSpellUndirected(
         spellName,
         spellDetails):
     if spellDetails['action'].startswith('familiar'):
+        showSpellImage(mud,id,spellName.replace(' ','_'))        
         conjureNPC(
             spellDetails['action'],
             mud,
