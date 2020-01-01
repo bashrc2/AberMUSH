@@ -3916,7 +3916,7 @@
     "$rid=600$": {
         "exits": {
             "north": "$rid=599$",
-            "east": "$rid=597$",
+            "east": "$rid=622$",
             "south": "$rid=595$",
             "west": "$rid=594$"
         },
@@ -3969,8 +3969,7 @@
     },
     "$rid=622$": {
         "exits": {
-            "west": "$rid=600$",
-            "up": "$rid=600$"
+            "west": "$rid=600$"
         },
         "name": "The Island Cave",
         "description": "You are in a low cave. Stalactites hang from the roof, and stalagmites grow up from the earthen floor. The cave entrance is to the west, up a flight of steps. There is a door in the east wall.",
