@@ -7309,7 +7309,8 @@
     "$rid=1001$": {
         "exits": {
             "north": "$rid=969$",
-            "east": "$rid=967$"
+            "east": "$rid=967$",
+	    "west": "$rid=1247$"
         },
         "name": "All At Sea",
         "description": "You are floating just off the village. You can row westwards and beach upon the shore or you can travel safely northwards following the line of the breakwater to the river mouth. To the south you can hug the shoreline but to the east, the seas become exposed and dangerous.",
@@ -9824,8 +9825,7 @@
         "exits": {
             "north": "$rid=1225$",
             "south": "$rid=1191$",
-            "west": "$rid=1248$",
-            "up": "$rid=1248$"
+            "west": "$rid=1248$"
         }
     },
     "$rid=1248$": {
