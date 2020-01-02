@@ -13101,7 +13101,7 @@
     "573": {
         "name": "Bonzo's marker",
         "short_description": "X marks the spot.",
-        "long_description": "A colorful marker buoy to warn passing sailor of shallow water.",
+        "long_description": "A colorful marker buoy with a bell to warn passing sailors of shallow water.|The bell of the marker buoy rings occasionally as waves lap against it.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
