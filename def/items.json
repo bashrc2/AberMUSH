@@ -21058,7 +21058,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You climb aboard and push off into the beach waves.|You clamber onto the boat and head out to sea.",
         "state": "container open always",
         "visibleWhenWearing": [],
         "type": "",
@@ -21075,7 +21075,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1002$",
         "article": "a"
     },
     "1013": {
@@ -28018,7 +28018,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "You climb aboard and push off eastwards.",
+        "climbThrough": "You climb aboard and push off into the lake.",
         "state": "container open always",
         "visibleWhenWearing": [],
         "type": "",
@@ -28035,7 +28035,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "$rid=1001$",
+        "exit": "$rid=16$",
         "article": "a"
     },
     "1343": {
