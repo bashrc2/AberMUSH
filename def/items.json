@@ -13101,7 +13101,7 @@
     "573": {
         "name": "Bonzo's marker",
         "short_description": "X marks the spot.",
-        "long_description": "Bonzo's marker is here.",
+        "long_description": "A colorful marker buoy to warn passing sailor of shallow water.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
