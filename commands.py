@@ -3379,7 +3379,7 @@ def playersMoveTogether(id,rm,mud, \
             players[pid]['room'] = rm
 
             mud.send_message(pid, \
-                             'You arrive at <f106>{}'.format(rooms[rm]['name']) + "\n\n")
+                             'You row to <f106>{}'.format(rooms[rm]['name']) + "\n\n")
 
             look('',mud,playersDB,players,rooms,npcsDB,npcs, \
                  itemsDB,items,envDB,env,eventDB,eventSchedule, \
@@ -3887,10 +3887,14 @@ def go(
                 messageToPlayersInRoom(mud, players, id, '<f32>' +
                                        players[id]['name'] + '<r> ' +
                                        randomDescription(players[id]['inDescription']) + "\n\n")
+                # send the player a message telling them where they are now
+                mud.send_message(id, \
+                                 'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
+            else:
+                # send the player a message telling them where they are now
+                mud.send_message(id, \
+                                 'You row to <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
 
-            # send the player a message telling them where they are now            
-            mud.send_message(id, 'You arrive at <f106>{}'.format(
-                rooms[players[id]['room']]['name']) + "\n\n")
             look('',mud,playersDB,players,rooms,npcsDB,npcs, \
                  itemsDB,items,envDB,env,eventDB,eventSchedule, \
                  id,fights,corpses,blocklist,mapArea, \
