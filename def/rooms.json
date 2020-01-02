@@ -2113,7 +2113,7 @@
             "north": "$rid=314$",
             "west": "$rid=578$"
         },
-        "name": "South of the Volcano.",
+        "name": "South of the Volcano",
         "description": "You are floating off the southern flank of a large volcano, towering above you. Wisps of smoke emerge from the crater and float gently into the sky.",
         "conditional": [],
         "trap": {},
@@ -2132,7 +2132,7 @@
             "east": "$rid=315$",
             "west": "$rid=317$"
         },
-        "name": "The South Flank of the Volcano.",
+        "name": "The South Flank of the Volcano",
         "description": "You are on the southern flank of the large volcano. The steep slope rises up to a wide crater far above. A large, overhanging outcrop of rock just above you prevents you from climbing up the side of the volcano here.",
         "conditional": [],
         "trap": {},
@@ -2151,7 +2151,7 @@
             "north": "$rid=316$",
             "south": "$rid=314$"
         },
-        "name": "The East Flank of the Volcano.",
+        "name": "The East Flank of the Volcano",
         "description": "You are on the eastern flank of the volcano. Piles of rubble and debris are scattered around, and it is quite difficult to walk on the loose stones. There is the occasional small rockslide as piles of stones gradually slip down the steep slope into the waiting sea below.",
         "conditional": [],
         "trap": {},
@@ -2170,7 +2170,7 @@
             "east": "$rid=315$",
             "west": "$rid=317$"
         },
-        "name": "The North Flank of the Volcano.",
+        "name": "The North Flank of the Volcano",
         "description": "You are on the northern flank of a large, fairly active volcano. The slope climbs steeply up to a large cone, far above. Faint wisps of smoke climb lazily into the sky. A narrow path zig-zags up the side of the volcano.",
         "conditional": [],
         "trap": {},
@@ -2189,7 +2189,7 @@
             "north": "$rid=316$",
             "south": "$rid=314$"
         },
-        "name": "The West Flank of the Volcano.",
+        "name": "The West Flank of the Volcano",
         "description": "You are on the western flank of a large volcano. The ground here is smooth and glassy, and large boulders are scattered everywhere, just waiting to topple down the steep slope into the sea below. Acrid smoke billows from a hole half way up to the summit, and rises into the sky.",
         "conditional": [],
         "trap": {},
