@@ -158,36 +158,41 @@ def teleport(
         spellsDB: {},
         sentimentDB: {},
         guildsDB: {}) -> None:
-    if players[id]['permissionLevel'] == 0:
-        if isWitch(id, players):
-            if playerIsTrapped(id,players,rooms):
-                teleportFromTrap(mud,id,players,rooms)
 
-            targetLocation = params[0:].strip().lower().replace('to ', '',1)
-            if len(targetLocation) != 0:
-                currRoom = players[id]['room']
-                if rooms[currRoom]['name'].strip().lower() == targetLocation:
+    if players[id]['permissionLevel'] != 0:
+        mud.send_message(id, "You don't have enough powers for that.\n\n")
+        return
+
+    if isWitch(id, players):
+        if playerIsTrapped(id,players,rooms):
+            teleportFromTrap(mud,id,players,rooms)
+
+        targetLocation = params[0:].strip().lower().replace('to ', '',1)
+        if len(targetLocation) != 0:
+            currRoom = players[id]['room']
+            if rooms[currRoom]['name'].strip().lower() == targetLocation:
+                mud.send_message(
+                    id,
+                    "You are already in " +
+                    rooms[currRoom]['name'] +
+                    "\n\n")
+                return
+            for rm in rooms:
+                if rooms[rm]['name'].strip().lower() == targetLocation:
                     mud.send_message(
-                        id,
-                        "You are already in " +
-                        rooms[currRoom]['name'] +
-                        "\n\n")
+                        id, "You teleport to " + rooms[rm]['name'] + "\n\n")
+                    messageToPlayersInRoom(
+                        mud, players, id, '<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n\n")
+                    players[id]['room'] = rm
+                    messageToPlayersInRoom(
+                        mud, players, id, '<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n\n")
                     return
-                for rm in rooms:
-                    if rooms[rm]['name'].strip().lower() == targetLocation:
-                        mud.send_message(
-                            id, "You teleport to " + rooms[rm]['name'] + "\n\n")
-                        messageToPlayersInRoom(
-                            mud, players, id, '<f32>{}<r> suddenly vanishes.'.format(
-                                players[id]['name']) + "\n\n")
-                        players[id]['room'] = rm
-                        messageToPlayersInRoom(
-                            mud, players, id, '<f32>{}<r> suddenly appears.'.format(
-                                players[id]['name']) + "\n\n")
-                        return
+            mud.send_message(
+                id, targetLocation+" isn't a place you can teleport to.\n\n")
         else:
-            mud.send_message(id, "You don't have enough powers for that.\n\n")
-
+            mud.send_message(id, "That's not a place.\n\n")
+    else:
+        mud.send_message(id, "You don't have enough powers to teleport.\n\n")
 
 def summon(
         params,
