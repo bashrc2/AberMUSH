@@ -3366,7 +3366,7 @@ def unwear(
 def playersMoveTogether(id,rm,mud, \
                         playersDB,players,rooms,npcsDB,npcs, \
                         itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                        pid,fights,corpses,blocklist,mapArea, \
+                        fights,corpses,blocklist,mapArea, \
                         characterClassDB,spellsDB,sentimentDB,guildsDB) -> None:
     """In boats when one player rows the rest move with them
     """
@@ -3378,16 +3378,16 @@ def playersMoveTogether(id,rm,mud, \
            pid != id:
             players[pid]['room'] = rm
 
-            mud.send_message(pid, 'You arrive at <f106>{}'.format(
-                rooms[players[pid]['room']]['name']) + "\n\n")
+            mud.send_message(pid, \
+                             'You arrive at <f106>{}'.format(rooms[rm]['name']) + "\n\n")
 
             look('',mud,playersDB,players,rooms,npcsDB,npcs, \
                  itemsDB,items,envDB,env,eventDB,eventSchedule, \
                  pid,fights,corpses,blocklist,mapArea, \
                  characterClassDB,spellsDB,sentimentDB,guildsDB)
 
-            if rooms[players[pid]['room']]['eventOnEnter'] is not "":
-                addToScheduler(int(rooms[players[pid]['room']]['eventOnEnter']),
+            if rooms[rm]['eventOnEnter'] is not "":
+                addToScheduler(int(rooms[rm]['eventOnEnter']),
                                pid, eventSchedule, eventDB)
         
 def messageToPlayersInRoom(mud, players, id, msg):
@@ -3873,7 +3873,7 @@ def go(
                 playersMoveTogether(id,rm['exits'][ex],mud, \
                                     playersDB,players,rooms,npcsDB,npcs, \
                                     itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                                    pid,fights,corpses,blocklist,mapArea, \
+                                    fights,corpses,blocklist,mapArea, \
                                     characterClassDB,spellsDB,sentimentDB,guildsDB)
             players[id]['room'] = rm['exits'][ex]
             rm = rooms[players[id]['room']]
