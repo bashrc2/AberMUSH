@@ -6146,6 +6146,7 @@ def runCommand(
         "d": goDown,
         "in": goIn,
         "out": goOut,
+        "o": goOut,
         "bio": bio,
         "who": who,
         "quit": quit,
