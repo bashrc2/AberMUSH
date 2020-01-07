@@ -7326,7 +7326,8 @@
     },
     "$rid=1002$": {
         "exits": {
-            "east": "$rid=572$"
+            "east": "$rid=572$",
+	    "west": "$rid=1009$"
         },
         "name": "All At Sea",
         "description": "To your west the waves lap against a a narrow beach, to the south the sea becomes treacherous as it crashes against rocks, some of them submerged. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they wash around a high cliff.",
