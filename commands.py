@@ -4351,6 +4351,7 @@ def conjureNPC(
               "imp_lhand": 0,
               "imp_rhand": 0,
               "imp_chest": 0,
+              "imp_back": 0,
               "imp_lleg": 0,
               "imp_rleg": 0,
               "imp_feet": 0,
