@@ -27733,7 +27733,7 @@
         "close_description": "",
         "contains": [],
         "lockedWithItem": 0,
-        "exitName": "north|south",
+        "exitName": "in|out",
         "linkedItem": 1303,
         "exit": "$rid=1304$",
         "article": "a"
@@ -27793,7 +27793,7 @@
         "close_description": "",
         "contains": [],
         "lockedWithItem": 0,
-        "exitName": "south|north",
+        "exitName": "out|in",
         "linkedItem": 1302,
         "exit": "$rid=1305$",
         "article": "a"
