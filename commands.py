@@ -3326,9 +3326,12 @@ def stow(
 def wearClothing(itemID,players,id,clothingType,mud,itemsDB):
     if itemsDB[itemID]['clo_'+clothingType] > 0:
         players[id]['clo_'+clothingType] = itemID
+        clothingOpened=False
         if len(itemsDB[itemID]['open_description'])>0:
-            mud.send_message(id, randomDescription(itemsDB[itemID]['open_description']) + '\n\n')
-        else:
+            if ' open' not in itemsDB[itemID]['open_description']:
+                mud.send_message(id, randomDescription(itemsDB[itemID]['open_description']) + '\n\n')
+                clothingOpened=True
+        if not clothingOpened:
             mud.send_message(
                 id,
                 'You put on ' +
@@ -3342,9 +3345,15 @@ def wearClothing(itemID,players,id,clothingType,mud,itemsDB):
 def unwearClothing(players,id,clothingType,mud,itemsDB):
     if int(players[id]['clo_'+clothingType]) > 0:
         itemID = int(players[id]['clo_'+clothingType])
+        clothingClosed=False
         if len(itemsDB[itemID]['close_description'])>0:
-            mud.send_message(id, randomDescription(itemsDB[itemID]['close_description']) + '\n\n')
-        else:    
+            if ' close ' not in itemsDB[itemID]['open_description'] and \
+               'closed' not in itemsDB[itemID]['open_description'] and \
+               'closing' not in itemsDB[itemID]['open_description'] and \
+               'shut' not in itemsDB[itemID]['open_description']:
+                mud.send_message(id, randomDescription(itemsDB[itemID]['close_description']) + '\n\n')
+                clothingClosed=True
+        if not clothingClosed:    
             mud.send_message(id, 'You remove ' +
                              itemsDB[itemID]['article'] + ' <b234>' +
                              itemsDB[itemID]['name'] + '\n\n')
