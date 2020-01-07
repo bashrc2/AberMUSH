@@ -3755,6 +3755,10 @@ def climb(
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
                                    randomDescription(players[id]['inDescription']) + "\n\n")
+            # look after climbing
+            look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
+                 envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
+                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
             break
 
 def go(
