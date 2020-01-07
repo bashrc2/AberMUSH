@@ -10184,9 +10184,7 @@
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
-        "exits": {
-            "out": "$rid=1305$"
-        }
+        "exits": {}
     },
     "$rid=1305$": {
         "name": "The Quarry Bottom",
@@ -10205,8 +10203,7 @@
         "exits": {
             "east": "$rid=1184$",
             "west": "$rid=1306$",
-            "up": "$rid=1306$",
-            "in": "$rid=1304$"
+            "up": "$rid=1306$"
         }
     },
     "$rid=1306$": {
