@@ -186,6 +186,11 @@ def teleport(
                     players[id]['room'] = rm
                     messageToPlayersInRoom(
                         mud, players, id, '<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n\n")
+                    look('',mud,playersDB,players,rooms,npcsDB,npcs, \
+                         itemsDB,items,envDB,env,eventDB,eventSchedule, \
+                         id,fights,corpses,blocklist,mapArea, \
+                         characterClassDB,spellsDB,sentimentDB, \
+                         guildsDB)                    
                     return
             mud.send_message(
                 id, targetLocation+" isn't a place you can teleport to.\n\n")
