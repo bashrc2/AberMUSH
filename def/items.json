@@ -14119,9 +14119,9 @@
         "article": "a"
     },
     "625": {
-        "name": "gold coin",
-        "short_description": "A gold coin has been dropped here.",
-        "long_description": "Fairly valuable, its quite a rare specimen.",
+        "name": "gold figurine",
+        "short_description": "Exquisitely crafted, the gold figurine is of an ancient ancestor goddess.",
+        "long_description": "Exquisitely crafted, the gold figurine is of an ancient ancestor goddess.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
