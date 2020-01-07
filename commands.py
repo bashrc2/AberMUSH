@@ -52,7 +52,7 @@ from random import randint
 from dateutil import tz
 from suntime import Sun
 
-wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger')
+wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger','back')
 
 '''
 Command function template:
@@ -2841,6 +2841,7 @@ def isWearing(id,players: {},itemList: []) -> bool:
            int(players[id]['clo_rarm']) == int(itemID) or \
            int(players[id]['clo_neck']) == int(itemID) or \
            int(players[id]['clo_chest']) == int(itemID) or \
+           int(players[id]['clo_back']) == int(itemID) or \
            int(players[id]['clo_feet']) == int(itemID):
             return True
     return False
@@ -2932,6 +2933,7 @@ def checkInventory(
            int(players[id]['clo_rfinger']) == int(i) or \
            int(players[id]['clo_neck']) == int(i) or \
            int(players[id]['clo_chest']) == int(i) or \
+           int(players[id]['clo_back']) == int(i) or \
            int(players[id]['clo_feet']) == int(i):
             mud.send_message(id, ' * ' +
                              itemsDB[int(i)]['article'] +
