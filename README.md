@@ -57,6 +57,7 @@ say [message]                           - Says something out loud
 look/examine                            - Examines the surroundings
 go [exit]                               - Moves through the exit specified
 climb though [exit]                     - Try to climb through an exit
+jump to [exit]                          - Try to jump onto something
 attack [target]                         - Attack another player or NPC
 check inventory                         - Check the contents of your inventory
 take/get [item]                         - Pick up an item
