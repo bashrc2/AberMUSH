@@ -2148,13 +2148,16 @@ def roomIllumination(roomImage,outdoors: bool):
     sunSetTime = sun.get_local_sunset_time(currTime).hour
     if currHour>sunRiseTime+1 and currHour<sunSetTime-1:
         return roomImage
+    illuminationDownshift=20
     brightness=60
     colorVariance=50
     if currHour<sunRiseTime or currHour>sunSetTime:
+        illuminationDownshift=40
         brightness=40
     # extra dark
     if currHour<(sunRiseTime-2) or currHour>(sunSetTime+2):
         colorVariance=80
+        illuminationDownshift=50
 
     pixels=roomImage.split('[')
 
@@ -2193,6 +2196,9 @@ def roomIllumination(roomImage,outdoors: bool):
             if ctr>1:
                 v=int(int(v)*brightness/100)
                 v = v-int((v-averageIntensity)*colorVariance/100)
+                v-=illuminationDownshift
+                if v<0:
+                    v=0
             values[ctr]=int(v)
             ctr+=1
         darkStr=trailing+'['
