@@ -2201,7 +2201,7 @@ def roomIllumination(roomImage,outdoors: bool):
                 # reduce blue by more than other channels
                 if ctr==0:
                     variance=int(colorVariance/2)
-                v=int(newAverageIntensity+(diff*colorVariance/100))
+                v=int(newAverageIntensity+(diff*variance/100))
                 if v<0:
                     v=0
                 elif v>255:
