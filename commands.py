@@ -2126,12 +2126,12 @@ def playerIsVisible(observerId,otherPlayerId,players: {}) -> bool:
         return True
     return False
 
-def itemIsVisible(observerId,players: {},itemId,items: {}) -> bool:
+def itemIsVisible(observerId,players: {},itemId,itemsDB: {}) -> bool:
     """Is the item visible to the observer?
     """
-    if not items[itemId].get('visibleWhenWearing'):
+    if not itemsDB[itemId].get('visibleWhenWearing'):
         return True
-    if isWearing(observerId,players,items[itemId]['visibleWhenWearing']):
+    if isWearing(observerId,players,itemsDB[itemId]['visibleWhenWearing']):
         return True
     return False
 
@@ -2343,7 +2343,7 @@ def look(
             # Show items in the room
             for (item, pl) in list(items.items()):
                 if items[item]['room'] == players[id]['room']:
-                    if itemIsVisible(id,players,item,items):
+                    if itemIsVisible(id,players,items[item]['id'],itemsDB):
                         itemshere.append(
                             itemsDB[items[item]['id']]['article'] + ' ' + itemsDB[items[item]['id']]['name'])
 
@@ -2424,7 +2424,7 @@ def look(
             for i in items:                
                 if items[i]['room'].lower() == players[id]['room'] and \
                    param in itemsDB[items[i]['id']]['name'].lower():
-                    if itemIsVisible(id,players,i,items):                    
+                    if itemIsVisible(id,players,items[i]['id'],itemsDB):
                         if itemCounter == 0:
                             itemLanguage = itemsDB[items[i]['id']]['language']
                             if len(itemLanguage) == 0:
@@ -3752,9 +3752,9 @@ def climb(
         return
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            if not itemIsVisible(id,players,item,items):
-                continue
             itemId=items[item]['id']
+            if not itemIsVisible(id,players,itemId,itemsDB):
+                continue
             if not itemsDB[itemId].get('climbThrough'):
                 continue
             if not itemsDB[itemId].get('exit'):
@@ -3829,9 +3829,9 @@ def jump(
         return
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            if not itemIsVisible(id,players,item,items):
-                continue
             itemId=items[item]['id']
+            if not itemIsVisible(id,players,itemId,itemsDB):
+                continue
             if not itemsDB[itemId].get('jumpTo'):
                 continue
             if not itemsDB[itemId].get('exit'):
@@ -6104,7 +6104,7 @@ def take(
                         mud.send_message(
                             id, 'You are already carring ' + itemName + '\n\n')
                         return
-                    if itemIsVisible(id,players,iid,itemsInWorldCopy):
+                    if itemIsVisible(id,players,itemsInWorldCopy[iid]['id'],itemsDB):
                         # ID of the item to be picked up
                         itemInDB = True
                     else:
