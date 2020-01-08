@@ -375,9 +375,31 @@ pull ivory lever
 
 You can get as devious as you like with this and have levers which open or close doors in some entirely different location, or one way doors which once shut with the lever can't be opened from the other side.
 
-### Climbing through windows
+### Jumping
 
-You can add items to a room such as windows which the player can then climb through. Size restrictions apply and so this could be another way to escape from ogres or dragons. This can also be used to set up non-obvious exits as a puzzle.
+The *jump* command can be used to jump onto an item. For example, an item can be defined as follows:
+
+``` text
+    "1817": {
+        "name": "precarious ledge",
+        "short_description": "The precarious ledge is across the chasm",
+        "long_description": "The precarious ledge is across the chasm",
+        "jumpTo": "You take a running jump onto the ledge",
+        "exit": "$rid=1835$",
+		...
+```
+
+The exit is the room to move to when jumping.
+
+You can then use the command:
+
+``` text
+jump onto ledge
+```
+
+### Climbing through windows and boarding boats
+
+You can add items to a room such as windows which the player can then climb through. Size restrictions apply and so this could be another way to escape from ogres or dragons. This can also be used to set up non-obvious exits as a puzzle, or for boarding boats.
 
 ``` text
     "1293": {
