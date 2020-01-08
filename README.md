@@ -258,7 +258,8 @@ You may want the description of a room to change if some condition is met. For e
     ["hour","<2","The night's drinking is over and amidst occasional complaining the inn-keeper is kicking the remaining crowd out of this disreputable establishment. Displaced coasters, drug paraphenalia and cutlery remain strewn around. The door leading back out looks inviting."],
     ["hour","<10","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is still around, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out looks tempting."],
     ["date","25/12","Punters are engaging in festive celebrations in this disreputable boozing establishment. The inn-keeper looks busy behind the bar, and also slightly under the influence of the clouds of opium smoke wafting over from the merrymakers. The door leading back out looks tempting."],
-    ["hold","114","You stare dispondently into your flagon of ale, but matters don't seem to improve. Is it worth drinking a beverage this cheap, you ask yourself. There's a door leading out."]
+    ["hold","114","You stare dispondently into your flagon of ale, but matters don't seem to improve. Is it worth drinking a beverage this cheap, you ask yourself. There's a door leading out."],
+    ["hold","lightsource","The dark street is illuminated by the light you are holding."]
 ],
 ```
 
