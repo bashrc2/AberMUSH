@@ -2173,6 +2173,9 @@ def roomIllumination(roomImage,outdoors: bool):
             ctr+=1
     averageIntensity/=averageIntensityCtr
     newAverageIntensity=int(averageIntensity*brightness/100)
+    # minimum average illumination
+    if newAverageIntensity<20:
+        newAverageIntensity=20
 
     newRoomImage=''
     trailing=None
@@ -2189,9 +2192,6 @@ def roomIllumination(roomImage,outdoors: bool):
         trailing=values[4].split('m')[1]
         values[4]=values[4].split('m')[0]
         ctr=0
-        # minimum average illumination
-        if newAverageIntensity<50:
-            newAverageIntensity=50
         for v in values:
             if ctr>1:
                 # difference from average illumination
