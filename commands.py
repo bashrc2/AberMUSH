@@ -2191,10 +2191,8 @@ def roomIllumination(roomImage,outdoors: bool):
         newAverageIntensity=int(averageIntensity*brightness/100)
         for v in values:
             if ctr>1:
-                diff=int(v-averageIntensity)
-                v=newAverageIntensity+int(diff*colorVariance/100)
-                if v<0:
-                    v=0
+                diff=int(int(v)-averageIntensity)
+                v=int(newAverageIntensity+(diff*colorVariance/100))
             values[ctr]=int(v)
             ctr+=1
         darkStr=trailing+'['
