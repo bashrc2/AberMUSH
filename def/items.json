@@ -3628,7 +3628,7 @@
         "climbThrough": "",
         "jumpTo": "",
         "state": "closed",
-        "visibleWhenWearing": [],
+        "visibleWhenWearing": [177,329,609,740,1246],
         "type": "",
         "rof": 0,
         "useTimes": 0,
