@@ -3782,6 +3782,7 @@ def climb(
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
             break
+    mud.send_message(id, "Nothing happens.\n\n")
 
 def jump(
         params,
@@ -3858,6 +3859,7 @@ def jump(
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
             break
+    mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.")+"\n\n")
 
 def go(
         params,
