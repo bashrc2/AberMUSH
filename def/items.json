@@ -23870,7 +23870,7 @@
         "mod_cool": 0,
         "weight": 24000,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You squeeze over the large boulder.|You clamber over the large boulder.",
         "jumpTo": "",
         "state": "",
         "visibleWhenWearing": [],
@@ -23888,7 +23888,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1069$",
         "lightSource": 0,
         "article": "a"
     },
