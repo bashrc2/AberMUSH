@@ -280,6 +280,14 @@ You can use this to do things like describing a dark cave by default but changin
 
 Seasons in this system are not accelerated, so if it's summer where you are it will be summer in the MUSH.
 
+If you want to specify a particular image which will show when a particular condition is true then you can add a fourth parameter which is a reference to the room image filename. For example:
+
+``` text
+    ["hold","lightsource","The dark street is illuminated by the light you are holding.","roomwithlight"]
+```
+
+This would correspond to the image within *images/rooms/roomwithlight*, and be shown instead of the usual room image when a light source is held.
+
 ### Adding Doors and Opening things
 
 To add a door, or other object to be opened or closed you will need a pair of items, like the following:

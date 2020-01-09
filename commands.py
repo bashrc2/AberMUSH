@@ -2079,6 +2079,8 @@ def conditionalRoomDescription(
         conditional,
         id,
         players,itemsDB):
+    """Returns a description which can vary depending on conditions
+    """
     roomDescription = description
     if len(tideOutDescription) > 0:
         if runTide() < 0:
@@ -2090,16 +2092,31 @@ def conditionalRoomDescription(
             condType = possibleDescription[0]
             cond = possibleDescription[1]
             alternativeDescription = possibleDescription[2]
-            if conditionalRoom(
-                    condType,
-                    cond,
-                    alternativeDescription,
-                    id,
-                    players,itemsDB):
+            if conditionalRoom(condType,cond, \
+                               alternativeDescription, \
+                               id,players,itemsDB):
                 roomDescription = alternativeDescription
                 break
 
     return roomDescription
+
+def conditionalRoomImage(conditional,id,players,itemsDB: {}) -> str:
+    """If there is an image associated with a conditional
+    room description then return its name
+    """
+    for possibleDescription in conditional:
+        if len(possibleDescription) >= 4:
+            condType = possibleDescription[0]
+            cond = possibleDescription[1]
+            alternativeDescription = possibleDescription[2]
+            if conditionalRoom(condType,cond, \
+                               alternativeDescription, \
+                               id,players,itemsDB):
+                roomImageFilename='images/rooms/'+possibleDescription[3]
+                if os.path.isfile(roomImageFilename):
+                    return possibleDescription[3]
+                break
+    return None
 
 def playersInRoom(targetRoom,players,npcs):
     """Returns the number of players in the given room.
@@ -2220,13 +2237,19 @@ def roomIllumination(roomImage,outdoors: bool):
         newRoomImage+=darkStr+trailing+'['
     return newRoomImage[:len(newRoomImage)-1]
 
-def showRoomImage(mud,id,roomId,rooms) -> None:
+def showRoomImage(mud,id,roomId,rooms: {},players,itemsDB: {}) -> None:
     """Shows an image for the room if it exists
     """
+    conditionalImage= \
+        conditionalRoomImage(rooms[roomId]['conditional'], \
+                             id,players,itemsDB)
     outdoors=False
     if rooms[roomId]['weather']==1:
-        outdoors=True                
-    roomIdStr=str(roomId).replace('rid=','').replace('$','')
+        outdoors=True
+    if not conditionalImage:
+        roomIdStr=str(roomId).replace('rid=','').replace('$','')
+    else:
+        roomIdStr=conditionalImage
     roomImageFilename='images/rooms/'+roomIdStr
     if os.path.isfile(roomImageFilename+'_night'):
         currTime = datetime.datetime.today()
@@ -2301,7 +2324,7 @@ def look(
 
             # send the player back the description of their current room
             playerRoomId=players[id]['room']
-            showRoomImage(mud,id,playerRoomId,rooms)
+            showRoomImage(mud,id,playerRoomId,rooms,players,itemsDB)
             roomDescription = rm['description']
             if len(rm['conditional']) > 0:
                 roomDescription = \
