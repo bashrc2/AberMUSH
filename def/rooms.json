@@ -4817,7 +4817,7 @@
         "exits": {
             "west": "$rid=751$"
         },
-        "name": "The lore room.",
+        "name": "The lore room",
         "description": "This room has been ransacked in the past and is littered with the remains of dusty old manuscripts and scrolls. The walls are covered with intricate carvings of runic symbols written in a flowing script.",
         "conditional": [],
         "trap": {},
@@ -4989,8 +4989,8 @@
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "tideOutDescription" : "",
