@@ -5173,7 +5173,12 @@ def openItemContainer(
         itemsDB[itemID]['long_description'].replace('shut', 'open')
 
     if len(itemsDB[itemID]['open_description']) > 0:
-        mud.send_message(id, itemsDB[itemID]['open_description'] + '\n')
+        mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
+    else:
+        itemArticle=itemsDB[itemID]['article']
+        if itemArticle=='a':
+            itemArticle='the'
+        mud.send_message(id, 'You open '+itemArticle+' '+itemsDB[itemID]['name'] + '.\n\n')
     describeContainerContents(mud, id, itemsDB, itemID, False)
 
 def leverUp(
@@ -5735,14 +5740,11 @@ def closeItemContainer(
     if len(itemsDB[itemID]['close_description']) > 0:
         mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
     else:
-        mud.send_message(
-            id,
-            'You close ' +
-            itemsDB[itemID]['article'] +
-            ' ' +
-            itemsDB[itemID]['name'] +
-            '.\n\n')
-
+        itemArticle=itemsDB[itemID]['article']
+        if itemArticle=='a':
+            itemArticle='the'
+        mud.send_message(id,'You close '+itemArticle+ \
+                         ' '+itemsDB[itemID]['name']+'.\n\n')
 
 def closeItemDoor(
         params,
