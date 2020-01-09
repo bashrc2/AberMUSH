@@ -3863,6 +3863,10 @@ def jump(
     if players[id]['canGo'] != 1:
         mud.send_message(id, "You try to move but find that you lack any ability to.\n\n")
         return
+    if not params:
+        mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
+        return
+    words=params.lower().replace('.','').split(' ')
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
             itemId=items[item]['id']
@@ -3871,6 +3875,13 @@ def jump(
             if not itemsDB[itemId].get('jumpTo'):
                 continue
             if not itemsDB[itemId].get('exit'):
+                continue
+            wordMatched=False
+            for w in words:
+                if w in itemsDB[itemId]['name'].lower():
+                    wordMatched=True
+                    break
+            if not wordMatched:
                 continue
             if itemsDB[itemId].get('state'):
                 if 'open' not in itemsDB[itemId]['state']:
@@ -3910,7 +3921,7 @@ def jump(
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
             break
-    mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.")+"\n\n")
+    mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
 
 def go(
         params,
