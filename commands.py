@@ -3920,7 +3920,7 @@ def jump(
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
-            break
+            return
     mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
 
 def go(

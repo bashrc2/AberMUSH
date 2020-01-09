@@ -4224,7 +4224,7 @@
     },
     "$rid=630$": {
         "name": "The Square Storeroom",
-        "description": "This is a small, square storeroom, divided in two by a wide chasm. On the other side of the chasm is a descending flight of stairs. In the northwest corner of the room the skeletal remains of a man lie scattered about. On the wall, above the bones, is written in blood in a strikingly demonic hand, 'Birfle WAS here.' ",
+        "description": "This is a small, square storeroom, divided in two by a wide chasm. On the other side of the chasm is a descending flight of stairs. In the northwest corner of the room the skeletal remains of a man lie scattered about. On the wall, above the bones, is written in blood in a strikingly demonic hand, 'Birfle WAS here.'",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
