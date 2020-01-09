@@ -110,7 +110,8 @@
         "coords": [],
         "exits": {
             "south": "$rid=17$",
-            "west": "$rid=23$"
+            "west": "$rid=23$",
+	    "east": "$rid=1096$"
         }
     },
     "$rid=17$": {
@@ -8207,7 +8208,7 @@
     },
     "$rid=1096$": {
         "name": "Gravelly Banks",
-        "description": "The water surges past the gravelly banks, seething and hissing across the stones as it churns eastwards down the ravine. The power of the falls to the west makes the ground shake and the air roar. To the north a path leads up the ravine. To the south the gravel becomes partially submerged, and anyone foolish enough to cross it would be swept to their death.",
+        "description": "The water surges past the gravelly banks, seething and hissing across the stones as it churns westwards down the ravine. The power of the falls to the east makes the ground shake and the air roar. To the north a path leads up the ravine. To the south the gravel becomes partially submerged, and anyone foolish enough to cross it would be swept to their death.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
