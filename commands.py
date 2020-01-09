@@ -2220,9 +2220,12 @@ def roomIllumination(roomImage,outdoors: bool):
         newRoomImage+=darkStr+trailing+'['
     return newRoomImage[:len(newRoomImage)-1]
 
-def showRoomImage(mud,id,roomId,outdoors: bool) -> None:
+def showRoomImage(mud,id,roomId,rooms) -> None:
     """Shows an image for the room if it exists
     """
+    outdoors=False
+    if rooms[roomId]['weather']==1:
+        outdoors=True                
     roomIdStr=str(roomId).replace('rid=','').replace('$','')
     roomImageFilename='images/rooms/'+roomIdStr
     if os.path.isfile(roomImageFilename+'_night'):
@@ -2298,10 +2301,7 @@ def look(
 
             # send the player back the description of their current room
             playerRoomId=players[id]['room']
-            outdoors=False
-            if rooms[playerRoomId]['weather']==1:
-                outdoors=True                
-            showRoomImage(mud,id,playerRoomId,outdoors)
+            showRoomImage(mud,id,playerRoomId,rooms)
             roomDescription = rm['description']
             if len(rm['conditional']) > 0:
                 roomDescription = \
