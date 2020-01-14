@@ -6355,6 +6355,7 @@ def runCommand(
         "wind": windLever,
         "unwind": unwindLever,
         "pull": pullLever,
+        "yank": pullLever,
         "push": pushLever,
         "write": writeOnItem,
         "tag": writeOnItem,
