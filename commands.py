@@ -3835,7 +3835,7 @@ def climb(
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
-def roll(
+def heave(
         params,
         mud,
         playersDB,
@@ -3868,7 +3868,7 @@ def roll(
             itemId=items[item]['id']
             if not itemIsVisible(id,players,itemId,itemsDB):
                 continue
-            if not itemsDB[itemId].get('climbThrough'):
+            if not itemsDB[itemId].get('heave'):
                 continue
             if not itemsDB[itemId].get('exit'):
                 continue
@@ -3895,8 +3895,8 @@ def roll(
                                id, eventSchedule, eventDB)
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
-            # climbing message
-            mud.send_message(id, randomDescription(itemsDB[itemId]['climbThrough'])+"\n\n")
+            # heave message
+            mud.send_message(id, randomDescription(itemsDB[itemId]['heave'])+"\n\n")
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] is not "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
@@ -6476,12 +6476,12 @@ def runCommand(
         "squeeze": climb,
         "clamber": climb,
         "board": climb,
-        "roll": roll,
-        "heave": roll,
-        "move": roll,
-        "haul": roll,
-        "heave": roll,
-        "displace": roll,
+        "roll": heave,
+        "heave": heave,
+        "move": heave,
+        "haul": heave,
+        "heave": heave,
+        "displace": heave,
         "disembark": climb,
         "climb": climb,
         "jump": jump
