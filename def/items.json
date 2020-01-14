@@ -25984,7 +25984,7 @@
         "edible": 0,
         "climbThrough": "You roll the stones out of the way and enter the dark stairway.|With great effort you roll the stones to one side and enter the narrow stairway.",
         "jumpTo": "",
-        "state": "closed",
+        "state": "",
         "visibleWhenWearing": [],
         "type": "",
         "rof": 0,
