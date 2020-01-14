@@ -3832,7 +3832,7 @@ def climb(
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
-            break
+            return
     mud.send_message(id, "Nothing happens.\n\n")
 
 def jump(
