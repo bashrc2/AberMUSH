@@ -5545,6 +5545,8 @@ def pushLever(
         sentimentDB,
         guildsDB):
     target = params.lower()
+    if target.startswith('the '):
+        target=target.replace('the ','')
 
     if target.startswith('registration'):
         enableRegistrations(mud, id, players)
@@ -6398,6 +6400,7 @@ def runCommand(
         "clamber": climb,
         "board": climb,
         "roll": climb,
+        "heave": climb,
         "move": climb,
         "haul": climb,
         "heave": climb,
