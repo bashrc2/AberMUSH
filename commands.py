@@ -6396,6 +6396,11 @@ def runCommand(
         "squeeze": climb,
         "clamber": climb,
         "board": climb,
+        "roll": climb,
+        "move": climb,
+        "haul": climb,
+        "heave": climb,
+        "displace": climb,
         "disembark": climb,
         "climb": climb,
         "jump": jump
