@@ -25943,7 +25943,7 @@
     "1172": {
         "name": "pile of stones",
         "short_description": "In amongst the stones a narrow stairwell descends into darkness.",
-        "long_description": "As you peer in amongst the stones you realise they are covering some form of way downwards.",
+        "long_description": "As you peer in amongst the stones you realise they are covering some form of way downwards.|As you peer in amongst the rounded stones you realise they are covering some form of way downwards.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -25995,7 +25995,7 @@
         "written_description": "",
         "open_description": "",
         "open_failed_description": "",
-        "close_description": "Nothing happens. You could try to roll.",
+        "close_description": "",
         "contains": [],
         "lockedWithItem": 0,
         "exitName": "",

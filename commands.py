@@ -3835,6 +3835,83 @@ def climb(
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
+def roll(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Roll/heave an item takes the player to a different room
+    """
+    if players[id]['canGo'] != 1:
+        mud.send_message(id, "You try to move but find that you lack any ability to.\n\n")
+        return
+    for (item, pl) in list(items.items()):
+        if items[item]['room'] == players[id]['room']:
+            itemId=items[item]['id']
+            if not itemIsVisible(id,players,itemId,itemsDB):
+                continue
+            if not itemsDB[itemId].get('climbThrough'):
+                continue
+            if not itemsDB[itemId].get('exit'):
+                continue
+            if itemsDB[itemId].get('state'):
+                if 'open' not in itemsDB[itemId]['state']:
+                    mud.send_message(id, itemsDB[itemId]['name']+ \
+                                     " is closed.\n\n")
+                    continue
+            targetRoom=itemsDB[itemId]['exit']
+            if rooms[targetRoom]['maxPlayerSize']>-1:
+                if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
+                    mud.send_message(id, "You're too big.\n\n")
+                    return
+            if rooms[targetRoom]['maxPlayers']>-1:
+                if playersInRoom(targetRoom,players,npcs) >= rooms[targetRoom]['maxPlayers']:
+                    mud.send_message(id, "It's too crowded.\n\n")
+                    return
+            messageToPlayersInRoom(mud, players, id, '<f32>' +
+                                   players[id]['name'] + '<r> ' +
+                                   randomDescription(players[id]['outDescription']) + '\n')
+            # Trigger old room eventOnLeave for the player
+            if rooms[players[id]['room']]['eventOnLeave'] is not "":
+                addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
+                               id, eventSchedule, eventDB)
+            # update the player's current room to the one the exit leads to
+            players[id]['room'] = targetRoom
+            # climbing message
+            mud.send_message(id, randomDescription(itemsDB[itemId]['climbThrough'])+"\n\n")
+            # trigger new room eventOnEnter for the player
+            if rooms[players[id]['room']]['eventOnEnter'] is not "":
+                addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
+                               id, eventSchedule, eventDB)
+            # message to other players
+            messageToPlayersInRoom(mud, players, id, '<f32>' +
+                                   players[id]['name'] + '<r> ' +
+                                   randomDescription(players[id]['inDescription']) + "\n\n")
+            # look after climbing
+            look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
+                 envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
+                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
+            return
+    mud.send_message(id, "Nothing happens.\n\n")
+
 def jump(
         params,
         mud,
@@ -6399,12 +6476,12 @@ def runCommand(
         "squeeze": climb,
         "clamber": climb,
         "board": climb,
-        "roll": climb,
-        "heave": climb,
-        "move": climb,
-        "haul": climb,
-        "heave": climb,
-        "displace": climb,
+        "roll": roll,
+        "heave": roll,
+        "move": roll,
+        "haul": roll,
+        "heave": roll,
+        "displace": roll,
         "disembark": climb,
         "climb": climb,
         "jump": jump
