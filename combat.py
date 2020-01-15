@@ -418,22 +418,26 @@ def getAttackDescription(weaponType: str) -> (str,str):
         "swing a fist at",
         "punch",
         "crudely swing a fist at",
-        "ineptly punch"]
-    attackDescriptionFirst = attackStrings[randint(0, len(attackStrings) - 1)]
+        "ineptly punch"
+    ]
+    attackDescriptionFirst = \
+        attackStrings[randint(0, len(attackStrings) - 1)]
     attackStrings = [
         "swung a fist at",
         "punched",
         "crudely swung a fist at",
-        "ineptly punched"]
-    attackDescriptionSecond = attackStrings[randint(0, len(attackStrings) - 1)]
+        "ineptly punched"
+    ]
+    attackDescriptionSecond = \
+        attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("acid"):
         attackStrings = ["corrode", "spray", "splash"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["corroded", "sprayed", "splashed"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("bludg"):
         attackStrings = [
@@ -441,99 +445,103 @@ def getAttackDescription(weaponType: str) -> (str,str):
             "strike at",
             "swing at",
             "swing clumsily at",
-            "strike a blow on"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+            "strike a blow on"
+        ]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = [
             "delivered a crushing blow on",
             "struck at",
             "swung at",
             "swung clumsily at",
-            "struck a blow on"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+            "struck a blow on"
+        ]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("cold"):
         attackStrings = ["freeze", "chill"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["froze", "chilled"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("fire"):
         attackStrings = [
             "cast a ball a of flame at",
             "cast a fireball at",
-            "cast a burning sphere at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+            "cast a burning sphere at"
+        ]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = [
             "casted a ball a of flame at",
             "casted a fireball at",
-            "casted a burning sphere at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+            "casted a burning sphere at"
+        ]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("force"):
         attackStrings = ["point at", "wave at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["pointed at", "waved at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("lightning"):
         attackStrings = [
             "cast a bolt of lightning at",
             "cast a lightning bolt at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = [
             "casted a bolt of lightning at",
             "casted a lightning bolt at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("necro"):
         attackStrings = ["whither", "chill"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["whithered", "chilled"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("pierc"):
         attackStrings = ["stab at", "hack at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["stabbed at", "hacked at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("poison"):
         attackStrings = ["poison"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["poisoned"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("psy"):
         attackStrings = ["psychically blast", "psychically deplete"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["psychically blasted", "psychically depleted"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("radiant"):
         attackStrings = ["sear", "scorch"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["seared", "scorched"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("slash"):
         attackStrings = [
@@ -541,61 +549,62 @@ def getAttackDescription(weaponType: str) -> (str,str):
             "cut savagely into",
             "slash at",
             "swing at",
-            "swing clumsily at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+            "swing clumsily at"
+        ]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = [
             "cut at",
             "cut savagely into",
             "slashed at",
             "swung at",
             "swung clumsily at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("thunder"):
         attackStrings = ["cast a thunderbolt at", "cast a bolt of thunder at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = [
             "casted a thunderbolt at",
             "casted a bolt of thunder at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("ranged bow") or \
        weaponType.startswith("ranged shortbow") or \
        weaponType.startswith("ranged longbow"):
         attackStrings = ["fire an arrow at", "release an arrow at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["fired an arrow at", "released an arrow at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("ranged crossbow"):
         attackStrings = ["fire a bolt at", "release a bolt at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["fired a bolt at", "released a bolt at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("ranged sling"):
         attackStrings = ["sling a rock at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["slung a rock at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     if weaponType.startswith("ranged dart"):
         attackStrings = ["blow a dart at"]
-        attackDescriptionFirst = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
         attackStrings = ["blew a dart at"]
-        attackDescriptionSecond = attackStrings[randint(
-            0, len(attackStrings) - 1)]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
 
     return attackDescriptionFirst, attackDescriptionSecond
 

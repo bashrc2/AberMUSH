@@ -449,7 +449,7 @@ Other than opening and closing doors you may also want to have items which can b
         "open_description": "Tiny moths flutter out as you open the clothes chest.",
         "close_description": "The clothes chest closes with a satisfying thud.",
         "contains": ["107","1386","1389","1390"],
-	"useTimes": 10,
+        "useTimes": 10,
         "lockedWithItem": 0,
     },
 ```
