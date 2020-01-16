@@ -94,7 +94,8 @@ def npcIsActive(moveTimes):
                 continue
             elif timeRangeType == 'season':
                 currMonthNumber=datetime.datetime.today().strftime("%m")
-                for seasonName in range(1,len(timeRange)-1):
+                for seasonIndex in range(1,len(timeRange)-1):
+                    seasonName=timeRange[seasonIndex].lower()
                     if seasonName=='spring':
                         if currMonthNumber > 1 and currMonthNumber <= 4:
                             return True
