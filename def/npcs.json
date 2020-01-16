@@ -3184,7 +3184,7 @@
     "809": {
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "stands glowering before you. He is",
+        "lookDescription": "stands glowering before you.",
         "name": "the dark priest",
         "inv" : [],
         "speakLanguage": "common",
@@ -3285,13 +3285,13 @@
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
-        "moveTimes": [],
+        "moveTimes": [["hour",8,23],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
         "follow" : "",
         "canWield" : "1",
-        "canWear" : "1",
+        "canWear" : "0",
         "visibleWhenWearing": [],
         "race": "",
         "characterClass": "",
@@ -3367,7 +3367,7 @@
         "imp_feet" : "0",
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "stands devout in prayer"
+        "lookDescription": "The monk stands devout in prayer"
     },
     "812": {
         "name": "the monk",
@@ -3379,7 +3379,7 @@
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
-        "moveTimes": [],
+        "moveTimes": [["hour",8,23],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
@@ -3461,7 +3461,7 @@
         "imp_feet" : "0",
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "meditates silently"
+        "lookDescription": "The monk meditates silently"
     },
     "840": {
         "name": "the hermit",
