@@ -94,20 +94,23 @@ def npcIsActive(moveTimes):
                 continue
             elif timeRangeType == 'season':
                 currMonthNumber=int(datetime.datetime.today().strftime("%m"))
+                seasonMatched=False
                 for seasonIndex in range(1,len(timeRange)-1):
                     seasonName=timeRange[seasonIndex].lower()
                     if seasonName=='spring':
                         if currMonthNumber > 1 and currMonthNumber <= 4:
-                            return True
+                            seasonMatched=True
                     elif seasonName=='summer':
                         if currMonthNumber > 4 and currMonthNumber <= 9:
-                            return True
+                            seasonMatched=True
                     elif seasonName=='autumn':
                         if currMonthNumber > 9 and currMonthNumber <= 10:
-                            return True
+                            seasonMatched=True
                     elif seasonName=='winter':
                         if currMonthNumber > 10 or currMonthNumber <= 1:
-                            return True
+                            seasonMatched=True
+                if not seasonMatched:
+                    return False
                 continue
 
         if len(timeRange) != 3:
