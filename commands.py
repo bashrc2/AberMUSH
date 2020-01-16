@@ -2158,7 +2158,8 @@ def moonIllumination(currTime) -> int:
     diff = currTime - datetime.datetime(2001, 1, 1)
     days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
     lunations = dec("0.20439731") + (days * dec("0.03386319269"))
-    return int((5-abs(4-int(lunations % dec(1))))*2)   
+    index=int(lunations % dec(1)) & 7
+    return int((5-abs(4-index))*2)   
 
 def roomIllumination(roomImage,outdoors: bool):
     """Alters the brightness and contrast of the image to simulate
