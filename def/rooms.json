@@ -5605,7 +5605,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=819$",
             "up": "$rid=819$"
         }
     },
