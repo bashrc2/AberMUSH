@@ -6514,8 +6514,7 @@
     "$rid=889$": {
         "exits": {
             "north": "$rid=890$",
-            "south": "$rid=886$",
-            "up": "$rid=890$"
+            "south": "$rid=886$"
         },
         "name": "Wooded Hollow",
         "description": "You are standing at the bottom of a deep wooded hollow. The ground underfoot is thick and soggy. Ivy and vines hang from the oak trees around you, fighting for space with thick damp loving bushes and tangled brambles. The thickness of the undergrowth makes it difficult to move around without scraping something or snagging your clothing on a prickly branch. A narrow track of sorts winds its muddy way north up the side of the hollow. To the south you can see water.",
@@ -6534,8 +6533,7 @@
     "$rid=890$": {
         "exits": {
             "north": "$rid=1147$",
-            "south": "$rid=889$",
-            "down": "$rid=889$"
+            "south": "$rid=889$"
         },
         "name": "Gradual Descent",
         "description": "You are standing on a gentle tree covered slope. The ground drops away to the south into a rounded muddy hollow. A path winds north into the trees.",
