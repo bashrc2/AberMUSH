@@ -644,12 +644,8 @@ def conversationGive(
                 increaseAffinityBetweenPlayers(players, id, npcs, nid)
                 increaseAffinityBetweenPlayers(npcs, nid, players, id)
                 mud.send_message(
-                    id,
-                    "<f220>" +
-                    npcs[nid]['name'] +
-                    "<r> says: " +
-                    best_match +
-                    ".")
+                    id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
+                    best_match+".")
                 mud.send_message(
                     id,
                     "<f220>" +
@@ -712,11 +708,7 @@ def conversationSkill(
             increaseAffinityBetweenPlayers(npcs, nid, players, id)
 
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> says: " +
-                best_match +
+                id,"<f220>"+npcs[nid]['name']+"<r> says: "+best_match+ \
                 ".\n\n")
             return True
         else:
@@ -939,14 +931,9 @@ def conversationTaxi(
                 return True
             else:
                 mud.send_message(
-                    id,
-                    "<f220>" +
-                    npcs[nid]['name'] +
-                    "<r> says: Give me " +
-                    itemsDB[itemBuyID]['article'] +
-                    ' ' +
-                    itemsDB[itemBuyID]['name'] +
-                    ".\n\n")
+                    id,"<f220>"+npcs[nid]['name']+"<r> says: Give me "+ \
+                    itemsDB[itemBuyID]['article']+' '+ \
+                    itemsDB[itemBuyID]['name']+".\n\n")
                 return True
         mud.send_message(
             id,
@@ -1313,30 +1300,19 @@ def npcConversation(
                 return
 
         if npcs[nid]['familiarOf'] == players[id]['name'] or \
-           len(npcs[nid]['animalType'])>0:
+           len(npcs[nid]['animalType'])>0 or \
+           '#' in best_match:
             # Talking with a familiar or animal can include
             # non-verbal responses so we remove 'says'
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> " +
-                best_match +
+                id,"<f220>"+npcs[nid]['name']+"<r> "+best_match.replace('#','').strip()+ \
                 ".\n\n")
         else:
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> says: " +
-                best_match +
-                ".\n\n")
+                id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
+                best_match+".\n\n")
     else:
         # No word matches
         mud.send_message(
-            id,
-            "<f220>" +
-            npcs[nid]['name'] +
-            "<r> looks " +
-            puzzledStr +
+            id,"<f220>"+npcs[nid]['name']+"<r> looks "+puzzledStr+ \
             ".\n\n")
