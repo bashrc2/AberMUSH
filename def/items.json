@@ -19691,7 +19691,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "mod_cool": 0,
-        "weight": 140,
+        "weight": 0,
         "edible": 0,
         "climbThrough": "",
         "heave": "",
@@ -32066,7 +32066,7 @@
     "1388": {
         "name": "granite statue",
         "short_description": "A large granite statue",
-        "long_description": "The ominous black granite statue in the shape of a giant penguin casts a long shadow down the hall. Its surface is smooth and polished.",
+        "long_description": "The ominous black granite statue in the shape of a giant aquatic bird casts a long shadow down the hall. Its surface is smooth and polished.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,

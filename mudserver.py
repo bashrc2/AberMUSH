@@ -246,7 +246,8 @@ class MudServer(object):
         # disconnected) a socket error will be raised
         except socket.error as e:
             print("Couldnt send image, socket error: "+str(e))
-            self._handle_disconnect(to)        
+            self._handle_disconnect(to)
+        time.sleep(1)
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
