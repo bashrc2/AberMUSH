@@ -2152,6 +2152,14 @@ def itemIsVisible(observerId,players: {},itemId,itemsDB: {}) -> bool:
         return True
     return False
 
+def moonIllumination(currTime) -> int:
+    """Returns additional illumination due to moonlight
+    """
+    diff = currTime - datetime.datetime(2001, 1, 1)
+    days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
+    lunations = dec("0.20439731") + (days * dec("0.03386319269"))
+    return int((5-abs(4-int(lunations % dec(1))))*2)   
+
 def roomIllumination(roomImage,outdoors: bool):
     """Alters the brightness and contrast of the image to simulate
     evening and night conditions
@@ -2168,11 +2176,12 @@ def roomIllumination(roomImage,outdoors: bool):
     brightness=60
     colorVariance=80
     if currHour<sunRiseTime or currHour>sunSetTime:
-        brightness=40
+        brightness=30
     # extra dark
     if currHour<(sunRiseTime-2) or currHour>(sunSetTime+2):
         colorVariance=50
 
+    brightness+=moonIllumination(currTime)
     pixels=roomImage.split('[')
 
     averageIntensity=0
