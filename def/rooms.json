@@ -5573,7 +5573,6 @@
     "$rid=819$": {
         "exits": {
             "east": "$rid=818$",
-            "south": "$rid=820$",
             "down": "$rid=820$"
         },
         "name": "The Library Entrance",

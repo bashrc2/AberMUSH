@@ -2897,19 +2897,20 @@
         "speakLanguage": "common",
         "language": ["common","dwarvish","elvish","draconic","druidic"],
         "conv" : [
-            [["potter","rowling","pratchet"],"I don't think we have that title"],
-            [["borrow","book"],"We are not lending at this time"],
+            [["potter","rowling","pratchet"],"I don't think we have that title|Those are popular. I thing they've all been lent"],
+            [["pratchet"],"Have you noticed the clacks overhead. They point upwards."],
+            [["borrow","book"],"We are not lending at this time|# Looks annoyed. \"We are not lending at this time\"|# Looks irritated. \"We are not lending at this time\""],
             [["book"],"Take your pick","state:askbook1"],
             [["state:askbook1","book"],"There are many to choose from","state:askbook2"],
             [["state:askbook2","book"],"We have new scrolls and old scrolls","state:askbook3"],
             [["state:askbook3","book"],"Good literature is the best intoxicant","state:askbook4"],
             [["state:askbook4","book"],"Read some if you like","state:askbook1"]
         ],
-        "path" : [],
+        "path" : ["$rid=818$"],
         "bodyType": "",
-        "moveDelay" : "300",
+        "moveDelay" : "30000",
         "moveType" : "",
-        "moveTimes": [],
+	"moveTimes": [["hour",9,17],["day","monday","tuesday","wednesday","thursday","friday"],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
@@ -2991,7 +2992,7 @@
         "imp_feet" : "0",
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "stands here, keeping you away from his precious books"
+        "lookDescription": "stands here, keeping you away from their precious books"
     },
     "723": {
         "name": "the elf",
