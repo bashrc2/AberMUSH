@@ -3281,7 +3281,7 @@
         "speakLanguage": "common",
         "language": ["common"],
 	"conv" : [
-	    [["a","e","i","u"], "Nothing"]
+	    [["a","e","i","u"], "# Remains silent.|# Continues praying.|# Does not respond."]
 	],	
         "path" : [],
         "bodyType": "",
@@ -3377,7 +3377,7 @@
         "speakLanguage": "common",
         "language": ["common"],
 	"conv" : [
-	    [["a","e","i","u"], "Nothing"]
+	    [["a","e","i","u"], "# Remains silent.|# Continues praying.|# Does not respond."]
 	],	
         "path" : [],
         "bodyType": "",
