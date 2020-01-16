@@ -42,6 +42,7 @@ from familiar import familiarIsHidden
 import os
 import re
 import sys
+import decimal
 from copy import deepcopy
 import time
 import datetime
