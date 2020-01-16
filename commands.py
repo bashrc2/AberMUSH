@@ -42,7 +42,6 @@ from familiar import familiarIsHidden
 import os
 import re
 import sys
-import decimal
 from copy import deepcopy
 import time
 import datetime
@@ -52,6 +51,9 @@ from random import randint
 
 from dateutil import tz
 from suntime import Sun
+
+import decimal
+dec = decimal.Decimal
 
 wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger','back')
 
