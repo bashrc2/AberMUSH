@@ -3763,7 +3763,7 @@
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "patrol",
-        "moveTimes": [["month","april","may","june","july","august","september","october"],["inactive",238]],
+        "moveTimes": [["season","spring","summer","autumn"],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",

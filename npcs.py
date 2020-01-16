@@ -91,7 +91,23 @@ def npcIsActive(moveTimes):
                         dowMatched=True
                 if not dowMatched:
                     return False
-            continue
+                continue
+            elif timeRangeType == 'season':
+                currMonthNumber=datetime.datetime.today().strftime("%m")
+                for seasonName in range(1,len(timeRange)-1):
+                    if seasonName=='spring':
+                        if currMonthNumber > 1 and currMonthNumber <= 4:
+                            return True
+                    elif seasonName=='summer':
+                        if currMonthNumber > 4 and currMonthNumber <= 9:
+                            return True
+                    elif seasonName=='autumn':
+                        if currMonthNumber > 9 and currMonthNumber <= 10:
+                            return True
+                    elif seasonName=='winter':
+                        if currMonthNumber > 10 or currMonthNumber <= 1:
+                            return True
+                continue
 
         if len(timeRange) != 3:
             continue
