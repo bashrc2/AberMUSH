@@ -316,7 +316,6 @@
         "moveDelay" : "30000",
         "moveType" : "",
 	"moveTimes": [["hour",19,10],["inactive",238]],
-        "moveTimes": [],
         "vocabulary" : "Eeeek!|Eeek-eeeek!|Squeeek!",
         "talkDelay" : "600",
         "randomFactor" : "50",
