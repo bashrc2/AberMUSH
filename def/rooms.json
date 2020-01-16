@@ -10580,8 +10580,7 @@
         "exits": {
             "north": "$rid=1342$",
             "east": "$rid=1144$",
-            "south": "$rid=1334$",
-            "down": "$rid=1342$"
+            "south": "$rid=1334$"
         }
     },
     "$rid=1336$": {
@@ -10623,8 +10622,7 @@
     "$rid=1342$": {
         "exits": {
             "north": "$rid=1341$",
-            "south": "$rid=1335$",
-            "up": "$rid=1335$"
+            "south": "$rid=1335$"
         },
         "name": "The Side Of The Gorge",
         "description": "You are standing on the southern side of a deep rocky gorge. A foaming torrent swirls down the centre of the gorge, running east from a huge waterfall, eastwards out of sight. The torrent turns directly in front of you, leaving a narrow sandbank protuding out into the water. To your south a wide pathway leads up the side of the gorge.",
