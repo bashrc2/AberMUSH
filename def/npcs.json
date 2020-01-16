@@ -3280,7 +3280,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+	"conv" : [
+	    [["a","e","i","u"], "Nothing"]
+	],	
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3374,7 +3376,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+	"conv" : [
+	    [["a","e","i","u"], "Nothing"]
+	],	
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
