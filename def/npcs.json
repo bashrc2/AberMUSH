@@ -3379,11 +3379,11 @@
 	"conv" : [
 	    [["a","e","i","u"], "# Remains silent.|# Continues meditating.|# Does not respond.|# Rocks slowly as they meditate.|# Looks serene."]
 	],
-        "path" : [],
+        "path" : ["$rid=821$"],
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
-        "moveTimes": [["hour",8,23],["inactive",238]],
+        "moveTimes": [["hour",8,20],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
