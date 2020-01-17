@@ -1028,180 +1028,145 @@ def help(
         sentimentDB,
         guildsDB):
     mud.send_message(id, 'Commands:')
-    mud.send_message(
-        id,
-        '  bio [description]                       - Set a description of yourself')
-    mud.send_message(
-        id, '  change password [newpassword]           - Change your password')
-    mud.send_message(
-        id,
-        '  who                                     - List players and where they are')
-    mud.send_message(
-        id, '  quit/exit                               - Leave the game')
-    mud.send_message(
-        id, '  eat/drink [item]                        - Eat or drink a consumable')
-    mud.send_message(
-        id,
-        '  speak [language]                        - Switch to speaking a different language')
-    mud.send_message(
-        id,
-        '  say [message]                           - Says something out loud, ' +
-        "e.g. 'say Hello'")
-    mud.send_message(
-        id,
-        '  look/examine                            - Examines the ' +
-        "surroundings, items in the room, NPCs or other players e.g. 'examine inn-keeper'")
-    mud.send_message(
-        id,
-        '  go [exit]                               - Moves through the exit ' +
-        "specified, e.g. 'go outside'")
-    mud.send_message(
-        id,
-        '  attack [target]                         - Attack target ' +
-        "specified, e.g. 'attack knight'")
-    mud.send_message(
-        id,
-        '  check inventory                         - Check the contents of ' +
-        "your inventory")
-    mud.send_message(
-        id,
-        '  take/get [item]                         - Pick up an item lying ' +
-        "on the floor")
-    mud.send_message(
-        id,
-        '  put [item] in/on [item]                 - Put an item into or onto another one')
-    mud.send_message(
-        id,
-        '  drop [item]                             - Drop an item from your inventory ' +
-        "on the floor")
-    mud.send_message(
-        id,
-        '  use/hold/pick/wield [item] [left|right] - Transfer an item to your hands')
-    mud.send_message(
-        id, '  stow                                    - Free your hands of items')
-    mud.send_message(
-        id, '  wear [item]                             - Wear an item')
-    mud.send_message(
-        id, '  remove/unwear [item]                    - Remove a worn item')
-    mud.send_message(
-        id,
-        '  whisper [target] [message]              - Whisper to a player in the same room')
-    mud.send_message(
-        id,
-        '  tell/ask [target] [message]             - Send a tell message to another player or NPC')
-    mud.send_message(
-        id, '  open [item]                             - Open an item or door')
-    mud.send_message(
-        id, '  close [item]                            - Close an item or door')
-    mud.send_message(
-        id, '  push [item]                             - Pushes a lever')
-    mud.send_message(
-        id, '  pull [item]                             - Pulls a lever')
-    mud.send_message(
-        id, '  wind [item]                             - Winds a lever')
-    mud.send_message(
-        id,
-        '  affinity [player name]                  - Shows your affinity level with another player')
-    mud.send_message(
-        id,
-        '  cut/escape                              - Attempt to escape from a trap')
-    mud.send_message(
-        id,
-        '  step over tripwire [exit]               - Step over a tripwire in the given direction')
+    mud.send_message(id, \
+                     '  bio [description]                       - Set a description of yourself')
+    mud.send_message(id, \
+                     '  change password [newpassword]           - Change your password')
+    mud.send_message(id, \
+                     '  who                                     - List players and where they are')
+    mud.send_message(id, \
+                     '  quit/exit                               - Leave the game')
+    mud.send_message(id, \
+                     '  eat/drink [item]                        - Eat or drink a consumable')
+    mud.send_message(id, \
+                     '  speak [language]                        - Switch to speaking a different language')
+    mud.send_message(id, \
+                     '  say [message]                           - Says something out loud, ' +
+                     "e.g. 'say Hello'")
+    mud.send_message(id, \
+                     '  look/examine                            - Examines the ' +
+                     "surroundings, items in the room, NPCs or other players e.g. 'examine inn-keeper'")
+    mud.send_message(id, \
+                     '  go [exit]                               - Moves through the exit ' +
+                     "specified, e.g. 'go outside'")
+    mud.send_message(id, \
+                     '  climb though [exit]                     - Try to climb through an exit');
+    mud.send_message(id, \
+                     '  move/roll/heave [target]                - Try to move or roll a heavy object');
+    mud.send_message(id, \
+                     '  jump to [exit]                          - Try to jump onto something');    
+    mud.send_message(id, \
+                     '  attack [target]                         - Attack target ' +
+                     "specified, e.g. 'attack knight'")
+    mud.send_message(id, \
+                     '  check inventory                         - Check the contents of ' +
+                     "your inventory")
+    mud.send_message(id, \
+                     '  take/get [item]                         - Pick up an item lying ' + \
+                     "on the floor")
+    mud.send_message(id, \
+                     '  put [item] in/on [item]                 - Put an item into or onto another one')
+    mud.send_message(id, \
+                     '  drop [item]                             - Drop an item from your inventory ' + \
+                     "on the floor")
+    mud.send_message(id, \
+                     '  use/hold/pick/wield [item] [left|right] - Transfer an item to your hands')
+    mud.send_message(id, \
+                     '  stow                                    - Free your hands of items')
+    mud.send_message(id, \
+                     '  wear [item]                             - Wear an item')
+    mud.send_message(id, \
+                     '  remove/unwear [item]                    - Remove a worn item')
+    mud.send_message(id, \
+                     '  whisper [target] [message]              - Whisper to a player in the same room')
+    mud.send_message(id, \
+                     '  tell/ask [target] [message]             - Send a tell message to another player or NPC')
+    mud.send_message(id, \
+                     '  open [item]                             - Open an item or door')
+    mud.send_message(id, \
+                     '  close [item]                            - Close an item or door')
+    mud.send_message(id, \
+                     '  push [item]                             - Pushes a lever')
+    mud.send_message(id, \
+                     '  pull [item]                             - Pulls a lever')
+    mud.send_message(id, \
+                     '  wind [item]                             - Winds a lever')
+    mud.send_message(id, \
+                     '  affinity [player name]                  - Shows your affinity level with another player')
+    mud.send_message(id, \
+                     '  cut/escape                              - Attempt to escape from a trap')
+    mud.send_message(id, \
+                     '  step over tripwire [exit]               - Step over a tripwire in the given direction')
     mud.send_message(id, '')
     mud.send_message(id, 'Spell commands:')
-    mud.send_message(
-        id,
-        '  prepare spells                          - List spells which can be prepared')
-    mud.send_message(
-        id, '  prepare [spell name]                    - Prepares a spell')
-    mud.send_message(
-        id, '  spells                                  - Lists your prepared spells')
-    mud.send_message(
-        id,
-        '  clear spells                            - Clears your prepared spells list')
-    mud.send_message(
-        id,
-        '  cast find familiar                      - Summons a familiar with random form')
-    mud.send_message(
-        id,
-        '  dismiss familiar                        - Dismisses a familiar')
-    mud.send_message(
-        id,
-        '  cast [spell name] on [target]           - Cast a spell on a player or NPC')
+    mud.send_message(id, \
+                     '  prepare spells                          - List spells which can be prepared')
+    mud.send_message(id, \
+                     '  prepare [spell name]                    - Prepares a spell')
+    mud.send_message(id, \
+                     '  spells                                  - Lists your prepared spells')
+    mud.send_message(id, \
+                     '  clear spells                            - Clears your prepared spells list')
+    mud.send_message(id, \
+                     '  cast find familiar                      - Summons a familiar with random form')
+    mud.send_message(id, \
+                     '  dismiss familiar                        - Dismisses a familiar')
+    mud.send_message(id, \
+                     '  cast [spell name] on [target]           - Cast a spell on a player or NPC')
 
     if isWitch(id, players):
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')
-        mud.send_message(
-            id,
-            '  close registrations                     - Closes registrations of new players')
-        mud.send_message(
-            id,
-            '  open registrations                      - Allows registrations of new players')
-        mud.send_message(
-            id,
-            '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
-        mud.send_message(
-            id, '  unmute/unsilence [target]               - Unmutes a player')
-        mud.send_message(
-            id,
-            '  freeze [target]                         - Prevents a player from moving or attacking')
-        mud.send_message(
-            id,
-            '  unfreeze [target]                       - Allows a player to move or attack')
-        mud.send_message(
-            id, '  teleport [room]                         - Teleport to a room')
-        mud.send_message(
-            id,
-            '  summon [target]                         - Summons a player to your location')
-        mud.send_message(
-            id, '  kick/remove [target]                    - Remove a player from the game')
-        mud.send_message(
-            id, '  blocklist                               - Show the current blocklist')
-        mud.send_message(
-            id,
-            '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
-        mud.send_message(
-            id,
-            '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
-        mud.send_message(
-            id,
-            '  describe "room" "room name"             - Changes the name of the current room')
-        mud.send_message(
-            id,
-            '  describe "room description"             - Changes the current room description')
-        mud.send_message(
-            id,
-            '  describe "tide" "room description"      - Changes the room description when tide is out')
-        mud.send_message(
-            id,
-            '  describe "item" "item description"      - Changes the description of an item in the room')
-        mud.send_message(
-            id,
-            '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
-        mud.send_message(
-            id,
-            '  conjure room [direction]                - Creates a new room in the given direction')
-        mud.send_message(
-            id,
-            '  conjure npc [target]                    - Creates a named NPC in the room')
-        mud.send_message(
-            id,
-            '  conjure [item]                          - Creates a new item in the room')
-        mud.send_message(
-            id,
-            '  destroy room [direction]                - Removes the room in the given direction')
-        mud.send_message(
-            id,
-            '  destroy npc [target]                    - Removes a named NPC from the room')
-        mud.send_message(
-            id, '  destroy [item]                          - Removes an item from the room')
-        mud.send_message(
-            id,
-            '  resetuniverse                           - Resets the universe, losing any changes from defaults')
-        mud.send_message(
-            id, '  shutdown                                - Shuts down the game server')
+        mud.send_message(id, \
+                         '  close registrations                     - Closes registrations of new players')
+        mud.send_message(id, \
+                         '  open registrations                      - Allows registrations of new players')
+        mud.send_message(id, \
+                         '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
+        mud.send_message(id, \
+                         '  unmute/unsilence [target]               - Unmutes a player')
+        mud.send_message(id, \
+                         '  freeze [target]                         - Prevents a player from moving or attacking')
+        mud.send_message(id, \
+                         '  unfreeze [target]                       - Allows a player to move or attack')
+        mud.send_message(id, \
+                         '  teleport [room]                         - Teleport to a room')
+        mud.send_message(id, \
+                         '  summon [target]                         - Summons a player to your location')
+        mud.send_message(id, \
+                         '  kick/remove [target]                    - Remove a player from the game')
+        mud.send_message(id, \
+                         '  blocklist                               - Show the current blocklist')
+        mud.send_message(id, \
+                         '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
+        mud.send_message(id, \
+                         '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
+        mud.send_message(id, \
+                         '  describe "room" "room name"             - Changes the name of the current room')
+        mud.send_message(id, \
+                         '  describe "room description"             - Changes the current room description')
+        mud.send_message(id, \
+                         '  describe "tide" "room description"      - Changes the room description when tide is out')
+        mud.send_message(id, \
+                         '  describe "item" "item description"      - Changes the description of an item in the room')
+        mud.send_message(id, \
+                         '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
+        mud.send_message(id, \
+                         '  conjure room [direction]                - Creates a new room in the given direction')
+        mud.send_message(id, \
+                         '  conjure npc [target]                    - Creates a named NPC in the room')
+        mud.send_message(id, \
+                         '  conjure [item]                          - Creates a new item in the room')
+        mud.send_message(id, \
+                         '  destroy room [direction]                - Removes the room in the given direction')
+        mud.send_message(id, \
+                         '  destroy npc [target]                    - Removes a named NPC from the room')
+        mud.send_message(id, \
+                         '  destroy [item]                          - Removes an item from the room')
+        mud.send_message(id, \
+                         '  resetuniverse                           - Resets the universe, losing any changes from defaults')
+        mud.send_message(id, \
+                         '  shutdown                                - Shuts down the game server')
     mud.send_message(id, '\n\n')
 
 
