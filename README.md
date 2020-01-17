@@ -407,6 +407,28 @@ You can then use the command:
 jump onto ledge
 ```
 
+### Heaving/Rolling
+
+Sometimes you want to move an item in a manner which isn't the same thing as opening.
+
+``` text
+    "2971": {
+        "name": "tomb stone",
+        "short_description": "A giant spherical stone covers the entrance to the tomb.",
+        "long_description": "A giant spherical stone covers the entrance to the tomb.",
+        "heave": "You roll the giant stone to one side and enter the tomb.",
+        "exit": "$rid=4356$",
+		...
+```
+
+The exit is the room to move to when rolling.
+
+You can then use the command:
+
+``` text
+roll the tomb stone
+```
+
 ### Climbing through windows and boarding boats
 
 You can add items to a room such as windows which the player can then climb through. Size restrictions apply and so this could be another way to escape from ogres or dragons. This can also be used to set up non-obvious exits as a puzzle, or for boarding boats.
