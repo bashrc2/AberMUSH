@@ -16,15 +16,12 @@ server running then used to send and receive messages from players.
 author: Mark Frimston - mfrimston@gmail.com
 """
 
-
-import errno
 import socket
 import select
 import time
 import sys
 import textwrap
 from cmsg import cmsg
-
 
 class MudServer(object):
     """A basic server for text-based Multi-User Dungeon (MUD) games.
@@ -282,10 +279,7 @@ class MudServer(object):
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            if e.errno == errno.SIGPIPE:
-                print('Client '+str(clid)+' closed socket')
-            else:
-                print("attempt_send, socket error for client "+str(clid)+": "+str(e)+'. Disconnecting.')
+            print("attempt_send, socket error for client "+str(clid)+": "+str(e)+'. Disconnecting.')
             self._handle_disconnect(clid)
             return False
         return True
