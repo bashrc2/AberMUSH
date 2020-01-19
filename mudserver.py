@@ -17,6 +17,7 @@ author: Mark Frimston - mfrimston@gmail.com
 """
 
 
+import errno
 import socket
 import select
 import time
@@ -262,9 +263,6 @@ class MudServer(object):
         self._listen_socket.close()
 
     def _attempt_send(self, clid, data) -> bool:
-        # python 2/3 compatability fix - convert non-unicode string to unicode
-        if sys.version < '3' and not isinstance(data, unicode):
-            data = unicode(data, "latin1")
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
@@ -284,7 +282,10 @@ class MudServer(object):
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("attempt_send, socket error: "+str(e))
+            if e.errno == errno.SIGPIPE:
+                print('Client '+str(clid)+' closed socket')
+            else:
+                print("attempt_send, socket error for client "+str(clid)+": "+str(e)+'. Disconnecting.')
             self._handle_disconnect(clid)
             return False
         return True
