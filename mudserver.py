@@ -222,16 +222,23 @@ class MudServer(object):
             if sendCtr>4:
                 break
 
-    def send_image(self, to, message):
+    def send_image(self, to, message) -> None:
         """Sends the ANSI image in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
+        messageLength=len(message)
+        if messageLength<10:
+            return
+        halfMessageLength=int(messageLength/2)
+        message1=message[:messageLength]
+        message2=message[messageLength:]
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
-            self._clients[to].socket.sendall(bytearray(message+cmsg('<b0>'),'utf-8'))
+            self._clients[to].socket.sendall(bytearray(message1,'utf-8'))
+            self._clients[to].socket.sendall(bytearray(message2+cmsg('<b0>'),'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
