@@ -227,18 +227,18 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
-        messageLength=len(message)
-        if messageLength<10:
+        if '\n' not in message:
             return
-        halfMessageLength=int(messageLength/2)
-        message1=message[:messageLength]
-        message2=message[messageLength:]
+        messageLines=message.split('\n')
+        if len(messageLines)<10:
+            return
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
-            self._clients[to].socket.sendall(bytearray(message1,'utf-8'))
-            self._clients[to].socket.sendall(bytearray(message2+cmsg('<b0>'),'utf-8'))
+            for lineStr in messageLines:
+                self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
+            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'),'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
