@@ -238,6 +238,7 @@ class MudServer(object):
             # the data is sent in one go
             for lineStr in messageLines:
                 self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
+                time.sleep(0.02)
             self._clients[to].socket.sendall(bytearray(cmsg('<b0>'),'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
