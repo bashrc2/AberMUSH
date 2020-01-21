@@ -1009,7 +1009,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -1104,7 +1104,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -1124,7 +1124,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
@@ -1260,6 +1260,7 @@
     "$rid=153$": {
         "exits": {
             "south": "$rid=650$",
+            "north": "$rid=128$",
             "west": "$rid=154$"
         },
         "name": "Mighty Tower",
