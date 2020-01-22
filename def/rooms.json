@@ -1437,7 +1437,7 @@
         "name": "Secret Passage",
         "description": "You are crouched in a small, narrow and smelly recess. It is barely big enough for you to stand up in, and completely dark.",
         "conditional": [
-	    ["hold","lightsource","You are crouched in a small, narrow and smelly recess. It is barely big enough for you to stand up in. In the dim light to see narrow stone stairs set into the wall of the house, which lead downwards."]
+	    ["hold","lightsource","You are crouched in a small, narrow and smelly recess. It is barely big enough for you to stand up in. In the dim light to see narrow stone stairs set into the wall of the house, which lead downwards.","183"]
 	],
         "trap": {},
         "eventOnEnter": "",

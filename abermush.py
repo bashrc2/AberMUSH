@@ -153,6 +153,11 @@ else:
     with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
         rooms = json.loads(read_file.read())
 
+for roomID,rm in rooms.items():
+    roomID=roomID.replace('$rid=','').replace('$','')
+    if not os.path.isfile('/home/bashrc/develop/AberMUSH/images/rooms/'+str(roomID)):
+        print('Missing room image: '+str(roomID))
+        
 log("Rooms loaded: " + str(len(rooms)), "info")
 
 maxTerrainDifficulty = assignTerrainDifficulty(rooms)
