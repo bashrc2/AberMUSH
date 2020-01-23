@@ -780,7 +780,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["e"],"Foolish mortal!"]
+            [["e","a","i"],"Foolish mortal!|# The demon's laughter echoes through the cavern"]
         ],
         "path" : ["$rid=156$","$rid=141$","$rid=159$"],
         "bodyType": "",

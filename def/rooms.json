@@ -1058,7 +1058,7 @@
         }
     },
     "$rid=141$": {
-        "name": "The East End of the Cavern.",
+        "name": "The East End of the Cavern",
         "description": "You are standing at the eastern end of a huge underground cavern. The roof slopes steeply upwards, and forms a cone high up above you. There are fewer pools of molten lava, but they are much larger at this end of the cavern.",
         "conditional": [],
         "trap": {},
@@ -1321,7 +1321,7 @@
         "exits": {
             "east": "$rid=141$"
         },
-        "name": "the huge cavern.",
+        "name": "the huge cavern",
         "description": "You are in a huge underground cavern. You have to pick your way carefully across the floor, so as not to fall into any of the many pools of molten lava dotted about. There is a small gallery carved into the rock high up on the west wall. Just above this, the roof starts to slope steeply, and forms a cone above the eastern end of the cavern. Plumes of noxious smoke billow up from vents in the floor of the cavern, and rise quickly up to the roof.",
         "conditional": [],
         "trap": {},
