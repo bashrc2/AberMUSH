@@ -2900,12 +2900,14 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
-        "path" : [],
+        "conv" : [
+	    [["a","e","i"],"# In an unsteady voice he says \"So many to remember, and so much of it is sad. Alas even I can remember them all no longer.\""]
+	],
+        "path" : ["$rid=645$"],
         "bodyType": "",
-        "moveDelay" : "300",
+        "moveDelay" : "36000",
         "moveType" : "",
-        "moveTimes": [],
+	"moveTimes": [["hour",9,17],["day","monday","wednesday","friday","sunday"],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
@@ -2987,7 +2989,7 @@
         "imp_feet" : "0",
         "inDescription": "to wanders off",
         "outDescription": "to wanders in",
-        "lookDescription": "is here"
+        "lookDescription": "He looks very sad indeed.. loaded with the cares and memories of a world filled with pain|The wizened old man stands quietly in the shadows, pain filled eyes gazing out across the world. As you walk past he turns and looks forlornly at you"
     },
     "678": {
         "name": "the librarian",
