@@ -4303,7 +4303,7 @@
     },
     "$rid=645$": {
         "name": "The Temple Of Remembrance",
-        "description": "The wind sighs gently around you, brushing off the battered and ancient stones skipping lightly around the mighty pillars, and through the arches of the vast hall. The slowly cracking and powdering stones each bear myriad names, slowly fading into unreadability, each one another of man's clutchs at immortality. Every name fading, soon to be forgotten, another nameless face that once was. There is a kind of deep solemness about the temple, an almost museum like ",
+        "description": "The wind sighs gently around you, brushing off the battered and ancient stones skipping lightly around the mighty pillars, and through the arches of the vast hall. The slowly cracking and powdering stones each bear myriad names, slowly fading into unreadability, each one another of man's clutchs at immortality. Every name fading, soon to be forgotten, another nameless face that once was. There is a kind of deep solemness about the temple, and almost museum like",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
