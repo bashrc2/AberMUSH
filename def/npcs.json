@@ -2125,7 +2125,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2219,7 +2221,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2313,7 +2317,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2618,7 +2624,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Withdraws its eye stalks"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2710,7 +2718,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["e"],"Sssssssss!"]
+            [["e","a","i"],"Sssssssss!"]
         ],
         "path" : [],
         "bodyType": "",
@@ -2809,7 +2817,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["e"],"Eeeeeek!"]
+            [["e","i","u"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously"]
         ],
         "path" : [],
         "bodyType": "",
@@ -3098,9 +3106,11 @@
     "723": {
         "name": "the elf",
         "inv" : [],
-        "speakLanguage": "common",
-        "language": ["common"],
-        "conv" : [],
+        "speakLanguage": "elvish",
+        "language": ["elvish"],
+        "conv" : [
+	    [["a","e","i"],"To be sure!"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3291,7 +3301,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i","u"], "# Remains silent|# Does not respond|# Nods"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3574,7 +3586,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Says nothing"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3671,7 +3685,9 @@
         "inv" : [],
         "speakLanguage": "dwarvish",
         "language": ["dwarvish"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"To be sure|Agreed|Oh indeed|Well, of course|Yes"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3859,7 +3875,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Looks in your direction"]
+	],
         "path" : ["$rid=889$","$rid=890$","$rid=886$","$rid=1147$","$rid=1148$"],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3953,7 +3971,9 @@
         "inv" : [],
         "speakLanguage": "dwarvish",
         "language": ["dwarvish"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Looks annoyed|# Looks irritated"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4047,7 +4067,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Continues chewing"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4141,7 +4163,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Continues chewing"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4235,7 +4259,9 @@
         "inv" : [],
         "speakLanguage": "dwarvish",
         "language": ["dwarvish"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"Are you sure?|# Looks skeptical|# Shakes their head"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4329,7 +4355,9 @@
         "inv" : [],
         "speakLanguage": "dwarvish",
         "language": ["dwarvish"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Glares at you|# Looks angry"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4529,7 +4557,9 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+	    [["a","e","i"],"# Remains motionless"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4724,7 +4754,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["e"],"The rider continues, ignoring you"]
+            [["e","i","a"],"The rider continues, ignoring you"]
         ],
         "path" : ["$rid=424$","$rid=417$","$rid=419$","$rid=420$","$rid=421$","$rid=422$","$rid=433$"],
         "bodyType": "",
@@ -5024,7 +5054,7 @@
         "speakLanguage": "common",
         "language": ["common","dwarvish","elvish","draconic","druidic"],
         "conv" : [
-            [["e"],"Baaah!"]
+            [["e","a"],"Baaah!"]
         ],
         "path" : [],
         "bodyType": "",
