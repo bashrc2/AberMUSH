@@ -34079,9 +34079,9 @@
         "article": "an"
     },
     "1416": {
-        "name": "honeycomb",
-        "short_description": "The honeycomb is swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycomb",
-        "long_description": "The honeycomb is swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycomb",
+        "name": "honeycombs",
+        "short_description": "The honeycombs are swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycombs",
+        "long_description": "The honeycombs is swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycombs",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -34141,6 +34141,6 @@
         "linkedItem": 0,
         "exit": "",
         "lightSource": 0,
-        "article": "a"
+        "article": "some"
     }
 }
