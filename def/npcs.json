@@ -2530,7 +2530,7 @@
         ],
         "path" : ["$rid=432$","$rid=1290$"],
         "bodyType": "",
-        "moveDelay" : "36",
+        "moveDelay" : "3600",
         "moveType" : "patrol",
         "moveTimes": [["hour",19,23],["day","friday","saturday"],["inactive",238]],
         "vocabulary": "",

@@ -73,7 +73,7 @@ def npcIsActive(moveTimes):
                timeRangeType == 'dow':
                 currDayOfWeek=datetime.datetime.today().weekday()
                 dowMatched=False
-                for dow in range(1,len(timeRange)-1):
+                for dow in range(1,len(timeRange)):
                     dayOfWeek=timeRange[dow].lower()
                     if dayOfWeek.startswith('m') and currDayOfWeek == 0:
                         dowMatched=True
@@ -95,7 +95,7 @@ def npcIsActive(moveTimes):
             elif timeRangeType == 'season':
                 currMonthNumber=int(datetime.datetime.today().strftime("%m"))
                 seasonMatched=False
-                for seasonIndex in range(1,len(timeRange)-1):
+                for seasonIndex in range(1,len(timeRange)):
                     seasonName=timeRange[seasonIndex].lower()
                     if seasonName=='spring':
                         if currMonthNumber > 1 and currMonthNumber <= 4:
