@@ -4027,7 +4027,7 @@
         "linkedItem": 0,
         "exit": "",
         "lightSource": 0,
-        "article": "a"
+        "article": "some"
     },
     "190": {
         "name": "white book",
@@ -5313,7 +5313,7 @@
         "visibleWhenWearing": [],
         "type": "",
         "rof": 0,
-        "useTimes": 0,
+        "useTimes": 1,
         "writeWithItems": [],
         "written": "",
         "language": "",
