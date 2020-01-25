@@ -5492,7 +5492,7 @@ def openItem(
                         itemsInWorldCopy,
                         iid)
                     return
-                if itemsDB[items[iid]['id']]['state'] == 'container closed':
+                if itemsDB[items[iid]['id']]['state'].startswith('container closed'):
                     openItemContainer(
                         params,
                         mud,
