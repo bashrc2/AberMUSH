@@ -407,27 +407,54 @@ def getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int,str,int):
     return 0, "fists", 1
 
 
-def getAttackDescription(weaponType: str) -> (str,str):
+def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
     """
     weaponType = weaponType.lower()
 
-    attackStrings = [
-        "swing a fist at",
-        "punch",
-        "crudely swing a fist at",
-        "ineptly punch"
-    ]
+    if not animalType:
+        attackStrings = [
+            "swing a fist at",
+            "punch",
+            "crudely swing a fist at",
+            "ineptly punch"
+        ]
+    else:
+        if animalType is not 'bird':
+            attackStrings = [
+                "savage",
+                "bite"
+            ]
+        else:
+            attackStrings = [
+                "claw",
+                "peck"
+            ]
+
     attackDescriptionFirst = \
         attackStrings[randint(0, len(attackStrings) - 1)]
-    attackStrings = [
-        "swung a fist at",
-        "punched",
-        "crudely swung a fist at",
-        "ineptly punched"
-    ]
+
+    if not animalType:
+        attackStrings = [
+            "swung a fist at",
+            "punched",
+            "crudely swung a fist at",
+            "ineptly punched"
+        ]
+    else:
+        if animalType is not 'bird':
+            attackStrings = [
+                "savaged",
+                "took a bite at"
+            ]
+        else:
+            attackStrings = [
+                "clawed",
+                "pecked"
+            ]
+
     attackDescriptionSecond = \
         attackStrings[randint(0, len(attackStrings) - 1)]
 
@@ -743,7 +770,7 @@ def runFightsBetweenPlayers(
             if roundsOfFire < 1:
                 roundsOfFire = 1
             attackDescriptionFirst, attackDescriptionSecond = \
-                getAttackDescription(weaponType)
+                getAttackDescription("",weaponType)
             if armorClass <= damageValue:
                 if players[s1id]['hp'] > 0:
                     modifierStr = ''
@@ -899,8 +926,8 @@ def runFightsBetweenPlayerAndNPC(
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
-            attackDescriptionFirst, attackDescriptionSecond = getAttackDescription(
-                weaponType)
+            attackDescriptionFirst, attackDescriptionSecond = \
+                getAttackDescription("",weaponType)
             if armorClass <= damageValue:
                 if players[s1id]['hp'] > 0:
                     modifierStr = ''
@@ -1021,8 +1048,8 @@ def runFightsBetweenNPCAndPlayer(
                 s2id, players, itemsDB, racesDB, weaponType, characterClassDB))
         if roundsOfFire < 1:
             roundsOfFire = 1
-        attackDescriptionFirst, attackDescriptionSecond = getAttackDescription(
-            weaponType)
+        attackDescriptionFirst, attackDescriptionSecond = \
+            getAttackDescription(npcs[s1id]['animalType'],weaponType)
         if armorClass <= damageValue:
             if npcs[s1id]['hp'] > 0:
                 modifierStr = ''
