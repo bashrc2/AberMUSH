@@ -425,12 +425,17 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
         if animalType is not 'bird':
             attackStrings = [
                 "savage",
-                "bite"
+                "maul",
+                "bite",
+                "viciously bite",
+                "savagely gnaw"
             ]
         else:
             attackStrings = [
                 "claw",
-                "peck"
+                "peck",
+                "viciously peck",
+                "savagely peck"
             ]
 
     attackDescriptionFirst = \
@@ -447,12 +452,17 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
         if animalType is not 'bird':
             attackStrings = [
                 "savaged",
-                "took a bite at"
+                "mauled",
+                "took a bite at",
+                "viciously bit into",
+                "savagely gnawed into"
             ]
         else:
             attackStrings = [
                 "clawed",
-                "pecked"
+                "pecked",
+                "viciously pecked",
+                "savagely pecked"
             ]
 
     attackDescriptionSecond = \
