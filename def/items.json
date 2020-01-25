@@ -28494,7 +28494,7 @@
     "1257": {
         "name": "gold door",
         "short_description": "The gold door is closed.",
-        "long_description": "It bears the runes for World and Holding.",
+        "long_description": "It bears the runes for World and Holding. It is closed.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
