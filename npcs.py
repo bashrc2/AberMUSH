@@ -161,7 +161,7 @@ def moveNPCs(npcs, players, mud, now, nid):
     """If movement is defined for an NPC this moves it around
     """
     if now > npcs[nid]['lastMoved'] + \
-            int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
+       int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
         # Move types:
         #   random, cycle, inverse cycle, patrol, follow, leader:name
         moveTypeLower = npcs[nid]['moveType'].lower()
