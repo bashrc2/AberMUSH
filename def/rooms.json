@@ -1666,8 +1666,10 @@
         "name": "Herb Garden",
         "description": "This garden was once clearly used to cultivate herbs. It occupies a sunny spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north.",
         "conditional": [
-	    ["hour","<8","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."],
-	    ["hour",">20","This garden was once used to cultivate herbs of ancient varieties. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north."]
+	    ["season","spring","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north"],
+	    ["season","summer","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north. Bees dance in the air around a hive"],
+	    ["season","autumn","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north. Bees dance in the air around a hive"],
+	    ["season","winter","This garden was once clearly used to cultivate herbs. It occupies a south facing spot where they would thrive. Lack of attention has led to the plants running wild. A small garden hut can be seen to the north"]
 	],
         "trap": {},
         "eventOnEnter": "",
