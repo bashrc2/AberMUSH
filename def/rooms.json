@@ -2345,7 +2345,9 @@
     "$rid=345$": {
         "name": "The Monolith",
         "description": "You stand atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A narrow set of steps descend the monolith.",
-        "conditional": [],
+        "conditional": [
+	    ["season","winter","You stand atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A narrow set of steps descend the monolith.","345_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2363,7 +2365,9 @@
     "$rid=346$": {
         "name": "Gloomy Clearing",
         "description": "You stand in a dark and gloomy clearing. Thick trees shadow you, cutting off the light. A thick mist hangs amidst the trees and swirls around a dark cavemouth to the south. A huge monolith rises from the centre of the clearing.",
-        "conditional": [],
+        "conditional": [
+	    ["season","winter","You stand in a dark and gloomy clearing. Thick trees shadow you, cutting off the light. A thick mist hangs amidst the trees and swirls around a dark cavemouth to the south. A huge monolith rises from the centre of the clearing.","346_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -4389,7 +4393,7 @@
         "description": "The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the green shadows of the forest.",
         "conditional": [
 	    ["season","autumn","The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the dark shadows of the forest."],
-	    ["season","autumn","The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the bleak shadows of the forest."]
+	    ["season","winter","The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the bleak shadows of the forest.","651_winter"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -4409,7 +4413,9 @@
     "$rid=652$": {
         "name": "Forest Track",
         "description": "The track wanders almost at random through the trees, dodging and weaving amidst thick bushes and thickets. Up to the east the path forks, while to the west it wanders away until it is lost in the trees.",
-        "conditional": [],
+        "conditional": [
+	    ["season","winter","The track wanders almost at random through the trees, dodging and weaving amidst thick bushes and thickets. Up to the east the path forks, while to the west it wanders away until it is lost in the trees.","652_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -4433,7 +4439,9 @@
         },
         "name": "Fork In The Road",
         "description": "The track emerges from the west into a pleasant open clearing. The path forks leading northwards into thickish trees and southwards towards an open space of some sort.",
-        "conditional": [],
+        "conditional": [
+	    ["season","winter","The track emerges from the west into a pleasant open clearing. The path forks leading northwards into thickish trees and southwards towards an open space of some sort.","653_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
