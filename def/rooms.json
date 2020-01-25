@@ -1945,7 +1945,9 @@
     "$rid=300$": {
         "name": "Zigzag Path",
         "description": "The path climbs up out of the forest away to your north, and winds and zigzags its way up the towering cliffs before disappearing over the top and out of sight.",
-        "conditional": [],
+        "conditional": [
+	    ["season","winter","The path climbs up out of the forest away to your north, and winds and zigzags its way up the towering cliffs before disappearing over the top and out of sight.","300_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1963,7 +1965,9 @@
     "$rid=301$": {
         "name": "Forest Trail",
         "description": "A narrow path winds southwards through the trees. Ahead to the south the woodlands end with a towering cliff. The path seems to zigzag up the cliff but you can't be sure.",
-        "conditional": [],
+        "conditional": [
+	    ["season","winter","A narrow path winds southwards through the trees. Ahead to the south the woodlands end with a towering cliff. The path seems to zigzag up the cliff but you can't be sure.","301_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2458,7 +2462,7 @@
         "description": "You are deep in the woods. The trees are thick dark and tangled, and branches spread out above you, hiding the sky. Its hard to tell where you can wander from here, amidst the thickets and bushes.",
         "conditional": [
 	    ["season","autumn","You are deep in the woods. The trees are thick dark and tangled, and branches spread out above you. A dense coverage of leaves rustles under your feet as you walk. Its hard to tell where you can wander from here, amidst the thickets and bushes."],
-	    ["season","winter","You are deep in the woods. The bleak trees are thick dark and tangled, and branches spread out above you. Its hard to tell where you can wander from here. The trees look similar in all directions."]
+	    ["season","winter","You are deep in the woods. The bleak trees are thick dark and tangled, and branches spread out above you. Its hard to tell where you can wander from here. The trees look similar in all directions.","357_winter"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -2554,7 +2558,7 @@
         "description": "You are following a pleasant woodland path, winding through the trees. Thick bushes are mixed with wild flowers, and the air is heavy with the scent of nature. Paths diverge in all directions through the trees.",
         "conditional": [
 	    ["season","autumn","You are following a pleasant woodland path, winding through the trees. Bushes are mixed with dense grasses, and the air is heavy with the scent of fallen leaves. Paths diverge in all directions through the trees."],
-	    ["season","winter","You are following a pleasant woodland path, winding through the trees. Bushes are mixed with sparse patches of grass, and the air is cold and still. Paths diverge in all directions through the trees."]
+	    ["season","winter","You are following a pleasant woodland path, winding through the trees. Bushes are mixed with sparse patches of grass, and the air is cold and still. Paths diverge in all directions through the trees.","384_winter"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -2593,8 +2597,7 @@
         "name": "The Pleasant Lane",
         "description": "You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. Birds twitter and sing around you, and animals scurry amidst the thick bushes. To the south the lane plunges over a stile and into some woods.",
         "conditional": [
-	    ["hour","<8","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."],
-	    ["hour",">20","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."]
+	    ["season","winter","You are strolling down a country lane, which winds gently between the hedgerows. A narrow frost covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods.","396_winter"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -7593,7 +7596,7 @@
             "west": "$rid=1358$"
         },
         "name": "Mountains Shadow",
-        "description": "The mountains loom high above you, a dark solid wall of mighty rock. The sheer power and age of those proud peaks, ancients who have watched since before man first climbed out of the trees, makes you seem just an insubstantial stitch on a greater tapestry. Awed, and humbled you look around. The mountains jut savagely out to the east, barring all exits but west and south across the grassy scrublands that fringe the mountain range.",
+        "description": "The mountains loom high above you, a dark solid wall of mighty rock. The sheer power and age of those proud peaks, ancients who have watched since before humans first climbed out of the trees, makes you seem just an insubstantial stitch on a greater tapestry. Awed, and humbled you look around. The mountains jut savagely out to the east, barring all exits but west and south across the grassy scrublands that fringe the mountain range.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
