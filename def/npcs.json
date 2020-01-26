@@ -6747,7 +6747,7 @@
     "1124": {
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "Wearing a black robe with large overhanging hood the priest stands motionless before you",
+        "lookDescription": "Wearing a black robe with large overhanging hood the priest stands motionless before the rows of pews",
         "name": "the hooded priest",
         "inv" : [],
         "speakLanguage": "common",
@@ -6759,7 +6759,7 @@
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
-        "moveTimes": [["hour",9,12],["day","sunday"],["inactive",238]],
+        "moveTimes": [["hour",8,13],["day","sunday"],["inactive",238]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "300",
