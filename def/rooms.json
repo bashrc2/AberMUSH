@@ -4369,7 +4369,7 @@
     },
     "$rid=650$": {
         "name": "The Great Eastern Road",
-        "description": "You stand just outside the city of Tranoch on the far western end of the great eastern road, the long caravan trail through the mountains and beyond, the trail of so many legends and songs, the road to the mysterious lands of legend. For all this it seems to be a fairly boring cobbled road leading off eastwards into the distance , and westwards through a small gate into the walled city. A narrow weed covered path runs south into a quiet, deserted graveyard.",
+        "description": "You stand just outside the city of Tranoch on the far western end of the great eastern road, the long caravan trail through the mountains and beyond, the trail of so many legends and songs, the road to the mysterious lands of legend. For all this it seems to be a fairly boring cobbled road leading off eastwards into the distance, and westwards through a small gate into the walled city. A narrow weed covered path runs south into a quiet, deserted graveyard.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
