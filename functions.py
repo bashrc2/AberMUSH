@@ -22,7 +22,7 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
-def TimeStringToSec(durationStr):
+def TimeStringToSec(durationStr: str) -> int:
     """Converts a description of a duration such as '1 hour'
        into a number of seconds
     """
