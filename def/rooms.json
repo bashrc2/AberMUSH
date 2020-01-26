@@ -8697,7 +8697,10 @@
         },
         "name": "The Church",
         "description": "You stand in the centre of the now battered and dilapidated church. Water runs down the walls, dripping in pools onto the rotting remains of the pews. The church extends northwards, and southwards towards the altar. To the west is the exit.",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You stand in the centre of the now battered and dilapidated church. Candles fixed to every pillar cast shifting shadows across the rotting remains of the pews. The church extends northwards, and southwards towards the altar. To the west is the exit."],
+	    ["hour",">17","You stand in the centre of the now battered and dilapidated church. Candles fixed to every pillar cast shifting shadows across the rotting remains of the pews. The church extends northwards, and southwards towards the altar. To the west is the exit."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
