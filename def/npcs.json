@@ -906,8 +906,8 @@
         "tempCharmDuration": 0,
         "tempCharm": 0,
         "tempCharmTarget": "",
-        "guild": "",
-        "guildRole": "",
+        "guild": "Skinners",
+        "guildRole": "furrier",
         "affinity": {},
         "animalType": "",
         "familiarType": "",
@@ -6749,11 +6749,11 @@
         "outDescription": "goes",
         "lookDescription": "Wearing a black robe with large overhanging hood the priest stands motionless before the rows of pews",
         "name": "the hooded priest",
-        "inv" : [],
+        "inv" : ["1417","1341"],
         "speakLanguage": "common",
-        "language": ["common"],
+        "language": ["common","druidic"],
         "conv" : [
-	    [["a","e","i","u"], "# Remains silent|# Does not respond"]
+	    [["a","e","i","u"], "# Remains silent|# Does not respond|# The priest turns slowly to look at you but his face is obscured in shadow. Then he turns away again"]
 	],
         "path" : ["$rid=1130$"],
         "bodyType": "",
