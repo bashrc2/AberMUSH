@@ -79,10 +79,13 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
     if players[id].get('animalType'):
         if len(players[id]['animalType']) > 0:
             return
-    
+
+    max_affinity=10
+
     recipientName = npcs[p]['name']
     if players[id]['affinity'].get(recipientName):
-        players[id]['affinity'][recipientName] += 1
+        if players[id]['affinity'][recipientName]<max_affinity:
+            players[id]['affinity'][recipientName] += 1
     else:
         # set the affinity to an assumed average
         players[id]['affinity'][recipientName] = baselineAffinity(players, id)
@@ -93,7 +96,8 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
         if guilds.get(guildName):
             guild=guilds[guildName]
             if guild['affinity'].get(recipientName):
-                guild['affinity'][recipientName] += 1
+                if guild['affinity'][recipientName]<max_affinity:
+                    guild['affinity'][recipientName] += 1
             else:
                 guild['affinity'][recipientName] = \
                     baselineAffinity(players, id)
@@ -109,10 +113,13 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
     if players[id].get('animalType'):
         if len(players[id]['animalType']) > 0:
             return
+
+    min_affinity=-10
+
     recipientName = npcs[p]['name']
-    if players[id]['affinity'].get(recipientName):
-        players[id]['affinity'][recipientName] = \
-            players[id]['affinity'][recipientName] - 1
+    if players[id]['affinity'].get(recipientName):        
+        if players[id]['affinity'][recipientName]>min_affinity:
+            players[id]['affinity'][recipientName] -= 1
 
         # Avoid zero values
         if players[id]['affinity'][recipientName] == 0:
@@ -127,7 +134,8 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
         if guilds.get(guildName):
             guild=guilds[guildName]
             if guild['affinity'].get(recipientName):
-                guild['affinity'][recipientName] -= 1
+                if guild['affinity'][recipientName]>min_affinity:
+                    guild['affinity'][recipientName] -= 1
                 # Avoid zero values
                 if guild['affinity'][recipientName] == 0:
                     guild['affinity'][recipientName] = -1
