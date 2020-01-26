@@ -36,7 +36,7 @@
     },
     "Brewers": {
 	"description": "",
-	"roles": ["brewer","cooper","beerbrewer","drycooper"],
+	"roles": ["brewer","cooper","beerbrewer","drycooper","taverner"],
 	"affinity": {}
     },
     "Broderers": {
@@ -59,9 +59,14 @@
 	"roles": ["waxchandler","lanternmaker","lampwright","chandler","tallowchandler"],
 	"affinity": {}
     },
+    "Clergy": {
+	"description": "",
+	"roles": ["abbess","abbot","almoner","anchorite","archbishop","beadle","beguine","bishop","canon","cantor","cardinal","cathar perfect","chantry priest","chaplain","clark","clerk","colporteur","curate","friar","hermit","monk","nun","ostiary","palmer","pardoner","pilgrim","pope","priest","primate","sacristan","sexton","summoner","theologian"],
+	"affinity": {}	
+    },
     "Clothworkers": {
 	"description": "",
-	"roles": ["tailor","roper","ropemaker","rugmaker","sailmaker","seamstress","draper","silkmaid","silk-dresser","silk-maker","silk-carder","spinner","quilter","clothier","threadmaker","linener","linenspinner","tasseler"],
+	"roles": ["tailor","sailmaker","seamstress","draper","silkmaid","silk-dresser","silk-maker","silk-carder","spinner","quilter","clothier","threadmaker","linener","linenspinner","tasseler"],
 	"affinity": {}
     },
     "Cordwainers": {
@@ -71,7 +76,7 @@
     },
     "Curriers": {
 	"description": "Dressers of tanned leather",
-	"roles": ["purse maker","hatmaker","hatter"],
+	"roles": ["purse maker","hatmaker","hatter","tanner"],
 	"affinity": {}
     },
     "Cutlers": {
@@ -86,7 +91,7 @@
     },
     "Farriers": {
 	"description": "Shoers of horses",
-	"roles": ["farrier"],
+	"roles": ["farrier","ostler"],
 	"affinity": {}
     },
     "Fishmongers": {
@@ -126,7 +131,7 @@
     },
     "Mercers": {
 	"description": "General merchants",
-	"roles": ["silk-mercer"],
+	"roles": ["silk-mercer","costermonger"],
 	"affinity": {}
     },
     "Needlemakers": {
@@ -161,7 +166,7 @@
     },
     "Saddlers": {
 	"description": "",
-	"roles": ["saddler"],
+	"roles": ["saddler","malemaker"],
 	"affinity": {}
     },
     "Salters": {
@@ -191,7 +196,7 @@
     },
     "Weavers": {
 	"description": "",
-	"roles": ["basketmaker","weaver","webber","rugweaver"],
+	"roles": ["basketmaker","weaver","webber","rugweaver","roper","ropemaker","rugmaker"],
 	"affinity": {}
     },
     "Wheelwrights": {
