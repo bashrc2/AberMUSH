@@ -68,7 +68,7 @@ def baselineAffinity(players, id):
     return averageAffinity
 
 
-def increaseAffinityBetweenPlayers(players, id, npcs, p):
+def increaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> None:
     """Increases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -79,16 +79,26 @@ def increaseAffinityBetweenPlayers(players, id, npcs, p):
     if players[id].get('animalType'):
         if len(players[id]['animalType']) > 0:
             return
+    
     recipientName = npcs[p]['name']
     if players[id]['affinity'].get(recipientName):
-        players[id]['affinity'][recipientName] = \
-            players[id]['affinity'][recipientName] + 1
+        players[id]['affinity'][recipientName] += 1
     else:
         # set the affinity to an assumed average
         players[id]['affinity'][recipientName] = baselineAffinity(players, id)
 
+    # adjust guild affinity
+    if players[id].get('guild') and players[id].get('guildRole'):
+        guildName=players[id]['guild']
+        if guilds.get(guildName):
+            guild=guilds[guildName]
+            if guild['affinity'].get(recipientName):
+                guild['affinity'][recipientName] += 1
+            else:
+                guild['affinity'][recipientName] = \
+                    baselineAffinity(players, id)
 
-def decreaseAffinityBetweenPlayers(players, id, npcs, p):
+def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> None:
     """Decreases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -111,6 +121,19 @@ def decreaseAffinityBetweenPlayers(players, id, npcs, p):
         # set the affinity to an assumed average
         players[id]['affinity'][recipientName] = baselineAffinity(players, id)
 
+    # adjust guild affinity
+    if players[id].get('guild') and players[id].get('guildRole'):
+        guildName=players[id]['guild']
+        if guilds.get(guildName):
+            guild=guilds[guildName]
+            if guild['affinity'].get(recipientName):
+                guild['affinity'][recipientName] -= 1
+                # Avoid zero values
+                if guild['affinity'][recipientName] == 0:
+                    guild['affinity'][recipientName] = -1
+            else:
+                guild['affinity'][recipientName] = \
+                    baselineAffinity(players, id)
 
 def randomDescription(descriptionList):
     if '|' in descriptionList:

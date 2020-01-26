@@ -846,10 +846,10 @@ def tell(
                                 eventDB)
                             if getSentiment(message, sentimentDB) >= 0:
                                 increaseAffinityBetweenPlayers(
-                                    players, id, players, p)
+                                    players, id, players, p, guildsDB)
                             else:
                                 decreaseAffinityBetweenPlayers(
-                                    players, id, players, p)
+                                    players, id, players, p, guildsDB)
                         else:
                             if players[id]['speakLanguage'] != 'cant':
                                 addToScheduler(
@@ -964,10 +964,10 @@ def whisper(
 
                             if getSentiment(message[1:], sentimentDB) >= 0:
                                 increaseAffinityBetweenPlayers(
-                                    players, id, players, p)
+                                    players, id, players, p, guildsDB)
                             else:
                                 decreaseAffinityBetweenPlayers(
-                                    players, id, players, p)
+                                    players, id, players, p, guildsDB)
 
                             mud.send_message(
                                 id, "You whisper to <f32>" + players[p]['name'] + "<r>: " + message[1:] + '\n')
@@ -1891,14 +1891,14 @@ def say(
                     if players[id]['speakLanguage'] in players[pid]['language']:
                         if getSentiment(params, sentimentDB) >= 0:
                             increaseAffinityBetweenPlayers(
-                                players, id, players, pid)
+                                players, id, players, pid, guildsDB)
                             increaseAffinityBetweenPlayers(
-                                players, pid, players, id)
+                                players, pid, players, id, guildsDB)
                         else:
                             decreaseAffinityBetweenPlayers(
-                                players, id, players, pid)
+                                players, id, players, pid, guildsDB)
                             decreaseAffinityBetweenPlayers(
-                                players, pid, players, id)
+                                players, pid, players, id, guildsDB)
 
                         # send them a message telling them what the player said
                         mud.send_message(

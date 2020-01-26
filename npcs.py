@@ -649,7 +649,8 @@ def conversationGive(
         npcs,
         nid,
         itemsDB,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC gives something to you
     """
     if best_match_action == 'give' or \
@@ -661,8 +662,8 @@ def conversationGive(
                 updatePlayerAttributes(id, players, itemsDB, itemID, 1)
                 players[id]['wei'] = playerInventoryWeight(
                     id, players, itemsDB)
-                increaseAffinityBetweenPlayers(players, id, npcs, nid)
-                increaseAffinityBetweenPlayers(npcs, nid, players, id)
+                increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+                increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
                 mud.send_message(
                     id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
                     best_match+".")
@@ -698,7 +699,8 @@ def conversationSkill(
         npcs,
         nid,
         itemsDB,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC gives or alters a skill
     """
     if best_match_action == 'skill' or \
@@ -724,8 +726,8 @@ def conversationSkill(
                     players[id][newSkill] = players[id][newSkill] + \
                         int(skillValueStr)
 
-            increaseAffinityBetweenPlayers(players, id, npcs, nid)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
 
             mud.send_message(
                 id,"<f220>"+npcs[nid]['name']+"<r> says: "+best_match+ \
@@ -754,7 +756,8 @@ def conversationExperience(
         npcs,
         nid,
         itemsDB,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC increases your experience
     """
     if best_match_action == 'exp' or \
@@ -762,8 +765,8 @@ def conversationExperience(
         if len(best_match_action_param0) > 0:
             expValue = int(best_match_action_param0)
             players[id]['exp'] = players[id]['exp'] + expValue
-            increaseAffinityBetweenPlayers(players, id, npcs, nid)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
             return True
         else:
             mud.send_message(
@@ -787,7 +790,8 @@ def conversationJoinGuild(
         npcs,
         nid,
         itemsDB,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC adds you to a guild
     """
     if best_match_action == 'clan' or \
@@ -798,8 +802,8 @@ def conversationJoinGuild(
             players[id]['guild'] = best_match_action_param0
             if len(best_match_action_param1) > 0:
                 players[id]['guildRole'] = best_match_action_param1
-            increaseAffinityBetweenPlayers(players, id, npcs, nid)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
             return True
         else:
             mud.send_message(
@@ -874,7 +878,8 @@ def conversationTransport(
         best_match,
         npcs,
         nid,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC transports you to some location
     """
     if best_match_action == 'transport' or \
@@ -888,8 +893,8 @@ def conversationTransport(
                     players[id]['name']) + "\n\n")
             players[id]['room'] = roomID
             npcs[nid]['room'] = roomID
-            increaseAffinityBetweenPlayers(players, id, npcs, nid)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
             messageToPlayersInRoom(
                 mud, players, id, '<f32>{}<r> arrives.'.format(
                     players[id]['name']) + "\n\n")
@@ -921,7 +926,8 @@ def conversationTaxi(
         npcs,
         nid,
         itemsDB,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC transports you to some location in exchange for payment/barter
     """
     if best_match_action == 'taxi':
@@ -932,8 +938,8 @@ def conversationTaxi(
             if str(itemBuyID) in list(players[id]['inv']):
                 players[id]['inv'].remove(str(itemBuyID))
 
-                increaseAffinityBetweenPlayers(players, id, npcs, nid)
-                increaseAffinityBetweenPlayers(npcs, nid, players, id)
+                increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+                increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
                 mud.send_message(id, best_match)
                 messageToPlayersInRoom(
                     mud, players, id, '<f32>{}<r> leaves.'.format(
@@ -977,7 +983,8 @@ def conversationGiveOnDate(
         nid,
         itemsDB,
         best_match,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC gives something to you on a particular date of the year
        eg. Some festival or holiday
     """
@@ -1000,9 +1007,9 @@ def conversationGiveOnDate(
                             updatePlayerAttributes(
                                 id, players, itemsDB, itemID, 1)
                             increaseAffinityBetweenPlayers(
-                                players, id, npcs, nid)
+                                players, id, npcs, nid, guildsDB)
                             increaseAffinityBetweenPlayers(
-                                npcs, nid, players, id)
+                                npcs, nid, players, id, guildsDB)
                             mud.send_message(
                                 id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                             mud.send_message(
@@ -1037,7 +1044,8 @@ def conversationBuyOrExchange(
         id,
         players,
         itemsDB,
-        puzzledStr):
+        puzzledStr,
+        guildsDB):
     """Conversation in which an NPC exchanges/swaps some item with you or in which you buy some item from them
     """
     if best_match_action == 'buy' or \
@@ -1074,8 +1082,8 @@ def conversationBuyOrExchange(
                             id, players, itemsDB, itemSellID, 1)
                         if str(itemBuyID) not in list(npcs[nid]['inv']):
                             npcs[nid]['inv'].append(str(itemBuyID))
-                        increaseAffinityBetweenPlayers(players, id, npcs, nid)
-                        increaseAffinityBetweenPlayers(npcs, nid, players, id)
+                        increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+                        increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
                         mud.send_message(
                             id,
                             "<f220>" +
@@ -1232,11 +1240,11 @@ def npcConversation(
                             best_match_action_param1 = conv[4]
 
     if getSentiment(message, sentimentDB) >= 0:
-        increaseAffinityBetweenPlayers(players, id, npcs, nid)
-        increaseAffinityBetweenPlayers(npcs, nid, players, id)
+        increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+        increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
     else:
-        decreaseAffinityBetweenPlayers(players, id, npcs, nid)
-        decreaseAffinityBetweenPlayers(npcs, nid, players, id)
+        decreaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
+        decreaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
 
     if len(best_match) > 0:
         # There were some word matches
@@ -1253,70 +1261,75 @@ def npcConversation(
 
         if len(best_match_action) > 0:
             # give
-            if conversationGive(best_match, best_match_action,
-                                best_match_action_param0, players,
-                                id, mud, npcs, nid, itemsDB, puzzledStr):
+            if conversationGive(best_match, best_match_action, \
+                                best_match_action_param0, players, \
+                                id,mud,npcs,nid,itemsDB,puzzledStr, \
+                                guildsDB):
                 return
 
             # teach skill
-            if conversationSkill(best_match, best_match_action,
-                                 best_match_action_param0,
-                                 best_match_action_param1, players,
-                                 id, mud, npcs, nid, itemsDB, puzzledStr):
+            if conversationSkill(best_match, best_match_action, \
+                                 best_match_action_param0, \
+                                 best_match_action_param1, players, \
+                                 id, mud, npcs, nid, itemsDB, puzzledStr, \
+                                 guildsDB):
                 return
 
             # increase experience
-            if conversationExperience(best_match, best_match_action,
-                                      best_match_action_param0,
-                                      best_match_action_param1, players,
-                                      id, mud, npcs, nid, itemsDB, puzzledStr):
+            if conversationExperience(best_match, best_match_action, \
+                                      best_match_action_param0, \
+                                      best_match_action_param1, players, \
+                                      id, mud, npcs, nid, itemsDB, puzzledStr, \
+                                      guildsDB):
                 return
             
             # Join a guild
-            if conversationJoinGuild(best_match, best_match_action,
-                                     best_match_action_param0,
-                                     best_match_action_param1, players,
-                                     id, mud, npcs, nid, itemsDB, puzzledStr):
+            if conversationJoinGuild(best_match, best_match_action, \
+                                     best_match_action_param0, \
+                                     best_match_action_param1, players, \
+                                     id, mud, npcs, nid, itemsDB, puzzledStr, \
+                                     guildsDB):
                 return
 
             # Switch familiar into different modes
-            if conversationFamiliarMode(best_match, best_match_action,
-                                        best_match_action_param0,
-                                        best_match_action_param1,
-                                        players,
-                                        id, mud, npcs, npcsDB, rooms,
+            if conversationFamiliarMode(best_match, best_match_action, \
+                                        best_match_action_param0, \
+                                        best_match_action_param1, \
+                                        players, \
+                                        id, mud, npcs, npcsDB, rooms, \
                                         nid, items, itemsDB, puzzledStr):
                 return
 
             # transport (free taxi)
-            if conversationTransport(best_match_action,
-                                     best_match_action_param0, mud,
-                                     id, players, best_match, npcs,
-                                     nid, puzzledStr):
+            if conversationTransport(best_match_action, \
+                                     best_match_action_param0, mud, \
+                                     id, players, best_match, npcs, \
+                                     nid, puzzledStr, guildsDB):
                 return
 
             # taxi (exchange for an item)
-            if conversationTaxi(best_match_action,
-                                best_match_action_param0,
-                                best_match_action_param1, players,
-                                id, mud, best_match, npcs, nid,
-                                itemsDB, puzzledStr):
+            if conversationTaxi(best_match_action, \
+                                best_match_action_param0, \
+                                best_match_action_param1, players, \
+                                id, mud, best_match, npcs, nid, \
+                                itemsDB, puzzledStr, guildsDB):
                 return
 
             # give on a date
-            if conversationGiveOnDate(best_match_action,
-                                      best_match_action_param0,
-                                      best_match_action_param1,
-                                      players, id, mud, npcs, nid,
-                                      itemsDB, best_match, puzzledStr):
+            if conversationGiveOnDate(best_match_action, \
+                                      best_match_action_param0, \
+                                      best_match_action_param1, \
+                                      players,id,mud,npcs,nid, \
+                                      itemsDB,best_match,puzzledStr, \
+                                      guildsDB):
                 return
 
             # buy or exchange
-            if conversationBuyOrExchange(best_match, best_match_action,
-                                         best_match_action_param0,
-                                         best_match_action_param1,
-                                         npcs, nid, mud, id, players,
-                                         itemsDB, puzzledStr):
+            if conversationBuyOrExchange(best_match, best_match_action, \
+                                         best_match_action_param0, \
+                                         best_match_action_param1, \
+                                         npcs, nid, mud, id, players, \
+                                         itemsDB, puzzledStr, guildsDB):
                 return
 
         if npcs[nid]['familiarOf'] == players[id]['name'] or \
