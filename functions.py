@@ -39,7 +39,7 @@ def TimeStringToSec(durationStr):
         return int(dur[0]) * 60 * 60 * 24
     return 1
 
-def getSentiment(text, sentimentDB):
+def getSentiment(text: str, sentimentDB: {}) -> int:
     """Returns a sentiment score for the given text
        which can be positive or negative
     """
@@ -50,6 +50,22 @@ def getSentiment(text, sentimentDB):
             sentiment = sentiment + value
     return sentiment
 
+def getGuildSentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
+    """Returns the sentiment of the guild of the first player towards the second
+    """
+    if not players[id].get('guild'):
+        return 0
+    if not players[id].get('guildRole'):
+        return 0
+    guildName=players[id]['guild']
+    if not guilds.get(guildName):
+        return 0
+    otherPlayerName=npcs[p]['name']
+    if not guilds[guildname]['affinity'].get(otherPlayerName):
+        return 0
+    # NOTE: this could be adjusted by the strength of affinity
+    # between the player and the guild, but for now it's just hardcoded
+    return int(guilds[guildname]['affinity'][otherPlayerName]/2)
 
 def baselineAffinity(players, id):
     """Returns the average affinity value for the player

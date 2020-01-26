@@ -18,6 +18,7 @@ from functions import updatePlayerAttributes
 from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
+from functions import getGuildSentiment
 from functions import randomDescription
 from random import randint
 from copy import deepcopy
@@ -1239,6 +1240,9 @@ def npcConversation(
                         if len(conv) >= 5:
                             best_match_action_param1 = conv[4]
 
+    sentimentScore= \
+        getSentiment(message, sentimentDB) + \
+        getGuildSentiment(players, id, npcs, nid, guildsDB)
     if getSentiment(message, sentimentDB) >= 0:
         increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
         increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)

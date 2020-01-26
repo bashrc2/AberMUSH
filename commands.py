@@ -24,6 +24,7 @@ from functions import randomDescription
 from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
+from functions import getGuildSentiment
 from environment import runTide
 from environment import assignCoordinates
 from traps import playerIsTrapped
@@ -844,7 +845,10 @@ def tell(
                                 p,
                                 eventSchedule,
                                 eventDB)
-                            if getSentiment(message, sentimentDB) >= 0:
+                            sentimentScore= \
+                                getSentiment(message, sentimentDB) + \
+                                getGuildSentiment(players, id, players, p, guildsDB)
+                            if sentimentScore >= 0:
                                 increaseAffinityBetweenPlayers(
                                     players, id, players, p, guildsDB)
                             else:
@@ -962,7 +966,10 @@ def whisper(
                                     selfOnly = True
                                     break
 
-                            if getSentiment(message[1:], sentimentDB) >= 0:
+                            sentimentScore= \
+                                getSentiment(message[1:], sentimentDB) + \
+                                getGuildSentiment(players, id, players, p, guildsDB)
+                            if sentimentScore >= 0:
                                 increaseAffinityBetweenPlayers(
                                     players, id, players, p, guildsDB)
                             else:
@@ -1889,7 +1896,11 @@ def say(
                     continue
                 if selfOnly == False or pid == id:
                     if players[id]['speakLanguage'] in players[pid]['language']:
-                        if getSentiment(params, sentimentDB) >= 0:
+                        sentimentScore= \
+                            getSentiment(params, sentimentDB) + \
+                            getGuildSentiment(players, id, players, pid, guildsDB)
+                        
+                        if sentimentScore >= 0:
                             increaseAffinityBetweenPlayers(
                                 players, id, players, pid, guildsDB)
                             increaseAffinityBetweenPlayers(
