@@ -222,25 +222,26 @@ def moveNPCs(npcs, players, mud, now, nid):
                 if len(npcRoomIndex)==0:
                     npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
 
-        for (pid, pl) in list(players.items()):
-            if npcs[nid]['room'] == players[pid]['room']:
-                mud.send_message(
-                    pid,'<f220>' + \
-                    npcs[nid]['name'] + \
-                    "<r> " + \
-                    randomDescription(npcs[nid]['outDescription']) + \
-                    "\n\n")
         rm = npcs[nid]['path'][npcRoomIndex]
-        npcs[nid]['room'] = rm
-        npcs[nid]['lastRoom'] = rm
-        for (pid, pl) in list(players.items()):
-            if npcs[nid]['room'] == players[pid]['room']:
-                mud.send_message(
-                    pid,'<f220>' + \
-                    npcs[nid]['name'] + \
-                    "<r> " + \
-                    randomDescription(npcs[nid]['inDescription']) + \
-                    "\n\n")
+        if npcs[nid]['room'] != rm:
+            for (pid, pl) in list(players.items()):
+                if npcs[nid]['room'] == players[pid]['room']:
+                    mud.send_message(
+                        pid,'<f220>' + \
+                        npcs[nid]['name'] + \
+                        "<r> " + \
+                        randomDescription(npcs[nid]['outDescription']) + \
+                        "\n\n")
+            npcs[nid]['room'] = rm
+            npcs[nid]['lastRoom'] = rm
+            for (pid, pl) in list(players.items()):
+                if npcs[nid]['room'] == players[pid]['room']:
+                    mud.send_message(
+                        pid,'<f220>' + \
+                        npcs[nid]['name'] + \
+                        "<r> " + \
+                        randomDescription(npcs[nid]['inDescription']) + \
+                        "\n\n")
         npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
         npcs[nid]['lastMoved'] = now
 
