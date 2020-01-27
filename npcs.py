@@ -225,11 +225,10 @@ def moveNPCs(npcs, players, mud, now, nid):
         for (pid, pl) in list(players.items()):
             if npcs[nid]['room'] == players[pid]['room']:
                 mud.send_message(
-                    pid,
-                    '<f220>' +
-                    npcs[nid]['name'] +
-                    "<r> " +
-                    randomDescription(npcs[nid]['outDescription']) +
+                    pid,'<f220>' + \
+                    npcs[nid]['name'] + \
+                    "<r> " + \
+                    randomDescription(npcs[nid]['outDescription']) + \
                     "\n\n")
         rm = npcs[nid]['path'][npcRoomIndex]
         npcs[nid]['room'] = rm
@@ -237,11 +236,10 @@ def moveNPCs(npcs, players, mud, now, nid):
         for (pid, pl) in list(players.items()):
             if npcs[nid]['room'] == players[pid]['room']:
                 mud.send_message(
-                    pid,
-                    '<f220>' +
-                    npcs[nid]['name'] +
-                    "<r> " +
-                    randomDescription(npcs[nid]['inDescription']) +
+                    pid,'<f220>' + \
+                    npcs[nid]['name'] + \
+                    "<r> " + \
+                    randomDescription(npcs[nid]['inDescription']) + \
                     "\n\n")
         npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
         npcs[nid]['lastMoved'] = now
@@ -319,8 +317,8 @@ def runNPCs(
                             msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + \
                                 npcs[nid]['vocabulary'][rnd] + "\n\n"
                             mud.send_message(pid, msg)
-                            npcs[nid]['randomizer'] = randint(
-                                0, npcs[nid]['randomFactor'])
+                            npcs[nid]['randomizer'] = \
+                                randint(0, npcs[nid]['randomFactor'])
                             npcs[nid]['lastSaid'] = rnd
                             npcs[nid]['timeTalked'] = now
                         else:
@@ -328,8 +326,8 @@ def runNPCs(
                             msg = '<f220>' + npcs[nid]['name'] + '<r> says: <f86>' + \
                                 npcs[nid]['vocabulary'][0] + "\n\n"
                             mud.send_message(pid, msg)
-                            npcs[nid]['randomizer'] = randint(
-                                0, npcs[nid]['randomFactor'])
+                            npcs[nid]['randomizer'] = \
+                                randint(0, npcs[nid]['randomFactor'])
                             npcs[nid]['timeTalked'] = now
 
         # Iterate through fights and see if anyone is attacking an NPC -
@@ -389,14 +387,15 @@ def runNPCs(
                     players[pl]['familiar']=-1
             fightsCopy = deepcopy(fights)
             for (fight, pl) in fightsCopy.items():
-                if fightsCopy[fight]['s1id'] == nid or \
-                   fightsCopy[fight]['s2id'] == nid:
+                if fightsCopy[fight]['s1id']==nid or \
+                   fightsCopy[fight]['s2id']==nid:
                     del fights[fight]
-                    corpses[len(corpses)] = {'room': npcs[nid]['room'],
-                                             'name': str(npcs[nid]['name'] + '`s corpse'),
-                                             'inv': npcs[nid]['inv'],
-                                             'died': int(time.time()),
-                                             'TTL': npcs[nid]['corpseTTL'], 'owner': 1}
+                    corpses[len(corpses)] = \
+                        {'room': npcs[nid]['room'],
+                         'name': str(npcs[nid]['name'] + '`s corpse'),
+                         'inv': npcs[nid]['inv'],
+                         'died': int(time.time()),
+                         'TTL': npcs[nid]['corpseTTL'], 'owner': 1}
             for (pid, pl) in list(players.items()):
                 if players[pid]['authenticated'] is not None:
                     if players[pid]['authenticated'] is not None and \
@@ -430,14 +429,11 @@ def runNPCs(
                         continue
                     if players[p]['room'] == npcs[nid]['lastRoom']:
                         mud.send_message(
-                            p,
-                            "Right before <f220>" +
-                            str(
-                                npcs[nid]['name']) +
-                            "<r>'s lifeless body collapsed to the floor, " +
+                            p, "Right before <f220>" + \
+                            str(npcs[nid]['name']) + \
+                            "<r>'s lifeless body collapsed to the floor, " + \
                             "it had dropped the following items: <f220>{}".format(
-                                ', '.join(droppedItems)) +
-                            "\n")
+                                ', '.join(droppedItems)) + "\n")
 
 def conversationState(word, conversation_states, nid, npcs, match_ctr) -> (bool,bool,int):
     """Is the conversations with this npc in the given state?
@@ -661,30 +657,26 @@ def conversationGive(
             if itemID not in list(players[id]['inv']):
                 players[id]['inv'].append(str(itemID))
                 updatePlayerAttributes(id, players, itemsDB, itemID, 1)
-                players[id]['wei'] = playerInventoryWeight(
-                    id, players, itemsDB)
+                players[id]['wei'] = \
+                    playerInventoryWeight(id, players, itemsDB)
                 increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
                 increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
                 mud.send_message(
                     id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
                     best_match+".")
                 mud.send_message(
-                    id,
-                    "<f220>" +
-                    npcs[nid]['name'] +
-                    "<r> gives you " +
-                    itemsDB[itemID]['article'] +
-                    ' ' +
-                    itemsDB[itemID]['name'] +
+                    id, "<f220>" + \
+                    npcs[nid]['name'] + \
+                    "<r> gives you " + \
+                    itemsDB[itemID]['article'] + \
+                    ' '+itemsDB[itemID]['name'] + \
                     ".\n\n")
                 return True
         mud.send_message(
-            id,
-            "<f220>" +
-            npcs[nid]['name'] +
-            "<r> looks " +
-            puzzledStr +
-            ".\n\n")
+            id, "<f220>" + \
+            npcs[nid]['name'] + \
+            "<r> looks " + \
+            puzzledStr+".\n\n")
         return True
     return False
 
@@ -715,16 +707,19 @@ def conversationSkill(
                 return False
             if '+' in skillValueStr:
                 # increase skill
-                players[id][newSkill] = players[id][newSkill] + \
+                players[id][newSkill] = \
+                    players[id][newSkill] + \
                     int(skillValueStr.replace('+', ''))
             else:
                 # decrease skill
                 if '-' in skillValueStr:
-                    players[id][newSkill] = players[id][newSkill] - \
+                    players[id][newSkill] = \
+                        players[id][newSkill] - \
                         int(skillValueStr.replace('-', ''))
                 else:
                     # set skill to absolute value
-                    players[id][newSkill] = players[id][newSkill] + \
+                    players[id][newSkill] = \
+                        players[id][newSkill] + \
                         int(skillValueStr)
 
             increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
@@ -736,12 +731,10 @@ def conversationSkill(
             return True
         else:
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> looks " +
-                puzzledStr +
-                ".\n\n")
+                id, "<f220>" + \
+                npcs[nid]['name'] + \
+                "<r> looks " + \
+                puzzledStr+".\n\n")
             return False
     return False
 
@@ -771,12 +764,10 @@ def conversationExperience(
             return True
         else:
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> looks " +
-                puzzledStr +
-                ".\n\n")
+                id, "<f220>" + \
+                npcs[nid]['name'] + \
+                "<r> looks " + \
+                puzzledStr+".\n\n")
             return False
     return False
 
@@ -808,12 +799,10 @@ def conversationJoinGuild(
             return True
         else:
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> looks " +
-                puzzledStr +
-                ".\n\n")
+                id, "<f220>" + \
+                npcs[nid]['name'] + \
+                "<r> looks " + \
+                puzzledStr+".\n\n")
             return False
     return False
 
@@ -844,12 +833,9 @@ def conversationFamiliarMode(
                     if mode == 'hide':
                         familiarHide(nid, npcs, npcsDB) 
                     mud.send_message(
-                        id,
-                        "<f220>" +
-                        npcs[nid]['name'] +
-                        "<r> " +
-                        best_match +
-                        ".\n\n")                    
+                        id, "<f220>" + \
+                        npcs[nid]['name'] + \
+                        "<r> "+best_match+".\n\n")                    
                     if mode == 'scout':
                         familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, best_match_action_param1)
                     if mode == 'see':
@@ -857,16 +843,13 @@ def conversationFamiliarMode(
                     return True
             else:
                 mud.send_message(
-                    id,
-                    npcs[nid]['name'] + " is not your familiar.\n\n")
+                    id, npcs[nid]['name'] + " is not your familiar.\n\n")
         else:
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> looks " +
-                puzzledStr +
-                ".\n\n")
+                id, "<f220>" + \
+                npcs[nid]['name'] + \
+                "<r> looks " + \
+                puzzledStr+".\n\n")
             return False
     return False
 
@@ -900,18 +883,14 @@ def conversationTransport(
                 mud, players, id, '<f32>{}<r> arrives.'.format(
                     players[id]['name']) + "\n\n")
             mud.send_message(
-                id,
-                "You are in " +
-                rooms[roomID]['name'] +
-                "\n\n")
+                id, "You are in " + \
+                rooms[roomID]['name']+"\n\n")
             return True
         mud.send_message(
-            id,
-            "<f220>" +
-            npcs[nid]['name'] +
-            "<r> looks " +
-            puzzledStr +
-            ".\n\n")
+            id,"<f220>" + \
+            npcs[nid]['name'] + \
+            "<r> looks " + \
+            puzzledStr+".\n\n")
         return True
     return False
 
@@ -951,10 +930,8 @@ def conversationTaxi(
                     mud, players, id, '<f32>{}<r> arrives.'.format(
                         players[id]['name']) + "\n\n")
                 mud.send_message(
-                    id,
-                    "You are in " +
-                    rooms[roomID]['name'] +
-                    "\n\n")
+                    id,"You are in " + \
+                    rooms[roomID]['name']+"\n\n")
                 return True
             else:
                 mud.send_message(
@@ -963,12 +940,10 @@ def conversationTaxi(
                     itemsDB[itemBuyID]['name']+".\n\n")
                 return True
         mud.send_message(
-            id,
-            "<f220>" +
-            npcs[nid]['name'] +
-            "<r> looks " +
-            puzzledStr +
-            ".\n\n")
+            id, "<f220>" + \
+            npcs[nid]['name'] + \
+            "<r> looks " + \
+            puzzledStr+".\n\n")
         return True
     return False
 
@@ -1003,8 +978,8 @@ def conversationGiveOnDate(
                         if monthNumber == int(
                                 datetime.datetime.today().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
-                            players[id]['wei'] = playerInventoryWeight(
-                                id, players, itemsDB)
+                            players[id]['wei'] = \
+                                playerInventoryWeight(id, players, itemsDB)
                             updatePlayerAttributes(
                                 id, players, itemsDB, itemID, 1)
                             increaseAffinityBetweenPlayers(
@@ -1014,14 +989,11 @@ def conversationGiveOnDate(
                             mud.send_message(
                                 id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
                             mud.send_message(
-                                id,
-                                "<f220>" +
-                                npcs[nid]['name'] +
-                                "<r> gives you " +
-                                itemsDB[itemID]['article'] +
-                                ' ' +
-                                itemsDB[itemID]['name'] +
-                                ".\n\n")
+                                id, "<f220>" + \
+                                npcs[nid]['name'] + \
+                                "<r> gives you " + \
+                                itemsDB[itemID]['article'] + \
+                                ' '+itemsDB[itemID]['name']+".\n\n")
                             return True
         mud.send_message(
             id,
@@ -1060,15 +1032,13 @@ def conversationBuyOrExchange(
             if str(itemSellID) not in list(npcs[nid]['inv']):
                 if best_match_action == 'buy':
                     mud.send_message(
-                        id,
-                        "<f220>" +
-                        npcs[nid]['name'] +
+                        id,"<f220>" + \
+                        npcs[nid]['name'] + \
                         "<r> says: I don't have any of those to sell.\n\n")
                 else:
                     mud.send_message(
-                        id,
-                        "<f220>" +
-                        npcs[nid]['name'] +
+                        id,"<f220>" + \
+                        npcs[nid]['name'] + \
                         "<r> says: I don't have any of those to trade.\n\n")
             else:
                 if str(itemBuyID) in list(players[id]['inv']):
@@ -1077,8 +1047,8 @@ def conversationBuyOrExchange(
                         updatePlayerAttributes(
                             id, players, itemsDB, itemBuyID, -1)
                         players[id]['inv'].append(str(itemSellID))
-                        players[id]['wei'] = playerInventoryWeight(
-                            id, players, itemsDB)
+                        players[id]['wei'] = \
+                            playerInventoryWeight(id, players, itemsDB)
                         updatePlayerAttributes(
                             id, players, itemsDB, itemSellID, 1)
                         if str(itemBuyID) not in list(npcs[nid]['inv']):
@@ -1086,54 +1056,48 @@ def conversationBuyOrExchange(
                         increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
                         increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
                         mud.send_message(
-                            id,
-                            "<f220>" +
-                            npcs[nid]['name'] +
-                            "<r> says: " +
-                            best_match +
-                            ".")
+                            id,"<f220>" + \
+                            npcs[nid]['name'] + \
+                            "<r> says: " + \
+                            best_match+".")
                         mud.send_message(
-                            id,
-                            "<f220>" +
-                            npcs[nid]['name'] +
-                            "<r> gives you " +
-                            itemsDB[itemID]['article'] +
-                            ' ' +
-                            itemsDB[itemID]['name'] +
+                            id,"<f220>" + \
+                            npcs[nid]['name'] + \
+                            "<r> gives you " + \
+                            itemsDB[itemID]['article'] + \
+                            ' '+itemsDB[itemID]['name'] + \
                             ".\n\n")
                     else:
-                        mud.send_message(id, "<f220>" + npcs[nid]['name'] +
-                                         "<r> says: I see you already have " +
-                                         itemsDB[itemSellID]['article'] + ' ' +
+                        mud.send_message(id, "<f220>" + npcs[nid]['name'] + \
+                                         "<r> says: I see you already have " + \
+                                         itemsDB[itemSellID]['article'] + ' ' + \
                                          itemsDB[itemSellID]['name'] + ".\n\n")
                 else:
                     if best_match_action == 'buy':
                         mud.send_message(
-                            id,
-                            "<f220>" +
-                            npcs[nid]['name'] +
-                            "<r> says: " +
-                            itemsDB[itemSellID]['article'] +
-                            ' ' +
-                            itemsDB[itemSellID]['name'] +
-                            " costs " +
-                            itemsDB[itemBuyID]['article'] +
-                            ' ' +
-                            itemsDB[itemBuyID]['name'] +
+                            id,"<f220>" + \
+                            npcs[nid]['name'] + \
+                            "<r> says: " + \
+                            itemsDB[itemSellID]['article'] + \
+                            ' ' + \
+                            itemsDB[itemSellID]['name'] + \
+                            " costs " + \
+                            itemsDB[itemBuyID]['article'] + \
+                            ' ' + \
+                            itemsDB[itemBuyID]['name'] + \
                             ".\n\n")
                     else:
                         mud.send_message(
-                            id,
-                            "<f220>" +
-                            npcs[nid]['name'] +
-                            "<r> says: I'll give you " +
-                            itemsDB[itemSellID]['article'] +
-                            ' ' +
-                            itemsDB[itemSellID]['name'] +
-                            " in exchange for " +
-                            itemsDB[itemBuyID]['article'] +
-                            ' ' +
-                            itemsDB[itemBuyID]['name'] +
+                            id,"<f220>" + \
+                            npcs[nid]['name'] + \
+                            "<r> says: I'll give you " + \
+                            itemsDB[itemSellID]['article'] + \
+                            ' ' + \
+                            itemsDB[itemSellID]['name'] + \
+                            " in exchange for " + \
+                            itemsDB[itemBuyID]['article'] + \
+                            ' ' + \
+                            itemsDB[itemBuyID]['name'] + \
                             ".\n\n")
         else:
             mud.send_message(
@@ -1183,11 +1147,10 @@ def npcConversation(
     if npcs[nid].get('language'):
         if players[id]['speakLanguage'] not in npcs[nid]['language']:
             mud.send_message(
-                id,
-                "<f220>" +
-                npcs[nid]['name'] +
-                "<r> looks " +
-                puzzledStr +
+                id,"<f220>" + \
+                npcs[nid]['name'] + \
+                "<r> looks " + \
+                puzzledStr + \
                 ". They don't understand your language.\n\n")
             return
 
