@@ -2214,7 +2214,7 @@
         "imp_feet" : "0",
         "inDescription": "scampers in",
         "outDescription": "scampers",
-        "lookDescription": "sits in the shadows"
+        "lookDescription": "Sits in the shadows|Is sleeping"
     },
     "393": {
         "name": "a cute little bunny rabbit",
@@ -2406,7 +2406,7 @@
         "imp_feet" : "0",
         "inDescription": "scampers in",
         "outDescription": "scampers",
-        "lookDescription": "frolicks in the grass"
+        "lookDescription": "frolicks in the grass|The bunny hops and nibbles"
     },
     "405": {
         "name": "the old inn-keeper",
