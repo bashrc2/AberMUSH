@@ -7343,7 +7343,7 @@
 	    "west": "$rid=1009$"
         },
         "name": "All At Sea",
-        "description": "To your west the waves lap against a a narrow beach, to the south the sea becomes treacherous as it crashes against rocks, some of them submerged. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they wash around a high cliff.",
+        "description": "To your west the waves lap against a narrow beach, to the south the sea becomes treacherous as it crashes against rocks, some of them submerged. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they wash around a high cliff.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
@@ -7352,7 +7352,7 @@
         "maxPlayers": 2,
         "weather": 1,
         "onWater": 1,
-        "tideOutDescription" : "To your west the waves lap against a a narrow beach, to the south the sea becomes treacherous as it crashes against rocks, some of them submerged. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they meet a high cliff.",
+        "tideOutDescription" : "To your west the waves lap against a beach, to the south the sea becomes treacherous as it crashes against barnacle encrusted rocks. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they meet a high cliff.",
         "terrainDifficulty": 0,
         "coords": []
     },
