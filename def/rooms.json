@@ -5522,8 +5522,8 @@
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "tideOutDescription" : "",
@@ -7645,8 +7645,8 @@
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "tideOutDescription" : "",
@@ -7654,7 +7654,7 @@
         "coords": [],
         "exits": {
             "up": "$rid=1248$",
-            "out": "$rid=1248$"
+            "down": "$rid=1042$"
         }
     },
     "$rid=1042$": {
@@ -7664,16 +7664,15 @@
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
-        "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "up": "$rid=1248$",
-            "out": "$rid=1248$"
+            "up": "$rid=1241$"
         }
     },
     "$rid=1046$": {
@@ -9863,7 +9862,7 @@
             "south": "$rid=710$",
             "west": "$rid=1307$",
             "up": "$rid=1307$",
-            "down": "$rid=1247$"
+            "down": "$rid=1041$"
         }
     },
     "$rid=1250$": {
