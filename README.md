@@ -536,6 +536,14 @@ The system includes a dynamic weather simulation with varying seasonal and daily
 
 For coastal locations an optional alternative description may be entered into `tideOutDescription`. When the tide is in the default `description` parameter will be used.
 
+It is also possible to specify exits which only become available when the tide is out, to implement [tidal islands](https://en.wikipedia.org/wiki/Tidal_island).
+
+``` json
+"tideOutExits": {
+    "east": "$rid=7160$"
+},
+```
+
 ![AberMUSH](docs/combat.png)
 
 ### Players in Combat

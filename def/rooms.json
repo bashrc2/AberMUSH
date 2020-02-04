@@ -3773,7 +3773,7 @@
         "maxPlayers": 2,
         "weather": 1,
         "onWater": 1,
-        "tideOutDescription" : "",
+        "tideOutDescription" : "You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. Jagged rocks protrude from the shoreline.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
