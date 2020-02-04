@@ -2280,6 +2280,18 @@ def showNPCImage(mud,id,npcName) -> None:
     with open(npcImageFilename, 'r') as npcFile:
         mud.send_image(id,'\n'+npcFile.read())
 
+def getRoomExits(rooms: {},players: {},id) -> []:
+    """Returns a list of exits for the given player
+    """
+    rm = rooms[players[id]['room']]
+    exits = rm['exits']
+    if rm.get('lowTideExits'):
+        if not isinstance(rm['lowTideExits'], list):
+            return exits
+        if runTide() < 0:
+            exits += rm['lowTideExits']
+    return exits
+
 def look(
         params,
         mud,
@@ -2380,9 +2392,7 @@ def look(
 
             # send player a message containing the list of exits from this room
             mud.send_message(
-                id, '<f230>Exits are: <f220>{}'.format(
-                    ', '.join(
-                        rm['exits'])))
+                id, '<f230>Exits are: <f220>{}'.format(', '.join(getRoomExits(rooms,players,id))))
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
@@ -4037,109 +4047,115 @@ def go(
         rm = rooms[players[id]['room']]
 
         # if the specified exit is found in the room's exits list
-        if ex in rm['exits']:
+        rmExits=getRoomExits(rooms,players,id)
+        if ex in rmExits:
             # check if there is enough room
-            targetRoom=rm['exits'][ex]
-            if rooms[targetRoom]['maxPlayers']>-1:
-                if playersInRoom(targetRoom,players,npcs) >= rooms[targetRoom]['maxPlayers']:
-                    mud.send_message(id, 'The room is full.\n\n')
-                    return
+            targetRoom=None
+            if ex in rm['exits']:
+                targetRoom=rm['exits'][ex]
+            elif rm.get('lowTideExits'):
+                targetRoom=rm['lowTideExits'][ex]
+            if targetRoom:
+                if rooms[targetRoom]['maxPlayers']>-1:
+                    if playersInRoom(targetRoom,players,npcs) >= rooms[targetRoom]['maxPlayers']:
+                        mud.send_message(id, 'The room is full.\n\n')
+                        return
 
-            #Check that the player is not too tall
-            if rooms[targetRoom]['maxPlayerSize']>-1:
-                if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
-                    mud.send_message(id, "The entrance is too small for you to enter.\n\n")
-                    return
+                #Check that the player is not too tall
+                if rooms[targetRoom]['maxPlayerSize']>-1:
+                    if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
+                        mud.send_message(id, "The entrance is too small for you to enter.\n\n")
+                        return
 
-            if not stepping:
-                if trapActivation(mud,id,players,rooms,ex):
-                    return
+                if not stepping:
+                    if trapActivation(mud,id,players,rooms,ex):
+                        return
 
-            if rooms[players[id]['room']]['onWater']==0:
-                messageToPlayersInRoom(mud, players, id, '<f32>' +
-                                       players[id]['name'] + '<r> ' +
-                                       randomDescription(players[id]['outDescription']) +
-                                       " via exit " + ex + '\n')
+                if rooms[players[id]['room']]['onWater']==0:
+                    messageToPlayersInRoom(mud, players, id, '<f32>' +
+                                           players[id]['name'] + '<r> ' +
+                                           randomDescription(players[id]['outDescription']) +
+                                           " via exit " + ex + '\n')
 
-            # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] is not "":
-                addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
-                               id, eventSchedule, eventDB)
+                # Trigger old room eventOnLeave for the player
+                if rooms[players[id]['room']]['eventOnLeave'] is not "":
+                    addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
+                                   id, eventSchedule, eventDB)
 
-            # Does the player have any follower NPCs or familiars?
-            followersMsg = ""
-            for (nid, pl) in list(npcs.items()):
-                if npcs[nid]['follow'] == players[id]['name'] or (
-                        npcs[nid]['familiarOf'] == players[id]['name'] and npcs[nid]['familiarMode'] == 'follow'):
-                    # is the npc in the same room as the player?
-                    if npcs[nid]['room'] == players[id]['room']:
-                        # is the player within the permitted npc path?
-                        if rm['exits'][ex] in list(npcs[nid]['path']) or \
-                           npcs[nid]['familiarOf'] == players[id]['name']:
-                            followerRoomID=rm['exits'][ex]
-                            if npcs[nid]['siz'] <= rooms[followerRoomID]['maxPlayerSize']:
-                                npcs[nid]['room'] = followerRoomID
-                                followersMsg = followersMsg + '<f32>' + \
-                                    npcs[nid]['name'] + '<r> ' + \
-                                    randomDescription(npcs[nid]['inDescription']) + '.\n\n'
-                                messageToPlayersInRoom(
-                                    mud,
-                                    players,
-                                    id,
-                                    '<f32>' +
-                                    npcs[nid]['name'] +
-                                    '<r> ' +
-                                    randomDescription(npcs[nid]['outDescription']) +
-                                    " via exit " +
-                                    ex +
-                                    '\n')
+                # Does the player have any follower NPCs or familiars?
+                followersMsg = ""
+                for (nid, pl) in list(npcs.items()):
+                    if npcs[nid]['follow'] == players[id]['name'] or (
+                            npcs[nid]['familiarOf'] == players[id]['name'] and npcs[nid]['familiarMode'] == 'follow'):
+                        # is the npc in the same room as the player?
+                        if npcs[nid]['room'] == players[id]['room']:
+                            # is the player within the permitted npc path?
+                            if rm['exits'][ex] in list(npcs[nid]['path']) or \
+                               npcs[nid]['familiarOf'] == players[id]['name']:
+                                followerRoomID=rm['exits'][ex]
+                                if npcs[nid]['siz'] <= rooms[followerRoomID]['maxPlayerSize']:
+                                    npcs[nid]['room'] = followerRoomID
+                                    followersMsg = followersMsg + '<f32>' + \
+                                        npcs[nid]['name'] + '<r> ' + \
+                                        randomDescription(npcs[nid]['inDescription']) + '.\n\n'
+                                    messageToPlayersInRoom(
+                                        mud,
+                                        players,
+                                        id,
+                                        '<f32>' +
+                                        npcs[nid]['name'] +
+                                        '<r> ' +
+                                        randomDescription(npcs[nid]['outDescription']) +
+                                        " via exit " +
+                                        ex +
+                                        '\n')
+                                else:
+                                    # The room height is too small for the follower
+                                    npcs[nid]['follow'] = ""                                
                             else:
-                                # The room height is too small for the follower
-                                npcs[nid]['follow'] = ""                                
+                                # not within the npc path, stop following
+                                #print(npcs[nid]['name'] + ' stops following (out of path)\n')
+                                npcs[nid]['follow'] = ""
                         else:
-                            # not within the npc path, stop following
-                            #print(npcs[nid]['name'] + ' stops following (out of path)\n')
+                            # stop following
+                            #print(npcs[nid]['name'] + ' stops following\n')
                             npcs[nid]['follow'] = ""
-                    else:
-                        # stop following
-                        #print(npcs[nid]['name'] + ' stops following\n')
-                        npcs[nid]['follow'] = ""
 
-            # update the player's current room to the one the exit leads to
-            if rooms[players[id]['room']]['onWater']==1:
-                playersMoveTogether(id,rm['exits'][ex],mud, \
-                                    playersDB,players,rooms,npcsDB,npcs, \
-                                    itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                                    fights,corpses,blocklist,mapArea, \
-                                    characterClassDB,spellsDB,sentimentDB,guildsDB)
-            players[id]['room'] = rm['exits'][ex]
-            rm = rooms[players[id]['room']]
+                # update the player's current room to the one the exit leads to
+                if rooms[players[id]['room']]['onWater']==1:
+                    playersMoveTogether(id,rm['exits'][ex],mud, \
+                                        playersDB,players,rooms,npcsDB,npcs, \
+                                        itemsDB,items,envDB,env,eventDB,eventSchedule, \
+                                        fights,corpses,blocklist,mapArea, \
+                                        characterClassDB,spellsDB,sentimentDB,guildsDB)
+                players[id]['room'] = rm['exits'][ex]
+                rm = rooms[players[id]['room']]
 
-            # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] is not "":
-                addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
-                               id, eventSchedule, eventDB)
+                # trigger new room eventOnEnter for the player
+                if rooms[players[id]['room']]['eventOnEnter'] is not "":
+                    addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
+                                   id, eventSchedule, eventDB)
 
-            if rooms[players[id]['room']]['onWater']==0:
-                messageToPlayersInRoom(mud, players, id, '<f32>' +
-                                       players[id]['name'] + '<r> ' +
-                                       randomDescription(players[id]['inDescription']) + "\n\n")
-                # send the player a message telling them where they are now
-                mud.send_message(id, \
-                                 'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
-            else:
-                # send the player a message telling them where they are now
-                mud.send_message(id, \
-                                 'You row to <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
+                if rooms[players[id]['room']]['onWater']==0:
+                    messageToPlayersInRoom(mud, players, id, '<f32>' +
+                                           players[id]['name'] + '<r> ' +
+                                           randomDescription(players[id]['inDescription']) + "\n\n")
+                    # send the player a message telling them where they are now
+                    mud.send_message(id, \
+                                     'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
+                else:
+                    # send the player a message telling them where they are now
+                    mud.send_message(id, \
+                                     'You row to <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
 
-            look('',mud,playersDB,players,rooms,npcsDB,npcs, \
-                 itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                 id,fights,corpses,blocklist,mapArea, \
-                 characterClassDB,spellsDB,sentimentDB,guildsDB)            
-            # report any followers
-            if len(followersMsg) > 0:
-                messageToPlayersInRoom(mud, players, id, followersMsg)
-                mud.send_message(id, followersMsg)
+                look('',mud,playersDB,players,rooms,npcsDB,npcs, \
+                     itemsDB,items,envDB,env,eventDB,eventSchedule, \
+                     id,fights,corpses,blocklist,mapArea, \
+                     characterClassDB,spellsDB,sentimentDB,guildsDB)            
+                # report any followers
+                if len(followersMsg) > 0:
+                    messageToPlayersInRoom(mud, players, id, followersMsg)
+                    mud.send_message(id, followersMsg)
         else:
             # the specified exit wasn't found in the current room
             # send back an 'unknown exit' message
@@ -4277,7 +4293,7 @@ def conjureRoom(
 
     # Is there already a room in that direction?
     playerRoomID = players[id]['room']
-    roomExits = rooms[playerRoomID]['exits']
+    roomExits = getRoomExits(rooms,players,id)
     if roomExits.get(roomDirection):
         mud.send_message(id, 'A room already exists in that direction.\n\n')
         return False
@@ -4892,7 +4908,7 @@ def destroyRoom(
 
     # Is there already a room in that direction?
     playerRoomID = players[id]['room']
-    roomExits = rooms[playerRoomID]['exits']
+    roomExits = getRoomExits(rooms,players,id)
     if not roomExits.get(roomDirection):
         mud.send_message(id, 'There is no room in that direction.\n\n')
         return False
