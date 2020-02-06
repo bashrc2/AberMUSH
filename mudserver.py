@@ -205,7 +205,7 @@ class MudServer(object):
                 sendCtr+=1
                 if sendCtr>4:
                     break
-            self._attempt_send(to,'\n')
+        self._attempt_send(to,'\n')
 
     def send_message(self, to, message):
         """Sends the text in the 'message' parameter to the player with
