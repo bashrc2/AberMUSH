@@ -223,7 +223,7 @@ class MudServer(object):
             if sendCtr>4:
                 break
 
-    def send_image(self, to, message) -> None:
+    def send_image(self, to, message, noDelay=False) -> None:
         """Sends the ANSI image in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -257,7 +257,8 @@ class MudServer(object):
         except socket.error as e:
             print("Couldnt send image, socket error: "+str(e))
             self._handle_disconnect(to)
-        time.sleep(2)
+        if not noDelay:
+            time.sleep(2)
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and

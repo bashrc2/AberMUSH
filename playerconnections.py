@@ -145,7 +145,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
                 motdImageFile=lineStr.strip()
                 if os.path.isfile(motdImageFile):
                     with open(motdImageFile, 'r') as imgFile:
-                        mud.send_image(id,'\n'+imgFile.read())
+                        mud.send_image(id,'\n'+imgFile.read(),True)
             else:
                 mud.send_message(id, lineStr)
 
