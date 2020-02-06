@@ -194,7 +194,7 @@ class MudServer(object):
         # message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
-        wrapped=textwrap.wrap(message, width=70)
+        wrapped=textwrap.wrap(message, width=65)
         prependChar='<f15><b0>'
         if prefix:
             prependChar=prefix
