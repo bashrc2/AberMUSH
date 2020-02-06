@@ -140,7 +140,12 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
         motdFile.close()
         linesCount = len(motdLines)
         for l in motdLines:
-            mud.send_message(id, l[:-1])
+            lineStr=l[:-1]
+            if lineStr.strip().startswith('images/'):
+                if os.path.isfile(lineStr.strip()):
+                    mud.send_image(id,lineStr.strip())
+            else:
+                mud.send_message(id, lineStr)
 
         if not os.path.isfile(".disableRegistrations"):
             mud.send_message_wrap(
