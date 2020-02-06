@@ -2344,7 +2344,7 @@ def look(
                         if rm['trap']['trapActivation'].startswith('pressure'):
                             roomDescription += randomDescription(" The faint outline of a pressure plate can be seen on the floor.| The outline of a pressure plate is visible on the floor.")
 
-            mud.send_message_wrap(id, '<f230>', "\n<f230>" + roomDescription.strip())
+            mud.send_message_wrap(id, '<f230>', "<f230>" + roomDescription.strip())
             playershere = []
 
             itemshere = []

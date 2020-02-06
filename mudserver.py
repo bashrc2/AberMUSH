@@ -200,7 +200,7 @@ class MudServer(object):
             prependChar=prefix
         for messageLine in wrapped:
             sendCtr=0
-            while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n'):
+            while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n\n'):
                 time.sleep(1)
                 sendCtr+=1
                 if sendCtr>4:
