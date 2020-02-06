@@ -1912,21 +1912,21 @@ def say(
                                 players, pid, players, id, guildsDB)
 
                         # send them a message telling them what the player said
-                        mud.send_message(
-                            pid, '<f220>{}<r> says: <f159>{}'.format(
-                                players[id]['name'], params) + "\n\n")
+                        mud.send_message_wrap(
+                            pid, '<f230>', \
+                            '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
                     else:
                         if players[id]['speakLanguage'] != 'cant':
-                            mud.send_message(
-                                pid, '<f220>{}<r> says something in <f159>{}<r>'.format(
-                                    players[id]['name'], players[id]['speakLanguage']) + "\n\n")
+                            mud.send_message_wrap(
+                                pid, '<f230>', \
+                                '<f220>{}<r> says something in <f159>{}<r>'.format(players[id]['name'], players[id]['speakLanguage']) + "\n\n")
                         else:
-                            mud.send_message(
-                                pid, '<f220>{}<r> says: <f159>{}'.format(
-                                    players[id]['name'], cantStr) + "\n\n")
+                            mud.send_message_wrap(
+                                pid, '<f230>', \
+                                '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], cantStr) + "\n\n")
     else:
-        mud.send_message(
-            id,
+        mud.send_message_wrap(
+            id, '<f230>', \
             'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
 def holdingLightSource(players,id,itemsDB) -> bool:
