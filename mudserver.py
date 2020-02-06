@@ -241,7 +241,7 @@ class MudServer(object):
                 if linectr<=60:
                     self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
                     time.sleep(0.03)
-                linectr+=1
+                linectr-=1
             self._clients[to].socket.sendall(bytearray(cmsg('<b0>'),'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
