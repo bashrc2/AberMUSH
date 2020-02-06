@@ -766,6 +766,8 @@ You can also add a night time version of the image by appending _night to the fi
 climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]_night
 ```
 
+![AberMUSH](docs/creators.png)
+
 ### Constructing the Universe
 
 AberMUSH is already large by the standards of the late 1980s when AberMUD was originally developed, having about 600 rooms. But you don't have to stop there. Witches have the power to alter the universe arbitrarily by adding or removing rooms, items and NPCs interactively while the game is in progress. They can also change the descriptions.
