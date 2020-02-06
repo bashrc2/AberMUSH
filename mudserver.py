@@ -200,11 +200,12 @@ class MudServer(object):
             prependChar=prefix
         for messageLine in wrapped:
             sendCtr=0
-            while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n\n'):
+            while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n'):
                 time.sleep(1)
                 sendCtr+=1
                 if sendCtr>4:
                     break
+            self._attempt_send(to,'\n')
 
     def send_message(self, to, message):
         """Sends the text in the 'message' parameter to the player with
