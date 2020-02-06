@@ -359,11 +359,11 @@ def initialSetupAfterLogin(mud,id,players: {},dbResponse: []):
 
     # send the new player a welcome message
     mud.send_message_wrap(id, '<f255>', \
-                          '\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
+                          '\n\n<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
     mud.send_message_wrap(id, '<f255>', \
-                          '\n<f255>Hello there traveller! You have connected to an AberMUSH server. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the repo for further info. Thanks for your interest in AberMUSH.')
+                          '\n\n<f255>Hello there traveller! You have connected to an AberMUSH server. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the repo for further info. Thanks for your interest in AberMUSH.')
     mud.send_message_wrap(id, '<f255>', \
-                          "\n<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions.")
+                          "\n\n<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions.")
     mud.send_message_wrap(id, '<f255>', \
-                          "\n<f255>Type '<r><f220>look<r><f255>' to see what's around you.\n\n")
+                          "\n\n<f255>Type '<r><f220>look<r><f255>' to see what's around you.\n\n")
 
