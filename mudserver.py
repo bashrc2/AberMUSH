@@ -239,7 +239,7 @@ class MudServer(object):
             # the data is sent in one go
             linectr=len(messageLines)
             for lineStr in messageLines:
-                if linectr<=40:
+                if linectr<=30:
                     self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
                     time.sleep(0.03)
                 linectr-=1
