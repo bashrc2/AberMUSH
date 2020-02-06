@@ -2525,7 +2525,12 @@
             [["wizard","universe","server"],"I used to rule this universe, but after I retired it all went to rack and ruin. Not my fault!|Once I ruled this universe, but after a while I decided it just wasn't worth it. Now under new management things are getting shabby|When I ruled this universe things were kept in good order|Any universe is only as good as its management, and now I'm retired you can see the results for yourself"],
 	    [["anarchy"],"Anarchy by name. Anarchy by nature|Anarchy is the force which animates our universe|I am Anarchy|Anarchy is the spirit of all true adventurers|Anarchy is the force eternally at work in our world|Without anarchy there is no true order"],
 	    [["aberystwyth","swansea"],"It's a fine place|It's a great town"],
-	    [["abermud"],"Never heard of it|Aber-what?"],
+	    [["abermud"],"Never heard of it|Aber-what?|I don't think I've heard of that"],
+	    [["birfle"],"Birfle likes to think of themselves as an enrepreneur. A 'self-made man'. Scam artist, more like|Don't buy anything from Birfle. Whatever he's selling will be fake|Apparently Birfle had some sort of cryptocurrency scam going. When it all went south he did a runner. Nobody has seen him since|People like Birfle were part of the decline of this city. Hucksters with fancy schemes stealing people's money"],
+	    [["island"],"The island was where Birfle created his libertarian paradise. But it didn't work out well|Birfle set up a base on the island and tried to turn it into a tax haven"],
+	    [["viking"],"The vikings are kind of boring, to be honest. Best avoided"],
+	    [["mines","mining","gold"],"The dwarves do a lot of mining. Some say they're building yet another fortress"],
+	    [["tranoch"],"Tranoch has been economically going downhill for a while. Apparently the investors pulled out after a scandal involving 'toxic assets', but I care little about the financial details|Tranoch isn't not what it used to be. Becoming a ghost town. Nobody invests here now"],
 	    [["greet","hello"],"# Takes a sip of his ale|# Ignores you|# Scratches his beard|# Looks out of the window|# Taps his fingers on the bench"]
         ],
         "path" : ["$rid=432$","$rid=1290$"],
