@@ -31454,7 +31454,7 @@
         "mod_cha": 0,
         "mod_int": 0,
         "mod_agi": 0,
-        "mod_luc": 0,
+        "mod_luc": 10,
         "mod_cool": 0,
         "weight": 50,
         "edible": 0,
