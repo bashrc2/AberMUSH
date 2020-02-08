@@ -275,8 +275,9 @@ def npcRespawns(npcs):
     """Respawns inactive NPCs
     """
     for (nid, pl) in list(npcs.items()):
-        if npcs[nid]['whenDied'] is not None and \
-           int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
+        if not npcs[nid]['whenDied']:
+            continue
+        if int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
             if len(npcs[nid]['familiarOf']) == 0:
                 npcs[nid]['whenDied'] = None
                 #npcs[nid]['room'] = npcsTemplate[nid]['room']
