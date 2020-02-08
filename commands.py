@@ -394,11 +394,40 @@ def freeze(
         if isWitch(id, players):
             target = params.partition(' ')[0]
             if len(target) != 0:
+                # freeze players
                 for p in players:
-                    if players[p]['name'] == target:
+                    if players[p]['whenDied']:
+                        mud.send_message(
+                            id, "Freezing a player while dead is pointless\n\n")
+                        continue
+                    if players[p]['frozenStart'] > 0:
+                        mud.send_message(
+                            id, "They are already frozen\n\n")
+                        continue
+                    if target in players[p]['name']:
                         if not isWitch(p, players):
                             players[p]['canGo'] = 0
                             players[p]['canAttack'] = 0
+                            mud.send_message(
+                                id, "You have frozen " + target + "\n\n")
+                        else:
+                            mud.send_message(
+                                id, "You try to freeze " + target + " but their power is too strong.\n\n")
+                        return
+                # freeze npcs
+                for p in npcs:
+                    if npcs[p]['whenDied']:
+                        mud.send_message(
+                            id, "Freezing while dead is pointless\n\n")
+                        continue
+                    if npcs[p]['frozenStart'] > 0:
+                        mud.send_message(
+                            id, "They are already frozen\n\n")
+                        continue
+                    if target in npcs[p]['name']:
+                        if not isWitch(p, npcs):
+                            npcs[p]['canGo'] = 0
+                            npcs[p]['canAttack'] = 0
                             mud.send_message(
                                 id, "You have frozen " + target + "\n\n")
                         else:
@@ -435,11 +464,23 @@ def unfreeze(
             target = params.partition(' ')[0]
             if len(target) != 0:
                 if target.lower() != 'guest':
+                    # unfreeze players
                     for p in players:
-                        if players[p]['name'] == target:
+                        if target in players[p]['name']:
                             if not isWitch(p, players):
                                 players[p]['canGo'] = 1
                                 players[p]['canAttack'] = 1
+                                players[p]['frozenStart'] = 0
+                                mud.send_message(
+                                    id, "You have unfrozen " + target + "\n\n")
+                            return
+                    # unfreeze npcs
+                    for p in npcs:
+                        if target in npcs[p]['name']:
+                            if not isWitch(p, npcs):
+                                npcs[p]['canGo'] = 1
+                                npcs[p]['canAttack'] = 1
+                                npcs[p]['frozenStart'] = 0
                                 mud.send_message(
                                     id, "You have unfrozen " + target + "\n\n")
                             return
