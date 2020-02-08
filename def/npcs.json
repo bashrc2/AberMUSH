@@ -2824,7 +2824,7 @@
         "conv" : [
             [["e","i","u"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously"]
         ],
-        "path" : ['$rid=519$'],
+        "path" : ["$rid=519$"],
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
