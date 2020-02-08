@@ -36,6 +36,7 @@ import os
 from functions import log
 from functions import addToScheduler
 from npcs import moveNPCs
+from npcs import corpseExists
 from random import randint
 from copy import deepcopy
 
@@ -49,13 +50,6 @@ def removeCorpses(corpses: {}):
         if int(time.time()) >= corpsesCopy[c]['died'] + corpsesCopy[c]['TTL']:
             del corpses[c]
 
-def corpseExists(corpses: {},room: str,name: str) -> bool:
-    corpsesCopy = deepcopy(corpses)
-    for (c, pl) in corpsesCopy.items():
-        if corpsesCopy[c]['room'] == room:
-            if corpsesCopy[c]['name'] == name:
-                return True
-    return False
 
 def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
     # Handle Player Deaths

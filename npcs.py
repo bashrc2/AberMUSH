@@ -28,9 +28,18 @@ from familiar import familiarScout
 from familiar import familiarHide
 from familiar import familiarIsHidden
 from familiar import familiarSight
-from reaper import corpseExists
 
 import time
+
+def corpseExists(corpses: {},room: str,name: str) -> bool:
+    """Returns true if a corpse with the given name exists in the given room
+    """
+    corpsesCopy = deepcopy(corpses)
+    for (c, pl) in corpsesCopy.items():
+        if corpsesCopy[c]['room'] == room:
+            if corpsesCopy[c]['name'] == name:
+                return True
+    return False
 
 def npcsRest(npcs):
     """Rest restores hit points of NPCs
