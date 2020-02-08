@@ -1311,6 +1311,8 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
             }
             players[pid]['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
+            mud.send_message(
+                pid, '<u><f21>'+npcs[id]['name']+'<r> attacks!\n')
 
             # addToScheduler('0|msg|<b63>You are being attacked by ' + players[id]['name'] + "!", pid, eventSchedule, eventDB)
 
