@@ -2816,7 +2816,7 @@
     "536": {
         "inDescription": "scurries in",
         "outDescription": "scurries away",
-        "lookDescription": "The giant rat squeaks and shows its teeth|Hunched in the corner is a giant and vicious-looking rat|The giant rat screeches loudly",
+        "lookDescription": "The giant rat squeaks and shows its teeth|Hunched in the corner is a giant and vicious-looking rat|The giant rat screeches loudly|The giant rat glares at you",
         "name": "the giant rat",
         "inv" : [],
         "speakLanguage": "common",
