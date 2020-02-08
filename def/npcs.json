@@ -2814,9 +2814,9 @@
         "lookDescription": "The giant snake looks like an anaconda. Its forked tongue flicking in and out. Its reptillian eyes observe you suspiciously."
     },
     "536": {
-        "inDescription": "arrives",
-        "outDescription": "goes",
-        "lookDescription": "The giant rat stands before you squeaking and showing its teeth",
+        "inDescription": "scurries in",
+        "outDescription": "scurries away",
+        "lookDescription": "The giant rat squeaks and shows its teeth|Hunched in the corner is a giant and vicious-looking rat|The giant rat screeches loudly",
         "name": "the giant rat",
         "inv" : [],
         "speakLanguage": "common",
