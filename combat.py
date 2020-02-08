@@ -1385,6 +1385,8 @@ def npcAggression(npcs: {},players: {},fights: {},mud):
         # dead npcs don't attack
         if npcs[nid]['whenDied']:
             continue
+        if npcs[nid]['frozenStart'] > 0 or npcs[nid]['canAttack'] == 0:
+            continue
         # already attacking?
         if isAttacking(npcs,nid,fights):
             continue
