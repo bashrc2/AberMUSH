@@ -71,7 +71,10 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 # maximum weight of items which can be carried
 maxWeight = 100
 
+
 def removeItemFromClothing(players: {}, id: int, itemID: {}) -> None:
+    """If worn an item is removed
+    """
     for c in wearLocation:
         if int(players[id]['clo_'+c]) == itemID:
             players[id]['clo_'+c] = 0
@@ -103,6 +106,8 @@ def sendCommandError(
 
 
 def isWitch(id: int, players: {}) -> bool:
+    """Have we found a witch?
+    """
     name = players[id]['name']
 
     if not os.path.isfile("witches"):
@@ -120,6 +125,8 @@ def isWitch(id: int, players: {}) -> bool:
 
 
 def disableRegistrations(mud, id: int, players: {}) -> None:
+    """Turns off new registrations
+    """
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -132,6 +139,8 @@ def disableRegistrations(mud, id: int, players: {}) -> None:
 
 
 def enableRegistrations(mud, id: int, players: {}) -> None:
+    """Turns on new registrations
+    """
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
