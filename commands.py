@@ -34,7 +34,7 @@ from traps import teleportFromTrap
 from traps import escapeFromTrap
 from combat import isAttacking
 from combat import getAttackingTarget
-from combat import beginAttack
+from combat import playerBeginsAttack
 
 from proficiencies import thievesCant
 
@@ -2639,7 +2639,7 @@ def attack(
             target = params.replace('the ', '')
 
         if not isAttacking(players,id,fights):
-            beginAttack(players,id,target,npcs,fights,mud)
+            playerBeginsAttack(players,id,target,npcs,fights,mud)
         else:
             currentTarget = getAttackingTarget(players,id,fights)
             if not isinstance(currentTarget, int):

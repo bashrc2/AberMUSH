@@ -1190,8 +1190,8 @@ def getAttackingTarget(players: {},id,fights: {}):
     return None
 
 
-def beginAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bool:
-    """Begins an attack on the target player or npc
+def playerBeginsAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bool:
+    """Player begins an attack on another player or npc
     """
     targetFound = False
     if players[id]['name'].lower() == target.lower():
