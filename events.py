@@ -581,8 +581,8 @@ def spawnItem(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
 
         
 def npcExists(npcs, name):
-    for n in npcs.items():
-        if name in n[1]['name']:
+    for (nid, pl) in list(npcs.items()):
+        if name in npcs[nid]['name']:
             return True
     return False
 

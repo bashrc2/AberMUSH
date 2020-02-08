@@ -207,9 +207,9 @@ log("Environment Actors loaded: " + str(len(envDB)), "info")
 # print (y,':',env[x][y])
 
 log("Loading NPCs...", "info")
-if os.path.isfile("universe_npcs.json"):
-    with open("universe_npcs.json", "r") as read_file:
-        npcs = json.loads(read_file.read())
+#if os.path.isfile("universe_npcs.json"):
+#    with open("universe_npcs.json", "r") as read_file:
+#        npcs = json.loads(read_file.read())
 
 if os.path.isfile("universe_npcsdb.json"):
     with open("universe_npcsdb.json", "r") as read_file:

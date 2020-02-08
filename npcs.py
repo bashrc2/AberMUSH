@@ -247,9 +247,6 @@ def moveNPCs(npcs, players, mud, now, nid):
 
 def removeInactiveNPC(nid, npcs, npcActive):
     # Where NPCs go when inactive by default
-    if not npcs[nid]['moveTimes']:
-        return
-
     purgatoryRoom="$rid=1386$"
 
     for timeRange in npcs[nid]['moveTimes']:
