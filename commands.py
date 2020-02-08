@@ -2403,8 +2403,10 @@ def look(
                         ', '.join(playershere)))
 
             # send player a message containing the list of exits from this room
-            mud.send_message(
-                id, '<f230>Exits are: <f220>{}'.format(', '.join(getRoomExits(rooms,players,id))))
+            roomExitsStr=getRoomExits(rooms,players,id)
+            if roomExitsStr:
+                mud.send_message(
+                    id, '<f230>Exits are: <f220>{}'.format(', '.join(roomExitsStr)))
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
