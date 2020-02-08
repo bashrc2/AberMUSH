@@ -7,7 +7,7 @@
         "conv" : [
             [["e"],"Eeeek!"]
         ],
-        "path" : [],
+        "path" : ["$rid=7$"],
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
@@ -47,9 +47,9 @@
         "frozenDescription": "",
         "spellSlots": {},
         "preparedSpells": {},
-        "hp" : "24332",
-        "hpMax": "24332",
-        "charge" : "1233",
+        "hp" : "20",
+        "hpMax": "20",
+        "charge" : "20",
         "lvl" : "5",
         "exp" : "32",
         "str" : "80",
@@ -2824,7 +2824,7 @@
         "conv" : [
             [["e","i","u"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously"]
         ],
-        "path" : [],
+        "path" : ['$rid=519$'],
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
@@ -2864,9 +2864,9 @@
         "frozenDescription": "",
         "spellSlots": {},
         "preparedSpells": {},
-        "hp" : "200",
-        "hpMax": "200",
-        "charge" : "1233",
+        "hp" : "20",
+        "hpMax": "20",
+        "charge" : "20",
         "lvl" : "6",
         "exp" : "32",
         "str" : "97",
