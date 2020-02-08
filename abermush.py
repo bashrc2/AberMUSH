@@ -530,7 +530,8 @@ while True:
         mapArea,
         clouds,
         racesDB,
-        characterClassDB)
+        characterClassDB,
+        guildsDB)
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it

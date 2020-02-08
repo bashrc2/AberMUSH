@@ -702,7 +702,8 @@ def runFightsBetweenPlayers(
         mapArea: [],
         clouds: {},
         racesDB: {},
-        characterClassDB: {}):
+        characterClassDB: {},
+        guilds: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -800,9 +801,9 @@ def runFightsBetweenPlayers(
                                 ' + ' + str(damagePoints)
 
                     decreaseAffinityBetweenPlayers(
-                        players, s2id, players, s1id)
+                        players,s2id,players,s1id,guilds)
                     decreaseAffinityBetweenPlayers(
-                        players, s1id, players, s2id)
+                        players,s1id,players,s2id,guilds)
                     mud.send_message(
                         s1id,'You ' + \
                         attackDescriptionFirst + \
@@ -870,7 +871,8 @@ def runFightsBetweenPlayerAndNPC(
         mapArea: [],
         clouds: {},
         racesDB: {},
-        characterClassDB: {}):
+        characterClassDB: {},
+        guilds: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -953,8 +955,8 @@ def runFightsBetweenPlayerAndNPC(
                             modifierStr = modifierStr + \
                                 ' + ' + str(damagePoints)
 
-                    decreaseAffinityBetweenPlayers(npcs, s2id, players, s1id)
-                    decreaseAffinityBetweenPlayers(players, s1id, npcs, s2id)
+                    decreaseAffinityBetweenPlayers(npcs,s2id,players,s1id,guilds)
+                    decreaseAffinityBetweenPlayers(players,s1id,npcs,s2id,guilds)
                     mud.send_message(
                         s1id,
                         'You ' +
@@ -1009,7 +1011,8 @@ def runFightsBetweenNPCAndPlayer(
         mapArea,
         clouds: {},
         racesDB: {},
-        characterClassDB: {}):
+        characterClassDB: {},
+        guilds: {}):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -1074,8 +1077,8 @@ def runFightsBetweenNPCAndPlayer(
                         modifierStr = modifierStr + str(damagePoints)
                     else:
                         modifierStr = modifierStr + ' + ' + str(damagePoints)
-                decreaseAffinityBetweenPlayers(npcs, s1id, players, s2id)
-                decreaseAffinityBetweenPlayers(players, s2id, npcs, s1id)
+                decreaseAffinityBetweenPlayers(npcs,s1id,players,s2id,guilds)
+                decreaseAffinityBetweenPlayers(players,s2id,npcs,s1id,guilds)
                 mud.send_message(
                     s2id,
                     '<f220>' +
@@ -1117,7 +1120,8 @@ def runFights(
         mapArea: [],
         clouds: {},
         racesDB: {},
-        characterClassDB: {}):
+        characterClassDB: {},
+        guilds: {}):
     """Handles fights
     """
     for (fid, pl) in list(fights.items()):
@@ -1135,7 +1139,8 @@ def runFights(
                 mapArea,
                 clouds,
                 racesDB,
-                characterClassDB)
+                characterClassDB,
+                guilds)
         # PC -> NPC
         elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
             runFightsBetweenPlayerAndNPC(
@@ -1150,7 +1155,8 @@ def runFights(
                 mapArea,
                 clouds,
                 racesDB,
-                characterClassDB)
+                characterClassDB,
+                guilds)
         # NPC -> PC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
             runFightsBetweenNPCAndPlayer(
@@ -1166,7 +1172,8 @@ def runFights(
                 mapArea,
                 clouds,
                 racesDB,
-                characterClassDB)
+                characterClassDB,
+                guilds)
         # NPC -> NPC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
             test = 1
