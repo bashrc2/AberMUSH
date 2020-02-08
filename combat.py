@@ -1300,6 +1300,18 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
                 's2type': 'pc',
                 'retaliated': 0
             }
+            fights[len(fights)] = {
+                's1': players[pid]['name'],
+                's2': id,
+                's1id': victimId,
+                's2id': attackerId,
+                's1type': 'pc',
+                's2type': 'npc',
+                'retaliated': 0
+            }
+            players[pid]['isInCombat'] = 1
+            npcs[id]['isInCombat'] = 1
+
             # addToScheduler('0|msg|<b63>You are being attacked by ' + players[id]['name'] + "!", pid, eventSchedule, eventDB)
 
     if not targetFound:
@@ -1332,6 +1344,17 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
                     's2type': 'npc',
                     'retaliated': 0
                 }                        
+                fights[len(fights)] = {
+                    's1': nid,
+                    's2': npc[id]['name'],
+                    's1id': victimId,
+                    's2id': attackerId,
+                    's1type': 'npc',
+                    's2type': 'npc',
+                    'retaliated': 0
+                }                        
+                npcs[nid]['isInCombat'] = 1
+                npcs[id]['isInCombat'] = 1
 
     return targetFound
 
