@@ -1245,6 +1245,10 @@ def playerBeginsAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bo
                         randomDescription("You can't attack your own familiar|You consider attacking your own familiar, but decide against it|Your familiar looks at you disapprovingly")+"\n\n")
                     return False
 
+                if npcs[nid]['isAttackable']==0:
+                    mud.send_message(id,"You can't attack them\n\n")
+                    return False
+
                 fights[len(fights)] = {
                     's1': players[id]['name'],
                     's2': nid,
@@ -1295,6 +1299,8 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
         for (nid, pl) in list(npcs.items()):
             if target.lower() not in npcs[nid]['name'].lower():
                 continue
+            if npcs[nid]['isAttackable']==0:
+                continue
 
             victimId = nid
             attackerId = id
@@ -1321,3 +1327,26 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
                 }                        
 
     return targetFound
+
+def npcAggression(npcs: {},players: {},fights: {}):
+    """Aggressive npcs start fights
+    """
+    for (nid, pl) in list(npcs.items()):
+        if not npcs[nid]['isAggressive']:
+            continue
+        # dead npcs don't attack
+        if npcs[nid]['whenDied']:
+            continue
+        # already attacking?
+        if isAttacking(npcs,nid,fights):
+            continue
+        # are there players in the same room?
+        for (pid, pl) in players.items():
+            if players[pid]['room'] == npcs[nid]['room']:
+                hasAffinity=False
+                if npcs[nid].get('affinity'):
+                    if npcs[nid]['affinity'].get(players[pid]['name']):
+                        if npcs[nid]['affinity'][players[pid]['name']] > 0:
+                            hasAffinity=True
+                if not hasAffinity:
+                    npcBeginsAttack(npcs,nid,players[pid]['name'],players,fights)

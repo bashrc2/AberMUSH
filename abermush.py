@@ -32,6 +32,7 @@ from functions import setRace
 from events import evaluateEvent
 
 from commands import runCommand
+from combat import npcAggression
 from combat import runFights
 from combat import playersRest
 from combat import updateTemporaryHitPoints
@@ -485,6 +486,9 @@ while True:
         if players[p]['name'] is not None and players[p]['authenticated'] is not None:
             if players[p]['name'] not in playerList:
                 playerList.append(players[p]['name'])
+
+    # Aggressive NPCs may attack players
+    npcAggression(npcs,players,fights)
 
     # pause for 1/5 of a second on each loop, so that we don't constantly
     # use 100% CPU time
