@@ -2822,9 +2822,9 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["e","i","u"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously"]
+            [["e","i","u"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously|# Lets forth a bloodcurdling shriek|# Cleans its whiskers|# Glares at you"]
         ],
-        "path" : ["$rid=519$"],
+        "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
