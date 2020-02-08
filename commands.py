@@ -6254,6 +6254,9 @@ def take(
     itemsInWorldCopy = deepcopy(items)
 
     if not itemInDB:
+        itemInDB = False
+        itemName = None
+        itemID = None
         # Try fuzzy match of the item name
         for (iid, pl) in list(itemsInWorldCopy.items()):
             if itemsInWorldCopy[iid]['room'] == players[id]['room']:
@@ -6267,15 +6270,7 @@ def take(
                     if itemIsVisible(id,players,itemsInWorldCopy[iid]['id'],itemsDB):
                         # ID of the item to be picked up
                         itemInDB = True
-                    else:
-                        itemInDB = False
-                        itemName = None
-                        itemID = None
                     break
-                else:
-                    itemInDB = False
-                    itemName = None
-                    itemID = None
 
     if itemInDB:
         if int(itemsDB[items[iid]['id']]['weight']) == 0:
