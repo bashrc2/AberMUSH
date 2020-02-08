@@ -1170,3 +1170,89 @@ def runFights(
         # NPC -> NPC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
             test = 1
+
+            
+def isAttacking(players: {},id,fights: {}) -> bool:
+    """Returns true if the given player is attacking
+    """
+    for (fight, pl) in fights.items():
+        if fights[fight]['s1'] == players[id]['name']:
+            return True
+    return False
+
+
+def getAttackingTarget(players: {},id,fights: {}):
+    """Return the player or npc which is the target of an attack
+    """
+    for (fight, pl) in fights.items():
+        if fights[fight]['s1'] == players[id]['name']:
+            return fights[fight]['s2']
+    return None
+
+
+def beginAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bool:
+    """Begins an attack on the target player or npc
+    """
+    targetFound = False
+    if players[id]['name'].lower() == target.lower():
+        mud.send_message(
+            id, \
+            'You attempt hitting yourself and realise this might not be the most productive way of using your time.\n')
+        return targetFound
+
+    for (pid, pl) in players.items():
+        if players[pid]['authenticated'] and \
+           players[pid]['name'].lower() == target.lower():
+            targetFound = True
+            victimId = pid
+            attackerId = id
+            if players[pid]['room'] == players[id]['room']:
+                fights[len(fights)] = {
+                    's1': players[id]['name'],
+                    's2': target,
+                    's1id': attackerId,
+                    's2id': victimId,
+                    's1type': 'pc',
+                    's2type': 'pc',
+                    'retaliated': 0
+                }
+                mud.send_message(
+                    id, '<f214>Attacking <r><f255>' + target + '!\n')
+                # addToScheduler('0|msg|<b63>You are being attacked by ' + players[id]['name'] + "!", pid, eventSchedule, eventDB)
+            else:
+                targetFound = False
+
+    if not targetFound:
+        for (nid, pl) in list(npcs.items()):
+            if target.lower() in npcs[nid]['name'].lower():
+                victimId = nid
+                attackerId = id
+                # found target npc
+                if npcs[nid]['room'] == players[id]['room'] and \
+                   targetFound == False:
+                    targetFound = True
+                    # target found!
+                    if players[id]['room'] == npcs[nid]['room']:
+                        if npcs[nid]['familiarOf'] == players[id]['name']:
+                            mud.send_message(
+                                id, "You can't attack your own familiar!\n\n")
+                            return
+
+                        fights[len(fights)] = {
+                            's1': players[id]['name'],
+                            's2': nid,
+                            's1id': attackerId,
+                            's2id': victimId,
+                            's1type': 'pc',
+                            's2type': 'npc',
+                            'retaliated': 0
+                        }
+                        mud.send_message(
+                            id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+                    else:
+                        pass
+
+    if not targetFound:
+        mud.send_message(
+            id, 'You cannot see ' + target + ' anywhere nearby.\n')
+    return targetFound
