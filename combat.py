@@ -422,20 +422,28 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
             "ineptly punch"
         ]
     else:
-        if animalType is not 'bird':
+        if animalType is 'bird':
+            attackStrings = [
+                "claw",
+                "peck",
+                "viciously peck",
+                "savagely peck"
+            ]
+        elif animalType is 'cat' or animalType is 'rat':
+            attackStrings = [
+                "claw",
+                "scratch",
+                "bite",
+                "viciously bite",
+                "savagely chew"
+            ]
+        else:
             attackStrings = [
                 "savage",
                 "maul",
                 "bite",
                 "viciously bite",
                 "savagely gnaw"
-            ]
-        else:
-            attackStrings = [
-                "claw",
-                "peck",
-                "viciously peck",
-                "savagely peck"
             ]
 
     attackDescriptionFirst = \
@@ -449,20 +457,28 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
             "ineptly punched"
         ]
     else:
-        if animalType is not 'bird':
+        if animalType is 'bird':
+            attackStrings = [
+                "clawed",
+                "pecked",
+                "viciously pecked",
+                "savagely pecked"
+            ]
+        elif animalType is 'cat' or animalType is 'rat':
+            attackStrings = [
+                "clawed",
+                "scratched",
+                "bit",
+                "viciously bit",
+                "savagely chewed"
+            ]
+        else:
             attackStrings = [
                 "savaged",
                 "mauled",
                 "took a bite at",
                 "viciously bit into",
                 "savagely gnawed into"
-            ]
-        else:
-            attackStrings = [
-                "clawed",
-                "pecked",
-                "viciously pecked",
-                "savagely pecked"
             ]
 
     attackDescriptionSecond = \
