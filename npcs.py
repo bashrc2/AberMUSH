@@ -28,6 +28,7 @@ from familiar import familiarScout
 from familiar import familiarHide
 from familiar import familiarIsHidden
 from familiar import familiarSight
+from reaper import corpseExists
 
 import time
 
@@ -392,12 +393,14 @@ def runNPCs(
                 if fightsCopy[fight]['s1id']==nid or \
                    fightsCopy[fight]['s2id']==nid:
                     del fights[fight]
-                    corpses[len(corpses)] = \
-                        {'room': npcs[nid]['room'],
-                         'name': str(npcs[nid]['name'] + '`s corpse'),
-                         'inv': npcs[nid]['inv'],
-                         'died': int(time.time()),
-                         'TTL': npcs[nid]['corpseTTL'], 'owner': 1}
+                    corpseName=str(npcs[nid]['name'] + "'s corpse")
+                    if not corpseExists(corpses,npcs[nid]['room'],corpseName):
+                        corpses[len(corpses)] = \
+                            {'room': npcs[nid]['room'],
+                             'name': corpseName,
+                             'inv': npcs[nid]['inv'],
+                             'died': int(time.time()),
+                             'TTL': npcs[nid]['corpseTTL'], 'owner': 1}
             for (pid, pl) in list(players.items()):
                 if players[pid]['authenticated'] is not None:
                     if players[pid]['authenticated'] is not None and \
