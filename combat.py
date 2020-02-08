@@ -1274,7 +1274,7 @@ def playerBeginsAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bo
     return targetFound
 
 
-def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
+def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {},mud) -> bool:
     """npc begins an attack on a player or another npc
     """
     targetFound = False
@@ -1360,7 +1360,7 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {}) -> bool:
 
     return targetFound
 
-def npcAggression(npcs: {},players: {},fights: {}):
+def npcAggression(npcs: {},players: {},fights: {},mud):
     """Aggressive npcs start fights
     """
     for (nid, pl) in list(npcs.items()):
@@ -1381,4 +1381,4 @@ def npcAggression(npcs: {},players: {},fights: {}):
                         if npcs[nid]['affinity'][players[pid]['name']] > 0:
                             hasAffinity=True
                 if not hasAffinity:
-                    npcBeginsAttack(npcs,nid,players[pid]['name'],players,fights)
+                    npcBeginsAttack(npcs,nid,players[pid]['name'],players,fights,mud)
