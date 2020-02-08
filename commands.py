@@ -406,6 +406,11 @@ def freeze(
                         continue
                     if target in players[p]['name']:
                         if not isWitch(p, players):
+                            # remove from any fights
+                            for (fight, pl) in fights.items():
+                                if fights[fight]['s1id']==p or \
+                                   fights[fight]['s2id']==p:
+                                    del fights[fight]
                             players[p]['canGo'] = 0
                             players[p]['canAttack'] = 0
                             mud.send_message(
@@ -426,6 +431,12 @@ def freeze(
                         continue
                     if target in npcs[p]['name']:
                         if not isWitch(p, npcs):
+                            # remove from any fights
+                            for (fight, pl) in fights.items():
+                                if fights[fight]['s1id']==p or \
+                                   fights[fight]['s2id']==p:
+                                    del fights[fight]
+
                             npcs[p]['canGo'] = 0
                             npcs[p]['canAttack'] = 0
                             mud.send_message(

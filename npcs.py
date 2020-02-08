@@ -407,7 +407,7 @@ def runNPCs(
                         corpses[len(corpses)] = \
                             {'room': npcs[nid]['room'],
                              'name': corpseName,
-                             'inv': npcs[nid]['inv'],
+                             'inv': deepcopy(npcs[nid]['inv']),
                              'died': int(time.time()),
                              'TTL': npcs[nid]['corpseTTL'], 'owner': 1}
             for (pid, pl) in list(players.items()):

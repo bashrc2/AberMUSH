@@ -61,13 +61,12 @@ def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
                     # Create player's corpse in the room
                     corpses[len(corpses)] = {'room': players[pid]['room'],
                                              'name': corpseName,
-                                             'inv': players[pid]['inv'],
+                                             'inv': deepcopy(players[pid]['inv']),
                                              'died': int(time.time()),
                                              'TTL': players[pid]['corpseTTL'],
                                              'owner': 1}
                 # Clear player's inventory, it stays on the corpse
-                # This is bugged, causing errors when picking up things after death
-                # players[pid]['inv'] = ''
+                players[pid]['inv'] = []
                 players[pid]['isInCombat'] = 0
                 players[pid]['lastRoom'] = players[pid]['room']
                 players[pid]['room'] = '$rid=1262$'
