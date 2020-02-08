@@ -42,26 +42,35 @@ from copy import deepcopy
 import time
 
 
-def removeCorpses(corpses):
+def removeCorpses(corpses: {}):
     # Iterate through corpses and remove ones older than their TTL
     corpsesCopy = deepcopy(corpses)
     for (c, pl) in corpsesCopy.items():
         if int(time.time()) >= corpsesCopy[c]['died'] + corpsesCopy[c]['TTL']:
             del corpses[c]
 
+def corpseExists(corpses: {},room: str,name: str) -> bool:
+    corpsesCopy = deepcopy(corpses)
+    for (c, pl) in corpsesCopy.items():
+        if corpsesCopy[c]['room'] == room:
+            if corpsesCopy[c]['name'] == name:
+                return True
+    return False
 
 def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
     # Handle Player Deaths
     for (pid, pl) in list(players.items()):
         if players[pid]['authenticated']:
             if players[pid]['hp'] <= 0:
-                # Create player's corpse in the room
-                corpses[len(corpses)] = {'room': players[pid]['room'],
-                                         'name': str(players[pid]['name'] + '`s corpse'),
-                                         'inv': players[pid]['inv'],
-                                         'died': int(time.time()),
-                                         'TTL': players[pid]['corpseTTL'],
-                                         'owner': 1}
+                corpseName=str(players[pid]['name'] + "'s corpse")
+                if not corpseExists(corpses,players[pid]['room'],corpseName):
+                    # Create player's corpse in the room
+                    corpses[len(corpses)] = {'room': players[pid]['room'],
+                                             'name': corpseName,
+                                             'inv': players[pid]['inv'],
+                                             'died': int(time.time()),
+                                             'TTL': players[pid]['corpseTTL'],
+                                             'owner': 1}
                 # Clear player's inventory, it stays on the corpse
                 # This is bugged, causing errors when picking up things after death
                 # players[pid]['inv'] = ''
