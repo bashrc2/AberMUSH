@@ -188,9 +188,8 @@ def teleport(
             currRoom = players[id]['room']
             if rooms[currRoom]['name'].strip().lower() == targetLocation:
                 mud.send_message(
-                    id,
-                    "You are already in " +
-                    rooms[currRoom]['name'] +
+                    id, "You are already in " + \
+                    rooms[currRoom]['name'] + \
                     "\n\n")
                 return
             for rm in rooms:
@@ -206,8 +205,31 @@ def teleport(
                          itemsDB,items,envDB,env,eventDB,eventSchedule, \
                          id,fights,corpses,blocklist,mapArea, \
                          characterClassDB,spellsDB,sentimentDB, \
-                         guildsDB)                    
+                         guildsDB)
                     return
+
+            # try adding or removing "the"
+            if targetLocation.startswith('the '):
+                targetLocation=targetLocation.replace('the ','')
+            else:
+                targetLocation='the '+targetLocation
+                
+            for rm in rooms:
+                if rooms[rm]['name'].strip().lower() == targetLocation:
+                    mud.send_message(
+                        id, "You teleport to " + rooms[rm]['name'] + "\n\n")
+                    messageToPlayersInRoom(
+                        mud, players, id, '<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n\n")
+                    players[id]['room'] = rm
+                    messageToPlayersInRoom(
+                        mud, players, id, '<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n\n")
+                    look('',mud,playersDB,players,rooms,npcsDB,npcs, \
+                         itemsDB,items,envDB,env,eventDB,eventSchedule, \
+                         id,fights,corpses,blocklist,mapArea, \
+                         characterClassDB,spellsDB,sentimentDB, \
+                         guildsDB)
+                    return
+
             mud.send_message(
                 id, targetLocation+" isn't a place you can teleport to.\n\n")
         else:
