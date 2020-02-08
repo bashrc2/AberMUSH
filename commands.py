@@ -6234,6 +6234,7 @@ def take(
     itemID = None
     itemName = None
     itemPickedUp = False
+    itemIndex = None
     target = str(params).lower()
     if target.startswith('the '):
         target = params.replace('the ', '')
@@ -6245,6 +6246,7 @@ def take(
             itemID = iid
             itemName = itemsDB[iid2]['name']
             itemInDB = True
+            itemIndex = iid2
             break
         else:
             itemInDB = False
@@ -6260,20 +6262,21 @@ def take(
         # Try fuzzy match of the item name
         for (iid, pl) in list(itemsInWorldCopy.items()):
             if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                if target in itemsDB[itemsInWorldCopy[iid]['id']]['name'].lower():
-                    itemID = itemsDB[itemsInWorldCopy[iid]['id']]
-                    itemName = itemsDB[itemsInWorldCopy[iid]['id']]['name']
+                itemIndex=itemsInWorldCopy[iid]['id']
+                if target in itemsDB[itemIndex]['name'].lower():
+                    itemID = itemsDB[itemIndex]
+                    itemName = itemsDB[itemIndex]['name']
                     if itemInInventory(players,id,itemName,itemsDB):
                         mud.send_message(
                             id, 'You are already carring ' + itemName + '\n\n')
                         return
-                    if itemIsVisible(id,players,itemsInWorldCopy[iid]['id'],itemsDB):
+                    if itemIsVisible(id,players,itemIndex,itemsDB):
                         # ID of the item to be picked up
                         itemInDB = True
                     break
 
-    if itemInDB:
-        if int(itemsDB[items[iid]['id']]['weight']) == 0:
+    if itemInDB and itemIndex:
+        if int(itemsDB[itemIndex]['weight']) == 0:
             mud.send_message(id, "You can't pick that up.\n\n")
             return
 
@@ -6282,12 +6285,12 @@ def take(
                 if itemsDB[itemsInWorldCopy[iid]['id']]['name'] == itemName:
                     if players[id]['canGo'] != 0:
                         # Too heavy?
-                        players[id]['wei'] = playerInventoryWeight(
-                            id, players, itemsDB)
+                        players[id]['wei'] = \
+                            playerInventoryWeight(id, players, itemsDB)
 
-                        if players[id]['wei'] + itemsDB[itemsInWorldCopy[iid]['id']]['weight'] > maxWeight:
-                            mud.send_message(
-                                id, "You can't carry any more.\n\n")
+                        if players[id]['wei'] + \
+                           itemsDB[itemsInWorldCopy[iid]['id']]['weight'] > maxWeight:
+                            mud.send_message(id, "You can't carry any more.\n\n")
                             return
 
                         if playerIsTrapped(id,players,rooms):
@@ -6297,8 +6300,8 @@ def take(
                             return
 
                         players[id]['inv'].append(str(itemsInWorldCopy[iid]['id']))
-                        players[id]['wei'] = playerInventoryWeight(
-                            id, players, itemsDB)
+                        players[id]['wei'] = \
+                            playerInventoryWeight(id, players, itemsDB)
                         updatePlayerAttributes(
                             id, players, itemsDB, itemsInWorldCopy[iid]['id'], 1)
                         del items[iid]
