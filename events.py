@@ -580,26 +580,15 @@ def spawnItem(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         }
 
         
-def npcExists(npcs, name):
-    for (nid, pl) in list(npcs.items()):
-        if name in npcs[nid]['name']:
-            return True
-    return False
-
-
 def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
     tempVar = 0
     body = ebody.split(';')
-    # print(npcsDB)
-    # print(body)
-    # print(ebody)
 
     # if the size is unknown then estimate it
     if npcsDB[int(body[0])]['siz'] == 0:
         npcsDB[int(body[0])]['siz'] = sizeFromDescription(
             npcsDB[int(body[0])]['name'] + ' ' + npcsDB[int(body[0])]['lookDescription'])
 
-    #if not npcExists(npcs, npcsDB[int(body[0])]['name']):
     npcs[getFreeKey(npcs,90000)] = {
         'name': npcsDB[int(body[0])]['name'],
         'room': body[1],
