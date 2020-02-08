@@ -70,7 +70,7 @@ def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
                 # players[pid]['inv'] = ''
                 players[pid]['isInCombat'] = 0
                 players[pid]['lastRoom'] = players[pid]['room']
-                players[pid]['room'] = '$rid=666$'
+                players[pid]['room'] = '$rid=1262$'
                 fightsCopy = deepcopy(fights)
                 for (fight, pl) in fightsCopy.items():
                     if fightsCopy[fight]['s1id'] == pid or fightsCopy[fight]['s2id'] == pid:
