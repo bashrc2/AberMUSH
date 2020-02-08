@@ -422,14 +422,14 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
             "ineptly punch"
         ]
     else:
-        if animalType is 'bird':
+        if 'bird' in animalType:
             attackStrings = [
                 "claw",
                 "peck",
                 "viciously peck",
                 "savagely peck"
             ]
-        elif animalType is 'cat' or animalType is 'rat':
+        elif 'cat' in animalType or 'rat' in animalType:
             attackStrings = [
                 "claw",
                 "scratch",
@@ -457,14 +457,14 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
             "ineptly punched"
         ]
     else:
-        if animalType is 'bird':
+        if 'bird' in animalType:
             attackStrings = [
                 "clawed",
                 "pecked",
                 "viciously pecked",
                 "savagely pecked"
             ]
-        elif animalType is 'cat' or animalType is 'rat':
+        elif 'cat' in animalType or 'rat' in animalType:
             attackStrings = [
                 "clawed",
                 "scratched",
