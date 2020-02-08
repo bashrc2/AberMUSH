@@ -1397,5 +1397,5 @@ def npcAggression(npcs: {},players: {},fights: {},mud):
                         if npcs[nid]['affinity'][players[pid]['name']] > 0:
                             hasAffinity=True
                 if not hasAffinity:
-                    if randint(0, 100) > 97:
+                    if randint(0, 100) > 98:
                         npcBeginsAttack(npcs,nid,players[pid]['name'],players,fights,mud)
