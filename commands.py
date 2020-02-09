@@ -6242,6 +6242,9 @@ def take(
     for (iid, pl) in list(items.items()):
         iid2 = items[iid]['id']
         if itemsDB[iid2]['name'].lower() == target:
+            if int(itemsDB[iid2]['weight']) == 0:
+                mud.send_message(id,"You can't pick that up.\n\n")
+                return
             # ID of the item to be picked up
             itemID = iid
             itemName = itemsDB[iid2]['name']
@@ -6254,66 +6257,71 @@ def take(
     if not itemInDB:
         # Try fuzzy match of the item name
         for (iid, pl) in list(itemsInWorldCopy.items()):
-            if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                itemIndex=itemsInWorldCopy[iid]['id']
-                if target in itemsDB[itemIndex]['name'].lower():
-                    itemID = itemsDB[itemIndex]
-                    itemName = itemsDB[itemIndex]['name']
-                    if itemInInventory(players,id,itemName,itemsDB):
-                        mud.send_message(
-                            id, 'You are already carring ' + itemName + '\n\n')
-                        return
-                    if itemIsVisible(id,players,itemIndex,itemsDB):
-                        # ID of the item to be picked up
-                        itemInDB = True
-                    break
+            if itemsInWorldCopy[iid]['room'] != players[id]['room']:
+                continue
+            itemIndex=itemsInWorldCopy[iid]['id']
+            if target not in itemsInWorldCopy[itemIndex]['name'].lower():
+                continue
+            if int(itemsInWorldCopy[itemIndex]['weight']) == 0:
+                mud.send_message(id, "You can't pick that up.\n\n")
+                return
+
+            itemID = itemsInWorldCopy[itemIndex]
+            itemName = itemsInWorldCopy[itemIndex]['name']
+            if itemInInventory(players,id,itemName,itemsDB):
+                mud.send_message(
+                    id, 'You are already carring ' + itemName + '\n\n')
+                return
+            if itemIsVisible(id,players,itemIndex,itemsInWorldCopy):
+                # ID of the item to be picked up
+                itemInDB = True
+            break
 
     if itemInDB and itemIndex:
-        if int(itemsDB[itemIndex]['weight']) == 0:
-            mud.send_message(id, "You can't pick that up.\n\n")
-            return
-
         for (iid, pl) in list(itemsInWorldCopy.items()):
-            if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                if itemsDB[itemsInWorldCopy[iid]['id']]['name'] == itemName:
-                    if players[id]['canGo'] != 0:
-                        # Too heavy?
-                        players[id]['wei'] = \
-                            playerInventoryWeight(id, players, itemsDB)
+            # item in same room as player
+            if itemsInWorldCopy[iid]['room'] != players[id]['room']:
+                continue
+            itemIndex=itemsInWorldCopy[iid]['id']
+            # item has the expected name
+            if itemsDB[itemIndex]['name'] != itemName:
+                continue
+            # player can move
+            if players[id]['canGo'] != 0:
+                # is the item too heavy?
+                players[id]['wei'] = \
+                    playerInventoryWeight(id, players, itemsDB)
 
-                        if players[id]['wei'] + \
-                           itemsDB[itemsInWorldCopy[iid]['id']]['weight'] > maxWeight:
-                            mud.send_message(id, "You can't carry any more.\n\n")
-                            return
+                if players[id]['wei'] + \
+                    itemsDB[itemIndex]['weight'] > maxWeight:
+                    mud.send_message(id, "You can't carry any more.\n\n")
+                    return
 
-                        if playerIsTrapped(id,players,rooms):
-                            mud.send_message(
-                                id, randomDescription(
-                                    "You're trapped|The trap restricts your ability to take anything|The trap restricts your movement") + '.\n\n')
-                            return
+                # is the player restricted by a trap
+                if playerIsTrapped(id,players,rooms):
+                    mud.send_message(
+                        id, randomDescription("You're trapped|" + \
+                            "The trap restricts your ability to take anything|" + \
+                            "The trap restricts your movement") + '.\n\n')
+                    return
 
-                        players[id]['inv'].append(str(itemsInWorldCopy[iid]['id']))
-                        players[id]['wei'] = \
-                            playerInventoryWeight(id, players, itemsDB)
-                        updatePlayerAttributes(
-                            id, players, itemsDB, itemsInWorldCopy[iid]['id'], 1)
-                        del items[iid]
-                        itemPickedUp = True
-                        break
-                    else:
-                        mud.send_message(
-                            id,
-                            'You try to pick up ' +
-                            itemName +
-                            " but find that your arms won't move.\n\n")
-                        return
+                # add the item to the player's inventory
+                players[id]['inv'].append(str(itemIndex))
+                # update the weight of the player
+                players[id]['wei'] = playerInventoryWeight(id,players,itemsDB)
+                updatePlayerAttributes(id,players,itemsDB,itemIndex,1)
+                # remove the item from the dict
+                del items[iid]
+                itemPickedUp = True
+                break
+            else:
+                mud.send_message(id,'You try to pick up ' + itemName + \
+                                 " but find that your arms won't move.\n\n")
+                return
 
     if itemPickedUp:
-        mud.send_message(
-            id,
-            'You pick up and place ' +
-            itemName +
-            ' in your inventory.\n\n')
+        mud.send_message(id,'You pick up and place ' + \
+            itemName + ' in your inventory.\n\n')
         itemPickedUp = False
     else:
         # are there any open containers with this item?
@@ -6322,46 +6330,54 @@ def take(
             target = target2[0]
 
         for (iid, pl) in list(itemsInWorldCopy.items()):
-            if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-                if itemsDB[itemsInWorldCopy[iid]['id']]['state'].startswith(
-                        'container open'):
-                    for containerItemID in itemsDB[itemsInWorldCopy[iid]['id']]['contains']:
-                        itemName = itemsDB[int(containerItemID)]['name']
-                        if target in itemName.lower():
-                            if itemsDB[int(containerItemID)]['weight'] == 0:
-                                mud.send_message(
-                                    id, "You can't pick that up.\n\n")
-                                return
-                            else:
-                                if players[id]['canGo'] != 0:
-                                    # Too heavy?
-                                    carryingWeight = playerInventoryWeight(
-                                        id, players, itemsDB)
-                                    if carryingWeight + \
-                                            itemsDB[int(containerItemID)]['weight'] > maxWeight:
-                                        mud.send_message(
-                                            id, "You can't carry any more.\n\n")
-                                        return
+            # is the item in the same room as the player?
+            if itemsInWorldCopy[iid]['room'] != players[id]['room']:
+                continue
+            itemIndex=itemsInWorldCopy[iid]['id']
+            # is this an open container
+            if not itemsDB[itemIndex]['state'].startswith('container open'):
+                continue
+            # go through the items within the container
+            for containerItemID in itemsDB[itemIndex]['contains']:
+                # does the name match?
+                itemName = itemsDB[int(containerItemID)]['name']
+                if target not in itemName.lower():
+                    continue
+                # can the item be taken?
+                if itemsDB[int(containerItemID)]['weight'] == 0:
+                    mud.send_message(id,"You can't pick that up.\n\n")
+                    return
+                else:
+                    # can the player move?
+                    if players[id]['canGo'] != 0:
+                        # is the item too heavy?
+                        carryingWeight = \
+                            playerInventoryWeight(id,players,itemsDB)
+                        if carryingWeight + \
+                                itemsDB[int(containerItemID)]['weight'] > maxWeight:
+                            mud.send_message(id,"You can't carry any more.\n\n")
+                            return
 
-                                    players[id]['inv'].append(containerItemID)
-                                    itemsDB[itemsInWorldCopy[iid]['id']]['contains'].remove(
-                                        containerItemID)
-                                    mud.send_message(id, 'You take ' +
-                                                     itemsDB[int(containerItemID)]['article'] +
-                                                     ' ' +
-                                                     itemsDB[int(containerItemID)]['name'] +
-                                                     ' from ' +
-                                                     itemsDB[itemsInWorldCopy[iid]['id']]['article'] +
-                                                     ' ' +
-                                                     itemsDB[itemsInWorldCopy[iid]['id']]['name'] +
-                                                     '.\n\n')
-                                else:
-                                    mud.send_message(id, 'You try to pick up ' +
-                                                     itemsDB[int(containerItemID)]['article'] +
-                                                     ' ' +
-                                                     itemsDB[int(containerItemID)]['name'] +
-                                                     " but find that your arms won't move.\n\n")
-                                return
+                        # add the item to the player's inventory
+                        players[id]['inv'].append(containerItemID)
+                        # remove the item from the container
+                        itemsDB[itemIndex]['contains'].remove(containerItemID)
+                        mud.send_message(id, 'You take ' + \
+                                         itemsDB[int(containerItemID)]['article'] + \
+                                         ' ' + \
+                                         itemsDB[int(containerItemID)]['name'] + \
+                                         ' from ' + \
+                                         itemsDB[itemIndex]['article'] + \
+                                         ' ' + \
+                                         itemsDB[itemIndex]['name'] + \
+                                         '.\n\n')
+                    else:
+                        mud.send_message(id, 'You try to pick up ' + \
+                                         itemsDB[int(containerItemID)]['article'] + \
+                                         ' ' + \
+                                         itemsDB[int(containerItemID)]['name'] + \
+                                         " but find that your arms won't move.\n\n")
+                    return
 
         mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
         itemPickedUp = False
