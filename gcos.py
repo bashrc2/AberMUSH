@@ -1,6 +1,5 @@
 __filename__ = "gcos.py"
 __author__ = "Bob Mottram"
-__credits__ = ["Bartek Radwanski", "Mark Frimston"]
 __license__ = "AGPL3+"
 __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"

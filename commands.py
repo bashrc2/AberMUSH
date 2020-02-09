@@ -6248,17 +6248,10 @@ def take(
             itemInDB = True
             itemIndex = iid2
             break
-        else:
-            itemInDB = False
-            itemName = None
-            itemID = None
 
     itemsInWorldCopy = deepcopy(items)
 
     if not itemInDB:
-        itemInDB = False
-        itemName = None
-        itemID = None
         # Try fuzzy match of the item name
         for (iid, pl) in list(itemsInWorldCopy.items()):
             if itemsInWorldCopy[iid]['room'] == players[id]['room']:
