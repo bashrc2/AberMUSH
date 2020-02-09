@@ -6241,16 +6241,20 @@ def take(
 
     for (iid, pl) in list(items.items()):
         iid2 = items[iid]['id']
-        if itemsDB[iid2]['name'].lower() == target:
-            if int(itemsDB[iid2]['weight']) == 0:
-                mud.send_message(id,"You can't pick that up.\n\n")
-                return
+        if items[iid]['room'] != players[id]['room']:
+            continue
+        if itemsDB[iid2]['name'].lower() != target:
+            continue
+        if int(itemsDB[iid2]['weight']) == 0:
+            mud.send_message(id,"You can't pick that up.\n\n")
+            return
+        if itemIsVisible(id,players,iid2,itemsDB):                
             # ID of the item to be picked up
             itemID = iid
             itemName = itemsDB[iid2]['name']
             itemInDB = True
             itemIndex = iid2
-            break
+        break
 
     itemsInWorldCopy = deepcopy(items)
 
@@ -6260,19 +6264,19 @@ def take(
             if itemsInWorldCopy[iid]['room'] != players[id]['room']:
                 continue
             itemIndex=itemsInWorldCopy[iid]['id']
-            if target not in itemsInWorldCopy[itemIndex]['name'].lower():
+            if target not in itemsDB[itemIndex]['name'].lower():
                 continue
-            if int(itemsInWorldCopy[itemIndex]['weight']) == 0:
+            if int(itemsDB[itemIndex]['weight']) == 0:
                 mud.send_message(id, "You can't pick that up.\n\n")
                 return
 
             itemID = itemsInWorldCopy[itemIndex]
-            itemName = itemsInWorldCopy[itemIndex]['name']
+            itemName = itemsDB[itemIndex]['name']
             if itemInInventory(players,id,itemName,itemsDB):
                 mud.send_message(
                     id, 'You are already carring ' + itemName + '\n\n')
                 return
-            if itemIsVisible(id,players,itemIndex,itemsInWorldCopy):
+            if itemIsVisible(id,players,itemIndex,itemsDB):
                 # ID of the item to be picked up
                 itemInDB = True
             break
@@ -6379,7 +6383,7 @@ def take(
                                          " but find that your arms won't move.\n\n")
                     return
 
-        mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
+        mud.send_message(id,'You cannot see '+target+' anywhere.\n\n')
         itemPickedUp = False
 
 
