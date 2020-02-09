@@ -10505,7 +10505,6 @@
     },
     "$rid=1329$": {
         "exits": {
-            "out": "$rid=1330$"
         },
         "name": "In The Large Tomb",
         "description": "You are lying inside a large stone tomb. Although the tomb is large you have little freedom to move about.",
