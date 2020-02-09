@@ -27065,9 +27065,10 @@
         "article": "an"
     },
     "1204": {
-        "name": "shadowy figure",
-        "short_description": "The figure has a menacing, powerful air.",
-        "long_description": "A tall figure stands in front of the oak doors, gazing at you through baleful glowing eyes.",
+        "name": "curious statue",
+        "short_description": "The statue has a menacing, powerful air.",
+        "long_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air.",
+	"takeFail": "You try to move the statue but an overwhelming sense of relaxation overpowers you.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27104,7 +27105,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "mod_cool": 0,
-        "weight": 180,
+        "weight": 0,
         "edible": 0,
         "climbThrough": "",
         "heave": "",
