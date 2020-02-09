@@ -9197,7 +9197,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "south": "$rid=1227$",
             "up": "$rid=1173$"
         }
     },
@@ -9675,7 +9674,6 @@
     },
     "$rid=1227$": {
         "exits": {
-            "north": "$rid=1171$",
             "down": "$rid=1228$"
         },
         "name": "The Black Landing",
