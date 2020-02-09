@@ -6245,7 +6245,10 @@ def take(
         if itemsDB[iid2]['name'].lower() != target:
             continue
         if int(itemsDB[iid2]['weight']) == 0:
-            mud.send_message(id,"You can't pick that up.\n\n")
+            if itemsDB[iid2].get('takeFail'):
+                mud.send_message(id,randomDescription(itemsDB[iid2]['takeFail'])+"\n\n")
+            else:
+                mud.send_message(id,"You can't pick that up.\n\n")
             return
         if itemIsVisible(id,players,iid2,itemsDB):                
             # ID of the item to be picked up
@@ -6265,7 +6268,10 @@ def take(
             if target not in itemsDB[itemIndex]['name'].lower():
                 continue
             if int(itemsDB[itemIndex]['weight']) == 0:
-                mud.send_message(id, "You can't pick that up.\n\n")
+                if itemsDB[itemIndex].get('takeFail'):
+                    mud.send_message(id, randomDescription(itemsDB[itemIndex]['takeFail'])+"\n\n")
+                else:
+                    mud.send_message(id, "You can't pick that up.\n\n")
                 return
 
             itemName = itemsDB[itemIndex]['name']
@@ -6346,7 +6352,10 @@ def take(
                     continue
                 # can the item be taken?
                 if itemsDB[int(containerItemID)]['weight'] == 0:
-                    mud.send_message(id,"You can't pick that up.\n\n")
+                    if itemsDB[int(containerItemID)].get('takeFail'):
+                        mud.send_message(id,randomDescription(itemsDB[int(containerItemID)]['takeFail'])+"\n\n")
+                    else:
+                        mud.send_message(id,"You can't pick that up.\n\n")                        
                     return
                 else:
                     # can the player move?

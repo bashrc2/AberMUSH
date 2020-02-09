@@ -12830,6 +12830,7 @@
         "name": "manacled skeleton",
         "short_description": "There is a skeleton chained to the wall.",
         "long_description": "There is a skeleton chained to the wall.",
+	"takeFail": "You try to remove the skeleton but it's firmly chained to the wall.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
