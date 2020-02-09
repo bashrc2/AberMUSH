@@ -463,6 +463,20 @@ Within `items.json` and `npcs.json` the list called `visibleWhenWearing` can con
 
 ![AberMUSH](docs/chest.png)
 
+### Failing to take items
+
+If an item has a weight of zero then it is fixed in place. If you want to provide a custom message when a player tries to take an item and fails then this can be specified within `items.json` with the parameter *takeFail*.
+
+``` json
+"517": {
+    "name": "manacled skeleton",
+    "long_description": "There is a skeleton chained to the wall.",
+	"takeFail": "You try to remove the skeleton but it's firmly chained to the wall.",
+	"weight": 0,
+	...
+}
+```
+
 ### Containers, Chests and Tables
 
 Other than opening and closing doors you may also want to have items which can be opened or closed, and have things removed or put into them. For example a treasure chest containing gold coins. To define an item as openable the relevant attributes are similar to the following:
@@ -767,6 +781,7 @@ You can also add a night time version of the image by appending _night to the fi
 ``` bash
 climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]_night
 ```
+
 
 ![AberMUSH](docs/creators.png)
 

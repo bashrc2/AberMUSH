@@ -342,6 +342,7 @@ for k in itemsDB:
                v == "jumpTo" or
                v == "exit" or
                v == "exitName" or
+               v == "takeFail" or
                v == "article"):
             itemsDB[k][v] = int(itemsDB[k][v])
 
