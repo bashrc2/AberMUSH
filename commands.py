@@ -6231,7 +6231,6 @@ def take(
         return
 
     itemInDB = False
-    itemID = None
     itemName = None
     itemPickedUp = False
     itemIndex = None
@@ -6250,7 +6249,6 @@ def take(
             return
         if itemIsVisible(id,players,iid2,itemsDB):                
             # ID of the item to be picked up
-            itemID = iid
             itemName = itemsDB[iid2]['name']
             itemInDB = True
             itemIndex = iid2
@@ -6270,7 +6268,6 @@ def take(
                 mud.send_message(id, "You can't pick that up.\n\n")
                 return
 
-            itemID = itemsInWorldCopy[itemIndex]
             itemName = itemsDB[itemIndex]['name']
             if itemInInventory(players,id,itemName,itemsDB):
                 mud.send_message(
