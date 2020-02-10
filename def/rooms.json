@@ -801,9 +801,13 @@
         "coords": []
     },
     "$rid=105$": {
-        "name": "Snowy Field",
+        "name": "Open Field",
         "description": "Thick snow covers the hard barren ground. How anyone ever managed to grow food in such hostile conditions is beyond you. The icy wind howls, stinging your cheeks and flapping around you. A narrow path leads south into the welcome shelter of the pines.",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","The large open field has been neatly ploughed. A path leads off southwards.","105_spring"],
+	    ["season","summer","The large field is neatly planted with parallel rows of an arable crop. A path leads off southwards.","105_summer"],
+	    ["season","autumn","The large recently harvested field is populated by pigs who wallow in muddy pools and rummage through the remaining roots. A path leads off southwards.","105_autumn"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -6848,8 +6852,11 @@
     },
     "$rid=947$": {
         "name": "The High Pasture",
-        "description": "You are standing in a field of lush pasture, completely cut off from the west of the world. High cliff walls block all exits to the west, and south, while to the east is a sheer drop. Ahead to the north rises a tall white tower carved from pure marble stone. Behind you, to the south a narrow cavemouth punctures the otherwise impenetrable rock walls.",
-        "conditional": [],
+        "description": "You are standing in a field of dry pasture, completely cut off from the west of the world. High cliff walls block all exits to the west, and south, while to the east is a sheer drop. Ahead to the north rises a tall white tower carved from pure marble stone. Behind you, to the south a narrow cavemouth punctures the otherwise impenetrable rock walls.",
+        "conditional": [
+	    ["season","spring","You are standing in a field of lush pasture, completely cut off from the west of the world. High cliff walls block all exits to the west, and south, while to the east is a sheer drop. Ahead to the north rises a tall white tower carved from pure marble stone. Behind you, to the south a narrow cavemouth punctures the otherwise impenetrable rock walls.","947_pasture"],
+	    ["season","summer","You are standing in a pasture, sparsely populated by occasional grazing livestock. High cliff walls block all exits to the west, and south, while to the east is a sheer drop. Ahead to the north rises a tall white tower carved from pure marble stone. Behind you, to the south a narrow cavemouth punctures the otherwise impenetrable rock walls.","947_pasture"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
