@@ -50,6 +50,7 @@ All players can use the following commands:
 
 ``` text
 bio [description]                       - Set a description of yourself
+graphics [on|off]                       - Turn graphical content on or off
 change password [newpassword]           - Change your password
 who                                     - List players and where they are
 quit/exit                               - Leave the game

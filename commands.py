@@ -1324,7 +1324,7 @@ def castSpellOnPlayer(mud, spellName, players, id, npcs, p, spellDetails):
         npcs[p]['frozenDuration'] = TimeStringToSec(spellDetails['duration'])
         npcs[p]['frozenStart'] = int(time.time())
 
-    showSpellImage(mud,id,spellName.replace(' ','_'))
+    showSpellImage(mud,id,spellName.replace(' ','_'),players)
 
     mud.send_message(
         id,
@@ -1367,7 +1367,7 @@ def castSpellUndirected(
         spellName,
         spellDetails):
     if spellDetails['action'].startswith('familiar'):
-        showSpellImage(mud,id,spellName.replace(' ','_'))        
+        showSpellImage(mud,id,spellName.replace(' ','_'),players)
         conjureNPC(
             spellDetails['action'],
             mud,
@@ -2315,6 +2315,9 @@ def roomIllumination(roomImage,outdoors: bool):
 def showRoomImage(mud,id,roomId,rooms: {},players,itemsDB: {}) -> None:
     """Shows an image for the room if it exists
     """
+    if players[id].get('graphics'):
+        if players[id]['graphics']=='off':
+            return
     conditionalImage= \
         conditionalRoomImage(rooms[roomId]['conditional'], \
                              id,players,itemsDB)
@@ -2339,27 +2342,36 @@ def showRoomImage(mud,id,roomId,rooms: {},players,itemsDB: {}) -> None:
     with open(roomImageFilename, 'r') as roomFile:
         mud.send_image(id,'\n'+roomIllumination(roomFile.read(),outdoors))
 
-def showSpellImage(mud,id,spellId) -> None:
+def showSpellImage(mud,id,spellId,players) -> None:
     """Shows an image for a spell
     """
+    if players[id].get('graphics'):
+        if players[id]['graphics']=='off':
+            return
     spellImageFilename='images/spells/'+spellId
     if not os.path.isfile(spellImageFilename):
         return
     with open(spellImageFilename, 'r') as spellFile:
         mud.send_image(id,'\n'+spellFile.read())
 
-def showItemImage(mud,id,itemId) -> None:
+def showItemImage(mud,id,itemId,players: {}) -> None:
     """Shows an image for the item if it exists
     """
+    if players[id].get('graphics'):
+        if players[id]['graphics']=='off':
+            return
     itemImageFilename='images/items/'+str(itemId)
     if not os.path.isfile(itemImageFilename):
         return
     with open(itemImageFilename, 'r') as itemFile:
         mud.send_image(id,'\n'+itemFile.read())
 
-def showNPCImage(mud,id,npcName) -> None:
+def showNPCImage(mud,id,npcName,players: {}) -> None:
     """Shows an image for a NPC
     """
+    if players[id].get('graphics'):
+        if players[id]['graphics']=='off':
+            return
     npcImageFilename='images/npcs/'+npcName.replace(' ','_')
     if not os.path.isfile(npcImageFilename):
         return
@@ -2528,7 +2540,7 @@ def look(
                    and npcs[n]['room'] == players[id]['room']:
                     if playerIsVisible(id,n,npcs):
                         if npcs[n]['familiarMode']!='hide':
-                            showNPCImage(mud,id,npcs[n]['name'].lower())
+                            showNPCImage(mud,id,npcs[n]['name'].lower(),players)
                             bioOfPlayer(mud, id, n, npcs, itemsDB)
                             messageSent = True
                         else:
@@ -2551,13 +2563,13 @@ def look(
                         if itemCounter == 0:
                             itemLanguage = itemsDB[items[i]['id']]['language']
                             if len(itemLanguage) == 0:
-                                showItemImage(mud,id,int(items[i]['id']))
+                                showItemImage(mud,id,int(items[i]['id']),players)
                                 message += randomDescription(itemsDB[items[i]['id']]['long_description'])
                                 message += describeContainerContents(
                                     mud, id, itemsDB, items[i]['id'], True)
                             else:
                                 if itemLanguage in players[id]['language']:
-                                    showItemImage(mud,id,int(items[i]['id']))
+                                    showItemImage(mud,id,int(items[i]['id']),players)
                                     message += randomDescription(itemsDB[items[i]['id']]['long_description'])
                                     message += describeContainerContents(
                                         mud, id, itemsDB, items[i]['id'], True)
@@ -2576,7 +2588,7 @@ def look(
                     for i in playerinv:
                         if param == itemsDB[int(i)]['name'].lower():
                             itemLanguage = itemsDB[int(i)]['language']
-                            showItemImage(mud,id,int(i))
+                            showItemImage(mud,id,int(i),players)
                             if len(itemLanguage) == 0:
                                 message += randomDescription(itemsDB[int(i)]['long_description'])
                                 message += describeContainerContents(
@@ -2597,7 +2609,7 @@ def look(
                         for i in playerinv:
                             if param in itemsDB[int(i)]['name'].lower():
                                 itemLanguage = itemsDB[int(i)]['language']
-                                showItemImage(mud,id,int(i))
+                                showItemImage(mud,id,int(i),players)
                                 if len(itemLanguage) == 0:
                                     message += randomDescription(itemsDB[int(i)]['long_description'])
                                     message += describeContainerContents(
@@ -4025,6 +4037,41 @@ def jump(
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB)            
             return
     mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
+
+def graphics(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Turn graphical output on or off
+    """
+    graphicsState=params.lower().strip()
+    if graphicsState=='off' or \
+       graphicsState=='false' or \
+       graphicsState=='no':
+        players[id]['graphics']='off'
+        mud.send_message(id, "Graphics have been turned off.\n\n")
+    else:
+        players[id]['graphics']='on'
+        mud.send_message(id, "Graphics have been activated.\n\n")
 
 def go(
         params,
@@ -6539,7 +6586,10 @@ def runCommand(
         "displace": heave,
         "disembark": climb,
         "climb": climb,
-        "jump": jump
+        "jump": jump,
+        "images": graphics,
+        "pictures": graphics,
+        "graphics": graphics
     }
 
     try:
