@@ -220,8 +220,8 @@ def disconnectIdlePlayers(mud, players, allowedPlayerIdle):
     for p in playersCopy:
         if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
             if players[p]['authenticated'] is not None:
-                mud.send_message(
-                    p,
+                mud.send_message_wrap(
+                    p,"<f232>",
                     "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
             else:
                 mud.send_message(
