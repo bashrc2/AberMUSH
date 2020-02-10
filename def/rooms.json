@@ -3606,8 +3606,7 @@
         "coords": [],
         "exits": {
             "south": "$rid=557$",
-            "west": "$rid=629$",
-            "up": "$rid=629$"
+            "west": "$rid=629$"
         }
     },
     "$rid=557$": {
@@ -4232,8 +4231,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=556$",
-            "down": "$rid=556$"
+            "east": "$rid=556$"
         }
     },
     "$rid=630$": {
