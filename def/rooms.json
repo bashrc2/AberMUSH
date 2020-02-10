@@ -5767,7 +5767,10 @@
         },
         "name": "Grassy Pasture",
         "description": "You stand in a large, and rich grassy pasture. The pasture extends north and south along a narrow mountain valley. Away to the east it gives way to a few cottages. To the north the pasture ends abruptly at the bast of a high cliff. The cliff is carved and hollowed in amazing ways forming a huge decorated building. To the south the pasture gives way to a huge expanse of fallen rock.",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","You stand in a large pasture. It extends north and south along a narrow mountain valley. Away to the east it gives way to a few cottages. To the north the pasture ends abruptly at the bast of a high cliff. The cliff is carved and hollowed in amazing ways forming a huge decorated building. To the south the pasture gives way to a huge expanse of fallen rock.","828_winter"],
+	    ["season","winter","You stand in a large dry pasture. It extends north and south along a narrow mountain valley. Away to the east it gives way to a few cottages. To the north the pasture ends abruptly at the bast of a high cliff. The cliff is carved and hollowed in amazing ways forming a huge decorated building. To the south the pasture gives way to a huge expanse of fallen rock.","828_winter"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
