@@ -1124,6 +1124,8 @@ def help(
     mud.send_message(id, \
                      '  bio [description]                       - Set a description of yourself')
     mud.send_message(id, \
+                     '  graphics [on|off]                       - Turn graphic content on or off')
+    mud.send_message(id, \
                      '  change password [newpassword]           - Change your password')
     mud.send_message(id, \
                      '  who                                     - List players and where they are')
