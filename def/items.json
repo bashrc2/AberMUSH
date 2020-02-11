@@ -10022,7 +10022,7 @@
     "426": {
         "name": "barrels",
         "short_description": "A collection of old barrels",
-        "long_description": "The barrels have been moved, revealing an exit east.|A collection of old barrels",
+        "long_description": "The barrels have been moved, revealing an exit east.|A collection of old barrels.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,

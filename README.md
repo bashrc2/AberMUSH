@@ -292,6 +292,8 @@ If you want to specify a particular image which will show when a particular cond
 
 This would correspond to the image within *images/rooms/roomwithlight*, and be shown instead of the usual room image when a light source is held.
 
+In rooms which need a light source items won't be noticed until at least one player is holding a light source. Hence things can be hidden in the dark.
+
 ![AberMUSH](docs/door.png)
 
 ### Adding Doors and Opening things
