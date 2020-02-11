@@ -2530,8 +2530,8 @@ def look(
                 needsLight=roomRequiresLightSource(players,id,rooms)
                 playersWithLight=False
                 if needsLight:
-                    playersWithLight=holdingLightSource(players,id,rooms)
-                if not needsLight or (needsLight and playersWithLight):
+                    playersWithLight=holdingLightSource(players,id,itemsDB)
+                if needsLight==False or (needsLight==True and playersWithLight==True):
                     mud.send_message_wrap(id,'<f220>', \
                                           '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
 
