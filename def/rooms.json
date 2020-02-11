@@ -2895,7 +2895,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=433$"
+            "out": "$rid=433$"
         }
     },
     "$rid=433$": {
@@ -2914,7 +2914,7 @@
         "coords": [],
         "exits": {
             "east": "$rid=422$",
-            "south": "$rid=432$",
+            "in": "$rid=432$",
             "west": "$rid=434$"
         }
     },
