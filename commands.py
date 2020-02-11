@@ -3449,17 +3449,39 @@ def stow(
     if len(list(players[id]['inv'])) == 0:
         return
 
+    stowFrom=('clo_lhand','clo_rhand')
+    for stowLocation in stowFrom:
+        itemID=int(players[id][stowLocation])
+        if itemID==0:
+            continue
+        if int(itemsDB[itemID]['clo_rleg']) > 0:
+            if int(players[id]['clo_rleg']) == 0:
+                if int(players[id]['clo_lleg']) != itemID:
+                    players[id]['clo_rleg'] = itemID
+                    mud.send_message(
+                        id,
+                        'You stow <b234>' +
+                        itemsDB[itemID]['article'] +
+                        ' ' +
+                        itemsDB[itemID]['name'] +
+                        '<r>\n\n')
+                    players[id][stowLocation] = 0                    
+                    continue
+
+        if int(itemsDB[itemID]['clo_lleg']) > 0:
+            if int(players[id]['clo_lleg']) == 0:
+                if int(players[id]['clo_rleg']) != itemID:
+                    players[id]['clo_lleg'] = itemID
+                    mud.send_message(
+                        id,
+                        'You stow <b234>' +
+                        itemsDB[itemID]['article'] +
+                        ' ' +
+                        itemsDB[itemID]['name'] +
+                        '<r>\n\n')
+                    players[id][stowLocation] = 0                    
+
     stowHands(id, players, itemsDB, mud)
-
-    if int(itemsDB[itemID]['clo_rleg']) > 0:
-        if int(players[id]['clo_rleg']) == 0:
-            if int(players[id]['clo_lleg']) != itemID:
-                players[id]['clo_rleg'] = itemID
-
-    if int(itemsDB[itemID]['clo_lleg']) > 0:
-        if int(players[id]['clo_lleg']) == 0:
-            if int(players[id]['clo_rleg']) != itemID:
-                players[id]['clo_lleg'] = itemID
 
 def wearClothing(itemID,players,id,clothingType,mud,itemsDB):
     if itemsDB[itemID]['clo_'+clothingType] > 0:

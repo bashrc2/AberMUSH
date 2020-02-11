@@ -184,7 +184,7 @@ def levelUp(id, players, characterClassDB, increment):
                     players[id]['proficiencies'].append(prof)
 
 
-def stowHands(id, players, itemsDB, mud):
+def stowHands(id, players: {}, itemsDB: {}, mud):
     if int(players[id]['clo_rhand']) > 0:
         itemID = int(players[id]['clo_rhand'])
         mud.send_message(
