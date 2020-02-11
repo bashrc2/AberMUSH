@@ -2045,7 +2045,7 @@ def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
                 return True        
 
     # is there a light source in the room?
-    return lightSourceInRoom(players,id,items,itemsDB):                            
+    return lightSourceInRoom(players,id,items,itemsDB)
 
 def conditionalRoom(condType,cond,description,id,players,itemsDB) -> bool:
     if condType == 'hour':
