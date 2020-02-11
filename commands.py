@@ -2017,7 +2017,7 @@ def say(
             id, '<f230>', \
             'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
 
-def holdingLightSource(players,id,itemsDB) -> bool:
+def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
     """Is the given player holding a light source?
     """
     itemID=int(players[id]['clo_lhand'])
@@ -2043,8 +2043,9 @@ def holdingLightSource(players,id,itemsDB) -> bool:
         if itemID>0:
             if itemsDB[int(itemID)]['lightSource']!=0:
                 return True        
-        
-    return False
+
+    # is there a light source in the room?
+    return lightSourceInRoom(players,id,items,itemsDB):                            
 
 def conditionalRoom(condType,cond,description,id,players,itemsDB) -> bool:
     if condType == 'hour':
@@ -2143,7 +2144,7 @@ def conditionalRoom(condType,cond,description,id,players,itemsDB) -> bool:
     if condType == 'held' or condType.startswith('hold'):
         if not cond.isdigit():
             if cond.lower()=='lightsource':
-                return holdingLightSource(players,id,itemsDB)
+                return holdingLightSource(players,id,items,itemsDB)
         elif players[id]['clo_lhand'] == int(cond) or \
            players[id]['clo_rhand'] == int(cond):
             return True
@@ -2237,6 +2238,17 @@ def roomRequiresLightSource(players: {},id,rooms: {}) -> bool:
             if cond[0].lower()=='hold' and \
                cond[1].lower()=='lightsource':
                 return True
+    return False
+
+def lightSourceInRoom(players: {},id,items: {},itemsDB: {}) -> bool:
+    """Returns true if there is a light source in the room
+    """
+    rid=players[id]['room']
+    for i in items:                
+        if items[i]['room'].lower() != players[id]['room']:
+            continue
+        if itemsDB[items[i]['id']]['lightSource'] != 0:
+            return True    
     return False
 
 def itemIsVisible(observerId,players: {},itemId,itemsDB: {}) -> bool:
@@ -2530,7 +2542,8 @@ def look(
                 needsLight=roomRequiresLightSource(players,id,rooms)
                 playersWithLight=False
                 if needsLight:
-                    playersWithLight=holdingLightSource(players,id,itemsDB)
+                    playersWithLight= \
+                        holdingLightSource(players,id,items,itemsDB)
                 if needsLight==False or (needsLight==True and playersWithLight==True):
                     mud.send_message_wrap(id,'<f220>', \
                                           '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
