@@ -9761,14 +9761,14 @@
     "409": {
         "name": "brass lantern",
         "short_description": "Battered and much used.",
-        "long_description": "A brass lantern lies here, its flame throwing a flickering pattern on the ground.",
+        "long_description": "A brass lantern. Its flame throwing a flickering pattern on the ground.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_lwrist": 0,
         "clo_rwrist": 0,
@@ -9820,7 +9820,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "lightSource": 0,
+        "lightSource": 1,
         "article": "a"
     },
     "413": {
@@ -28440,9 +28440,9 @@
         "article": "a"
     },
     "1246": {
-        "name": "brass lantern",
+        "name": "mining lantern",
         "short_description": "A beautiful, old fashioned lamp.",
-        "long_description": "A brass lantern has been left here, its wan light flickering gently.",
+        "long_description": "A brass lantern, typical of the style used in mines. Its light flickering gently.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
