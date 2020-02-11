@@ -258,7 +258,7 @@ class MudServer(object):
             print("Couldnt send image, socket error: "+str(e))
             self._handle_disconnect(to)
         if not noDelay:
-            time.sleep(2)
+            time.sleep(1)
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
