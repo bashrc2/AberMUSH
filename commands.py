@@ -2028,6 +2028,22 @@ def holdingLightSource(players,id,itemsDB) -> bool:
     if itemID>0:
         if itemsDB[int(itemID)]['lightSource']!=0:
             return True
+
+    # are there any other players in the same room holding a light source?
+    for p in players:
+        if p == id:
+            continue
+        if players[p]['room'] != players[id]['room']:
+            continue
+        itemID=int(players[p]['clo_lhand'])
+        if itemID>0:
+            if itemsDB[itemID]['lightSource']!=0:
+                return True
+        itemID=int(players[p]['clo_rhand'])
+        if itemID>0:
+            if itemsDB[int(itemID)]['lightSource']!=0:
+                return True        
+        
     return False
 
 def conditionalRoom(condType,cond,description,id,players,itemsDB) -> bool:

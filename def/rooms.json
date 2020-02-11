@@ -2837,8 +2837,10 @@
     },
     "$rid=428$": {
         "name": "The Cellars",
-        "description": "The southern end of the cellars is dank and cold but fairly clear and tidy. With the exception of a few barrels stacked in the eastern corner the room is empty.",
-        "conditional": [],
+        "description": "It's too dark down here to see where you're going.",
+        "conditional": [
+	    ["hold","lightsource","The southern end of the cellars is dank and cold but fairly clear and tidy. With the exception of a few barrels stacked in the eastern corner the room is empty.","428_light"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
