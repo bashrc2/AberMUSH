@@ -4065,10 +4065,10 @@
         "imp_feet" : "0"
     },
     "945": {
-        "inDescription": "strolls in",
-        "outDescription": "trots away",
-        "lookDescription": "is here, cropping grass peacefully",
-        "name": "the goat",
+        "inDescription": "wanders in",
+        "outDescription": "wanders away",
+        "lookDescription": "The brown goat is cropping grass peacefully|Is sitting and chewing grass",
+        "name": "the brown goat",
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
@@ -4163,8 +4163,8 @@
     "946": {
         "inDescription": "wanders in, cropping grass as it goes",
         "outDescription": "wanders off",
-        "lookDescription": "is here, chewing the cud quietly. The goat is",
-        "name": "the goat",
+        "lookDescription": "The black goat is chewing the cud quietly",
+        "name": "the black goat",
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],

@@ -437,6 +437,11 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
                 "viciously bite",
                 "savagely chew"
             ]
+        elif 'cow' in animalType or 'goat' in animalType or 'sheep' in animalType:
+            attackStrings = [
+                "headbutt",
+                "trample"
+            ]
         else:
             attackStrings = [
                 "savage",
@@ -471,6 +476,11 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
                 "bit",
                 "viciously bit",
                 "savagely chewed"
+            ]
+        elif 'cow' in animalType or 'goat' in animalType or 'sheep' in animalType:
+            attackStrings = [
+                "headbutted",
+                "trampled"
             ]
         else:
             attackStrings = [
