@@ -2226,6 +2226,19 @@ def playerIsVisible(observerId,otherPlayerId,players: {}) -> bool:
         return True
     return False
 
+def roomRequiresLightSource(players: {},id,rooms: {}) -> bool:
+    """Returns true if the room requires a light source
+    """
+    rid=players[id]['room']
+    if not rooms[rid]['conditional']:
+        return False
+    for cond in rooms[rid]['conditional']:
+        if len(cond)>2:
+            if cond[0].lower()=='hold' and \
+               cond[1].lower()=='lightsource':
+                return True
+    return False
+
 def itemIsVisible(observerId,players: {},itemId,itemsDB: {}) -> bool:
     """Is the item visible to the observer?
     """
@@ -2514,8 +2527,13 @@ def look(
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
-                mud.send_message_wrap(id,'<f220>', \
-                                      '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
+                needsLight=roomRequiresLightSource(players,id,rooms)
+                playersWithLight=False
+                if needsLight:
+                    playersWithLight=holdingLightSource(players,id,rooms)
+                if not needsLight or (needsLight and playersWithLight):
+                    mud.send_message_wrap(id,'<f220>', \
+                                          '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
 
             mud.send_message(id, "\n")
         else:
