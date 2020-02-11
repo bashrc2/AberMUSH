@@ -340,6 +340,8 @@ for k in itemsDB:
                v == "climbThrough" or
                v == "heave" or
                v == "jumpTo" or
+               v == "game" or
+               v == "gameState" or
                v == "exit" or
                v == "exitName" or
                v == "takeFail" or
