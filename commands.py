@@ -2047,7 +2047,7 @@ def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
     # is there a light source in the room?
     return lightSourceInRoom(players,id,items,itemsDB)
 
-def conditionalRoom(condType,cond,description,id,players,itemsDB) -> bool:
+def conditionalRoom(condType,cond,description,id,players,items,itemsDB) -> bool:
     if condType == 'hour':
         currHour = datetime.datetime.today().hour
         condHour = cond.replace(
@@ -2162,7 +2162,7 @@ def conditionalRoomDescription(
         tideOutDescription,
         conditional,
         id,
-        players,itemsDB):
+        players,items,itemsDB):
     """Returns a description which can vary depending on conditions
     """
     roomDescription = description
@@ -2178,7 +2178,7 @@ def conditionalRoomDescription(
             alternativeDescription = possibleDescription[2]
             if conditionalRoom(condType,cond, \
                                alternativeDescription, \
-                               id,players,itemsDB):
+                               id,players,items,itemsDB):
                 roomDescription = alternativeDescription
                 break
 
@@ -2195,7 +2195,7 @@ def conditionalRoomImage(conditional,id,players,itemsDB: {}) -> str:
             alternativeDescription = possibleDescription[2]
             if conditionalRoom(condType,cond, \
                                alternativeDescription, \
-                               id,players,itemsDB):
+                               id,players,items,itemsDB):
                 roomImageFilename='images/rooms/'+possibleDescription[3]
                 if os.path.isfile(roomImageFilename):
                     return possibleDescription[3]
@@ -2473,7 +2473,7 @@ def look(
                     conditionalRoomDescription(roomDescription,
                                                rm['tideOutDescription'],
                                                rm['conditional'],
-                                               id, players,itemsDB)
+                                               id, players,items,itemsDB)
 
             if rm['trap'].get('trapActivation') and rm['trap'].get('trapPerception'):
                 if randint(1,players[id]['per'])>rm['trap']['trapPerception']:
