@@ -2184,7 +2184,7 @@ def conditionalRoomDescription(
 
     return roomDescription
 
-def conditionalRoomImage(conditional,id,players,itemsDB: {}) -> str:
+def conditionalRoomImage(conditional,id,players: {},items: {},itemsDB: {}) -> str:
     """If there is an image associated with a conditional
     room description then return its name
     """
@@ -2355,7 +2355,7 @@ def roomIllumination(roomImage,outdoors: bool):
         newRoomImage+=darkStr+trailing+'['
     return newRoomImage[:len(newRoomImage)-1]
 
-def showRoomImage(mud,id,roomId,rooms: {},players,itemsDB: {}) -> None:
+def showRoomImage(mud,id,roomId,rooms: {},players: {},items: {},itemsDB: {}) -> None:
     """Shows an image for the room if it exists
     """
     if players[id].get('graphics'):
@@ -2363,7 +2363,7 @@ def showRoomImage(mud,id,roomId,rooms: {},players,itemsDB: {}) -> None:
             return
     conditionalImage= \
         conditionalRoomImage(rooms[roomId]['conditional'], \
-                             id,players,itemsDB)
+                             id,players,items,itemsDB)
     outdoors=False
     if rooms[roomId]['weather']==1:
         outdoors=True
@@ -2466,7 +2466,7 @@ def look(
 
             # send the player back the description of their current room
             playerRoomId=players[id]['room']
-            showRoomImage(mud,id,playerRoomId,rooms,players,itemsDB)
+            showRoomImage(mud,id,playerRoomId,rooms,players,items,itemsDB)
             roomDescription = rm['description']
             if len(rm['conditional']) > 0:
                 roomDescription = \
