@@ -403,7 +403,7 @@ def showChessBoard(pos: [],id,mud) -> None:
         for p in row:
             boardRowStr+=' '+uni_pieces.get(p, p)
         boardStr+=boardRowStr+'\n'
-    boardStr+='    a b c d e f g h \n\n'
+    boardStr+='\n    a b c d e f g h \n\n'
     mud.send_game_board(id,boardStr)
 
 def initialChessBoard() -> []:
