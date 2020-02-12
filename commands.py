@@ -4119,7 +4119,7 @@ def chessBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
         if items[i]['room'] != rid:
             continue
         if itemsDB[items[i]['id']]['game'].lower() == 'chess':
-            return items[i]['id']
+            return i
     return None
 
 def chess(
