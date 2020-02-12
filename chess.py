@@ -214,7 +214,7 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
             if j == self.ep:
                 board = put(board, j+S, '.')
         # We rotate the returned position, so it's ready for the next player
-        newBoard=Position(board, score, wc, bc, ep, kp).rotate()
+        newBoard=Position(board, score, wc, bc, ep, kp)
         if newBoard:
             return newBoard
         return board
@@ -401,13 +401,16 @@ def render(i):
 def showChessBoard(pos: [],id,mud,turn: str) -> None:
     """Shows the chess board
     """
+    pos2=pos
+    if turn!='white':
+        pos2=pos.rotate()
     mud.send_message(id, '\n')
     uni_pieces = {
         'R':'♜', 'N':'♞', 'B':'♝', 'Q':'♛', 'K':'♚', 'P':'♟',
         'r':'♖', 'n':'♘', 'b':'♗', 'q':'♕', 'k':'♔', 'p':'♙', '.':'·'
     }
     boardStr=''
-    for i, row in enumerate(pos.board.split()):
+    for i, row in enumerate(pos2.board.split()):
         if turn=='white':
             boardRowStr=' '+str(8-i)+' '
         else:
