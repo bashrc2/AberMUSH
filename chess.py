@@ -29,11 +29,13 @@ def showChessBoard(gameState: [],id,mud,turn: str) -> None:
         'r':'♖', 'n':'♘', 'b':'♗', 'q':'♕', 'k':'♔', 'p':'♙', '.':'·'
     }
     boardStr=''
+    i=0
     for row in gameState:
         boardRowStr=' '+str(8-i)+' '
         for p in row:
             boardRowStr+=' '+uni_pieces[p]
         boardStr+=boardRowStr+'\n'
+        i+=1
     boardStr+='\n    a b c d e f g h \n\n'
     mud.send_game_board(id,boardStr)
 
