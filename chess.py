@@ -64,7 +64,7 @@ def chessPieceSet(gameState: [],coord: str,piece: str) -> None:
         return
     gameState[ord(coord[1])-ord('1')][ord(coord[0])-ord('a')]=piece
 
-def moveChessPiece(moveStr: str,gameState: [],turn: str,mud) -> bool:
+def moveChessPiece(moveStr: str,gameState: [],turn: str,id,mud) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr.lower())
     mud.send_message(id,'matching\n')
     if not match:
