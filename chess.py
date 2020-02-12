@@ -72,7 +72,9 @@ def chessPieceSet(gameState: [],coord: str,piece: str) -> None:
         return
     if ord(coord[1])<ord('1') or ord(coord[1])>ord('8'):
         return
-    gameState[ord('8')-ord(coord[1])][ord(coord[0])-ord('a')]=piece
+    row=gameState[ord('8')-ord(coord[1])]
+    col=ord(coord[0])-ord('a')
+    gameState[ord('8')-ord(coord[1])]=row[:col]+piece+row[(col+1):]
 
 def moveChessPiece(moveStr: str,gameState: [],turn: str,id,mud) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr.lower())
