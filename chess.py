@@ -420,9 +420,9 @@ def moveChessPiece(moveStr: str,hist) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr)
     if not match:
         return False
-    try:
-        currMove = parse(match.group(1)), parse(match.group(2))
-        hist.append(hist[-1].move(currMove))
-    except:
-        return False
+    #try:
+    currMove = parse(match.group(1)), parse(match.group(2))
+    hist.append(hist[-1].move(currMove))
+    #except:
+    #    return False
     return True
