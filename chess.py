@@ -46,7 +46,7 @@ def showChessBoard(gameState: [],id,mud,turn: str) -> None:
             boardRowStr=''
             for p in row:
                 boardRowStr=' '+uni_pieces[p]+boardRowStr
-            boardStr=' '+str(i+1)+' '+boardRowStr+'\n'+boardStr
+            boardStr=' '+str(8-i)+' '+boardRowStr+'\n'+boardStr
             i+=1
         boardStr+='\n    h g f e d c b a \n\n'
     mud.send_game_board(id,boardStr)
