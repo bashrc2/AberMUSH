@@ -1212,6 +1212,17 @@ def help(
     mud.send_message(id, \
                      '  cast [spell name] on [target]           - Cast a spell on a player or NPC')
 
+    mud.send_message(id, '')
+    mud.send_message(id, 'Chess Commands:')
+    mud.send_message(id, \
+                     'chess                                   - Shows the board')
+    mud.send_message(id, \
+                     'chess reset                             - Rests the game')
+    mud.send_message(id, \
+                     'chess move [coords]                     - eg. chess move e2e3')
+    mud.send_message(id, \
+                     'chess undo                              - undoes the last move')
+
     if isWitch(id, players):
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')

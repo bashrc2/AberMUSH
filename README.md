@@ -82,6 +82,17 @@ cut/escape                              - Attempt to escape from a trap
 step over tripwire [exit]               - Step over a tripwire in the given direction
 ```
 
+## Chess Commands
+
+If you can find a chess board to play on:
+
+``` text
+chess                                   - Shows the board
+chess reset                             - Rests the game
+chess move [coords]                     - eg. chess move e2e3
+chess undo                              - undoes the last move
+```
+
 ## Spell Commands
 
 Some characters can use magic with the following commands:
