@@ -4217,7 +4217,7 @@ def chess(
             return
         if moveChessPiece(chessMoves[0]+chessMoves[1], \
                           items[boardItemID]['gameState']['state'], \
-                          items[boardItemID]['gameState']['turn']):
+                          items[boardItemID]['gameState']['turn'],mud):
             mud.send_message(id, "\n"+items[boardItemID]['gameState']['turn']+" moves from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             gameState=items[boardItemID]['gameState']['state']
             if items[boardItemID]['gameState']['turn']=='white':

@@ -64,13 +64,18 @@ def chessPieceSet(gameState: [],coord: str,piece: str) -> None:
         return
     gameState[ord(coord[1])-ord('1')][ord(coord[0])-ord('a')]=piece
 
-def moveChessPiece(moveStr: str,gameState: [],turn: str) -> bool:
+def moveChessPiece(moveStr: str,gameState: [],turn: str,mud) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr.lower())
+    mud.send_message(id,'matching\n')
     if not match:
         return False
+    mud.send_message(id,'matched\n')
     moveFrom=match.group(1)
+    mud.send_message(id,'moveFrom '+moveFrom+'\n')
     moveTo=match.group(2)
+    mud.send_message(id,'moveTo '+moveTo+'\n')
     fromPiece=chessPieceAt(gameState,moveFrom)
+    mud.send_message(id,'fromPiece '+fromPiece+'\n')
     if fromPiece=='.':
         return False
     if turn=='white':
