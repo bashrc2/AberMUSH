@@ -4202,8 +4202,11 @@ def chess(
                           items[boardItemID]['gameState']['hist']):
             mud.send_message(id, "\nMove from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             hist=items[boardItemID]['gameState']['hist']
+            showChessBoard(hist[-1].rotate(),id,mud)
+            return
         else:
             mud.send_message(id, "\nThat's not a valid move.\n")
+            return
     showChessBoard(hist[-1],id,mud)
 
 def graphics(
