@@ -208,7 +208,8 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
             if j == self.ep:
                 board = put(board, j+S, '.')
         # We rotate the returned position, so it's ready for the next player
-        return Position(board, score, wc, bc, ep, kp).rotate()
+        #return Position(board, score, wc, bc, ep, kp).rotate()
+        return Position(board, score, wc, bc, ep, kp)
 
     def value(self, move):
         i, j = move
