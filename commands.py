@@ -4178,6 +4178,7 @@ def chess(
        'new game' in params:
         mud.send_message(id, 'Starting a new game.\n')
         items[boardItemID]['gameState']['hist']=initialChessBoard()
+        hist=items[boardItemID]['gameState']['hist']
         showChessBoard(hist[-1],id,mud)
         return
     if 'move' in params:
@@ -4197,7 +4198,7 @@ def chess(
            len(chessMoves[1])!=2:
             mud.send_message(id, "Enter a move such as g8 f6.\n")
             return
-        if moveChessPiece(chessMoves[0]+chessMoves[1], \
+        if moveChessPiece(chessMoves[1]+chessMoves[2], \
                           items[boardItemID]['gameState']['hist']):
             mud.send_message(id, "Move from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             hist=items[boardItemID]['gameState']['hist']
