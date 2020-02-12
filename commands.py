@@ -4245,7 +4245,7 @@ def chess(
                         if players[p]['name'] == items[boardItemID]['gameState']['player1']:
                             if players[p]['room'] == players[id]['room']:
                                 showChessBoard(gameState,p,mud,items[boardItemID]['gameState']['turn'])
-            items[boardItemID]['gameState']['history'].append(gameState)
+            items[boardItemID]['gameState']['history'].append(gameState.copy())
             showChessBoard(gameState,id,mud,currTurn)
             return
         else:
