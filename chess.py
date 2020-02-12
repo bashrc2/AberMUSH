@@ -9,6 +9,8 @@ __status__ = "Production"
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import re, sys
+
 initial = [
     'rnbqkbnr',
     'pppppppp',
