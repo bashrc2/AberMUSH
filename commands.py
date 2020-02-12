@@ -36,7 +36,6 @@ from combat import isAttacking
 from combat import getAttackingTarget
 from combat import playerBeginsAttack
 from chess import showChessBoard
-from chess import Position
 from chess import initialChessBoard
 from chess import moveChessPiece
 
