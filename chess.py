@@ -398,7 +398,7 @@ def render(i):
     return chr(fil + ord('a')) + str(-rank + 1)
 
 
-def showChessBoard(pos: [],id,mud) -> None:
+def showChessBoard(pos: [],id,mud,turn: str) -> None:
     """Shows the chess board
     """
     mud.send_message(id, '\n')
@@ -408,11 +408,17 @@ def showChessBoard(pos: [],id,mud) -> None:
     }
     boardStr=''
     for i, row in enumerate(pos.board.split()):
-        boardRowStr=' '+str(8-i)+' '
+        if turn=='white':
+            boardRowStr=' '+str(8-i)+' '
+        else:
+            boardRowStr=' '+str(i+1)+' '
         for p in row:
             boardRowStr+=' '+uni_pieces.get(p, p)
         boardStr+=boardRowStr+'\n'
-    boardStr+='\n    a b c d e f g h \n\n'
+    if turn=='white':
+        boardStr+='\n    a b c d e f g h \n\n'
+    else:
+        boardStr+='\n    h g f e d c b a \n\n'
     mud.send_game_board(id,boardStr)
 
 def initialChessBoard() -> []:

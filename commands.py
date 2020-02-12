@@ -4164,7 +4164,7 @@ def chess(
     # get the game history
     hist=items[boardItemID]['gameState']['hist']
     if not params:
-        showChessBoard(hist[-1],id,mud)
+        showChessBoard(hist[-1],id,mud,items[boardItemID]['gameState']['turn'])
         return
     if players[id]['canGo'] != 1 or \
        players[id]['frozenStart'] > 0:
@@ -4181,7 +4181,7 @@ def chess(
         items[boardItemID]['gameState']['hist']=initialChessBoard()
         items[boardItemID]['gameState']['turn']='white'
         hist=items[boardItemID]['gameState']['hist']
-        showChessBoard(hist[-1],id,mud)
+        showChessBoard(hist[-1],id,mud,items[boardItemID]['gameState']['turn'])
         return
     if 'move' in params:
         params=params.replace('move ','').replace('to ','').replace('from ','').replace('.','').replace('-','').strip()
@@ -4214,7 +4214,7 @@ def chess(
                             continue
                         if players[p]['name'] == items[boardItemID]['gameState']['player2']:
                             if players[p]['room'] == players[id]['room']:
-                                showChessBoard(hist[-1],p,mud)
+                                showChessBoard(hist[-1],p,mud,items[boardItemID]['gameState']['turn'])
             else:
                 items[boardItemID]['gameState']['player2']=players[id]['name']
                 items[boardItemID]['gameState']['turn']='white'
@@ -4225,13 +4225,13 @@ def chess(
                             continue
                         if players[p]['name'] == items[boardItemID]['gameState']['player1']:
                             if players[p]['room'] == players[id]['room']:
-                                showChessBoard(hist[-1],p,mud)
-            showChessBoard(hist[-1].rotate(),id,mud)
+                                showChessBoard(hist[-1],p,mud,items[boardItemID]['gameState']['turn'])
+            showChessBoard(hist[-1].rotate(),id,mud,items[boardItemID]['gameState']['turn'])
             return
         else:
             mud.send_message(id, "\nThat's not a valid move.\n")
             return
-    showChessBoard(hist[-1],id,mud)
+    showChessBoard(hist[-1],id,mud,items[boardItemID]['gameState']['turn'])
 
 def graphics(
         params,
