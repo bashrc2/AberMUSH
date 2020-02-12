@@ -404,7 +404,7 @@ def showChessBoard(pos: [],id,mud) -> None:
         mud.send_message(id,boardRowStr)
     mud.send_message(id,'    a b c d e f g h \n\n')
 
-def initialChessBoard():
+def initialChessBoard() -> []:
     """Returns the initial state of a chess game
     """
-    return initial
+    return [Position(initial, 0, (True,True), (True,True), 0, 0)]

@@ -4163,8 +4163,7 @@ def chess(
     mud.send_message(id, "Test4\n")
     if not items[boardItemID]['gameState'].get('hist'):
         mud.send_message(id, "Test5\n")
-        items[boardItemID]['gameState']['hist']= \
-            [Position(initialChessBoard(), 0, (True,True), (True,True), 0, 0)]
+        items[boardItemID]['gameState']['hist']=initialChessBoard()
     mud.send_message(id, "Test6\n")
     # get the game history
     hist=items[boardItemID]['gameState']['hist']
