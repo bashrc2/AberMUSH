@@ -4171,6 +4171,20 @@ def chess(
         mud.send_message(id, randomDescription("\nYou try to make a chess move but find that you lack any ability to|You suddenly lose all enthusiasm for chess")+".\n\n")
         return
     params=params.lower().strip()
+    if 'undo' in params:
+        if len(items[boardItemID]['gameState']['history'])<2:
+            params='reset'
+        else:
+            mud.send_message(id, '\nUndoing last chess move.\n')
+            items[boardItemID]['gameState']['history'].pop()
+            gameState=items[boardItemID]['gameState']['history'][-1]            
+            items[boardItemID]['gameState']['state']=gameState
+            if items[boardItemID]['gameState']['turn']=='white':
+                items[boardItemID]['gameState']['turn']='black'
+            else:
+                items[boardItemID]['gameState']['turn']='white'
+            showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
+        return            
     # begin a new chess game
     if 'reset' in params or \
        'restart' in params or \
@@ -4183,7 +4197,7 @@ def chess(
         items[boardItemID]['gameState']['history']=[]
         gameState=items[boardItemID]['gameState']['state']
         showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
-        return
+        return            
     if 'move' in params:
         params=params.replace('move ','').replace('to ','').replace('from ','').replace('.','').replace('-','').strip()
         chessMoves=params.split(' ')
