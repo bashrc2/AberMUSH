@@ -5127,7 +5127,7 @@
     "208": {
         "name": "oak table",
         "short_description": "A stout oak table.",
-        "long_description": "A stout oak table stands next to the bed.",
+        "long_description": "A stout oak table stands next to the bed. It has a chess board on it.",
 	"takeFail": "The oak table is too heavy to be moved by you alone.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -5170,7 +5170,7 @@
         "climbThrough": "",
         "heave": "",
         "jumpTo": "",
-        "game": "",
+        "game": "chess",
         "gameState": {},
         "state": "container open always",
         "visibleWhenWearing": [],
