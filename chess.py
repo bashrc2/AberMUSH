@@ -53,7 +53,7 @@ def chessPieceAt(gameState: [],coord: str) -> str:
         return '.'
     if ord(coord[1])<ord('1') or ord(coord[1])>ord('8'):
         return '.'
-    return gameState[ord(ord('8')-coord[1])][ord(coord[0])-ord('a')]
+    return gameState[ord('8')-ord(coord[1])][ord(coord[0])-ord('a')]
 
 def chessPieceSet(gameState: [],coord: str,piece: str) -> None:
     if len(coord)!=2:
@@ -62,7 +62,7 @@ def chessPieceSet(gameState: [],coord: str,piece: str) -> None:
         return
     if ord(coord[1])<ord('1') or ord(coord[1])>ord('8'):
         return
-    gameState[ord(ord('8')-coord[1])][ord(coord[0])-ord('a')]=piece
+    gameState[ord('8')-ord(coord[1])][ord(coord[0])-ord('a')]=piece
 
 def moveChessPiece(moveStr: str,gameState: [],turn: str,id,mud) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr.lower())
