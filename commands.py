@@ -4152,7 +4152,7 @@ def chess(
     # check if board exists in room
     boardItemID=chessBoardInRoom(players,id,rooms,items,itemsDB)
     if not boardItemID:
-        mud.send_message(id, "There isn't a chess board here.\n\n")
+        mud.send_message(id, "\nThere isn't a chess board here.\n\n")
         return
     rid=players[id]['room']
     # create the game state
@@ -4167,7 +4167,7 @@ def chess(
         return
     if players[id]['canGo'] != 1 or \
        players[id]['frozenStart'] > 0:
-        mud.send_message(id, randomDescription("You try to make a chess move but find that you lack any ability to|You suddenly lose all enthusiasm for chess")+".\n\n")
+        mud.send_message(id, randomDescription("\nYou try to make a chess move but find that you lack any ability to|You suddenly lose all enthusiasm for chess")+".\n\n")
         return
     params=params.lower().strip()
     # begin a new chess game
@@ -4176,7 +4176,7 @@ def chess(
        'start again' in params or \
        'begin again' in params or \
        'new game' in params:
-        mud.send_message(id, 'Starting a new game.\n')
+        mud.send_message(id, '\nStarting a new game.\n')
         items[boardItemID]['gameState']['hist']=initialChessBoard()
         hist=items[boardItemID]['gameState']['hist']
         showChessBoard(hist[-1],id,mud)
@@ -4187,23 +4187,23 @@ def chess(
 
         if len(chessMoves)==1:
             if len(params)!=4:
-                mud.send_message(id, "Enter a move such as g8f6.\n")
+                mud.send_message(id, "\nEnter a move such as g8f6.\n")
                 return
             chessMoves=[params[:2],params[2:]]
                 
         if len(chessMoves)!=2:
-            mud.send_message(id, "That's not a valid move.\n")
+            mud.send_message(id, "\nThat's not a valid move.\n")
             return
         if len(chessMoves[0])!=2 or \
            len(chessMoves[1])!=2:
-            mud.send_message(id, "Enter a move such as g8 f6.\n")
+            mud.send_message(id, "\nEnter a move such as g8 f6.\n")
             return
         if moveChessPiece(chessMoves[0]+chessMoves[1], \
                           items[boardItemID]['gameState']['hist']):
             mud.send_message(id, "\nMove from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             hist=items[boardItemID]['gameState']['hist']
         else:
-            mud.send_message(id, "That's not a valid move.\n")
+            mud.send_message(id, "\nThat's not a valid move.\n")
     showChessBoard(hist[-1],id,mud)
 
 def graphics(

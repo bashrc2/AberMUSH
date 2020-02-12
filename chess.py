@@ -166,15 +166,15 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
     def rotate(self):
         ''' Rotates the board, preserving enpassant '''
         rotated=self.board[::-1]
-        for i, p in enumerate(rotated):
-            try:
+        try:
+            for i, p in enumerate(rotated):
                 p=p.swapcase()
-            except:
-                pass
-        return Position(
-            rotated, -self.score, self.bc, self.wc,
-            119-self.ep if self.ep else 0,
-            119-self.kp if self.kp else 0)
+            return Position(
+                rotated, -self.score, self.bc, self.wc,
+                119-self.ep if self.ep else 0,
+                119-self.kp if self.kp else 0)
+        except:
+            return None
 
     def nullmove(self):
         ''' Like rotate, but clears ep and kp '''
@@ -215,7 +215,9 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
                 board = put(board, j+S, '.')
         # We rotate the returned position, so it's ready for the next player
         newBoard=Position(board, score, wc, bc, ep, kp).rotate()
-        return newBoard
+        if newBoard:
+            return newBoard
+        return board
 
     def value(self, move):
         i, j = move
