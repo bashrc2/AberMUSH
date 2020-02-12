@@ -4185,7 +4185,7 @@ def chess(
             else:
                 items[boardItemID]['gameState']['turn']='white'
             showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
-        return            
+            return
     # begin a new chess game
     if 'reset' in params or \
        'restart' in params or \
