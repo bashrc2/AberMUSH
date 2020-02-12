@@ -166,20 +166,20 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
     def rotate(self):
         ''' Rotates the board, preserving enpassant '''
         rotated=self.board[::-1]
-        try:
-            for i, p in enumerate(rotated):
-                p=p.swapcase()
-            return Position(
-                rotated, -self.score, self.bc, self.wc,
-                119-self.ep if self.ep else 0,
-                119-self.kp if self.kp else 0)
-        except:
-            return None
+        for i, p in enumerate(rotated):
+            p=p.swapcase()
+        return Position(
+            rotated, -self.score, self.bc, self.wc,
+            119-self.ep if self.ep else 0,
+            119-self.kp if self.kp else 0)
 
     def nullmove(self):
         ''' Like rotate, but clears ep and kp '''
+        rotated=self.board[::-1]
+        for i, p in enumerate(rotated):
+            p=p.swapcase()
         return Position(
-            self.board[::-1].swapcase(), -self.score,
+            rotated, -self.score,
             self.bc, self.wc, 0, 0)
 
     def move(self, move):
@@ -408,17 +408,11 @@ def showChessBoard(pos: [],id,mud,turn: str) -> None:
     }
     boardStr=''
     for i, row in enumerate(pos.board.split()):
-        if turn=='white':
-            boardRowStr=' '+str(8-i)+' '
-        else:
-            boardRowStr=' '+str(i+1)+' '
+        boardRowStr=' '+str(8-i)+' '
         for p in row:
             boardRowStr+=' '+uni_pieces.get(p, p)
         boardStr+=boardRowStr+'\n'
-    if turn=='white':
-        boardStr+='\n    a b c d e f g h \n\n'
-    else:
-        boardStr+='\n    h g f e d c b a \n\n'
+    boardStr+='\n    a b c d e f g h \n\n'
     mud.send_game_board(id,boardStr)
 
 def initialChessBoard() -> []:
