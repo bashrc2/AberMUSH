@@ -260,6 +260,38 @@ class MudServer(object):
         if not noDelay:
             time.sleep(1)
 
+    def send_game_board(self, to, message) -> None:
+        """Sends the ANSI game board in the 'message' parameter to the player with
+        the id number given in the 'to' parameter. The text will be
+        printed out in the player's terminal.
+        """
+        if '\n' not in message:
+            return
+        messageLines=message.split('\n')
+        if len(messageLines)<8:
+            return
+        try:
+            # look up the client in the client map and use 'sendall' to send
+            # the message string on the socket. 'sendall' ensures that all of
+            # the data is sent in one go
+            for lineStr in messageLines:
+                self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
+                time.sleep(0.03)
+            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'),'utf-8'))
+        # KeyError will be raised if there is no client with the given id in
+        # the map
+        except KeyError as e:
+            print("Couldnt send game board, socket error: "+str(e))
+            pass
+        except BlockingIOError as e:
+            print("Couldnt send game board, socket error: "+str(e))
+            pass
+        # If there is a connection problem with the client (e.g. they have
+        # disconnected) a socket error will be raised
+        except socket.error as e:
+            print("Couldnt send game board, socket error: "+str(e))
+            self._handle_disconnect(to)
+
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
         closing the listen socket.

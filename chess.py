@@ -397,12 +397,14 @@ def showChessBoard(pos: [],id,mud) -> None:
         'R':'♜', 'N':'♞', 'B':'♝', 'Q':'♛', 'K':'♚', 'P':'♟',
         'r':'♖', 'n':'♘', 'b':'♗', 'q':'♕', 'k':'♔', 'p':'♙', '.':'·'
     }
+    boardStr=''
     for i, row in enumerate(pos.board.split()):
         boardRowStr=' '+str(8-i)+' '
         for p in row:
             boardRowStr+=uni_pieces.get(p, p)+'\n'
-        mud.send_message(id,boardRowStr)
-    mud.send_message(id,'    a b c d e f g h \n\n')
+        boardStr+=boardRowStr
+    boardStr+='    a b c d e f g h \n\n'
+    mud.send_game_board(id,boardStr)
 
 def initialChessBoard() -> []:
     """Returns the initial state of a chess game
