@@ -35,6 +35,8 @@ from traps import escapeFromTrap
 from combat import isAttacking
 from combat import getAttackingTarget
 from combat import playerBeginsAttack
+from chess import showChessBoard
+from chess import Position
 
 from proficiencies import thievesCant
 
@@ -4109,6 +4111,65 @@ def jump(
             return
     mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
 
+def chessBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
+    """Returns the item ID if there is a chess board in the room
+    """
+    rid=players[id]['room']
+    for i in items:
+        if items[i]['room'] != rid:
+            continue
+        if itemsDB[items[i]['id']]['game'].lower() == 'chess':
+            return items[i]['id']
+    return None
+
+def chess(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Jumping onto an item takes the player to a different room
+    """
+    # check if board exists in room
+    boardItemID=chessBoardInRoom(players,id,rooms,items,itemsDB)
+    if not boardItemID:
+        mud.send_message(id, "There isn't a chess board here.\n\n")
+        return
+    rid=players[id]['room']
+    # create the game state
+    if not items[boardItemID].get('gameState'):
+        items[boardItemID]['gameState']={}
+    if not items[boardItemID]['gameState'].get('hist'):
+        items[boardItemID]['gameState']['hist']= \
+            [Position(initial, 0, (True,True), (True,True), 0, 0)]
+    # get the game history
+    hist=items[boardItemID]['gameState']['hist']
+    if not params:
+        # show board
+        showChessBoard(hist[-1],id,mud)
+        return
+    if players[id]['canGo'] != 1 or \
+       players[id]['frozenStart'] > 0:
+        mud.send_message(id, randomDescription("You try to make a chess move but find that you lack any ability to|You suddenly lose all enthusiasm for chess")+".\n\n")
+        return
+
 def graphics(
         params,
         mud,
@@ -6660,7 +6721,8 @@ def runCommand(
         "jump": jump,
         "images": graphics,
         "pictures": graphics,
-        "graphics": graphics
+        "graphics": graphics,
+        "chess": chess
     }
 
     try:
