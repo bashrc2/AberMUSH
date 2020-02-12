@@ -401,8 +401,8 @@ def showChessBoard(pos: [],id,mud) -> None:
     for i, row in enumerate(pos.board.split()):
         boardRowStr=' '+str(8-i)+' '
         for p in row:
-            boardRowStr+=uni_pieces.get(p, p)+'\n'
-        boardStr+=boardRowStr
+            boardRowStr+=uni_pieces.get(p, p)
+        boardStr+=boardRowStr+'\n'
     boardStr+='    a b c d e f g h \n\n'
     mud.send_game_board(id,boardStr)
 
