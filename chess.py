@@ -208,8 +208,7 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
             if j == self.ep:
                 board = put(board, j+S, '.')
         # We rotate the returned position, so it's ready for the next player
-        #return Position(board, score, wc, bc, ep, kp).rotate()
-        return Position(board, score, wc, bc, ep, kp)
+        return Position(board, score, wc, bc, ep, kp).rotate()
 
     def value(self, move):
         i, j = move
@@ -417,8 +416,8 @@ def moveChessPiece(moveStr: str,hist) -> bool:
     if not match:
         return False
     try:
-        move = parse(match.group(1)), parse(match.group(2))
-        hist.append(hist[-1].move(move))
+        currMove = parse(match.group(1)), parse(match.group(2))
+        hist.append(hist[-1].move(currMove))
     except:
         return False
     return True
