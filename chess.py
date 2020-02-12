@@ -403,3 +403,8 @@ def showChessBoard(pos: [],id,mud) -> None:
             boardRowStr+=uni_pieces.get(p, p)+'\n'
         mud.send_message(id,boardRowStr)
     mud.send_message(id,'    a b c d e f g h \n\n')
+
+def initialChessBoard():
+    """Returns the initial state of a chess game
+    """
+    return initial

@@ -37,6 +37,7 @@ from combat import getAttackingTarget
 from combat import playerBeginsAttack
 from chess import showChessBoard
 from chess import Position
+from chess import initialChessBoard
 
 from proficiencies import thievesCant
 
@@ -4163,7 +4164,7 @@ def chess(
     if not items[boardItemID]['gameState'].get('hist'):
         mud.send_message(id, "Test5\n")
         items[boardItemID]['gameState']['hist']= \
-            [Position(initial, 0, (True,True), (True,True), 0, 0)]
+            [Position(initialChessBoard(), 0, (True,True), (True,True), 0, 0)]
     mud.send_message(id, "Test6\n")
     # get the game history
     hist=items[boardItemID]['gameState']['hist']
