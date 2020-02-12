@@ -11,7 +11,7 @@ __status__ = "Production"
 
 import re, sys
 
-initial = (
+initial = [
     'rnbqkbnr',
     'pppppppp',
     '........',
@@ -20,7 +20,7 @@ initial = (
     '........',
     'PPPPPPPP',
     'RNBQKBNR'
-)
+]
 
 uni_pieces = {
     'R':'♜', 'N':'♞', 'B':'♝', 'Q':'♛', 'K':'♚', 'P':'♟', \
@@ -54,7 +54,7 @@ def showChessBoard(gameState: [],id,mud,turn: str) -> None:
 def initialChessBoard() -> []:
     """Returns the initial state of a chess game
     """
-    return initial
+    return initial.copy()
 
 def chessPieceAt(gameState: [],coord: str) -> str:
     if len(coord)!=2:
