@@ -4149,35 +4149,35 @@ def chess(
     """Jumping onto an item takes the player to a different room
     """
     # check if board exists in room
-    mud.send_message(id, "Test1\n")
     boardItemID=chessBoardInRoom(players,id,rooms,items,itemsDB)
-    mud.send_message(id, "Test2\n")
     if not boardItemID:
         mud.send_message(id, "There isn't a chess board here.\n\n")
         return
-    mud.send_message(id, "Test3\n")
     rid=players[id]['room']
     # create the game state
     if not items[boardItemID].get('gameState'):
         items[boardItemID]['gameState']={}
-    mud.send_message(id, "Test4\n")
     if not items[boardItemID]['gameState'].get('hist'):
-        mud.send_message(id, "Test5\n")
         items[boardItemID]['gameState']['hist']=initialChessBoard()
-    mud.send_message(id, "Test6\n")
     # get the game history
     hist=items[boardItemID]['gameState']['hist']
-    mud.send_message(id, "Test7\n")
     if not params:
-        # show board
-        mud.send_message(id, "Test8\n")
         showChessBoard(hist[-1],id,mud)
         return
-    mud.send_message(id, "Test9\n")
     if players[id]['canGo'] != 1 or \
        players[id]['frozenStart'] > 0:
         mud.send_message(id, randomDescription("You try to make a chess move but find that you lack any ability to|You suddenly lose all enthusiasm for chess")+".\n\n")
         return
+    params=params.lower().strip()
+    # begin a new chess game
+    if 'reset' in params or \
+       'restart' in params or \
+       'start again' in params or \
+       'begin again' in params or \
+       'new game' in params:
+        mud.send_message(id, 'Starting a new game.\n')
+        items[boardItemID]['gameState']['hist']=initialChessBoard()
+        showChessBoard(hist[-1],id,mud)
 
 def graphics(
         params,
