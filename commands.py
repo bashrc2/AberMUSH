@@ -4176,9 +4176,7 @@ def chess(
             params='reset'
         else:
             mud.send_message(id, '\nUndoing last chess move.\n')
-            mud.send_message(id, 'History1 '+str(items[boardItemID]['gameState']['history'][-1])+'.\n')
             items[boardItemID]['gameState']['history'].pop()
-            mud.send_message(id, 'History2 '+str(items[boardItemID]['gameState']['history'][-1])+'.\n')
             gameState=items[boardItemID]['gameState']['history'][-1]            
             items[boardItemID]['gameState']['state']=gameState
             if items[boardItemID]['gameState']['turn']=='white':
