@@ -4198,7 +4198,7 @@ def chess(
            len(chessMoves[1])!=2:
             mud.send_message(id, "Enter a move such as g8 f6.\n")
             return
-        if moveChessPiece(chessMoves[1]+chessMoves[0], \
+        if moveChessPiece(chessMoves[0]+chessMoves[1], \
                           items[boardItemID]['gameState']['hist']):
             mud.send_message(id, "Move from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             hist=items[boardItemID]['gameState']['hist']
