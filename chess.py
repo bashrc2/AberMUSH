@@ -11,7 +11,7 @@ __status__ = "Production"
 
 import re, sys
 
-initial = [
+initial = (
     'rnbqkbnr',
     'pppppppp',
     '........',
@@ -20,7 +20,7 @@ initial = [
     '........',
     'PPPPPPPP',
     'RNBQKBNR'
-]
+)
 
 uni_pieces = {
     'R':'♜', 'N':'♞', 'B':'♝', 'Q':'♛', 'K':'♚', 'P':'♟', \
