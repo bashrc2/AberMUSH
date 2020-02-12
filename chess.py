@@ -168,7 +168,7 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
         rotated=self.board[::-1]
         for i in range(len(rotated)):
             rotated[i]=rotated[i].swapcase()
-            
+
         return Position(            
             rotated, -self.score, self.bc, self.wc,
             119-self.ep if self.ep else 0,
