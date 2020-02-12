@@ -4226,7 +4226,10 @@ def chess(
                         if players[p]['name'] == items[boardItemID]['gameState']['player1']:
                             if players[p]['room'] == players[id]['room']:
                                 showChessBoard(hist[-1],p,mud,items[boardItemID]['gameState']['turn'])
-            showChessBoard(hist[-1].rotate(),id,mud,items[boardItemID]['gameState']['turn'])
+            if items[boardItemID]['gameState']['turn']=='white':
+                showChessBoard(hist[-1].rotate(),id,mud,'black')
+            else:
+                showChessBoard(hist[-1].rotate(),id,mud,'white')
             return
         else:
             mud.send_message(id, "\nThat's not a valid move.\n")
