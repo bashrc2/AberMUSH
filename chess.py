@@ -410,3 +410,11 @@ def initialChessBoard() -> []:
     """Returns the initial state of a chess game
     """
     return [Position(initial, 0, (True,True), (True,True), 0, 0)]
+
+def moveChessPiece(moveStr: str,hist) -> bool:
+    match = re.match('([a-h][1-8])'*2, moveStr)
+    if not match:
+        return False
+    move = parse(match.group(1)), parse(match.group(2))
+    hist.append(hist[-1].move(move))
+    return True

@@ -38,6 +38,7 @@ from combat import playerBeginsAttack
 from chess import showChessBoard
 from chess import Position
 from chess import initialChessBoard
+from chess import moveChessPiece
 
 from proficiencies import thievesCant
 
@@ -4178,6 +4179,31 @@ def chess(
         mud.send_message(id, 'Starting a new game.\n')
         items[boardItemID]['gameState']['hist']=initialChessBoard()
         showChessBoard(hist[-1],id,mud)
+        return
+    if 'move' in params:
+        params=params.replace('move ','').replace('to ','').replace('from ','').replace('.','').replace('-','').strip()
+        chessMoves=params.split(' ')
+
+        if len(chessMoves)==1:
+            if len(params)!=4:
+                mud.send_message(id, "Enter a move such as g8f6.\n")
+                return
+            chessMoves=[params[:2],params[2:]]
+                
+        if len(chessMoves)!=2:
+            mud.send_message(id, "That's not a valid move.\n")
+            return
+        if len(chessMoves[0])!=2 or \
+           len(chessMoves[1])!=2:
+            mud.send_message(id, "Enter a move such as g8 f6.\n")
+            return
+        if moveChessPiece(chessMoves[0]+chessMoves[1], \
+                          items[boardItemID]['gameState']['hist']):
+            mud.send_message(id, "Move from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
+            hist=items[boardItemID]['gameState']['hist']
+        else:
+            mud.send_message(id, "That's not a valid move.\n")
+    showChessBoard(hist[-1],id,mud)
 
 def graphics(
         params,
