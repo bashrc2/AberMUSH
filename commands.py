@@ -4160,6 +4160,7 @@ def chess(
         items[boardItemID]['gameState']={}
     if not items[boardItemID]['gameState'].get('hist'):
         items[boardItemID]['gameState']['hist']=initialChessBoard()
+        items[boardItemID]['gameState']['turn']='white'
     # get the game history
     hist=items[boardItemID]['gameState']['hist']
     if not params:
@@ -4178,6 +4179,7 @@ def chess(
        'new game' in params:
         mud.send_message(id, '\nStarting a new game.\n')
         items[boardItemID]['gameState']['hist']=initialChessBoard()
+        items[boardItemID]['gameState']['turn']='white'
         hist=items[boardItemID]['gameState']['hist']
         showChessBoard(hist[-1],id,mud)
         return
@@ -4200,8 +4202,26 @@ def chess(
             return
         if moveChessPiece(chessMoves[0]+chessMoves[1], \
                           items[boardItemID]['gameState']['hist']):
-            mud.send_message(id, "\nMove from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
+            mud.send_message(id, "\n"+items[boardItemID]['gameState']['turn']+" moves from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             hist=items[boardItemID]['gameState']['hist']
+            if items[boardItemID]['gameState']['turn']=='white':
+                items[boardItemID]['gameState']['player1']=players[id]['name']
+                items[boardItemID]['gameState']['turn']='black'
+                # send a notification to the other player
+                if items[boardItemID]['gameState'].get('player2'):
+                    for p in players:
+                        if players[p]['name'] == items[boardItemID]['gameState']['player2']:
+                            if players[p]['room'] == players[id]['room']:
+                                showChessBoard(hist[-1],p,mud)
+            else:
+                items[boardItemID]['gameState']['player2']=players[id]['name']
+                items[boardItemID]['gameState']['turn']='white'
+                # send a notification to the other player
+                if items[boardItemID]['gameState'].get('player1'):
+                    for p in players:
+                        if players[p]['name'] == items[boardItemID]['gameState']['player1']:
+                            if players[p]['room'] == players[id]['room']:
+                                showChessBoard(hist[-1],p,mud)
             showChessBoard(hist[-1].rotate(),id,mud)
             return
         else:
