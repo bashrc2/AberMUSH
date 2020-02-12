@@ -168,23 +168,24 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
         rotated=self.board[::-1]
         for i, p in enumerate(rotated):
             p=p.swapcase()
-        return Position(
-            rotated, -self.score, self.bc, self.wc,
-            119-self.ep if self.ep else 0,
-            119-self.kp if self.kp else 0)
+        return Position(rotated, -self.score, self.bc, self.wc, \
+                        119-self.ep if self.ep else 0, \
+                        119-self.kp if self.kp else 0)
 
     def nullmove(self):
         ''' Like rotate, but clears ep and kp '''
         rotated=self.board[::-1]
         for i, p in enumerate(rotated):
             p=p.swapcase()
-        return Position(
-            rotated, -self.score,
-            self.bc, self.wc, 0, 0)
+        return Position(rotated, -self.score, \
+                        self.bc, self.wc, 0, 0)
 
     def move(self, move):
-        i, j = move
+        i, j = move        
         p, q = self.board[i], self.board[j]
+        # Check for upper case piece
+        if p.upper() != p:
+            return None
         put = lambda board, i, p: board[:i] + p + board[i+1:]
         # Copy variables and reset ep and kp
         board = self.board
@@ -214,10 +215,7 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
             if j == self.ep:
                 board = put(board, j+S, '.')
         # We rotate the returned position, so it's ready for the next player
-        newBoard=Position(board, score, wc, bc, ep, kp).rotate()
-        if newBoard:
-            return newBoard
-        return board
+        return Position(board, score, wc, bc, ep, kp).rotate()
 
     def value(self, move):
         i, j = move
@@ -424,9 +422,13 @@ def moveChessPiece(moveStr: str,hist) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr)
     if not match:
         return False
-    #try:
     currMove = parse(match.group(1)), parse(match.group(2))
-    hist.append(hist[-1].move(currMove))
+    #newPosition=None
+    #try:
+    newPosition=hist[-1].move(currMove)
     #except:
     #    return False
+    if not newPosition:
+        return False
+    hist.append(newPosition)
     return True
