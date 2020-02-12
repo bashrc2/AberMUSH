@@ -60,7 +60,7 @@ def chessPieceSet(gameState: [],coord: str,piece: str) -> None:
         return
     gameState[ord(coord[1])-ord('1')][ord(coord[0])-ord('a')]=piece
 
-def moveChessPiece(moveStr: str,gameState: []) -> bool:
+def moveChessPiece(moveStr: str,gameState: [],turn: str) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr.lower())
     if not match:
         return False
@@ -69,6 +69,12 @@ def moveChessPiece(moveStr: str,gameState: []) -> bool:
     fromPiece=chessPieceAt(gameState,moveFrom)
     if fromPiece=='.':
         return False
+    if turn=='white':
+        if fromPiece.upper()!=fromPiece:
+            return False
+    else:
+        if fromPiece.lower()!=fromPiece:
+            return False
     chessPieceSet(gameState,moveFrom,'.')
     chessPieceSet(gameState,moveTo,fromPiece)
     return True
