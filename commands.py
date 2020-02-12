@@ -4210,6 +4210,8 @@ def chess(
                 # send a notification to the other player
                 if items[boardItemID]['gameState'].get('player2'):
                     for p in players:
+                        if p==id:
+                            continue
                         if players[p]['name'] == items[boardItemID]['gameState']['player2']:
                             if players[p]['room'] == players[id]['room']:
                                 showChessBoard(hist[-1],p,mud)
@@ -4219,6 +4221,8 @@ def chess(
                 # send a notification to the other player
                 if items[boardItemID]['gameState'].get('player1'):
                     for p in players:
+                        if p==id:
+                            continue
                         if players[p]['name'] == items[boardItemID]['gameState']['player1']:
                             if players[p]['room'] == players[id]['room']:
                                 showChessBoard(hist[-1],p,mud)
