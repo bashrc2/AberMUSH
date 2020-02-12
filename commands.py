@@ -4220,7 +4220,8 @@ def chess(
                           items[boardItemID]['gameState']['turn'],id,mud):
             mud.send_message(id, "\n"+items[boardItemID]['gameState']['turn']+" moves from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
             gameState=items[boardItemID]['gameState']['state']
-            if items[boardItemID]['gameState']['turn']=='white':
+            currTurn=items[boardItemID]['gameState']['turn']
+            if currTurn=='white':
                 items[boardItemID]['gameState']['player1']=players[id]['name']
                 items[boardItemID]['gameState']['turn']='black'
                 # send a notification to the other player
@@ -4243,6 +4244,8 @@ def chess(
                             if players[p]['room'] == players[id]['room']:
                                 showChessBoard(gameState,p,mud,items[boardItemID]['gameState']['turn'])
             items[boardItemID]['gameState']['history'].append(gameState)
+            showChessBoard(gameState,id,mud,currTurn)
+            return
         else:
             mud.send_message(id, "\nThat's not a valid move.\n")
             return
