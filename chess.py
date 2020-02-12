@@ -166,11 +166,8 @@ class Position(namedtuple('Position', 'board score wc bc ep kp')):
     def rotate(self):
         ''' Rotates the board, preserving enpassant '''
         rotated=self.board[::-1]
-        for i in range(len(rotated)):
-            rotated[i]=rotated[i].swapcase()
-
         return Position(            
-            rotated, -self.score, self.bc, self.wc,
+            rotated.swapcase(), -self.score, self.bc, self.wc,
             119-self.ep if self.ep else 0,
             119-self.kp if self.kp else 0)
 
