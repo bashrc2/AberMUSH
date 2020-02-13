@@ -367,7 +367,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     hand=handStr.split()
     lines = [[] for i in range(9)]
     cardColor="\u001b[38;5;240m"
-    rankColor="\u001b[38;5;245m"
+    rankColor="\u001b[38;5;250m"
 
     for cardStr in hand:
         if len(cardStr)<2:
