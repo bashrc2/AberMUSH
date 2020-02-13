@@ -219,10 +219,12 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
     """
     cardPlayerId=None
     name=name.lower()
+    mud.send_message(dealerId, "\nSearch for player "+name+"\n")
     for p in players:
         if players[p]['room'] == players[dealerId]['room']:
             if players[p]['name'].lower()==name:
                 cardPlayerId=p
+                mud.send_message(dealerId, "\nPlayer found: "+name+"\n")
                 break
     if not cardPlayerId:
         if 'myself' in name or ' me' in name:
