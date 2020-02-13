@@ -34,7 +34,7 @@ class Deck():
         self.__deck = [Card(f, s) for f,s in product(face, suit)]
  
     def __repr__(self):
-        return 'Deck of ' + ' '.join(repr(card) for card in self.__deck)
+        return ' '.join(repr(card) for card in self.__deck)
  
     def shuffle(self):
         pass
@@ -219,12 +219,10 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
     """
     cardPlayerId=None
     name=name.lower()
-    mud.send_message(dealerId, "\nSearch for player "+name+"\n")
     for p in players:
         if players[p]['room'] == players[dealerId]['room']:
             if players[p]['name'].lower()==name:
                 cardPlayerId=p
-                mud.send_message(dealerId, "\nPlayer found: "+name+"\n")
                 break
     if cardPlayerId==None:
         if 'myself' in name or ' me' in name:
@@ -239,9 +237,9 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
         topCard=deck.deal()
         if topCard:
             if ctr==0:
-                hands[cardPlayerName]+=topCard
+                hands[cardPlayerName]+=str(topCard)
             else:
-                hands[cardPlayerName]+=' '+topCard
+                hands[cardPlayerName]+=' '+str(topCard)
             ctr+=1
     if ctr>0:
         hands[cardPlayerName]=hands[cardPlayerName]
@@ -301,5 +299,5 @@ def dealToPlayers(players: {},dealerId,description: str,noOfCards: int, \
     items[gameItemID]['gameState']={
         'hands': hands,
         'table': {},
-        'deck': deck
+        'deck': str(deck)
     }
