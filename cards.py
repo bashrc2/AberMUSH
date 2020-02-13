@@ -219,7 +219,7 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
     """
     id=None
     for p in players:
-        if players[p]['name'].strip().lower() in name.lower():
+        if players[p]['name'].lower() in name.lower():
             if players[p]['room'] == players[dealerId]['room']:
                 id=p
                 break
@@ -229,19 +229,23 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
         else:
             mud.send_message(dealerId, "\nThey're not in the room.\n")
             return
-    hands[players[id]['name']]=''
+    cardPlayerName=players[id]['name']
+    hands[cardPlayerName]=''
     ctr=0
     for i in range(noOfCards):
         topCard=deck.deal()
         if topCard:
-            hands[players[id]['name']]+=topCard+' '
+            if ctr==0:
+                hands[cardPlayerName]+=topCard
+            else:
+                hands[cardPlayerName]+=' '+topCard
             ctr+=1
-    hands[players[id]['name']]=hands[players[id]['name']].strip()
     if ctr>0:
+        hands[cardPlayerName]=hands[cardPlayerName]
         if dealerId==id:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to yourself.\n')
         else:
-            mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+players[id]['name']+'.\n')
+            mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+cardPlayerName+'.\n')
             mud.send_message(id, '\n'+players[dealerId]['name']+' deals '+str(ctr)+' cards to you.\n')
 
 def cardGameInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
