@@ -215,7 +215,7 @@ def parseCard(cardDescription: str) -> str:
     return detectedFace+detectedSuit
 
 def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
-                      mud,hands,rooms: {},items: {},itemsDB: {}) -> None:
+                      mud,hands,rooms: {},items: {},itemsDB: {}) -> bool:
     """Deals a number of cards to a player
     """
     cardPlayerId=None
@@ -230,7 +230,7 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
             cardPlayerId=dealerId
         else:
             mud.send_message(dealerId, "\nThey're not in the room.\n")
-            return
+            return False
     cardPlayerName=players[cardPlayerId]['name']
     hands[cardPlayerName]=''
     ctr=0
@@ -246,11 +246,11 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
         hands[cardPlayerName]=hands[cardPlayerName]
         if dealerId==cardPlayerId:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to yourself.\n')
-            showHandOfCards(players,dealerId,mud,rooms,items,itemsDB)
         else:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+cardPlayerName+'.\n')
             mud.send_message(cardPlayerId, '\n'+players[dealerId]['name']+' deals '+str(ctr)+' cards to you.\n')
-            showHandOfCards(players,cardPlayerId,mud,rooms,items,itemsDB)
+        return True
+    return False
 
 def cardGameInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
     """Returns the item ID if there is a card game in the room
@@ -324,8 +324,14 @@ def dealToPlayers(players: {},dealerId,description: str, \
             continue
         if players[p]['name'].lower() not in description:
             continue
-        dealCardsToPlayer(players,dealerId,players[p]['name'], \
-                          noOfCards,deck,mud,hands,rooms,items,itemsDB)
+        if dealCardsToPlayer(players,dealerId,players[p]['name'], \
+                             noOfCards,deck,mud,hands,rooms,items,itemsDB):
+            items[gameItemID]['gameState']={
+                'hands': hands,
+                'table': {},
+                'deck': str(deck)
+            }
+            showHandOfCards(players,p,mud,rooms,items,itemsDB)
 
     # no cards played
     items[gameItemID]['gameState']={
