@@ -385,5 +385,9 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         lines[7].append('│       {}{}│'.format(space, rank))
         lines[8].append('└─────────┘')
 
-    for lineStr in lines:
+    mud.send_message(id, '\n')
+    for lineRowStr in lines:
+        lineStr=''
+        for s in lineRowStr:
+            lineStr+=s
         mud.send_message(id, '\n'+lineStr+'\n')
