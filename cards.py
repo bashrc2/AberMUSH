@@ -535,9 +535,9 @@ def callCards(players: {},id,mud,rooms: {}, \
             handStr=items[gameItemID]['gameState']['hands'][players[p]['name']]
             rankedStr = cardRank(handStr)
             if rankedStr:
-                resultStr+=players[p]['name']+' has '+str(rankedStr[0])+'.\n'
+                resultStr+='<f0><f32>'+players[p]['name']+'<r> has '+str(rankedStr[0])+'.\n'
             else:
-                resultStr+=players[p]['name']+' has nothing.\n'
+                resultStr+='<f0><f32>'+players[p]['name']+'<r> has nothing.\n'
 
     if len(resultStr)==0:
         mud.send_message(id, '\nNo hands have been dealt.\n')
