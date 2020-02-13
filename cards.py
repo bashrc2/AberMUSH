@@ -245,7 +245,6 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
     if ctr>0:
         hands[cardPlayerName]=hands[cardPlayerName]
         if dealerId==cardPlayerId:
-            mud.send_game_board(dealerId, '\nTest1 '+hands[cardPlayerName]+'\n')
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to yourself.\n')
         else:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+cardPlayerName+'.\n')
@@ -364,7 +363,8 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         mud.send_message(id, '\nNo hands have been dealt to '+playerName+'.\n')
         return
 
-    hand=items[gameItemID]['gameState']['hands'][playerName].split()
+    handStr=items[gameItemID]['gameState']['hands'][playerName]
+    hand=handStr.split()
     lines = [[] for i in range(9)]
     cardColor="\u001b[38;5;15m"
     rankColor="\u001b[38;5;245m"
@@ -401,4 +401,8 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         for s in lineRowStr:
             lineStr+=s
         boardStr+=lineStr+'\n'
-    mud.send_game_board(id, boardStr+'\n')
+    mud.send_game_board(id, boardStr)
+    rankedStr = rank(handStr)
+    if rankedStr:
+        mud.send_message(id,rankedStr+'\n\n')
+    
