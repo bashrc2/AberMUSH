@@ -4248,6 +4248,33 @@ def shuffle(
     """
     shuffleCards(players,id,mud,rooms,items,itemsDB)
 
+def callCardGame(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Players show their cards
+    """
+    callCards(players,id,mud,rooms,items,itemsDB)
+
 def chess(
         params,
         mud,
@@ -6933,7 +6960,7 @@ def runCommand(
         "hand": handOfCards,
         "swap": swapACard,
         "shuffle": shuffle,
-        "call": callCards
+        "call": callCardGame
     }
 
     try:

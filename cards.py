@@ -337,7 +337,7 @@ def dealToPlayers(players: {},dealerId,description: str, \
     # no cards played
     items[gameItemID]['gameState']={
         'hands': hands,
-        'table': {},
+        'called': 0,
         'deck': str(deck)
     }
 
@@ -406,6 +406,23 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     if rankedStr:
         mud.send_message(id,'You have '+str(rankedStr[0])+'.\n\n')
 
+    if not items[gameItemID]['gameState'].get('called'):
+        return
+    if not items[gameItemID]['gameState']['called']==0:
+        return
+
+    # show your hand to other players
+    for p in players:
+        if players[p]['room'] != players[id]['room']:
+            continue
+        if id==p:
+            continue
+        if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
+            mud.send_message(p, '\n'+players[id]['name']+ \
+                             ' shows their hand.\n'+boardStr)
+            if rankedStr:
+                mud.send_message(p,players[id]['name']+' has '+str(rankedStr[0])+'.\n\n')        
+
 def swapCard(cardDescription: str,players: {},id,mud,rooms: {}, \
              items: {},itemsDB: {}) -> None:
     gameItemID=cardGameInRoom(players,id,rooms,items,itemsDB)
@@ -422,6 +439,11 @@ def swapCard(cardDescription: str,players: {},id,mud,rooms: {}, \
     if not items[gameItemID].get('gameState'):
         mud.send_message(id, '\nNo cards have been dealt.\n')
         return
+
+    if items[gameItemID]['gameState'].get('called'):
+        if items[gameItemID]['gameState']['called']!=0:
+            mud.send_message(id, '\nThis round is over. Deal again.\n')
+            return
 
     if not items[gameItemID]['gameState'].get('hands'):
         mud.send_message(id, '\nNo hands have been dealt.\n')
@@ -496,6 +518,7 @@ def callCards(players: {},id,mud,rooms: {}, \
         return
 
     mud.send_message(id, '\nYou call.\n')
+    items[gameItemID]['gameState']['called']=1
     for p in players:
         if players[p]['room'] != players[id]['room']:
             continue
