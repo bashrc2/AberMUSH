@@ -273,9 +273,9 @@ def dealToPlayers(players: {},dealerId,description: str,noOfCards: int, \
 
     playerCount=0
     for p in players:
-        if players[p]['name'].strip().lower() not in description:
-            continue
         if players[p]['room'] != players[dealerId]['room']:
+            continue
+        if players[p]['name'].lower() not in description:
             continue
         playerCount+=1
 
@@ -287,9 +287,9 @@ def dealToPlayers(players: {},dealerId,description: str,noOfCards: int, \
 
     hands={}
     for p in players:
-        if players[p]['name'].strip().lower() not in description:
-            continue
         if players[p]['room'] != players[dealerId]['room']:
+            continue
+        if players[p]['name'].lower() not in description:
             continue
         dealCardsToPlayer(players,dealerId,players[p]['name'], \
                           noOfCards,deck,mud,hands)
