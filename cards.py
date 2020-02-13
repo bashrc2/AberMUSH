@@ -405,4 +405,58 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     rankedStr = cardRank(handStr)
     if rankedStr:
         mud.send_message(id,'You have '+str(rankedStr[0])+'.\n\n')
-    
+
+def swapCard(cardDescription: str,players: {},id,mud,rooms: {}, \
+             items: {},itemsDB: {}) -> None:
+    gameItemID=cardGameInRoom(players,id,rooms,items,itemsDB)
+    if not gameItemID:
+        mud.send_message(id, '\nThere are no playing cards here.\n')
+        return
+
+    cardStr=parseCard(cardDescription)
+    if not cardStr:
+        mud.send_message(id, "\nThat's not a card.\n")
+        return
+
+    playerName=players[id]['name']
+    if not items[gameItemID].get('gameState'):
+        mud.send_message(id, '\nNo cards have been dealt.\n')
+        return
+
+    if not items[gameItemID]['gameState'].get('hands'):
+        mud.send_message(id, '\nNo hands have been dealt.\n')
+        return
+
+    if not items[gameItemID]['gameState']['hands'].get(playerName):
+        mud.send_message(id, '\nNo hands have been dealt to you.\n')
+        return
+
+    handStr=items[gameItemID]['gameState']['hands'][playerName]
+    if cardStr not in handStr:
+        mud.send_message(id, '\n'+cardStr.upper()+' is not in your hand.\n')
+        return
+
+    deck=items[gameItemID]['gameState']['deck'].split()
+    if len(deck)==0:
+        mud.send_message(id, '\nNo more cards in the deck.\n')
+        return
+    nextCard=deck.pop(randrange(len(deck)))
+    items[gameItemID]['gameState']['deck']=""
+    for deckCardStr in deck:
+        if items[gameItemID]['gameState']['deck']!="":
+            items[gameItemID]['gameState']['deck']+=' '+deckCardStr
+        else:
+            items[gameItemID]['gameState']['deck']+=deckCardStr
+            
+    items[gameItemID]['gameState']['hands'][playerName]= \
+        handStr.replace(cardStr,nextCard)
+
+    # tell other players that a card was swapped
+    for p in players:
+        if players[p]['room'] == players[id]['room']:
+            if p!=id:
+                otherPlayerName=players[p]['name']
+                if items[gameItemID]['gameState']['hands'].get(otherPlayerName):
+                    mud.send_message(p, '\n'+playerName+' swaps a card.\n')
+    mud.send_message(p, '\nYou swap a card.\n')
+    showHandOfCards(players,id,mud,rooms,items,itemsDB)

@@ -93,6 +93,17 @@ chess move [coords]                     - eg. chess move e2e3
 chess undo                              - undoes the last move
 ```
 
+## Cards
+
+If you can find a deck of cards:
+
+``` text
+deal to [player names]                  - Deals cards
+hand                                    - View your hand of cards
+swap [card description]                 - Swaps a card
+call                                    - Players show their hands
+```
+
 ## Spell Commands
 
 Some characters can use magic with the following commands:
