@@ -371,9 +371,13 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     for cardStr in hand:
         if len(cardStr)<2:
             continue
-        rank=cardStr[0].upper()
-        suit=cardStr[1]
-        suitColor="\u001b[38;5;32m"
+        if cardStr[1]!='0':
+            rank=cardStr[0].upper()
+            suit=cardStr[1]
+        else:
+            rank=cardStr[0]+cardStr[1]
+            suit=cardStr[2]
+        suitColor="\u001b[38;5;250m"
         if suit=='♥' or suit=='♦':
             suitColor="\u001b[31m"
         if rank=='10':
