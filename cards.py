@@ -367,6 +367,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     hand=items[gameItemID]['gameState']['hands'][playerName].split()
     lines = [[] for i in range(9)]
     cardColor="\u001b[38;5;15m"
+    rankColor="\u001b[38;5;245m"
 
     for cardStr in hand:
         if len(cardStr)<2:
@@ -377,7 +378,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         else:
             rank=cardStr[0]+cardStr[1]
             suit=cardStr[2]
-        suitColor="\u001b[38;5;250m"
+        suitColor="\u001b[38;5;245m"
         if suit=='♥' or suit=='♦':
             suitColor="\u001b[31m"
         if rank=='10':
@@ -385,13 +386,13 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         else:
             space=' '
         lines[0].append('┌─────────┐')
-        lines[1].append('│{}{}       │'.format(rank, space))
+        lines[1].append('│{}{}{}{}       │'.format(rankColor,rank,cardColor,space))
         lines[2].append('│         │')
         lines[3].append('│         │')
         lines[4].append('│    {}{}{}    │'.format(suitColor,suit,cardColor))
         lines[5].append('│         │')
         lines[6].append('│         │')
-        lines[7].append('│       {}{}│'.format(space, rank))
+        lines[7].append('│       {}{}{}{}│'.format(rankColor,space,cardColor,rank))
         lines[8].append('└─────────┘')
 
     boardStr=cardColor+'\n'
