@@ -4192,7 +4192,7 @@ def handOfCards(
     """
     showHandOfCards(players,id,mud,rooms,items,itemsDB)
 
-def swap(
+def swapACard(
         params,
         mud,
         playersDB,
@@ -6901,8 +6901,8 @@ def runCommand(
         "graphics": graphics,
         "chess": chess,
         "deal": deal,
-        "hand": handOfCards
-        "swap": swap
+        "hand": handOfCards,
+        "swap": swapACard
     }
 
     try:
