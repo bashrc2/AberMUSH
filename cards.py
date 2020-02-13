@@ -226,7 +226,7 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
                 cardPlayerId=p
                 mud.send_message(dealerId, "\nPlayer found: "+name+"\n")
                 break
-    if not cardPlayerId:
+    if cardPlayerId==None:
         if 'myself' in name or ' me' in name:
             cardPlayerId=dealerId
         else:
