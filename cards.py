@@ -349,11 +349,11 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         return
 
     if not items[gameItemID]['gameState'].get('hands'):
-        mud.send_message(id, '\nNo cards have been dealt.\n')
+        mud.send_message(id, '\nNo hands have been dealt.\n')
         return
 
     if not items[gameItemID]['gameState']['hands'].get(playerName):
-        mud.send_message(id, '\nNo cards have been dealt.\n')
+        mud.send_message(id, '\nNo hands have been dealt to '+playerName+'.\n')
         return
 
     hand=items[gameItemID]['gameState']['hands'][playerName].split()
