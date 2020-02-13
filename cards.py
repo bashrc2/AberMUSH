@@ -366,7 +366,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     handStr=items[gameItemID]['gameState']['hands'][playerName]
     hand=handStr.split()
     lines = [[] for i in range(9)]
-    cardColor="\u001b[38;5;15m"
+    cardColor="\u001b[38;5;240m"
     rankColor="\u001b[38;5;245m"
 
     for cardStr in hand:
