@@ -366,12 +366,16 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
 
     hand=items[gameItemID]['gameState']['hands'][playerName].split()
     lines = [[] for i in range(9)]
+    cardColor="\u001b[38;5;15m"
 
     for cardStr in hand:
-        if len(cardStr)!=2:
+        if len(cardStr)>=2:
             continue
         rank=cardStr[0]
         suit=cardStr[1]
+        suitColor="\u001b[38;5;32m"
+        if suit == '♥' or suit=='♦':
+            suitColor="\u001b[31m"
         if rank=='10':
             space=''
         else:
@@ -380,15 +384,13 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         lines[1].append('│{}{}       │'.format(rank, space))
         lines[2].append('│         │')
         lines[3].append('│         │')
-        lines[4].append('│    {}    │'.format(suit))
+        lines[4].append('│    {}{}{}    │'.format(suitColor,suit,cardColor))
         lines[5].append('│         │')
         lines[6].append('│         │')
         lines[7].append('│       {}{}│'.format(space, rank))
         lines[8].append('└─────────┘')
 
-    mud.send_message(id, '\n')
-    mud.send_game_board(id, 'Test cards: '+str(items[gameItemID]['gameState']['hands'][playerName])+'\n\n')
-    boardStr=''
+    boardStr=cardColor+'\n'
     for lineRowStr in lines:
         lineStr=''
         for s in lineRowStr:
