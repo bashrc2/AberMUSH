@@ -4160,8 +4160,7 @@ def deal(
         guildsDB):
     """Deal cards to other players
     """
-    noOfCards=5
-    dealToPlayers(players,id,params.lower(),noOfCards, \
+    dealToPlayers(players,id,params.lower(), \
                   mud,rooms,items,itemsDB)
 
 def chess(

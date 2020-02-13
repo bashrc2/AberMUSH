@@ -260,13 +260,40 @@ def cardGameInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
-def dealToPlayers(players: {},dealerId,description: str,noOfCards: int, \
+def getNumberFromText(text: str) -> int:
+    """If there is a number in the given text then return it
+    """
+    for i in range(10,2,-1):
+        if str(i) in text:
+            return i
+    numStr={
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five": 5,
+        "six": 6,
+        "seven": 7,
+        "eight": 8,
+        "nine": 9,
+        "ten": 10
+    }
+    for name,num in numStr.items():
+        if name in text:
+            return num
+    return None
+    
+
+def dealToPlayers(players: {},dealerId,description: str, \
                   mud,rooms: {},items: {},itemsDB: {}) -> None:
     """Deal cards to players
     """
     gameItemID=cardGameInRoom(players,dealerId,rooms,items,itemsDB)
     if not gameItemID:
         mud.send_message(dealerId, '\nThere are no playing cards here.\n')
+
+    noOfCards=getNumberFromText(description)
+    if noOfCards==None:
+        noOfCards=5
 
     description=description.lower().replace('.',' ').replace(',',' ')+' '
     description=description.replace('myself',players[dealerId]['name'])
