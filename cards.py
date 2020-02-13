@@ -50,7 +50,7 @@ def straightflush(hand: str) -> bool:
     first, rest = ordered[0], ordered[1:]
     if ( all(card.suit == first.suit for card in rest) and
          ' '.join(card.face for card in ordered) in fs ):
-        return 'a straight-flush', ordered[-1].face
+        return 'a straight flush', ordered[-1].face
     return False
  
 def fourofakind(hand: str) -> bool:
@@ -61,7 +61,7 @@ def fourofakind(hand: str) -> bool:
     for f in allftypes:
         if allfaces.count(f) == 4:
             allftypes.remove(f)
-            return 'four-of-a-kind', [f, allftypes.pop()]
+            return 'four of a kind', [f, allftypes.pop()]
     else:
         return False
  
@@ -73,7 +73,7 @@ def fullhouse(hand: str) -> bool:
     for f in allftypes:
         if allfaces.count(f) == 3:
             allftypes.remove(f)
-            return 'a full-house', [f, allftypes.pop()]
+            return 'a full house', [f, allftypes.pop()]
     else:
         return False
  
@@ -103,7 +103,7 @@ def threeofakind(hand: str) -> bool:
     for f in allftypes:
         if allfaces.count(f) == 3:
             allftypes.remove(f)
-            return ('three-of-a-kind', [f] +
+            return ('three of a kind', [f] +
                      sorted(allftypes,
                             key=lambda f: face.index(f),
                             reverse=True))
@@ -118,7 +118,7 @@ def twopair(hand: str) -> bool:
         return False
     p0, p1 = pairs
     other = [(allftypes - set(pairs)).pop()]
-    return 'two-pair', pairs + other if face.index(p0) > face.index(p1) else pairs[::-1] + other
+    return 'two pairs', pairs + other if face.index(p0) > face.index(p1) else pairs[::-1] + other
  
 def onepair(hand: str) -> bool:
     allfaces = [f for f,s in hand]
@@ -127,7 +127,7 @@ def onepair(hand: str) -> bool:
     if len(pairs) != 1:
         return False
     allftypes.remove(pairs[0])
-    return 'one-pair', pairs + sorted(allftypes,
+    return 'one pair', pairs + sorted(allftypes,
                                       key=lambda f: face.index(f),
                                       reverse=True)
  
