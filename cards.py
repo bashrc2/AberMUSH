@@ -50,7 +50,7 @@ def straightflush(hand: str) -> bool:
     first, rest = ordered[0], ordered[1:]
     if ( all(card.suit == first.suit for card in rest) and
          ' '.join(card.face for card in ordered) in fs ):
-        return 'straight-flush', ordered[-1].face
+        return 'a straight-flush', ordered[-1].face
     return False
  
 def fourofakind(hand: str) -> bool:
@@ -73,7 +73,7 @@ def fullhouse(hand: str) -> bool:
     for f in allftypes:
         if allfaces.count(f) == 3:
             allftypes.remove(f)
-            return 'full-house', [f, allftypes.pop()]
+            return 'a full-house', [f, allftypes.pop()]
     else:
         return False
  
@@ -81,7 +81,7 @@ def flush(hand: str) -> bool:
     allstypes = {s for f, s in hand}
     if len(allstypes) == 1:
         allfaces = [f for f,s in hand]
-        return 'flush', sorted(allfaces,
+        return 'a flush', sorted(allfaces,
                                key=lambda f: face.index(f),
                                reverse=True)
     return False
@@ -92,7 +92,7 @@ def straight(hand: str) -> bool:
     ordered = sorted(hand, key=lambda card: (f.index(card.face), card.suit))
     first, rest = ordered[0], ordered[1:]
     if ' '.join(card.face for card in ordered) in fs:
-        return 'straight', ordered[-1].face
+        return 'a straight', ordered[-1].face
     return False
  
 def threeofakind(hand: str) -> bool:
@@ -133,7 +133,7 @@ def onepair(hand: str) -> bool:
  
 def highcard(hand: str):
     allfaces = [f for f,s in hand]
-    return 'high-card', sorted(allfaces,
+    return 'a high-card', sorted(allfaces,
                                key=lambda f: face.index(f),
                                reverse=True)
 
@@ -404,5 +404,5 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     mud.send_game_board(id, boardStr)
     rankedStr = cardRank(handStr)
     if rankedStr:
-        mud.send_message(id,str(rankedStr[0])+'\n\n')
+        mud.send_message(id,'You have '+str(rankedStr[0])+'.\n\n')
     
