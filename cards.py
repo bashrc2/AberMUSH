@@ -217,19 +217,20 @@ def parseCard(cardDescription: str) -> str:
 def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,hands) -> None:
     """Deals a number of cards to a player
     """
-    id=None
+    cardPlayerId=None
+    name=name.lower()
     for p in players:
-        if players[p]['name'].lower() in name.lower():
-            if players[p]['room'] == players[dealerId]['room']:
-                id=p
+        if players[p]['room'] == players[dealerId]['room']:
+            if players[p]['name'].lower()==name:
+                cardPlayerId=p
                 break
-    if not id:
+    if not cardPlayerId:
         if 'myself' in name or ' me' in name:
-            id=dealerId
+            cardPlayerId=dealerId
         else:
             mud.send_message(dealerId, "\nThey're not in the room.\n")
             return
-    cardPlayerName=players[id]['name']
+    cardPlayerName=players[cardPlayerId]['name']
     hands[cardPlayerName]=''
     ctr=0
     for i in range(noOfCards):
@@ -242,11 +243,11 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
             ctr+=1
     if ctr>0:
         hands[cardPlayerName]=hands[cardPlayerName]
-        if dealerId==id:
+        if dealerId==cardPlayerId:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to yourself.\n')
         else:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+cardPlayerName+'.\n')
-            mud.send_message(id, '\n'+players[dealerId]['name']+' deals '+str(ctr)+' cards to you.\n')
+            mud.send_message(cardPlayerId, '\n'+players[dealerId]['name']+' deals '+str(ctr)+' cards to you.\n')
 
 def cardGameInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
     """Returns the item ID if there is a card game in the room
