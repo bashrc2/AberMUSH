@@ -268,8 +268,6 @@ class MudServer(object):
         if '\n' not in message:
             return
         messageLines=message.split('\n')
-        if len(messageLines)<8:
-            return
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
