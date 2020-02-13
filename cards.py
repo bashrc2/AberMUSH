@@ -386,6 +386,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         lines[8].append('└─────────┘')
 
     mud.send_message(id, '\n')
+    mud.send_game_board(id, 'Test cards: '+str(items[gameItemID]['gameState']['hands'][playerName])+'\n\n')
     for lineRowStr in lines:
         lineStr=''
         for s in lineRowStr:
