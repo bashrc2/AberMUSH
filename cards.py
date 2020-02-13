@@ -460,3 +460,17 @@ def swapCard(cardDescription: str,players: {},id,mud,rooms: {}, \
                     mud.send_message(p, '\n'+playerName+' swaps a card.\n')
     mud.send_message(p, '\nYou swap a card.\n')
     showHandOfCards(players,id,mud,rooms,items,itemsDB)
+
+def shuffleCards(players: {},id,mud,rooms: {}, \
+                 items: {},itemsDB: {}) -> None:
+    gameItemID=cardGameInRoom(players,id,rooms,items,itemsDB)
+    if not gameItemID:
+        mud.send_message(id, '\nThere are no playing cards here.\n')
+        return
+
+    mud.send_message(id, '\nYou shuffle the cards.\n')
+
+    for p in players:
+        if players[p]['room'] == players[id]['room']:
+            if p!=id:
+                mud.send_message(p, '\n'+players[id]['name']+' shuffles cards.\n')

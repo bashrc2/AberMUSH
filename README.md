@@ -98,6 +98,7 @@ chess undo                              - undoes the last move
 If you can find a deck of cards:
 
 ``` text
+shuffle                                 - Shuffles the deck
 deal to [player names]                  - Deals cards
 hand                                    - View your hand of cards
 swap [card description]                 - Swaps a card

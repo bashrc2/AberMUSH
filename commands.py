@@ -41,6 +41,7 @@ from chess import moveChessPiece
 from cards import dealToPlayers
 from cards import showHandOfCards
 from cards import swapCard
+from cards import shuffleCards
 
 from proficiencies import thievesCant
 
@@ -4219,6 +4220,33 @@ def swapACard(
     """
     swapCard(params,players,id,mud,rooms,items,itemsDB)
 
+def shuffle(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Shuffle a deck of cards
+    """
+    shuffleCards(players,id,mud,rooms,items,itemsDB)
+
 def chess(
         params,
         mud,
@@ -6902,7 +6930,8 @@ def runCommand(
         "chess": chess,
         "deal": deal,
         "hand": handOfCards,
-        "swap": swapACard
+        "swap": swapACard,
+        "shuffle": shuffle
     }
 
     try:
