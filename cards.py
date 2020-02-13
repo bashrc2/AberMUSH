@@ -226,7 +226,7 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
                 cardPlayerId=p
                 break
     if cardPlayerId==None:
-        if 'myself' in name or ' me' in name:
+        if 'myself' in name or ' me' in name or ' self' in name:
             cardPlayerId=dealerId
         else:
             mud.send_message(dealerId, "\nThey're not in the room.\n")
@@ -302,6 +302,7 @@ def dealToPlayers(players: {},dealerId,description: str, \
     description=description.lower().replace('.',' ').replace(',',' ')+' '
     description=description.replace('myself',players[dealerId]['name'])
     description=description.replace(' me ',' '+players[dealerId]['name']+' ')
+    description=description.replace(' self ',' '+players[dealerId]['name']+' ')
 
     playerCount=0
     for p in players:
