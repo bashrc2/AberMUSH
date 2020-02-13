@@ -244,8 +244,8 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
             ctr+=1
     if ctr>0:
         hands[cardPlayerName]=hands[cardPlayerName]
-        mud.send_game_board(cardPlayerName, '\nTest1 '+hands[cardPlayerName]+'\n')
         if dealerId==cardPlayerId:
+            mud.send_game_board(dealerId, '\nTest1 '+hands[cardPlayerName]+'\n')
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to yourself.\n')
         else:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+cardPlayerName+'.\n')
