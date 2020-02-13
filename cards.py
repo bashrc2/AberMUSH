@@ -367,11 +367,11 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     hand=handStr.split()
     lines = [[] for i in range(9)]
     cardColor="\u001b[38;5;240m"
-    rankColor="\u001b[38;5;250m"
 
     for cardStr in hand:
         if len(cardStr)<2:
             continue
+        rankColor="\u001b[38;5;250m"
         if cardStr[1]!='0':
             rank=cardStr[0].upper()
             suit=cardStr[1]
@@ -381,6 +381,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         suitColor="\u001b[38;5;245m"
         if suit=='♥' or suit=='♦':
             suitColor="\u001b[31m"
+            rankColor=suitColor
         if rank=='10':
             space=''
         else:
