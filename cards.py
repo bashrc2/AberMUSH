@@ -158,7 +158,7 @@ def handy(cards: str):
         return None
     return hand
 
-def rank(cards: str) -> []:
+def cardRank(cards: str) -> []:
     hand = handy(cards)
     if not hand:
         return None
@@ -392,7 +392,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         lines[4].append('│    {}{}{}    │'.format(suitColor,suit,cardColor))
         lines[5].append('│         │')
         lines[6].append('│         │')
-        lines[7].append('│       {}{}{}{}│'.format(rankColor,space,cardColor,rank))
+        lines[7].append('│       {}{}{}{}│'.format(space,rankColor,rank,cardColor))
         lines[8].append('└─────────┘')
 
     boardStr=cardColor+'\n'
@@ -402,7 +402,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
             lineStr+=s
         boardStr+=lineStr+'\n'
     mud.send_game_board(id, boardStr)
-    rankedStr = rank(handStr)
+    rankedStr = cardRank(handStr)
     if rankedStr:
-        mud.send_message(id,rankedStr[0]+'\n\n')
+        mud.send_message(id,str(rankedStr[0])+'\n\n')
     
