@@ -366,7 +366,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     hand=items[gameItemID]['gameState']['hands'][playerName].split()
     lines = [[] for i in range(9)]
 
-    for cardStr in range(9):
+    for cardStr in hand:
         if len(cardStr)!=2:
             continue
         rank=cardStr[0]
