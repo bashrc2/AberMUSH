@@ -404,5 +404,5 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     mud.send_game_board(id, boardStr)
     rankedStr = rank(handStr)
     if rankedStr:
-        mud.send_message(id,rankedStr+'\n\n')
+        mud.send_message(id,rankedStr[0]+'\n\n')
     
