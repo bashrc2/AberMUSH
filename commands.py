@@ -42,6 +42,7 @@ from cards import dealToPlayers
 from cards import showHandOfCards
 from cards import swapCard
 from cards import shuffleCards
+from cards import callCards
 
 from proficiencies import thievesCant
 
@@ -6931,7 +6932,8 @@ def runCommand(
         "deal": deal,
         "hand": handOfCards,
         "swap": swapACard,
-        "shuffle": shuffle
+        "shuffle": shuffle,
+        "call": callCards
     }
 
     try:
