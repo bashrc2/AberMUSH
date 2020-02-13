@@ -214,7 +214,8 @@ def parseCard(cardDescription: str) -> str:
         return None
     return detectedFace+detectedSuit
 
-def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,hands) -> None:
+def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck, \
+                      mud,hands,rooms: {},items: {},itemsDB: {}) -> None:
     """Deals a number of cards to a player
     """
     cardPlayerId=None
@@ -245,9 +246,11 @@ def dealCardsToPlayer(players: {},dealerId,name: str,noOfCards: int,deck,mud,han
         hands[cardPlayerName]=hands[cardPlayerName]
         if dealerId==cardPlayerId:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to yourself.\n')
+            showHandOfCards(players,dealerId,mud,rooms,items,itemsDB)
         else:
             mud.send_message(dealerId, '\nYou deal '+str(ctr)+' cards to '+cardPlayerName+'.\n')
             mud.send_message(cardPlayerId, '\n'+players[dealerId]['name']+' deals '+str(ctr)+' cards to you.\n')
+            showHandOfCards(players,cardPlayerId,mud,rooms,items,itemsDB)
 
 def cardGameInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
     """Returns the item ID if there is a card game in the room
@@ -290,6 +293,7 @@ def dealToPlayers(players: {},dealerId,description: str, \
     gameItemID=cardGameInRoom(players,dealerId,rooms,items,itemsDB)
     if not gameItemID:
         mud.send_message(dealerId, '\nThere are no playing cards here.\n')
+        return
 
     noOfCards=getNumberFromText(description)
     if noOfCards==None:
@@ -309,6 +313,7 @@ def dealToPlayers(players: {},dealerId,description: str, \
 
     if playerCount==0:
         mud.send_message(dealerId, '\nName some players to deal to.\n')
+        return
 
     # initialise the deck
     deck=Deck()
@@ -320,7 +325,7 @@ def dealToPlayers(players: {},dealerId,description: str, \
         if players[p]['name'].lower() not in description:
             continue
         dealCardsToPlayer(players,dealerId,players[p]['name'], \
-                          noOfCards,deck,mud,hands)
+                          noOfCards,deck,mud,hands,rooms,items,itemsDB)
 
     # no cards played
     items[gameItemID]['gameState']={
@@ -328,3 +333,50 @@ def dealToPlayers(players: {},dealerId,description: str, \
         'table': {},
         'deck': str(deck)
     }
+
+def showHandOfCards(players: {},id,mud,rooms: {}, \
+                    items: {},itemsDB: {}) -> None:
+    """Shows the cards for the given player
+    """
+    gameItemID=cardGameInRoom(players,id,rooms,items,itemsDB)
+    if not gameItemID:
+        mud.send_message(id, '\nThere are no playing cards here.\n')
+        return
+
+    playerName=players[id]['name']
+    if not items[gameItemID].get('gameState'):
+        mud.send_message(id, '\nNo cards have been dealt.\n')
+        return
+
+    if not items[gameItemID]['gameState'].get('hands'):
+        mud.send_message(id, '\nNo cards have been dealt.\n')
+        return
+
+    if not items[gameItemID]['gameState']['hands'].get(playerName):
+        mud.send_message(id, '\nNo cards have been dealt.\n')
+        return
+
+    hand=items[gameItemID]['gameState']['hands'][playerName].split()
+    lines = [[] for i in range(9)]
+
+    for cardStr in range(9):
+        if len(cardStr)!=2:
+            continue
+        rank=cardStr[0]
+        suit=cardStr[1]
+        if rank=='10':
+            space=''
+        else:
+            space=' '
+        lines[0].append('┌─────────┐')
+        lines[1].append('│{}{}       │'.format(rank, space))
+        lines[2].append('│         │')
+        lines[3].append('│         │')
+        lines[4].append('│    {}    │'.format(suit))
+        lines[5].append('│         │')
+        lines[6].append('│         │')
+        lines[7].append('│       {}{}│'.format(space, rank))
+        lines[8].append('└─────────┘')
+
+    for lineStr in lines:
+        mud.send_message(id, '\n'+lineStr+'\n')

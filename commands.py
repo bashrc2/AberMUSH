@@ -39,6 +39,7 @@ from chess import showChessBoard
 from chess import initialChessBoard
 from chess import moveChessPiece
 from cards import dealToPlayers
+from cards import showHandOfCards
 
 from proficiencies import thievesCant
 
@@ -4163,6 +4164,33 @@ def deal(
     dealToPlayers(players,id,params.lower(), \
                   mud,rooms,items,itemsDB)
 
+def handOfCards(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Show hand of cards
+    """
+    showHandOfCards(players,id,mud,rooms,items,itemsDB)
+
 def chess(
         params,
         mud,
@@ -6844,7 +6872,8 @@ def runCommand(
         "pictures": graphics,
         "graphics": graphics,
         "chess": chess,
-        "deal": deal
+        "deal": deal,
+        "hand": handOfCards
     }
 
     try:
