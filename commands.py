@@ -38,6 +38,7 @@ from combat import playerBeginsAttack
 from chess import showChessBoard
 from chess import initialChessBoard
 from chess import moveChessPiece
+from cards import dealToPlayers
 
 from proficiencies import thievesCant
 
@@ -4134,6 +4135,35 @@ def chessBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
+def deal(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Deal cards to other players
+    """
+    noOfCards=5
+    dealToPlayers(players,id,params.lower(),noOfCards, \
+                  mud,rooms,items,itemsDB)
+
 def chess(
         params,
         mud,
@@ -6814,7 +6844,8 @@ def runCommand(
         "images": graphics,
         "pictures": graphics,
         "graphics": graphics,
-        "chess": chess
+        "chess": chess,
+        "deal": deal
     }
 
     try:
