@@ -1228,6 +1228,19 @@ def help(
     mud.send_message(id, \
                      'chess undo                              - undoes the last move')
 
+    mud.send_message(id, '')
+    mud.send_message(id, 'Cards:')
+    mud.send_message(id, \
+                     'shuffle                                 - Shuffles the deck')
+    mud.send_message(id, \
+                     'deal to [player names]                  - Deals cards')
+    mud.send_message(id, \
+                     'hand                                    - View your hand of cards')
+    mud.send_message(id, \
+                     'swap [card description]                 - Swaps a card')
+    mud.send_message(id, \
+                     'call                                    - Players show their hands')
+
     if isWitch(id, players):
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')
