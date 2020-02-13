@@ -390,4 +390,4 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         lineStr=''
         for s in lineRowStr:
             lineStr+=s
-        mud.send_message(id, '\n'+lineStr+'\n')
+        mud.send_game_board(id, '\n'+lineStr+'\n')
