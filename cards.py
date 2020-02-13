@@ -293,6 +293,6 @@ def dealToPlayers(players: {},dealerId,description: str,noOfCards: int, \
     # no cards played
     items[gameItemID]['gameState']={
         'hands': hands,
-        'table': '',
+        'table': {},
         'deck': deck
     }
