@@ -171,6 +171,13 @@ def morrisMove(moveDescription: str, \
                 break
             index+=1
     else:
+        if turn=='white' and whiteCounters>0:
+            mud.send_message(id, '\nPlace your counters first before moving any of them.\n')
+            return
+        elif turn=='black' and blackCounters>0:
+            mud.send_message(id, '\nPlace your counters first before moving any of them.\n')
+            return
+
         # move a counter from one place to another
         if boardMove[0]==boardMove[1]:
             mud.send_message(id,'\nSpecify coordinates to move from and to.\n')
