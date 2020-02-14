@@ -32,8 +32,8 @@ def morrisBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
-def morrisBoardSet(board: str,index: int,piece: str):
-    board=board[:index]+piece+board[(index+1):]
+def morrisBoardSet(board: str,index: int,piece: str) -> str:
+    return board[:index]+piece+board[(index+1):]
 
 def morrisMove(moveDescription: str, \
                players: {},id,mud,rooms: {}, \
@@ -94,7 +94,7 @@ def morrisMove(moveDescription: str, \
                     mud.send_message(id, '\nPlacing counter\n')
                     if turn=='white':
                         if whiteCounters>0:
-                            morrisBoardSet(board,index,'●')
+                            board=morrisBoardSet(board,index,'●')
                             whiteCounters-=1
                             moveSucceeded=True
                             items[gameItemID]['gameState']['morrisWhite']=whiteCounters
@@ -103,7 +103,7 @@ def morrisMove(moveDescription: str, \
                             mud.send_game_board(id, '\nBoard2: '+board+'\n')
                     else:
                         if blackCounters>0:
-                            morrisBoardSet(board,index,'○')
+                            board=morrisBoardSet(board,index,'○')
                             blackCounters-=1
                             moveSucceeded=True
                             items[gameItemID]['gameState']['morrisBlack']=blackCounters
@@ -139,12 +139,12 @@ def morrisMove(moveDescription: str, \
                     mud.send_message(id,"\nThere is already a counter at "+loc+'\n')
                     return
                 if turn=='white':
-                    morrisBoardSet(board,toIndex,'●')
+                    board=morrisBoardSet(board,toIndex,'●')
                     items[gameItemID]['gameState']['morrisTurn']='black'
                 else:
-                    morrisBoardSet(board,toIndex,'○')
+                    board=morrisBoardSet(board,toIndex,'○')
                     items[gameItemID]['gameState']['morrisTurn']='white'
-                morrisBoardSet(board,fromIndex,'·')
+                board=morrisBoardSet(board,fromIndex,'·')
                 items[gameItemID]['gameState']['morris']=board
                 moveSucceeded=True
                 break
