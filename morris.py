@@ -65,7 +65,13 @@ def morrisMove(moveDescription: str, \
     else:
         board='·' * 24
         items[gameItemID]['gameState']['morris']=board
-    
+
+    # check for a win
+    if morrisPieces('white',board)<=2 or \
+       morrisPieces('black',board)<=2:
+        showMorrisBoard(players,id,mud,rooms,items,itemsDB)
+        return
+
     moveDescription= \
         moveDescription.lower().replace('.',' ').replace(',',' ').strip()
     words=moveDescription.split()
@@ -149,6 +155,18 @@ def morrisMove(moveDescription: str, \
             toIndex+=1
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
+def morrisPieces(side: str,board: str) -> int:
+    ctr=0
+    if side=='white':
+        for piece in board:
+            if piece=='●':
+                ctr+=1
+    else:
+        for piece in board:
+            if piece=='○':
+                ctr+=1
+    return ctr
+
 def showMorrisBoard(players: {},id,mud,rooms: {}, \
                     items: {},itemsDB: {}) -> None:
     gameItemID=morrisBoardInRoom(players,id,rooms,items,itemsDB)
@@ -174,5 +192,10 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
     boardStr+=' 2 │ '+board[3]+'───'+board[4]+'───'+board[5]+' │\n'
     boardStr+=' 1 '+board[0]+'─────'+board[1]+'─────'+board[2]+'\n'
     boardStr+='   a b c d e f g\n'
-
+    
     mud.send_game_board(id, boardStr)
+
+    if morrisPieces('white',board)<=2:
+        mud.send_message(id, 'Black wins')
+    elif morrisPieces('black',board)<=2:
+        mud.send_message(id, 'White wins')
