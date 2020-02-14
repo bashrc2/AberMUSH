@@ -32,6 +32,49 @@ def morrisBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
+def hasMill(side: str,board: str) -> bool:
+    """Does the given side have a mill
+    """
+    if side='white':
+        piece='●'
+    else:
+        piece='○'
+    #vertical
+    if board[0]==piece and board[9]==piece and board[21]==piece:
+        return True
+    if board[3]==piece and board[10]==piece and board[18]==piece:
+        return True
+    if board[6]==piece and board[11]==piece and board[15]==piece:
+        return True
+    if board[1]==piece and board[4]==piece and board[7]==piece:
+        return True
+    if board[16]==piece and board[19]==piece and board[22]==piece:
+        return True
+    if board[8]==piece and board[12]==piece and board[17]==piece:
+        return True
+    if board[5]==piece and board[13]==piece and board[20]==piece:
+        return True
+    if board[2]==piece and board[14]==piece and board[23]==piece:
+        return True
+    # horizontal
+    if board[0]==piece and board[1]==piece and board[2]==piece:
+        return True
+    if board[3]==piece and board[4]==piece and board[5]==piece:
+        return True
+    if board[6]==piece and board[7]==piece and board[8]==piece:
+        return True
+    if board[9]==piece and board[10]==piece and board[11]==piece:
+        return True
+    if board[12]==piece and board[13]==piece and board[14]==piece:
+        return True    
+    if board[15]==piece and board[16]==piece and board[17]==piece:
+        return True
+    if board[18]==piece and board[19]==piece and board[20]==piece:
+        return True
+    if board[21]==piece and board[22]==piece and board[23]==piece:
+        return True
+    return False
+
 def morrisBoardSet(board: str,index: int,piece: str) -> str:
     return board[:index]+piece+board[(index+1):]
 
@@ -69,6 +112,13 @@ def morrisMove(moveDescription: str, \
     # check for a win
     if morrisPieces('white',board)<=2 or \
        morrisPieces('black',board)<=2:
+        showMorrisBoard(players,id,mud,rooms,items,itemsDB)
+        return
+
+    if hasMill('black',board):
+        showMorrisBoard(players,id,mud,rooms,items,itemsDB)
+        return
+    if hasMill('white',board):
         showMorrisBoard(players,id,mud,rooms,items,itemsDB)
         return
 
@@ -196,6 +246,13 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
     mud.send_game_board(id, boardStr)
 
     if morrisPieces('white',board)<=2:
-        mud.send_message(id, 'Black wins')
+        mud.send_message(id, 'Black wins\n')
+        return
     elif morrisPieces('black',board)<=2:
-        mud.send_message(id, 'White wins')
+        mud.send_message(id, 'White wins\n')
+        return
+
+    if hasMill('black',board):
+        mud.send_message(id, 'Black has a mill\n')
+    if hasMill('white',board):
+        mud.send_message(id, 'White has a mill\n')
