@@ -284,5 +284,9 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
 
     if hasMill('black',board):
         mud.send_message(id, 'Black has a mill\n')
+        return
     if hasMill('white',board):
         mud.send_message(id, 'White has a mill\n')
+        return
+
+    mud.send_message(id, items[gameItemID]['gameState']['morrisTurn']+"'s move\n")
