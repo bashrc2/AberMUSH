@@ -96,12 +96,16 @@ def morrisMove(moveDescription: str, \
                             morrisBoardSet(board,index,'●')
                             whiteCounters-=1
                             moveSucceeded=True
+                            items[gameItemID]['gameState']['morrisWhite']=whiteCounters
+                            items[gameItemID]['gameState']['morris']=board
                             items[gameItemID]['gameState']['morrisTurn']='black'
                     else:
                         if blackCounters>0:
                             morrisBoardSet(board,index,'○')
                             blackCounters-=1
                             moveSucceeded=True
+                            items[gameItemID]['gameState']['morrisBlack']=blackCounters
+                            items[gameItemID]['gameState']['morris']=board
                             items[gameItemID]['gameState']['morrisTurn']='white'
                 break
             index+=1
@@ -138,6 +142,7 @@ def morrisMove(moveDescription: str, \
                     morrisBoardSet(board,toIndex,'○')
                     items[gameItemID]['gameState']['morrisTurn']='white'
                 morrisBoardSet(board,fromIndex,'·')
+                items[gameItemID]['gameState']['morris']=board
                 moveSucceeded=True
                 break
             toIndex+=1
