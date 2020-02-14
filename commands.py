@@ -43,6 +43,8 @@ from cards import showHandOfCards
 from cards import swapCard
 from cards import shuffleCards
 from cards import callCards
+from morris import showMorrisBoard
+from morris import morrisMove
 
 from proficiencies import thievesCant
 
@@ -4148,7 +4150,7 @@ def chessBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
     for i in items:
         if items[i]['room'] != rid:
             continue
-        if itemsDB[items[i]['id']]['game'].lower() == 'chess':
+        if 'chess' in itemsDB[items[i]['id']]['game'].lower():
             return i
     return None
 
@@ -4287,6 +4289,37 @@ def callCardGame(
     """Players show their cards
     """
     callCards(players,id,mud,rooms,items,itemsDB)
+
+def morrisGame(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    """Show the nine men's morris board
+    """
+    params=params.lower()
+    if params.startswith('move ') or params.startswith('play '):
+        morrisMove(params,players,id,mud,rooms, \
+                   items,itemsDB)
+    showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
 def chess(
         params,
@@ -6973,7 +7006,8 @@ def runCommand(
         "hand": handOfCards,
         "swap": swapACard,
         "shuffle": shuffle,
-        "call": callCardGame
+        "call": callCardGame,
+        "morris": morrisGame
     }
 
     try:

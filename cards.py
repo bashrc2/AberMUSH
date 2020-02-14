@@ -259,7 +259,7 @@ def cardGameInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
     for i in items:
         if items[i]['room'] != rid:
             continue
-        if itemsDB[items[i]['id']]['game'].lower() == 'cards':
+        if 'cards' in itemsDB[items[i]['id']]['game'].lower():
             return i
     return None
 
@@ -319,6 +319,10 @@ def dealToPlayers(players: {},dealerId,description: str, \
     # initialise the deck
     deck=Deck()
 
+    # create game state
+    if not items[gameItemID].get('gameState'):
+        items[gameItemID]['gameState']={}
+    
     hands={}
     for p in players:
         if players[p]['room'] != players[dealerId]['room']:
@@ -327,19 +331,15 @@ def dealToPlayers(players: {},dealerId,description: str, \
             continue
         if dealCardsToPlayer(players,dealerId,players[p]['name'], \
                              noOfCards,deck,mud,hands,rooms,items,itemsDB):
-            items[gameItemID]['gameState']={
-                'hands': hands,
-                'table': {},
-                'deck': str(deck)
-            }
+            items[gameItemID]['gameState']['hands']=hands
+            items[gameItemID]['gameState']['table']={}
+            items[gameItemID]['gameState']['deck']=str(deck)
             showHandOfCards(players,p,mud,rooms,items,itemsDB)
 
     # no cards played
-    items[gameItemID]['gameState']={
-        'hands': hands,
-        'called': 0,
-        'deck': str(deck)
-    }
+    items[gameItemID]['gameState']['hands']=hands
+    items[gameItemID]['gameState']['called']=0
+    items[gameItemID]['gameState']['deck']=str(deck)
 
 def showHandOfCards(players: {},id,mud,rooms: {}, \
                     items: {},itemsDB: {}) -> None:
