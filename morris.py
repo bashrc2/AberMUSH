@@ -110,10 +110,11 @@ def morrisMove(moveDescription: str, \
         items[gameItemID]['gameState']['morris']=board
 
     # check for a win
-    if morrisPieces('white',board)<=2 or \
-       morrisPieces('black',board)<=2:
-        showMorrisBoard(players,id,mud,rooms,items,itemsDB)
-        return
+    if whiteCounters==0 and blackCounters==0:
+        if morrisPieces('white',board)<=2 or \
+           morrisPieces('black',board)<=2:
+            showMorrisBoard(players,id,mud,rooms,items,itemsDB)
+            return
 
     if hasMill('black',board):
         showMorrisBoard(players,id,mud,rooms,items,itemsDB)
@@ -248,12 +249,21 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
     
     mud.send_game_board(id, boardStr)
 
-    if morrisPieces('white',board)<=2:
-        mud.send_message(id, 'Black wins\n')
-        return
-    elif morrisPieces('black',board)<=2:
-        mud.send_message(id, 'White wins\n')
-        return
+    whiteCounters=9
+    if items[gameItemID]['gameState'].get('morrisWhite'):
+        whiteCounters=int(items[gameItemID]['gameState']['morrisWhite'])
+
+    blackCounters=9
+    if items[gameItemID]['gameState'].get('morrisBlack'):
+        blackCounters=int(items[gameItemID]['gameState']['morrisBlack'])
+
+    if whiteCounters==0 and blackCounters==0:
+        if morrisPieces('white',board)<=2:
+            mud.send_message(id, 'Black wins\n')
+            return
+        elif morrisPieces('black',board)<=2:
+            mud.send_message(id, 'White wins\n')
+            return
 
     if hasMill('black',board):
         mud.send_message(id, 'Black has a mill\n')
