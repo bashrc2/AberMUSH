@@ -4316,9 +4316,14 @@ def morrisGame(
     """Show the nine men's morris board
     """
     params=params.lower()
-    if params.startswith('move ') or params.startswith('play '):
+    if params.startswith('move ') or \
+       params.startswith('play ') or \
+       params.startswith('put ') or \
+       params.startswith('counter ') or \
+       params.startswith('place '):
         morrisMove(params,players,id,mud,rooms, \
                    items,itemsDB)
+        return
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
 def chess(

@@ -72,8 +72,8 @@ def morrisMove(moveDescription: str, \
             if w[1].isdigit():
                 if ord(w[0])>=ord('a') and \
                    ord(w[0])<=ord('g') and \
-                   int(w[0])>=1 and \
-                   int(w[0])<=7:
+                   int(w[1])>=1 and \
+                   int(w[1])<=7:
                     if w in validMorrisBoardLocations:
                         boardMove.append(w)
     if len(boardMove)==0 or len(boardMove)>2:
@@ -135,6 +135,7 @@ def morrisMove(moveDescription: str, \
                     board[toIndex]='○'
                     items[gameItemID]['gameState']['morrisTurn']='white'
                 board[fromIndex]='·'
+                moveSucceeded=True
                 break
             toIndex+=1
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
