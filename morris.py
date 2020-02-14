@@ -32,6 +32,9 @@ def morrisBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
+def morrisBoardSet(board: str,index: int,piece: str):
+    board=board[:index]+piece+board[(index+1):]
+
 def morrisMove(moveDescription: str, \
                players: {},id,mud,rooms: {}, \
                items: {},itemsDB: {}) -> None:
@@ -90,13 +93,13 @@ def morrisMove(moveDescription: str, \
                 if board[index]=='·':
                     if turn=='white':
                         if whiteCounters>0:
-                            board[index]='●'
+                            morrisBoardSet(board,index,'●')
                             whiteCounters-=1
                             moveSucceeded=True
                             items[gameItemID]['gameState']['morrisTurn']='black'
                     else:
                         if blackCounters>0:
-                            board[index]='○'
+                            morrisBoardSet(board,index,'○')
                             blackCounters-=1
                             moveSucceeded=True
                             items[gameItemID]['gameState']['morrisTurn']='white'
@@ -129,12 +132,12 @@ def morrisMove(moveDescription: str, \
                     mud.send_message(id,"\nThere is already a counter at "+loc+'\n')
                     return
                 if turn=='white':
-                    board[toIndex]='●'
+                    morrisBoardSet(board,toIndex,'●')
                     items[gameItemID]['gameState']['morrisTurn']='black'
                 else:
-                    board[toIndex]='○'
+                    morrisBoardSet(board,toIndex,'○')
                     items[gameItemID]['gameState']['morrisTurn']='white'
-                board[fromIndex]='·'
+                morrisBoardSet(board,fromIndex,'·')
                 moveSucceeded=True
                 break
             toIndex+=1
