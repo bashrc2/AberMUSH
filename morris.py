@@ -100,7 +100,6 @@ def morrisMove(moveDescription: str, \
                             items[gameItemID]['gameState']['morrisWhite']=whiteCounters
                             items[gameItemID]['gameState']['morris']=board
                             items[gameItemID]['gameState']['morrisTurn']='black'
-                            mud.send_game_board(id, '\nBoard2: '+board+'\n')
                     else:
                         if blackCounters>0:
                             board=morrisBoardSet(board,index,'○')
@@ -109,7 +108,6 @@ def morrisMove(moveDescription: str, \
                             items[gameItemID]['gameState']['morrisBlack']=blackCounters
                             items[gameItemID]['gameState']['morris']=board
                             items[gameItemID]['gameState']['morrisTurn']='white'
-                            mud.send_game_board(id, '\nBoard3: '+board+'\n')
                 break
             index+=1
     else:
@@ -149,7 +147,6 @@ def morrisMove(moveDescription: str, \
                 moveSucceeded=True
                 break
             toIndex+=1
-    mud.send_game_board(id, '\nBoard4: '+board+'\n')
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
 def showMorrisBoard(players: {},id,mud,rooms: {}, \
@@ -167,8 +164,6 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
     else:
         board='·' * 24
         items[gameItemID]['gameState']['morris']=board
-
-    mud.send_game_board(id, '\nBoard: '+board+'\n')
         
     boardStr='\n'
     boardStr+=' 7 '+board[21]+'─────'+board[22]+'─────'+board[23]+'\n'
