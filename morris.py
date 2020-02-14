@@ -289,4 +289,6 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
         mud.send_message(id, 'White has a mill\n')
         return
 
+    if not items[gameItemID]['gameState'].get('morrisTurn'):
+        items[gameItemID]['gameState']['morrisTurn']='white'
     mud.send_message(id, items[gameItemID]['gameState']['morrisTurn']+"'s move\n")
