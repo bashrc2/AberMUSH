@@ -146,6 +146,7 @@ def morrisMove(moveDescription: str, \
                 moveSucceeded=True
                 break
             toIndex+=1
+    mud.send_game_board(id, 'Board2: '+board)
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
 def showMorrisBoard(players: {},id,mud,rooms: {}, \
