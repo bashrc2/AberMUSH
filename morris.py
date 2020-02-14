@@ -35,7 +35,7 @@ def morrisBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
 def hasMill(side: str,board: str) -> bool:
     """Does the given side have a mill
     """
-    if side='white':
+    if side=='white':
         piece='●'
     else:
         piece='○'
