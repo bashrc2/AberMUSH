@@ -221,6 +221,23 @@ def morrisPieces(side: str,board: str) -> int:
                 ctr+=1
     return ctr
 
+def resetMorrisBoard(players: {},id,mud,rooms: {}, \
+                     items: {},itemsDB: {}) -> None:
+    gameItemID=morrisBoardInRoom(players,id,rooms,items,itemsDB)
+    if not gameItemID:
+        mud.send_message(id, '\nThere are no Morris board here.\n')
+        return
+
+    if not items[gameItemID].get('gameState'):
+        items[gameItemID]['gameState']={}
+
+    board='·' * 24
+    items[gameItemID]['gameState']['morris']=board
+    items[gameItemID]['gameState']['morrisWhite']=9
+    items[gameItemID]['gameState']['morrisBlack']=9
+    items[gameItemID]['gameState']['morrisTurn']='white'
+    showMorrisBoard(players,id,mud,rooms,items,itemsDB)
+
 def showMorrisBoard(players: {},id,mud,rooms: {}, \
                     items: {},itemsDB: {}) -> None:
     gameItemID=morrisBoardInRoom(players,id,rooms,items,itemsDB)

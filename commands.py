@@ -45,6 +45,7 @@ from cards import shuffleCards
 from cards import callCards
 from morris import showMorrisBoard
 from morris import morrisMove
+from morris import resetMorrisBoard
 
 from proficiencies import thievesCant
 
@@ -4316,6 +4317,11 @@ def morrisGame(
     """Show the nine men's morris board
     """
     params=params.lower()
+    if params.startswith('reset') or \
+       params.startswith('clear'):
+        resetMorrisBoard(players,id,mud,rooms,items,itemsDB)
+        return
+
     if params.startswith('move ') or \
        params.startswith('play ') or \
        params.startswith('put ') or \
@@ -4324,6 +4330,7 @@ def morrisGame(
         morrisMove(params,players,id,mud,rooms, \
                    items,itemsDB)
         return
+
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
 def chess(
