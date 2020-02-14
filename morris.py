@@ -164,6 +164,8 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
         board='·' * 24
         items[gameItemID]['gameState']['morris']=board
 
+    mud.send_game_board(id, 'Board: '+board)
+        
     boardStr='\n'
     boardStr+=' 7 '+board[21]+'─────'+board[22]+'─────'+board[23]+'\n'
     boardStr+=' 6 │ '+board[18]+'───'+board[19]+'───'+board[20]+' │\n'
