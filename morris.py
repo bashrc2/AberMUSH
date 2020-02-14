@@ -136,6 +136,20 @@ def morrisMove(moveDescription: str, \
                    int(w[1])<=7:
                     if w in validMorrisBoardLocations:
                         boardMove.append(w)
+        if len(w)==4:
+            if w[1].isdigit() and w[3].isdigit():
+                if ord(w[0])>=ord('a') and \
+                   ord(w[0])<=ord('g') and \
+                   int(w[1])>=1 and \
+                   int(w[1])<=7 and \
+                   ord(w[2])>=ord('a') and \
+                   ord(w[2])<=ord('g') and \
+                   int(w[3])>=1 and \
+                   int(w[4])<=7:
+                    if w[:2] in validMorrisBoardLocations and \
+                       w[2:] in validMorrisBoardLocations:
+                        boardMove.append(w[:2])
+                        boardMove.append(w[2:])
     if len(boardMove)==0 or len(boardMove)>2:
         mud.send_message(id, "\nThat's not a valid move.\n")
         return
