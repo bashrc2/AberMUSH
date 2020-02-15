@@ -56,7 +56,6 @@
     },
     "$rid=12$": {
         "exits": {
-            "up": "$rid=15$",
             "down": "$rid=7$"
         },
         "name": "The Rusty Ladder",
