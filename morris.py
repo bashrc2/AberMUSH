@@ -371,6 +371,7 @@ def takeMorrisCounter(takeDescription: str, \
                     items[gameItemID]['gameState']['millsBlack']=noOfMills('black',board)
                     board=morrisBoardSet(board,index,'·')
                     items[gameItemID]['gameState']['morris']=board
+                    showMorrisBoard(players,id,mud,rooms,items,itemsDB)
             index+=1
     elif noOfMills('white',board)>items[gameItemID]['gameState']['millsWhite']:
         index=0
@@ -380,6 +381,7 @@ def takeMorrisCounter(takeDescription: str, \
                     items[gameItemID]['gameState']['millsWhite']=noOfMills('white',board)
                     board=morrisBoardSet(board,index,'·')
                     items[gameItemID]['gameState']['morris']=board
+                    showMorrisBoard(players,id,mud,rooms,items,itemsDB)
             index+=1
             
     
