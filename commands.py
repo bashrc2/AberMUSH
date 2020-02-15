@@ -1245,6 +1245,19 @@ def help(
     mud.send_message(id, \
                      'call                                    - Players show their hands')
 
+    mud.send_message(id, '')
+    mud.send_message(id, "Nine Men's Morris:")
+    mud.send_message(id, \
+                     'morris                                  - Show the board')
+    mud.send_message(id, \
+                     'morris put [coordinate]                 - Place a counter')
+    mud.send_message(id, \
+                     'morris move [from coord] [to coord]     - Move a counter')
+    mud.send_message(id, \
+                     'morris take [coordinate]                - Remove a counter after mill')
+    mud.send_message(id, \
+                     'morris reset                            - Resets the board')
+
     if isWitch(id, players):
         mud.send_message(id, '')
         mud.send_message(id, 'Witch Commands:')
