@@ -46,6 +46,7 @@ from cards import callCards
 from morris import showMorrisBoard
 from morris import morrisMove
 from morris import resetMorrisBoard
+from morris import takeMorrisCounter
 
 from proficiencies import thievesCant
 
@@ -4320,6 +4321,12 @@ def morrisGame(
     if params.startswith('reset') or \
        params.startswith('clear'):
         resetMorrisBoard(players,id,mud,rooms,items,itemsDB)
+        return
+
+    if params.startswith('take') or \
+       params.startswith('remove') or \
+       params.startswith('capture'):
+        takeMorrisCounter(params,players,id,mud,rooms,items,itemsDB)
         return
 
     if params.startswith('move ') or \

@@ -32,48 +32,49 @@ def morrisBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
-def hasMill(side: str,board: str) -> bool:
-    """Does the given side have a mill
+def noOfMills(side: str,board: str) -> int:
+    """Count the number of mills for the side
     """
     if side=='white':
         piece='●'
     else:
         piece='○'
+    millsCtr=0
     #vertical
     if board[0]==piece and board[9]==piece and board[21]==piece:
-        return True
+        millsCtr+=1
     if board[3]==piece and board[10]==piece and board[18]==piece:
-        return True
+        millsCtr+=1
     if board[6]==piece and board[11]==piece and board[15]==piece:
-        return True
+        millsCtr+=1
     if board[1]==piece and board[4]==piece and board[7]==piece:
-        return True
+        millsCtr+=1
     if board[16]==piece and board[19]==piece and board[22]==piece:
-        return True
+        millsCtr+=1
     if board[8]==piece and board[12]==piece and board[17]==piece:
-        return True
+        millsCtr+=1
     if board[5]==piece and board[13]==piece and board[20]==piece:
-        return True
+        millsCtr+=1
     if board[2]==piece and board[14]==piece and board[23]==piece:
-        return True
+        millsCtr+=1
     # horizontal
     if board[0]==piece and board[1]==piece and board[2]==piece:
-        return True
+        millsCtr+=1
     if board[3]==piece and board[4]==piece and board[5]==piece:
-        return True
+        millsCtr+=1
     if board[6]==piece and board[7]==piece and board[8]==piece:
-        return True
+        millsCtr+=1
     if board[9]==piece and board[10]==piece and board[11]==piece:
-        return True
+        millsCtr+=1
     if board[12]==piece and board[13]==piece and board[14]==piece:
-        return True    
+        millsCtr+=1
     if board[15]==piece and board[16]==piece and board[17]==piece:
-        return True
+        millsCtr+=1
     if board[18]==piece and board[19]==piece and board[20]==piece:
-        return True
+        millsCtr+=1
     if board[21]==piece and board[22]==piece and board[23]==piece:
-        return True
-    return False
+        millsCtr+=1
+    return millsCtr
 
 def morrisBoardSet(board: str,index: int,piece: str) -> str:
     return board[:index]+piece+board[(index+1):]
@@ -103,6 +104,11 @@ def morrisMove(moveDescription: str, \
     if items[gameItemID]['gameState'].get('morrisBlack'):
         blackCounters=int(items[gameItemID]['gameState']['morrisBlack'])
 
+    if not items[gameItemID]['gameState'].get('millsWhite'):
+        items[gameItemID]['gameState']['millsWhite']=0
+    if not items[gameItemID]['gameState'].get('millsBlack'):
+        items[gameItemID]['gameState']['millsBlack']=0
+        
     if items[gameItemID]['gameState'].get('morris'):
         board=items[gameItemID]['gameState']['morris']
     else:
@@ -116,10 +122,10 @@ def morrisMove(moveDescription: str, \
             showMorrisBoard(players,id,mud,rooms,items,itemsDB)
             return
 
-    if hasMill('black',board):
+    if noOfMills('black',board)>items[gameItemID]['gameState']['millsBlack']:
         showMorrisBoard(players,id,mud,rooms,items,itemsDB)
         return
-    if hasMill('white',board):
+    if noOfMills('white',board)>items[gameItemID]['gameState']['millsWhite']:
         showMorrisBoard(players,id,mud,rooms,items,itemsDB)
         return
 
@@ -255,7 +261,9 @@ def resetMorrisBoard(players: {},id,mud,rooms: {}, \
     board='·' * 24
     items[gameItemID]['gameState']['morris']=board
     items[gameItemID]['gameState']['morrisWhite']=9
+    items[gameItemID]['gameState']['millsWhite']=0
     items[gameItemID]['gameState']['morrisBlack']=9
+    items[gameItemID]['gameState']['millsBlack']=0
     items[gameItemID]['gameState']['morrisTurn']='white'
     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
 
@@ -274,7 +282,12 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
     else:
         board='·' * 24
         items[gameItemID]['gameState']['morris']=board
-        
+
+    if not items[gameItemID]['gameState'].get('millsWhite'):
+        items[gameItemID]['gameState']['millsWhite']=0
+    if not items[gameItemID]['gameState'].get('millsBlack'):
+        items[gameItemID]['gameState']['millsBlack']=0
+
     boardStr='\n'
     boardStr+=' 7 '+board[21]+'─────'+board[22]+'─────'+board[23]+'\n'
     boardStr+=' 6 │ '+board[18]+'───'+board[19]+'───'+board[20]+' │\n'
@@ -303,13 +316,70 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
             mud.send_message(id, 'White wins\n')
             return
 
-    if hasMill('black',board):
-        mud.send_message(id, 'Black has a mill\n')
+    if noOfMills('black',board)>items[gameItemID]['gameState']['millsBlack']:
+        mud.send_message(id, 'Black has a mill. Take a white counter.\n')
         return
-    if hasMill('white',board):
-        mud.send_message(id, 'White has a mill\n')
+    if noOfMills('white',board)>items[gameItemID]['gameState']['millsWhite']:
+        mud.send_message(id, 'White has a mill. Take a black counter.\n')
         return
 
     if not items[gameItemID]['gameState'].get('morrisTurn'):
         items[gameItemID]['gameState']['morrisTurn']='white'
     mud.send_message(id, items[gameItemID]['gameState']['morrisTurn']+"'s move\n")
+
+def takeMorrisCounter(takeDescription: str, \
+                      players: {},id,mud,rooms: {}, \
+                      items: {},itemsDB: {}) -> None:
+    """Takes an opponent counter from the board
+    """
+    gameItemID=morrisBoardInRoom(players,id,rooms,items,itemsDB)
+    if not gameItemID:
+        mud.send_message(id, '\nThere are no Morris board here.\n')
+        return
+
+    if not items[gameItemID].get('gameState'):
+        items[gameItemID]['gameState']={}
+
+    if items[gameItemID]['gameState'].get('morris'):
+        board=items[gameItemID]['gameState']['morris']
+    else:
+        board='·' * 24
+        items[gameItemID]['gameState']['morris']=board
+
+    takeDescription= \
+        takeDescription.lower().replace('.',' ').replace(',',' ').strip()
+    words=takeDescription.split()
+    boardMove=[]
+    for w in words:
+        if len(w)==2:
+            if w[1].isdigit():
+                if ord(w[0])>=ord('a') and \
+                   ord(w[0])<=ord('g') and \
+                   int(w[1])>=1 and \
+                   int(w[1])<=7:
+                    if w in validMorrisBoardLocations:
+                        boardMove.append(w)
+    if len(boardMove)!=1:
+        mud.send_message(id, '\nSpecify the coordinate of the counter to be taken.\n')
+        return
+
+    if noOfMills('black',board)>items[gameItemID]['gameState']['millsBlack']:
+        index=0
+        for loc in validMorrisBoardLocations:
+            if loc==boardMove[0]:
+                if board[index]=='●':
+                    items[gameItemID]['gameState']['millsBlack']=noOfMills('black',board)
+                    board=morrisBoardSet(board,index,'·')
+                    items[gameItemID]['gameState']['morris']=board
+            index+=1
+    elif noOfMills('white',board)>items[gameItemID]['gameState']['millsWhite']:
+        index=0
+        for loc in validMorrisBoardLocations:
+            if loc==boardMove[0]:
+                if board[index]=='○':
+                    items[gameItemID]['gameState']['millsWhite']=noOfMills('white',board)
+                    board=morrisBoardSet(board,index,'·')
+                    items[gameItemID]['gameState']['morris']=board
+            index+=1
+            
+    
