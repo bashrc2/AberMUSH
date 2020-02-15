@@ -105,6 +105,18 @@ swap [card description]                 - Swaps a card
 call                                    - Players show their hands
 ```
 
+## Nine Men's Morris
+
+If you can find a [Morris](https://en.wikipedia.org/wiki/Nine_men%27s_morris) board:
+
+``` text
+morris                                  - Show the board
+morris put [coordinate]                 - Place a counter
+morris move [from coord] [to coord]     - Move a counter
+morris take [coordinate]                - Remove a counter after mill
+morris reset                            - Resets the board
+```
+
 ## Spell Commands
 
 Some characters can use magic with the following commands:
