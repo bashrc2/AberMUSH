@@ -30533,7 +30533,7 @@
     "1289": {
         "name": "inn table",
         "short_description": "Good solid tables.",
-        "long_description": "Good solid tables. Only slight evidence of ale spillage. There is a pack of cards here.",
+        "long_description": "Good solid tables. Only slight evidence of ale spillage. There is a pack of cards and a Morris board here.",
 	"takeFail": "You try to take the table, but only look foolish because it's too large to carry.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -30576,7 +30576,7 @@
         "climbThrough": "",
         "heave": "",
         "jumpTo": "",
-        "game": "cards",
+        "game": "cards morris",
         "gameState": {},
         "state": "container open always",
         "visibleWhenWearing": [],
