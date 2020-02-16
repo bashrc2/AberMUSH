@@ -4054,7 +4054,8 @@ def heave(
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
             # heave message
-            mud.send_message(id, randomDescription(itemsDB[itemId]['heave'])+"\n\n")
+            mud.send_message_wrap(id,'<f32>', \
+                                  randomDescription(itemsDB[itemId]['heave'])+"\n\n")
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] is not "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
