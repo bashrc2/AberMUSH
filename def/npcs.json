@@ -93,7 +93,7 @@
         "imp_feet" : "0",
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "watches you with its dark beady eyes"
+        "lookDescription": "The rat watches you with its dark beady eyes"
     },
     "64": {
         "name": "the black panther",
@@ -969,7 +969,7 @@
         "imp_feet" : "0",
         "inDescription": "wanders in",
         "outDescription": "pads quietly",
-        "lookDescription": "watches you suspiciously from amongst the trees."
+        "lookDescription": "The trapper watches you suspiciously from amongst the trees."
     },
     "165": {
         "inDescription": "arrives",
@@ -1180,7 +1180,7 @@
         "imp_feet" : "0",
         "inDescription": "hops in|swoops in|flies in and perches",
         "outDescription": "flies off|takes to the air and is gone|flutters off",
-        "lookDescription": "watches you through one beady eye"
+        "lookDescription": "The raven watches you through one beady eye|The raven watches you curiously"
     },
     "185": {
         "name": "the old pig",
@@ -3202,7 +3202,7 @@
         "imp_feet" : "0",
         "inDescription": "tiptoes quietly in",
         "outDescription": "goes",
-        "lookDescription": "watches you suspiciously"
+        "lookDescription": "The elf watches you suspiciously"
     },
     "749": {
         "name": "the wizened corpse",
