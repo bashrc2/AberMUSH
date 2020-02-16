@@ -333,7 +333,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "lightSource": 0,
+        "lightSource": 1,
         "article": "an"
     },
     "11": {
@@ -381,7 +381,6 @@
         "weight": 0,
         "edible": 0,
         "climbThrough": "",
-        "heave": "",
         "jumpTo": "",
         "game": "",
         "gameState": {},
@@ -27325,7 +27324,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "mod_cool": 0,
-        "weight": 200,
+        "weight": 2000,
         "edible": 0,
         "climbThrough": "",
         "heave": "You roll the stones out of the way and enter the dark stairway.|With great effort you roll the stones to one side and enter the narrow stairway.",
