@@ -4061,8 +4061,8 @@ def heave(
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
             # heave message
-            mud.send_message_wrap(id,'<f32>', \
-                                  randomDescription(itemsDB[itemId]['heave'])+"\n\n")
+            mud.send_message_wrap(id,'<f220>', \
+                                  '\n'+randomDescription(itemsDB[itemId]['heave'])+"\n\n")
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] is not "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
@@ -4071,7 +4071,7 @@ def heave(
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
                                    randomDescription(players[id]['inDescription']) + "\n\n")
-            time.sleep(2)
+            time.sleep(3)
             # look after climbing
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
@@ -5845,7 +5845,7 @@ def leverUp(
                 del rooms[rm]['exits'][exitName[1]]
 
     if len(itemsDB[itemID]['close_description']) > 0:
-        mud.send_message_wrap(id,'<f32>', \
+        mud.send_message_wrap(id,'<f220>', \
                               itemsDB[itemID]['close_description'] + '\n\n')
     else:
         mud.send_message(
@@ -5917,7 +5917,7 @@ def leverDown(
             rooms[rm]['exits'][exitName[1]] = players[id]['room']
 
     if len(itemsDB[itemID]['open_description']) > 0:
-        mud.send_message_wrap(id,'<f32>', \
+        mud.send_message_wrap(id,'<f220>', \
                               itemsDB[itemID]['open_description'] + '\n\n')
     else:
         mud.send_message(
