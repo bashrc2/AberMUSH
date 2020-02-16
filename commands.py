@@ -4062,7 +4062,7 @@ def heave(
             players[id]['room'] = targetRoom
             # heave message
             mud.send_message_wrap(id,'<f220>', \
-                                  '\n\n'+randomDescription(itemsDB[itemId]['heave'])+"\n\n")
+                                  randomDescription(itemsDB[itemId]['heave'])+"\n\n")
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] is not "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
