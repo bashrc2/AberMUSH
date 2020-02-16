@@ -5837,7 +5837,8 @@ def leverUp(
                 del rooms[rm]['exits'][exitName[1]]
 
     if len(itemsDB[itemID]['close_description']) > 0:
-        mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
+        mud.send_message_wrap(id,'<f32>', \
+                              itemsDB[itemID]['close_description'] + '\n\n')
     else:
         mud.send_message(
             id,
@@ -5908,7 +5909,8 @@ def leverDown(
             rooms[rm]['exits'][exitName[1]] = players[id]['room']
 
     if len(itemsDB[itemID]['open_description']) > 0:
-        mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
+        mud.send_message_wrap(id,'<f32>', \
+                              itemsDB[itemID]['open_description'] + '\n\n')
     else:
         mud.send_message(
             id,
@@ -6156,7 +6158,14 @@ def pushLever(
     for (iid, pl) in list(itemsInWorldCopy.items()):
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
-                if itemsDB[items[iid]['id']]['state'] == 'lever down':
+                if 'lever' not in itemsDB[items[iid]['id']]['state']:
+                    heave(params,mud,playersDB,players,rooms, \
+                          npcsDB,npcs,itemsDB,items,envDB,env, \
+                          eventDB,eventSchedule,id,fights, \
+                          corpses,blocklist,mapArea,characterClassDB, \
+                          spellsDB,sentimentDB,guildsDB)
+                    return
+                elif itemsDB[items[iid]['id']]['state'] == 'lever down':
                     leverUp(
                         params,
                         mud,
@@ -6178,14 +6187,7 @@ def pushLever(
                         itemsInWorldCopy,
                         iid)
                     return
-                else:
-                    mud.send_message(id, 'Nothing happens.\n\n')
-                    return
-    heave(params,mud,playersDB,players,rooms, \
-          npcsDB,npcs,itemsDB,items,envDB,env, \
-          eventDB,eventSchedule,id,fights, \
-          corpses,blocklist,mapArea,characterClassDB, \
-          spellsDB,sentimentDB,guildsDB)
+    mud.send_message(id, 'Nothing happens.\n\n')
 
 def windLever(
         params,
