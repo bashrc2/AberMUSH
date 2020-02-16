@@ -6496,62 +6496,6 @@ def closeItem(
                     return
     mud.send_message(id, "You can't close it.\n\n")
 
-def pushLever(
-        params,
-        mud,
-        playersDB,
-        players,
-        rooms,
-        npcsDB,
-        npcs,
-        itemsDB,
-        items,
-        envDB,
-        env,
-        eventDB,
-        eventSchedule,
-        id,
-        fights,
-        corpses,
-        blocklist,
-        mapArea,
-        characterClassDB,
-        spellsDB,
-        sentimentDB,
-        guildsDB):
-    target = params.lower()
-
-    if target.startswith('registration'):
-        disableRegistrations(mud, id, players)
-        return
-
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-            if target in itemsDB[items[iid]['id']]['name'].lower():
-                if itemsDB[items[iid]['id']]['state'] == 'lever down':
-                    leverUp(
-                        params,
-                        mud,
-                        playersDB,
-                        players,
-                        rooms,
-                        npcsDB,
-                        npcs,
-                        itemsDB,
-                        items,
-                        envDB,
-                        env,
-                        eventDB,
-                        eventSchedule,
-                        id,
-                        fights,
-                        corpses,
-                        target,
-                        itemsInWorldCopy,
-                        iid)
-                    break
-
 def putItem(
         params,
         mud,
