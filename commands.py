@@ -4071,6 +4071,7 @@ def heave(
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
                                    randomDescription(players[id]['inDescription']) + "\n\n")
+            time.sleep(2)
             # look after climbing
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
