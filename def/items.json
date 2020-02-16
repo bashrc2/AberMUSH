@@ -270,9 +270,9 @@
         "article": "a"
     },
     "10": {
-        "name": "ugly gargoyle",
-        "short_description": "Light shines down past the base of the gargoyle.",
-        "long_description": "The base of the gargoyle blocks the ladder upwards completely. I doubt you'll even be able to move it from this side.|Light shines down past the base of the gargoyle.",
+        "name": "granite slab",
+        "short_description": "The granite slab is the base of a gargoyle statue which blocks the ladder upwards completely.",
+        "long_description": "The granite slab is the base of a gargoyle statue which blocks the ladder upwards completely. I doubt you'll even be able to move it from this side.|Light shines down from above past the granite slab. Maybe there is something up there.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -334,7 +334,7 @@
         "linkedItem": 0,
         "exit": "",
         "lightSource": 1,
-        "article": "an"
+        "article": "a"
     },
     "11": {
         "name": "ugly gargoyle",
