@@ -272,7 +272,7 @@
     "10": {
         "name": "granite slab",
         "short_description": "The granite slab is the base of a gargoyle statue which blocks the ladder upwards completely.",
-        "long_description": "The granite slab is the base of a gargoyle statue which blocks the ladder upwards completely. I doubt you'll even be able to move it from this side.|Light shines down from above past the granite slab. Maybe there is something up there.",
+        "long_description": "The granite slab is the base of a gargoyle statue which blocks the ladder upwards completely.|Light shines down from above past the granite slab. Maybe there is something up there.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -312,7 +312,7 @@
         "weight": 0,
         "edible": 0,
         "climbThrough": "",
-        "heave": "",
+        "heave": "You heave the granite slab to one side",
         "jumpTo": "",
         "game": "",
         "gameState": {},
@@ -332,7 +332,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=15$",
         "lightSource": 1,
         "article": "a"
     },
