@@ -339,8 +339,9 @@
     "11": {
         "name": "ugly gargoyle",
         "short_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones.",
-        "long_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones. A flagstone beside the gargoyle has vanished revealing a ladder descending into the depths.",
+        "long_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones.",
 	"takeFail": "The pedestal is too tall for you to reach the gargoyle.",
+	"heave": "You push on the gargoyle's pedestal and it slides to one side, revealing a ladder descending into the depths.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -400,7 +401,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=12$",
         "lightSource": 0,
         "article": "an"
     },

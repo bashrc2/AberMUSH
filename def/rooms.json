@@ -74,8 +74,7 @@
     },
     "$rid=15$": {
         "exits": {
-	    "east": "$rid=1401$",
-            "down": "$rid=12$"
+	    "east": "$rid=1401$"
         },
         "name": "The Hidden Garden",
         "description": "Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter, and the twittering of birds rises from the hedgerows.",
