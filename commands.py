@@ -4153,7 +4153,9 @@ def jump(
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
             # climbing message
-            mud.send_message(id, randomDescription(itemsDB[itemId]['jumpTo'])+"\n\n")
+            mud.send_message_wrap(id,'<f230>', \
+                                  randomDescription(itemsDB[itemId]['jumpTo'])+"\n\n")
+            time.sleep(3)
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] is not "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
