@@ -4021,6 +4021,11 @@ def heave(
     if players[id]['canGo'] != 1:
         mud.send_message(id, "You try to move but find that you lack any ability to.\n\n")
         return
+
+    target=params.lower()
+    if target.startswith('the '):
+        target=target.replace('the ','')
+
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
             itemId=items[item]['id']
@@ -4029,6 +4034,8 @@ def heave(
             if not itemsDB[itemId].get('heave'):
                 continue
             if not itemsDB[itemId].get('exit'):
+                continue
+            if target not in itemsDB[itemId]['name']:
                 continue
             if itemsDB[itemId].get('state'):
                 if 'open' not in itemsDB[itemId]['state']:
