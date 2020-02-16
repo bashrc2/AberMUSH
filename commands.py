@@ -6158,7 +6158,7 @@ def pushLever(
     for (iid, pl) in list(itemsInWorldCopy.items()):
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
-                if 'lever' not in itemsDB[items[iid]['id']]['state']:
+                if not itemsDB[items[iid]['id']]['state']:
                     heave(params,mud,playersDB,players,rooms, \
                           npcsDB,npcs,itemsDB,items,envDB,env, \
                           eventDB,eventSchedule,id,fights, \
