@@ -3792,7 +3792,7 @@
     },
     "$rid=582$": {
         "name": "Island Coastline",
-        "description": "You are rounding a tall cliff on the south-west corner of the island. The land here makes it impossible to beach your boat.",
+        "description": "You are rounding a tall cliff on the south-west corner of the island. The steep shore here makes it impossible to beach your boat.",
         "conditional": [],
         "trap": {},
         "eventOnEnter": "",
