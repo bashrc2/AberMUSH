@@ -5732,12 +5732,13 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
     for contentsID in containsList:
         if itemCtr > 0:
             if itemCtr < noOfItems - 1:
-                containerMsg = containerMsg + ', '
+                containerMsg += ', '
             else:
-                containerMsg = containerMsg + ' and '
+                containerMsg += ' and '
 
-        containerMsg = containerMsg + \
-            itemsDB[int(contentsID)]['article'] + ' <b234>' + itemsDB[int(contentsID)]['name'] + '<r>'
+        containerMsg += \
+            itemsDB[int(contentsID)]['article'] + \
+            ' <b234><f220>' + itemsDB[int(contentsID)]['name'] + '<r>'
         itemCtr += 1
 
     containerMsg = containerMsg + '.\n'
@@ -5745,7 +5746,7 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
         containerMsg = '\n' + containerMsg
         return containerMsg
     else:
-        mud.send_message(id, containerMsg + '\n')
+        mud.send_message_wrap(id,'<f220>',containerMsg + '\n')
 
 
 def openItemContainer(
