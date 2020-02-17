@@ -3284,8 +3284,7 @@
     },
     "$rid=482$": {
         "exits": {
-            "east": "$rid=514$",
-            "west": "$rid=478$"
+            "east": "$rid=514$"
         },
         "name": "Birfle's Research Lab",
         "description": "You are in a laboratory which was once used for research into unearthly magics. The majority of the equipment is in a state of disrepair, showing that this lab hasn't been used in ages. There is a row of shelves along the north wall.",

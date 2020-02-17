@@ -11814,7 +11814,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You climb through the hole|You clamber through the hole",
         "heave": "",
         "jumpTo": "",
         "game": "",
@@ -11835,7 +11835,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=478$",
         "lightSource": 0,
         "article": "a"
     },
