@@ -5227,7 +5227,7 @@
         "coords": [],
         "exits": {
             "up": "$rid=770$",
-            "down": "$rid=775$"
+            "north": "$rid=775$"
         }
     },
     "$rid=770$": {
@@ -5347,8 +5347,7 @@
             "north": "$rid=766$",
             "east": "$rid=774$",
             "south": "$rid=769$",
-            "west": "$rid=776$",
-            "up": "$rid=769$"
+            "west": "$rid=776$"
         }
     },
     "$rid=776$": {
