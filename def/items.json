@@ -10893,7 +10893,7 @@
     "445": {
         "name": "wooden box",
         "short_description": "It is a dilapidated old wooden tea chest.",
-        "long_description": "A small, wooden box has been placed on a shelf.|It is a dilapidated old wooden tea chest.",
+        "long_description": "A small, closed wooden box has been placed on a shelf.|It is a dilapidated old wooden tea chest. It's closed.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
