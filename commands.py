@@ -5721,7 +5721,7 @@ def describeContainerContents(mud, id, itemsDB, itemID, returnMsg):
             return
     containsList=itemsDB[itemID]['contains']
     noOfItems = len(containsList)
-    containerMsg = 'You see '
+    containerMsg = '<f15>You see '
 
     if noOfItems == 0:
         if 'open always' not in itemsDB[itemID]['state']:
