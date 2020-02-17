@@ -4835,6 +4835,7 @@ def conjureRoom(
     newrm = {
         'name': 'Empty room',
         'description': "You are in an empty room. There is a triangular symbol carved into the wall depicting a peasant digging with a spade. Underneath it is an inscription which reads 'aedificium'.",
+        'roomTeleport': "",
         'conditional': [],
         'trap': {},
         'eventOnEnter': "",

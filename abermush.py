@@ -445,6 +445,9 @@ log("Clouds generated. Wind direction " + str(windDirection), "info")
 lastTempHitPointsUpdate = int(time.time())
 tempHitPointsUpdateInterval = 60
 
+lastRoomTeleport = int(time.time())
+roomTeleportInterval = 60
+
 lastRestUpdate = int(time.time())
 
 blocklist = []
@@ -456,6 +459,15 @@ terminalMode={}
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
     # print(int(time.time()))
+
+    # automatic teleport from one room to another every N seconds
+    now = int(time.time())
+    if now >= lastRoomTeleport + roomTeleportInterval:
+        lastRoomTeleport = now
+        for p in players:
+            rm=players[p]['room']
+            if rooms[rm].get('roomTeleport'):
+                players[p]['room']=rooms[rm]['roomTeleport']
 
     now = int(time.time())
     if now >= lastTempHitPointsUpdate + tempHitPointsUpdateInterval:
