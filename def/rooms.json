@@ -4938,9 +4938,11 @@
     },
     "$rid=682$": {
         "name": "Inner Treasury",
-        "description": "It is in this small chamber that the dwarves keep the greatest of their treasures. The only link from this thick stone chamber is the doorway back out to the north.",
+        "description": "You are in a small chamber. It's too dark to see anything.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","lightsource","It is in this small chamber that the dwarves keep the greatest of their treasures. The only link from this thick stone chamber is the doorway back out to the north.","682_light"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
