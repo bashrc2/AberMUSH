@@ -968,8 +968,8 @@
         "imp_rleg" : "0",
         "imp_feet" : "0",
         "inDescription": "wanders in",
-        "outDescription": "pads quietly",
-        "lookDescription": "The trapper watches you suspiciously from amongst the trees."
+        "outDescription": "wanders quietly out",
+        "lookDescription": "The trapper watches you suspiciously."
     },
     "165": {
         "inDescription": "arrives",
