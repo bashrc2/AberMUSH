@@ -2014,9 +2014,11 @@
         "exits": {
         },
         "name": "Dark Crypt",
-        "description": "You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.",
+        "description": "It's very dark here. You move around blindly by sense of touch.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","lightsource","You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.","298_light"]	    
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2030,9 +2032,11 @@
     },
     "$rid=299$": {
         "name": "Dark Chamber",
-        "description": "You stand in a dark gloomy chamber, just east of the misty lake. A single, large stone slab is set into the floor.",
+        "description": "Darkness surrounds you.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","lightsource","You stand in a dark gloomy chamber, just east of the misty lake. A single, large stone slab is set into the floor.","299_light"]	    
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
