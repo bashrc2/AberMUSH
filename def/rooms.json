@@ -8548,9 +8548,11 @@
             "west": "$rid=1085$"
         },
         "name": "Shadowy Corridor",
-        "description": "You are in a shadowy east-west corridor that links two caves.",
+        "description": "You are in a dark east-west corridor.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","lightsource","You are in a shadowy east-west corridor that links two caves.","1084_light"]	    
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -8564,9 +8566,11 @@
     },
     "$rid=1085$": {
         "name": "The Dark Cave",
-        "description": "You are in a dark cave with earth walls, and a rather low ceiling. The earth gives way to stone in both of the passages leading east and west from the cave.",
+        "description": "You are in a dark cave. Not much can be seen here.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","lightsource","You are in a dark cave with earth walls, and a rather low ceiling. The earth gives way to stone in both of the passages leading east and west from the cave.","1085_light"]	    
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
