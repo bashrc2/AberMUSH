@@ -466,8 +466,9 @@ while True:
         lastRoomTeleport = now
         for p in players:
             rm=players[p]['room']
-            if rooms[rm].get('roomTeleport'):
-                players[p]['room']=rooms[rm]['roomTeleport']
+            if rm:
+                if rooms[rm].get('roomTeleport'):
+                    players[p]['room']=rooms[rm]['roomTeleport']
 
     now = int(time.time())
     if now >= lastTempHitPointsUpdate + tempHitPointsUpdateInterval:
