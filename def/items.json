@@ -8580,7 +8580,7 @@
     "310": {
         "name": "glowing orb",
         "short_description": "A glowing orb lies here.",
-        "long_description": "Beautiful, and very brightly glowing.|A glowing orb is here.",
+        "long_description": "Beautiful, and very brightly glowing.|A glowing orb illuminates its surroundings.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -8641,7 +8641,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "lightSource": 0,
+        "lightSource": 1,
         "article": "a"
     },
     "318": {
