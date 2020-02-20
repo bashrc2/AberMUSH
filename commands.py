@@ -1313,6 +1313,42 @@ def help(
                          '  shutdown                                - Shuts down the game server')
     mud.send_message(id, '\n\n')
 
+def helpCards(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    mud.send_message(id, 'Cards:')
+    mud.send_message(id, \
+                     'shuffle                                 - Shuffles the deck')
+    mud.send_message(id, \
+                     'deal to [player names]                  - Deals cards')
+    mud.send_message(id, \
+                     'hand                                    - View your hand of cards')
+    mud.send_message(id, \
+                     'swap [card description]                 - Swaps a card')
+    mud.send_message(id, \
+                     'call                                    - Players show their hands')
+    mud.send_message(id, '\n\n')
+
 
 def removePreparedSpell(players, id, spellName):
     del players[id]['preparedSpells'][spellName]
@@ -6999,6 +7035,7 @@ def runCommand(
         "pictures": graphics,
         "graphics": graphics,
         "chess": chess,
+        "cards": helpCards,
         "deal": deal,
         "hand": handOfCards,
         "swap": swapACard,
