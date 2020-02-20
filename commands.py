@@ -1132,7 +1132,49 @@ def help(
         spellsDB,
         sentimentDB,
         guildsDB):
+    if params.lower().startswith('card'):
+        helpCards(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
+                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
+                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
+                  guildsDB)
+        return
+    if params.lower().startswith('chess'):
+        helpChess(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
+                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
+                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
+                  guildsDB)
+        return
+    if params.lower().startswith('morris'):
+        helpMorris(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
+                   items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
+                   blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
+                   guildsDB)
+        return
+    if params.lower().startswith('witch'):
+        helpWitch(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
+                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
+                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
+                  guildsDB)
+        return
+    if params.lower().startswith('spell'):
+        helpSpell(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
+                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
+                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
+                  guildsDB)
+        return
+
+    mud.send_message(id, '\n')
     mud.send_message(id, 'Commands:')
+    mud.send_message(id, \
+                     '  help witch                              - Witch commands')
+    mud.send_message(id, \
+                     '  help spell                              - Spell casting commands')
+    mud.send_message(id, \
+                     '  help cards                              - Card game')
+    mud.send_message(id, \
+                     '  help chess                              - Chess game')
+    mud.send_message(id, \
+                     '  help morris                             - Morris game')
     mud.send_message(id, \
                      '  bio [description]                       - Set a description of yourself')
     mud.send_message(id, \
@@ -1204,8 +1246,33 @@ def help(
                      '  cut/escape                              - Attempt to escape from a trap')
     mud.send_message(id, \
                      '  step over tripwire [exit]               - Step over a tripwire in the given direction')
-    mud.send_message(id, '')
-    mud.send_message(id, 'Spell commands:')
+    mud.send_message(id, '\n\n')
+
+
+def helpSpell(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    mud.send_message(id, '\n')
     mud.send_message(id, \
                      '  prepare spells                          - List spells which can be prepared')
     mud.send_message(id, \
@@ -1221,31 +1288,114 @@ def help(
     mud.send_message(id, \
                      '  cast [spell name] on [target]           - Cast a spell on a player or NPC')
 
-    mud.send_message(id, '')
-    mud.send_message(id, 'Chess Commands:')
-    mud.send_message(id, \
-                     'chess                                   - Shows the board')
-    mud.send_message(id, \
-                     'chess reset                             - Rests the game')
-    mud.send_message(id, \
-                     'chess move [coords]                     - eg. chess move e2e3')
-    mud.send_message(id, \
-                     'chess undo                              - undoes the last move')
+    mud.send_message(id, '\n\n')
 
-    mud.send_message(id, '')
-    mud.send_message(id, 'Cards:')
-    mud.send_message(id, \
-                     'shuffle                                 - Shuffles the deck')
-    mud.send_message(id, \
-                     'deal to [player names]                  - Deals cards')
-    mud.send_message(id, \
-                     'hand                                    - View your hand of cards')
-    mud.send_message(id, \
-                     'swap [card description]                 - Swaps a card')
-    mud.send_message(id, \
-                     'call                                    - Players show their hands')
 
-    mud.send_message(id, '')
+def helpWitch(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    mud.send_message(id, '\n')
+    if not isWitch(id, players):        
+        mud.send_message(id, "You're not a witch.\n\n")
+        return
+    mud.send_message(id, 'Witch Commands:')
+    mud.send_message(id, \
+                         '  close registrations                     - Closes registrations of new players')
+    mud.send_message(id, \
+                         '  open registrations                      - Allows registrations of new players')
+    mud.send_message(id, \
+                         '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
+    mud.send_message(id, \
+                         '  unmute/unsilence [target]               - Unmutes a player')
+    mud.send_message(id, \
+                         '  freeze [target]                         - Prevents a player from moving or attacking')
+    mud.send_message(id, \
+                         '  unfreeze [target]                       - Allows a player to move or attack')
+    mud.send_message(id, \
+                         '  teleport [room]                         - Teleport to a room')
+    mud.send_message(id, \
+                         '  summon [target]                         - Summons a player to your location')
+    mud.send_message(id, \
+                         '  kick/remove [target]                    - Remove a player from the game')
+    mud.send_message(id, \
+                         '  blocklist                               - Show the current blocklist')
+    mud.send_message(id, \
+                         '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
+    mud.send_message(id, \
+                         '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
+    mud.send_message(id, \
+                         '  describe "room" "room name"             - Changes the name of the current room')
+    mud.send_message(id, \
+                         '  describe "room description"             - Changes the current room description')
+    mud.send_message(id, \
+                         '  describe "tide" "room description"      - Changes the room description when tide is out')
+    mud.send_message(id, \
+                         '  describe "item" "item description"      - Changes the description of an item in the room')
+    mud.send_message(id, \
+                         '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
+    mud.send_message(id, \
+                         '  conjure room [direction]                - Creates a new room in the given direction')
+    mud.send_message(id, \
+                         '  conjure npc [target]                    - Creates a named NPC in the room')
+    mud.send_message(id, \
+                         '  conjure [item]                          - Creates a new item in the room')
+    mud.send_message(id, \
+                         '  destroy room [direction]                - Removes the room in the given direction')
+    mud.send_message(id, \
+                         '  destroy npc [target]                    - Removes a named NPC from the room')
+    mud.send_message(id, \
+                         '  destroy [item]                          - Removes an item from the room')
+    mud.send_message(id, \
+                         '  resetuniverse                           - Resets the universe, losing any changes from defaults')
+    mud.send_message(id, \
+                         '  shutdown                                - Shuts down the game server')
+    mud.send_message(id, '\n\n')
+
+
+def helpMorris(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    mud.send_message(id, '\n')
     mud.send_message(id, "Nine Men's Morris:")
     mud.send_message(id, \
                      'morris                                  - Show the board')
@@ -1257,60 +1407,40 @@ def help(
                      'morris take [coordinate]                - Remove a counter after mill')
     mud.send_message(id, \
                      'morris reset                            - Resets the board')
+    mud.send_message(id, '\n\n')
 
-    if isWitch(id, players):
-        mud.send_message(id, '')
-        mud.send_message(id, 'Witch Commands:')
-        mud.send_message(id, \
-                         '  close registrations                     - Closes registrations of new players')
-        mud.send_message(id, \
-                         '  open registrations                      - Allows registrations of new players')
-        mud.send_message(id, \
-                         '  mute/silence [target]                   - Mutes a player and prevents them from attacking')
-        mud.send_message(id, \
-                         '  unmute/unsilence [target]               - Unmutes a player')
-        mud.send_message(id, \
-                         '  freeze [target]                         - Prevents a player from moving or attacking')
-        mud.send_message(id, \
-                         '  unfreeze [target]                       - Allows a player to move or attack')
-        mud.send_message(id, \
-                         '  teleport [room]                         - Teleport to a room')
-        mud.send_message(id, \
-                         '  summon [target]                         - Summons a player to your location')
-        mud.send_message(id, \
-                         '  kick/remove [target]                    - Remove a player from the game')
-        mud.send_message(id, \
-                         '  blocklist                               - Show the current blocklist')
-        mud.send_message(id, \
-                         '  block [word or phrase]                  - Adds a word or phrase to the blocklist')
-        mud.send_message(id, \
-                         '  unblock [word or phrase]                - Removes a word or phrase to the blocklist')
-        mud.send_message(id, \
-                         '  describe "room" "room name"             - Changes the name of the current room')
-        mud.send_message(id, \
-                         '  describe "room description"             - Changes the current room description')
-        mud.send_message(id, \
-                         '  describe "tide" "room description"      - Changes the room description when tide is out')
-        mud.send_message(id, \
-                         '  describe "item" "item description"      - Changes the description of an item in the room')
-        mud.send_message(id, \
-                         '  describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
-        mud.send_message(id, \
-                         '  conjure room [direction]                - Creates a new room in the given direction')
-        mud.send_message(id, \
-                         '  conjure npc [target]                    - Creates a named NPC in the room')
-        mud.send_message(id, \
-                         '  conjure [item]                          - Creates a new item in the room')
-        mud.send_message(id, \
-                         '  destroy room [direction]                - Removes the room in the given direction')
-        mud.send_message(id, \
-                         '  destroy npc [target]                    - Removes a named NPC from the room')
-        mud.send_message(id, \
-                         '  destroy [item]                          - Removes an item from the room')
-        mud.send_message(id, \
-                         '  resetuniverse                           - Resets the universe, losing any changes from defaults')
-        mud.send_message(id, \
-                         '  shutdown                                - Shuts down the game server')
+def helpChess(
+        params,
+        mud,
+        playersDB,
+        players,
+        rooms,
+        npcsDB,
+        npcs,
+        itemsDB,
+        items,
+        envDB,
+        env,
+        eventDB,
+        eventSchedule,
+        id,
+        fights,
+        corpses,
+        blocklist,
+        mapArea,
+        characterClassDB,
+        spellsDB,
+        sentimentDB,
+        guildsDB):
+    mud.send_message(id, '\n')
+    mud.send_message(id, \
+                     'chess                                   - Shows the board')
+    mud.send_message(id, \
+                     'chess reset                             - Rests the game')
+    mud.send_message(id, \
+                     'chess move [coords]                     - eg. chess move e2e3')
+    mud.send_message(id, \
+                     'chess undo                              - undoes the last move')
     mud.send_message(id, '\n\n')
 
 def helpCards(
