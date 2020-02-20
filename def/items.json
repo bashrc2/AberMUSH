@@ -9386,7 +9386,7 @@
     "372": {
         "name": "leather leash",
         "short_description": "A name tag on the collar reads 'Tiddles'.",
-        "long_description": "An enormous leather leash hangs up on a hook on the wall.|A name tag on the collar reads 'Tiddles'.",
+        "long_description": "An enormous leather leash.|A name tag on the collar reads 'Tiddles'.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10328,7 +10328,7 @@
     "426": {
         "name": "barrels",
         "short_description": "A collection of old barrels",
-        "long_description": "The barrels have been moved, revealing an exit east.|A collection of old barrels.",
+        "long_description": "The barrels look old and uninteresting.|A collection of old barrels.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -10368,7 +10368,7 @@
         "weight": 5000,
         "edible": 0,
         "climbThrough": "",
-        "heave": "",
+        "heave": "You roll one of the barrels to one side, reveling an eastern exit",
         "jumpTo": "",
         "game": "",
         "gameState": {},
@@ -10388,7 +10388,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=434$",
         "lightSource": 0,
         "article": "some"
     },
