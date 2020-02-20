@@ -152,9 +152,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
         if not os.path.isfile(".disableRegistrations"):
             mud.send_message_wrap(
                 id, '<f220>', \
-                'You can create a new Character, or use the following guest account:')
-            mud.send_message(
-                id, '<f15>Username: <r><f220>Guest<r><f15> Password: <r><f220>Password')
+                'You can create a new Character, or use the guest account, username: Guest, password: Password')
             mud.send_message(
                 id, "\nWhat is your username? (type <f255>new<r> for new character)\n\n")
         else:
