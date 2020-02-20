@@ -154,7 +154,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
                 id, '<f220>', \
                 'You can create a new Character, or use the guest account, username: Guest, password: Password')
             mud.send_message(
-                id, "\nWhat is your username? (type <f255>new<r> for new character)\n\n")
+                id, "What is your username? (type <f255>new<r> for new character)\n")
         else:
             mud.send_message(
                 id, '<f0><b220> New account registrations are currently closed')
