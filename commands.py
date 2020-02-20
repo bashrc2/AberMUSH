@@ -1336,7 +1336,7 @@ def helpCards(
         spellsDB,
         sentimentDB,
         guildsDB):
-    mud.send_message(id, 'Cards:')
+    mud.send_message(id, '\n')
     mud.send_message(id, \
                      'shuffle                                 - Shuffles the deck')
     mud.send_message(id, \
