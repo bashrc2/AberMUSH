@@ -1166,15 +1166,7 @@ def help(
     mud.send_message(id, '\n')
     mud.send_message(id, 'Commands:')
     mud.send_message(id, \
-                     '  help witch                              - Witch commands')
-    mud.send_message(id, \
-                     '  help spell                              - Spell casting commands')
-    mud.send_message(id, \
-                     '  help cards                              - Card game')
-    mud.send_message(id, \
-                     '  help chess                              - Chess game')
-    mud.send_message(id, \
-                     '  help morris                             - Morris game')
+                     '  help witch|spell|cards|chess|morris     - Show help')
     mud.send_message(id, \
                      '  bio [description]                       - Set a description of yourself')
     mud.send_message(id, \
