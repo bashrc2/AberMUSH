@@ -7155,7 +7155,7 @@
     },
     "$rid=938$": {
         "name": "Fiery Hall",
-        "description": "You are in the hall of fire. The very walls are tinged with a fiery radiance, as if the rock itself is burning. A red pentacle is near one wall, beside a picture carved into the rock. A huge iron lever is set into the wall beside the massive drawbridge which ",
+        "description": "You are in the hall of fire. The very walls are tinged with a fiery radiance, as if the rock itself is burning. A red pentacle is near one wall, beside a picture carved into the rock. A windlass is set into the wall beside the massive drawbridge.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
