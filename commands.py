@@ -6121,15 +6121,15 @@ def openItemDoor(
 
         itemsDB[itemID]['state'] = 'open'
         itemsDB[itemID]['short_description'] = \
-            itemsDB[itemID]['short_description'].replace('closed', 'open')
+            itemsDB[itemID]['short_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
         itemsDB[itemID]['long_description'] = \
-            itemsDB[itemID]['long_description'].replace('closed', 'open')
+            itemsDB[itemID]['long_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
 
         if linkedItemID > 0:
             itemsDB[linkedItemID]['short_description'] = \
-                itemsDB[linkedItemID]['short_description'].replace('closed', 'open')
+                itemsDB[linkedItemID]['short_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
             itemsDB[linkedItemID]['long_description'] = \
-                itemsDB[linkedItemID]['long_description'].replace('closed', 'open')
+                itemsDB[linkedItemID]['long_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
             itemsDB[linkedItemID]['state'] = 'open'
 
         if len(roomID) > 0:
@@ -6559,10 +6559,10 @@ def closeItemDoor(
         'open', 'closed')
 
     if linkedItemID > 0:
-        itemsDB[linkedItemID]['short_description'] = itemsDB[linkedItemID]['short_description'].replace(
-            'open', 'closed')
-        itemsDB[linkedItemID]['long_description'] = itemsDB[linkedItemID]['long_description'].replace(
-            'open', 'closed')
+        itemsDB[linkedItemID]['short_description'] = \
+            itemsDB[linkedItemID]['short_description'].replace('open', 'closed').replace('drawn down', 'drawn up')
+        itemsDB[linkedItemID]['long_description'] = \
+            itemsDB[linkedItemID]['long_description'].replace('open', 'closed').replace('drawn down', 'drawn up')
         itemsDB[linkedItemID]['state'] = 'closed'
 
     if len(roomID) > 0:
