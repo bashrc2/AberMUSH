@@ -7150,6 +7150,8 @@ def runCommand(
         "displace": heave,
         "disembark": climb,
         "climb": climb,
+        "cross": climb,
+        "traverse": climb,
         "jump": jump,
         "images": graphics,
         "pictures": graphics,

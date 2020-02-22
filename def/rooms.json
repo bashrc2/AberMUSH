@@ -7078,7 +7078,6 @@
     },
     "$rid=929$": {
         "exits": {
-            "north": "$rid=933$",
             "south": "$rid=932$"
         },
         "name": "Lava Ledge",
@@ -7137,7 +7136,6 @@
     },
     "$rid=933$": {
         "exits": {
-            "south": "$rid=929$",
             "west": "$rid=938$"
         },
         "name": "Lava Ledge",
