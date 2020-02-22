@@ -3780,7 +3780,7 @@
     },
     "867": {
         "name": "the ogre",
-        "inv" : [],
+        "inv" : ["469"],
         "speakLanguage": "elvish",
         "language": ["elvish"],
         "conv" : [],
@@ -3868,9 +3868,9 @@
         "imp_lleg" : "0",
         "imp_rleg" : "0",
         "imp_feet" : "0",
-        "inDescription": "wanders in looking for heads to break",
-        "outDescription": "goes",
-        "lookDescription": "stands here looking for heads to break, in his mighty arms he is "
+        "inDescription": "stomps in looking for heads to break",
+        "outDescription": "stomps out",
+        "lookDescription": "stands here looking for heads to break"
     },
     "877": {
         "inDescription": "pads up towards you, sniffing the air",
