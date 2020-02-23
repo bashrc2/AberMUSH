@@ -3786,10 +3786,10 @@
         "conv" : [
 	    [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate"]
 	],
-        "path" : [],
+        "path" : ["$rid=1062$","$rid=1061$","$rid=1060$","$rid=1059$"],
         "bodyType": "",
         "moveDelay" : "300",
-        "moveType" : "",
+        "moveType" : "follow",
         "moveTimes": [],
         "vocabulary" : "",
         "talkDelay" : "300",
