@@ -1059,14 +1059,16 @@ def runFightsBetweenNPCAndPlayer(
 
     currRoom = npcs[s1id]['room']
     weightDifficulty = int(playerInventoryWeight(s1id, npcs, itemsDB) / 20)
-    temperatureDifficulty = getTemperatureDifficulty(
-        currRoom, rooms, mapArea, clouds)
-    terrainDifficulty = rooms[players[s2id]['room']
-                              ]['terrainDifficulty'] * 10 / maxTerrainDifficulty
+    temperatureDifficulty = \
+        getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
+    terrainDifficulty = \
+        rooms[players[s2id]['room']]['terrainDifficulty'] * 10 / maxTerrainDifficulty
 
     # Agility of NPC
-    if int(time.time()) < npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - armorAgility(
-            s1id, npcs, itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
+    if int(time.time()) < \
+       npcs[s1id]['lastCombatAction'] + 10 - npcs[s1id]['agi'] - \
+       armorAgility(s1id, npcs, itemsDB) + terrainDifficulty + \
+       temperatureDifficulty + weightDifficulty:
         return
 
     npcs[s1id]['isInCombat'] = 1
@@ -1300,7 +1302,8 @@ def playerBeginsAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bo
     return targetFound
 
 
-def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {},mud) -> bool:
+def npcBeginsAttack(npcs: {},id,target: str,players: {}, \
+                    fights: {},mud,items: {},itemsDB: {}) -> bool:
     """npc begins an attack on a player or another npc
     """
     targetFound = False
@@ -1337,6 +1340,10 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {},mud) -> bool:
             }
             players[pid]['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
+
+            npcUpdateLuck(id,npcs,items,itemsDB)
+            npcWieldsWeapon(mud,pid,id,npcs,items,itemsDB)
+            
             mud.send_message(
                 pid, '<u><f21>'+npcs[id]['name']+'<r> attacks!\n')
 
@@ -1383,10 +1390,12 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {},fights: {},mud) -> bool:
                 }                        
                 npcs[nid]['isInCombat'] = 1
                 npcs[id]['isInCombat'] = 1
+                npcUpdateLuck(id,npcs,items,itemsDB)
+                npcWieldsWeapon(mud,pid,id,npcs,items,itemsDB)
 
     return targetFound
 
-def npcAggression(npcs: {},players: {},fights: {},mud):
+def npcAggression(npcs: {},players: {},fights: {},mud,items: {},itemsDB: {}):
     """Aggressive npcs start fights
     """
     for (nid, pl) in list(npcs.items()):
@@ -1410,4 +1419,5 @@ def npcAggression(npcs: {},players: {},fights: {},mud):
                             hasAffinity=True
                 if not hasAffinity:
                     if randint(0, 1000) > 995:
-                        npcBeginsAttack(npcs,nid,players[pid]['name'],players,fights,mud)
+                        npcBeginsAttack(npcs,nid,players[pid]['name'], \
+                                        players,fights,mud,items,itemsDB)
