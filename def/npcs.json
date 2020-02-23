@@ -3788,7 +3788,7 @@
 	],
         "path" : ["$rid=1062$","$rid=1061$","$rid=1060$","$rid=1059$"],
         "bodyType": "",
-        "moveDelay" : "300",
+        "moveDelay" : "10",
         "moveType" : "follow",
         "moveTimes": [],
         "vocabulary" : "",
