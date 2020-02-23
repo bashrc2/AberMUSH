@@ -504,7 +504,7 @@ while True:
                 playerList.append(players[p]['name'])
 
     # Aggressive NPCs may attack players
-    npcAggression(npcs,players,fights,mud,items,itemsDB)
+    npcAggression(npcs,players,fights,mud,itemsInWorld,itemsDB)
 
     # pause for 1/5 of a second on each loop, so that we don't constantly
     # use 100% CPU time
