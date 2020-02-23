@@ -3784,7 +3784,7 @@
         "speakLanguage": "elvish",
         "language": ["elvish"],
         "conv" : [
-	    [["a","e","i","u"],"# Looks angry"]
+	    [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate"]
 	],
         "path" : [],
         "bodyType": "",
@@ -3826,12 +3826,12 @@
         "frozenDescription": "",
         "spellSlots": {},
         "preparedSpells": {},
-        "hp" : "200",
-        "hpMax": "200",
-        "charge" : "200",
+        "hp" : "100",
+        "hpMax": "100",
+        "charge" : "100",
         "lvl" : "6",
         "exp" : "32",
-        "str" : "200",
+        "str" : "70",
         "siz" : "4",
         "wei" : "400",
         "per" : "3",
