@@ -511,6 +511,7 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
             "deliver a crushing blow on",
             "strike at",
             "swing at",
+            "smashes",
             "swing clumsily at",
             "strike a blow on"
         ]
@@ -520,6 +521,7 @@ def getAttackDescription(animalType: str,weaponType: str) -> (str,str):
             "delivered a crushing blow on",
             "struck at",
             "swung at",
+            "smashed",
             "swung clumsily at",
             "struck a blow on"
         ]
