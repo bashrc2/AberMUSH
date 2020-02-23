@@ -150,6 +150,10 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {}, itemsDB: {}) -> bool
                 if itemsDB[int(i)]['mod_str'] > max_damage:
                     max_damage = itemsDB[int(i)]['mod_str']
                     itemID = int(i)
+            elif itemsDB[int(i)]['clo_lhand'] > 0:
+                if itemsDB[int(i)]['mod_str'] > max_damage:
+                    max_damage = itemsDB[int(i)]['mod_str']
+                    itemID = int(i)            
 
     putOnArmor = False
     if int(npcs[nid]['canWear']) != 0:
