@@ -255,15 +255,15 @@ class MudServer(object):
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
-            print("Couldnt send image, socket error: "+str(e))
+            print("Couldnt send image to Player ID "+str(to)+", socket error: "+str(e))
             pass
         except BlockingIOError as e:
-            print("Couldnt send image, socket error: "+str(e))
+            print("Couldnt send image to Player ID "+str(to)+", socket error: "+str(e))
             pass
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("Couldnt send image, socket error: "+str(e))
+            print("Couldnt send image to Player ID "+str(to)+", socket error: "+str(e))
             self._handle_disconnect(to)
         if not noDelay:
             time.sleep(1)
@@ -288,15 +288,15 @@ class MudServer(object):
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
-            print("Couldnt send game board, socket error: "+str(e))
+            print("Couldnt send game board to player ID "+str(to)+", socket error: "+str(e))
             pass
         except BlockingIOError as e:
-            print("Couldnt send game board, socket error: "+str(e))
+            print("Couldnt send game board to player ID "+str(to)+", socket error: "+str(e))
             pass
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("Couldnt send game board, socket error: "+str(e))
+            print("Couldnt send game board to player ID "+str(to)+", socket error: "+str(e))
             self._handle_disconnect(to)
 
 
@@ -323,17 +323,17 @@ class MudServer(object):
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
-            print("attempt_send, socket error: "+str(e))
+            print("Failed to send data. Player ID "+str(clid)+": "+str(e))
             pass
             return False
         except BlockingIOError as e:
-            print("attempt_send, socket error: "+str(e))
+            print("Failed to send data. Player ID "+str(clid)+": "+str(e))
             pass
             return False
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("attempt_send, socket error for client "+str(clid)+": "+str(e)+'. Disconnecting.')
+            print("Failed to send data. Player ID "+str(clid)+": "+str(e)+'. Disconnecting.')
             self._handle_disconnect(clid)
             return False
         return True
