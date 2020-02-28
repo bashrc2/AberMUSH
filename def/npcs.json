@@ -3114,16 +3114,16 @@
         "speakLanguage": "elvish",
         "language": ["elvish"],
         "conv" : [
-	    [["a","e","i"],"To be sure!"]
+	    [["a","e","i","u"],"To be sure!|# Frowns"]
 	],
-        "path" : [],
+        "path" : ["$rid=986$","$rid=982$","$rid=978$","$rid=985$"],
         "bodyType": "",
-        "moveDelay" : "300",
-        "moveType" : "",
+        "moveDelay" : "20",
+        "moveType" : "follow",
         "moveTimes": [],
         "vocabulary" : "",
         "talkDelay" : "300",
-        "randomFactor" : "100",
+        "randomFactor" : "50",
         "follow" : "",
         "canWield" : "1",
         "canWear" : "1",
@@ -3156,9 +3156,9 @@
         "frozenDescription": "",
         "spellSlots": {},
         "preparedSpells": {},
-        "hp" : "24332",
-        "hpMax": "24332",
-        "charge" : "1233",
+        "hp" : "50",
+        "hpMax": "50",
+        "charge" : "50",
         "lvl" : "6",
         "exp" : "32",
         "str" : "50",
@@ -3202,7 +3202,7 @@
         "imp_feet" : "0",
         "inDescription": "tiptoes quietly in",
         "outDescription": "goes",
-        "lookDescription": "The elf watches you suspiciously"
+        "lookDescription": "The elf watches you suspiciously|The elf frowns at you|The elf appears generally displeased at your presence"
     },
     "749": {
         "name": "the wizened corpse",
