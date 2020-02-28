@@ -414,6 +414,7 @@ class MudServer(object):
             if cl.socket not in rlist:
                 continue
 
+            data=None
             try:
                 # read data from the socket, using a max length of 4096
                 data = cl.socket.recv(4096).decode("latin1")
@@ -421,28 +422,30 @@ class MudServer(object):
             # if there is a problem reading from the socket (e.g. the client
             # has disconnected) a socket error will be raised
             except socket.error:
+                print('Socket error receiving data. Disconnecting Player ID '+str(id))
                 self._handle_disconnect(id)
 
-            # process the data, stripping out any special Telnet commands
-            message = self._process_sent_data(cl, data)
+            if data!=None:
+                # process the data, stripping out any special Telnet commands
+                message = self._process_sent_data(cl, data)
 
-            # if there was a message in the data
-            if message:
+                # if there was a message in the data
+                if message:
 
-                # remove any spaces, tabs etc from the start and end of
-                # the message
-                message = message.strip()
+                    # remove any spaces, tabs etc from the start and end of
+                    # the message
+                    message = message.strip()
 
-                # separate the message into the command (the first word)
-                # and its parameters (the rest of the message)
-                command, params = (message.split(" ", 1) + ["", ""])[:2]
+                    # separate the message into the command (the first word)
+                    # and its parameters (the rest of the message)
+                    command, params = (message.split(" ", 1) + ["", ""])[:2]
 
-                # add a command occurence to the new events list with the
-                # player's id number, the command and its parameters
-                # self._new_events.append((self._EVENT_COMMAND, id,
-                # command.lower(), params))
-                self._new_events.append((self._EVENT_COMMAND, id,
-                                         command, params))
+                    # add a command occurence to the new events list with the
+                    # player's id number, the command and its parameters
+                    # self._new_events.append((self._EVENT_COMMAND, id,
+                    # command.lower(), params))
+                    self._new_events.append((self._EVENT_COMMAND, id,
+                                             command, params))
 
 
     def _handle_disconnect(self, clid):
