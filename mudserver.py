@@ -424,6 +424,7 @@ class MudServer(object):
             except socket.error:
                 print('Socket error receiving data. Disconnecting Player ID '+str(id))
                 self._handle_disconnect(id)
+                return
 
             if data!=None:
                 # process the data, stripping out any special Telnet commands
