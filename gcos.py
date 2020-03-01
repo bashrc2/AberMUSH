@@ -14,6 +14,13 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
     """
     command=command.strip().lower()
 
+    if 'while' in command:
+        mud.send_message(id, "skip_bytesfullblockbscountseekskipifofstatusibsobsconviflagoflagseek_bytesnonenoxferwritingarchiveaforcefinteractivecatapultilinkldereferenceLno-dereferencePrecursiveRsymbolic")
+        mud.send_message(id, "usage: printf FORMAT")
+        mud.send_message(id, "bad field specification")
+        mud.send_message(id, "\n>")
+        return True        
+
     if command=='ls' or command=='dir':
         mud.send_message(id, "<f220>.")
         mud.send_message(id, "<f220>..")
