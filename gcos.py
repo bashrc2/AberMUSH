@@ -14,7 +14,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
     """
     command=command.strip().lower()
 
-    if 'while' in command:
+    if 'while' in params:
         mud.send_message(id, "skip_bytesfullblockbscountseekskipifofstatusibsobsconviflagoflagseek_bytesnonenoxferwritingarchiveaforcefinteractivecatapultilinkldereferenceLno-dereferencePrecursiveRsymbolic")
         mud.send_message(id, "usage: printf FORMAT")
         mud.send_message(id, "bad field specification")
