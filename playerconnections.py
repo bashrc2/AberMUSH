@@ -160,7 +160,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
                 id, '<f0><b220> New account registrations are currently closed')
 
             mud.send_message(id, "\nWhat is your username?\n\n")
-        log("Client ID: " + str(id) + " has connected", "info")
+        log("Player ID " + str(id) + " has connected", "info")
 
 
 def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminalMode: {}):
@@ -173,7 +173,7 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminal
             continue
 
         terminalMode[str(id)]=False
-        log("Player ID: " + str(id) + " has disconnected (" +
+        log("Player ID " + str(id) + " has disconnected (" +
             str(players[id]['name']) + ")", "info")
 
         # go through all the players in the game
@@ -346,7 +346,7 @@ def initialSetupAfterLogin(mud,id,players: {},dbResponse: []):
     if players[id].get('visibleWhenWearing'):
         players[id]['visibleWhenWearing'] = dbResponse[91]
 
-    log("Client ID: " +
+    log("Player ID " +
         str(id) +
         " has successfully authenticated user " +
         players[id]['name'], "info")

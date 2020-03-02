@@ -618,7 +618,7 @@ while True:
             mud.send_message(
                 id,
                 "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
-            log("Client ID: " + str(id) +
+            log("Player ID " + str(id) +
                 " has aborted character creation.", "info")
             break
 
@@ -640,7 +640,7 @@ while True:
                 taken=True
                 if terminalEmulator(command,params,mud,id):
                     terminalMode[str(id)]=True
-                    log("Client ID: " +
+                    log("Player ID " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
                         command+' '+params, "info")
@@ -650,7 +650,7 @@ while True:
                         mud.send_message(id, "\nBYE\n\n")
                     else:
                         mud.send_message(id, ">")
-                        log("Client ID: " +
+                        log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
                             command+' '+params, "info")
@@ -682,14 +682,14 @@ while True:
                 if terminalEmulator(command,params,mud,id):
                     terminalMode[str(id)]=True
                     taken = True
-                    log("Client ID: " +
+                    log("Player ID " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
                         command+' '+params, "info")
                 else:
                     if terminalMode.get(str(id))==True:
                         mud.send_message(id, ">")                    
-                        log("Client ID: " +
+                        log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
                             command+' '+params, "info")
@@ -841,7 +841,7 @@ while True:
             mud.send_message(
                 id,
                 "<f15>What is your username?<r>\n<f246>Type '<f253>new<r><f246>' to create a character.\n\n")
-            log("Client ID: " +
+            log("Player ID " +
                 str(id) +
                 " has completed character creation (" +
                 template['name'] +
@@ -901,7 +901,7 @@ while True:
 
                     if terminalEmulator(command,params,mud,id):
                         terminalMode[str(id)]=True
-                        log("Client ID: " +
+                        log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
                             command+' '+params, "info")
@@ -920,7 +920,7 @@ while True:
                 if dbResponse is not None and not connectCommand:
                     players[id]['name'] = dbResponse[0]
 
-                    log("Client ID: " + str(id) +
+                    log("Player ID " + str(id) +
                         " has requested existing user (" + command + ")", "info")
                     mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
                     mud.send_message(id, '<f15>What is your password?\n\n')
@@ -933,7 +933,7 @@ while True:
                                 command +
                                 '<r> was not found!\n')
                             mud.send_message(id, '<f15>What is your username?\n\n')
-                            log("Client ID: " +
+                            log("Player ID " +
                                 str(id) +
                                 " has requested non existent user (" +
                                 command +
@@ -944,7 +944,7 @@ while True:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
                     players[id]['idleStart'] = int(time.time())
-                    log("Client ID: " + str(id) +
+                    log("Player ID " + str(id) +
                         " has initiated character creation.", "info")
                     mud.send_message(
                         id,
@@ -980,7 +980,7 @@ while True:
                         mud.send_message(id, "\nBYE\n\n")
                     else:
                         mud.send_message(id, ">")                        
-                        log("Client ID: " +
+                        log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
                             players[id]['name'], "info")
@@ -988,7 +988,7 @@ while True:
                 if terminalEmulator(players[id]['name'],'',mud,id):
                     terminalMode[str(id)]=True
                     taken = True
-                    log("Client ID: " +
+                    log("Player ID " +
                         str(id) +
                         " logged into GCOS-3/TSS with command - " +
                         players[id]['name'], "info")
@@ -1001,13 +1001,13 @@ while True:
                 else:
                     mud.send_message(
                         id, '<f202>This character is already in the world!')
-                    log("Client ID: " + str(id) +
+                    log("Player ID " + str(id) +
                         " has requested a character which is already in the world!", "info")
                     players[id]['name'] = None
                     mud.send_message(id, '<f15>What is your username? ')
             else:
                 mud.send_message(id, '<f202>Password incorrect!\n')
-                log("Client ID: " + str(id) + " has failed authentication", "info")
+                log("Player ID " + str(id) + " has failed authentication", "info")
                 players[id]['name'] = None
                 mud.send_message(id, '<f15>What is your username? ')
 
