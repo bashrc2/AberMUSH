@@ -552,7 +552,7 @@ while True:
         guildsDB)
 
     # Some items can appear only at certain times
-    runMobileItems(itemsDB,items,eventSchedule,scriptedEventsDB)
+    runMobileItems(itemsDB,itemsInWorld,eventSchedule,scriptedEventsDB)
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
