@@ -36318,7 +36318,7 @@
         "open_description": "You can't open that",
         "open_failed_description": "You can't open that",
         "close_description": "You can't close that",
-        "contains": [],
+        "contains": ["907","1414","979","390"],
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
