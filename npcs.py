@@ -255,14 +255,14 @@ def moveNPCs(npcs, players, mud, now, nid):
         npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
         npcs[nid]['lastMoved'] = now
 
-def removeInactiveNPC(nid, npcs: {}, npcsDB: {}, npcActive: bool) -> bool:
+def removeInactiveNPC(nid, npcs: {}, nid2, npcsDB: {}, npcActive: bool) -> bool:
     """Moves inactive NPCs to and from purgatory
     Returns true when recovering from purgatory
     """
     # Where NPCs go when inactive by default
     purgatoryRoom="$rid=1386$"
 
-    for timeRange in npcsDB[nid]['moveTimes']:
+    for timeRange in npcsDB[nid2]['moveTimes']:
         if len(timeRange) == 2:
             if timeRange[0].startswith('inactive') or \
                timeRange[0].startswith('home'):
@@ -307,15 +307,17 @@ def runMobileItems(
         scriptedEventsDB):
     """Updates all NPCs
     """
-
-    for (iid, pl) in list(itemsDB.items()):
-        # only non-takeable items
-        if itemsDB[iid]['weight']>0:
+    for (item, pl) in list(items.items()):
+        itemID=items[item]['id']
+        # only non-takeable items        
+        if itemsDB[itemID]['weight']>0:
+            continue
+        if not itemsDB[itemID].get('moveTimes'):
             continue
         # Active now?
-        itemActive=npcIsActive(itemsDB[iid]['moveTimes'])
+        itemActive=npcIsActive(itemsDB[itemID]['moveTimes'])
         # Remove if not active
-        removeInactiveNPC(iid,items,itemsDB,itemActive)
+        removeInactiveNPC(item,items,itemID,itemsDB,itemActive)
         if not itemActive:
             continue
 
@@ -333,7 +335,7 @@ def runNPCs(
 
     for (nid, pl) in list(npcs.items()):
         npcActive=npcIsActive(npcs[nid]['moveTimes'])
-        removeInactiveNPC(nid,npcs,npcs,npcActive)
+        removeInactiveNPC(nid,npcs,nid,npcs,npcActive)
         if not npcActive:
             continue
         # Check if any player is in the same room, then send a random
