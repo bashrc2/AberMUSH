@@ -36260,9 +36260,9 @@
     "1423": {
         "name": "feast bench",
         "short_description": "A modest feast bench has been set out here.",
-        "long_description": "A modest feast bench has been set out here.",
+        "long_description": "A modest feast bench has been set out here. It has a couple of shelves for fruit and confectionaries.",
 	"takeFail": "The feast bench is much too large to carry.",
-	"moveTimes": [["hour",17,18],["day","thursday"]],
+	"moveTimes": [["dayofmonth",1,31],["dayofmonth",3,21],["dayofmonth",5,1],["dayofmonth",6,21],["dayofmonth",7,31],["dayofmonth",9,21],["dayofmonth",10,31],["dayofmonth",12,21]],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,

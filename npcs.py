@@ -133,8 +133,8 @@ def entityIsActive(moveTimes: []) -> bool:
         # hour of day
         if timeRangeType.startswith('hour'):
             currHour=datetime.datetime.today().hour
-            startHour=timeRangeStart
-            endHour=timeRangeEnd
+            startHour=int(timeRangeStart)
+            endHour=int(timeRangeEnd)
             if endHour>=startHour:
                 if currHour<startHour or currHour>endHour:
                     return False
@@ -144,9 +144,9 @@ def entityIsActive(moveTimes: []) -> bool:
 
         # between months
         if timeRangeType.startswith('month'):
-            currMonth=datetime.datetime.today().strftime("%m")
-            startMonth=timeRangeStart
-            endMonth=timeRangeEnd
+            currMonth=int(datetime.datetime.today().strftime("%m"))
+            startMonth=int(timeRangeStart)
+            endMonth=int(timeRangeEnd)
             if endMonth>=startMonth:
                 if currMonth<startMonth or currMonth>endMonth:
                     return False
@@ -154,11 +154,20 @@ def entityIsActive(moveTimes: []) -> bool:
                 if currMonth>endMonth and currMonth<startMonth:
                     return False
 
+        # a particular day of a month
+        if timeRangeType.startswith('dayofmonth'):
+            currMonth=int(datetime.datetime.today().strftime("%m"))
+            currDayOfMonth=int(datetime.datetime.today().strftime("%d"))
+            month=int(timeRangeStart)
+            monthday=int(timeRangeEnd)
+            if not (currMonth==month and currDayOfMonth==monthday):
+                return False
+
         # between days of year
         if timeRangeType == 'daysofyear':
-            currDayOfYear=datetime.datetime.today().strftime("%d")
-            startDay=timeRangeStart
-            endDay=timeRangeEnd
+            currDayOfYear=int(datetime.datetime.today().strftime("%j"))
+            startDay=int(timeRangeStart)
+            endDay=int(timeRangeEnd)
             if endDay>=startDay:
                 if currDayOfYear<startDay or currDayOfYear>endDay:
                     return False
