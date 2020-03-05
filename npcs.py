@@ -75,6 +75,11 @@ def entityIsActive(moveTimes: []) -> bool:
     if len(moveTimes)==0:
         return True
 
+    # These variables are used for matching a number of days
+    # as separate time ranges, eg X or Y or Z
+    matchingDays=False
+    daysAreMatched=False
+
     for timeRange in moveTimes:
         if len(timeRange) >= 2:
             timeRangeType=timeRange[0].lower()
@@ -160,8 +165,9 @@ def entityIsActive(moveTimes: []) -> bool:
             currDayOfMonth=int(datetime.datetime.today().strftime("%d"))
             month=int(timeRangeStart)
             monthday=int(timeRangeEnd)
-            if not (currMonth==month and currDayOfMonth==monthday):
-                return False
+            matchingDays=True
+            if currMonth==month and currDayOfMonth==monthday:
+                daysAreMatched=True
 
         # between days of year
         if timeRangeType == 'daysofyear':
@@ -174,6 +180,11 @@ def entityIsActive(moveTimes: []) -> bool:
             else:
                 if currDayOfYear>endDay and currDayOfYear<startDay:
                     return False
+
+    # if we are matching a set of days, where any matched?
+    if matchingDays:
+        if not daysAreMatched:
+            return False
 
     return True
 
