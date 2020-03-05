@@ -71,7 +71,7 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
                         return players[pid]['room']
     return ''
 
-def npcIsActive(moveTimes: []) -> bool:
+def entityIsActive(moveTimes: []) -> bool:
     if len(moveTimes)==0:
         return True
 
@@ -255,7 +255,7 @@ def moveNPCs(npcs, players, mud, now, nid):
         npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
         npcs[nid]['lastMoved'] = now
 
-def removeInactiveNPC(nid, npcs: {}, nid2, npcsDB: {}, npcActive: bool) -> bool:
+def removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {}, npcActive: bool) -> bool:
     """Moves inactive NPCs to and from purgatory
     Returns true when recovering from purgatory
     """
@@ -315,9 +315,9 @@ def runMobileItems(
         if not itemsDB[itemID].get('moveTimes'):
             continue
         # Active now?
-        itemActive=npcIsActive(itemsDB[itemID]['moveTimes'])
+        itemActive=entityIsActive(itemsDB[itemID]['moveTimes'])
         # Remove if not active
-        removeInactiveNPC(item,items,itemID,itemsDB,itemActive)
+        removeInactiveEntity(item,items,itemID,itemsDB,itemActive)
         if not itemActive:
             continue
 
@@ -334,8 +334,8 @@ def runNPCs(
     """
 
     for (nid, pl) in list(npcs.items()):
-        npcActive=npcIsActive(npcs[nid]['moveTimes'])
-        removeInactiveNPC(nid,npcs,nid,npcs,npcActive)
+        npcActive=entityIsActive(npcs[nid]['moveTimes'])
+        removeInactiveEntity(nid,npcs,nid,npcs,npcActive)
         if not npcActive:
             continue
         # Check if any player is in the same room, then send a random
