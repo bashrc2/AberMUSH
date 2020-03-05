@@ -44,6 +44,7 @@ from playerconnections import disconnectIdlePlayers
 from playerconnections import playerInGame
 from npcs import npcRespawns
 from npcs import runNPCs
+from npcs import runMobileItems
 from npcs import npcsRest
 from familiar import familiarRecall
 from reaper import removeCorpses
@@ -344,6 +345,7 @@ for k in itemsDB:
                v == "gameState" or
                v == "exit" or
                v == "exitName" or
+               v == "moveTimes" or
                v == "takeFail" or
                v == "article"):
             itemsDB[k][v] = int(itemsDB[k][v])
@@ -548,6 +550,9 @@ while True:
         racesDB,
         characterClassDB,
         guildsDB)
+
+    # Some items can appear only at certain times
+    runMobileItems(itemsDB,items,eventSchedule,scriptedEventsDB)
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
