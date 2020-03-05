@@ -36258,10 +36258,10 @@
         "article": "a"
     },
     "1423": {
-        "name": "feast table",
-        "short_description": "A feast table has been set out here.",
-        "long_description": "A feast table has been set out here.",
-	"takeFail": "The feast table is much too large to carry.",
+        "name": "feast bench",
+        "short_description": "A modest feast bench has been set out here.",
+        "long_description": "A modest feast bench has been set out here.",
+	"takeFail": "The feast bench is much too large to carry.",
 	"moveTimes": [["hour",17,18],["day","thursday"]],
         "clo_head": 0,
         "clo_neck": 0,
