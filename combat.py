@@ -23,6 +23,7 @@ from proficiencies import damageProficiency
 from proficiencies import defenseProficiency
 from proficiencies import weaponProficiency
 from traps import playerIsTrapped
+import os
 import time
 
 defenseClothing = (
