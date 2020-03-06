@@ -44,7 +44,7 @@ def sendCombatImage(mud,id,players: {},race: str,weaponType: str) -> None:
     if players[id].get('graphics'):
         if players[id]['graphics']=='off':
             return
-    combatImageFilename='images/combat/'+race+'-'+weaponType
+    combatImageFilename='images/combat/'+race+'_'+weaponType
     mud.send_message(id, "<f220>"+combatImageFilename+"\n\n")
     if not os.path.isfile(combatImageFilename):
         return
