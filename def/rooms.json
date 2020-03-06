@@ -4849,7 +4849,7 @@
         "maxPlayers": -1,
         "weather": 1,
         "onWater": 0,
-        "tideOutDescription" : "",
+        "tideOutDescription" : "You are standing on a narrow windswept ledge up above a shore of boulders and rockpools. The distance down isn't too great and you can probably quite safely drop it. The view here is nice, although the continual squarking of seagulls around you is annoying to say the least.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -11090,7 +11090,8 @@
         "roomTeleport": "",
         "conditional": [
 	    ["hour","<8","You are standing in a low, dark chamber beneath the mound. The walls and ceiling are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound. Up above a hole allows in a little night air."],
-	    ["hour",">20","You are standing in a low, dark chamber beneath the mound. The walls and ceiling are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound. Up above a hole allows in a little night air."]
+	    ["hour",">20","You are standing in a low, dark chamber beneath the mound. The walls and ceiling are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound. Up above a hole allows in a little night air."],
+	    ["date","20/3","You are standing in a low chamber beneath the mound, illuminated by a bright beam of sunlight from a hole above. The walls and ceiling are covered in large spiral engravings and are shored up with huge stones giving the chamber a feeling of indestructible permanance. A narrow tunnel leads south down along the centre of the mound.","1330_light"]
 	],
         "trap": {},
         "eventOnEnter": "",
