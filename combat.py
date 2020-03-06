@@ -35,6 +35,19 @@ defenseClothing = (
     'clo_lwrist',
     'clo_rwrist')
 
+def sendCombatImage(mud,id,players: {},race: str,weaponType: str) -> None:
+    """Sends an image based on a character of a given race using a given weapon
+    """
+    if not (race and weaponType):
+        return
+    if players[id].get('graphics'):
+        if players[id]['graphics']=='off':
+            return
+    combatImageFilename='images/combat/'+race+'-'+weaponType
+    if not os.path.isfile(combatImageFilename):
+        return
+    with open(combatImageFilename, 'r') as imgFile:
+        mud.send_image(id,'\n'+imgFile.read())
 
 def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
     """Checks if players are incapacitated by spells and removes them
@@ -285,7 +298,8 @@ def npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
             npcs[id][c] = itemID
 
 
-def weaponDamage(id: int, players: {}, itemsDB: {}, weaponType: str, characterClassDB: {}) -> int:
+def weaponDamage(id: int,players: {},itemsDB: {}, \
+                 weaponType: str,characterClassDB: {}) -> int:
     """Calculates the amount of damage which a player can do
        with weapons held
     """
@@ -307,7 +321,7 @@ def weaponDamage(id: int, players: {}, itemsDB: {}, weaponType: str, characterCl
     return damage
 
 
-def raceResistance(id: int, players: {}, racesDB: {}, weaponType: str) -> int:
+def raceResistance(id: int,players: {},racesDB: {},weaponType: str) -> int:
     """How much resistance does the player have to the weapon type
        based upon their race
     """
@@ -329,7 +343,8 @@ def raceResistance(id: int, players: {}, racesDB: {}, weaponType: str) -> int:
     return resistance
 
 
-def weaponDefense(id: int, players: {}, itemsDB: {}, racesDB: {}, weaponType: str, characterClassDB: {}) -> int:
+def weaponDefense(id: int,players: {},itemsDB: {}, \
+                  racesDB: {},weaponType: str,characterClassDB: {}) -> int:
     """How much defense does a player have due to armor worn?
     """
     defense = raceResistance(id, players, racesDB, weaponType)
@@ -373,7 +388,7 @@ def canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
     return True
 
 
-def getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int,str,int):
+def getWeaponHeld(id: int,players: {},itemsDB: {}) -> (int,str,int):
     """Returns the type of weapon held, or fists if none is held and the rounds of fire
     """
     if players[id]['clo_rhand'] > 0 and players[id]['clo_lhand'] == 0:
@@ -836,6 +851,7 @@ def runFightsBetweenPlayers(
                         players,s2id,players,s1id,guilds)
                     decreaseAffinityBetweenPlayers(
                         players,s1id,players,s2id,guilds)
+                    sendCombatImage(mud,s1id,players,players[s1id]['race'],weaponType)
                     mud.send_message(
                         s1id,'You ' + \
                         attackDescriptionFirst + \
@@ -845,6 +861,7 @@ def runFightsBetweenPlayers(
                         modifierStr + \
                         ' *<r> points of ' + \
                         damageDescription + '.\n')
+                    sendCombatImage(mud,s2id,players,players[s1id]['race'],weaponType)
                     mud.send_message(
                         s2id,'<f32>' + \
                         players[s1id]['name'] + \
@@ -857,12 +874,14 @@ def runFightsBetweenPlayers(
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
+                    sendCombatImage(mud,s1id,players,players[s2id]['race'],"resist")
                     mud.send_message(
                         s1id,'You ' + \
                         attackDescriptionFirst + \
                         ' <f32><u>' + \
                         players[s2id]['name'] + \
                         '<r> but their armor deflects it.\n')
+                    sendCombatImage(mud,s2id,players,players[s2id]['race'],"resist")
                     mud.send_message(
                         s2id,'<f32>' + \
                         players[s1id]['name'] + \
@@ -989,6 +1008,7 @@ def runFightsBetweenPlayerAndNPC(
 
                     decreaseAffinityBetweenPlayers(npcs,s2id,players,s1id,guilds)
                     decreaseAffinityBetweenPlayers(players,s1id,npcs,s2id,guilds)
+                    sendCombatImage(mud,s1id,players,players[s1id]['race'],weaponType)
                     mud.send_message(
                         s1id,
                         'You ' +
@@ -1003,6 +1023,7 @@ def runFightsBetweenPlayerAndNPC(
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
+                    sendCombatImage(mud,s1id,players,npcs[s2id]['race'],"resist")
                     mud.send_message(
                         s1id,
                         'You ' +
@@ -1113,6 +1134,10 @@ def runFightsBetweenNPCAndPlayer(
                         modifierStr = modifierStr + ' + ' + str(damagePoints)
                 decreaseAffinityBetweenPlayers(npcs,s1id,players,s2id,guilds)
                 decreaseAffinityBetweenPlayers(players,s2id,npcs,s1id,guilds)
+                if not npcs[s1id]['animalType']:
+                    sendCombatImage(mud,s2id,players,npcs[s1id]['race'],weaponType)
+                else:
+                    sendCombatImage(mud,s2id,players,npcs[s1id]['animalType'],weaponType)
                 mud.send_message(
                     s2id,
                     '<f220>' +
@@ -1125,6 +1150,7 @@ def runFightsBetweenNPCAndPlayer(
                     damageDescription +
                     '.\n')
         else:
+            sendCombatImage(mud,s2id,players,players[s2id]['race'],"resist")
             mud.send_message(
                 s2id,
                 '<f220>' +
