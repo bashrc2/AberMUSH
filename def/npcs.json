@@ -6964,7 +6964,7 @@
         "canWear" : "0",
         "visibleWhenWearing": [],
         "race": "human",
-        "characterClass": "",
+        "characterClass": "sorcerer",
         "archetype": "",
         "proficiencies": [],
         "fightingStyle": "",
