@@ -3055,7 +3055,10 @@
         "name": "The Smelly Yard",
         "description": "You are standing in the shadows on one side of a broad and smelly yard. The ground is covered in horse dung, and as people cross it clouds of flies buzz up angrily around them. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow gloomy alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","You are standing in the dim dawnlight on one side of a broad and smelly yard. The ground is covered in horse dung, and as people cross it clouds of flies buzz up angrily around them. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"],
+	    ["hour",">20","You are standing in the darkness on one side of a broad and smelly yard. The ground is covered in horse dung, and as people cross it clouds of flies buzz up angrily around them. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9266,9 +9269,11 @@
     },
     "$rid=1135$": {
         "name": "The Churchyard",
-        "description": "You stand in what is apparently an old and disused churchyard. Weeds and moss cover the crumbling gravestones and path. To the east is a huge ancient church, now decaying and surrounded by bits of fallen stonework. To the north the graveyard continues.",
+        "description": "You stand in what is apparently an old and disused churchyard. Weeds and moss cover the worn gravestones and ancient statues. To the east is a huge ancient church, now decaying and surrounded by bits of fallen stonework. To the north the graveyard continues.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hour",">12","You stand in what is apparently an old and disused churchyard. Weeds and moss cover the crumbling gravestones and pathway. To the east is a huge ancient church, now decaying and surrounded by bits of fallen stonework. To the north the graveyard continues.","1135b"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
