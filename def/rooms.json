@@ -11050,7 +11050,7 @@
     },
     "$rid=1326$": {
         "name": "The Stone Chamber",
-        "description": "Not much is visible inside of the low roofed stone chamber. It's cold and damp.",
+        "description": "Stepping cautiously into the low roofed stone chamber there's not much which is visible in the pervasive darkness. You are guided only by a sense of touch of the cold and damp walls.",
         "roomTeleport": "",
         "conditional": [
 	    ["hold","lightsource","This low roofed stone chamber appears to have been built as a treasure chamber. The chamber appears to be little disturbed, and as you eye the shadows you remember the many tales of the lethal death traps that are said to protect these ancient tombs. The more you ponder this the more tempting the narrow passage leading north from the chamber looks.","1326_light"]
