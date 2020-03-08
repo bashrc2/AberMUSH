@@ -1043,4 +1043,5 @@ while True:
                         characterClassDB,
                         spellsDB,
                         sentimentDB,
-                        guildsDB)
+                        guildsDB,
+                        clouds)
