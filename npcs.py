@@ -30,6 +30,7 @@ from familiar import familiarScout
 from familiar import familiarHide
 from familiar import familiarIsHidden
 from familiar import familiarSight
+from environment import getRainAtCoords
 
 import time
 
@@ -73,7 +74,8 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
                         return players[pid]['room']
     return ''
 
-def entityIsActive(moveTimes: []) -> bool:
+def entityIsActive(id,players: {},rooms: {}, \
+                   moveTimes: [],mapArea: [],clouds: {}) -> bool:
     if len(moveTimes)==0:
         return True
 
@@ -164,6 +166,17 @@ def entityIsActive(moveTimes: []) -> bool:
                     return False
             else:
                 if not (currHour<sunSetTime or currHour>sunSetTime+1):
+                    return False
+
+        if timeRangeType.startswith('rain'):
+            rm=players[id]['room']
+            coords=rooms[rm]['coords']
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not getRainAtCoords(coords,mapArea,clouds):
+                    return False
+            else:
+                if getRainAtCoords(coords,mapArea,clouds):
                     return False
 
         # hour of day
@@ -355,7 +368,10 @@ def runMobileItems(
         itemsDB,
         items,
         eventSchedule,
-        scriptedEventsDB):
+        scriptedEventsDB,
+        rooms,
+        mapArea,
+        clouds):
     """Updates all NPCs
     """
     for (item, pl) in list(items.items()):
@@ -366,7 +382,9 @@ def runMobileItems(
         if not itemsDB[itemID].get('moveTimes'):
             continue
         # Active now?
-        itemActive=entityIsActive(itemsDB[itemID]['moveTimes'])
+        itemActive= \
+            entityIsActive(itemID,items,rooms, \
+                           itemsDB[itemID]['moveTimes'],mapArea,clouds)
         # Remove if not active
         removeInactiveEntity(item,items,itemID,itemsDB,itemActive)
         if not itemActive:
@@ -380,12 +398,17 @@ def runNPCs(
         corpses,
         scriptedEventsDB,
         itemsDB,
-        npcsTemplate):
+        npcsTemplate,
+        rooms,
+        mapArea,
+        clouds):
     """Updates all NPCs
     """
 
     for (nid, pl) in list(npcs.items()):
-        npcActive=entityIsActive(npcs[nid]['moveTimes'])
+        npcActive= \
+            entityIsActive(nid,npcs,rooms, \
+                           npcs[nid]['moveTimes'],mapArea,clouds)
         removeInactiveEntity(nid,npcs,nid,npcs,npcActive)
         if not npcActive:
             continue

@@ -552,7 +552,8 @@ while True:
         guildsDB)
 
     # Some items can appear only at certain times
-    runMobileItems(itemsDB,itemsInWorld,eventSchedule,scriptedEventsDB)
+    runMobileItems(itemsDB,itemsInWorld,eventSchedule, \
+                   scriptedEventsDB,rooms,mapArea,clouds)
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
@@ -564,7 +565,10 @@ while True:
         corpses,
         scriptedEventsDB,
         itemsDB,
-        npcsTemplate)
+        npcsTemplate,
+        rooms,
+        mapArea,
+        clouds)
 
     runEnvironment(mud, players, env)
 
