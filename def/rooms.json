@@ -11070,9 +11070,11 @@
         "exits": {
         },
         "name": "In The Large Tomb",
-        "description": "You are lying inside a large stone tomb. Although the tomb is large you have little freedom to move about.",
+        "description": "You are lying inside a large stone tomb. It is dark and cold, with not much space to move.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","lightsource","You are lying inside a large stone tomb. Although the tomb is large you have little freedom to move about.","1329_light"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
