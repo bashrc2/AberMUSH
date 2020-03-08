@@ -2291,6 +2291,34 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
                     players: {},items: {}, \
                     itemsDB: {},clouds: {},mapArea: [], \
                     rooms: {}) -> bool:
+    if condType == 'sunrise' or \
+       condType == 'dawn':
+        currTime=datetime.datetime.today()
+        currHour=currTime.hour
+        sun=Sun(52.414, 4.081)
+        sunRiseTime=sun.get_local_sunrise_time(currTime).hour
+        if 'true' in cond.lower() or \
+           'y' in cond.lower():
+            if currHour>=sunRiseTime-1 and currHour<=sunRiseTime:
+                return True
+        else:
+            if currHour<sunRiseTime-1 or currHour>sunRiseTime:
+                return True
+
+    if condType == 'sunset' or \
+       condType == 'dusk':
+        currTime=datetime.datetime.today()
+        currHour=currTime.hour
+        sun=Sun(52.414, 4.081)
+        sunSetTime=sun.get_local_sunset_time(currTime).hour
+        if 'true' in cond.lower() or \
+           'y' in cond.lower():
+            if currHour>=sunSetTime and currHour<=sunSetTime+1:
+                return True
+        else:
+            if currHour<sunSetTime or currHour>sunSetTime+1:
+                return True
+
     if condType.startswith('rain'):
         rm=players[id]['room']
         coords=rooms[rm]['coords']

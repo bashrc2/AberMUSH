@@ -301,7 +301,9 @@ You may want the description of a room to change if some condition is met. For e
     ["date","25/12","Punters are engaging in festive celebrations in this disreputable boozing establishment. The inn-keeper looks busy behind the bar, and also slightly under the influence of the clouds of opium smoke wafting over from the merrymakers. The door leading back out looks tempting."],
     ["hold","114","You stare dispondently into your flagon of ale, but matters don't seem to improve. Is it worth drinking a beverage this cheap, you ask yourself. There's a door leading out."],
     ["hold","lightsource","The dark street is illuminated by the light you are holding."],
-	["rain","true","Puddles form in the street."]
+    ["rain","true","Puddles form in the street."],
+    ["sunrise","true","You see the sun rise over the tops of the trees."]
+    ["sunset","true","You see the sun set below the horizon."]
 ],
 ```
 
