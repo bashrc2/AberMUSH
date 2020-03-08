@@ -12,6 +12,8 @@ __status__ = "Production"
 
 import os
 import datetime
+from dateutil import tz
+from suntime import Sun
 from functions import log
 from functions import playerInventoryWeight
 from functions import updatePlayerAttributes
@@ -134,6 +136,35 @@ def entityIsActive(moveTimes: []) -> bool:
         timeRangeType=timeRange[0].lower()
         timeRangeStart=timeRange[1]
         timeRangeEnd=timeRange[2]
+
+        # sunrise
+        if timeRangeType == 'sunrise' or \
+           timeRangeType == 'dawn':
+            currTime=datetime.datetime.today()
+            currHour=currTime.hour
+            sun=Sun(52.414, 4.081)
+            sunRiseTime=sun.get_local_sunrise_time(currTime).hour
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not (currHour>=sunRiseTime-1 and currHour<=sunRiseTime):
+                    return False
+            else:
+                if not (currHour<sunRiseTime-1 or currHour>sunRiseTime):
+                    return False
+
+        if timeRangeType == 'sunset' or \
+           timeRangeType == 'dusk':
+            currTime=datetime.datetime.today()
+            currHour=currTime.hour
+            sun=Sun(52.414, 4.081)
+            sunSetTime=sun.get_local_sunset_time(currTime).hour
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not (currHour>=sunSetTime and currHour<=sunSetTime+1):
+                    return False
+            else:
+                if not (currHour<sunSetTime or currHour>sunSetTime+1):
+                    return False
 
         # hour of day
         if timeRangeType.startswith('hour'):
