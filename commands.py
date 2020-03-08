@@ -27,6 +27,7 @@ from functions import getSentiment
 from functions import getGuildSentiment
 from environment import runTide
 from environment import assignCoordinates
+from environment import getRainAtCoords
 from traps import playerIsTrapped
 from traps import describeTrappedPlayer
 from traps import trapActivation
@@ -2286,7 +2287,21 @@ def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
     # is there a light source in the room?
     return lightSourceInRoom(players,id,items,itemsDB)
 
-def conditionalRoom(condType,cond,description,id,players,items,itemsDB) -> bool:
+def conditionalRoom(condType: str,cond: str,description: str,id, \
+                    players: {},items: {}, \
+                    itemsDB: {},clouds: {},mapArea: [], \
+                    rooms: {}) -> bool:
+    if condType.startswith('rain'):
+        rm=players[id]['room']
+        coords=rooms[rm]['coords']
+        if 'true' in cond.lower() or \
+           'y' in cond.lower():
+            if getRainAtCoords(coords,mapArea,clouds):
+                return True
+        else:
+            if not getRainAtCoords(coords,mapArea,clouds):
+                return True
+
     if condType == 'hour':
         currHour = datetime.datetime.today().hour
         condHour = cond.replace(
@@ -2397,11 +2412,12 @@ def conditionalRoom(condType,cond,description,id,players,items,itemsDB) -> bool:
 
 
 def conditionalRoomDescription(
-        description,
-        tideOutDescription,
-        conditional,
+        description: str,
+        tideOutDescription: str,
+        conditional: [],
         id,
-        players,items,itemsDB):
+        players: {},items: {},itemsDB: {},clouds: {}, \
+        mapArea: [],rooms: {}):
     """Returns a description which can vary depending on conditions
     """
     roomDescription = description
@@ -2417,13 +2433,15 @@ def conditionalRoomDescription(
             alternativeDescription = possibleDescription[2]
             if conditionalRoom(condType,cond, \
                                alternativeDescription, \
-                               id,players,items,itemsDB):
+                               id,players,items,itemsDB, \
+                               clouds,mapArea,rooms):
                 roomDescription = alternativeDescription
                 break
 
     return roomDescription
 
-def conditionalRoomImage(conditional,id,players: {},items: {},itemsDB: {}) -> str:
+def conditionalRoomImage(conditional: [],id,players: {},items: {}, \
+                         itemsDB: {},clouds: {},mapArea: [],rooms: {}) -> str:
     """If there is an image associated with a conditional
     room description then return its name
     """
@@ -2434,7 +2452,8 @@ def conditionalRoomImage(conditional,id,players: {},items: {},itemsDB: {}) -> st
             alternativeDescription = possibleDescription[2]
             if conditionalRoom(condType,cond, \
                                alternativeDescription, \
-                               id,players,items,itemsDB):
+                               id,players,items,itemsDB,clouds, \
+                               mapArea,rooms):
                 roomImageFilename='images/rooms/'+possibleDescription[3]
                 if os.path.isfile(roomImageFilename):
                     return possibleDescription[3]
@@ -2594,7 +2613,8 @@ def roomIllumination(roomImage,outdoors: bool):
         newRoomImage+=darkStr+trailing+'['
     return newRoomImage[:len(newRoomImage)-1]
 
-def showRoomImage(mud,id,roomId,rooms: {},players: {},items: {},itemsDB: {}) -> None:
+def showRoomImage(mud,id,roomId,rooms: {},players: {},items: {},itemsDB: {}, \
+                  clouds: {},mapArea: []) -> None:
     """Shows an image for the room if it exists
     """
     if players[id].get('graphics'):
@@ -2602,7 +2622,8 @@ def showRoomImage(mud,id,roomId,rooms: {},players: {},items: {},itemsDB: {}) -> 
             return
     conditionalImage= \
         conditionalRoomImage(rooms[roomId]['conditional'], \
-                             id,players,items,itemsDB)
+                             id,players,items,itemsDB,clouds, \
+                             mapArea,rooms)
     outdoors=False
     if rooms[roomId]['weather']==1:
         outdoors=True
@@ -2706,14 +2727,16 @@ def look(
 
             # send the player back the description of their current room
             playerRoomId=players[id]['room']
-            showRoomImage(mud,id,playerRoomId,rooms,players,items,itemsDB)
+            showRoomImage(mud,id,playerRoomId,rooms,players,items, \
+                          itemsDB,clouds,mapArea)
             roomDescription = rm['description']
             if len(rm['conditional']) > 0:
                 roomDescription = \
-                    conditionalRoomDescription(roomDescription,
-                                               rm['tideOutDescription'],
-                                               rm['conditional'],
-                                               id, players,items,itemsDB)
+                    conditionalRoomDescription(roomDescription, \
+                                               rm['tideOutDescription'], \
+                                               rm['conditional'], \
+                                               id, players,items,itemsDB, \
+                                               clouds,mapArea,rooms)
 
             if rm['trap'].get('trapActivation') and rm['trap'].get('trapPerception'):
                 if randint(1,players[id]['per'])>rm['trap']['trapPerception']:

@@ -444,7 +444,6 @@ def getTemperature() -> float:
     #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle))
     return avTemp + dailyVariance + solarCycle
 
-
 def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> float:
     """Returns the temperature at the given coordinates
     """
@@ -461,7 +460,7 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> fl
     currTemp = terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
 
     # Adjust for rain
-    if clouds[x][y] > rainThreshold:
+    if getRainAtCoords([y,x],mapArea,clouds):
         currTemp = currTemp * 0.8
 
     if clouds[x][y] < getCloudThreshold(currTemp):
@@ -470,3 +469,12 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> fl
 
     # with cloud
     return currTemp * 0.8
+
+def getRainAtCoords(coords: [], mapArea: [], clouds: {}) -> bool:
+    """Returns whether it is raining at the civen coordinates
+    """
+    x = coords[1] - mapArea[1][0]
+    y = coords[0] - mapArea[0][0]
+    if clouds[x][y] > rainThreshold:
+        return True
+    return False
