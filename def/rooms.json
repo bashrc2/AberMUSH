@@ -1536,7 +1536,7 @@
         "exits": {
         },
         "name": "Wizardly Library",
-        "description": "You are standing in the wizard's library, a small musty room up in the tower. The shelves are mostly bare but a few odd items still lie around.",
+        "description": "You are standing in the wizard's library, a small musty room up in the tower. The shelves are packed with leather bound tomes on all manner of esoteric or occult subjects.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
