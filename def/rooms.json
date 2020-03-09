@@ -6276,7 +6276,10 @@
         "name": "The Stone Circle",
         "description": "You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","As the sun rises you stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844_sun"],
+	    ["sunset","true","As the sun sets you stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844_sunset"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
