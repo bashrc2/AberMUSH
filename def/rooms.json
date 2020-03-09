@@ -3901,7 +3901,10 @@
         "name": "Rough Sea",
         "description": "You are some way from land, and the sea has become quite rough.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are some way from land, and the sea has become quite rough.","572_sun"],
+	    ["sunset","true","You are some way from land, and the sea has become quite rough.","572_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3917,7 +3920,10 @@
         "name": "Island Coast",
         "description": "You are rounding the south-east corner of the island.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are rounding the south-east corner of the island.","578_sun"],
+	    ["sunset","true","You are rounding the south-east corner of the island.","578_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3938,7 +3944,10 @@
         "name": "Island Coast",
         "description": "You are rowing around the north-west corner of the island.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are rowing around the north-west corner of the island.","579_sun"],
+	    ["sunset","true","You are rowing around the north-west corner of the island.","579_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3979,7 +3988,10 @@
         "name": "The Island Coast",
         "description": "You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. There is absolutely nowhere here to land.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. There is absolutely nowhere here to land.","581_sun"],
+	    ["sunset","true","You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. There is absolutely nowhere here to land.","581_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -4019,7 +4031,9 @@
         "name": "Island Coast",
         "description": "You are rowing around a forested island. A sandy beach to the south makes an ideal landing place for your boat.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hour",">12","You are rowing around a forested island. A sandy beach to the south makes an ideal landing place for your boat.","583b"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -4040,7 +4054,10 @@
         "name": "The North Coast of the Island",
         "description": "You are rowing past the north coast of the island. The forest extends right to the edge, and the abundance of jagged rocks prevents any sort of landing by boat.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are rowing past the north coast of the island. The forest extends right to the edge, and the abundance of jagged rocks prevents any sort of landing by boat.","584_sun"],
+	    ["sunset","true","You are rowing past the north coast of the island. The forest extends right to the edge, and the abundance of jagged rocks prevents any sort of landing by boat.","584_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -7415,7 +7432,9 @@
         "name": "All At Sea",
         "description": "You are out at sea, amidst the ever rolling waters, and the stinging saltspray winds. The horizon is blank, without so much as a mark to steer by. You could be in serious trouble...",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","You are out at sea, amidst the ever rolling waters, and the high winds and stinging rain. The horizon is blank, without so much as a mark to steer by. You could be in serious trouble..."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9953,7 +9972,10 @@
         "name": "The Jagged Rocks",
         "description": "You are clambering across steep jagged rocks. The sharp slanted edges make climbing difficult and the spray from the sea makes them slippery too. To the north the rocks become slippery and treacherous, while to the south they drop a sheer twenty feet down into a wide water filled channel which churns and froths at a terrific rate, east from a narrow but very deep gorge. The sheer cliff walls make it impossible to reach the gorge entry from upon the rocks.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are clambering across steep jagged rocks. The sharp slanted edges make climbing difficult and the spray from the sea makes them slippery too. To the north the rocks become slippery and treacherous, while to the south they drop a sheer twenty feet down into a wide water filled channel which churns and froths at a terrific rate, east from a narrow but very deep gorge. The sheer cliff walls make it impossible to reach the gorge entry from upon the rocks.","1190_sun"],
+	    ["sunset","true","You are clambering across steep jagged rocks. The sharp slanted edges make climbing difficult and the spray from the sea makes them slippery too. To the north the rocks become slippery and treacherous, while to the south they drop a sheer twenty feet down into a wide water filled channel which churns and froths at a terrific rate, east from a narrow but very deep gorge. The sheer cliff walls make it impossible to reach the gorge entry from upon the rocks.","1190_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9973,7 +9995,10 @@
         "name": "The Slippery Rocks",
         "description": "A high cliff rises up to the west, rising steep and unclimbable over the rocky beach. The slippery rocks, damp with the spray of the crashing waves, make walking treacherous. To the north is the beach, while to the south the rocks get even more jagged and rough.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","A high cliff rises up to the west, rising steep and unclimbable over the rocky beach. The slippery rocks, damp with the spray of the crashing waves, make walking treacherous. To the north is the beach, while to the south the rocks get even more jagged and rough.","1191_sun"],
+	    ["sunset","true","A high cliff rises up to the west, rising steep and unclimbable over the rocky beach. The slippery rocks, damp with the spray of the crashing waves, make walking treacherous. To the north is the beach, while to the south the rocks get even more jagged and rough.","1191_sun"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
