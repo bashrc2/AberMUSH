@@ -1671,6 +1671,7 @@
         "description": "On the south side of the house, this pond enjoys lots of sun. It is small, and you can walk around it easily. The water is very clear. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west.",
         "roomTeleport": "",
         "conditional": [
+	    ["rain","true","On the south side of the house, rain drops ripple the surface of the pond. It is small, and you can walk around it easily. The water is very clear. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."],
 	    ["hour","<8","On the south side of the house, this pond reflects the dim starlight. It is small, and you can walk around it easily. The water is very dark and stagnant. The garden is hemmed in by the main walls of the grounds to the south and east and by the house to the north. There is an archway leading west."],
 	    ["hour",">20","On the south side of the house, this pond reflects the dim night stars. It is small, and easy to walk around its perimeter. The water is murky and stagnant. The garden is surrounded by the main walls of the grounds to the south and east and by the house to the north. There is an archway to the west."]
 	],
