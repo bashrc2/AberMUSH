@@ -197,8 +197,8 @@ for k in envDB:
     if not os.path.isfile("universe_actors.json"):
         envDB[k]['vocabulary'] = envDB[k]['vocabulary'].split('|')
     for v in envDB[k]:
-        if not(v == "name" or
-               v == "room" or
+        if not(v == "name" or \
+               v == "room" or \
                v == "vocabulary"):
             envDB[k][v] = int(envDB[k][v])
 
@@ -242,43 +242,43 @@ for k in npcsDB:
     if not os.path.isfile("universe_npcs.json"):
         npcsDB[k]['vocabulary'] = npcsDB[k]['vocabulary'].split('|')
     for v in npcsDB[k]:
-        if not(v == "name" or
-               v == "room" or
-               v == "inv" or
-               v == "visibleWhenWearing" or
-               v == "speakLanguage" or
-               v == "language" or
-               v == "race" or
-               v == "familiarOf" or
-               v == "familiarTarget" or
-               v == "familiarType" or
-               v == "familiarMode" or
-               v == "animalType" or
-               v == "archetype" or
-               v == "characterClass" or
-               v == "proficiencies" or
-               v == "fightingStyle" or
-               v == "enemy" or
-               v == "tempCharmTarget" or
-               v == "guild" or
-               v == "guildRole" or
-               v == "affinity" or
-               v == "preparedSpells" or
-               v == "spellSlots" or
-               v == "conv" or
-               v == "path" or
-               v == "moveTimes" or
-               v == "follow" or
-               v == "moveDelay" or
-               v == "moveType" or
-               v == "vocabulary" or
-               v == "inDescription" or
-               v == "outDescription" or
-               v == "lookDescription" or
-               v == "lastRoom" or
-               v == "loot" or
-               v == "frozenDescription" or
-               v == "bodyType" or
+        if not(v == "name" or \
+               v == "room" or \
+               v == "inv" or \
+               v == "visibleWhenWearing" or \
+               v == "speakLanguage" or \
+               v == "language" or \
+               v == "race" or \
+               v == "familiarOf" or \
+               v == "familiarTarget" or \
+               v == "familiarType" or \
+               v == "familiarMode" or \
+               v == "animalType" or \
+               v == "archetype" or \
+               v == "characterClass" or \
+               v == "proficiencies" or \
+               v == "fightingStyle" or \
+               v == "enemy" or \
+               v == "tempCharmTarget" or \
+               v == "guild" or \
+               v == "guildRole" or \
+               v == "affinity" or \
+               v == "preparedSpells" or \
+               v == "spellSlots" or \
+               v == "conv" or \
+               v == "path" or \
+               v == "moveTimes" or \
+               v == "follow" or \
+               v == "moveDelay" or \
+               v == "moveType" or \
+               v == "vocabulary" or \
+               v == "inDescription" or \
+               v == "outDescription" or \
+               v == "lookDescription" or \
+               v == "lastRoom" or \
+               v == "loot" or \
+               v == "frozenDescription" or \
+               v == "bodyType" or \
                v == "whenDied"):
             npcsDB[k][v] = int(npcsDB[k][v])
 
@@ -343,30 +343,30 @@ itemsDB = output_dict
 
 for k in itemsDB:
     for v in itemsDB[k]:
-        if not(v == "name" or
-               v == "long_description" or
-               v == "short_description" or
-               v == "open_description" or
-               v == "open_failed_description" or
-               v == "close_description" or
-               v == "room" or
-               v == "language" or
-               v == "state" or
-               v == "visibleWhenWearing" or
-               v == "type" or
-               v == "writeWithItems" or
-               v == "written" or
-               v == "written_description" or
-               v == "contains" or
-               v == "climbThrough" or
-               v == "heave" or
-               v == "jumpTo" or
-               v == "game" or
-               v == "gameState" or
-               v == "exit" or
-               v == "exitName" or
-               v == "moveTimes" or
-               v == "takeFail" or
+        if not(v == "name" or \
+               v == "long_description" or \
+               v == "short_description" or \
+               v == "open_description" or \
+               v == "open_failed_description" or \
+               v == "close_description" or \
+               v == "room" or \
+               v == "language" or \
+               v == "state" or \
+               v == "visibleWhenWearing" or \
+               v == "type" or \
+               v == "writeWithItems" or \
+               v == "written" or \
+               v == "written_description" or \
+               v == "contains" or \
+               v == "climbThrough" or \
+               v == "heave" or \
+               v == "jumpTo" or \
+               v == "game" or \
+               v == "gameState" or \
+               v == "exit" or \
+               v == "exitName" or \
+               v == "moveTimes" or \
+               v == "takeFail" or \
                v == "article"):
             itemsDB[k][v] = int(itemsDB[k][v])
 
@@ -454,14 +454,8 @@ tileSize = 2
 temperature = getTemperature()
 r1 = random.Random((daysSinceEpoch * 1440) + dayMins)
 windDirection = int(r1.random() * 359)
-windDirection = generateCloud(
-    r1,
-    rooms,
-    mapArea,
-    clouds,
-    cloudGrid,
-    tileSize,
-    windDirection)
+windDirection = \
+    generateCloud(r1,rooms,mapArea,clouds,cloudGrid,tileSize,windDirection)
 log("Clouds generated. Wind direction " + str(windDirection), "info")
 
 lastTempHitPointsUpdate = int(time.time())
@@ -561,20 +555,9 @@ while True:
     runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
     # Handle Fights
-    runFights(
-        mud,
-        players,
-        npcs,
-        fights,
-        itemsInWorld,
-        itemsDB,
-        rooms,
-        maxTerrainDifficulty,
-        mapArea,
-        clouds,
-        racesDB,
-        characterClassDB,
-        guildsDB)
+    runFights(mud,players,npcs,fights,itemsInWorld,itemsDB,rooms, \
+              maxTerrainDifficulty,mapArea,clouds,racesDB,characterClassDB, \
+              guildsDB)
 
     # Some items can appear only at certain times
     runMobileItems(itemsDB,itemsInWorld,eventSchedule, \
@@ -582,18 +565,8 @@ while True:
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
-    runNPCs(
-        mud,
-        npcs,
-        players,
-        fights,
-        corpses,
-        scriptedEventsDB,
-        itemsDB,
-        npcsTemplate,
-        rooms,
-        mapArea,
-        clouds)
+    runNPCs(mud,npcs,players,fights,corpses,scriptedEventsDB,itemsDB, \
+            npcsTemplate,rooms,mapArea,clouds)
 
     runEnvironment(mud, players, env)
 
@@ -601,15 +574,8 @@ while True:
 
     npcRespawns(npcs)
 
-    runSchedule(
-        mud,
-        eventSchedule,
-        players,
-        npcs,
-        itemsInWorld,
-        env,
-        npcsDB,
-        envDB)
+    runSchedule(mud,eventSchedule,players,npcs,itemsInWorld,env, \
+                npcsDB,envDB)
 
     npcsTemplate = deepcopy(npcs)
 
@@ -1053,28 +1019,9 @@ while True:
             players[id]['idleStart'] = int(time.time())
             if players[id]['exAttribute0'] < 1000:
                 if len(command) > 0:
-                    runCommand(
-                        command.lower(),
-                        params,
-                        mud,
-                        playersDB,
-                        players,
-                        rooms,
-                        npcsDB,
-                        npcs,
-                        itemsDB,
-                        itemsInWorld,
-                        envDB,
-                        env,
-                        scriptedEventsDB,
-                        eventSchedule,
-                        id,
-                        fights,
-                        corpses,
-                        blocklist,
-                        mapArea,
-                        characterClassDB,
-                        spellsDB,
-                        sentimentDB,
-                        guildsDB,
-                        clouds)
+                    runCommand(command.lower(),params,mud,playersDB, \
+                               players,rooms,npcsDB,npcs,itemsDB, \
+                               itemsInWorld,envDB,env,scriptedEventsDB, \
+                               eventSchedule,id,fights,corpses,blocklist, \
+                               mapArea,characterClassDB,spellsDB, \
+                               sentimentDB,guildsDB,clouds)
