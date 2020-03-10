@@ -133,7 +133,7 @@ cast [spell name] on [target]           - Cast a spell on a player or NPC
 
 Spells are defined within `spells.json` and the system for spellcasting is a simplified version of the one within conventional D&D games. You prepare a spell, it gets added to your list and then you can cast it and it disappears from the prepared list. Some spells require certain items to be in the player's inventory.
 
-![AberMUSH](docs/skull.png)
+![AberMUSH](docs/lake.jpg)
 
 ## Witch Commands
 
