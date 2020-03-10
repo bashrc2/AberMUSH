@@ -9,6 +9,7 @@ __status__ = "Production"
 
 import time
 import os
+import json
 import commentjson
 import errno
 from copy import deepcopy
@@ -507,7 +508,7 @@ def savePlayer(
             # print(newPlayer)
             #print("Saving player state")
             with open(path + player['name'] + ".player", 'w') as fp:
-                commentjson.dump(newPlayer, fp)
+                fp.write(json.dumps(newPlayer))
             #print("Updating playerd DB")
             masterDB = loadPlayersDB()
             # print(masterDB)
@@ -521,34 +522,50 @@ def saveState(player, masterDB, savePassword):
     #masterDB = loadPlayersDB()
 
 
-def saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB):
+def saveUniverse(rooms: {},npcsDB: {},npcs: {}, \
+                 itemsDB: {},items: {}, \
+                 envDB: {},env: {},guildsDB: {}):
     # save rooms
+    if os.path.isfile('universe.json'):
+        os.rename('universe.json','universe2.json')
     with open("universe.json", 'w') as fp:
-        commentjson.dump(rooms, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(rooms))
 
     # save items
+    if os.path.isfile('universe_items.json'):
+        os.rename('universe_items.json','universe_items2.json')
     with open("universe_items.json", 'w') as fp:
-        commentjson.dump(items, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(items))
 
     # save itemsDB
+    if os.path.isfile('universe_itemsdb.json'):
+        os.rename('universe_itemsdb.json','universe_itemsdb2.json')
     with open("universe_itemsdb.json", 'w') as fp:
-        commentjson.dump(itemsDB, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(itemsDB))
 
     # save environment actors
+    if os.path.isfile('universe_actorsdb.json'):
+        os.rename('universe_actorsdb.json','universe_actorsdb2.json')
     with open("universe_actorsdb.json", 'w') as fp:
-        commentjson.dump(envDB, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(envDB))
 
     # save environment actors
+    if os.path.isfile('universe_actors.json'):
+        os.rename('universe_actors.json','universe_actors2.json')
     with open("universe_actors.json", 'w') as fp:
-        commentjson.dump(env, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(env))
 
     # save npcs
+    if os.path.isfile('universe_npcs.json'):
+        os.rename('universe_npcs.json','universe_npcs2.json')
     with open("universe_npcs.json", 'w') as fp:
-        commentjson.dump(npcs, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(npcs))
 
     # save npcsDB
+    if os.path.isfile('universe_npcsdb.json'):
+        os.rename('universe_npcsdb.json','universe_npcsdb2.json')
     with open("universe_npcsdb.json", 'w') as fp:
-        commentjson.dump(npcsDB, fp, indent=4, sort_keys=True)
+        fp.write(json.dumps(npcsDB))
 
 
 def str2bool(v):
