@@ -290,6 +290,8 @@ It's also possible to add extra conditions to the conversation response selectio
 ```
 The variables available are the various player attributes: `level`, `experience`, `strength`, `size`, `weight` (of inventory carried), `perception`, `endurance`, `charisma`, `intelligence`, `agility` and `luck`. You can match multiple conditions if necessary.
 
+![AberMUSH](docs/lava.jpg)
+
 ### Conditional Room Descriptions
 
 You may want the description of a room to change if some condition is met. For example, within `rooms.json`:
