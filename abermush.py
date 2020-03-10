@@ -172,12 +172,22 @@ log("Map coordinates:" + str(mapArea), "info")
 
 # Loading environment actors
 if os.path.isfile("universe_actors.json"):
-    with open("universe_actors.json", "r") as read_file:
-        env = json.loads(read_file.read())
+    try:
+        with open("universe_actors.json", "r") as read_file:
+            env = json.loads(read_file.read())
+    except:
+        print('WARN: unable to load universe_actors.json')
+        pass
+
 if os.path.isfile("universe_actorsdb.json"):
-    with open("universe_actorsdb.json", "r") as read_file:
-        envDB = json.loads(read_file.read())
-else:
+    try:
+        with open("universe_actorsdb.json", "r") as read_file:
+            envDB = json.loads(read_file.read())
+    except:
+        print('WARN: unable to load universe_actorsdb.json')
+        pass
+
+if not envDB:
     with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
         envDB = json.loads(read_file.read())
 
@@ -213,9 +223,14 @@ log("Loading NPCs...", "info")
 #        npcs = json.loads(read_file.read())
 
 if os.path.isfile("universe_npcsdb.json"):
-    with open("universe_npcsdb.json", "r") as read_file:
-        npcsDB = json.loads(read_file.read())
-else:
+    try:
+        with open("universe_npcsdb.json", "r") as read_file:
+            npcsDB = json.loads(read_file.read())
+    except:
+        print('WARN: unable to load universe_npcsdb.json')
+        pass
+
+if not npcsDB:
     with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
         npcsDB = json.loads(read_file.read())
 
@@ -305,13 +320,22 @@ log("Guilds loaded: " + str(len(guildsDB)), "info")
 
 # Loading Items
 if os.path.isfile("universe_items.json"):
-    with open("universe_items.json", "r") as read_file:
-        itemsInWorld = json.loads(read_file.read())
+    try:
+        with open("universe_items.json", "r") as read_file:
+            itemsInWorld = json.loads(read_file.read())
+    except:
+        print('WARN: unable to load universe_items.json')
+        pass
 
 if os.path.isfile("universe_itemsdb.json"):
-    with open("universe_itemsdb.json", "r") as read_file:
-        itemsDB = json.loads(read_file.read())
-else:
+    try:
+        with open("universe_itemsdb.json", "r") as read_file:
+            itemsDB = json.loads(read_file.read())
+    except:
+        print('WARN: unable to load universe_itemsdb.json')
+        pass
+
+if not itemsDB:
     with open(str(Config.get('Items', 'Definition')), "r") as read_file:
         itemsDB = json.loads(read_file.read())
 
