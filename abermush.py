@@ -537,8 +537,8 @@ while True:
     # us up-to-date information
     mud.update()
 
-    playersDisconnected= \
-        disconnectIdlePlayers(mud,players,allowedPlayerIdle,playersDB)
+    if disconnectIdlePlayers(mud,players,allowedPlayerIdle,playersDB):
+        playersDB = loadPlayersDB()
 
     # Check if State Save is due and execute it if required
     now = int(time.time())
