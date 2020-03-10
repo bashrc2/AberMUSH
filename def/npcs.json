@@ -4669,7 +4669,7 @@
         ],
         "path" : ["$rid=433$","$rid=422$","$rid=421$","$rid=420$","$rid=419$","$rid=417$","$rid=424$"],
         "bodyType": "",
-        "moveDelay" : "30",
+        "moveDelay" : "300",
         "moveType" : "patrol",
         "moveTimes": [],
         "vocabulary" : "",
