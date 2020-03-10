@@ -1741,7 +1741,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": 2,
-        "maxPlayers": 4,
+        "maxPlayers": 5,
         "weather": 0,
         "onWater": 0,
         "tideOutDescription" : "",
