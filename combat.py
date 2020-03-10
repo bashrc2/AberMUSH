@@ -738,20 +738,10 @@ def calculateDamage(weapons: int, defense: int) -> (int,int,str):
     return damageValue, armorClass, damageDescription
 
 
-def runFightsBetweenPlayers(
-        mud,
-        players: {},
-        npcs: {},
-        fights,
-        fid,
-        itemsDB: {},
-        rooms: {},
-        maxTerrainDifficulty,
-        mapArea: [],
-        clouds: {},
-        racesDB: {},
-        characterClassDB: {},
-        guilds: {}):
+def runFightsBetweenPlayers(mud,players: {},npcs: {},fights,fid,itemsDB: {}, \
+                            rooms: {},maxTerrainDifficulty,mapArea: [], \
+                            clouds: {},racesDB: {},characterClassDB: {}, \
+                            guilds: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -824,8 +814,11 @@ def runFightsBetweenPlayers(
                 weaponType,
                 characterClassDB)):
             damageValue, armorClass, damageDescription = \
-                calculateDamage(weaponDamage(s1id, players, itemsDB, weaponType, characterClassDB), \
-                                weaponDefense(s2id, players, itemsDB, racesDB, weaponType, characterClassDB))
+                calculateDamage(weaponDamage(s1id, players, itemsDB, \
+                                             weaponType, characterClassDB), \
+                                weaponDefense(s2id, players, itemsDB, \
+                                              racesDB, weaponType, \
+                                              characterClassDB))
             if roundsOfFire < 1:
                 roundsOfFire = 1
             attackDescriptionFirst, attackDescriptionSecond = \
@@ -834,8 +827,10 @@ def runFightsBetweenPlayers(
                 if players[s1id]['hp'] > 0:
                     modifierStr = ''
                     for firingRound in range(roundsOfFire):
-                        modifier = randint(
-                            0, 10) + (damageValue * roundsOfFire) - armorClass
+                        modifier = \
+                            randint(0, 10) + \
+                            (damageValue * roundsOfFire) - \
+                            armorClass
                         damagePoints = players[s1id]['str'] + modifier
                         if damagePoints < 0:
                             damagePoints = 0
@@ -911,20 +906,10 @@ def runFightsBetweenPlayers(
                 del fights[fight]
 
 
-def runFightsBetweenPlayerAndNPC(
-        mud,
-        players: {},
-        npcs: {},
-        fights,
-        fid,
-        itemsDB: {},
-        rooms: {},
-        maxTerrainDifficulty,
-        mapArea: [],
-        clouds: {},
-        racesDB: {},
-        characterClassDB: {},
-        guilds: {}):
+def runFightsBetweenPlayerAndNPC(mud,players: {},npcs: {},fights,fid, \
+                                 itemsDB: {},rooms: {},maxTerrainDifficulty, \
+                                 mapArea: [],clouds: {},racesDB: {}, \
+                                 characterClassDB: {},guilds: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -935,7 +920,8 @@ def runFightsBetweenPlayerAndNPC(
         return
 
     # is the player frozen?
-    if players[s1id]['frozenStart'] > 0 or players[s1id]['canAttack'] == 0:
+    if players[s1id]['frozenStart'] > 0 or \
+       players[s1id]['canAttack'] == 0:
         mud.send_message(
             s2id, randomDescription(
                 players[s1id]['frozenDescription']) + '\n')
@@ -945,15 +931,18 @@ def runFightsBetweenPlayerAndNPC(
         return
 
     currRoom = players[s1id]['room']
-    weightDifficulty = int(playerInventoryWeight(s1id, players, itemsDB) / 20)
+    weightDifficulty = \
+        int(playerInventoryWeight(s1id, players, itemsDB) / 20)
     temperatureDifficulty = getTemperatureDifficulty(
         currRoom, rooms, mapArea, clouds)
-    terrainDifficulty = rooms[players[s1id]['room']
-                              ]['terrainDifficulty'] * 10 / maxTerrainDifficulty
+    terrainDifficulty = \
+        rooms[players[s1id]['room']]['terrainDifficulty'] * 10 / maxTerrainDifficulty
 
     # Agility of player
-    if int(time.time()) < players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - armorAgility(
-            s1id, players, itemsDB) + terrainDifficulty + temperatureDifficulty + weightDifficulty:
+    if int(time.time()) < \
+       players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - \
+       armorAgility(s1id, players, itemsDB) + terrainDifficulty + \
+       temperatureDifficulty + weightDifficulty:
         return
 
     if npcs[s2id]['isAttackable'] == 1:
@@ -981,10 +970,11 @@ def runFightsBetweenPlayerAndNPC(
                 players,
                 weaponType,
                 characterClassDB)):
-            damageValue, armorClass, damageDescription = calculateDamage(
-                weaponDamage(
-                    s1id, players, itemsDB, weaponType, characterClassDB), weaponDefense(
-                    s2id, npcs, itemsDB, racesDB, weaponType, characterClassDB))
+            damageValue, armorClass, damageDescription = \
+                calculateDamage(weaponDamage(s1id,players,itemsDB, \
+                                             weaponType,characterClassDB), \
+                                weaponDefense(s2id,npcs,itemsDB,racesDB,\
+                                              weaponType,characterClassDB))
 
             npcWearsArmor(s2id, npcs, itemsDB)
 
@@ -1052,21 +1042,10 @@ def runFightsBetweenPlayerAndNPC(
                 del fights[fight]
 
 
-def runFightsBetweenNPCAndPlayer(
-        mud,
-        players: {},
-        npcs: {},
-        fights,
-        fid,
-        items: {},
-        itemsDB: {},
-        rooms: {},
-        maxTerrainDifficulty,
-        mapArea,
-        clouds: {},
-        racesDB: {},
-        characterClassDB: {},
-        guilds: {}):
+def runFightsBetweenNPCAndPlayer(mud,players: {},npcs: {},fights,fid, \
+                                 items: {},itemsDB: {},rooms: {}, \
+                                 maxTerrainDifficulty,mapArea,clouds: {}, \
+                                 racesDB: {},characterClassDB: {},guilds: {}):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -1123,8 +1102,9 @@ def runFightsBetweenNPCAndPlayer(
             if npcs[s1id]['hp'] > 0:
                 modifierStr = ''
                 for firingRound in range(roundsOfFire):
-                    modifier = randint(
-                        0, 10) + damageValue - armorClass - npcs[s1id]['tempHitPoints']
+                    modifier = \
+                        randint(0, 10) + damageValue - \
+                        armorClass - npcs[s1id]['tempHitPoints']
                     damagePoints = npcs[s1id]['str'] + modifier
                     if damagePoints < 0:
                         damagePoints = 0
@@ -1169,72 +1149,29 @@ def runFightsBetweenNPCAndPlayer(
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
-def runFights(
-        mud,
-        players: {},
-        npcs: {},
-        fights,
-        items: {},
-        itemsDB: {},
-        rooms: {},
-        maxTerrainDifficulty,
-        mapArea: [],
-        clouds: {},
-        racesDB: {},
-        characterClassDB: {},
-        guilds: {}):
+def runFights(mud,players: {},npcs: {},fights,items: {},itemsDB: {}, \
+              rooms: {},maxTerrainDifficulty,mapArea: [],clouds: {}, \
+              racesDB: {},characterClassDB: {},guilds: {}):
     """Handles fights
     """
     for (fid, pl) in list(fights.items()):
         # PC -> PC
         if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-            runFightsBetweenPlayers(
-                mud,
-                players,
-                npcs,
-                fights,
-                fid,
-                itemsDB,
-                rooms,
-                maxTerrainDifficulty,
-                mapArea,
-                clouds,
-                racesDB,
-                characterClassDB,
-                guilds)
+            runFightsBetweenPlayers(mud,players,npcs,fights,fid,itemsDB, \
+                                    rooms,maxTerrainDifficulty,mapArea, \
+                                    clouds,racesDB,characterClassDB,guilds)
         # PC -> NPC
         elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-            runFightsBetweenPlayerAndNPC(
-                mud,
-                players,
-                npcs,
-                fights,
-                fid,
-                itemsDB,
-                rooms,
-                maxTerrainDifficulty,
-                mapArea,
-                clouds,
-                racesDB,
-                characterClassDB,
-                guilds)
+            runFightsBetweenPlayerAndNPC(mud,players,npcs,fights,fid,itemsDB, \
+                                         rooms,maxTerrainDifficulty,mapArea, \
+                                         clouds,racesDB,characterClassDB, \
+                                         guilds)
         # NPC -> PC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-            runFightsBetweenNPCAndPlayer(
-                mud,
-                players,
-                npcs,
-                fights,
-                fid,
-                items,
-                itemsDB,
-                rooms,
-                maxTerrainDifficulty,
-                mapArea,
-                clouds,
-                racesDB,
-                characterClassDB,
-                guilds)
+            runFightsBetweenNPCAndPlayer(mud,players,npcs,fights,fid,items, \
+                                         itemsDB,rooms,maxTerrainDifficulty, \
+                                         mapArea,clouds,racesDB, \
+                                         characterClassDB,guilds)
         # NPC -> NPC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
             test = 1
