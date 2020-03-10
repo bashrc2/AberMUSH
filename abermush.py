@@ -21,7 +21,6 @@ from functions import saveState
 from functions import saveUniverse
 from functions import addToScheduler
 from functions import loadPlayer
-from functions import savePlayer
 from functions import loadPlayersDB
 from functions import sendToChannel
 from functions import hash_password
@@ -541,20 +540,24 @@ while True:
     # Check if State Save is due and execute it if required
     now = int(time.time())
     if int(now >= lastStateSave + stateSaveInterval):
-        sendToChannel("Server", "system", "Saving server state...", channels)
+        sendToChannel("Server","system","Saving server state...",channels)
         # State Save logic Start
+        playersWereSaved=False
         for (pid, pl) in list(players.items()):
             if players[pid]['authenticated'] is not None:
                 # print('Saving' + players[pid]['name'])
                 saveState(players[pid], playersDB, False)
-                playersDB = loadPlayersDB()
-                # State Save logic End
-                lastStateSave = now
-        saveUniverse(rooms, npcsDB, npcs, itemsDB, itemsInWorld, envDB, env, guildsDB)
+                playersWereSaved=True
+        if playersWereSaved:
+            playersDB = loadPlayersDB()
+            lastStateSave = now
+            saveUniverse(rooms,npcsDB,npcs, \
+                         itemsDB,itemsInWorld, \
+                         envDB,env,guildsDB)
         lastStateSave = now
 
     # Handle Player Deaths
-    runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB)
+    runDeaths(mud,players,corpses,fights,eventSchedule,scriptedEventsDB)
 
     # Handle Fights
     runFights(
@@ -607,7 +610,8 @@ while True:
         npcsDB,
         envDB)
 
-    disconnectIdlePlayers(mud, players, allowedPlayerIdle)
+    playersDisconnected= \
+        disconnectIdlePlayers(mud,players,allowedPlayerIdle)
 
     npcsTemplate = deepcopy(npcs)
 
@@ -631,17 +635,18 @@ while True:
         if id not in players:
             continue
 
-        # print(str(players[id]['authenticated']))
-        if command.lower(
-        ) == "startover" and players[id]['exAttribute0'] is not None and players[id]['authenticated'] is None:
+        if command.lower() == "startover" and \
+           players[id]['exAttribute0'] is not None and \
+           players[id]['authenticated'] is None:
             if not os.path.isfile(".disableRegistrations"):
                 players[id]['idleStart'] = int(time.time())
                 mud.send_message(
                     id, "<f220>Ok, Starting character creation from the beginning!\n")
                 players[id]['exAttribute0'] = 1000
 
-        if command.lower(
-        ) == "exit" and players[id]['exAttribute0'] is not None and players[id]['authenticated'] is None:
+        if command.lower() == "exit" and \
+           players[id]['exAttribute0'] is not None and \
+           players[id]['authenticated'] is None:
             players[id]['idleStart'] = int(time.time())
             mud.send_message(id, "<f220>Ok, leaving the character creation.\n")
             players[id]['exAttribute0'] = None
@@ -675,7 +680,8 @@ while True:
                         " logged into GCOS-3/TSS with command - " +
                         command+' '+params, "info")
                 else:
-                    if command.startswith('restart') or command.startswith('shutdown'):
+                    if command.startswith('restart') or \
+                       command.startswith('shutdown'):
                         terminalMode[str(id)]=False
                         mud.send_message(id, "\nBYE\n\n")
                     else:
@@ -814,7 +820,8 @@ while True:
                 break
 
             # Load the player template from a file
-            with open(str(Config.get('Players', 'Location')) + "/player.template", "r") as read_file:
+            with open(str(Config.get('Players', 'Location')) + \
+                      "/player.template", "r") as read_file:
                 template = json.loads(read_file.read())
 
             setRace(template, racesDB, selectedRace)
@@ -857,7 +864,8 @@ while True:
 
             # Save template into a new player file
             # print(template)
-            with open(str(Config.get('Players', 'Location')) + "/" + template['name'] + ".player", 'w') as fp:
+            with open(str(Config.get('Players', 'Location')) + "/" + \
+                      template['name'] + ".player", 'w') as fp:
                 fp.write(json.dumps(template))
 
             # Reload PlayersDB to include this newly created player
@@ -880,7 +888,8 @@ while True:
 
         # if the player hasn't given their name yet, use this first command as
         # their name and move them to the starting room.
-        if players[id]['name'] is None and players[id]['exAttribute0'] is None:
+        if players[id]['name'] is None and \
+           players[id]['exAttribute0'] is None:
             if command.lower() != "new":                
                 players[id]['idleStart'] = int(time.time())
                 dbResponse=None
@@ -1005,7 +1014,8 @@ while True:
             if terminalMode.get(str(id))==True:
                 taken = True
                 if not terminalEmulator(players[id]['name'],'',mud,id):
-                    if players[id]['name'].startswith('restart') or players[id]['name'].startswith('shutdown'):
+                    if players[id]['name'].startswith('restart') or \
+                       players[id]['name'].startswith('shutdown'):
                         terminalMode[str(id)]=False
                         mud.send_message(id, "\nBYE\n\n")
                     else:

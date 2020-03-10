@@ -211,8 +211,9 @@ def runPlayerConnections(mud,id,players,playersDB,fights,Config,terminalMode: {}
     runPlayerDisconnections(mud,id,players,playersDB,fights,Config,terminalMode)
 
 
-def disconnectIdlePlayers(mud, players, allowedPlayerIdle):
+def disconnectIdlePlayers(mud,players: {},allowedPlayerIdle: int) -> bool:
     # Evaluate player idle time and disconnect if required
+    authenticatedPlayersDisconnected=False
     now = int(time.time())
     playersCopy = deepcopy(players)
     for p in playersCopy:
@@ -221,6 +222,7 @@ def disconnectIdlePlayers(mud, players, allowedPlayerIdle):
                 mud.send_message_wrap(
                     p,"<f232><b11>",
                     "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
+                authenticatedPlayersDisconnected=True
             else:
                 mud.send_message(
                     p, "<f232><b11>You are being disconnected due to inactivity. Bye!\n")
@@ -230,6 +232,7 @@ def disconnectIdlePlayers(mud, players, allowedPlayerIdle):
             log("Disconnecting client " + str(p), "warning")
             del players[p]
             mud._handle_disconnect(p)
+    return authenticatedPlayersDisconnected
 
 def playerInGame(id,username: str,players: {}) -> bool:
     """ is the given player already logged in?

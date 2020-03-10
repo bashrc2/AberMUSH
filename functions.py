@@ -475,48 +475,27 @@ def loadPlayer(name, db):
         pass
 
 
-def savePlayer(
-        player,
-        masterDB,
-        savePassword,
-        path=str(
-            Config.get(
-                'Players',
-                'Location')) +
-        "/"):
-    # print(path)
+def savePlayer(player,masterDB,savePassword, \
+               path=str(Config.get('Players','Location'))+"/"):
     DB = loadPlayersDB(forceLowercase=False)
     for p in DB:
         if (player['name'] + ".player").lower() == p.lower():
-            #print("found the file")
-            # print(p)
             with open(path + p, "r") as read_file:
                 temp = json.loads(read_file.read())
-            # print(temp)
             silentRemove(path + player['name'] + ".player")
-            #print("removed file")
             newPlayer = deepcopy(temp)
-            # print(newPlayer)
             newPlayer['pwd'] = temp['pwd']
             for key in newPlayer:
                 if key != "pwd" or savePassword:
-                    # print(key)
                     newPlayer[key] = player[key]
 
-            # print(newPlayer)
-            #print("Saving player state")
             with open(path + player['name'] + ".player", 'w') as fp:
                 fp.write(json.dumps(newPlayer))
-            #print("Updating playerd DB")
             masterDB = loadPlayersDB()
-            # print(masterDB)
 
-# State Save Function
-
-
-def saveState(player, masterDB, savePassword):
+def saveState(player,masterDB,savePassword):
     tempVar = 0
-    savePlayer(player, masterDB, savePassword)
+    savePlayer(player,masterDB,savePassword)
     #masterDB = loadPlayersDB()
 
 
