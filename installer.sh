@@ -9,7 +9,7 @@ $INSTALL_PACKAGE telnet
 $INSTALL_PACKAGE $PYTHON_PACKAGE
 $INSTALL_PACKAGE $PYTHON_PACKAGE-pip
 $INSTALL_PACKAGE $PYTHON_PACKAGE-dateutil
-yes | sudo pip3 install websocket-client
+$INSTALL_PACKAGE $PYTHON_PACKAGE-websocket
 $INSTALL_PACKAGE git-core
 if [ ! -d /opt/abermush ]; then
     sudo useradd -d /opt/abermush/ abermush
