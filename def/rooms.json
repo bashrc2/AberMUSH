@@ -1742,7 +1742,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 4,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
