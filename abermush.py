@@ -537,6 +537,9 @@ while True:
     # us up-to-date information
     mud.update()
 
+    playersDisconnected= \
+        disconnectIdlePlayers(mud,players,allowedPlayerIdle,playersDB)
+
     # Check if State Save is due and execute it if required
     now = int(time.time())
     if int(now >= lastStateSave + stateSaveInterval):
@@ -545,12 +548,10 @@ while True:
         playersWereSaved=False
         for (pid, pl) in list(players.items()):
             if players[pid]['authenticated'] is not None:
-                # print('Saving' + players[pid]['name'])
                 saveState(players[pid], playersDB, False)
                 playersWereSaved=True
         if playersWereSaved:
             playersDB = loadPlayersDB()
-            lastStateSave = now
             saveUniverse(rooms,npcsDB,npcs, \
                          itemsDB,itemsInWorld, \
                          envDB,env,guildsDB)
@@ -609,9 +610,6 @@ while True:
         env,
         npcsDB,
         envDB)
-
-    playersDisconnected= \
-        disconnectIdlePlayers(mud,players,allowedPlayerIdle)
 
     npcsTemplate = deepcopy(npcs)
 

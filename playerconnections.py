@@ -192,7 +192,7 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminal
         # before removing him from players dictionary
         if players[id]['authenticated'] is not None:
             log("Player disconnected, saving state", "info")
-            saveState(players[id], playersDB, False)
+            saveState(players[id],playersDB,False)
             playersDB = loadPlayersDB()
 
         # Create a deep copy of fights, iterate through it and remove fights
@@ -211,7 +211,7 @@ def runPlayerConnections(mud,id,players,playersDB,fights,Config,terminalMode: {}
     runPlayerDisconnections(mud,id,players,playersDB,fights,Config,terminalMode)
 
 
-def disconnectIdlePlayers(mud,players: {},allowedPlayerIdle: int) -> bool:
+def disconnectIdlePlayers(mud,players: {},allowedPlayerIdle: int,playersDB: {}) -> bool:
     # Evaluate player idle time and disconnect if required
     authenticatedPlayersDisconnected=False
     now = int(time.time())
@@ -222,6 +222,7 @@ def disconnectIdlePlayers(mud,players: {},allowedPlayerIdle: int) -> bool:
                 mud.send_message_wrap(
                     p,"<f232><b11>",
                     "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
+                saveState(players[p],playersDB,False)
                 authenticatedPlayersDisconnected=True
             else:
                 mud.send_message(

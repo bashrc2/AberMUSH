@@ -365,14 +365,8 @@ def silentRemove(filename):
 
 # Function to load all registered players from JSON files
 # def loadPlayersDB(location = "./players", forceLowercase = True):
-
-
-def loadPlayersDB(
-        location=str(
-            Config.get(
-                'Players',
-                'Location')),
-        forceLowercase=True):
+def loadPlayersDB(location=str(Config.get('Players','Location')), \
+                  forceLowercase=True):
     DB = {}
     playerFiles = [i for i in os.listdir(
         location) if os.path.splitext(i)[1] == ".player"]
