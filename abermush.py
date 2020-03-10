@@ -77,9 +77,6 @@ from copy import deepcopy
 # import config parser
 import configparser
 
-# import the json parser
-import commentjson
-
 # import glob module
 import glob
 
@@ -861,7 +858,7 @@ while True:
             # Save template into a new player file
             # print(template)
             with open(str(Config.get('Players', 'Location')) + "/" + template['name'] + ".player", 'w') as fp:
-                commentjson.dump(template, fp)
+                fp.write(json.dumps(template))
 
             # Reload PlayersDB to include this newly created player
             playersDB = loadPlayersDB()

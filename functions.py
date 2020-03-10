@@ -10,7 +10,6 @@ __status__ = "Production"
 import time
 import os
 import json
-import commentjson
 import errno
 from copy import deepcopy
 import configparser
@@ -379,8 +378,7 @@ def loadPlayersDB(
         location) if os.path.splitext(i)[1] == ".player"]
     for f in playerFiles:
         with open(os.path.join(location, f)) as file_object:
-                #playersDB[f] = file_object.read()
-            DB[f] = commentjson.load(file_object)
+            DB[f] = json.loads(file_object.read())
 
     if forceLowercase is True:
         out = {}
@@ -469,7 +467,7 @@ def addToScheduler(eventID, targetID, scheduler, database):
 def loadPlayer(name, db):
     try:
         # with open(path + name + ".player", "r") as read_file:
-            #dict = commentjson.load(read_file)
+            # dict = json.loads(read_file.read())
             # return(dict)
         #print(str(db[name.lower() + ".player"]))
         return(db[name.lower() + ".player"])
@@ -493,7 +491,7 @@ def savePlayer(
             #print("found the file")
             # print(p)
             with open(path + p, "r") as read_file:
-                temp = commentjson.load(read_file)
+                temp = json.loads(read_file.read())
             # print(temp)
             silentRemove(path + player['name'] + ".player")
             #print("removed file")

@@ -63,7 +63,6 @@ from copy import deepcopy
 import time
 import datetime
 import os.path
-import commentjson
 from random import randint
 
 from dateutil import tz
