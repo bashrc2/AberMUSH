@@ -2685,7 +2685,7 @@
         "imp_lleg": 10,
         "imp_rleg": 10,
         "imp_feet": 0,
-        "mod_str": 10,
+        "mod_str": 20,
         "mod_exp": 0,
         "mod_per": 0,
         "mod_endu": 0,
@@ -2719,7 +2719,7 @@
         "linkedItem": 0,
         "exit": "",
         "lightSource": 0,
-        "article": "a"
+        "article": "an"
     },
     "114": {
         "name": "yard of ale",
