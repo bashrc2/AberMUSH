@@ -1224,22 +1224,14 @@ def conversationBuyOrExchange(
     return False
 
 
-def npcConversation(
-        mud,
-        npcs,
-        npcsDB,
-        players,
-        items,
-        itemsDB,
-        rooms,
-        id,
-        nid,
-        message,
-        characterClassDB,
-        sentimentDB,
-        guildsDB):
+def npcConversation(mud,npcs: {},npcsDB: {},players: {}, \
+                    items: {},itemsDB: {},rooms: {}, \
+                    id: int,nid: int,message, \
+                    characterClassDB: {},sentimentDB: {}, \
+                    guildsDB: {},clouds: {}):
     """Conversation with an NPC
-       This typically works by matching some words and then producing a corresponding response and/or action
+    This typically works by matching some words and then
+    producing a corresponding response and/or action
     """
 
     if len(npcs[nid]['familiarOf'])>0:
