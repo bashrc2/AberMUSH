@@ -404,7 +404,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
             suit=cardStr[2]
         suitColor="\u001b[38;5;245m"
 
-        cardDescriptions+=getCardDescription(rank,suit)+'\n'
+        cardDescriptions+=getCardDescription(rank,suit)
 
         if suit=='♥' or suit=='♦':
             suitColor="\u001b[31m"
