@@ -341,6 +341,29 @@ def dealToPlayers(players: {},dealerId,description: str, \
     items[gameItemID]['gameState']['called']=0
     items[gameItemID]['gameState']['deck']=str(deck)
 
+def getCardDescription(rank: str, suit: str) -> str:
+    """Given rank as a single character and suit
+    returns a description of the card
+    This is used for non-graphical output
+    """
+    rankStr=str(rank).upper()
+    if rankStr.startswith('K'):
+        rankStr='King'
+    elif rankStr.startswith('Q'):
+        rankStr='Queen'
+    elif rankStr.startswith('A'):
+        rankStr='Ace'
+    elif rankStr.startswith('J'):
+        rankStr='Jack'
+
+    if suit=='♥':
+        return str(rankStr)+' of hearts\n'
+    elif suit=='♦':
+        return str(rankStr)+' of diamonds\n'
+    elif suit=='♣':
+        return str(rankStr)+' of clubs\n'
+    return str(rankStr)+' of spades\n'
+
 def showHandOfCards(players: {},id,mud,rooms: {}, \
                     items: {},itemsDB: {}) -> None:
     """Shows the cards for the given player
@@ -367,6 +390,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
     hand=handStr.split()
     lines = [[] for i in range(9)]
     cardColor="\u001b[38;5;240m"
+    cardDescriptions=''
 
     for cardStr in hand:
         if len(cardStr)<2:
@@ -379,13 +403,16 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
             rank=cardStr[0]+cardStr[1]
             suit=cardStr[2]
         suitColor="\u001b[38;5;245m"
+
+        cardDescriptions+=getCardDescription(rank,suit)+'\n'
+
         if suit=='♥' or suit=='♦':
             suitColor="\u001b[31m"
             rankColor=suitColor
         if rank=='10':
             space=''
         else:
-            space=' '
+            space=' '            
         lines[0].append('┌─────────┐')
         lines[1].append('│{}{}{}{}       │'.format(rankColor,rank,cardColor,space))
         lines[2].append('│         │')
@@ -397,11 +424,20 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         lines[8].append('└─────────┘')
 
     boardStr=cardColor+'\n'
-    for lineRowStr in lines:
-        lineStr=''
-        for s in lineRowStr:
-            lineStr+=s
-        boardStr+=lineStr+'\n'
+
+    graphicalCards=True
+    if players[id].get('graphics'):
+        if players[id]['graphics']=='off':
+            graphicalCards=False
+    if graphicalCards:
+        for lineRowStr in lines:
+            lineStr=''
+            for s in lineRowStr:
+                lineStr+=s
+            boardStr+=lineStr+'\n'
+    else:
+        boardStr+=cardDescriptions
+
     mud.send_game_board(id, boardStr)
     rankedStr = cardRank(handStr)
     if rankedStr:
