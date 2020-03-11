@@ -692,11 +692,11 @@
             [["soup","eat","have","please","affinity>=0"],"# njalmir ladels out a bowl of soup from the cauldron","give","1424"],
             [["soup","eat","have","please","affinity<0"],"# njalmir looks indifferent"]
 	],
-        "path" : [],
+        "path" : ["$rid=121$"],
         "bodyType": "",
         "moveDelay" : "300",
         "moveType" : "",
-        "moveTimes": [],
+        "moveTimes": [["hour",9,15],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
