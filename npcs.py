@@ -779,7 +779,7 @@ def conversationGive(
                         id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
                         best_match+".")
                 else:
-                    mud.send_message(id,"<f220>"+best_match+".")
+                    mud.send_message(id,"<f220>"+best_match.replace('#','').strip()+".")
                 mud.send_message(
                     id, "<f220>" + \
                     npcs[nid]['name'] + \
@@ -1108,7 +1108,7 @@ def conversationGiveOnDate(
                                     "<r> says: " + best_match + ".")
                             else:
                                 mud.send_message(
-                                    id, "<f220>" + best_match + ".")
+                                    id, "<f220>" + best_match.replace('#','').strip() + ".")
                             mud.send_message(
                                 id, "<f220>" + \
                                 npcs[nid]['name'] + \
