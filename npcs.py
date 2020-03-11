@@ -774,9 +774,12 @@ def conversationGive(
                     playerInventoryWeight(id, players, itemsDB)
                 increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
                 increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
-                mud.send_message(
-                    id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
-                    best_match+".")
+                if '#' not in best_match:
+                    mud.send_message(
+                        id,"<f220>"+npcs[nid]['name']+"<r> says: "+ \
+                        best_match+".")
+                else:
+                    mud.send_message(id,"<f220>"+best_match+".")
                 mud.send_message(
                     id, "<f220>" + \
                     npcs[nid]['name'] + \
@@ -1099,8 +1102,13 @@ def conversationGiveOnDate(
                                 players, id, npcs, nid, guildsDB)
                             increaseAffinityBetweenPlayers(
                                 npcs, nid, players, id, guildsDB)
-                            mud.send_message(
-                                id, "<f220>" + npcs[nid]['name'] + "<r> says: " + best_match + ".")
+                            if '#' not in best_match:
+                                mud.send_message(
+                                    id, "<f220>" + npcs[nid]['name'] + \
+                                    "<r> says: " + best_match + ".")
+                            else:
+                                mud.send_message(
+                                    id, "<f220>" + best_match + ".")
                             mud.send_message(
                                 id, "<f220>" + \
                                 npcs[nid]['name'] + \
