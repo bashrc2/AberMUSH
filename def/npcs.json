@@ -683,12 +683,15 @@
     "118": {
         "inDescription": "arrives",
         "outDescription": "goes",
-        "lookDescription": "kneels before the bonfire rubbing his hands.",
-        "name": "Njalmir",
+        "lookDescription": "Njalmir kneels before the bonfire rubbing their hands.",
+        "name": "njalmir",
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "conv" : [],
+        "conv" : [
+            [["soup","eat","have","please","affinity>=0"],"# njalmir ladels out a bowl of soup from the cauldron","give","1424"],
+            [["soup","eat","have","please","affinity<0"],"# njalmir looks indifferent"]
+	],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
