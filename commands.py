@@ -84,7 +84,7 @@ def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, i
 maxWeight = 100
 
 
-def removeItemFromClothing(players: {}, id: int, itemID: {}) -> None:
+def removeItemFromClothing(players: {}, id: int, itemID: int) -> None:
     """If worn an item is removed
     """
     for c in wearLocation:
