@@ -1512,20 +1512,20 @@ def playerIsVisible(mud,observerId: int,otherPlayerId: int, \
                     players: {}) -> bool:
     """Is the other player visible to the observer?
     """
-    mud.send_message(id,"playerIsVisible1")
     observerId=int(observerId)
-    mud.send_message(id,"playerIsVisible2")
+    mud.send_message(observerId,"playerIsVisible1")
+    mud.send_message(observerId,"playerIsVisible2")
     otherPlayerId=int(otherPlayerId)
-    mud.send_message(id,"playerIsVisible3")
+    mud.send_message(observerId,"playerIsVisible3")
     if not players[otherPlayerId].get('visibleWhenWearing'):
-        mud.send_message(id,"playerIsVisible4")
+        mud.send_message(observerId,"playerIsVisible4")
         return True
-    mud.send_message(id,"playerIsVisible5")
+    mud.send_message(observerId,"playerIsVisible5")
     if isWearing(observerId,players, \
                  players[otherPlayerId]['visibleWhenWearing']):
-        mud.send_message(id,"playerIsVisible6")
+        mud.send_message(observerId,"playerIsVisible6")
         return True
-    mud.send_message(id,"playerIsVisible7")
+    mud.send_message(observerId,"playerIsVisible7")
     return False
 
 
