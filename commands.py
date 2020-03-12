@@ -1513,20 +1513,13 @@ def playerIsVisible(mud,observerId: int,observers: {}, \
     """Is the other player visible to the observer?
     """
     observerId=int(observerId)
-    mud.send_message(observerId,"playerIsVisible1")
-    mud.send_message(observerId,"playerIsVisible2")
     otherPlayerId=int(otherPlayerId)
-    mud.send_message(observerId,"playerIsVisible3")
     if not others[otherPlayerId].get('visibleWhenWearing'):
-        mud.send_message(observerId,"playerIsVisible4")
         return True
-    mud.send_message(observerId,"playerIsVisible5")
     if others[otherPlayerId].get('visibleWhenWearing'):
         if isWearing(observerId,observers, \
                      others[otherPlayerId]['visibleWhenWearing']):
-            mud.send_message(observerId,"playerIsVisible6")
             return True
-    mud.send_message(observerId,"playerIsVisible7")
     return False
 
 
