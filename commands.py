@@ -1815,9 +1815,10 @@ def playersInRoom(targetRoom,players,npcs):
     return playersCtr
 
 
-def playerIsVisible(observerId,otherPlayerId,players: {}) -> bool:
+def playerIsVisible(observerId: int,otherPlayerId: int,players: {}) -> bool:
     """Is the other player visible to the observer?
     """
+    otherPlayerId=int(otherPlayerId)
     if not players[otherPlayerId].get('visibleWhenWearing'):
         return True
     if isWearing(observerId,players, \
@@ -1850,9 +1851,10 @@ def lightSourceInRoom(players: {},id,items: {},itemsDB: {}) -> bool:
             return True    
     return False
 
-def itemIsVisible(observerId,players: {},itemId,itemsDB: {}) -> bool:
+def itemIsVisible(observerId: int,players: {},itemId: int,itemsDB: {}) -> bool:
     """Is the item visible to the observer?
     """
+    itemId=int(itemId)
     if not itemsDB[itemId].get('visibleWhenWearing'):
         return True
     if isWearing(observerId,players, \
