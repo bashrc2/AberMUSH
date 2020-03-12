@@ -595,6 +595,18 @@ Food or drink can be defined by setting `edible` to a non-zero value within `ite
 
 The system includes a dynamic weather simulation with varying seasonal and daily temperatures, passing clouds and rain. The ambient weather conditions may affect your combat performance, especialy if you are wearing armor or carrying a lot of weight.
 
+### Item activated exits
+
+Some exits may be activated only when the player is wearing or holding a particular item. Within `rooms.json` you can add something like:
+
+``` json
+"exitsWhenWearing": [
+    ["east","123","$rid=7160$"]
+],
+```
+
+So that an exit to the east will be visible when you are wearing the item with number 123.
+
 ![AberMUSH](docs/tide.png)
 
 ### Tides
