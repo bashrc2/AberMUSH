@@ -11916,7 +11916,7 @@
     },
     "$rid=1395$": {
         "exits": {
-            "north": "$rid=1394$"
+            "north": "$rid=1394$",
             "south": "$rid=1396$"
         },
         "name": "Wooden causeway",
