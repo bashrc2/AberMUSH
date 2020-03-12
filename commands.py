@@ -2039,7 +2039,7 @@ def getRoomExits(rooms: {},players: {},id) -> []:
             if len(ex)<3:
                 continue
             itemID=ex[1]
-            if isWearing(id,players,itemID):
+            if isWearing(id,players,[itemID]):
                 direction=ex[0]
                 roomID=ex[2]
                 exits[direction]=roomID
