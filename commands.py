@@ -2521,6 +2521,8 @@ def isWearing(id,players: {},itemList: []) -> bool:
         return False
 
     for itemID in itemList:
+        if not itemID.isdigit():
+            continue
         if int(players[id]['clo_lhand']) == int(itemID) or \
            int(players[id]['clo_rhand']) == int(itemID) or \
            int(players[id]['clo_lleg']) == int(itemID) or \
