@@ -688,21 +688,12 @@ def tell(params,mud,playersDB: {},players: {},rooms: {}, \
                 if (npcs[nid]['room'] == players[id]['room']) or \
                    npcs[nid]['familiarOf'] == players[id]['name']:
                     if target.lower() in npcs[nid]['name'].lower():
-                        npcConversation(
-                            mud,
-                            npcs,
-                            npcsDB,
-                            players,
-                            items,
-                            itemsDB,
-                            rooms,
-                            id,
-                            nid,
-                            message.lower(),
-                            characterClassDB,
-                            sentimentDB,
-                            guildsDB,
-                            clouds)
+                        npcConversation(mud,npcs,npcsDB,players, \
+                                        items,itemsDB,rooms,id, \
+                                        nid,message.lower(), \
+                                        characterClassDB, \
+                                        sentimentDB,guildsDB, \
+                                        clouds)
                         told = True
                         break
 
@@ -2133,9 +2124,9 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     if npcs[nid]['familiarMode'] != 'hide' or \
                        (len(npcs[nid]['familiarOf'])>0 and \
                         npcs[nid]['familiarOf']==players[id]['name']):
-                        mud.send_message(id,'Test1: '+str(id)+' '+str(nid))
+                        #mud.send_message(id,'Test1: '+str(id)+' '+str(nid))
                         if playerIsVisible(id,nid,npcs):
-                            mud.send_message(id,'Test2: '+str(id)+' '+str(nid))
+                            #mud.send_message(id,'Test2: '+str(id)+' '+str(nid))
                             playershere.append(npcs[nid]['name'])
 
             # Show items in the room
