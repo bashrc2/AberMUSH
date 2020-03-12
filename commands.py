@@ -71,7 +71,7 @@ from suntime import Sun
 import decimal
 dec = decimal.Decimal
 
-wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger','back')
+wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger','back','lleg','rleg')
 
 '''
 Command function template:
@@ -2529,9 +2529,7 @@ def isWearing(id,players: {},itemList: []) -> bool:
             if int(players[id]['clo_'+locn]) == itemID:
                 return True            
         if int(players[id]['clo_lhand']) == itemID or \
-           int(players[id]['clo_rhand']) == itemID or \
-           int(players[id]['clo_lleg']) == itemID or \
-           int(players[id]['clo_rleg']) == itemID:
+           int(players[id]['clo_rhand']) == itemID:
             return True
     return False
                 
