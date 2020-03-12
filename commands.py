@@ -1552,7 +1552,6 @@ def say(params,mud,playersDB: {},players: {},rooms: {}, \
             # if they're in the same room as the player
             if players[pid]['room'] == players[id]['room']:
                 # can the other player see this player?
-                mud.send_message(id,'Test11: '+str(pid)+' '+str(id))
                 if not playerIsVisible(mud,pid,players,id,players):
                     continue
                 if selfOnly == False or pid == id:
@@ -2113,7 +2112,6 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     # ... and they have a name to be shown
                     if players[pid]['name'] is not None and \
                        players[pid]['name'] is not players[id]['name']:
-                        mud.send_message(id,'Test12: '+str(id)+' '+str(pid))
                         if playerIsVisible(mud,id,players,pid,players):
                             # add their name to the list
                             if players[pid]['prefix'] == "None":
@@ -2135,11 +2133,8 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     if npcs[nid]['familiarMode'] != 'hide' or \
                        (len(npcs[nid]['familiarOf'])>0 and \
                         npcs[nid]['familiarOf']==players[id]['name']):
-                        mud.send_message(id,'Test1: '+str(id)+' '+str(nid))
                         if playerIsVisible(mud,id,players,nid,npcs):
-                            mud.send_message(id,'Test2: '+str(id)+' '+str(nid))
                             playershere.append(npcs[nid]['name'])
-                        mud.send_message(id,'Test3: '+str(id)+' '+str(nid))
 
             # Show items in the room
             for (item, pl) in list(items.items()):
@@ -2201,7 +2196,6 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                 if players[p]['authenticated'] is not None:
                     if players[p]['name'].lower() == param and \
                        players[p]['room'] == players[id]['room']:
-                        mud.send_message(id,'Test13: '+str(id)+' '+str(p))
                         if playerIsVisible(mud,players,id,p,players):
                             bioOfPlayer(mud, id, p, players, itemsDB)
                             messageSent = True
@@ -2212,7 +2206,6 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
             for n in npcs:
                 if param in npcs[n]['name'].lower() \
                    and npcs[n]['room'] == players[id]['room']:
-                    mud.send_message(id,'Test14: '+str(id)+' '+str(n))
                     if playerIsVisible(mud,id,players,n,npcs):
                         if npcs[n]['familiarMode']!='hide':
                             showNPCImage(mud,id,npcs[n]['name'].lower(),players)
@@ -2988,7 +2981,6 @@ def messageToPlayersInRoom(mud, players, id, msg):
         # sending the command
         if players[pid]['room'] == players[id]['room'] and \
            pid != id:
-            mud.send_message(id,'Test15: '+str(pid)+' '+str(id))
             if playerIsVisible(mud,pid,players,id,players):
                 mud.send_message(pid, msg)
 
