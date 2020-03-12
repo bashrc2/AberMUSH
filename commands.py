@@ -2028,11 +2028,11 @@ def getRoomExits(rooms: {},players: {},id) -> []:
     """
     rm = rooms[players[id]['room']]
     exits = rm['exits']
-    if rm.get('lowTideExits'):
-        if not isinstance(rm['lowTideExits'], list):
+    if rm.get('tideOutExits'):
+        if not isinstance(rm['tideOutExits'], list):
             return exits
         if runTide() < 0:
-            exits += rm['lowTideExits']
+            exits += rm['tideOutExits']
     return exits
 
 def look(params,mud,playersDB: {},players: {},rooms: {}, \
