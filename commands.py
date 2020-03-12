@@ -1818,6 +1818,7 @@ def playersInRoom(targetRoom,players,npcs):
 def playerIsVisible(observerId: int,otherPlayerId: int,players: {}) -> bool:
     """Is the other player visible to the observer?
     """
+    observerId=int(observerId)
     otherPlayerId=int(otherPlayerId)
     if not players[otherPlayerId].get('visibleWhenWearing'):
         return True
@@ -2132,7 +2133,9 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     if npcs[nid]['familiarMode'] != 'hide' or \
                        (len(npcs[nid]['familiarOf'])>0 and \
                         npcs[nid]['familiarOf']==players[id]['name']):
+                        mud.send_message(id,'Test1: '+str(id)+' '+str(nid))
                         if playerIsVisible(id,nid,npcs):
+                            mud.send_message(id,'Test2: '+str(id)+' '+str(nid))
                             playershere.append(npcs[nid]['name'])
 
             # Show items in the room
@@ -2193,8 +2196,8 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
             # Go through all players in game
             for p in players:
                 if players[p]['authenticated'] is not None:
-                    if players[p]['name'].lower(
-                    ) == param and players[p]['room'] == players[id]['room']:
+                    if players[p]['name'].lower() == param and \
+                       players[p]['room'] == players[id]['room']:
                         if playerIsVisible(id,p,players):
                             bioOfPlayer(mud, id, p, players, itemsDB)
                             messageSent = True
