@@ -2035,7 +2035,7 @@ def getRoomExits(rooms: {},players: {},id) -> []:
                 exits += rm['tideOutExits']
         else:
             if rm['tideOutExits'] in exits:
-                exits -= rm['tideOutExits']
+                del exits[rm['tideOutExits']]
 
     if rm.get('exitsWhenWearing'):
         directionsAdded=[]
@@ -2054,7 +2054,7 @@ def getRoomExits(rooms: {},players: {},id) -> []:
                     # only remove if the direction was not previously added
                     # via another item
                     if direction not in directionsAdded:
-                        exits-=direction
+                        del exits[direction]
     return exits
 
 def look(params,mud,playersDB: {},players: {},rooms: {}, \
