@@ -1761,7 +1761,7 @@ def conditionalRoomDescription(description: str,tideOutDescription: str, \
     roomDescription = description
     if len(tideOutDescription) > 0:
         if runTide() < 0:
-            roomDescription = rm['tideOutDescription']
+            roomDescription = rm['tideOutDescription']            
 
     # Alternative descriptions triggered by conditions
     for possibleDescription in conditional:
@@ -2033,6 +2033,9 @@ def getRoomExits(rooms: {},players: {},id) -> []:
         if runTide() < 0:
             if rm['tideOutExits'] not in exits:
                 exits += rm['tideOutExits']
+        else:
+            if rm['tideOutExits'] in exits:
+                exits -= rm['tideOutExits']
 
     if rm.get('exitsWhenWearing'):
         for ex in rm['exitsWhenWearing']:
@@ -2043,6 +2046,9 @@ def getRoomExits(rooms: {},players: {},id) -> []:
                 direction=ex[0]
                 roomID=ex[2]
                 exits[direction]=roomID
+            else:
+                if exits.get(direction):
+                    exits-=direction
     return exits
 
 def look(params,mud,playersDB: {},players: {},rooms: {}, \
