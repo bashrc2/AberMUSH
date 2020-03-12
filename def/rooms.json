@@ -847,6 +847,7 @@
         "description": "Thick snow covers the hard barren ground. How anyone ever managed to grow food in such hostile conditions is beyond you. The icy wind howls, stinging your cheeks and flapping around you. A narrow path leads south into the welcome shelter of the pines.",
         "roomTeleport": "",
         "conditional": [
+	    ["hold","1341","You are in a grassy open field. On the horizon you can see two small clusters of conical roundhouses with smoke rising from their tops and some goats grazing. A narrow path leads south into the welcome shelter of the pines","105_ancient"],
 	    ["season","spring","The large open field has been neatly ploughed. A path leads off southwards.","105_spring"],
 	    ["season","summer","The large field is neatly planted with parallel rows of an arable crop. A path leads off southwards.","105_summer"],
 	    ["season","autumn","The large recently harvested field is populated by pigs who wallow in muddy pools and rummage through the remaining roots. A path leads off southwards.","105_autumn"]
