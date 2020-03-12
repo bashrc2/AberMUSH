@@ -2028,11 +2028,20 @@ def getRoomExits(rooms: {},players: {},id) -> []:
     """
     rm = rooms[players[id]['room']]
     exits = rm['exits']
+
     if rm.get('tideOutExits'):
-        if not isinstance(rm['tideOutExits'], list):
-            return exits
         if runTide() < 0:
             exits += rm['tideOutExits']
+
+    if rm.get('exitsWhenWearing'):
+        for ex in rm['exitsWhenWearing']:
+            if len(ex)<3:
+                continue
+        itemID=ex[1]
+        if isWearing(id,players,itemID):
+            direction=ex[0]
+            roomID=ex[2]
+            exits.append(direction)
     return exits
 
 def look(params,mud,playersDB: {},players: {},rooms: {}, \
@@ -3643,8 +3652,10 @@ def go(params,mud,playersDB: {},players: {},rooms: {}, \
             targetRoom=None
             if ex in rm['exits']:
                 targetRoom=rm['exits'][ex]
-            elif rm.get('lowTideExits'):
-                targetRoom=rm['lowTideExits'][ex]
+            elif rm.get('tideOutExits'):
+                targetRoom=rm['tideOutExits'][ex]
+            elif rm.get('exitsWhenWearing'):
+                targetRoom=rm['exitsWhenWearing'][ex]
             if targetRoom:
                 if rooms[targetRoom]['maxPlayers']>-1:
                     if playersInRoom(targetRoom,players,npcs) >= \
