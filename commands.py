@@ -4420,8 +4420,8 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
     # Check if item is in player's inventory
     for item in players[id]['inv']:
         for (iid, pl) in list(itemsDB.items()):
-            mud.send_message(id,'Test2 '+str(iid)+' '+item+'\n')
-            if str(iid) == item:
+            mud.send_message(id,'Test2 '+str(iid)+' '+str(item)+'\n')
+            if str(iid) == str(item):
                 mud.send_message(id,'Test3 '+itemsDB[iid]['name'].lower()+' '+target+'\n')
                 if itemsDB[iid]['name'].lower() == target:
                     mud.send_message(id,'Test4\n')
@@ -4434,7 +4434,7 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
             break
 
     if not itemInInventory:
-        mud.send_message(id,'Test5 not in inventiry: '+item+'\n')
+        mud.send_message(id,'Test5 not in inventory: '+target+'\n')
         # Try a fuzzy match
         for item in players[id]['inv']:
             for (iid, pl) in list(itemsDB.items()):
