@@ -2023,8 +2023,8 @@ def showNPCImage(mud,id,npcName,players: {}) -> None:
     with open(npcImageFilename, 'r') as npcFile:
         mud.send_image(id,'\n'+npcFile.read())
 
-def getRoomExits(rooms: {},players: {},id) -> []:
-    """Returns a list of exits for the given player
+def getRoomExits(rooms: {},players: {},id) -> {}:
+    """Returns a dictionary of exits for the given player
     """
     rm = rooms[players[id]['room']]
     exits = rm['exits']
