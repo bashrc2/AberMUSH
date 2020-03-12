@@ -2521,21 +2521,16 @@ def isWearing(id,players: {},itemList: []) -> bool:
         return False
 
     for itemID in itemList:
-        if not itemID.isdigit():
+        if not str(itemID).isdigit():
             continue
-        if int(players[id]['clo_lhand']) == int(itemID) or \
-           int(players[id]['clo_rhand']) == int(itemID) or \
-           int(players[id]['clo_lleg']) == int(itemID) or \
-           int(players[id]['clo_rleg']) == int(itemID) or \
-           int(players[id]['clo_head']) == int(itemID) or \
-           int(players[id]['clo_lwrist']) == int(itemID) or \
-           int(players[id]['clo_rwrist']) == int(itemID) or \
-           int(players[id]['clo_larm']) == int(itemID) or \
-           int(players[id]['clo_rarm']) == int(itemID) or \
-           int(players[id]['clo_neck']) == int(itemID) or \
-           int(players[id]['clo_chest']) == int(itemID) or \
-           int(players[id]['clo_back']) == int(itemID) or \
-           int(players[id]['clo_feet']) == int(itemID):
+        itemID=int(itemID)
+        for locn in wearLocation:
+            if int(players[id]['clo_'+locn]) == itemID:
+                return True            
+        if int(players[id]['clo_lhand']) == itemID or \
+           int(players[id]['clo_rhand']) == itemID or \
+           int(players[id]['clo_lleg']) == itemID or \
+           int(players[id]['clo_rleg']) == itemID:
             return True
     return False
                 
