@@ -2038,11 +2038,11 @@ def getRoomExits(rooms: {},players: {},id) -> []:
         for ex in rm['exitsWhenWearing']:
             if len(ex)<3:
                 continue
-        itemID=ex[1]
-        if isWearing(id,players,itemID):
-            direction=ex[0]
-            roomID=ex[2]
-            exits[direction]=roomID
+            itemID=ex[1]
+            if isWearing(id,players,itemID):
+                direction=ex[0]
+                roomID=ex[2]
+                exits[direction]=roomID
     return exits
 
 def look(params,mud,playersDB: {},players: {},rooms: {}, \
