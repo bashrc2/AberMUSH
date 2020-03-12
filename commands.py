@@ -1745,7 +1745,7 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
            players[id]['clo_rhand'] == int(cond):
             return True
 
-    if condType == 'wear':
+    if condType.startwith('wear'):
         for c in wearLocation:
             if players[id]['clo_'+c] == int(cond):
                 return True
@@ -2031,7 +2031,8 @@ def getRoomExits(rooms: {},players: {},id) -> []:
 
     if rm.get('tideOutExits'):
         if runTide() < 0:
-            exits += rm['tideOutExits']
+            if rm['tideOutExits'] not in exits:
+                exits += rm['tideOutExits']
 
     if rm.get('exitsWhenWearing'):
         for ex in rm['exitsWhenWearing']:

@@ -847,7 +847,8 @@
         "description": "Thick snow covers the hard barren ground. How anyone ever managed to grow food in such hostile conditions is beyond you. The icy wind howls, stinging your cheeks and flapping around you. A narrow path leads south into the welcome shelter of the pines.",
         "roomTeleport": "",
         "conditional": [
-	    ["hold","1341","You are in a grassy open field. On the horizon you can see two small clusters of conical roundhouses with smoke rising from their tops and some goats grazing. A narrow path leads south into the welcome shelter of the pines","105_ancient"],
+	    ["hold","1341","You are in a grassy open field. On the horizon to the east you can see two small clusters of conical roundhouses with smoke rising from their tops and some goats grazing. A narrow path leads south into the welcome shelter of the pines","105_ancient"],
+	    ["wear","1410","You are in a grassy open field. On the horizon to the east you can see two small clusters of conical roundhouses with smoke rising from their tops and some goats grazing. A narrow path leads south into the welcome shelter of the pines","105_ancient"],
 	    ["season","spring","The large open field has been neatly ploughed. A path leads off southwards.","105_spring"],
 	    ["season","summer","The large field is neatly planted with parallel rows of an arable crop. A path leads off southwards.","105_summer"],
 	    ["season","autumn","The large recently harvested field is populated by pigs who wallow in muddy pools and rummage through the remaining roots. A path leads off southwards.","105_autumn"]
@@ -862,6 +863,10 @@
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": [],
+	"exitsWhenWearing": [
+	    ["east","1341","$rid=1393$"],
+	    ["east","1410","$rid=1393$"]
+	],
         "exits": {
             "south": "$rid=109$"
         }
@@ -6514,14 +6519,17 @@
         "coords": []
     },
     "$rid=856$": {
+	"exitsWhenWearing": [
+	    ["west","1341","$rid=1396$"],
+	    ["west","1410","$rid=1396$"]
+	],	
         "exits": {
             "north": "$rid=853$",
             "east": "$rid=854$",
-            "west": "$rid=1396$",
             "down": "$rid=844$"
         },
         "name": "Misty Moor",
-        "description": "The moor runs on and on, a vast, seemingly endless plain of purple. Everywhere you look you can see no landmarks to help you on your way. A narrow worn path drops steeply down westwards into a hollow.",
+        "description": "The moor runs on and on, a vast, seemingly endless plain of purple. Everywhere you look you can see no landmarks to help you on your way. A narrow worn path drops steeply down into a hollow and the way west is shrouded in a dense mist.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -11908,8 +11916,8 @@
     },
     "$rid=1395$": {
         "exits": {
-            "north": "$rid=1394$",
-            "south": "$rid=844$"
+            "north": "$rid=1394$"
+            "south": "$rid=1396$"
         },
         "name": "Wooden causeway",
         "description": "You on a narrow wooden causeway leading through a boggy marsh. Tall wooden posts protrude vertically from the mud on either side of you. Thin poles have been lashed together to form a sturdy boardwalk underfoot.",
@@ -11927,14 +11935,20 @@
         "coords": []
     },
     "$rid=1396$": {
+	"exitsWhenWearing": [
+	    ["east","1341","$rid=856$"],
+	    ["east","1410","$rid=856$"]
+	],
         "exits": {
-            "north": "$rid=1395$",
-            "east": "$rid=856$"
+            "north": "$rid=1395$"
         },
         "name": "Causeway entrance",
-        "description": "You are at the entrance to a wooden causeway, which leads northwards over marshy terrain. To the east are misty moorlands.",
+        "description": "You are at the entrance to a wooden causeway, which leads northwards over marshy terrain. A dense swirling mist obscures the way eastwards.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hold","1341","You are at the entrance to a wooden causeway, which leads northwards over marshy terrain. To the east are misty moorlands."],
+	    ["wear","1410","You are at the entrance to a wooden causeway, which leads northwards over marshy terrain. To the east are misty moorlands."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
