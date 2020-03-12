@@ -6952,7 +6952,10 @@
         "speakLanguage": "druidic",
         "language": ["druidic","draconic","common"],
 	"conv" : [
-	    [["a","e","i","u"], "# The eyes of the ancester spirit fix upon you"]
+	    [["weather","season"],"Seasons and generations shall pass"],
+	    [["house","village"],"Many houses stand. I see the future and the past"],
+	    [["attack","fight","combat"],"You cannot fight me, for I do not belong to your realm"],
+	    [["a","e","i","u"],"# The eyes of the ancester spirit fix upon you"]
 	],
         "path" : ["$rid=1398$"],
         "bodyType": "",
