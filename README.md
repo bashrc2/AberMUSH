@@ -4,6 +4,8 @@
 
 A modern MU* engine with [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Software/Games/AberMUD5/SOURCE/) version 5 universe, originally written in 1991. Engage in adventures, battles, excessive drinking and gambling disputes in and around the magnificent city of Tranoch. DnD-like combat and creatures in a fantasy setting containing roughly 600 locations.
 
+This game includes 8 bit console graphics, but if you are a MUD purist or don't need graphics then you can turn them off.
+
 Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
 
 ![AberMUSH](docs/screenshot.jpg)
