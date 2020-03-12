@@ -2522,6 +2522,7 @@ def isWearing(id,players: {},itemList: []) -> bool:
 
     for itemID in itemList:
         if not str(itemID).isdigit():
+            print('isWearing: '+str(itemID)+' is not a digit')
             continue
         itemID=int(itemID)
         for locn in wearLocation:
