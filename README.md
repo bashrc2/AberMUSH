@@ -605,7 +605,7 @@ Some exits may be activated only when the player is wearing or holding a particu
 ],
 ```
 
-So that an exit to the east will be visible when you are wearing the item with number 123.
+So that an exit to the east will become available when you are wearing the item with number 123. This is like holding open a portal which other players can then use even if they are not wearing the same item.
 
 ![AberMUSH](docs/tide.png)
 
