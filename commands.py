@@ -1745,7 +1745,7 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
            players[id]['clo_rhand'] == int(cond):
             return True
 
-    if condType.startwith('wear'):
+    if condType.startswith('wear'):
         for c in wearLocation:
             if players[id]['clo_'+c] == int(cond):
                 return True
