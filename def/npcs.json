@@ -6965,7 +6965,7 @@
         "follow" : "",
         "canWield" : "1",
         "canWear" : "0",
-        "visibleWhenWearing": [],
+        "visibleWhenWearing": [1341],
         "race": "human",
         "characterClass": "sorcerer",
         "archetype": "",
