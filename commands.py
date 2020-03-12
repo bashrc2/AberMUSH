@@ -2118,7 +2118,7 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     playershere.append(corpses[corpse]['name'])
 
             ##### Show NPCs in the room #####
-            for (nid, pl) in list(npcs.items()):
+            for nid in npcs:
                 if npcs[nid]['room'] == players[id]['room']:
                     # Don't show hidden familiars
                     if npcs[nid]['familiarMode'] != 'hide' or \
