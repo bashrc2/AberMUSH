@@ -2751,7 +2751,9 @@
         "description": "You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. Birds twitter and sing around you, and animals scurry amidst the thick bushes. To the south the lane plunges over a stile and into some woods.",
         "roomTeleport": "",
         "conditional": [
-	    ["season","spring","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. Birds twitter and sing around you, and animals scurry amidst the thick bushes. To the south the lane plunges over a stile and into some woods.","396_spring"],
+	    ["hour","<8","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."],
+	    ["hour",">19","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods."],
+	    ["season","spring","You are strolling down a country lane, which winds gently between the hedgerows. A narrow weed covered path leads west between the hedges towards an old house. Birds twitter and sing around you, and animals scurry amidst the thick bushes. To the south the lane plunges over a stile and into some woods.","396_spring"]
 	    ["season","winter","You are strolling down a country lane, which winds gently between the hedgerows. A narrow frost covered path leads west between the hedges towards an old house. To the south the lane plunges over a stile and into some woods.","396_winter"]
 	],
         "trap": {},
