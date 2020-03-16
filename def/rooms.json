@@ -4159,6 +4159,9 @@
         "tideOutDescription" : "A short stretch of golden sand and occasional rockpools, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up.",
         "terrainDifficulty": 0,
         "coords": [],
+        "tideOutExits": {
+            "west": "$rid=1402$"
+        },
         "exits": {
             "east": "$rid=590$",
             "south": "$rid=592$"
@@ -12058,6 +12061,26 @@
         "conditional": [
 	    ["hour","<10","A large south facing clay wall looms ahead of you. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. Their leaves move gently in the morning breeze. To the west is the main part of the garden."],
 	    ["hour",">17","A large south facing clay wall casts a long shadow onto the garden. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. To the west is the main part of the garden."]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 1,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1402$": {
+        "exits": {
+	    "east": "$rid=588$"
+        },
+        "name": "The Ancient Shipwreck",
+        "description": "The remains of an ancient ship, wrecked long ago, protrude from the beach sands. Its skeletal wooden frame is coated with barnacles and seaweed.",
+        "roomTeleport": "",
+        "conditional": [
 	],
         "trap": {},
         "eventOnEnter": "",
