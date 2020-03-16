@@ -2025,13 +2025,19 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
     rm = rooms[players[id]['room']]
     exits = rm['exits']
 
-    if rm.get('tideOutExits'):
-        if runTide() < 0:
-            if rm['tideOutExits'] not in exits:
-                exits += rm['tideOutExits']
-        else:
-            if rm['tideOutExits'] in exits:
-                del exits[rm['tideOutExits']]
+    if rm.get('tideOutExits'):        
+        directionsAdded=[]
+        tideState=runTide()
+        for direction,roomID in rm['tideOutExits'].items():
+            if tideState < 0:
+                exits[direction]=roomID
+                # keep track of directions added
+                directionsAdded.append(direction)
+            else:
+                if exits.get(direction):
+                    # only remove if the direction was not previously added
+                    if direction not in directionsAdded:
+                        del exits[direction]
 
     if rm.get('exitsWhenWearing'):
         directionsAdded=[]
