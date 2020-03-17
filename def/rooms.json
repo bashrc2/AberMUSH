@@ -12079,7 +12079,7 @@
 	    "west": "$rid=1403$"
         },
         "name": "The Ancient Shipwreck",
-        "description": "The remains of an ancient ship, wrecked long ago, protrude from the beach sands. Its skeletal wooden frame is coated with barnacles and seaweed.",
+        "description": "The remains of an ancient ship, wrecked long ago, are partially buried in the beach sands. Its skeletal wooden frame is excrusted with barnacles and seaweed.",
         "roomTeleport": "",
         "conditional": [
 	],
