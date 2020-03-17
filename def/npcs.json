@@ -7056,7 +7056,7 @@
         "bodyType": "",
         "moveDelay" : "3000",
         "moveType" : "random",
-        "moveTimes": [],
+        "moveTimes": [["hour",8,20]],
         "vocabulary" : "",
         "talkDelay" : "200",
         "randomFactor" : "100",
