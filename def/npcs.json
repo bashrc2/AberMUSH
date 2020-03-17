@@ -7138,6 +7138,6 @@
         "imp_feet" : "0",
         "inDescription": "emerges from a burrow in the sand",
         "outDescription": "retreats into its burrow",
-        "lookDescription": "The puffin wanders around|The puffin sticks its head up out of its burrow|The puffin stands motionless, observing the waves"
+        "lookDescription": "The puffin wanders around between grassy clumps|The puffin sticks its head up out of its burrow|The puffin stands motionless, observing the waves"
     }
 }
