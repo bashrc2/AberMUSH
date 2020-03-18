@@ -12116,5 +12116,25 @@
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1404$": {
+        "exits": {
+	    "down": "$rid=1402$"
+        },
+        "name": "Deck of the shipwreck",
+        "description": "Leaning at a steep angle the deck of the ancient ship consists of rotten planks thickly layered with slippery bladderwrack seaweed. There are gaping holes which you can climb down through",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 5,
+        "weather": 1,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }
