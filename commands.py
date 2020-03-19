@@ -1766,7 +1766,7 @@ def conditionalRoomDescription(description: str,tideOutDescription: str, \
     """
     roomDescription = description
     if len(tideOutDescription) > 0:
-        if runTide() < 0:
+        if runTide() < 0.0:
             roomDescription = rm['tideOutDescription']            
 
     # Alternative descriptions triggered by conditions
@@ -2029,7 +2029,7 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
         directionsAdded=[]
         tideState=runTide()
         for direction,roomID in rm['tideOutExits'].items():
-            if tideState > 0:
+            if tideState < 0.0:
                 exits[direction]=roomID
                 # keep track of directions added
                 directionsAdded.append(direction)
