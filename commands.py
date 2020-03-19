@@ -4493,46 +4493,49 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, 'You don`t have that!\n\n')
 
 
-def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud):
+def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud) -> bool:
     unlockItemID = itemsDB[items[iid]['id']]['lockedWithItem']
-    if unlockItemID > 0:
-        keyFound = False
-        for i in list(players[id]['inv']):
-            if int(i) == unlockItemID:
-                keyFound = True
-                break
-        if keyFound:
+    if not unlockItemID.isdigit():
+        return True
+    if unlockItemID <= 0:
+        return True
+    keyFound = False
+    for i in list(players[id]['inv']):
+        if int(i) == unlockItemID:
+            keyFound = True
+            break
+    if keyFound:
+        mud.send_message(
+            id,
+            'You use ' +
+            itemsDB[unlockItemID]['article'] +
+            ' ' +
+            itemsDB[unlockItemID]['name'])
+    else:
+        if len(itemsDB[unlockItemID]['open_failed_description']) > 0:
             mud.send_message(
-                id,
-                'You use ' +
-                itemsDB[unlockItemID]['article'] +
-                ' ' +
-                itemsDB[unlockItemID]['name'])
+                id, itemsDB[unlockItemID]['open_failed_description'] + ".\n\n")
         else:
-            if len(itemsDB[unlockItemID]['open_failed_description']) > 0:
-                mud.send_message(
-                    id, itemsDB[unlockItemID]['open_failed_description'] + ".\n\n")
-            else:
-                if itemsDB[unlockItemID]['state'].startswith('lever '):
-                    mud.send_message(id, "It's operated with a lever.\n\n")
-                else:                    
-                    if randint(0, 1) == 1:
-                        mud.send_message(
-                            id,
-                            "You don't have " +
-                            itemsDB[unlockItemID]['article'] +
-                            " " +
-                            itemsDB[unlockItemID]['name'] +
-                            ".\n\n")
-                    else:
-                        mud.send_message(
-                            id,
-                            "Looks like you need " +
-                            itemsDB[unlockItemID]['article'] +
-                            " " +
-                            itemsDB[unlockItemID]['name'] +
-                            " for this.\n\n")
-            return False
+            if itemsDB[unlockItemID]['state'].startswith('lever '):
+                mud.send_message(id, "It's operated with a lever.\n\n")
+            else:                    
+                if randint(0, 1) == 1:
+                    mud.send_message(
+                        id,
+                        "You don't have " +
+                        itemsDB[unlockItemID]['article'] +
+                        " " +
+                        itemsDB[unlockItemID]['name'] +
+                        ".\n\n")
+                else:
+                    mud.send_message(
+                        id,
+                        "Looks like you need " +
+                        itemsDB[unlockItemID]['article'] +
+                        " " +
+                        itemsDB[unlockItemID]['name'] +
+                        " for this.\n\n")
+        return False
     return True
 
 
