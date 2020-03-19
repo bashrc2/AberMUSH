@@ -7146,8 +7146,9 @@
         "speakLanguage": "",
         "language": [],
         "conv" : [
+	    [["a","e","i","u"],"# The seal notices you and then goes back to sleep|# The seal is sleeping and ignores you"]
         ],
-        "path" : ["$rid=1403$","$rid=1402$"],
+        "path" : ["$rid=1403$","$rid=1402$","$rid=588$"],
         "bodyType": "",
         "moveDelay" : "6000",
         "moveType" : "random",
