@@ -12144,20 +12144,62 @@
     },
     "$rid=1405$": {
         "exits": {
-	    "south": "$rid=1403$"
+	    "south": "$rid=1403$",
+	    "north": "$rid=1406$"
         },
         "name": "Seal Cove",
-        "description": "Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals bask and bicker noisily on the smooth rock surfaces",
+        "description": "Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals bask and bicker noisily on the smooth rock surfaces. To the north there is a storm shelter built upon the highest rocks and to the south is a grassy area",
         "roomTeleport": "",
         "conditional": [
-	    ["hour","<8","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"],
-	    ["hour",">20","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"]
+	    ["hour","<8","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering. To the north there is a storm shelter built upon the highest rocks and to the south is a grassy area","1405_sleep"],
+	    ["hour",">20","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering. To the north there is a storm shelter built upon the highest rocks and to the south is a grassy area","1405_sleep"]
 	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
+        "weather": 1,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1406$": {
+        "exits": {
+	    "south": "$rid=1405$",
+	    "in": "$rid=1407$"
+        },
+        "name": "Storm Shelter",
+        "description": "Built from stone atop of volvanic rocks the storm shelter provides temporary refuge for sailors stranded on the island. To the south are a group of seals",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 10,
+        "weather": 1,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1407$": {
+        "exits": {
+	    "out": "$rid=1406$"
+        },
+        "name": "Inside the Storm Shelter",
+        "description": "You are inside of the storm shelter. It is constructed from sandstone bricks forming a cylindrical lighthouse-like construction. Etchings on the bricks leave the names of stranded souls from centuries passed.",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 10,
         "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
