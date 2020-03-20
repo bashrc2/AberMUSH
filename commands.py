@@ -2027,15 +2027,11 @@ def getRoomExits(mud,rooms: {},players: {},id) -> {}:
 
     if rm.get('tideOutExits'):        
         if runTide() < 0.0:
-            mud.send_message(id,"Tide out\n")
             for direction,roomID in rm['tideOutExits'].items():
                 exits[direction]=roomID
         else:
-            mud.send_message(id,"Tide in\n")
             for direction,roomID in rm['tideOutExits'].items():
-                mud.send_message(id,"Tide in 1\n")
                 if exits.get(direction):
-                    mud.send_message(id,"Tide in 2\n")
                     del rm['exits'][direction]
 
     if rm.get('exitsWhenWearing'):
@@ -2077,14 +2073,12 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
             playerRoomId=players[id]['room']
             showRoomImage(mud,id,playerRoomId,rooms,players,items, \
                           itemsDB,clouds,mapArea)
-            roomDescription = rm['description']
-            if len(rm['conditional']) > 0:
-                roomDescription = \
-                    conditionalRoomDescription(roomDescription, \
-                                               rm['tideOutDescription'], \
-                                               rm['conditional'], \
-                                               id, players,items,itemsDB, \
-                                               clouds,mapArea,rooms)
+            roomDescription = \
+                conditionalRoomDescription(rm['description'], \
+                                           rm['tideOutDescription'], \
+                                           rm['conditional'], \
+                                           id,players,items,itemsDB, \
+                                           clouds,mapArea,rooms)
 
             if rm['trap'].get('trapActivation') and rm['trap'].get('trapPerception'):
                 if randint(1,players[id]['per'])>rm['trap']['trapPerception']:
