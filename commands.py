@@ -2027,18 +2027,13 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
 
     if rm.get('tideOutExits'):        
         directionsAdded=[]
-        tideState=runTide()
-        for direction,roomID in rm['tideOutExits'].items():
-            if tideState < 0.0:
+        if runTide() < 0.0:
+            for direction,roomID in rm['tideOutExits'].items():
                 exits[direction]=roomID
-                # keep track of directions added
-                if direction not in directionsAdded:
-                    directionsAdded.append(direction)
-            else:
+        else:
+            for direction,roomID in rm['tideOutExits'].items():
                 if exits.get(direction):
-                    # only remove if the direction was not previously added
-                    if direction not in directionsAdded:
-                        del exits[direction]
+                    del exits[direction]
 
     if rm.get('exitsWhenWearing'):
         directionsAdded=[]
@@ -2051,7 +2046,8 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
                 roomID=ex[2]
                 exits[direction]=roomID
                 # keep track of directions added via wearing items
-                directionsAdded.append(direction)
+                if direction not in directionsAdded:
+                    directionsAdded.append(direction)
             else:
                 if exits.get(direction):
                     # only remove if the direction was not previously added
