@@ -12104,12 +12104,12 @@
 	    "east": "$rid=1402$"
         },
         "name": "Grassy Sand Bank",
-        "description": "You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the salty breeze. To the north is a rocky cove. Overhead gulls circle and squark.",
+        "description": "You are standing on a grassy island surrounded by sea. In the ancient past it may have been a small volcano which became dormant and reinhabited by life. Coarse beach grass protrudes from the sand and blows in the salty breeze. To the north is a rocky cove. Overhead gulls circle and squark.",
         "roomTeleport": "",
         "conditional": [
-	    ["sunrise","true","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the sea breeze. To the north is a rocky cove","1403_sunrise"],
-	    ["hour","<8","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the morning breeze. To the north is a rocky cove"],
-	    ["hour",">19","You are standing on a tiny island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the evening breeze. To the north is a rocky cove","1403_sunset"]
+	    ["sunrise","true","You are standing on a grassy island surrounded by sea. In the ancient past it may have been a small volcano which became dormant and reinhabited by life. Coarse beach grass protrudes from the sand and blows in the sea breeze. To the north is a rocky cove","1403_sunrise"],
+	    ["hour","<8","You are standing on a grassy island surrounded by sea. In the ancient past it may have been a small volcano which became dormant and reinhabited by life. Coarse beach grass protrudes from the sand and blows in the morning breeze. To the north is a rocky cove"],
+	    ["hour",">19","You are standing on a tiny island surrounded by sea. In the ancient past it may have been a small volcano which became dormant and reinhabited by life. Coarse beach grass protrudes from the sand and blows in the evening breeze. To the north is a rocky cove","1403_sunset"]
 	],
         "trap": {},
         "eventOnEnter": "",
