@@ -1767,7 +1767,12 @@ def conditionalRoomDescription(description: str,tideOutDescription: str, \
     roomDescription = description
     if len(tideOutDescription) > 0:
         if runTide() < 0.0:
-            roomDescription = rm['tideOutDescription']            
+            if rm['tideOutDescription'] != description:
+                rm['tideInDescription']=description
+            roomDescription = rm['tideOutDescription']
+        else:
+            if rm.get('tideInDescription'):
+                roomDescription = rm['tideInDescription']
 
     # Alternative descriptions triggered by conditions
     for possibleDescription in conditional:
