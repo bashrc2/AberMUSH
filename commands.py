@@ -2019,7 +2019,7 @@ def showNPCImage(mud,id,npcName,players: {}) -> None:
     with open(npcImageFilename, 'r') as npcFile:
         mud.send_image(id,'\n'+npcFile.read())
 
-def getRoomExits(rooms: {},players: {},id) -> {}:
+def getRoomExits(mud,rooms: {},players: {},id) -> {}:
     """Returns a dictionary of exits for the given player
     """
     rm = rooms[players[id]['room']]
@@ -2027,11 +2027,15 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
 
     if rm.get('tideOutExits'):        
         if runTide() < 0.0:
+            mud.send_message(id,"Tide out\n")
             for direction,roomID in rm['tideOutExits'].items():
                 exits[direction]=roomID
         else:
+            mud.send_message(id,"Tide in\n")
             for direction,roomID in rm['tideOutExits'].items():
+                mud.send_message(id,"Tide in 1\n")
                 if exits.get(direction):
+                    mud.send_message(id,"Tide in 2\n")
                     del rm['exits'][direction]
 
     if rm.get('exitsWhenWearing'):
@@ -2146,7 +2150,7 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                         ', '.join(playershere)))
 
             # send player a message containing the list of exits from this room
-            roomExitsStr=getRoomExits(rooms,players,id)
+            roomExitsStr=getRoomExits(mud,rooms,players,id)
             if roomExitsStr:
                 mud.send_message(
                     id, '<f230>Exits are: <f220>{}'.format(', '.join(roomExitsStr)))
@@ -3653,7 +3657,7 @@ def go(params,mud,playersDB: {},players: {},rooms: {}, \
         rm = rooms[players[id]['room']]
 
         # if the specified exit is found in the room's exits list
-        rmExits=getRoomExits(rooms,players,id)
+        rmExits=getRoomExits(mud,rooms,players,id)
         if ex in rmExits:
             # check if there is enough room
             targetRoom=None
@@ -3882,7 +3886,7 @@ def conjureRoom(params,mud,playersDB: {},players: {},rooms: {}, \
 
     # Is there already a room in that direction?
     playerRoomID = players[id]['room']
-    roomExits = getRoomExits(rooms,players,id)
+    roomExits = getRoomExits(mud,rooms,players,id)
     if roomExits.get(roomDirection):
         mud.send_message(id, 'A room already exists in that direction.\n\n')
         return False
@@ -4345,7 +4349,7 @@ def destroyRoom(params,mud,playersDB: {},players: {},rooms: {}, \
 
     # Is there already a room in that direction?
     playerRoomID = players[id]['room']
-    roomExits = getRoomExits(rooms,players,id)
+    roomExits = getRoomExits(mud,rooms,players,id)
     if not roomExits.get(roomDirection):
         mud.send_message(id, 'There is no room in that direction.\n\n')
         return False
