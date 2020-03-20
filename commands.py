@@ -2026,7 +2026,6 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
     exits = rm['exits']
 
     if rm.get('tideOutExits'):        
-        directionsAdded=[]
         if runTide() < 0.0:
             for direction,roomID in rm['tideOutExits'].items():
                 exits[direction]=roomID
