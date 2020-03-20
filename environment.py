@@ -41,9 +41,9 @@ def runTide() -> float:
     solarMins = timeMins % int(24 * 60 * 365)
     dailyMins = timeMins % int(24 * 60)
 
-    lunar = sin(lunarMins * 2 * 3.1415927 / lunar_orbit_mins) * 0.08
-    solar = sin(solarMins * 2 * 3.1415927 / (24 * 60 * 365)) * 0.02
-    daily = sin(dailyMins * 2 * 3.1415927 / (24 * 60)) * 0.9
+    lunar = sin(float(lunarMins) * 2.0 * 3.1415927 / float(lunar_orbit_mins)) * 0.08
+    solar = sin(float(solarMins) * 2.0 * 3.1415927 / float(24 * 60 * 365)) * 0.02
+    daily = sin(float(dailyMins) * 2.0 * 3.1415927 / float(24 * 60)) * 0.9
 
     return daily + lunar + solar
 

@@ -4146,7 +4146,7 @@
     },
     "$rid=588$": {
         "name": "The Sandy Beach",
-        "description": "A short stretch of golden sand, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up.",
+        "description": "A short stretch of golden sand, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up. To the west the top of a sunken ship is just visible above the waterline.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4156,7 +4156,7 @@
         "maxPlayers": -1,
         "weather": 1,
         "onWater": 0,
-        "tideOutDescription" : "A short stretch of golden sand and occasional rockpools, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up.",
+        "tideOutDescription" : "A short stretch of golden sand and occasional rockpools, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up. On the beach to the west you see the remains of a wrecked ship.",
         "terrainDifficulty": 0,
         "coords": [],
         "tideOutExits": {
@@ -12075,9 +12075,11 @@
     },
     "$rid=1402$": {
         "exits": {
-	    "east": "$rid=588$",
-	    "west": "$rid=1403$"
+	    "east": "$rid=588$"
         },
+	"tideOutExits": {
+	    "west": "$rid=1403$"
+	},
         "name": "The Ancient Shipwreck",
         "description": "The remains of an ancient ship, wrecked long ago, are partially buried in the beach sands. Its skeletal wooden frame is excrusted with barnacles and seaweed.",
         "roomTeleport": "",
