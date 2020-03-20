@@ -4038,10 +4038,10 @@
     },
     "$rid=583$": {
         "name": "Island Coast",
-        "description": "You are rowing around a forested island. A sandy beach to the south makes an ideal landing place for your boat.",
+        "description": "You are rowing around a forested island. A sandy beach to the south makes an ideal landing place for your boat. The heads of curious seals occasionally emerge from the water to observe you, then dive down again with a splash.",
         "roomTeleport": "",
         "conditional": [
-	    ["hour",">12","You are rowing around a forested island. A sandy beach to the south makes an ideal landing place for your boat.","583b"]
+	    ["hour",">12","You are rowing around a forested island. A sandy beach to the south makes an ideal landing place for your boat. The heads of curious seals occasionally emerge from the water to observe you, then dive down again with a splash.","583b"]
 	],
         "trap": {},
         "eventOnEnter": "",
