@@ -12150,8 +12150,8 @@
         "description": "Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals bask and bicker noisily on the smooth rock surfaces",
         "roomTeleport": "",
         "conditional": [
-	    [["hour","<8","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"],
-	    [["hour",">20","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"]
+	    [["hour","<8"],"Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"],
+	    [["hour",">20"],"Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"]
 	],
         "trap": {},
         "eventOnEnter": "",
