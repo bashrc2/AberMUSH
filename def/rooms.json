@@ -12101,12 +12101,12 @@
 	    "east": "$rid=1402$"
         },
         "name": "Grassy Sand Bank",
-        "description": "You are standing on a tiny grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the salty breeze. The sandy shoreline extends eastwards. Overhead gulls circle and squark.",
+        "description": "You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the salty breeze. The sandy shoreline extends eastwards. Overhead gulls circle and squark.",
         "roomTeleport": "",
         "conditional": [
-	    ["sunrise","true","You are standing on a tiny grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the sea breeze. The sandy shoreline extends eastwards.","1403_sunrise"],
-	    ["hour","<8","You are standing on a tiny grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the morning breeze. The sandy shoreline extends eastwards."],
-	    ["hour",">19","You are standing on a tiny grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the evening breeze. The sandy shoreline extends eastwards.","1403_sunset"]
+	    ["sunrise","true","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the sea breeze. The sandy shoreline extends eastwards.","1403_sunrise"],
+	    ["hour","<8","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the morning breeze. The sandy shoreline extends eastwards."],
+	    ["hour",">19","You are standing on a tiny island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the evening breeze. The sandy shoreline extends eastwards.","1403_sunset"]
 	],
         "trap": {},
         "eventOnEnter": "",
