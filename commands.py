@@ -2032,7 +2032,8 @@ def getRoomExits(rooms: {},players: {},id) -> {}:
             if tideState < 0.0:
                 exits[direction]=roomID
                 # keep track of directions added
-                directionsAdded.append(direction)
+                if direction not in directionsAdded:
+                    directionsAdded.append(direction)
             else:
                 if exits.get(direction):
                     # only remove if the direction was not previously added
