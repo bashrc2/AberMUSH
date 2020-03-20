@@ -12098,15 +12098,18 @@
     },
     "$rid=1403$": {
         "exits": {
+	    "north": "$rid=1405$"
+        },
+        "tideOutExits": {
 	    "east": "$rid=1402$"
         },
         "name": "Grassy Sand Bank",
-        "description": "You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the salty breeze. The sandy shoreline extends eastwards. Overhead gulls circle and squark.",
+        "description": "You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the salty breeze. To the north is a rocky cove. Overhead gulls circle and squark.",
         "roomTeleport": "",
         "conditional": [
-	    ["sunrise","true","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the sea breeze. The sandy shoreline extends eastwards.","1403_sunrise"],
-	    ["hour","<8","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the morning breeze. The sandy shoreline extends eastwards."],
-	    ["hour",">19","You are standing on a tiny island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the evening breeze. The sandy shoreline extends eastwards.","1403_sunset"]
+	    ["sunrise","true","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the sea breeze. To the north is a rocky cove","1403_sunrise"],
+	    ["hour","<8","You are standing on a grassy island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the morning breeze. To the north is a rocky cove"],
+	    ["hour",">19","You are standing on a tiny island surrounded by sea. Coarse beach grass protrudes from the sand and blows in the evening breeze. To the north is a rocky cove","1403_sunset"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -12133,6 +12136,28 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": 5,
+        "weather": 1,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1405$": {
+        "exits": {
+	    "south": "$rid=1403$"
+        },
+        "name": "Seal Cove",
+        "description": "Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals bask and bicker noisily on the smooth rock surfaces",
+        "roomTeleport": "",
+        "conditional": [
+	    [["hour","<8","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"],
+	    [["hour",">20","Waves lap against the large black granite rocks which are strewn along the sandy shoreline. A harem of seals sleep, mostly quietly, but with occasional bickering","1405_sleep"]
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
         "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
