@@ -18,7 +18,7 @@ validMorrisBoardLocations=[
     'a4','b4','c4','e4','f4','g4',
     'c5','d5','e5',
     'b6','d6','f6',
-    'a7','d7','g7'        
+    'a7','d7','g7'
 ]
 
 def morrisBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
@@ -108,7 +108,7 @@ def morrisMove(moveDescription: str, \
         items[gameItemID]['gameState']['millsWhite']=0
     if not items[gameItemID]['gameState'].get('millsBlack'):
         items[gameItemID]['gameState']['millsBlack']=0
-        
+
     if items[gameItemID]['gameState'].get('morris'):
         board=items[gameItemID]['gameState']['morris']
     else:
@@ -161,7 +161,7 @@ def morrisMove(moveDescription: str, \
         return
 
     moveSucceeded=False
-    
+
     if len(boardMove)==1:
         # single move to place a counter
         index=0
@@ -201,11 +201,11 @@ def morrisMove(moveDescription: str, \
         # move a counter from one place to another
         if boardMove[0]==boardMove[1]:
             mud.send_message(id,'\nSpecify coordinates to move from and to.\n')
-            return                        
+            return
         if boardMove[0][0]!=boardMove[1][0] and \
            boardMove[0][1]!=boardMove[1][1]:
             mud.send_message(id,'\nYou can only move vertically or horizontally.\n')
-            return            
+            return
         fromIndex=0
         for loc in validMorrisBoardLocations:
             if loc==boardMove[0]:
@@ -297,7 +297,7 @@ def showMorrisBoard(players: {},id,mud,rooms: {}, \
     boardStr+=' 2 │ '+board[3]+'───'+board[4]+'───'+board[5]+' │\n'
     boardStr+=' 1 '+board[0]+'─────'+board[1]+'─────'+board[2]+'\n'
     boardStr+='   a b c d e f g\n'
-    
+
     mud.send_game_board(id, boardStr)
 
     whiteCounters=9
@@ -383,5 +383,3 @@ def takeMorrisCounter(takeDescription: str, \
                     items[gameItemID]['gameState']['morris']=board
                     showMorrisBoard(players,id,mud,rooms,items,itemsDB)
             index+=1
-            
-    

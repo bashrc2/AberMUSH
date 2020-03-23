@@ -60,7 +60,7 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
        Enabling NPCs to move around in groups
     """
     if moveType.startswith('leader:'):
-        leaderName=moveType.split(':')[1]        
+        leaderName=moveType.split(':')[1]
         if len(leaderName) > 0:
             for (lid, pl) in list(npcs.items()):
                 if npcs[lid]['name']==leaderName:
@@ -346,7 +346,7 @@ def removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {}, npcActive: bool) -> bo
         npcs[nid]['lastRoom'] = npcs[nid]['room']
         npcs[nid]['room']=purgatoryRoom
         return False
-        
+
 def npcRespawns(npcs):
     """Respawns inactive NPCs
     """
@@ -376,7 +376,7 @@ def runMobileItems(
     """
     for (item, pl) in list(items.items()):
         itemID=items[item]['id']
-        # only non-takeable items        
+        # only non-takeable items
         if itemsDB[itemID]['weight']>0:
             continue
         if not itemsDB[itemID].get('moveTimes'):
@@ -945,17 +945,17 @@ def conversationFamiliarMode(
                 mode=best_match_action_param0.lower().strip()
                 if mode in getFamiliarModes():
                     if mode == 'follow':
-                        familiarDefaultMode(nid, npcs, npcsDB) 
+                        familiarDefaultMode(nid, npcs, npcsDB)
                     if mode == 'hide':
-                        familiarHide(nid, npcs, npcsDB) 
+                        familiarHide(nid, npcs, npcsDB)
                     mud.send_message(
                         id, "<f220>" + \
                         npcs[nid]['name'] + \
-                        "<r> "+best_match+".\n\n")                    
+                        "<r> "+best_match+".\n\n")
                     if mode == 'scout':
                         familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, best_match_action_param1)
                     if mode == 'see':
-                        familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB) 
+                        familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB)
                     return True
             else:
                 mud.send_message(
@@ -1299,7 +1299,7 @@ def npcConversation(mud,npcs: {},npcsDB: {},players: {}, \
                 if len(conv) >= 3:
                     if conv[2].lower().startswith('image:'):
                         imageName = conv[2].lower().split(':')[1].strip()
-                        
+
                     if conv[2].lower().startswith('state:'):
                         conversation_new_state = conv[2].lower().split(':')[
                             1].strip()
@@ -1334,7 +1334,7 @@ def npcConversation(mud,npcs: {},npcsDB: {},players: {}, \
             if os.path.isfile(imageFilename):
                 with open(imageFilename, 'r') as imageFile:
                     mud.send_image(id,'\n'+imageFile.read())
-        
+
         if len(conversation_new_state) > 0:
             # set the new conversation state with this npc
             conversation_states[npcs[nid]['name']] = conversation_new_state
@@ -1362,7 +1362,7 @@ def npcConversation(mud,npcs: {},npcsDB: {},players: {}, \
                                       id, mud, npcs, nid, itemsDB, puzzledStr, \
                                       guildsDB):
                 return
-            
+
             # Join a guild
             if conversationJoinGuild(best_match, best_match_action, \
                                      best_match_action_param0, \

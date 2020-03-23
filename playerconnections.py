@@ -376,4 +376,3 @@ def initialSetupAfterLogin(mud,id,players: {},dbResponse: []):
                           "<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions.")
     mud.send_message_wrap(id, '<f255>', \
                           "<f255>Type '<r><f220>look<r><f255>' to see what's around you.\n\n")
-

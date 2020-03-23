@@ -58,7 +58,7 @@ def describeTrapDeactivation(mud,roomID,trap,players):
         if players[id]['name'] in trap['trappedPlayers']:
             if trap['trapType']=='net' or \
                trap['trapType']=='chain net':
-                mud.send_message(id, randomDescription('The ' + trap['trapType'] + ' lifts and you escape')+'.\n\n')        
+                mud.send_message(id, randomDescription('The ' + trap['trapType'] + ' lifts and you escape')+'.\n\n')
 
 def holdingCuttingWeapon(id,players,itemsDB):
     """If the player is holding a cutting weapon return its itemID
@@ -86,7 +86,7 @@ def escapeWithCuttingTool(mud,id,players,rooms,itemsDB):
     maxTrapDamage=rooms[roomID]['trap']['trapDamagedMax']
     toolDamageMax=itemsDB[itemID]['mod_str']
     slashingDamage=randint(1,toolDamageMax)
-    trapDamage=rooms[roomID]['trap']['trapDamaged']+slashingDamage            
+    trapDamage=rooms[roomID]['trap']['trapDamaged']+slashingDamage
     if trapDamage < maxTrapDamage:
         rooms[roomID]['trap']['trapDamaged']=trapDamage
         damageStr=', causing <f15><b2>* ' + str(slashingDamage) + ' *<r> points of damage to it'
@@ -170,7 +170,7 @@ def trapActivation(mud,id,players,rooms,exitDirection):
                 else:
                     trapActivationDescribe(mud,id,players,roomID,rooms,penaltyValue,trapTag)
                 return True
-            
+
     return False
 
 def runTraps(mud,rooms,players,npcs):
@@ -192,4 +192,3 @@ def runTraps(mud,rooms,players,npcs):
             rooms[rm]['trap']['trappedPlayers'].clear()
             rooms[rm]['trap']['trapActivationTime']=0
             rooms[rm]['trap']['trapDamaged']=0
-

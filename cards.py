@@ -28,21 +28,21 @@ lowace = lowaces.split()
 class Card(namedtuple('Card', 'face, suit')):
     def __repr__(self):
         return ''.join(self)
- 
+
 class Deck():
     def __init__(self):
         self.__deck = [Card(f, s) for f,s in product(face, suit)]
- 
+
     def __repr__(self):
         return ' '.join(repr(card) for card in self.__deck)
- 
+
     def shuffle(self):
         pass
- 
+
     def deal(self):
         return self.__deck.pop(randrange(len(self.__deck)))
- 
-  
+
+
 def straightflush(hand: str) -> bool:
     f,fs = ( (lowace, lowaces) if any(card.face == '2' for card in hand)
              else (face, faces) )
@@ -52,7 +52,7 @@ def straightflush(hand: str) -> bool:
          ' '.join(card.face for card in ordered) in fs ):
         return 'a straight flush', ordered[-1].face
     return False
- 
+
 def fourofakind(hand: str) -> bool:
     allfaces = [f for f,s in hand]
     allftypes = set(allfaces)
@@ -64,7 +64,7 @@ def fourofakind(hand: str) -> bool:
             return 'four of a kind', [f, allftypes.pop()]
     else:
         return False
- 
+
 def fullhouse(hand: str) -> bool:
     allfaces = [f for f,s in hand]
     allftypes = set(allfaces)
@@ -76,7 +76,7 @@ def fullhouse(hand: str) -> bool:
             return 'a full house', [f, allftypes.pop()]
     else:
         return False
- 
+
 def flush(hand: str) -> bool:
     allstypes = {s for f, s in hand}
     if len(allstypes) == 1:
@@ -85,7 +85,7 @@ def flush(hand: str) -> bool:
                                key=lambda f: face.index(f),
                                reverse=True)
     return False
- 
+
 def straight(hand: str) -> bool:
     f,fs = ( (lowace, lowaces) if any(card.face == '2' for card in hand)
              else (face, faces) )
@@ -94,7 +94,7 @@ def straight(hand: str) -> bool:
     if ' '.join(card.face for card in ordered) in fs:
         return 'a straight', ordered[-1].face
     return False
- 
+
 def threeofakind(hand: str) -> bool:
     allfaces = [f for f,s in hand]
     allftypes = set(allfaces)
@@ -109,7 +109,7 @@ def threeofakind(hand: str) -> bool:
                             reverse=True))
     else:
         return False
- 
+
 def twopair(hand: str) -> bool:
     allfaces = [f for f,s in hand]
     allftypes = set(allfaces)
@@ -119,7 +119,7 @@ def twopair(hand: str) -> bool:
     p0, p1 = pairs
     other = [(allftypes - set(pairs)).pop()]
     return 'two pairs', pairs + other if face.index(p0) > face.index(p1) else pairs[::-1] + other
- 
+
 def onepair(hand: str) -> bool:
     allfaces = [f for f,s in hand]
     allftypes = set(allfaces)
@@ -130,7 +130,7 @@ def onepair(hand: str) -> bool:
     return 'one pair', pairs + sorted(allftypes,
                                       key=lambda f: face.index(f),
                                       reverse=True)
- 
+
 def highcard(hand: str):
     allfaces = [f for f,s in hand]
     return 'a high-card', sorted(allfaces,
@@ -142,7 +142,7 @@ handrankorder =  (
     flush, straight, threeofakind,
     twopair, onepair, highcard
 )
- 
+
 def handy(cards: str):
     hand = []
     for card in cards.split():
@@ -284,7 +284,7 @@ def getNumberFromText(text: str) -> int:
         if name in text:
             return num
     return None
-    
+
 
 def dealToPlayers(players: {},dealerId,description: str, \
                   mud,rooms: {},items: {},itemsDB: {}) -> None:
@@ -322,7 +322,7 @@ def dealToPlayers(players: {},dealerId,description: str, \
     # create game state
     if not items[gameItemID].get('gameState'):
         items[gameItemID]['gameState']={}
-    
+
     hands={}
     for p in players:
         if players[p]['room'] != players[dealerId]['room']:
@@ -412,7 +412,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
         if rank=='10':
             space=''
         else:
-            space=' '            
+            space=' '
         lines[0].append('┌─────────┐')
         lines[1].append('│{}{}{}{}       │'.format(rankColor,rank,cardColor,space))
         lines[2].append('│         │')
@@ -458,7 +458,7 @@ def showHandOfCards(players: {},id,mud,rooms: {}, \
             mud.send_message(p, '\n'+players[id]['name']+ \
                              ' shows their hand.\n'+boardStr)
             if rankedStr:
-                mud.send_message(p,players[id]['name']+' has '+str(rankedStr[0])+'.\n\n')        
+                mud.send_message(p,players[id]['name']+' has '+str(rankedStr[0])+'.\n\n')
 
 def swapCard(cardDescription: str,players: {},id,mud,rooms: {}, \
              items: {},itemsDB: {}) -> None:
@@ -506,7 +506,7 @@ def swapCard(cardDescription: str,players: {},id,mud,rooms: {}, \
             items[gameItemID]['gameState']['deck']+=' '+deckCardStr
         else:
             items[gameItemID]['gameState']['deck']+=deckCardStr
-            
+
     items[gameItemID]['gameState']['hands'][playerName]= \
         handStr.replace(cardStr,nextCard)
 

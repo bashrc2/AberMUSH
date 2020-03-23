@@ -167,7 +167,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {}, itemsDB: {}) -> bool
             elif itemsDB[int(i)]['clo_lhand'] > 0:
                 if itemsDB[int(i)]['mod_str'] > max_damage:
                     max_damage = itemsDB[int(i)]['mod_str']
-                    itemID = int(i)            
+                    itemID = int(i)
 
     putOnArmor = False
     if int(npcs[nid]['canWear']) != 0:
@@ -1177,7 +1177,7 @@ def runFights(mud,players: {},npcs: {},fights,items: {},itemsDB: {}, \
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'npc':
             test = 1
 
-            
+
 def isAttacking(players: {},id,fights: {}) -> bool:
     """Returns true if the given player is attacking
     """
@@ -1245,7 +1245,7 @@ def playerBeginsAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bo
                     continue
 
                 # check for familiar
-                if npcs[nid]['familiarOf'] == players[id]['name']:                        
+                if npcs[nid]['familiarOf'] == players[id]['name']:
                     mud.send_message(
                         id, \
                         randomDescription("You can't attack your own familiar|You consider attacking your own familiar, but decide against it|Your familiar looks at you disapprovingly")+"\n\n")
@@ -1263,7 +1263,7 @@ def playerBeginsAttack(players: {},id,target: str,npcs: {},fights: {},mud) -> bo
                     's1type': 'pc',
                     's2type': 'npc',
                     'retaliated': 0
-                }                        
+                }
                 mud.send_message(
                     id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
 
@@ -1314,7 +1314,7 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {}, \
 
             npcUpdateLuck(id,npcs,items,itemsDB)
             npcWieldsWeapon(mud,pid,id,npcs,items,itemsDB)
-            
+
             mud.send_message(
                 pid, '<u><f21>'+npcs[id]['name']+'<r> attacks!\n')
 
@@ -1338,7 +1338,7 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {}, \
                     continue
 
                 # check for familiar
-                if npcs[nid]['familiarOf'] == npcs[id]['name']:                        
+                if npcs[nid]['familiarOf'] == npcs[id]['name']:
                     return False
 
                 fights[len(fights)] = {
@@ -1349,7 +1349,7 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {}, \
                     's1type': 'npc',
                     's2type': 'npc',
                     'retaliated': 0
-                }                        
+                }
                 fights[len(fights)] = {
                     's1': nid,
                     's2': npc[id]['name'],
@@ -1358,7 +1358,7 @@ def npcBeginsAttack(npcs: {},id,target: str,players: {}, \
                     's1type': 'npc',
                     's2type': 'npc',
                     'retaliated': 0
-                }                        
+                }
                 npcs[nid]['isInCombat'] = 1
                 npcs[id]['isInCombat'] = 1
                 npcUpdateLuck(id,npcs,items,itemsDB)

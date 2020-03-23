@@ -175,7 +175,7 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
             if weaponsInRoom>0:
                 mud.send_message(id,'There are some weapons here.')
             else:
-                mud.send_message(id,'There are some items here.')                
+                mud.send_message(id,'There are some items here.')
     if edibleInRoom:
         mud.send_message(id,'There are some edibles here.')
     mud.send_message(id,'\n\n')

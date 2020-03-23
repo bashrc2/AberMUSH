@@ -190,7 +190,7 @@ def teleport(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                 targetLocation=targetLocation.replace('the ','')
             else:
                 targetLocation='the '+targetLocation
-                
+
             for rm in rooms:
                 if rooms[rm]['name'].strip().lower() == targetLocation:
                     mud.send_message(
@@ -596,7 +596,7 @@ def who(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, "\n")
     else:
         mud.send_message(id, "You do not have permission to do this.\n")
-    
+
 def tell(params,mud,playersDB: {},players: {},rooms: {}, \
          npcsDB: {},npcs: {},itemsDB: {},items: {}, \
          envDB: {},env: {},eventDB: {},eventSchedule, \
@@ -683,7 +683,7 @@ def tell(params,mud,playersDB: {},players: {},rooms: {}, \
                         "\n\n")
                     told = True
                     break
-        if not told:            
+        if not told:
             for (nid, pl) in list(npcs.items()):
                 if (npcs[nid]['room'] == players[id]['room']) or \
                    npcs[nid]['familiarOf'] == players[id]['name']:
@@ -854,7 +854,7 @@ def help(params,mud,playersDB: {},players: {},rooms: {}, \
     mud.send_message(id, \
                      '  move/roll/heave [target]                - Try to move or roll a heavy object');
     mud.send_message(id, \
-                     '  jump to [exit]                          - Try to jump onto something');    
+                     '  jump to [exit]                          - Try to jump onto something');
     mud.send_message(id, \
                      '  attack [target]                         - Attack target ' +
                      "specified, e.g. 'attack knight'")
@@ -932,7 +932,7 @@ def helpWitch(params,mud,playersDB: {},players: {},rooms: {}, \
               mapArea: [],characterClassDB: {},spellsDB: {},
               sentimentDB: {},guildsDB: {},clouds: {}):
     mud.send_message(id, '\n')
-    if not isWitch(id, players):        
+    if not isWitch(id, players):
         mud.send_message(id, "You're not a witch.\n\n")
         return
     mud.send_message(id, \
@@ -1552,7 +1552,7 @@ def say(params,mud,playersDB: {},players: {},rooms: {}, \
                         sentimentScore= \
                             getSentiment(params, sentimentDB) + \
                             getGuildSentiment(players, id, players, pid, guildsDB)
-                        
+
                         if sentimentScore >= 0:
                             increaseAffinityBetweenPlayers(
                                 players, id, players, pid, guildsDB)
@@ -1607,7 +1607,7 @@ def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
         itemID=int(players[p]['clo_rhand'])
         if itemID>0:
             if itemsDB[int(itemID)]['lightSource']!=0:
-                return True        
+                return True
 
     # is there a light source in the room?
     return lightSourceInRoom(players,id,items,itemsDB)
@@ -1716,7 +1716,7 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
                 if int(m) == int(datetime.datetime.today().strftime("%m")):
                     return True
         else:
-            currMonthNumber=int(datetime.datetime.today().strftime("%m"))                
+            currMonthNumber=int(datetime.datetime.today().strftime("%m"))
             monthNumber = int(cond)
             if monthNumber == currMonthNumber:
                 return True
@@ -1838,11 +1838,11 @@ def lightSourceInRoom(players: {},id,items: {},itemsDB: {}) -> bool:
     """Returns true if there is a light source in the room
     """
     rid=players[id]['room']
-    for i in items:                
+    for i in items:
         if items[i]['room'].lower() != players[id]['room']:
             continue
         if itemsDB[items[i]['id']]['lightSource'] != 0:
-            return True    
+            return True
     return False
 
 def itemIsVisible(observerId: int,players: {},itemId: int,itemsDB: {}) -> bool:
@@ -1863,7 +1863,7 @@ def moonIllumination(currTime) -> int:
     days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
     lunations = dec("0.20439731") + (days * dec("0.03386319269"))
     index=int(lunations % dec(1)) & 7
-    return int((5-abs(4-index))*2)   
+    return int((5-abs(4-index))*2)
 
 def roomIllumination(roomImage,outdoors: bool):
     """Alters the brightness and contrast of the image to simulate
@@ -2025,7 +2025,7 @@ def getRoomExits(mud,rooms: {},players: {},id) -> {}:
     rm = rooms[players[id]['room']]
     exits = rm['exits']
 
-    if rm.get('tideOutExits'):        
+    if rm.get('tideOutExits'):
         if runTide() < 0.0:
             for direction,roomID in rm['tideOutExits'].items():
                 exits[direction]=roomID
@@ -2167,13 +2167,13 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
 
             if param.startswith('my '):
                 param = params.replace('my ', '',1)
-                
+
             # replace "familiar" with the name of the familiar
             if param.startswith('familiar'):
                 familiarName=getFamiliarName(players,id,npcs)
                 if len(familiarName)>0:
                     param = param.replace('familiar',familiarName,1)
-            
+
             if param.startswith('at the '):
                 param = param.replace('at the ', '')
             if param.startswith('the '):
@@ -2217,7 +2217,7 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
 
             # Go through all Items in game
             itemCounter = 0
-            for i in items:                
+            for i in items:
                 if items[i]['room'].lower() == players[id]['room'] and \
                    param in itemsDB[items[i]['id']]['name'].lower():
                     if itemIsVisible(id,players,items[i]['id'],itemsDB):
@@ -2317,7 +2317,7 @@ def escapeTrap(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(
             id, randomDescription(
                 "You try to escape but find there's nothing to escape from") + '\n\n')
-        
+
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -2325,7 +2325,7 @@ def escapeTrap(params,mud,playersDB: {},players: {},rooms: {}, \
         return
 
     if players[id]['canAttack'] == 1:
-        escapeFromTrap(mud,id,players,rooms,itemsDB)                
+        escapeFromTrap(mud,id,players,rooms,itemsDB)
 
 
 def attack(params,mud,playersDB: {},players: {},rooms: {}, \
@@ -2346,7 +2346,7 @@ def attack(params,mud,playersDB: {},players: {},rooms: {}, \
                 id, randomDescription(
                     "You're trapped") + '.\n\n')
             return
-        
+
         target = params  # .lower()
         if target.startswith('at '):
             target = params.replace('at ', '')
@@ -2535,12 +2535,12 @@ def isWearing(id,players: {},itemList: []) -> bool:
         itemID=int(itemID)
         for locn in wearLocation:
             if int(players[id]['clo_'+locn]) == itemID:
-                return True            
+                return True
         if int(players[id]['clo_lhand']) == itemID or \
            int(players[id]['clo_rhand']) == itemID:
             return True
     return False
-                
+
 def checkInventory(params,mud,playersDB: {},players: {},rooms: {}, \
                    npcsDB: {},npcs: {},itemsDB: {},items: {}, \
                    envDB: {},env: {},eventDB: {},eventSchedule, \
@@ -2878,7 +2878,7 @@ def stow(params,mud,playersDB: {},players: {},rooms: {}, \
                     mud.send_message(id,'You stow <b234>'+ \
                                      itemsDB[itemID]['article']+' '+ \
                                      itemsDB[itemID]['name']+'<r>\n\n')
-                    players[id][stowLocation] = 0                    
+                    players[id][stowLocation] = 0
                     continue
 
         if int(itemsDB[itemID]['clo_lleg']) > 0:
@@ -2888,7 +2888,7 @@ def stow(params,mud,playersDB: {},players: {},rooms: {}, \
                     mud.send_message(id,'You stow <b234>'+ \
                                      itemsDB[itemID]['article']+' '+ \
                                      itemsDB[itemID]['name']+'<r>\n\n')
-                    players[id][stowLocation] = 0                    
+                    players[id][stowLocation] = 0
 
     stowHands(id, players, itemsDB, mud)
 
@@ -2922,12 +2922,12 @@ def unwearClothing(players: {},id,clothingType,mud,itemsDB: {}):
                'shut' not in itemsDB[itemID]['open_description']:
                 mud.send_message(id, randomDescription(itemsDB[itemID]['close_description']) + '\n\n')
                 clothingClosed=True
-        if not clothingClosed:    
+        if not clothingClosed:
             mud.send_message(id, 'You remove ' +
                              itemsDB[itemID]['article'] + ' <b234>' +
                              itemsDB[itemID]['name'] + '\n\n')
         players[id]['clo_'+clothingType] = 0
-    
+
 def unwear(params,mud,playersDB: {},players: {},rooms: {}, \
            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
            envDB: {},env: {},eventDB: {},eventSchedule, \
@@ -2966,7 +2966,7 @@ def playersMoveTogether(id,rm,mud, \
             if rooms[rm]['eventOnEnter'] is not "":
                 addToScheduler(int(rooms[rm]['eventOnEnter']),
                                pid, eventSchedule, eventDB)
-        
+
 def messageToPlayersInRoom(mud, players, id, msg):
     # go through all the players in the game
     for (pid, pl) in list(players.items()):
@@ -3005,7 +3005,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
 
     mud.send_message_wrap(id, '', \
                           randomDescription(players[pid]['lookDescription']) + '\n')
-    
+
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:
             mud.send_message(id, 'They are frozen.\n')
@@ -3181,7 +3181,7 @@ def stepOver(params,mud,playersDB: {},players: {},rooms: {}, \
             id, randomDescription(
                 "Do what?|Eh?") + '.\n\n')
         return
-        
+
     for direction,ex in rooms[roomID]['exits'].items():
         if direction in params:
             go('######step######'+direction,mud,playersDB,players, \
@@ -3249,7 +3249,7 @@ def climb(params,mud,playersDB: {},players: {},rooms: {}, \
             # look after climbing
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
-                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)            
+                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
@@ -3319,7 +3319,7 @@ def heave(params,mud,playersDB: {},players: {},rooms: {}, \
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
                  mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB, \
-                 clouds)            
+                 clouds)
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
@@ -3392,7 +3392,7 @@ def jump(params,mud,playersDB: {},players: {},rooms: {}, \
             # look after climbing
             look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
                  envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
-                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)            
+                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
             return
     mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
 
@@ -3526,7 +3526,7 @@ def chess(params,mud,playersDB: {},players: {},rooms: {}, \
         else:
             mud.send_message(id, '\nUndoing last chess move.\n')
             items[boardItemID]['gameState']['history'].pop()
-            gameState=items[boardItemID]['gameState']['history'][-1]            
+            gameState=items[boardItemID]['gameState']['history'][-1]
             items[boardItemID]['gameState']['state']=gameState
             if items[boardItemID]['gameState']['turn']=='white':
                 items[boardItemID]['gameState']['turn']='black'
@@ -3546,7 +3546,7 @@ def chess(params,mud,playersDB: {},players: {},rooms: {}, \
         items[boardItemID]['gameState']['history']=[]
         gameState=items[boardItemID]['gameState']['state']
         showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
-        return            
+        return
     if 'move' in params:
         params=params.replace('move ','').replace('to ','').replace('from ','').replace('.','').replace('-','').strip()
         chessMoves=params.split(' ')
@@ -3556,7 +3556,7 @@ def chess(params,mud,playersDB: {},players: {},rooms: {}, \
                 mud.send_message(id, "\nEnter a move such as g8f6.\n")
                 return
             chessMoves=[params[:2],params[2:]]
-                
+
         if len(chessMoves)!=2:
             mud.send_message(id, "\nThat's not a valid move.\n")
             return
@@ -3715,7 +3715,7 @@ def go(params,mud,playersDB: {},players: {},rooms: {}, \
                                                            " via exit "+ex+'\n')
                                 else:
                                     # The room height is too small for the follower
-                                    npcs[nid]['follow'] = ""                                
+                                    npcs[nid]['follow'] = ""
                             else:
                                 # not within the npc path, stop following
                                 #print(npcs[nid]['name'] + ' stops following (out of path)\n')
@@ -3755,7 +3755,7 @@ def go(params,mud,playersDB: {},players: {},rooms: {}, \
                 look('',mud,playersDB,players,rooms,npcsDB,npcs, \
                      itemsDB,items,envDB,env,eventDB,eventSchedule, \
                      id,fights,corpses,blocklist,mapArea, \
-                     characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)            
+                     characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
                 # report any followers
                 if len(followersMsg) > 0:
                     messageToPlayersInRoom(mud, players, id, followersMsg)
@@ -4085,8 +4085,8 @@ def conjureNPC(params,mud,playersDB: {},players: {},rooms: {}, \
               "tempCharmDuration": 0,
               "tempCharm": 0,
               "tempCharmTarget": "",
-              "guild": "",              
-              "guildRole": "",              
+              "guild": "",
+              "guildRole": "",
               "tempHitPointsDuration": 0,
               "tempHitPointsStart": 0,
               "tempHitPoints": 0,
@@ -4512,7 +4512,7 @@ def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud) -> bool:
         else:
             if itemsDB[unlockItemID]['state'].startswith('lever '):
                 mud.send_message(id, "It's operated with a lever.\n\n")
-            else:                    
+            else:
                 if randint(0, 1) == 1:
                     mud.send_message(
                         id,
@@ -4651,7 +4651,7 @@ def leverUp(params,mud,playersDB: {},players: {},rooms: {}, \
             ' ' +
             itemsDB[itemID]['name'] +
             '\n\n')
-    
+
 def leverDown(params,mud,playersDB: {},players: {},rooms: {}, \
               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
               envDB: {},env: {},eventDB: {},eventSchedule, \
@@ -5097,7 +5097,7 @@ def putItem(params,mud,playersDB: {},players: {},rooms: {}, \
                             mud.send_message(
                                 id, 'No more items can be put ' + inon + ' ' + \
                                 itemsDB[items[iid]['id']]['article'] + ' ' + \
-                                itemsDB[items[iid]['id']]['name'] + ".\n\n")                            
+                                itemsDB[items[iid]['id']]['name'] + ".\n\n")
                     else:
                         if 'on' in inon:
                             mud.send_message(
@@ -5176,7 +5176,7 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
             else:
                 mud.send_message(id,"You can't pick that up.\n\n")
             return
-        if itemIsVisible(id,players,iid2,itemsDB):                
+        if itemIsVisible(id,players,iid2,itemsDB):
             # ID of the item to be picked up
             itemName = itemsDB[iid2]['name']
             itemInDB = True

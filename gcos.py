@@ -19,7 +19,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
         mud.send_message(id, "usage: printf FORMAT")
         mud.send_message(id, "bad field specification")
         mud.send_message(id, "\n>")
-        return True        
+        return True
 
     if command=='ls' or command=='dir':
         mud.send_message(id, "<f220>.")
@@ -39,7 +39,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
         mud.send_message(
             id, "<f220>drwxr-xr-x 105   09:41 udd/")
         mud.send_message(id, "\n>")
-        return True        
+        return True
 
     if command=='mkdir' or \
        command=='rm' or \
@@ -47,7 +47,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
        command=='echo':
         mud.send_message(id, "<f220>OK")
         mud.send_message(id, "\n>")
-        return True        
+        return True
 
     if command=='passwd' or command=='pass':
         mud.send_message(id, "<f220>New password:")
@@ -58,17 +58,17 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
         mud.send_message(id, "<f220>Connected to tape drive 0")
         mud.send_message(id, "\n<f220>Datanet 1200 open")
         mud.send_message(id, "\n>")
-        return True        
-    
+        return True
+
     if command=='chown':
         mud.send_message(id, "<f220>Load tape drive")
         mud.send_message(id, "\n>")
-        return True        
+        return True
 
     if command=='cat' and ';' not in params:
         mud.send_message(id, "<f220>There is a fair fort upon the sea-shore.\nPleasantly, each is given his desire.\nAsk Gwynedd, let it be yours.\nRough, stiff spears they earned.\nOn Wednesday, I saw men in conflict;\non Thursday, it was reproaches they contended with.\nAnd hair was red with blood, and lamenting on harps.\nWeary were the men of Gwynedd the day they came,\nand atop the stone of Maelwy they shelter shields.\nA host of kinsmen fell by the descendant.")
         mud.send_message(id, "\n>")
-        return True        
+        return True
 
     if command=='unmount':
         mud.send_message(id, "<f220>Tape drive 1 spinup")
@@ -78,7 +78,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
     if command=='mount':
         mud.send_message(id, "<f220>Tape drive 1 mounted")
         mud.send_message(id, "\n>")
-        return True        
+        return True
 
     if command=='shred ' or command=='dd':
         mud.send_message(id, "<f220>ERROR 7291")
@@ -142,7 +142,7 @@ def terminalEmulator(command: str,params: str,mud,id) -> bool:
     if command=='wget':
         mud.send_message(id, "100%[=============================================================================================>]   1.41K  --.-KB/s    in 1s")
         mud.send_message(id, "1989-12-08 10:39:10 (1 KB/s) - saved to tape 0 [232/232]")
-        mud.send_message(id, "\n>")        
+        mud.send_message(id, "\n>")
         return True
 
     invalidNames=("sh","bash","chcon","chgrp","chown","chmod","cp","cd","dd","df","dir","dircolors","install","ln","ls","mkdir","mkfifo","mknod","mktemp","mv","realpath","rm","rmdir","shred","sync","touch","truncate","vdir","b2sum","base32","base64","cat","cksum","comm","csplit","cut","expand","fmt","fold","head","join","md5sum","nl","numfmt","od","paste","ptx","pr","sha1sum","sha224sum","sha256sum","sha384sum","sha512sum","shuf","sort","split","sum","tac","tail","tr","tsort","unexpand","uniq","wc","arch","basename","chroot","date","dirname","du","echo","env","expr","factor","false","groups","hostid","id","link","logname","nice","nohup","nproc","pathchk","pinky","printenv","printf","pwd","readlink","runcon","seq","sleep","stat","stdbuf","stty","tee","test","timeout","true","tty","uname","unlink","uptime","users","useradd","adduser","yes","/bin/busybox","busybox","/bin/bash","bash","/bin/sh")

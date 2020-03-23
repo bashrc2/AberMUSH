@@ -133,7 +133,7 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
     min_affinity=-10
 
     recipientName = npcs[p]['name']
-    if players[id]['affinity'].get(recipientName):        
+    if players[id]['affinity'].get(recipientName):
         if players[id]['affinity'][recipientName]>min_affinity:
             players[id]['affinity'][recipientName] -= 1
 

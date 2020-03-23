@@ -155,7 +155,7 @@ for roomID,rm in rooms.items():
     roomID=roomID.replace('$rid=','').replace('$','')
     if not os.path.isfile('/home/bashrc/develop/AberMUSH/images/rooms/'+str(roomID)):
         print('Missing room image: '+str(roomID))
-        
+
 log("Rooms loaded: " + str(len(rooms)), "info")
 
 maxTerrainDifficulty = assignTerrainDifficulty(rooms)
@@ -688,7 +688,7 @@ while True:
                         command+' '+params, "info")
                 else:
                     if terminalMode.get(str(id))==True:
-                        mud.send_message(id, ">")                    
+                        mud.send_message(id, ">")
                         log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
@@ -854,10 +854,10 @@ while True:
         # their name and move them to the starting room.
         if players[id]['name'] is None and \
            players[id]['exAttribute0'] is None:
-            if command.lower() != "new":                
+            if command.lower() != "new":
                 players[id]['idleStart'] = int(time.time())
                 dbResponse=None
-                
+
                 # check for logins with CONNECT username password
                 connectStr=command.strip().lower()
                 connectCommand=False
@@ -869,7 +869,7 @@ while True:
                         connectPassword=params.split(' ',1)[1].strip()
                         pl=loadPlayer(connectUsername, playersDB)
                         if pl is not None:
-                            dbResponse=tuple(pl.values())                        
+                            dbResponse=tuple(pl.values())
                             dbPass=pl['pwd']
                             if connectUsername == 'Guest':
                                 dbPass=hash_password(pl['pwd'])
@@ -911,7 +911,7 @@ while True:
                         command=''
                     else:
                         if terminalMode.get(str(id))==True:
-                            mud.send_message(id, ">")                    
+                            mud.send_message(id, ">")
 
                 if command:
                     file = loadPlayer(command, playersDB)
@@ -983,7 +983,7 @@ while True:
                         terminalMode[str(id)]=False
                         mud.send_message(id, "\nBYE\n\n")
                     else:
-                        mud.send_message(id, ">")                        
+                        mud.send_message(id, ">")
                         log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +

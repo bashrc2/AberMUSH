@@ -579,7 +579,7 @@ def spawnItem(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
             'owner': int(body[3])
         }
 
-        
+
 def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
     tempVar = 0
     body = ebody.split(';')
