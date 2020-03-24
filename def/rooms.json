@@ -403,13 +403,16 @@
         "name": "Top of Monks passage",
         "description": "The dormitory passage comes to an end here. A grating in the roof lets in light.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<7","The dormitory passage comes to an end here. There is a large grating in the roof."],
+	    ["hour",">21","The dormitory passage comes to an end here. There is a large grating in the roof."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
         "terrainDifficulty": 0,
