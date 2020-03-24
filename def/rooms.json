@@ -423,9 +423,13 @@
     },
     "$rid=46$": {
         "name": "Monk's Cell",
-        "description": "This cell appears to have been occupied by a clean and tidy mind.",
+        "description": "This cell appears to have been occupied by a clean and tidy mind. Light streams through a modest wood framed window.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["hour","<8","This cell appears to have been occupied by a clean and tidy mind"],
+	    ["hour","<12","This cell appears to have been occupied by a clean and tidy mind. Morning light streams through a modest wood framed window"],
+	    ["hour",">20","This cell appears to have been occupied by a clean and tidy mind"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
