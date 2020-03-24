@@ -4489,7 +4489,7 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
 
 def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud) -> bool:
     unlockItemID = itemsDB[items[iid]['id']]['lockedWithItem']
-    if not unlockItemID.isdigit():
+    if not str(unlockItemID).isdigit():
         return True
     if unlockItemID <= 0:
         return True
