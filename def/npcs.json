@@ -4568,11 +4568,11 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-	    [["a","e","i"],"# Remains motionless"]
+	    [["a","e","i","u"],"# Remains motionless"]
 	],
         "path" : [],
         "bodyType": "",
-        "moveDelay" : "300",
+        "moveDelay" : "3000",
         "moveType" : "",
         "moveTimes": [],
         "vocabulary" : "",

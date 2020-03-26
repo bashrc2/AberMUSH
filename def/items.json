@@ -7894,7 +7894,7 @@
     "280": {
         "name": "plain door",
         "short_description": "The plain door is closed.",
-        "long_description": "The plain door is tightly closed.",
+        "long_description": "The plain door is closed.",
 	"takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
