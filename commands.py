@@ -4716,7 +4716,7 @@ def openItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
                  itemsInWorldCopy: {},iid):
     if not openItemUnlock(items, itemsDB, id, iid, players, mud):
         return
-
+    
     itemID = items[iid]['id']
     linkedItemID = int(itemsDB[itemID]['linkedItem'])
     roomID = itemsDB[itemID]['exit']
@@ -4769,6 +4769,9 @@ def openItem(params,mud,playersDB: {},players: {},rooms: {}, \
     if target.startswith('registration'):
         enableRegistrations(mud, id, players)
         return
+
+    if target.startswith('the '):
+        target=target.replace('the ','')
 
     itemsInWorldCopy = deepcopy(items)
     for (iid, pl) in list(itemsInWorldCopy.items()):
@@ -4945,7 +4948,7 @@ def closeItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
     roomID = itemsDB[itemID]['exit']
     if '|' not in itemsDB[itemID]['exitName']:
         return
-
+    
     exitName = itemsDB[itemID]['exitName'].split('|')
 
     itemsDB[itemID]['state'] = 'closed'
@@ -4989,6 +4992,9 @@ def closeItem(params,mud,playersDB: {},players: {},rooms: {}, \
     if target.startswith('registration'):
         disableRegistrations(mud, id, players)
         return
+
+    if target.startswith('the '):
+        target=target.replace('the ','')
 
     itemsInWorldCopy = deepcopy(items)
     for (iid, pl) in list(itemsInWorldCopy.items()):
