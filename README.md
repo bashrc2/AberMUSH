@@ -189,10 +189,10 @@ The speed at which NPCs move between rooms is defined by `moveDelay` and `random
 NPCs may be present at certain times of day or days of the year. To define this use the `moveTimes` list within `npcs.json`.
 
 ``` text
-"moveTimes": [["hour",8,19],["day","saturday","sunday"],["inactive",238]],
+"moveTimes": [["hour",8,19],["day","saturday","sunday"],["inactive",1386]],
 ```
 
-In the above example the NPC will be active between 8:00 (8am) and 19:00 (7pm) on the weekend and when inactive will be in room 238. So for example a cleric might be present at a church only on Sunday between certain hours and then be at a monestary at other times. If the `inactive` list isn't specified then when inactive an NPC will go to a default purgatory room.
+In the above example the NPC will be active between 8:00 (8am) and 19:00 (7pm) on the weekend and when inactive will be in room 1386. So for example a cleric might be present at a church only on Sunday between certain hours and then be at a monestary at other times. If the `inactive` list isn't specified then when inactive an NPC will go to a default purgatory room.
 
 You can also use `moveTimes` within `items.json` to specify items which are only present at certain times. However, these must be items having a weight value of zero so that they can't be taken.
 
