@@ -7,17 +7,11 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-from functions import log
 from random import randint
 import random
-from copy import deepcopy
 from math import sin
 
 import datetime
-import time
 
 rainThreshold = 230
 
@@ -41,9 +35,12 @@ def runTide() -> float:
     solarMins = timeMins % int(24 * 60 * 365)
     dailyMins = timeMins % int(24 * 60)
 
-    lunar = sin(float(lunarMins) * 2.0 * 3.1415927 / float(lunar_orbit_mins)) * 0.08
-    solar = sin(float(solarMins) * 2.0 * 3.1415927 / float(24 * 60 * 365)) * 0.02
-    daily = sin(float(dailyMins) * 2.0 * 3.1415927 / float(24 * 60)) * 0.9
+    lunar = sin(float(lunarMins) * 2.0 * 3.1415927 /
+                float(lunar_orbit_mins)) * 0.08
+    solar = sin(float(solarMins) * 2.0 * 3.1415927 /
+                float(24 * 60 * 365)) * 0.02
+    daily = sin(float(dailyMins) * 2.0 * 3.1415927 /
+                float(24 * 60)) * 0.9
 
     return daily + lunar + solar
 
@@ -106,7 +103,6 @@ def findRoomWithoutCoords(rooms: {}):
         if len(rooms[rm]['coords']) > 0:
             # Search the exits for ones without coords
             for ex in rooms[rm]['exits']:
-                roomID = rooms[rm]['exits'][ex]
                 rm2 = rooms[rooms[rm]['exits'][ex]]
                 if len(rm2['coords']) == 0:
                     if ex == 'north':
@@ -257,12 +253,14 @@ def generateCloud(
 
             interpolate_top = \
                 cloudGrid[tile_tx][tile_ty] + \
-                int((cloudGrid[tile_bx][tile_ty] - cloudGrid[tile_tx][tile_ty]) *
+                int((cloudGrid[tile_bx][tile_ty] -
+                     cloudGrid[tile_tx][tile_ty]) *
                     (x % tileSize) / tileSize)
 
             interpolate_bottom = \
                 cloudGrid[tile_tx][tile_by] + \
-                int((cloudGrid[tile_bx][tile_by] - cloudGrid[tile_tx][tile_by]) *
+                int((cloudGrid[tile_bx][tile_by] -
+                     cloudGrid[tile_tx][tile_by]) *
                     (x % tileSize) / tileSize)
 
             clouds[x][y] = \
@@ -335,13 +333,15 @@ def getCloudThreshold(temperature: float) -> float:
     return (10 + temperature) * 7
 
 
-def altitudeTemperatureAdjustment(rooms: {}, mapArea: [], x: int, y: int) -> float:
+def altitudeTemperatureAdjustment(rooms: {}, mapArea: [],
+                                  x: int, y: int) -> float:
     """Temperature decreases with altitude
     """
     return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
 
 
-def terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [], x: int, y: int) -> float:
+def terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
+                                 x: int, y: int) -> float:
     """Temperature is adjusted for different types of terrain
     """
     terrainFreezingWords = ('snow', 'ice')
@@ -362,7 +362,6 @@ def terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [], x: 
         'shore')
     terrainHeatingWords = ('sun', 'lava', 'volcan', 'molten', 'desert', 'dry')
 
-    maxTerrainDifficulty = 1
     for rm in rooms:
         coords = rooms[rm]['coords']
         if coords[0] - mapArea[0][0] == y:
@@ -441,10 +440,13 @@ def getTemperature() -> float:
     solarVariance = avTemp * 0.2
     solarCycle = sin((0.75 + dayFraction) * 2 * 3.1415927) * solarVariance
 
-    #print("avTemp " + str(avTemp) + " dailyVariance " + str(dailyVariance) + " solarCycle " + str(solarCycle))
+    # print("avTemp " + str(avTemp) + " dailyVariance " +
+    # str(dailyVariance) + " solarCycle " + str(solarCycle))
     return avTemp + dailyVariance + solarCycle
 
-def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> float:
+
+def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
+                           clouds: {}) -> float:
     """Returns the temperature at the given coordinates
     """
     x = coords[1] - mapArea[1][0]
@@ -460,7 +462,7 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> fl
     currTemp = terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
 
     # Adjust for rain
-    if getRainAtCoords([y,x],mapArea,clouds):
+    if getRainAtCoords([y, x], mapArea, clouds):
         currTemp = currTemp * 0.8
 
     if clouds[x][y] < getCloudThreshold(currTemp):
@@ -469,6 +471,7 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [], clouds: {}) -> fl
 
     # with cloud
     return currTemp * 0.8
+
 
 def getRainAtCoords(coords: [], mapArea: [], clouds: {}) -> bool:
     """Returns whether it is raining at the civen coordinates
