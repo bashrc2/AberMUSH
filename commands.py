@@ -26,7 +26,6 @@ from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import getGuildSentiment
 from environment import runTide
-from environment import assignCoordinates
 from environment import getRainAtCoords
 from traps import playerIsTrapped
 from traps import describeTrappedPlayer
@@ -54,7 +53,6 @@ from proficiencies import thievesCant
 from npcs import npcConversation
 
 from familiar import getFamiliarName
-from familiar import familiarIsHidden
 
 import os
 import re
@@ -65,20 +63,14 @@ import datetime
 import os.path
 from random import randint
 
-from dateutil import tz
 from suntime import Sun
 
 import decimal
 dec = decimal.Decimal
 
-wearLocation=('head','neck','lwrist','rwrist','larm','rarm','chest','feet','lfinger','rfinger','back','lleg','rleg')
-
-'''
-Command function template:
-
-def commandname(params, mud, playersDB, players, rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB, eventSchedule, id, fights, corpses, blocklist, mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds):
-        print("I'm in!")
-'''
+wearLocation = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
+                'chest', 'feet', 'lfinger', 'rfinger', 'back',
+                'lleg', 'rleg')
 
 # maximum weight of items which can be carried
 maxWeight = 100
@@ -91,12 +83,13 @@ def removeItemFromClothing(players: {}, id: int, itemID: int) -> None:
         if int(players[id]['clo_'+c]) == itemID:
             players[id]['clo_'+c] = 0
 
-def sendCommandError(params,mud,playersDB: {},players: {},rooms: {}, \
-                     npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                     envDB: {},env,eventDB: {},eventSchedule,id: int, \
-                     fights: {},corpses,blocklist,mapArea: [], \
-                     characterClassDB: {},spellsDB: {}, \
-                     sentimentDB: {},guildsDB: {},clouds: {}) -> None:
+
+def sendCommandError(params, mud, playersDB: {}, players: {}, rooms: {},
+                     npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                     envDB: {}, env, eventDB: {}, eventSchedule, id: int,
+                     fights: {}, corpses, blocklist, mapArea: [],
+                     characterClassDB: {}, spellsDB: {},
+                     sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
     mud.send_message(id, "Unknown command " + str(params) + "!\n")
 
 
@@ -146,79 +139,83 @@ def enableRegistrations(mud, id: int, players: {}) -> None:
     mud.send_message(id, "New player registrations are now permitted.\n\n")
 
 
-def teleport(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
-             npcs: {},itemsDB: {},items: {},envDB: {},env,eventDB: {}, \
-             eventSchedule,id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {},sentimentDB: {}, \
-             guildsDB: {},clouds: {}) -> None:
+def teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
+             npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
+             eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {}, sentimentDB: {},
+             guildsDB: {}, clouds: {}) -> None:
 
     if players[id]['permissionLevel'] != 0:
         mud.send_message(id, "You don't have enough powers for that.\n\n")
         return
 
     if isWitch(id, players):
-        if playerIsTrapped(id,players,rooms):
-            teleportFromTrap(mud,id,players,rooms)
+        if playerIsTrapped(id, players, rooms):
+            teleportFromTrap(mud, id, players, rooms)
 
-        targetLocation = params[0:].strip().lower().replace('to ', '',1)
+        targetLocation = params[0:].strip().lower().replace('to ', '', 1)
         if len(targetLocation) != 0:
             currRoom = players[id]['room']
             if rooms[currRoom]['name'].strip().lower() == targetLocation:
                 mud.send_message(
-                    id, "You are already in " + \
-                    rooms[currRoom]['name'] + \
+                    id, "You are already in " +
+                    rooms[currRoom]['name'] +
                     "\n\n")
                 return
             for rm in rooms:
                 if rooms[rm]['name'].strip().lower() == targetLocation:
                     mud.send_message(
                         id, "You teleport to " + rooms[rm]['name'] + "\n\n")
-                    messageToPlayersInRoom(mud, players, id, \
-                                           '<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n\n")
+                    pName = players[id]['name']
+                    desc = '<f32>{}<r> suddenly vanishes.'.format(pName)
+                    messageToPlayersInRoom(mud, players, id, desc + "\n\n")
                     players[id]['room'] = rm
-                    messageToPlayersInRoom(mud, players, id, \
-                                           '<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n\n")
-                    look('',mud,playersDB,players,rooms,npcsDB,npcs, \
-                         itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                         id,fights,corpses,blocklist,mapArea, \
-                         characterClassDB,spellsDB,sentimentDB, \
-                         guildsDB,clouds)
+                    desc = '<f32>{}<r> suddenly appears.'.format(pName)
+                    messageToPlayersInRoom(mud, players, id, desc + "\n\n")
+                    look('', mud, playersDB, players, rooms, npcsDB, npcs,
+                         itemsDB, items, envDB, env, eventDB, eventSchedule,
+                         id, fights, corpses, blocklist, mapArea,
+                         characterClassDB, spellsDB, sentimentDB,
+                         guildsDB, clouds)
                     return
 
             # try adding or removing "the"
             if targetLocation.startswith('the '):
-                targetLocation=targetLocation.replace('the ','')
+                targetLocation = targetLocation.replace('the ', '')
             else:
-                targetLocation='the '+targetLocation
+                targetLocation = 'the ' + targetLocation
 
+            pName = players[id]['name']
+            desc1 = '<f32>{}<r> suddenly vanishes.'.format(pName)
+            desc2 = '<f32>{}<r> suddenly appears.'.format(pName)
             for rm in rooms:
                 if rooms[rm]['name'].strip().lower() == targetLocation:
                     mud.send_message(
                         id, "You teleport to " + rooms[rm]['name'] + "\n\n")
-                    messageToPlayersInRoom(
-                        mud, players, id, '<f32>{}<r> suddenly vanishes.'.format(players[id]['name']) + "\n\n")
+                    messageToPlayersInRoom(mud, players, id, desc1 + "\n\n")
                     players[id]['room'] = rm
-                    messageToPlayersInRoom(
-                        mud, players, id, '<f32>{}<r> suddenly appears.'.format(players[id]['name']) + "\n\n")
-                    look('',mud,playersDB,players,rooms,npcsDB,npcs, \
-                         itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                         id,fights,corpses,blocklist,mapArea, \
-                         characterClassDB,spellsDB,sentimentDB, \
-                         guildsDB,clouds)
+                    messageToPlayersInRoom(mud, players, id, desc2 + "\n\n")
+                    look('', mud, playersDB, players, rooms, npcsDB, npcs,
+                         itemsDB, items, envDB, env, eventDB, eventSchedule,
+                         id, fights, corpses, blocklist, mapArea,
+                         characterClassDB, spellsDB, sentimentDB,
+                         guildsDB, clouds)
                     return
 
             mud.send_message(
-                id, targetLocation+" isn't a place you can teleport to.\n\n")
+                id, targetLocation +
+                " isn't a place you can teleport to.\n\n")
         else:
             mud.send_message(id, "That's not a place.\n\n")
     else:
         mud.send_message(id, "You don't have enough powers to teleport.\n\n")
 
-def summon(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
-           npcs: {},itemsDB: {},items: {},envDB: {},env,eventDB: {}, \
-           eventSchedule,id: int,fights: {},corpses: {},blocklist, \
-           mapArea: [],characterClassDB: {},spellsDB: {}, \
-           sentimentDB: {},guildsDB: {},clouds: {}) -> None:
+
+def summon(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
+           npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
+           eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             targetPlayer = params[0:].strip().lower()
@@ -226,30 +223,33 @@ def summon(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                 for p in players:
                     if players[p]['name'].strip().lower() == targetPlayer:
                         if players[p]['room'] != players[id]['room']:
-                            messageToPlayersInRoom(
-                                mud, players, p, '<f32>{}<r> suddenly vanishes.'.format(
-                                    players[p]['name']) + "\n")
+                            pNam = players[p]['name']
+                            desc = '<f32>{}<r> suddenly vanishes.'.format(pNam)
+                            messageToPlayersInRoom(mud, players, p,
+                                                   desc + "\n")
                             players[p]['room'] = players[id]['room']
                             rm = players[p]['room']
-                            mud.send_message(
-                                id, "You summon " + players[p]['name'] + "\n\n")
-                            mud.send_message(p, \
-                                             "A mist surrounds you. When it "+ \
-                                             "clears you find that you are now in "+ \
-                                             rooms[rm]['name']+"\n\n")
+                            mud.send_message(id, "You summon " +
+                                             players[p]['name'] + "\n\n")
+                            mud.send_message(p,
+                                             "A mist surrounds you. When it " +
+                                             "clears you find that you " +
+                                             "are now in " +
+                                             rooms[rm]['name'] + "\n\n")
                         else:
                             mud.send_message(
-                                id, players[p]['name'] + " is already here.\n\n")
+                                id, players[p]['name'] +
+                                " is already here.\n\n")
                         return
         else:
             mud.send_message(id, "You don't have enough powers for that.\n\n")
 
 
-def mute(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
-         npcs: {},itemsDB: {},items: {},envDB: {},env,eventDB: {}, \
-         eventSchedule,id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}) -> None:
+def mute(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
+         npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
+         eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
     if players[id]['permissionLevel'] != 0:
         mud.send_message(
             id, "You aren't capable of doing that.\n\n")
@@ -270,16 +270,16 @@ def mute(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                         id, "You have muted " + target + "\n\n")
                 else:
                     mud.send_message(
-                        id, "You try to mute " + target + \
+                        id, "You try to mute " + target +
                         " but their power is too strong.\n\n")
                 return
 
 
-def unmute(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
-           npcs: {},itemsDB: {},items: {},envDB: {},env,eventDB: {}, \
-           eventSchedule,id: int,fights: {},corpses: {},blocklist, \
-           mapArea: [],characterClassDB: {},spellsDB: {}, \
-           sentimentDB: {},guildsDB: {},clouds: {}) -> None:
+def unmute(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
+           npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
+           eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
     if players[id]['permissionLevel'] != 0:
         mud.send_message(
             id, "You aren't capable of doing that.\n\n")
@@ -302,11 +302,11 @@ def unmute(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                     return
 
 
-def freeze(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
-           npcs: {},itemsDB: {},items: {},envDB: {},env,eventDB: {}, \
-           eventSchedule,id: int,fights: {},corpses: {},blocklist, \
-           mapArea: [],characterClassDB: {},spellsDB: {}, \
-           sentimentDB: {},guildsDB: {},clouds: {}):
+def freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
+           npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
+           eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -315,7 +315,8 @@ def freeze(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                 for p in players:
                     if players[p]['whenDied']:
                         mud.send_message(
-                            id, "Freezing a player while dead is pointless\n\n")
+                            id,
+                            "Freezing a player while dead is pointless\n\n")
                         continue
                     if players[p]['frozenStart'] > 0:
                         mud.send_message(
@@ -325,8 +326,8 @@ def freeze(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                         if not isWitch(p, players):
                             # remove from any fights
                             for (fight, pl) in fights.items():
-                                if fights[fight]['s1id']==p or \
-                                   fights[fight]['s2id']==p:
+                                if fights[fight]['s1id'] == p or \
+                                   fights[fight]['s2id'] == p:
                                     del fights[fight]
                             players[p]['canGo'] = 0
                             players[p]['canAttack'] = 0
@@ -334,7 +335,8 @@ def freeze(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                                 id, "You have frozen " + target + "\n\n")
                         else:
                             mud.send_message(
-                                id, "You try to freeze " + target + " but their power is too strong.\n\n")
+                                id, "You try to freeze " + target +
+                                " but their power is too strong.\n\n")
                         return
                 # freeze npcs
                 for p in npcs:
@@ -350,8 +352,8 @@ def freeze(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                         if not isWitch(p, npcs):
                             # remove from any fights
                             for (fight, pl) in fights.items():
-                                if fights[fight]['s1id']==p or \
-                                   fights[fight]['s2id']==p:
+                                if fights[fight]['s1id'] == p or \
+                                   fights[fight]['s2id'] == p:
                                     del fights[fight]
 
                             npcs[p]['canGo'] = 0
@@ -360,16 +362,17 @@ def freeze(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
                                 id, "You have frozen " + target + "\n\n")
                         else:
                             mud.send_message(
-                                id, "You try to freeze " + target + " but their power is too strong.\n\n")
+                                id, "You try to freeze " + target +
+                                " but their power is too strong.\n\n")
                         return
 
 
-def unfreeze(params,mud,playersDB: {},players: {},rooms: {},\
-             npcsDB: {}, npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {},
-             sentimentDB: {},guildsDB: {},clouds: {}):
+def unfreeze(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -397,12 +400,12 @@ def unfreeze(params,mud,playersDB: {},players: {},rooms: {},\
                             return
 
 
-def showBlocklist(params,mud,playersDB: {},players: {},rooms: {}, \
-                  npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                  envDB: {},env: {},eventDB: {},eventSchedule, \
-                  id: int,fights: {},corpses: {},blocklist, \
-                  mapArea: [],characterClassDB: {},spellsDB: {},
-                  sentimentDB: {},guildsDB: {},clouds: {}):
+def showBlocklist(params, mud, playersDB: {}, players: {}, rooms: {},
+                  npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                  envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                  id: int, fights: {}, corpses: {}, blocklist,
+                  mapArea: [], characterClassDB: {}, spellsDB: {},
+                  sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -416,21 +419,22 @@ def showBlocklist(params,mud,playersDB: {},players: {},rooms: {}, \
     mud.send_message(id, "Blocked strings are:\n\n" + blockStr + '\n')
 
 
-def block(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {},envDB: {}, \
-          env: {},eventDB: {},eventSchedule, \
-          id: int,fights: {},corpses: {},blocklist, \
-          mapArea: [],characterClassDB: {},spellsDB: {}, \
-          sentimentDB: {},guildsDB: {},clouds: {}):
+def block(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB: {},
+          env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
 
     if len(params) == 0:
-        showBlocklist(params,mud,playersDB,players,rooms,npcsDB,npcs, \
-                      itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                      id,fights,corpses,blocklist,mapArea,characterClassDB, \
-                      spellsDB,sentimentDB,guildsDB,clouds)
+        showBlocklist(params, mud, playersDB, players, rooms, npcsDB, npcs,
+                      itemsDB, items, envDB, env, eventDB, eventSchedule,
+                      id, fights, corpses, blocklist, mapArea,
+                      characterClassDB, spellsDB, sentimentDB, guildsDB,
+                      clouds)
         return
 
     blockedstr = params.lower().strip().replace('"', '')
@@ -452,21 +456,21 @@ def block(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, "That's already in the blocklist.\n")
 
 
-def unblock(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
-            npcs: {},itemsDB: {},items: {},envDB: {},env: {}, \
-            eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: [],characterClassDB: {},spellsDB: {}, \
-            sentimentDB: {},guildsDB: {},clouds: {}):
+def unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
+            npcs: {}, itemsDB: {}, items: {}, envDB: {}, env: {},
+            eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
 
     if len(params) == 0:
-        showBlocklist(params,mud,playersDB,players,rooms,npcsDB, \
-                      npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                      id,fights,corpses,blocklist,mapArea, \
-                      characterClassDB,spellsDB,sentimentDB,guildsDB, \
+        showBlocklist(params, mud, playersDB, players, rooms, npcsDB,
+                      npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+                      id, fights, corpses, blocklist, mapArea,
+                      characterClassDB, spellsDB, sentimentDB, guildsDB,
                       clouds)
         return
 
@@ -489,12 +493,12 @@ def unblock(params,mud,playersDB: {},players: {},rooms: {},npcsDB: {}, \
         mud.send_message(id, "That's not in the blocklist.\n")
 
 
-def kick(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+def kick(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -513,12 +517,13 @@ def kick(params,mud,playersDB: {},players: {},rooms: {}, \
 
     mud.send_message(id, "There are no players with that name.\n\n")
 
-def shutdown(params,mud,playersDB: {},players: {},rooms: {}, \
-             npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {},
-             sentimentDB: {},guildsDB: {},clouds: {}):
+
+def shutdown(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -534,12 +539,12 @@ def shutdown(params,mud,playersDB: {},players: {},rooms: {}, \
     sys.exit()
 
 
-def resetUniverse(params,mud,playersDB: {},players: {},rooms: {}, \
-                  npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                  envDB: {},env: {},eventDB: {},eventSchedule, \
-                  id: int,fights: {},corpses: {},blocklist, \
-                  mapArea: [],characterClassDB: {},spellsDB, \
-                  sentimentDB: {},guildsDB: {},clouds: {}):
+def resetUniverse(params, mud, playersDB: {}, players: {}, rooms: {},
+                  npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                  envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                  id: int, fights: {}, corpses: {}, blocklist,
+                  mapArea: [], characterClassDB: {}, spellsDB,
+                  sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -552,21 +557,21 @@ def resetUniverse(params,mud,playersDB: {},players: {},rooms: {}, \
     sys.exit()
 
 
-def quit(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+def quit(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud._handle_disconnect(id)
 
 
-def who(params,mud,playersDB: {},players: {},rooms: {}, \
-        npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-        envDB: {},env: {},eventDB: {},eventSchedule, \
-        id: int,fights: {},corpses: {},blocklist, \
-        mapArea: [],characterClassDB: {},spellsDB, \
-        sentimentDB: {},guildsDB: {},clouds: {}):
+def who(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+        envDB: {}, env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB,
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
     counter = 1
     if players[id]['permissionLevel'] == 0:
         is_witch = isWitch(id, players)
@@ -597,31 +602,34 @@ def who(params,mud,playersDB: {},players: {},rooms: {}, \
     else:
         mud.send_message(id, "You do not have permission to do this.\n")
 
-def tell(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+
+def tell(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     told = False
     target = params.partition(' ')[0]
 
     # replace "familiar" with their NPC name
     # as in: "ask familiar to follow"
-    if target.lower()=='familiar':
-        newTarget=getFamiliarName(players,id,npcs)
-        if len(newTarget)>0:
-            target=newTarget
+    if target.lower() == 'familiar':
+        newTarget = getFamiliarName(players, id, npcs)
+        if len(newTarget) > 0:
+            target = newTarget
 
     message = params.replace(target, "")[1:]
     if len(target) != 0 and len(message) != 0:
         cantStr = thievesCant(message)
         for p in players:
-            if players[p]['authenticated'] is not None and players[p]['name'].lower() == target.lower():
-                #print("sending a tell")
+            if players[p]['authenticated'] is not None and \
+               players[p]['name'].lower() == target.lower():
+                # print("sending a tell")
                 if players[id]['name'].lower() == target.lower():
                     mud.send_message(
-                        id, "It'd be pointless to send a tell message to yourself\n")
+                        id, "It'd be pointless to send a tell " +
+                        "message to yourself\n")
                     told = True
                     break
                 else:
@@ -634,19 +642,18 @@ def tell(params,mud,playersDB: {},players: {},rooms: {}, \
                             break
 
                     if not selfOnly:
-                        if players[id]['speakLanguage'] in players[p]['language']:
+                        langList = players[p]['language']
+                        if players[id]['speakLanguage'] in langList:
                             addToScheduler(
                                 "0|msg|<f90>From " +
                                 players[id]['name'] +
-                                ": " +
-                                message +
-                                '\n',
-                                p,
-                                eventSchedule,
+                                ": " + message +
+                                '\n', p, eventSchedule,
                                 eventDB)
-                            sentimentScore= \
+                            sentimentScore = \
                                 getSentiment(message, sentimentDB) + \
-                                getGuildSentiment(players, id, players, p, guildsDB)
+                                getGuildSentiment(players, id, players,
+                                                  p, guildsDB)
                             if sentimentScore >= 0:
                                 increaseAffinityBetweenPlayers(
                                     players, id, players, p, guildsDB)
@@ -660,26 +667,19 @@ def tell(params,mud,playersDB: {},players: {},rooms: {}, \
                                     players[id]['name'] +
                                     ": something in " +
                                     players[id]['speakLanguage'] +
-                                    '\n',
-                                    p,
-                                    eventSchedule,
+                                    '\n', p, eventSchedule,
                                     eventDB)
                             else:
                                 addToScheduler(
                                     "0|msg|<f90>From " +
                                     players[id]['name'] +
-                                    ": " +
-                                    cantStr +
-                                    '\n',
-                                    p,
-                                    eventSchedule,
+                                    ": " + cantStr +
+                                    '\n', p, eventSchedule,
                                     eventDB)
                     mud.send_message(
-                        id,
-                        "<f90>To " +
+                        id, "<f90>To " +
                         players[p]['name'] +
-                        ": " +
-                        message +
+                        ": " + message +
                         "\n\n")
                     told = True
                     break
@@ -688,36 +688,34 @@ def tell(params,mud,playersDB: {},players: {},rooms: {}, \
                 if (npcs[nid]['room'] == players[id]['room']) or \
                    npcs[nid]['familiarOf'] == players[id]['name']:
                     if target.lower() in npcs[nid]['name'].lower():
-                        npcConversation(mud,npcs,npcsDB,players, \
-                                        items,itemsDB,rooms,id, \
-                                        nid,message.lower(), \
-                                        characterClassDB, \
-                                        sentimentDB,guildsDB, \
+                        npcConversation(mud, npcs, npcsDB, players,
+                                        items, itemsDB, rooms, id,
+                                        nid, message.lower(),
+                                        characterClassDB,
+                                        sentimentDB, guildsDB,
                                         clouds)
                         told = True
                         break
 
         if not told:
             mud.send_message(
-                id,
-                "<f32>" +
-                target +
+                id, "<f32>" + target +
                 "<r> does not appear to be reachable at this moment.\n\n")
     else:
         mud.send_message(id, "Huh?\n\n")
 
 
-def whisper(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: [],characterClassDB: {},spellsDB: {}, \
-            sentimentDB: {},guildsDB: {},clouds: {}):
+def whisper(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.partition(' ')[0]
     message = params.replace(target, "")
 
     # if message[0] == " ":
-    #message.replace(message[0], "")
+    # message.replace(message[0], "")
     messageSent = False
     # print(message)
     # print(str(len(message)))
@@ -725,11 +723,11 @@ def whisper(params,mud,playersDB: {},players: {},rooms: {}, \
         if len(message) > 0:
             cantStr = thievesCant(message)
             for p in players:
-                if players[p]['name'] is not None and players[p]['name'].lower(
-                ) == target.lower():
+                if players[p]['name'] is not None and \
+                   players[p]['name'].lower() == target.lower():
                     if players[p]['room'] == players[id]['room']:
-                        if players[p]['name'].lower(
-                        ) != players[id]['name'].lower():
+                        if players[p]['name'].lower() != \
+                           players[id]['name'].lower():
 
                             # don't whisper if the string contains a blocked
                             # string
@@ -740,9 +738,10 @@ def whisper(params,mud,playersDB: {},players: {},rooms: {}, \
                                     selfOnly = True
                                     break
 
-                            sentimentScore= \
+                            sentimentScore = \
                                 getSentiment(message[1:], sentimentDB) + \
-                                getGuildSentiment(players, id, players, p, guildsDB)
+                                getGuildSentiment(players, id, players,
+                                                  p, guildsDB)
                             if sentimentScore >= 0:
                                 increaseAffinityBetweenPlayers(
                                     players, id, players, p, guildsDB)
@@ -751,29 +750,33 @@ def whisper(params,mud,playersDB: {},players: {},rooms: {}, \
                                     players, id, players, p, guildsDB)
 
                             mud.send_message(
-                                id, "You whisper to <f32>" + players[p]['name'] + "<r>: " + message[1:] + '\n')
+                                id, "You whisper to <f32>" +
+                                players[p]['name'] + "<r>: " +
+                                message[1:] + '\n')
                             if not selfOnly:
-                                if players[id]['speakLanguage'] in players[p]['language']:
-
+                                langList = players[p]['language']
+                                if players[id]['speakLanguage'] in langList:
                                     mud.send_message(
-                                        p, "<f162>" + players[id]['name'] + " whispers: " + message[1:] + '\n')
+                                        p, "<f162>" + players[id]['name'] +
+                                        " whispers: " + message[1:] + '\n')
                                 else:
                                     if players[id]['speakLanguage'] != 'cant':
                                         mud.send_message(
-                                            p,
-                                            "<f162>" +
+                                            p, "<f162>" +
                                             players[id]['name'] +
                                             " whispers something in " +
                                             players[id]['speakLanguage'] +
                                             '\n')
                                     else:
                                         mud.send_message(
-                                            p, "<f162>" + players[id]['name'] + " whispers:  " + cantStr + '\n')
+                                            p, "<f162>" + players[id]['name'] +
+                                            " whispers:  " + cantStr + '\n')
                             messageSent = True
                             break
                         else:
                             mud.send_message(
-                                id, "You would probably look rather silly whispering to yourself.\n")
+                                id, "You would probably look rather silly " +
+                                "whispering to yourself.\n")
                             messageSent = True
                             break
             if not messageSent:
@@ -785,262 +788,354 @@ def whisper(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, "Who would you like to whisper to??\n")
 
 
-def help(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+def help(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB,
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     if params.lower().startswith('card'):
-        helpCards(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
-                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
-                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
-                  guildsDB,clouds)
+        helpCards(params, mud, playersDB, players,
+                  rooms, npcsDB, npcs, itemsDB,
+                  items, envDB, env, eventDB, eventSchedule,
+                  id, fights, corpses,
+                  blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds)
         return
     if params.lower().startswith('chess'):
-        helpChess(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
-                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
-                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
-                  guildsDB,clouds)
+        helpChess(params, mud, playersDB, players,
+                  rooms, npcsDB, npcs, itemsDB,
+                  items, envDB, env, eventDB,
+                  eventSchedule, id, fights, corpses,
+                  blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds)
         return
     if params.lower().startswith('morris'):
-        helpMorris(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
-                   items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
-                   blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
-                   guildsDB,clouds)
+        helpMorris(params, mud, playersDB, players,
+                   rooms, npcsDB, npcs, itemsDB,
+                   items, envDB, env, eventDB,
+                   eventSchedule, id, fights, corpses,
+                   blocklist, mapArea, characterClassDB,
+                   spellsDB, sentimentDB,
+                   guildsDB, clouds)
         return
     if params.lower().startswith('witch'):
-        helpWitch(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
-                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
-                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
-                  guildsDB,clouds)
+        helpWitch(params, mud, playersDB, players,
+                  rooms, npcsDB, npcs, itemsDB,
+                  items, envDB, env, eventDB,
+                  eventSchedule, id, fights, corpses,
+                  blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds)
         return
     if params.lower().startswith('spell'):
-        helpSpell(params,mud,playersDB,players,rooms,npcsDB,npcs,itemsDB, \
-                  items,envDB,env,eventDB,eventSchedule,id,fights,corpses, \
-                  blocklist,mapArea,characterClassDB,spellsDB,sentimentDB, \
-                  guildsDB,clouds)
+        helpSpell(params, mud, playersDB, players,
+                  rooms, npcsDB, npcs, itemsDB,
+                  items, envDB, env, eventDB, eventSchedule,
+                  id, fights, corpses,
+                  blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds)
         return
 
     mud.send_message(id, '\n')
     mud.send_message(id, 'Commands:')
-    mud.send_message(id, \
+    mud.send_message(id,
                      '  help witch|spell|cards|chess|morris     - Show help')
-    mud.send_message(id, \
-                     '  bio [description]                       - Set a description of yourself')
-    mud.send_message(id, \
-                     '  graphics [on|off]                       - Turn graphic content on or off')
-    mud.send_message(id, \
-                     '  change password [newpassword]           - Change your password')
-    mud.send_message(id, \
-                     '  who                                     - List players and where they are')
-    mud.send_message(id, \
-                     '  quit/exit                               - Leave the game')
-    mud.send_message(id, \
-                     '  eat/drink [item]                        - Eat or drink a consumable')
-    mud.send_message(id, \
-                     '  speak [language]                        - Switch to speaking a different language')
-    mud.send_message(id, \
-                     '  say [message]                           - Says something out loud, ' +
+    mud.send_message(id,
+                     '  bio [description]                       - ' +
+                     'Set a description of yourself')
+    mud.send_message(id,
+                     '  graphics [on|off]                       - ' +
+                     'Turn graphic content on or off')
+    mud.send_message(id,
+                     '  change password [newpassword]           - ' +
+                     'Change your password')
+    mud.send_message(id,
+                     '  who                                     - ' +
+                     'List players and where they are')
+    mud.send_message(id,
+                     '  quit/exit                               - ' +
+                     'Leave the game')
+    mud.send_message(id,
+                     '  eat/drink [item]                        - ' +
+                     'Eat or drink a consumable')
+    mud.send_message(id,
+                     '  speak [language]                        - ' +
+                     'Switch to speaking a different language')
+    mud.send_message(id,
+                     '  say [message]                           - ' +
+                     'Says something out loud, ' +
                      "e.g. 'say Hello'")
-    mud.send_message(id, \
-                     '  look/examine                            - Examines the ' +
-                     "surroundings, items in the room, NPCs or other players e.g. 'examine inn-keeper'")
-    mud.send_message(id, \
-                     '  go [exit]                               - Moves through the exit ' +
+    mud.send_message(id,
+                     '  look/examine                            - ' +
+                     'Examines the ' +
+                     "surroundings, items in the room, NPCs or other " +
+                     "players e.g. 'examine inn-keeper'")
+    mud.send_message(id,
+                     '  go [exit]                               - ' +
+                     'Moves through the exit ' +
                      "specified, e.g. 'go outside'")
-    mud.send_message(id, \
-                     '  climb though [exit]                     - Try to climb through an exit');
-    mud.send_message(id, \
-                     '  move/roll/heave [target]                - Try to move or roll a heavy object');
-    mud.send_message(id, \
-                     '  jump to [exit]                          - Try to jump onto something');
-    mud.send_message(id, \
-                     '  attack [target]                         - Attack target ' +
+    mud.send_message(id,
+                     '  climb though [exit]                     - ' +
+                     'Try to climb through an exit')
+    mud.send_message(id,
+                     '  move/roll/heave [target]                - ' +
+                     'Try to move or roll a heavy object')
+    mud.send_message(id,
+                     '  jump to [exit]                          - ' +
+                     'Try to jump onto something')
+    mud.send_message(id,
+                     '  attack [target]                         - ' +
+                     'Attack target ' +
                      "specified, e.g. 'attack knight'")
-    mud.send_message(id, \
-                     '  check inventory                         - Check the contents of ' +
+    mud.send_message(id,
+                     '  check inventory                         - ' +
+                     'Check the contents of ' +
                      "your inventory")
-    mud.send_message(id, \
-                     '  take/get [item]                         - Pick up an item lying ' + \
+    mud.send_message(id,
+                     '  take/get [item]                         - ' +
+                     'Pick up an item lying ' +
                      "on the floor")
-    mud.send_message(id, \
-                     '  put [item] in/on [item]                 - Put an item into or onto another one')
-    mud.send_message(id, \
-                     '  drop [item]                             - Drop an item from your inventory ' + \
+    mud.send_message(id,
+                     '  put [item] in/on [item]                 - ' +
+                     'Put an item into or onto another one')
+    mud.send_message(id,
+                     '  drop [item]                             - ' +
+                     'Drop an item from your inventory ' +
                      "on the floor")
-    mud.send_message(id, \
-                     '  use/hold/pick/wield [item] [left|right] - Transfer an item to your hands')
-    mud.send_message(id, \
-                     '  stow                                    - Free your hands of items')
-    mud.send_message(id, \
-                     '  wear [item]                             - Wear an item')
-    mud.send_message(id, \
-                     '  remove/unwear [item]                    - Remove a worn item')
-    mud.send_message(id, \
-                     '  whisper [target] [message]              - Whisper to a player in the same room')
-    mud.send_message(id, \
-                     '  tell/ask [target] [message]             - Send a tell message to another player or NPC')
-    mud.send_message(id, \
-                     '  open [item]                             - Open an item or door')
-    mud.send_message(id, \
-                     '  close [item]                            - Close an item or door')
-    mud.send_message(id, \
-                     '  push [item]                             - Pushes a lever')
-    mud.send_message(id, \
-                     '  pull [item]                             - Pulls a lever')
-    mud.send_message(id, \
-                     '  wind [item]                             - Winds a lever')
-    mud.send_message(id, \
-                     '  affinity [player name]                  - Shows your affinity level with another player')
-    mud.send_message(id, \
-                     '  cut/escape                              - Attempt to escape from a trap')
-    mud.send_message(id, \
-                     '  step over tripwire [exit]               - Step over a tripwire in the given direction')
+    mud.send_message(id,
+                     '  use/hold/pick/wield [item] [left|right] - ' +
+                     'Transfer an item to your hands')
+    mud.send_message(id,
+                     '  stow                                    - ' +
+                     'Free your hands of items')
+    mud.send_message(id,
+                     '  wear [item]                             - ' +
+                     'Wear an item')
+    mud.send_message(id,
+                     '  remove/unwear [item]                    - ' +
+                     'Remove a worn item')
+    mud.send_message(id,
+                     '  whisper [target] [message]              - ' +
+                     'Whisper to a player in the same room')
+    mud.send_message(id,
+                     '  tell/ask [target] [message]             - ' +
+                     'Send a tell message to another player or NPC')
+    mud.send_message(id,
+                     '  open [item]                             - ' +
+                     'Open an item or door')
+    mud.send_message(id,
+                     '  close [item]                            - ' +
+                     'Close an item or door')
+    mud.send_message(id,
+                     '  push [item]                             - ' +
+                     'Pushes a lever')
+    mud.send_message(id,
+                     '  pull [item]                             - ' +
+                     'Pulls a lever')
+    mud.send_message(id,
+                     '  wind [item]                             - ' +
+                     'Winds a lever')
+    mud.send_message(id,
+                     '  affinity [player name]                  - ' +
+                     'Shows your affinity level with another player')
+    mud.send_message(id,
+                     '  cut/escape                              - ' +
+                     'Attempt to escape from a trap')
+    mud.send_message(id,
+                     '  step over tripwire [exit]               - ' +
+                     'Step over a tripwire in the given direction')
     mud.send_message(id, '\n\n')
 
 
-def helpSpell(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+def helpSpell(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.send_message(id, '\n')
-    mud.send_message(id, \
-                     'prepare spells                          - List spells which can be prepared')
-    mud.send_message(id, \
-                     'prepare [spell name]                    - Prepares a spell')
-    mud.send_message(id, \
-                     'spells                                  - Lists your prepared spells')
-    mud.send_message(id, \
-                     'clear spells                            - Clears your prepared spells list')
-    mud.send_message(id, \
-                     'cast find familiar                      - Summons a familiar with random form')
-    mud.send_message(id, \
-                     'dismiss familiar                        - Dismisses a familiar')
-    mud.send_message(id, \
-                     'cast [spell name] on [target]           - Cast a spell on a player or NPC')
+    mud.send_message(id,
+                     'prepare spells                          - ' +
+                     'List spells which can be prepared')
+    mud.send_message(id,
+                     'prepare [spell name]                    - ' +
+                     'Prepares a spell')
+    mud.send_message(id,
+                     'spells                                  - ' +
+                     'Lists your prepared spells')
+    mud.send_message(id,
+                     'clear spells                            - ' +
+                     'Clears your prepared spells list')
+    mud.send_message(id,
+                     'cast find familiar                      - ' +
+                     'Summons a familiar with random form')
+    mud.send_message(id,
+                     'dismiss familiar                        - ' +
+                     'Dismisses a familiar')
+    mud.send_message(id,
+                     'cast [spell name] on [target]           - ' +
+                     'Cast a spell on a player or NPC')
 
     mud.send_message(id, '\n\n')
 
 
-def helpWitch(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {},
-              sentimentDB: {},guildsDB: {},clouds: {}):
+def helpWitch(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.send_message(id, '\n')
     if not isWitch(id, players):
         mud.send_message(id, "You're not a witch.\n\n")
         return
-    mud.send_message(id, \
-                         'close registrations                     - Closes registrations of new players')
-    mud.send_message(id, \
-                         'open registrations                      - Allows registrations of new players')
-    mud.send_message(id, \
-                         'mute/silence [target]                   - Mutes a player and prevents them from attacking')
-    mud.send_message(id, \
-                         'unmute/unsilence [target]               - Unmutes a player')
-    mud.send_message(id, \
-                         'freeze [target]                         - Prevents a player from moving or attacking')
-    mud.send_message(id, \
-                         'unfreeze [target]                       - Allows a player to move or attack')
-    mud.send_message(id, \
-                         'teleport [room]                         - Teleport to a room')
-    mud.send_message(id, \
-                         'summon [target]                         - Summons a player to your location')
-    mud.send_message(id, \
-                         'kick/remove [target]                    - Remove a player from the game')
-    mud.send_message(id, \
-                         'blocklist                               - Show the current blocklist')
-    mud.send_message(id, \
-                         'block [word or phrase]                  - Adds a word or phrase to the blocklist')
-    mud.send_message(id, \
-                         'unblock [word or phrase]                - Removes a word or phrase to the blocklist')
-    mud.send_message(id, \
-                         'describe "room" "room name"             - Changes the name of the current room')
-    mud.send_message(id, \
-                         'describe "room description"             - Changes the current room description')
-    mud.send_message(id, \
-                         'describe "tide" "room description"      - Changes the room description when tide is out')
-    mud.send_message(id, \
-                         'describe "item" "item description"      - Changes the description of an item in the room')
-    mud.send_message(id, \
-                         'describe "NPC" "NPC description"        - Changes the description of an NPC in the room')
-    mud.send_message(id, \
-                         'conjure room [direction]                - Creates a new room in the given direction')
-    mud.send_message(id, \
-                         'conjure npc [target]                    - Creates a named NPC in the room')
-    mud.send_message(id, \
-                         'conjure [item]                          - Creates a new item in the room')
-    mud.send_message(id, \
-                         'destroy room [direction]                - Removes the room in the given direction')
-    mud.send_message(id, \
-                         'destroy npc [target]                    - Removes a named NPC from the room')
-    mud.send_message(id, \
-                         'destroy [item]                          - Removes an item from the room')
-    mud.send_message(id, \
-                         'resetuniverse                           - Resets the universe, losing any changes from defaults')
-    mud.send_message(id, \
-                         'shutdown                                - Shuts down the game server')
+    mud.send_message(id,
+                     'close registrations                     - ' +
+                     'Closes registrations of new players')
+    mud.send_message(id,
+                     'open registrations                      - ' +
+                     'Allows registrations of new players')
+    mud.send_message(id,
+                     'mute/silence [target]                   - ' +
+                     'Mutes a player and prevents them from attacking')
+    mud.send_message(id,
+                     'unmute/unsilence [target]               - ' +
+                     'Unmutes a player')
+    mud.send_message(id,
+                     'freeze [target]                         - ' +
+                     'Prevents a player from moving or attacking')
+    mud.send_message(id,
+                     'unfreeze [target]                       - ' +
+                     'Allows a player to move or attack')
+    mud.send_message(id,
+                     'teleport [room]                         - ' +
+                     'Teleport to a room')
+    mud.send_message(id,
+                     'summon [target]                         - ' +
+                     'Summons a player to your location')
+    mud.send_message(id,
+                     'kick/remove [target]                    - ' +
+                     'Remove a player from the game')
+    mud.send_message(id,
+                     'blocklist                               - ' +
+                     'Show the current blocklist')
+    mud.send_message(id,
+                     'block [word or phrase]                  - ' +
+                     'Adds a word or phrase to the blocklist')
+    mud.send_message(id,
+                     'unblock [word or phrase]                - ' +
+                     'Removes a word or phrase to the blocklist')
+    mud.send_message(id,
+                     'describe "room" "room name"             - ' +
+                     'Changes the name of the current room')
+    mud.send_message(id,
+                     'describe "room description"             - ' +
+                     'Changes the current room description')
+    mud.send_message(id,
+                     'describe "tide" "room description"      - ' +
+                     'Changes the room description when tide is out')
+    mud.send_message(id,
+                     'describe "item" "item description"      - ' +
+                     'Changes the description of an item in the room')
+    mud.send_message(id,
+                     'describe "NPC" "NPC description"        - ' +
+                     'Changes the description of an NPC in the room')
+    mud.send_message(id,
+                     'conjure room [direction]                - ' +
+                     'Creates a new room in the given direction')
+    mud.send_message(id,
+                     'conjure npc [target]                    - ' +
+                     'Creates a named NPC in the room')
+    mud.send_message(id,
+                     'conjure [item]                          - ' +
+                     'Creates a new item in the room')
+    mud.send_message(id,
+                     'destroy room [direction]                - ' +
+                     'Removes the room in the given direction')
+    mud.send_message(id,
+                     'destroy npc [target]                    - ' +
+                     'Removes a named NPC from the room')
+    mud.send_message(id,
+                     'destroy [item]                          - ' +
+                     'Removes an item from the room')
+    mud.send_message(id,
+                     'resetuniverse                           - ' +
+                     'Resets the universe, losing any changes from defaults')
+    mud.send_message(id,
+                     'shutdown                                - ' +
+                     'Shuts down the game server')
     mud.send_message(id, '\n\n')
 
 
-def helpMorris(params,mud,playersDB: {},players: {},rooms, \
-               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-               envDB: {},env: {},eventDB: {},eventSchedule, \
-               id: int,fights: {},corpses: {},blocklist, \
-               mapArea: [],characterClassDB: {},spellsDB: {}, \
-               sentimentDB: {},guildsDB: {},clouds: {}):
+def helpMorris(params, mud, playersDB: {}, players: {}, rooms,
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.send_message(id, '\n')
-    mud.send_message(id, \
-                     'morris                                  - Show the board')
-    mud.send_message(id, \
-                     'morris put [coordinate]                 - Place a counter')
-    mud.send_message(id, \
-                     'morris move [from coord] [to coord]     - Move a counter')
-    mud.send_message(id, \
-                     'morris take [coordinate]                - Remove a counter after mill')
-    mud.send_message(id, \
-                     'morris reset                            - Resets the board')
+    mud.send_message(id,
+                     'morris                                  - ' +
+                     'Show the board')
+    mud.send_message(id,
+                     'morris put [coordinate]                 - ' +
+                     'Place a counter')
+    mud.send_message(id,
+                     'morris move [from coord] [to coord]     - ' +
+                     'Move a counter')
+    mud.send_message(id,
+                     'morris take [coordinate]                - ' +
+                     'Remove a counter after mill')
+    mud.send_message(id,
+                     'morris reset                            - ' +
+                     'Resets the board')
     mud.send_message(id, '\n\n')
 
-def helpChess(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def helpChess(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.send_message(id, '\n')
-    mud.send_message(id, \
-                     'chess                                   - Shows the board')
-    mud.send_message(id, \
-                     'chess reset                             - Rests the game')
-    mud.send_message(id, \
-                     'chess move [coords]                     - eg. chess move e2e3')
-    mud.send_message(id, \
-                     'chess undo                              - undoes the last move')
+    mud.send_message(id,
+                     'chess                                   - ' +
+                     'Shows the board')
+    mud.send_message(id,
+                     'chess reset                             - ' +
+                     'Rests the game')
+    mud.send_message(id,
+                     'chess move [coords]                     - ' +
+                     'eg. chess move e2e3')
+    mud.send_message(id,
+                     'chess undo                              - ' +
+                     'undoes the last move')
     mud.send_message(id, '\n\n')
 
-def helpCards(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def helpCards(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.send_message(id, '\n')
-    mud.send_message(id, \
-                     'shuffle                                 - Shuffles the deck')
-    mud.send_message(id, \
-                     'deal to [player names]                  - Deals cards')
-    mud.send_message(id, \
-                     'hand                                    - View your hand of cards')
-    mud.send_message(id, \
-                     'swap [card description]                 - Swaps a card')
-    mud.send_message(id, \
-                     'call                                    - Players show their hands')
+    mud.send_message(id,
+                     'shuffle                                 - ' +
+                     'Shuffles the deck')
+    mud.send_message(id,
+                     'deal to [player names]                  - ' +
+                     'Deals cards')
+    mud.send_message(id,
+                     'hand                                    - ' +
+                     'View your hand of cards')
+    mud.send_message(id,
+                     'swap [card description]                 - ' +
+                     'Swaps a card')
+    mud.send_message(id,
+                     'call                                    - ' +
+                     'Players show their hands')
     mud.send_message(id, '\n\n')
 
 
@@ -1049,33 +1144,36 @@ def removePreparedSpell(players, id, spellName):
     del players[id]['spellSlots'][spellName]
 
 
-def castSpellOnPlayer(mud, spellName, players: {}, id, npcs: {}, p, spellDetails):
+def castSpellOnPlayer(mud, spellName, players: {}, id, npcs: {},
+                      p, spellDetails):
     if npcs[p]['room'] != players[id]['room']:
         mud.send_message(id, "They're not here.\n\n")
         return
 
     if spellDetails['action'].startswith('protect'):
         npcs[p]['tempHitPoints'] = spellDetails['hp']
-        npcs[p]['tempHitPointsDuration'] = TimeStringToSec(spellDetails['duration'])
+        npcs[p]['tempHitPointsDuration'] = \
+            TimeStringToSec(spellDetails['duration'])
         npcs[p]['tempHitPointsStart'] = int(time.time())
 
     if spellDetails['action'].startswith('cure'):
         if npcs[p]['hp'] < npcs[p]['hpMax']:
-            npcs[p]['hp'] += randint(1,spellDetails['hp'])
+            npcs[p]['hp'] += randint(1, spellDetails['hp'])
             if npcs[p]['hp'] > npcs[p]['hpMax']:
                 npcs[p]['hp'] = npcs[p]['hpMax']
 
     if spellDetails['action'].startswith('charm'):
-        charmTarget=players[id]['name']
-        charmValue=int(npcs[p]['cha'] + players[id]['cha'])
+        charmTarget = players[id]['name']
+        charmValue = int(npcs[p]['cha'] + players[id]['cha'])
         npcs[p]['tempCharm'] = charmValue
         npcs[p]['tempCharmTarget'] = charmTarget
-        npcs[p]['tempCharmDuration'] = TimeStringToSec(spellDetails['duration'])
+        npcs[p]['tempCharmDuration'] = \
+            TimeStringToSec(spellDetails['duration'])
         npcs[p]['tempCharmStart'] = int(time.time())
         if npcs[p]['affinity'].get(charmTarget):
-            npcs[p]['affinity'][charmTarget]+=charmValue
+            npcs[p]['affinity'][charmTarget] += charmValue
         else:
-            npcs[p]['affinity'][charmTarget]=charmValue
+            npcs[p]['affinity'][charmTarget] = charmValue
 
     if spellDetails['action'].startswith('friend'):
         if players[id]['cha'] < npcs[p]['cha']:
@@ -1105,46 +1203,48 @@ def castSpellOnPlayer(mud, spellName, players: {}, id, npcs: {}, p, spellDetails
         npcs[p]['frozenDuration'] = TimeStringToSec(spellDetails['duration'])
         npcs[p]['frozenStart'] = int(time.time())
 
-    showSpellImage(mud,id,spellName.replace(' ','_'),players)
+    showSpellImage(mud, id, spellName.replace(' ', '_'), players)
 
     mud.send_message(
         id,
-        randomDescription(spellDetails['description']).format('<f32>' + \
-                                                              npcs[p]['name'] + \
+        randomDescription(spellDetails['description']).format('<f32>' +
+                                                              npcs[p]['name'] +
                                                               '<r>') + '\n\n')
 
     secondDesc = randomDescription(spellDetails['description_second'])
     if npcs == players and len(secondDesc) > 0:
         mud.send_message(
             p,
-            secondDesc.format(players[id]['name'], \
+            secondDesc.format(players[id]['name'],
                               'you') + '\n\n')
 
     removePreparedSpell(players, id, spellName)
 
 
-def castSpellUndirected(params,mud,playersDB: {},players: {},rooms: {}, \
-                        npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                        envDB: {},env: {},eventDB: {},eventSchedule, \
-                        id: int,fights: {},corpses: {},blocklist, \
-                        mapArea: [],characterClassDB: {},spellsDB: {}, \
-                        sentimentDB: {},spellName: {},spellDetails: {}):
+def castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
+                        npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                        envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                        id: int, fights: {}, corpses: {}, blocklist,
+                        mapArea: [], characterClassDB: {}, spellsDB: {},
+                        sentimentDB: {}, spellName: {}, spellDetails: {},
+                        clouds: {}, guildsDB: {}):
     if spellDetails['action'].startswith('familiar'):
-        showSpellImage(mud,id,spellName.replace(' ','_'),players)
-        conjureNPC(spellDetails['action'],mud,playersDB,players, \
-                   rooms,npcsDB,npcs,itemsDB,items,envDB,env, \
-                   eventDB,eventSchedule,id,fights,corpses, \
-                   blocklist,mapArea,characterClassDB,spellsDB, \
-                   sentimentDB,guildsDB,clouds)
+        showSpellImage(mud, id, spellName.replace(' ', '_'), players)
+        conjureNPC(spellDetails['action'], mud, playersDB, players,
+                   rooms, npcsDB, npcs, itemsDB, items, envDB, env,
+                   eventDB, eventSchedule, id, fights, corpses,
+                   blocklist, mapArea, characterClassDB, spellsDB,
+                   sentimentDB, guildsDB, clouds)
         return
     mud.send_message(id, "Nothing happens.\n\n")
 
-def castSpell(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def castSpell(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -1202,7 +1302,7 @@ def castSpell(params,mud,playersDB: {},players: {},rooms: {}, \
                 mud.send_message(id, "This is not a hypnosis spell.\n\n")
                 return
             castSpellOnPlayer(
-                mud,spellName,players,id,players,p,spellDetails)
+                mud, spellName, players, id, players, p, spellDetails)
             return
 
         for p in npcs:
@@ -1214,24 +1314,24 @@ def castSpell(params,mud,playersDB: {},players: {},rooms: {}, \
                     id, "You can't cast a spell on your own familiar!\n\n")
                 return
 
-            castSpellOnPlayer(mud,spellName,players,id,npcs, \
-                              p,spellDetails)
+            castSpellOnPlayer(mud, spellName, players, id, npcs,
+                              p, spellDetails)
             return
     else:
-        castSpellUndirected(params,mud,playersDB,players,rooms, \
-                            npcsDB,npcs,itemsDB,items,envDB, \
-                            env,eventDB,eventSchedule,id,fights, \
-                            corpses,blocklist,mapArea, \
-                            characterClassDB,spellsDB,sentimentDB, \
-                            spellName,spellDetails)
+        castSpellUndirected(params, mud, playersDB, players, rooms,
+                            npcsDB, npcs, itemsDB, items, envDB,
+                            env, eventDB, eventSchedule, id, fights,
+                            corpses, blocklist, mapArea,
+                            characterClassDB, spellsDB, sentimentDB,
+                            spellName, spellDetails, clouds, guildsDB)
 
 
-def affinity(params,mud,playersDB: {},players: {},rooms: {}, \
-             npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule: {}, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {}, \
-             sentimentDB: {},guildsDB: {},clouds: {}):
+def affinity(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule: {},
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
     otherPlayer = params.lower().strip()
     if len(otherPlayer) == 0:
         mud.send_message(id, 'With which player?\n\n')
@@ -1240,30 +1340,24 @@ def affinity(params,mud,playersDB: {},players: {},rooms: {}, \
         affinity = players[id]['affinity'][otherPlayer]
         if affinity >= 0:
             mud.send_message(
-                id,
-                'Your affinity with <f32><u>' +
-                otherPlayer +
-                '<r> is <f15><b2>+' +
-                str(affinity) +
-                '<r>\n\n')
+                id, 'Your affinity with <f32><u>' +
+                otherPlayer + '<r> is <f15><b2>+' +
+                str(affinity) + '<r>\n\n')
         else:
             mud.send_message(
-                id,
-                'Your affinity with <f32><u>' +
-                otherPlayer +
-                '<r> is <f15><b88>' +
-                str(affinity) +
-                '<r>\n\n')
+                id, 'Your affinity with <f32><u>' +
+                otherPlayer + '<r> is <f15><b88>' +
+                str(affinity) + '<r>\n\n')
         return
     mud.send_message(id, "You don't have any affinity with them.\n\n")
 
 
-def clearSpells(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+def clearSpells(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     if len(players[id]['preparedSpells']) > 0:
         players[id]['preparedSpells'].clear()
         players[id]['spellSlots'].clear()
@@ -1273,12 +1367,12 @@ def clearSpells(params,mud,playersDB: {},players: {},rooms: {}, \
     mud.send_message(id, "Your don't have any spells prepared.\n\n")
 
 
-def spells(params,mud,playersDB: {},players: {},rooms: {}, \
-           npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-           envDB: {},env: {},eventDB: {},eventSchedule, \
-           id: int,fights: {},corpses: {},blocklist, \
-           mapArea: [],characterClassDB: {},spellsDB: {}, \
-           sentimentDB: {},guildsDB: {},clouds: {}):
+def spells(params, mud, playersDB: {}, players: {}, rooms: {},
+           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+           envDB: {}, env: {}, eventDB: {}, eventSchedule,
+           id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}):
     if len(players[id]['preparedSpells']) > 0:
         mud.send_message(id, 'Your prepared spells:\n')
         for name, details in players[id]['preparedSpells'].items():
@@ -1288,12 +1382,12 @@ def spells(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, 'You have no spells prepared.\n\n')
 
 
-def prepareSpellAtLevel(params,mud,playersDB: {},players: {},rooms: {}, \
-                        npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                        envDB: {},env: {},eventDB: {},eventSchedule, \
-                        id: int,fights: {},corpses: {},blocklist, \
-                        mapArea: [],characterClassDB: {},spellsDB: {}, \
-                        spellName: {},level: {}):
+def prepareSpellAtLevel(params, mud, playersDB: {}, players: {}, rooms: {},
+                        npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                        envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                        id: int, fights: {}, corpses: {}, blocklist,
+                        mapArea: [], characterClassDB: {}, spellsDB: {},
+                        spellName: {}, level: {}):
     for name, details in spellsDB[level].items():
         if name.lower() == spellName:
             if name.lower() not in players[id]['preparedSpells']:
@@ -1308,11 +1402,9 @@ def prepareSpellAtLevel(params,mud,playersDB: {},players: {},rooms: {}, \
                                 break
                         if not requiredItemFound:
                             mud.send_message(
-                                id,
-                                'You need <b234>' +
+                                id, 'You need <b234>' +
                                 itemsDB[required]['article'] +
-                                ' ' +
-                                itemsDB[required]['name'] +
+                                ' ' + itemsDB[required]['name'] +
                                 '<r>\n\n')
                             return True
                 players[id]['prepareSpell'] = spellName
@@ -1323,16 +1415,13 @@ def prepareSpellAtLevel(params,mud,playersDB: {},players: {},rooms: {}, \
                     mud.send_message(
                         id,
                         'You begin preparing the spell <b234>' +
-                        spellName +
-                        '<r>. It will take ' +
-                        details['prepareTime'] +
-                        '.\n\n')
+                        spellName + '<r>. It will take ' +
+                        details['prepareTime'] + '.\n\n')
                 else:
                     mud.send_message(
                         id,
                         'You begin preparing the spell <b234>' +
-                        spellName +
-                        '<r>.\n\n')
+                        spellName + '<r>.\n\n')
                 return True
     return False
 
@@ -1401,12 +1490,12 @@ def playerPreparedCantrips(players, id, spellsDB: {}) -> int:
     return preparedCounter
 
 
-def prepareSpell(params,mud,playersDB: {},players: {},rooms: {}, \
-                 npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                 envDB: {},env: {},eventDB: {},eventSchedule, \
-                 id: int,fights: {},corpses: {},blocklist, \
-                 mapArea: [],characterClassDB: {},spellsDB: {}, \
-                 sentimentDB: {},guildsDB: {},clouds: {}):
+def prepareSpell(params, mud, playersDB: {}, players: {}, rooms: {},
+                 npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                 id: int, fights: {}, corpses: {}, blocklist,
+                 mapArea: [], characterClassDB: {}, spellsDB: {},
+                 sentimentDB: {}, guildsDB: {}, clouds: {}):
     spellName = params.lower().strip()
 
     # "learn spells" or "prepare spells" shows list of spells
@@ -1454,13 +1543,13 @@ def prepareSpell(params,mud,playersDB: {},players: {},rooms: {}, \
 
         if maxCantrips > 0 and spellsDB.get('cantrip'):
             if playerPreparedCantrips(players, id, spellsDB) < maxCantrips:
-                if prepareSpellAtLevel(params,mud,playersDB,players, \
-                                       rooms,npcsDB,npcs,itemsDB, \
-                                       items,envDB,env,eventDB, \
-                                       eventSchedule,id,fights, \
-                                       corpses,blocklist,mapArea, \
-                                       characterClassDB,spellsDB, \
-                                       spellName,'cantrip'):
+                if prepareSpellAtLevel(params, mud, playersDB, players,
+                                       rooms, npcsDB, npcs, itemsDB,
+                                       items, envDB, env, eventDB,
+                                       eventSchedule, id, fights,
+                                       corpses, blocklist, mapArea,
+                                       characterClassDB, spellsDB,
+                                       spellName, 'cantrip'):
                     return
             else:
                 mud.send_message(
@@ -1472,34 +1561,34 @@ def prepareSpell(params,mud,playersDB: {},players: {},rooms: {}, \
                 if not spellsDB.get(str(level)):
                     continue
                 maxSlots = getPlayerSpellSlotsAtSpellLevel(players, id, level)
-                usedSlots = getPlayerUsedSlotsAtSpellLevel(
-                    players, id, level, spellsDB)
+                usedSlots = \
+                    getPlayerUsedSlotsAtSpellLevel(players, id, level,
+                                                   spellsDB)
                 if usedSlots < maxSlots:
-                    if prepareSpellAtLevel(params,mud,playersDB, \
-                                           players,rooms,npcsDB,npcs, \
-                                           itemsDB,items,envDB,env, \
-                                           eventDB,eventSchedule,id, \
-                                           fights,corpses,blocklist, \
-                                           mapArea,characterClassDB, \
-                                           spellsDB,spellName,str(level)):
+                    if prepareSpellAtLevel(params, mud, playersDB,
+                                           players, rooms, npcsDB, npcs,
+                                           itemsDB, items, envDB, env,
+                                           eventDB, eventSchedule, id,
+                                           fights, corpses, blocklist,
+                                           mapArea, characterClassDB,
+                                           spellsDB, spellName, str(level)):
                         return
                 else:
                     mud.send_message(
                         id,
                         "You have prepared the maximum level" +
-                        str(level) +
-                        " spells.\n\n")
+                        str(level) + " spells.\n\n")
                     return
 
         mud.send_message(id, "That's not a spell.\n\n")
 
 
-def speak(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {},envDB: {}, \
-          env: {},eventDB: {},eventSchedule: {},id: int, \
-          fights: {},corpses: {},blocklist, \
-          mapArea: [],characterClassDB: {},spellsDB: {}, \
-          sentimentDB: {},guildsDB: {},clouds: {}):
+def speak(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB: {},
+          env: {}, eventDB: {}, eventSchedule: {}, id: int,
+          fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     lang = params.lower().strip()
     if lang not in players[id]['language']:
         mud.send_message(id, "You don't know how to speak that language\n\n")
@@ -1508,27 +1597,27 @@ def speak(params,mud,playersDB: {},players: {},rooms: {}, \
     mud.send_message(id, "You switch to speaking in " + lang + "\n\n")
 
 
-def playerIsVisible(mud,observerId: int,observers: {}, \
-                    otherPlayerId: int,others: {}) -> bool:
+def playerIsVisible(mud, observerId: int, observers: {},
+                    otherPlayerId: int, others: {}) -> bool:
     """Is the other player visible to the observer?
     """
-    observerId=int(observerId)
-    otherPlayerId=int(otherPlayerId)
+    observerId = int(observerId)
+    otherPlayerId = int(otherPlayerId)
     if not others[otherPlayerId].get('visibleWhenWearing'):
         return True
     if others[otherPlayerId].get('visibleWhenWearing'):
-        if isWearing(observerId,observers, \
+        if isWearing(observerId, observers,
                      others[otherPlayerId]['visibleWhenWearing']):
             return True
     return False
 
 
-def say(params,mud,playersDB: {},players: {},rooms: {}, \
-        npcsDB: {},npcs: {},itemsDB: {},items: {},envDB, \
-        env: {},eventDB: {},eventSchedule, \
-        id: int,fights: {},corpses: {},blocklist, \
-        mapArea: [],characterClassDB: {},spellsDB: {}, \
-        sentimentDB: {},guildsDB: {},clouds: {}):
+def say(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+        env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB: {},
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['canSay'] == 1:
 
         # don't say if the string contains a blocked string
@@ -1545,13 +1634,15 @@ def say(params,mud,playersDB: {},players: {},rooms: {}, \
             # if they're in the same room as the player
             if players[pid]['room'] == players[id]['room']:
                 # can the other player see this player?
-                if not playerIsVisible(mud,pid,players,id,players):
+                if not playerIsVisible(mud, pid, players, id, players):
                     continue
-                if selfOnly == False or pid == id:
-                    if players[id]['speakLanguage'] in players[pid]['language']:
-                        sentimentScore= \
+                if selfOnly is False or pid == id:
+                    langList = players[pid]['language']
+                    if players[id]['speakLanguage'] in langList:
+                        sentimentScore = \
                             getSentiment(params, sentimentDB) + \
-                            getGuildSentiment(players, id, players, pid, guildsDB)
+                            getGuildSentiment(players, id, players,
+                                              pid, guildsDB)
 
                         if sentimentScore >= 0:
                             increaseAffinityBetweenPlayers(
@@ -1565,33 +1656,42 @@ def say(params,mud,playersDB: {},players: {},rooms: {}, \
                                 players, pid, players, id, guildsDB)
 
                         # send them a message telling them what the player said
+                        pName = players[id]['name']
+                        desc = \
+                            '<f220>{}<r> says: <f159>{}'.format(pName, params)
                         mud.send_message_wrap(
-                            pid, '<f230>', \
-                            '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], params) + "\n\n")
+                            pid, '<f230>', desc + "\n\n")
                     else:
+                        pName = players[id]['name']
                         if players[id]['speakLanguage'] != 'cant':
+                            pLang = players[id]['speakLanguage']
+                            desc = \
+                                '<f220>{}<r> says something in ' + \
+                                '<f159>{}<r>'.format(pName, pLang)
                             mud.send_message_wrap(
-                                pid, '<f230>', \
-                                '<f220>{}<r> says something in <f159>{}<r>'.format(players[id]['name'], players[id]['speakLanguage']) + "\n\n")
+                                pid, '<f230>', desc + "\n\n")
                         else:
                             mud.send_message_wrap(
-                                pid, '<f230>', \
-                                '<f220>{}<r> says: <f159>{}'.format(players[id]['name'], cantStr) + "\n\n")
+                                pid, '<f230>',
+                                '<f220>{}<r> says: ' +
+                                '<f159>{}'.format(pName, cantStr) + "\n\n")
     else:
         mud.send_message_wrap(
-            id, '<f230>', \
-            'To your horror, you realise you somehow cannot force yourself to utter a single word!\n')
+            id, '<f230>',
+            'To your horror, you realise you somehow cannot force ' +
+            'yourself to utter a single word!\n')
 
-def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
+
+def holdingLightSource(players: {}, id, items: {}, itemsDB: {}) -> bool:
     """Is the given player holding a light source?
     """
-    itemID=int(players[id]['clo_lhand'])
-    if itemID>0:
-        if itemsDB[itemID]['lightSource']!=0:
+    itemID = int(players[id]['clo_lhand'])
+    if itemID > 0:
+        if itemsDB[itemID]['lightSource'] != 0:
             return True
-    itemID=int(players[id]['clo_rhand'])
-    if itemID>0:
-        if itemsDB[int(itemID)]['lightSource']!=0:
+    itemID = int(players[id]['clo_rhand'])
+    if itemID > 0:
+        if itemsDB[int(itemID)]['lightSource'] != 0:
             return True
 
     # are there any other players in the same room holding a light source?
@@ -1600,65 +1700,66 @@ def holdingLightSource(players: {},id,items: {},itemsDB: {}) -> bool:
             continue
         if players[p]['room'] != players[id]['room']:
             continue
-        itemID=int(players[p]['clo_lhand'])
-        if itemID>0:
-            if itemsDB[itemID]['lightSource']!=0:
+        itemID = int(players[p]['clo_lhand'])
+        if itemID > 0:
+            if itemsDB[itemID]['lightSource'] != 0:
                 return True
-        itemID=int(players[p]['clo_rhand'])
-        if itemID>0:
-            if itemsDB[int(itemID)]['lightSource']!=0:
+        itemID = int(players[p]['clo_rhand'])
+        if itemID > 0:
+            if itemsDB[int(itemID)]['lightSource'] != 0:
                 return True
 
     # is there a light source in the room?
-    return lightSourceInRoom(players,id,items,itemsDB)
+    return lightSourceInRoom(players, id, items, itemsDB)
 
-def conditionalRoom(condType: str,cond: str,description: str,id, \
-                    players: {},items: {}, \
-                    itemsDB: {},clouds: {},mapArea: [], \
+
+def conditionalRoom(condType: str, cond: str, description: str, id,
+                    players: {}, items: {},
+                    itemsDB: {}, clouds: {}, mapArea: [],
                     rooms: {}) -> bool:
     if condType == 'sunrise' or \
        condType == 'dawn':
-        currTime=datetime.datetime.today()
-        currHour=currTime.hour
-        sun=Sun(52.414, 4.081)
-        sunRiseTime=sun.get_local_sunrise_time(currTime).hour
+        currTime = datetime.datetime.today()
+        currHour = currTime.hour
+        sun = Sun(52.414, 4.081)
+        sunRiseTime = sun.get_local_sunrise_time(currTime).hour
         if 'true' in cond.lower() or \
            'y' in cond.lower():
-            if currHour>=sunRiseTime-1 and currHour<=sunRiseTime:
+            if currHour >= sunRiseTime - 1 and currHour <= sunRiseTime:
                 return True
         else:
-            if currHour<sunRiseTime-1 or currHour>sunRiseTime:
+            if currHour < sunRiseTime - 1 or currHour > sunRiseTime:
                 return True
 
     if condType == 'sunset' or \
        condType == 'dusk':
-        currTime=datetime.datetime.today()
-        currHour=currTime.hour
-        sun=Sun(52.414, 4.081)
-        sunSetTime=sun.get_local_sunset_time(currTime).hour
+        currTime = datetime.datetime.today()
+        currHour = currTime.hour
+        sun = Sun(52.414, 4.081)
+        sunSetTime = sun.get_local_sunset_time(currTime).hour
         if 'true' in cond.lower() or \
            'y' in cond.lower():
-            if currHour>=sunSetTime and currHour<=sunSetTime+1:
+            if currHour >= sunSetTime and currHour <= sunSetTime+1:
                 return True
         else:
-            if currHour<sunSetTime or currHour>sunSetTime+1:
+            if currHour < sunSetTime or currHour > sunSetTime+1:
                 return True
 
     if condType.startswith('rain'):
-        rm=players[id]['room']
-        coords=rooms[rm]['coords']
+        rm = players[id]['room']
+        coords = rooms[rm]['coords']
         if 'true' in cond.lower() or \
            'y' in cond.lower():
-            if getRainAtCoords(coords,mapArea,clouds):
+            if getRainAtCoords(coords, mapArea, clouds):
                 return True
         else:
-            if not getRainAtCoords(coords,mapArea,clouds):
+            if not getRainAtCoords(coords, mapArea, clouds):
                 return True
 
     if condType == 'hour':
         currHour = datetime.datetime.today().hour
         condHour = \
-            cond.replace('>','').replace('<','').replace('=','').strip()
+            cond.replace('>', '').replace('<', '').replace('=', '').strip()
         if '>' in cond:
             if currHour > int(condHour):
                 return True
@@ -1704,9 +1805,11 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
 
     if condType == 'date' or condType == 'dayofmonth':
         dayNumber = int(cond.split('/')[0])
-        if dayNumber == int(datetime.datetime.today().strftime("%d")):
+        if dayNumber == \
+           int(datetime.datetime.today().strftime("%d")):
             monthNumber = int(cond.split('/')[1])
-            if monthNumber == int(datetime.datetime.today().strftime("%m")):
+            if monthNumber == \
+               int(datetime.datetime.today().strftime("%m")):
                 return True
 
     if condType == 'month':
@@ -1716,23 +1819,24 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
                 if int(m) == int(datetime.datetime.today().strftime("%m")):
                     return True
         else:
-            currMonthNumber=int(datetime.datetime.today().strftime("%m"))
+            currMonthNumber = \
+                int(datetime.datetime.today().strftime("%m"))
             monthNumber = int(cond)
             if monthNumber == currMonthNumber:
                 return True
 
     if condType == 'season':
-        currMonthNumber=int(datetime.datetime.today().strftime("%m"))
-        if cond=='spring':
+        currMonthNumber = int(datetime.datetime.today().strftime("%m"))
+        if cond == 'spring':
             if currMonthNumber > 1 and currMonthNumber <= 4:
                 return True
-        elif cond=='summer':
+        elif cond == 'summer':
             if currMonthNumber > 4 and currMonthNumber <= 9:
                 return True
-        elif cond=='autumn':
+        elif cond == 'autumn':
             if currMonthNumber > 9 and currMonthNumber <= 10:
                 return True
-        elif cond=='winter':
+        elif cond == 'winter':
             if currMonthNumber > 10 or currMonthNumber <= 1:
                 return True
 
@@ -1745,10 +1849,10 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
 
     if condType == 'held' or condType.startswith('hold'):
         if not cond.isdigit():
-            if cond.lower()=='lightsource':
-                return holdingLightSource(players,id,items,itemsDB)
-        elif players[id]['clo_lhand'] == int(cond) or \
-           players[id]['clo_rhand'] == int(cond):
+            if cond.lower() == 'lightsource':
+                return holdingLightSource(players, id, items, itemsDB)
+        elif (players[id]['clo_lhand'] == int(cond) or
+              players[id]['clo_rhand'] == int(cond)):
             return True
 
     if condType.startswith('wear'):
@@ -1759,9 +1863,10 @@ def conditionalRoom(condType: str,cond: str,description: str,id, \
     return False
 
 
-def conditionalRoomDescription(description: str,tideOutDescription: str, \
-                               conditional: [],id,players: {},items: {}, \
-                               itemsDB: {},clouds: {},mapArea: [],rooms: {}):
+def conditionalRoomDescription(description: str, tideOutDescription: str,
+                               conditional: [], id, players: {}, items: {},
+                               itemsDB: {}, clouds: {}, mapArea: [],
+                               rooms: {}):
     """Returns a description which can vary depending on conditions
     """
     roomDescription = description
@@ -1775,17 +1880,19 @@ def conditionalRoomDescription(description: str,tideOutDescription: str, \
             condType = possibleDescription[0]
             cond = possibleDescription[1]
             alternativeDescription = possibleDescription[2]
-            if conditionalRoom(condType,cond, \
-                               alternativeDescription, \
-                               id,players,items,itemsDB, \
-                               clouds,mapArea,rooms):
+            if conditionalRoom(condType, cond,
+                               alternativeDescription,
+                               id, players, items, itemsDB,
+                               clouds, mapArea, rooms):
                 roomDescription = alternativeDescription
                 break
 
     return roomDescription
 
-def conditionalRoomImage(conditional: [],id,players: {},items: {}, \
-                         itemsDB: {},clouds: {},mapArea: [],rooms: {}) -> str:
+
+def conditionalRoomImage(conditional: [], id, players: {}, items: {},
+                         itemsDB: {}, clouds: {}, mapArea: [],
+                         rooms: {}) -> str:
     """If there is an image associated with a conditional
     room description then return its name
     """
@@ -1794,21 +1901,23 @@ def conditionalRoomImage(conditional: [],id,players: {},items: {}, \
             condType = possibleDescription[0]
             cond = possibleDescription[1]
             alternativeDescription = possibleDescription[2]
-            if conditionalRoom(condType,cond, \
-                               alternativeDescription, \
-                               id,players,items,itemsDB,clouds, \
-                               mapArea,rooms):
-                roomImageFilename='images/rooms/'+possibleDescription[3]
+            if conditionalRoom(condType, cond,
+                               alternativeDescription,
+                               id, players, items, itemsDB, clouds,
+                               mapArea, rooms):
+                roomImageFilename = \
+                    'images/rooms/' + possibleDescription[3]
                 if os.path.isfile(roomImageFilename):
                     return possibleDescription[3]
                 break
     return None
 
-def playersInRoom(targetRoom,players,npcs):
+
+def playersInRoom(targetRoom, players, npcs):
     """Returns the number of players in the given room.
        This includes NPCs.
     """
-    playersCtr=0
+    playersCtr = 0
     for (pid, pl) in list(players.items()):
         # if they're in the same room as the player
         if players[pid]['room'] == targetRoom:
@@ -1821,23 +1930,23 @@ def playersInRoom(targetRoom,players,npcs):
     return playersCtr
 
 
-def roomRequiresLightSource(players: {},id,rooms: {}) -> bool:
+def roomRequiresLightSource(players: {}, id, rooms: {}) -> bool:
     """Returns true if the room requires a light source
     """
-    rid=players[id]['room']
+    rid = players[id]['room']
     if not rooms[rid]['conditional']:
         return False
     for cond in rooms[rid]['conditional']:
-        if len(cond)>2:
-            if cond[0].lower()=='hold' and \
-               cond[1].lower()=='lightsource':
+        if len(cond) > 2:
+            if cond[0].lower() == 'hold' and \
+               cond[1].lower() == 'lightsource':
                 return True
     return False
 
-def lightSourceInRoom(players: {},id,items: {},itemsDB: {}) -> bool:
+
+def lightSourceInRoom(players: {}, id, items: {}, itemsDB: {}) -> bool:
     """Returns true if there is a light source in the room
     """
-    rid=players[id]['room']
     for i in items:
         if items[i]['room'].lower() != players[id]['room']:
             continue
@@ -1845,16 +1954,19 @@ def lightSourceInRoom(players: {},id,items: {},itemsDB: {}) -> bool:
             return True
     return False
 
-def itemIsVisible(observerId: int,players: {},itemId: int,itemsDB: {}) -> bool:
+
+def itemIsVisible(observerId: int, players: {},
+                  itemId: int, itemsDB: {}) -> bool:
     """Is the item visible to the observer?
     """
-    itemId=int(itemId)
+    itemId = int(itemId)
     if not itemsDB[itemId].get('visibleWhenWearing'):
         return True
-    if isWearing(observerId,players, \
+    if isWearing(observerId, players,
                  itemsDB[itemId]['visibleWhenWearing']):
         return True
     return False
+
 
 def moonIllumination(currTime) -> int:
     """Returns additional illumination due to moonlight
@@ -1862,164 +1974,173 @@ def moonIllumination(currTime) -> int:
     diff = currTime - datetime.datetime(2001, 1, 1)
     days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
     lunations = dec("0.20439731") + (days * dec("0.03386319269"))
-    index=int(lunations % dec(1)) & 7
+    index = int(lunations % dec(1)) & 7
     return int((5-abs(4-index))*2)
 
-def roomIllumination(roomImage,outdoors: bool):
+
+def roomIllumination(roomImage, outdoors: bool):
     """Alters the brightness and contrast of the image to simulate
     evening and night conditions
     """
     if not outdoors:
         return roomImage
     currTime = datetime.datetime.today()
-    currHour=currTime.hour
+    currHour = currTime.hour
     sun = Sun(52.414, 4.081)
     sunRiseTime = sun.get_local_sunrise_time(currTime).hour
     sunSetTime = sun.get_local_sunset_time(currTime).hour
-    if currHour>sunRiseTime+1 and currHour<sunSetTime-1:
+    if currHour > sunRiseTime+1 and currHour < sunSetTime-1:
         return roomImage
-    brightness=60
-    colorVariance=80
-    if currHour<sunRiseTime or currHour>sunSetTime:
-        brightness=30
+    brightness = 60
+    colorVariance = 80
+    if currHour < sunRiseTime or currHour > sunSetTime:
+        brightness = 30
     # extra dark
-    if currHour<(sunRiseTime-2) or currHour>(sunSetTime+2):
-        colorVariance=50
+    if currHour < (sunRiseTime-2) or currHour > (sunSetTime+2):
+        colorVariance = 50
 
-    brightness+=moonIllumination(currTime)
-    pixels=roomImage.split('[')
+    brightness += moonIllumination(currTime)
+    pixels = roomImage.split('[')
 
-    averageIntensity=0
-    averageIntensityCtr=0
+    averageIntensity = 0
+    averageIntensityCtr = 0
     for p in pixels:
-        values=p.split(';')
-        if len(values)!=5:
+        values = p.split(';')
+        if len(values) != 5:
             continue
-        values[4]=values[4].split('m')[0]
-        ctr=0
+        values[4] = values[4].split('m')[0]
+        ctr = 0
         for v in values:
-            if ctr>1:
-                averageIntensity+=int(v)
-                averageIntensityCtr+=1
-            ctr+=1
-    averageIntensity/=averageIntensityCtr
-    newAverageIntensity=int(averageIntensity*brightness/100)
+            if ctr > 1:
+                averageIntensity += int(v)
+                averageIntensityCtr += 1
+            ctr += 1
+    averageIntensity /= averageIntensityCtr
+    newAverageIntensity = int(averageIntensity * brightness / 100)
     # minimum average illumination
-    if newAverageIntensity<20:
-        newAverageIntensity=20
+    if newAverageIntensity < 20:
+        newAverageIntensity = 20
 
-    newRoomImage=''
-    trailing=None
-    firstValue=True
+    newRoomImage = ''
+    trailing = None
+    firstValue = True
     for p in pixels:
         if firstValue:
-            newRoomImage+=p+'['
-            firstValue=False
+            newRoomImage += p+'['
+            firstValue = False
             continue
-        values=p.split(';')
-        if len(values)!=5:
-            newRoomImage+=p+'['
+        values = p.split(';')
+        if len(values) != 5:
+            newRoomImage += p + '['
             continue
-        trailing=values[4].split('m')[1]
-        values[4]=values[4].split('m')[0]
-        ctr=0
+        trailing = values[4].split('m')[1]
+        values[4] = values[4].split('m')[0]
+        ctr = 0
         for v in values:
-            if ctr>1:
+            if ctr > 1:
                 # difference from average illumination
-                diff=int(int(v)-averageIntensity)
+                diff = int(int(v) - averageIntensity)
                 # reduce color variance
-                variance=colorVariance
+                variance = colorVariance
                 # reduce blue by more than other channels
-                if ctr==2:
-                    variance=int(colorVariance/4)
-                v=int(newAverageIntensity+(diff*variance/100))
-                if v<0:
-                    v=0
-                elif v>255:
-                    v=255
-            values[ctr]=int(v)
-            ctr+=1
-        darkStr=trailing+'['
-        darkStr=''
-        ctr=0
+                if ctr == 2:
+                    variance = int(colorVariance / 4)
+                v = int(newAverageIntensity + (diff * variance / 100))
+                if v < 0:
+                    v = 0
+                elif v > 255:
+                    v = 255
+            values[ctr] = int(v)
+            ctr += 1
+        darkStr = trailing+'['
+        darkStr = ''
+        ctr = 0
         for v in values:
-            if ctr<4:
-                darkStr+=str(v)+';'
+            if ctr < 4:
+                darkStr += str(v)+';'
             else:
-                darkStr+=str(v)+'m'
-            ctr+=1
-        newRoomImage+=darkStr+trailing+'['
-    return newRoomImage[:len(newRoomImage)-1]
+                darkStr += str(v)+'m'
+            ctr += 1
+        newRoomImage += darkStr+trailing + '['
+    return newRoomImage[:len(newRoomImage) - 1]
 
-def showRoomImage(mud,id,roomId,rooms: {},players: {},items: {},itemsDB: {}, \
-                  clouds: {},mapArea: []) -> None:
+
+def showRoomImage(mud, id, roomId, rooms: {}, players: {},
+                  items: {}, itemsDB: {},
+                  clouds: {}, mapArea: []) -> None:
     """Shows an image for the room if it exists
     """
     if players[id].get('graphics'):
-        if players[id]['graphics']=='off':
+        if players[id]['graphics'] == 'off':
             return
-    conditionalImage= \
-        conditionalRoomImage(rooms[roomId]['conditional'], \
-                             id,players,items,itemsDB,clouds, \
-                             mapArea,rooms)
-    outdoors=False
-    if rooms[roomId]['weather']==1:
-        outdoors=True
+    conditionalImage = \
+        conditionalRoomImage(rooms[roomId]['conditional'],
+                             id, players, items,
+                             itemsDB, clouds,
+                             mapArea, rooms)
+    outdoors = False
+    if rooms[roomId]['weather'] == 1:
+        outdoors = True
     if not conditionalImage:
-        roomIdStr=str(roomId).replace('rid=','').replace('$','')
+        roomIdStr = str(roomId).replace('rid=', '').replace('$', '')
     else:
-        roomIdStr=conditionalImage
-    roomImageFilename='images/rooms/'+roomIdStr
-    if os.path.isfile(roomImageFilename+'_night'):
+        roomIdStr = conditionalImage
+    roomImageFilename = 'images/rooms/' + roomIdStr
+    if os.path.isfile(roomImageFilename + '_night'):
         currTime = datetime.datetime.today()
         sun = Sun(52.414, 4.081)
         sunRiseTime = sun.get_local_sunrise_time(currTime).hour
         sunSetTime = sun.get_local_sunset_time(currTime).hour
-        if currTime.hour<sunRiseTime or currTime.hour>sunSetTime:
-            roomImageFilename=roomImageFilename+'_night'
-            outdoors=False
+        if currTime.hour < sunRiseTime or \
+           currTime.hour > sunSetTime:
+            roomImageFilename = roomImageFilename + '_night'
+            outdoors = False
     if not os.path.isfile(roomImageFilename):
         return
     with open(roomImageFilename, 'r') as roomFile:
-        mud.send_image(id,'\n'+roomIllumination(roomFile.read(),outdoors))
+        mud.send_image(id, '\n' + roomIllumination(roomFile.read(), outdoors))
 
-def showSpellImage(mud,id,spellId,players: {}) -> None:
+
+def showSpellImage(mud, id, spellId, players: {}) -> None:
     """Shows an image for a spell
     """
     if players[id].get('graphics'):
-        if players[id]['graphics']=='off':
+        if players[id]['graphics'] == 'off':
             return
-    spellImageFilename='images/spells/'+spellId
+    spellImageFilename = 'images/spells/' + spellId
     if not os.path.isfile(spellImageFilename):
         return
     with open(spellImageFilename, 'r') as spellFile:
-        mud.send_image(id,'\n'+spellFile.read())
+        mud.send_image(id, '\n' + spellFile.read())
 
-def showItemImage(mud,id,itemId,players: {}) -> None:
+
+def showItemImage(mud, id, itemId, players: {}) -> None:
     """Shows an image for the item if it exists
     """
     if players[id].get('graphics'):
-        if players[id]['graphics']=='off':
+        if players[id]['graphics'] == 'off':
             return
-    itemImageFilename='images/items/'+str(itemId)
+    itemImageFilename = 'images/items/' + str(itemId)
     if not os.path.isfile(itemImageFilename):
         return
     with open(itemImageFilename, 'r') as itemFile:
-        mud.send_image(id,'\n'+itemFile.read())
+        mud.send_image(id, '\n' + itemFile.read())
 
-def showNPCImage(mud,id,npcName,players: {}) -> None:
+
+def showNPCImage(mud, id, npcName, players: {}) -> None:
     """Shows an image for a NPC
     """
     if players[id].get('graphics'):
-        if players[id]['graphics']=='off':
+        if players[id]['graphics'] == 'off':
             return
-    npcImageFilename='images/npcs/'+npcName.replace(' ','_')
+    npcImageFilename = 'images/npcs/' + npcName.replace(' ', '_')
     if not os.path.isfile(npcImageFilename):
         return
     with open(npcImageFilename, 'r') as npcFile:
-        mud.send_image(id,'\n'+npcFile.read())
+        mud.send_image(id, '\n' + npcFile.read())
 
-def getRoomExits(mud,rooms: {},players: {},id) -> {}:
+
+def getRoomExits(mud, rooms: {}, players: {}, id) -> {}:
     """Returns a dictionary of exits for the given player
     """
     rm = rooms[players[id]['room']]
@@ -2027,23 +2148,23 @@ def getRoomExits(mud,rooms: {},players: {},id) -> {}:
 
     if rm.get('tideOutExits'):
         if runTide() < 0.0:
-            for direction,roomID in rm['tideOutExits'].items():
-                exits[direction]=roomID
+            for direction, roomID in rm['tideOutExits'].items():
+                exits[direction] = roomID
         else:
-            for direction,roomID in rm['tideOutExits'].items():
+            for direction, roomID in rm['tideOutExits'].items():
                 if exits.get(direction):
                     del rm['exits'][direction]
 
     if rm.get('exitsWhenWearing'):
-        directionsAdded=[]
+        directionsAdded = []
         for ex in rm['exitsWhenWearing']:
-            if len(ex)<3:
+            if len(ex) < 3:
                 continue
-            direction=ex[0]
-            itemID=ex[1]
-            if isWearing(id,players,[itemID]):
-                roomID=ex[2]
-                exits[direction]=roomID
+            direction = ex[0]
+            itemID = ex[1]
+            if isWearing(id, players, [itemID]):
+                roomID = ex[2]
+                exits[direction] = roomID
                 # keep track of directions added via wearing items
                 if direction not in directionsAdded:
                     directionsAdded.append(direction)
@@ -2055,12 +2176,13 @@ def getRoomExits(mud,rooms: {},players: {},id) -> {}:
                         del rm['exits'][direction]
     return exits
 
-def look(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+
+def look(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['canLook'] == 1:
         if len(params) < 1:
             # If no arguments are given, then look around and describe
@@ -2070,30 +2192,51 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
             rm = rooms[players[id]['room']]
 
             # send the player back the description of their current room
-            playerRoomId=players[id]['room']
-            showRoomImage(mud,id,playerRoomId,rooms,players,items, \
-                          itemsDB,clouds,mapArea)
+            playerRoomId = players[id]['room']
+            showRoomImage(mud, id, playerRoomId,
+                          rooms, players, items,
+                          itemsDB, clouds, mapArea)
             roomDescription = \
-                conditionalRoomDescription(rm['description'], \
-                                           rm['tideOutDescription'], \
-                                           rm['conditional'], \
-                                           id,players,items,itemsDB, \
-                                           clouds,mapArea,rooms)
+                conditionalRoomDescription(rm['description'],
+                                           rm['tideOutDescription'],
+                                           rm['conditional'],
+                                           id, players, items, itemsDB,
+                                           clouds, mapArea, rooms)
 
-            if rm['trap'].get('trapActivation') and rm['trap'].get('trapPerception'):
-                if randint(1,players[id]['per'])>rm['trap']['trapPerception']:
-                    if rm['trap']['trapType'].startswith('dart') and randint(0,1)==1:
+            if rm['trap'].get('trapActivation') and \
+               rm['trap'].get('trapPerception'):
+                if randint(1, players[id]['per']) > \
+                   rm['trap']['trapPerception']:
+                    if rm['trap']['trapType'].startswith('dart') and \
+                       randint(0, 1) == 1:
                         roomDescription += \
-                            randomDescription(" You notice some tiny holes in the wall.| There are some small holes in the wall.|You observe some tiny holes in the wall.")
+                            randomDescription(" You notice some tiny " +
+                                              "holes in the wall.| " +
+                                              "There are some small " +
+                                              "holes in the wall.|You " +
+                                              "observe some tiny holes" +
+                                              " in the wall.")
                     else:
-                        if rm['trap']['trapActivation']=='tripwire':
+                        if rm['trap']['trapActivation'] == 'tripwire':
                             roomDescription += \
-                                randomDescription(" A tripwire is carefully set along the floor.| You notice a thin wire across the floor.| An almost invisible wire runs along the floor.")
+                                randomDescription(" A tripwire is " +
+                                                  "carefully set along " +
+                                                  "the floor.| You notice " +
+                                                  "a thin wire across " +
+                                                  "the floor.| An almost " +
+                                                  "invisible wire runs " +
+                                                  "along the floor.")
                         if rm['trap']['trapActivation'].startswith('pressure'):
                             roomDescription += \
-                                randomDescription(" The faint outline of a pressure plate can be seen on the floor.| The outline of a pressure plate is visible on the floor.")
+                                randomDescription(" The faint outline of " +
+                                                  "a pressure plate can be " +
+                                                  "seen on the floor.| The " +
+                                                  "outline of a pressure " +
+                                                  "plate is visible on " +
+                                                  "the floor.")
 
-            mud.send_message_wrap(id, '<f230>', "<f230>" + roomDescription.strip())
+            mud.send_message_wrap(id, '<f230>',
+                                  "<f230>" + roomDescription.strip())
             playershere = []
 
             itemshere = []
@@ -2105,13 +2248,13 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     # ... and they have a name to be shown
                     if players[pid]['name'] is not None and \
                        players[pid]['name'] is not players[id]['name']:
-                        if playerIsVisible(mud,id,players,pid,players):
+                        if playerIsVisible(mud, id, players, pid, players):
                             # add their name to the list
                             if players[pid]['prefix'] == "None":
                                 playershere.append(players[pid]['name'])
                             else:
                                 playershere.append(
-                                    "[" + players[pid]['prefix'] + "] " + \
+                                    "[" + players[pid]['prefix'] + "] " +
                                     players[pid]['name'])
 
             # Show corpses in the room
@@ -2119,46 +2262,49 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                 if corpses[corpse]['room'] == players[id]['room']:
                     playershere.append(corpses[corpse]['name'])
 
-            ##### Show NPCs in the room #####
+            # Show NPCs in the room
             for nid in npcs:
                 if npcs[nid]['room'] == players[id]['room']:
                     # Don't show hidden familiars
-                    if npcs[nid]['familiarMode'] != 'hide' or \
-                       (len(npcs[nid]['familiarOf'])>0 and \
-                        npcs[nid]['familiarOf']==players[id]['name']):
-                        if playerIsVisible(mud,id,players,nid,npcs):
+                    if (npcs[nid]['familiarMode'] != 'hide' or
+                        (len(npcs[nid]['familiarOf']) > 0 and
+                         npcs[nid]['familiarOf'] == players[id]['name'])):
+                        if playerIsVisible(mud, id, players, nid, npcs):
                             playershere.append(npcs[nid]['name'])
 
             # Show items in the room
             for (item, pl) in list(items.items()):
                 if items[item]['room'] == players[id]['room']:
-                    if itemIsVisible(id,players,items[item]['id'],itemsDB):
+                    if itemIsVisible(id, players, items[item]['id'], itemsDB):
                         itemshere.append(
-                            itemsDB[items[item]['id']]['article'] + ' ' + \
+                            itemsDB[items[item]['id']]['article'] + ' ' +
                             itemsDB[items[item]['id']]['name'])
 
             # send player a message containing the list of players in the room
             if len(playershere) > 0:
                 mud.send_message(
-                    id, '<f230>You see: <f220>{}'.format(
-                        ', '.join(playershere)))
+                    id,
+                    '<f230>You see: <f220>{}'.format(', '.join(playershere)))
 
             # send player a message containing the list of exits from this room
-            roomExitsStr=getRoomExits(mud,rooms,players,id)
+            roomExitsStr = getRoomExits(mud, rooms, players, id)
             if roomExitsStr:
-                mud.send_message(
-                    id, '<f230>Exits are: <f220>{}'.format(', '.join(roomExitsStr)))
+                desc = \
+                    '<f230>Exits are: <f220>{}'.format(', '.join(roomExitsStr))
+                mud.send_message(id, desc)
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
-                needsLight=roomRequiresLightSource(players,id,rooms)
-                playersWithLight=False
+                needsLight = roomRequiresLightSource(players, id, rooms)
+                playersWithLight = False
                 if needsLight:
-                    playersWithLight= \
-                        holdingLightSource(players,id,items,itemsDB)
-                if needsLight==False or (needsLight==True and playersWithLight==True):
-                    mud.send_message_wrap(id,'<f220>', \
-                                          '<f230>You notice: <f220>{}'.format(', '.join(itemshere)))
+                    playersWithLight = \
+                        holdingLightSource(players, id, items, itemsDB)
+                if needsLight is False or \
+                   (needsLight is True and playersWithLight is True):
+                    desc = '<f230>You notice: ' + \
+                        '<f220>{}'.format(', '.join(itemshere))
+                    mud.send_message_wrap(id, '<f220>', desc)
 
             mud.send_message(id, "\n")
         else:
@@ -2166,13 +2312,13 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
             param = params.lower()
 
             if param.startswith('my '):
-                param = params.replace('my ', '',1)
+                param = params.replace('my ', '', 1)
 
             # replace "familiar" with the name of the familiar
             if param.startswith('familiar'):
-                familiarName=getFamiliarName(players,id,npcs)
-                if len(familiarName)>0:
-                    param = param.replace('familiar',familiarName,1)
+                familiarName = getFamiliarName(players, id, npcs)
+                if len(familiarName) > 0:
+                    param = param.replace('familiar', familiarName, 1)
 
             if param.startswith('at the '):
                 param = param.replace('at the ', '')
@@ -2189,7 +2335,7 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                 if players[p]['authenticated'] is not None:
                     if players[p]['name'].lower() == param and \
                        players[p]['room'] == players[id]['room']:
-                        if playerIsVisible(mud,players,id,p,players):
+                        if playerIsVisible(mud, players, id, p, players):
                             bioOfPlayer(mud, id, p, players, itemsDB)
                             messageSent = True
 
@@ -2197,16 +2343,17 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
 
             # Go through all NPCs in game
             for n in npcs:
-                if param in npcs[n]['name'].lower() \
-                   and npcs[n]['room'] == players[id]['room']:
-                    if playerIsVisible(mud,id,players,n,npcs):
-                        if npcs[n]['familiarMode']!='hide':
-                            showNPCImage(mud,id,npcs[n]['name'].lower(),players)
+                if param in npcs[n]['name'].lower() and \
+                   npcs[n]['room'] == players[id]['room']:
+                    if playerIsVisible(mud, id, players, n, npcs):
+                        if npcs[n]['familiarMode'] != 'hide':
+                            showNPCImage(mud, id, npcs[n]['name'].lower(),
+                                         players)
                             bioOfPlayer(mud, id, n, npcs, itemsDB)
                             messageSent = True
                         else:
-                            if npcs[n]['familiarOf']==players[id]['name']:
-                                message="They are hiding somewhere here."
+                            if npcs[n]['familiarOf'] == players[id]['name']:
+                                message = "They are hiding somewhere here."
                                 messageSent = True
 
             if len(message) > 0:
@@ -2220,23 +2367,37 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
             for i in items:
                 if items[i]['room'].lower() == players[id]['room'] and \
                    param in itemsDB[items[i]['id']]['name'].lower():
-                    if itemIsVisible(id,players,items[i]['id'],itemsDB):
+                    if itemIsVisible(id, players, items[i]['id'], itemsDB):
                         if itemCounter == 0:
                             itemLanguage = itemsDB[items[i]['id']]['language']
                             if len(itemLanguage) == 0:
-                                showItemImage(mud,id,int(items[i]['id']),players)
-                                message += randomDescription(itemsDB[items[i]['id']]['long_description'])
-                                message += describeContainerContents(
-                                    mud, id, itemsDB, items[i]['id'], True)
+                                showItemImage(mud, id, int(items[i]['id']),
+                                              players)
+                                idx = items[i]['id']
+                                desc = itemsDB[idx]['long_description']
+                                message += \
+                                    randomDescription(desc)
+                                message += \
+                                    describeContainerContents(mud, id, itemsDB,
+                                                              items[i]['id'],
+                                                              True)
                             else:
                                 if itemLanguage in players[id]['language']:
-                                    showItemImage(mud,id,int(items[i]['id']),players)
-                                    message += randomDescription(itemsDB[items[i]['id']]['long_description'])
-                                    message += describeContainerContents(
-                                        mud, id, itemsDB, items[i]['id'], True)
+                                    showItemImage(mud,
+                                                  id, int(items[i]['id']),
+                                                  players)
+                                    idx = items[i]['id']
+                                    desc = itemsDB[idx]['long_description']
+                                    message += randomDescription(desc)
+                                    message += \
+                                        describeContainerContents(
+                                            mud, id, itemsDB,
+                                            items[i]['id'], True)
                                 else:
-                                    message += "It's written in " + itemLanguage
-                            itemName = itemsDB[items[i]['id']]['article'] + \
+                                    message += \
+                                        "It's written in " + itemLanguage
+                            itemName = \
+                                itemsDB[items[i]['id']]['article'] + \
                                 " " + itemsDB[items[i]['id']]['name']
                         itemCounter += 1
 
@@ -2249,20 +2410,26 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                     for i in playerinv:
                         if param == itemsDB[int(i)]['name'].lower():
                             itemLanguage = itemsDB[int(i)]['language']
-                            showItemImage(mud,id,int(i),players)
+                            showItemImage(mud, id, int(i), players)
                             if len(itemLanguage) == 0:
-                                message += randomDescription(itemsDB[int(i)]['long_description'])
-                                message += describeContainerContents(
-                                    mud, id, itemsDB, int(i), True)
+                                desc = itemsDB[int(i)]['long_description']
+                                message += randomDescription(desc)
+                                message += \
+                                    describeContainerContents(
+                                        mud, id, itemsDB, int(i), True)
                             else:
                                 if itemLanguage in players[id]['language']:
-                                    message += randomDescription(itemsDB[int(i)]['long_description'])
-                                    message += describeContainerContents(
-                                        mud, id, itemsDB, int(i), True)
+                                    desc = itemsDB[int(i)]['long_description']
+                                    message += randomDescription(desc)
+                                    message += \
+                                        describeContainerContents(
+                                            mud, id, itemsDB, int(i), True)
                                 else:
-                                    message += "It's written in " + itemLanguage
-                            itemName = itemsDB[int(
-                                i)]['article'] + " " + itemsDB[int(i)]['name']
+                                    message += \
+                                        "It's written in " + itemLanguage
+                            itemName = \
+                                itemsDB[int(i)]['article'] + " " + \
+                                itemsDB[int(i)]['name']
                             invItemFound = True
                             break
                     if not invItemFound:
@@ -2270,21 +2437,28 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                         for i in playerinv:
                             if param in itemsDB[int(i)]['name'].lower():
                                 itemLanguage = itemsDB[int(i)]['language']
-                                showItemImage(mud,id,int(i),players)
+                                showItemImage(mud, id, int(i), players)
                                 if len(itemLanguage) == 0:
-                                    message += randomDescription(itemsDB[int(i)]['long_description'])
-                                    message += describeContainerContents(
-                                        mud, id, itemsDB, int(i), True)
+                                    desc = itemsDB[int(i)]['long_description']
+                                    message += randomDescription(desc)
+                                    message += \
+                                        describeContainerContents(
+                                            mud, id, itemsDB, int(i), True)
                                 else:
                                     if itemLanguage in players[id]['language']:
-                                        message += randomDescription(itemsDB[int(i)]['long_description'])
-                                        message += describeContainerContents(
-                                            mud, id, itemsDB, int(i), True)
+                                        desc = \
+                                            itemsDB[int(i)]['long_description']
+                                        message += randomDescription(desc)
+                                        message += \
+                                            describeContainerContents(
+                                                mud, id, itemsDB, int(i), True)
                                     else:
-                                        message += "It's written in " + itemLanguage
+                                        message += \
+                                            "It's written in " + itemLanguage
 
-                                itemName = itemsDB[int(
-                                    i)]['article'] + " " + itemsDB[int(i)]['name']
+                                itemName = \
+                                    itemsDB[int(i)]['article'] + " " + \
+                                    itemsDB[int(i)]['name']
                                 break
 
             if len(message) > 0:
@@ -2293,8 +2467,7 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
                 messageSent = True
                 if itemCounter > 1:
                     mud.send_message(
-                        id,
-                        "You can see " +
+                        id, "You can see " +
                         str(itemCounter) +
                         " of those in the vicinity.\n\n")
 
@@ -2305,18 +2478,21 @@ def look(params,mud,playersDB: {},players: {},rooms: {}, \
     else:
         mud.send_message(
             id,
-            'You somehow cannot muster enough perceptive powers to perceive and describe your immediate surroundings...\n')
+            'You somehow cannot muster enough perceptive powers ' +
+            'to perceive and describe your immediate surroundings...\n')
 
-def escapeTrap(params,mud,playersDB: {},players: {},rooms: {}, \
-               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-               envDB: {},env: {},eventDB: {},eventSchedule, \
-               id: int,fights: {},corpses: {},blocklist, \
-               mapArea: [],characterClassDB: {},spellsDB: {}, \
-               sentimentDB: {},guildsDB: {},clouds: {}):
-    if not playerIsTrapped(id,players,rooms):
+
+def escapeTrap(params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
+    if not playerIsTrapped(id, players, rooms):
         mud.send_message(
             id, randomDescription(
-                "You try to escape but find there's nothing to escape from") + '\n\n')
+                "You try to escape but find there's nothing to escape from") +
+            '\n\n')
 
     if players[id]['frozenStart'] != 0:
         mud.send_message(
@@ -2325,23 +2501,23 @@ def escapeTrap(params,mud,playersDB: {},players: {},rooms: {}, \
         return
 
     if players[id]['canAttack'] == 1:
-        escapeFromTrap(mud,id,players,rooms,itemsDB)
+        escapeFromTrap(mud, id, players, rooms, itemsDB)
 
 
-def attack(params,mud,playersDB: {},players: {},rooms: {}, \
-           npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-           envDB: {},env: {},eventDB: {},eventSchedule, \
-           id: int,fights: {},corpses: {},blocklist, \
-           mapArea: [],characterClassDB: {},spellsDB: {},
-           sentimentDB: {},guildsDB: {},clouds: {}):
+def attack(params, mud, playersDB: {}, players: {}, rooms: {},
+           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+           envDB: {}, env: {}, eventDB: {}, eventSchedule,
+           id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['frozenStart'] != 0:
+        desc = players[id]['frozenDescription']
         mud.send_message(
-            id, \
-            randomDescription(players[id]['frozenDescription']) + '\n\n')
+            id, randomDescription(desc) + '\n\n')
         return
 
     if players[id]['canAttack'] == 1:
-        if playerIsTrapped(id,players,rooms):
+        if playerIsTrapped(id, players, rooms):
             mud.send_message(
                 id, randomDescription(
                     "You're trapped") + '.\n\n')
@@ -2353,22 +2529,19 @@ def attack(params,mud,playersDB: {},players: {},rooms: {}, \
         if target.startswith('the '):
             target = params.replace('the ', '')
 
-        if not isAttacking(players,id,fights):
-            playerBeginsAttack(players,id,target,npcs,fights,mud)
+        if not isAttacking(players, id, fights):
+            playerBeginsAttack(players, id, target,
+                               npcs, fights, mud)
         else:
-            currentTarget = getAttackingTarget(players,id,fights)
+            currentTarget = getAttackingTarget(players, id, fights)
             if not isinstance(currentTarget, int):
                 mud.send_message(
-                    id,
-                    'You are already attacking ' +
-                    currentTarget +
-                    "\n")
+                    id, 'You are already attacking ' +
+                    currentTarget + "\n")
             else:
                 mud.send_message(
-                    id,
-                    'You are already attacking ' +
-                    npcs[currentTarget]['name'] +
-                    "\n")
+                    id, 'You are already attacking ' +
+                    npcs[currentTarget]['name'] + "\n")
 
         # List fights for debugging purposes
         # for x in fights:
@@ -2378,7 +2551,8 @@ def attack(params,mud,playersDB: {},players: {},rooms: {}, \
     else:
         mud.send_message(
             id,
-            'Right now, you do not feel like you can force yourself to attack anyone or anything.\n')
+            'Right now, you do not feel like you can force ' +
+            'yourself to attack anyone or anything.\n')
 
 
 def itemInInventory(players: {}, id, itemName, itemsDB: {}):
@@ -2390,12 +2564,12 @@ def itemInInventory(players: {}, id, itemName, itemsDB: {}):
     return False
 
 
-def describe(params,mud,playersDB: {},players: {},rooms: {}, \
-             npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {}, \
-             sentimentDB: {},guildsDB: {},clouds: {}):
+def describe(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -2419,7 +2593,9 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
     if len(descriptionStrings) == 1:
         rooms[rm]['description'] = descriptionStrings[0]
         mud.send_message(id, 'Room description set.\n\n')
-        saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+        saveUniverse(rooms, npcsDB, npcs,
+                     itemsDB, items, envDB,
+                     env, guildsDB)
         return
 
     if len(descriptionStrings) == 2:
@@ -2428,8 +2604,7 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
 
         if len(thingDescription) < 3:
             mud.send_message(
-                id,
-                'Description of ' +
+                id, 'Description of ' +
                 descriptionStrings[0] +
                 ' is too short.\n\n')
             return
@@ -2437,32 +2612,34 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
         if thingDescribed == 'name':
             rooms[rm]['name'] = thingDescription
             mud.send_message(
-                id,
-                'Room name changed to ' +
-                thingDescription +
-                '.\n\n')
-            saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+                id, 'Room name changed to ' +
+                thingDescription + '.\n\n')
+            saveUniverse(rooms, npcsDB, npcs,
+                         itemsDB, items, envDB,
+                         env, guildsDB)
             return
 
         if thingDescribed == 'tide':
             rooms[rm]['tideOutDescription'] = thingDescription
             mud.send_message(id, 'Tide out description set.\n\n')
-            saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+            saveUniverse(rooms, npcsDB, npcs,
+                         itemsDB, items,
+                         envDB, env, guildsDB)
             return
 
         # change the description of an item in the room
         for (item, pl) in list(items.items()):
             if items[item]['room'] == players[id]['room']:
-                if thingDescribed in itemsDB[items[item]
-                                             ['id']]['name'].lower():
-                    itemsDB[items[item]['id']]['long_description'] = thingDescription
+                idx = items[item]['id']
+                if thingDescribed in itemsDB[idx]['name'].lower():
+                    itemsDB[idx]['long_description'] = thingDescription
                     mud.send_message(id, 'New description set for ' +
-                                     itemsDB[items[item]['id']]['article'] +
-                                     ' ' +
-                                     itemsDB[items[item]['id']]['name'] +
+                                     itemsDB[idx]['article'] +
+                                     ' ' + itemsDB[idx]['name'] +
                                      '.\n\n')
                     saveUniverse(
-                        rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+                        rooms, npcsDB, npcs, itemsDB,
+                        items, envDB, env, guildsDB)
                     return
 
         # Change the description of an NPC in the room
@@ -2471,12 +2648,11 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
                 if thingDescribed in npcs[nid]['name'].lower():
                     npcs[nid]['lookDescription'] = thingDescription
                     mud.send_message(
-                        id,
-                        'New description set for ' +
-                        npcs[nid]['name'] +
-                        '.\n\n')
+                        id, 'New description set for ' +
+                        npcs[nid]['name'] + '.\n\n')
                     saveUniverse(
-                        rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+                        rooms, npcsDB, npcs, itemsDB,
+                        items, envDB, env, guildsDB)
                     return
 
     if len(descriptionStrings) == 3:
@@ -2487,8 +2663,7 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
         thingName = descriptionStrings[2]
         if len(thingName) < 3:
             mud.send_message(
-                id,
-                'Description of ' +
+                id, 'Description of ' +
                 descriptionStrings[1] +
                 ' is too short.\n\n')
             return
@@ -2496,16 +2671,17 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
         # change the name of an item in the room
         for (item, pl) in list(items.items()):
             if items[item]['room'] == players[id]['room']:
-                if thingDescribed in itemsDB[items[item]
-                                             ['id']]['name'].lower():
-                    itemsDB[items[item]['id']]['name'] = thingName
+                idx = items[item]['id']
+                if thingDescribed in itemsDB[idx]['name'].lower():
+                    itemsDB[idx]['name'] = thingName
                     mud.send_message(id, 'New description set for ' +
-                                     itemsDB[items[item]['id']]['article'] +
+                                     itemsDB[idx]['article'] +
                                      ' ' +
-                                     itemsDB[items[item]['id']]['name'] +
+                                     itemsDB[idx]['name'] +
                                      '.\n\n')
                     saveUniverse(
-                        rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+                        rooms, npcsDB, npcs, itemsDB,
+                        items, envDB, env, guildsDB)
                     return
 
         # Change the name of an NPC in the room
@@ -2514,15 +2690,15 @@ def describe(params,mud,playersDB: {},players: {},rooms: {}, \
                 if thingDescribed in npcs[nid]['name'].lower():
                     npcs[nid]['name'] = thingName
                     mud.send_message(
-                        id,
-                        'New description set for ' +
-                        npcs[nid]['name'] +
-                        '.\n\n')
+                        id, 'New description set for ' +
+                        npcs[nid]['name'] + '.\n\n')
                     saveUniverse(
-                        rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+                        rooms, npcsDB, npcs, itemsDB,
+                        items, envDB, env, guildsDB)
                     return
 
-def isWearing(id,players: {},itemList: []) -> bool:
+
+def isWearing(id, players: {}, itemList: []) -> bool:
     """Given a list of possible item IDs is the player wearing any of them?
     """
     if not itemList:
@@ -2530,9 +2706,9 @@ def isWearing(id,players: {},itemList: []) -> bool:
 
     for itemID in itemList:
         if not str(itemID).isdigit():
-            print('isWearing: '+str(itemID)+' is not a digit')
+            print('isWearing: ' + str(itemID) + ' is not a digit')
             continue
-        itemID=int(itemID)
+        itemID = int(itemID)
         for locn in wearLocation:
             if int(players[id]['clo_'+locn]) == itemID:
                 return True
@@ -2541,12 +2717,13 @@ def isWearing(id,players: {},itemList: []) -> bool:
             return True
     return False
 
-def checkInventory(params,mud,playersDB: {},players: {},rooms: {}, \
-                   npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                   envDB: {},env: {},eventDB: {},eventSchedule, \
-                   id: int,fights: {},corpses: {},blocklist, \
-                   mapArea: [],characterClassDB: {},spellsDB: {}, \
-                   sentimentDB: {},guildsDB: {},clouds: {}):
+
+def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
+                   npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                   envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                   id: int, fights: {}, corpses: {}, blocklist,
+                   mapArea: [], characterClassDB: {}, spellsDB: {},
+                   sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.send_message(id, 'You check your inventory.')
     if len(list(players[id]['inv'])) == 0:
         mud.send_message(id, 'You haven`t got any items on you.\n\n')
@@ -2626,12 +2803,13 @@ def checkInventory(params,mud,playersDB: {},players: {},rooms: {}, \
                          itemsDB[int(i)]['name'])
     mud.send_message(id, '\n\n')
 
-def changeSetting(params,mud,playersDB: {},players: {},rooms: {}, \
-                  npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                  envDB: {},env: {},eventDB: {},eventSchedule, \
-                  id: int,fights: {},corpses: {},blocklist, \
-                  mapArea: [],characterClassDB: {},spellsDB: {}, \
-                  sentimentDB: {},guildsDB: {},clouds: {}):
+
+def changeSetting(params, mud, playersDB: {}, players: {}, rooms: {},
+                  npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                  envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                  id: int, fights: {}, corpses: {}, blocklist,
+                  mapArea: [], characterClassDB: {}, spellsDB: {},
+                  sentimentDB: {}, guildsDB: {}, clouds: {}):
     newPassword = ''
     if params.startswith('password '):
         newPassword = params.replace('password ', '')
@@ -2648,12 +2826,12 @@ def changeSetting(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, "Your password has been changed.\n\n")
 
 
-def writeOnItem(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+def writeOnItem(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     if ' on ' not in params:
         if ' onto ' not in params:
             if ' in ' not in params:
@@ -2661,14 +2839,11 @@ def writeOnItem(params,mud,playersDB: {},players: {},rooms: {}, \
                     if ' with ' not in params:
                         mud.send_message(id, 'What?\n\n')
                         return
-    writeItemName = ''
     msg = ''
     if ' using ' not in params:
         msg = params.split(' using ')[0].remove('"')
-        writeItemName = params.split(' using ')[1].lower()
     if ' with ' not in params:
         msg = params.split(' with ')[0].remove('"')
-        writeItemName = params.split(' with ')[1].lower()
 
     if len(msg) == 0:
         return
@@ -2676,31 +2851,32 @@ def writeOnItem(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, 'That message is too long.\n\n')
 
 
-def check(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-          envDB: {},env: {},eventDB: {},eventSchedule, \
-          id: str,fights: {},corpses: {},blocklist, \
-          mapArea: [],characterClassDB: {},spellsDB: {}, \
-          sentimentDB: {},guildsDB: {},clouds: {}):
+def check(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: str, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     if params.lower() == 'inventory' or \
        params.lower() == 'inv':
-        checkInventory(params,mud,playersDB,players, \
-                       rooms,npcsDB,npcs,itemsDB,items, \
-                       envDB,env,eventDB,eventSchedule, \
-                       id,fights,corpses,blocklist, \
-                       mapArea,characterClassDB,spellsDB, \
-                       sentimentDB,guildsDB,clouds)
+        checkInventory(params, mud, playersDB, players,
+                       rooms, npcsDB, npcs, itemsDB, items,
+                       envDB, env, eventDB, eventSchedule,
+                       id, fights, corpses, blocklist,
+                       mapArea, characterClassDB, spellsDB,
+                       sentimentDB, guildsDB, clouds)
     elif params.lower() == 'stats':
         mud.send_message(id, 'You check your character sheet.\n')
     else:
         mud.send_message(id, 'Check what?\n')
 
-def wear(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+
+def wear(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -2738,17 +2914,18 @@ def wear(params,mud,playersDB: {},players: {},rooms: {}, \
         return
 
     for clothingType in wearLocation:
-        if wearClothing(itemID,players,id,clothingType,mud,itemsDB):
+        if wearClothing(itemID, players, id, clothingType, mud, itemsDB):
             return
 
     mud.send_message(id, "You can't wear that\n\n")
 
-def wield(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-          envDB: {},env: {},eventDB: {},eventSchedule: {}, \
-          id: int,fights: {},corpses: {},blocklist: {}, \
-          mapArea: [],characterClassDB: {},spellsDB: {}, \
-          sentimentDB: {},guildsDB: {},clouds: {}):
+
+def wield(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule: {},
+          id: int, fights: {}, corpses: {}, blocklist: {},
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -2843,41 +3020,41 @@ def wield(params,mud,playersDB: {},players: {},rooms: {}, \
         if int(players[id]['clo_rhand']) == itemID:
             players[id]['clo_rhand'] = 0
         players[id]['clo_lhand'] = itemID
-        mud.send_message(id,'You hold <b234>'+ \
-                         itemsDB[itemID]['article']+' '+ \
-                         itemsDB[itemID]['name']+ \
+        mud.send_message(id, 'You hold <b234>' +
+                         itemsDB[itemID]['article'] + ' ' +
+                         itemsDB[itemID]['name'] +
                          '<r> in your left hand.\n\n')
     else:
         if int(players[id]['clo_lhand']) == itemID:
             players[id]['clo_lhand'] = 0
         players[id]['clo_rhand'] = itemID
-        mud.send_message(id,'You hold <b234>'+ \
-                         itemsDB[itemID]['article']+' '+ \
-                         itemsDB[itemID]['name']+ \
+        mud.send_message(id, 'You hold <b234>' +
+                         itemsDB[itemID]['article'] + ' ' +
+                         itemsDB[itemID]['name'] +
                          '<r> in your right hand.\n\n')
 
 
-def stow(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+def stow(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     if len(list(players[id]['inv'])) == 0:
         return
 
-    stowFrom=('clo_lhand','clo_rhand')
+    stowFrom = ('clo_lhand', 'clo_rhand')
     for stowLocation in stowFrom:
-        itemID=int(players[id][stowLocation])
-        if itemID==0:
+        itemID = int(players[id][stowLocation])
+        if itemID == 0:
             continue
         if int(itemsDB[itemID]['clo_rleg']) > 0:
             if int(players[id]['clo_rleg']) == 0:
                 if int(players[id]['clo_lleg']) != itemID:
                     players[id]['clo_rleg'] = itemID
-                    mud.send_message(id,'You stow <b234>'+ \
-                                     itemsDB[itemID]['article']+' '+ \
-                                     itemsDB[itemID]['name']+'<r>\n\n')
+                    mud.send_message(id, 'You stow <b234>' +
+                                     itemsDB[itemID]['article'] + ' ' +
+                                     itemsDB[itemID]['name'] + '<r>\n\n')
                     players[id][stowLocation] = 0
                     continue
 
@@ -2885,21 +3062,25 @@ def stow(params,mud,playersDB: {},players: {},rooms: {}, \
             if int(players[id]['clo_lleg']) == 0:
                 if int(players[id]['clo_rleg']) != itemID:
                     players[id]['clo_lleg'] = itemID
-                    mud.send_message(id,'You stow <b234>'+ \
-                                     itemsDB[itemID]['article']+' '+ \
-                                     itemsDB[itemID]['name']+'<r>\n\n')
+                    mud.send_message(id, 'You stow <b234>' +
+                                     itemsDB[itemID]['article'] + ' ' +
+                                     itemsDB[itemID]['name'] + '<r>\n\n')
                     players[id][stowLocation] = 0
 
     stowHands(id, players, itemsDB, mud)
 
-def wearClothing(itemID,players: {},id,clothingType,mud,itemsDB: {}) -> bool:
-    if itemsDB[itemID]['clo_'+clothingType] > 0:
-        players[id]['clo_'+clothingType] = itemID
-        clothingOpened=False
-        if len(itemsDB[itemID]['open_description'])>0:
+
+def wearClothing(itemID, players: {}, id, clothingType,
+                 mud, itemsDB: {}) -> bool:
+    if itemsDB[itemID]['clo_' + clothingType] > 0:
+        players[id]['clo_' + clothingType] = itemID
+        clothingOpened = False
+        if len(itemsDB[itemID]['open_description']) > 0:
+            desc = \
+                randomDescription(itemsDB[itemID]['open_description'])
             if ' open' not in itemsDB[itemID]['open_description']:
-                mud.send_message(id, randomDescription(itemsDB[itemID]['open_description']) + '\n\n')
-                clothingOpened=True
+                mud.send_message(id, desc + '\n\n')
+                clothingOpened = True
         if not clothingOpened:
             mud.send_message(
                 id,
@@ -2911,40 +3092,47 @@ def wearClothing(itemID,players: {},id,clothingType,mud,itemsDB: {}) -> bool:
         return True
     return False
 
-def unwearClothing(players: {},id,clothingType,mud,itemsDB: {}):
+
+def unwearClothing(players: {}, id, clothingType, mud, itemsDB: {}):
     if int(players[id]['clo_'+clothingType]) > 0:
-        itemID = int(players[id]['clo_'+clothingType])
-        clothingClosed=False
-        if len(itemsDB[itemID]['close_description'])>0:
-            if ' close ' not in itemsDB[itemID]['open_description'] and \
-               'closed' not in itemsDB[itemID]['open_description'] and \
-               'closing' not in itemsDB[itemID]['open_description'] and \
-               'shut' not in itemsDB[itemID]['open_description']:
-                mud.send_message(id, randomDescription(itemsDB[itemID]['close_description']) + '\n\n')
-                clothingClosed=True
+        itemID = int(players[id]['clo_' + clothingType])
+        clothingClosed = False
+        if len(itemsDB[itemID]['close_description']) > 0:
+            desc = itemsDB[itemID]['open_description']
+            if ' close ' not in desc and \
+               'closed' not in desc and \
+               'closing' not in desc and \
+               'shut' not in desc:
+                desc = \
+                    randomDescription(itemsDB[itemID]['close_description'])
+                mud.send_message(id, desc + '\n\n')
+                clothingClosed = True
         if not clothingClosed:
             mud.send_message(id, 'You remove ' +
                              itemsDB[itemID]['article'] + ' <b234>' +
                              itemsDB[itemID]['name'] + '\n\n')
         players[id]['clo_'+clothingType] = 0
 
-def unwear(params,mud,playersDB: {},players: {},rooms: {}, \
-           npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-           envDB: {},env: {},eventDB: {},eventSchedule, \
-           id: int,fights: {},corpses: {},blocklist, \
-           mapArea: [],characterClassDB: {},spellsDB: {}, \
-           sentimentDB: {},guildsDB: {},clouds: {}):
+
+def unwear(params, mud, playersDB: {}, players: {}, rooms: {},
+           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+           envDB: {}, env: {}, eventDB: {}, eventSchedule,
+           id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}):
     if len(list(players[id]['inv'])) == 0:
         return
 
     for clothingType in wearLocation:
-        unwearClothing(players,id,clothingType,mud,itemsDB)
+        unwearClothing(players, id, clothingType, mud, itemsDB)
 
-def playersMoveTogether(id,rm,mud, \
-                        playersDB,players,rooms,npcsDB,npcs, \
-                        itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                        fights,corpses,blocklist,mapArea, \
-                        characterClassDB,spellsDB,sentimentDB,guildsDB) -> None:
+
+def playersMoveTogether(id, rm, mud,
+                        playersDB, players, rooms, npcsDB, npcs,
+                        itemsDB, items, envDB, env, eventDB, eventSchedule,
+                        fights, corpses, blocklist, mapArea,
+                        characterClassDB, spellsDB,
+                        sentimentDB, guildsDB, clouds) -> None:
     """In boats when one player rows the rest move with them
     """
     # go through all the players in the game
@@ -2955,17 +3143,18 @@ def playersMoveTogether(id,rm,mud, \
            pid != id:
             players[pid]['room'] = rm
 
-            mud.send_message(pid, \
-                             'You row to <f106>{}'.format(rooms[rm]['name']) + "\n\n")
+            desc = 'You row to <f106>{}'.format(rooms[rm]['name'])
+            mud.send_message(pid, desc + "\n\n")
 
-            look('',mud,playersDB,players,rooms,npcsDB,npcs, \
-                 itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                 pid,fights,corpses,blocklist,mapArea, \
-                 characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
+            look('', mud, playersDB, players, rooms, npcsDB, npcs,
+                 itemsDB, items, envDB, env, eventDB, eventSchedule,
+                 pid, fights, corpses, blocklist, mapArea,
+                 characterClassDB, spellsDB, sentimentDB, guildsDB, clouds)
 
-            if rooms[rm]['eventOnEnter'] is not "":
+            if rooms[rm]['eventOnEnter'] != "":
                 addToScheduler(int(rooms[rm]['eventOnEnter']),
                                pid, eventSchedule, eventDB)
+
 
 def messageToPlayersInRoom(mud, players, id, msg):
     # go through all the players in the game
@@ -2974,8 +3163,9 @@ def messageToPlayersInRoom(mud, players, id, msg):
         # sending the command
         if players[pid]['room'] == players[id]['room'] and \
            pid != id:
-            if playerIsVisible(mud,pid,players,id,players):
+            if playerIsVisible(mud, pid, players, id, players):
                 mud.send_message(pid, msg)
+
 
 def bioOfPlayer(mud, id, pid, players, itemsDB):
     if players[pid].get('race'):
@@ -2997,14 +3187,15 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                 langCtr = 0
                 for lang in players[id]['language']:
                     if langCtr > 0:
-                        languagesStr=languagesStr+', '+lang
+                        languagesStr = languagesStr + ', ' + lang
                     else:
-                        languagesStr=languagesStr+lang
+                        languagesStr = languagesStr + lang
                     langCtr += 1
-                mud.send_message(id,'Languages: '+languagesStr+'\n')
+                mud.send_message(id, 'Languages: ' + languagesStr + '\n')
 
-    mud.send_message_wrap(id, '', \
-                          randomDescription(players[pid]['lookDescription']) + '\n')
+    desc = \
+        randomDescription(players[pid]['lookDescription'])
+    mud.send_message_wrap(id, '', desc + '\n')
 
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:
@@ -3025,27 +3216,30 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
         playerName3 = 'have'
 
     if int(players[pid]['clo_rhand']) > 0:
-        mud.send_message(id,playerName+' '+playerName3+' '+ \
-                         itemsDB[players[pid]['clo_rhand']]['article']+ \
-                         ' '+itemsDB[players[pid]['clo_rhand']]['name']+ \
-                         ' in '+playerName2+' right hand.\n')
+        mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
+                         itemsDB[players[pid]['clo_rhand']]['article'] +
+                         ' ' + itemsDB[players[pid]['clo_rhand']]['name'] +
+                         ' in ' + playerName2 + ' right hand.\n')
     if players[pid].get('clo_rfinger'):
         if int(players[pid]['clo_rfinger']) > 0:
-            mud.send_message(id,playerName+' '+playerName3+' ' + \
-                             itemsDB[players[pid]['clo_rfinger']]['article'] + \
-                             ' ' + itemsDB[players[pid]['clo_rfinger']]['name'] + \
-                             ' on the finger of '+playerName2+' right hand.\n')
+            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
+                             itemsDB[players[pid]['clo_rfinger']]['article'] +
+                             ' ' +
+                             itemsDB[players[pid]['clo_rfinger']]['name'] +
+                             ' on the finger of ' + playerName2 +
+                             ' right hand.\n')
     if int(players[pid]['clo_lhand']) > 0:
-        mud.send_message(id,playerName + ' ' + playerName3 + ' ' + \
-                         itemsDB[players[pid]['clo_lhand']]['article'] + \
-                         ' ' + itemsDB[players[pid]['clo_lhand']]['name'] + \
+        mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
+                         itemsDB[players[pid]['clo_lhand']]['article'] +
+                         ' ' + itemsDB[players[pid]['clo_lhand']]['name'] +
                          ' in ' + playerName2 + ' left hand.\n')
     if players[pid].get('clo_lfinger'):
         if int(players[pid]['clo_lfinger']) > 0:
-            mud.send_message(id,playerName+' '+playerName3+' '+ \
-                             itemsDB[players[pid]['clo_lfinger']]['article']+ \
-                             ' '+itemsDB[players[pid]['clo_lfinger']]['name']+ \
-                             ' on the finger of '+playerName2+' left hand.\n')
+            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
+                             itemsDB[players[pid]['clo_lfinger']]['article'] +
+                             ' '+itemsDB[players[pid]['clo_lfinger']]['name'] +
+                             ' on the finger of ' + playerName2 +
+                             ' left hand.\n')
 
     if wearingCtr > 0:
         wearingMsg = playerName + ' are wearing'
@@ -3059,28 +3253,35 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                         wearingMsg = wearingMsg + ', '
                 else:
                     wearingMsg = wearingMsg + ' '
-                wearingMsg = wearingMsg + itemsDB[players[pid]['clo_'+cl]]['article'] + \
+                wearingMsg = wearingMsg + \
+                    itemsDB[players[pid]['clo_'+cl]]['article'] + \
                     ' ' + itemsDB[players[pid]['clo_'+cl]]['name']
                 if cl == 'neck':
-                    wearingMsg = wearingMsg + ' around ' + playerName2 + ' neck'
+                    wearingMsg = \
+                        wearingMsg + ' around ' + playerName2 + ' neck'
                 if cl == 'lwrist':
-                    wearingMsg = wearingMsg + ' on ' + playerName2 + ' left wrist'
+                    wearingMsg = \
+                        wearingMsg + ' on ' + playerName2 + ' left wrist'
                 if cl == 'rwrist':
-                    wearingMsg = wearingMsg + ' on ' + playerName2 + ' right wrist'
+                    wearingMsg = \
+                        wearingMsg + ' on ' + playerName2 + ' right wrist'
                 if cl == 'lleg':
-                    wearingMsg = wearingMsg + ' on ' + playerName2 + ' left leg'
+                    wearingMsg = \
+                        wearingMsg + ' on ' + playerName2 + ' left leg'
                 if cl == 'rleg':
-                    wearingMsg = wearingMsg + ' on ' + playerName2 + ' right leg'
+                    wearingMsg = \
+                        wearingMsg + ' on ' + playerName2 + ' right leg'
                 wearingCtr2 += 1
         mud.send_message(id, wearingMsg + '.\n')
     mud.send_message(id, '\n')
 
-def bio(params,mud,playersDB: {},players: {},rooms: {}, \
-        npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-        envDB: {},env: {},eventDB: {},eventSchedule, \
-        id: int,fights: {},corpses: {},blocklist, \
-        mapArea: [],characterClassDB: {},spellsDB: {}, \
-        sentimentDB: {},guildsDB: {},clouds: {}):
+
+def bio(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+        envDB: {}, env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB: {},
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
     if len(params) == 0:
         bioOfPlayer(mud, id, id, players, itemsDB)
         return
@@ -3102,7 +3303,8 @@ def bio(params,mud,playersDB: {},players: {},rooms: {}, \
 
     if players[id]['canSay'] == 0:
         mud.send_message(
-            id, "You try to describe yourself, but find you have nothing to say.\n\n")
+            id, "You try to describe yourself, " +
+            "but find you have nothing to say.\n\n")
         return
 
     if '"' in params:
@@ -3116,12 +3318,12 @@ def bio(params,mud,playersDB: {},players: {},rooms: {}, \
     mud.send_message(id, "Your bio has been set.\n\n")
 
 
-def eat(params,mud,playersDB: {},players: {},rooms: {}, \
-        npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-        envDB: {},env: {},eventDB: {},eventSchedule, \
-        id: int,fights: {},corpses: {},blocklist, \
-        mapArea: [],characterClassDB: {},spellsDB: {}, \
-        sentimentDB: {},guildsDB: {},clouds: {}):
+def eat(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+        envDB: {}, env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB: {},
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
     food = params.lower()
     foodItemID = 0
     if len(list(players[id]['inv'])) > 0:
@@ -3159,22 +3361,23 @@ def eat(params,mud,playersDB: {},players: {},rooms: {}, \
         players[id]['clo_lhand'] = 0
 
 
-def stepOver(params,mud,playersDB: {},players: {},rooms: {}, \
-             npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {}, \
-             sentimentDB: {},guildsDB: {},clouds: {}):
-    roomID=players[id]['room']
+def stepOver(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
+    roomID = players[id]['room']
     if not rooms[roomID]['trap'].get('trapActivation'):
         mud.send_message(
-            id, randomDescription(
-                "You don't notice a tripwire") + '.\n\n')
+            id, randomDescription("You don't notice a tripwire") +
+            '.\n\n')
         return
-    if rooms[roomID]['trap']['trapActivation']!='tripwire':
+    if rooms[roomID]['trap']['trapActivation'] != 'tripwire':
         mud.send_message(
             id, randomDescription(
-                "You don't notice a tripwire|You don't see a tripwire") + '.\n\n')
+                "You don't notice a tripwire|You don't see a tripwire") +
+            '.\n\n')
         return
     if 'over ' not in params:
         mud.send_message(
@@ -3182,29 +3385,31 @@ def stepOver(params,mud,playersDB: {},players: {},rooms: {}, \
                 "Do what?|Eh?") + '.\n\n')
         return
 
-    for direction,ex in rooms[roomID]['exits'].items():
+    for direction, ex in rooms[roomID]['exits'].items():
         if direction in params:
-            go('######step######'+direction,mud,playersDB,players, \
-               rooms,npcsDB,npcs,itemsDB,items,envDB,env,eventDB, \
-               eventSchedule,id,fights,corpses,blocklist,mapArea, \
-               characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
+            go('######step######' + direction, mud, playersDB, players,
+               rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB,
+               eventSchedule, id, fights, corpses, blocklist, mapArea,
+               characterClassDB, spellsDB, sentimentDB, guildsDB, clouds)
             break
 
-def climb(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-          envDB: {},env: {},eventDB: {},eventSchedule, \
-          id: int,fights: {},corpses: {},blocklist, \
-          mapArea: [],characterClassDB: {},spellsDB: {},
-          sentimentDB: {},guildsDB: {},clouds: {}):
+
+def climb(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Climbing through or into an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
-        mud.send_message(id, "You try to move but find that you lack any ability to.\n\n")
+        mud.send_message(id, "You try to move but find that you " +
+                         "lack any ability to.\n\n")
         return
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            itemId=items[item]['id']
-            if not itemIsVisible(id,players,itemId,itemsDB):
+            itemId = items[item]['id']
+            if not itemIsVisible(id, players, itemId, itemsDB):
                 continue
             if not itemsDB[itemId].get('climbThrough'):
                 continue
@@ -3212,67 +3417,76 @@ def climb(params,mud,playersDB: {},players: {},rooms: {}, \
                 continue
             if itemsDB[itemId].get('state'):
                 if 'open' not in itemsDB[itemId]['state']:
-                    mud.send_message(id, itemsDB[itemId]['name']+ \
+                    mud.send_message(id, itemsDB[itemId]['name'] +
                                      " is closed.\n\n")
                     continue
-            targetRoom=itemsDB[itemId]['exit']
-            if rooms[targetRoom]['maxPlayerSize']>-1:
+            targetRoom = itemsDB[itemId]['exit']
+            if rooms[targetRoom]['maxPlayerSize'] > -1:
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
                     mud.send_message(id, "You're too big.\n\n")
                     return
-            if rooms[targetRoom]['maxPlayers']>-1:
-                if playersInRoom(targetRoom,players,npcs) >= \
+            if rooms[targetRoom]['maxPlayers'] > -1:
+                if playersInRoom(targetRoom, players, npcs) >= \
                    rooms[targetRoom]['maxPlayers']:
                     mud.send_message(id, "It's too crowded.\n\n")
                     return
+            desc = \
+                randomDescription(players[id]['outDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['outDescription']) + '\n')
+                                   desc + '\n')
             # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] is not "":
+            if rooms[players[id]['room']]['eventOnLeave'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
                                id, eventSchedule, eventDB)
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
             # climbing message
-            mud.send_message_wrap(id,'<f230>', \
-                                  randomDescription(itemsDB[itemId]['climbThrough'])+"\n\n")
+            desc = \
+                randomDescription(itemsDB[itemId]['climbThrough'])
+            mud.send_message_wrap(id, '<f230>', desc + "\n\n")
             time.sleep(3)
             # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] is not "":
+            if rooms[players[id]['room']]['eventOnEnter'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
                                id, eventSchedule, eventDB)
             # message to other players
+            desc = randomDescription(players[id]['inDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['inDescription']) + "\n\n")
+                                   desc + "\n\n")
             # look after climbing
-            look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
-                 envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
-                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
+            look('', mud, playersDB, players, rooms,
+                 npcsDB, npcs, itemsDB, items,
+                 envDB, env, eventDB, eventSchedule,
+                 id, fights, corpses, blocklist,
+                 mapArea, characterClassDB, spellsDB,
+                 sentimentDB, guildsDB, clouds)
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
-def heave(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-          envDB: {},env: {},eventDB: {},eventSchedule, \
-          id: int,fights: {},corpses: {},blocklist, \
-          mapArea: [],characterClassDB: {},spellsDB: {}, \
-          sentimentDB: {},guildsDB: {},clouds: {}):
+
+def heave(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Roll/heave an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
-        mud.send_message(id, "You try to move but find that you lack any ability to.\n\n")
+        mud.send_message(id, "You try to move but find that " +
+                         "you lack any ability to.\n\n")
         return
 
-    target=params.lower()
+    target = params.lower()
     if target.startswith('the '):
-        target=target.replace('the ','')
+        target = target.replace('the ', '')
 
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            itemId=items[item]['id']
-            if not itemIsVisible(id,players,itemId,itemsDB):
+            itemId = items[item]['id']
+            if not itemIsVisible(id, players, itemId, itemsDB):
                 continue
             if not itemsDB[itemId].get('heave'):
                 continue
@@ -3282,124 +3496,155 @@ def heave(params,mud,playersDB: {},players: {},rooms: {}, \
                 continue
             if itemsDB[itemId].get('state'):
                 if 'open' not in itemsDB[itemId]['state']:
-                    mud.send_message(id, itemsDB[itemId]['name']+ \
+                    mud.send_message(id, itemsDB[itemId]['name'] +
                                      " is closed.\n\n")
                     continue
-            targetRoom=itemsDB[itemId]['exit']
-            if rooms[targetRoom]['maxPlayerSize']>-1:
+            targetRoom = itemsDB[itemId]['exit']
+            if rooms[targetRoom]['maxPlayerSize'] > -1:
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
                     mud.send_message(id, "You're too big.\n\n")
                     return
-            if rooms[targetRoom]['maxPlayers']>-1:
-                if playersInRoom(targetRoom,players,npcs) >= rooms[targetRoom]['maxPlayers']:
+            if rooms[targetRoom]['maxPlayers'] > -1:
+                if playersInRoom(targetRoom, players, npcs) >= \
+                   rooms[targetRoom]['maxPlayers']:
                     mud.send_message(id, "It's too crowded.\n\n")
                     return
+            desc = randomDescription(players[id]['outDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['outDescription']) + '\n')
+                                   desc + '\n')
             # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] is not "":
+            if rooms[players[id]['room']]['eventOnLeave'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
                                id, eventSchedule, eventDB)
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
             # heave message
-            mud.send_message_wrap(id,'<f220>', \
-                                  randomDescription(itemsDB[itemId]['heave'])+"\n\n")
+            desc = randomDescription(itemsDB[itemId]['heave'])
+            mud.send_message_wrap(id, '<f220>', desc + "\n\n")
             # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] is not "":
+            if rooms[players[id]['room']]['eventOnEnter'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
                                id, eventSchedule, eventDB)
             # message to other players
+            desc = randomDescription(players[id]['inDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['inDescription']) + "\n\n")
+                                   desc + "\n\n")
             time.sleep(3)
             # look after climbing
-            look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
-                 envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
-                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB, \
-                 clouds)
+            look('', mud, playersDB, players, rooms,
+                 npcsDB, npcs, itemsDB, items,
+                 envDB, env, eventDB, eventSchedule, id,
+                 fights, corpses, blocklist,
+                 mapArea, characterClassDB, spellsDB,
+                 sentimentDB, guildsDB, clouds)
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
-def jump(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+
+def jump(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Jumping onto an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
-        mud.send_message(id, "You try to move but find that you lack any ability to.\n\n")
+        mud.send_message(id, "You try to move but find that you " +
+                         "lack any ability to.\n\n")
         return
     if not params:
-        mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
+        desc = \
+            randomDescription("You jump, expecting something to happen. " +
+                              "But it doesn't.|Jumping doesn't help.|" +
+                              "You jump. Nothing happens.|In this " +
+                              "situation jumping only adds to the " +
+                              "confusion.|You jump up and down on the " +
+                              "spot.|You jump, and then feel vaguely silly.")
+        mud.send_message(id, desc + "\n\n")
         return
-    words=params.lower().replace('.','').split(' ')
+    words = params.lower().replace('.', '').split(' ')
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            itemId=items[item]['id']
-            if not itemIsVisible(id,players,itemId,itemsDB):
+            itemId = items[item]['id']
+            if not itemIsVisible(id, players, itemId, itemsDB):
                 continue
             if not itemsDB[itemId].get('jumpTo'):
                 continue
             if not itemsDB[itemId].get('exit'):
                 continue
-            wordMatched=False
+            wordMatched = False
             for w in words:
                 if w in itemsDB[itemId]['name'].lower():
-                    wordMatched=True
+                    wordMatched = True
                     break
             if not wordMatched:
                 continue
             if itemsDB[itemId].get('state'):
                 if 'open' not in itemsDB[itemId]['state']:
-                    mud.send_message(id, itemsDB[itemId]['name']+ \
+                    mud.send_message(id, itemsDB[itemId]['name'] +
                                      " is closed.\n\n")
                     continue
-            targetRoom=itemsDB[itemId]['exit']
-            if rooms[targetRoom]['maxPlayerSize']>-1:
+            targetRoom = itemsDB[itemId]['exit']
+            if rooms[targetRoom]['maxPlayerSize'] > -1:
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
                     mud.send_message(id, "You're too big.\n\n")
                     return
-            if rooms[targetRoom]['maxPlayers']>-1:
-                if playersInRoom(targetRoom,players,npcs) >= rooms[targetRoom]['maxPlayers']:
+            if rooms[targetRoom]['maxPlayers'] > -1:
+                if playersInRoom(targetRoom, players, npcs) >= \
+                   rooms[targetRoom]['maxPlayers']:
                     mud.send_message(id, "It's too crowded.\n\n")
                     return
+            desc = \
+                randomDescription(players[id]['outDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['outDescription']) + '\n')
+                                   desc + '\n')
             # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] is not "":
+            if rooms[players[id]['room']]['eventOnLeave'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
                                id, eventSchedule, eventDB)
             # update the player's current room to the one the exit leads to
             players[id]['room'] = targetRoom
             # climbing message
-            mud.send_message_wrap(id,'<f230>', \
-                                  randomDescription(itemsDB[itemId]['jumpTo'])+"\n\n")
+            desc = randomDescription(itemsDB[itemId]['jumpTo'])
+            mud.send_message_wrap(id, '<f230>', desc + "\n\n")
             time.sleep(3)
             # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] is not "":
+            if rooms[players[id]['room']]['eventOnEnter'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
                                id, eventSchedule, eventDB)
             # message to other players
+            desc = randomDescription(players[id]['inDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
-                                   randomDescription(players[id]['inDescription']) + "\n\n")
+                                   desc + "\n\n")
             # look after climbing
-            look('',mud,playersDB,players,rooms,npcsDB,npcs,itemsDB,items, \
-                 envDB,env,eventDB,eventSchedule,id,fights,corpses,blocklist, \
-                 mapArea,characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
+            look('', mud, playersDB, players,
+                 rooms, npcsDB, npcs, itemsDB, items,
+                 envDB, env, eventDB, eventSchedule,
+                 id, fights, corpses, blocklist,
+                 mapArea, characterClassDB, spellsDB,
+                 sentimentDB, guildsDB, clouds)
             return
-    mud.send_message(id, randomDescription("You jump, expecting something to happen. But it doesn't.|Jumping doesn't help.|You jump. Nothing happens.|In this situation jumping only adds to the confusion.|You jump up and down on the spot.|You jump, and then feel vaguely silly.")+"\n\n")
+    desc = \
+        randomDescription("You jump, expecting something to happen. " +
+                          "But it doesn't.|" +
+                          "Jumping doesn't help.|" +
+                          "You jump. Nothing happens.|" +
+                          "In this situation jumping only adds to " +
+                          "the confusion.|" +
+                          "You jump up and down on the spot.|" +
+                          "You jump, and then feel vaguely silly.")
+    mud.send_message(id, desc + "\n\n")
 
-def chessBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
+
+def chessBoardInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
     """Returns the item ID if there is a chess board in the room
     """
-    rid=players[id]['room']
+    rid = players[id]['room']
     for i in items:
         if items[i]['room'] != rid:
             continue
@@ -3407,75 +3652,81 @@ def chessBoardInRoom(players: {},id,rooms: {},items: {},itemsDB: {}):
             return i
     return None
 
-def deal(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {},
-         sentimentDB: {},guildsDB: {},clouds: {}):
+
+def deal(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Deal cards to other players
     """
-    dealToPlayers(players,id,params.lower(), \
-                  mud,rooms,items,itemsDB)
+    dealToPlayers(players, id, params.lower(),
+                  mud, rooms, items, itemsDB)
 
-def handOfCards(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+
+def handOfCards(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Show hand of cards
     """
-    showHandOfCards(players,id,mud,rooms,items,itemsDB)
+    showHandOfCards(players, id, mud, rooms, items, itemsDB)
 
-def swapACard(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def swapACard(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Swap a playing card for another from the deck
     """
-    swapCard(params,players,id,mud,rooms,items,itemsDB)
+    swapCard(params, players, id, mud, rooms, items, itemsDB)
 
-def shuffle(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: [],characterClassDB: {},spellsDB: {}, \
-            sentimentDB: {},guildsDB: {},clouds: {}):
+
+def shuffle(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Shuffle a deck of cards
     """
-    shuffleCards(players,id,mud,rooms,items,itemsDB)
+    shuffleCards(players, id, mud, rooms, items, itemsDB)
 
-def callCardGame(params,mud,playersDB: {},players: {},rooms: {}, \
-                 npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                 envDB: {},env: {},eventDB: {},eventSchedule, \
-                 id: int,fights: {},corpses: {},blocklist, \
-                 mapArea: [],characterClassDB: {},spellsDB: {}, \
-                 sentimentDB: {},guildsDB: {},clouds: {}):
+
+def callCardGame(params, mud, playersDB: {}, players: {}, rooms: {},
+                 npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                 id: int, fights: {}, corpses: {}, blocklist,
+                 mapArea: [], characterClassDB: {}, spellsDB: {},
+                 sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Players show their cards
     """
-    callCards(players,id,mud,rooms,items,itemsDB)
+    callCards(players, id, mud, rooms, items, itemsDB)
 
-def morrisGame(params,mud,playersDB: {},players: {},rooms: {}, \
-               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-               envDB: {},env: {},eventDB: {},eventSchedule, \
-               id: int,fights: {},corpses: {},blocklist, \
-               mapArea: [],characterClassDB: {},spellsDB: {}, \
-               sentimentDB: {},guildsDB: {},clouds: {}):
+
+def morrisGame(params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Show the nine men's morris board
     """
-    params=params.lower()
+    params = params.lower()
     if params.startswith('reset') or \
        params.startswith('clear'):
-        resetMorrisBoard(players,id,mud,rooms,items,itemsDB)
+        resetMorrisBoard(players, id, mud, rooms, items, itemsDB)
         return
 
     if params.startswith('take') or \
        params.startswith('remove') or \
        params.startswith('capture'):
-        takeMorrisCounter(params,players,id,mud,rooms,items,itemsDB)
+        takeMorrisCounter(params, players, id, mud, rooms, items, itemsDB)
         return
 
     if params.startswith('move ') or \
@@ -3483,56 +3734,63 @@ def morrisGame(params,mud,playersDB: {},players: {},rooms: {}, \
        params.startswith('put ') or \
        params.startswith('counter ') or \
        params.startswith('place '):
-        morrisMove(params,players,id,mud,rooms, \
-                   items,itemsDB)
+        morrisMove(params, players, id, mud, rooms,
+                   items, itemsDB)
         return
 
-    showMorrisBoard(players,id,mud,rooms,items,itemsDB)
+    showMorrisBoard(players, id, mud, rooms, items, itemsDB)
 
-def chess(params,mud,playersDB: {},players: {},rooms: {}, \
-          npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-          envDB: {},env: {},eventDB: {},eventSchedule, \
-          id: int,fights: {},corpses: {},blocklist, \
-          mapArea: [],characterClassDB: {},spellsDB: {}, \
-          sentimentDB: {},guildsDB: {},clouds: {}):
+
+def chess(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Jumping onto an item takes the player to a different room
     """
     # check if board exists in room
-    boardItemID=chessBoardInRoom(players,id,rooms,items,itemsDB)
+    boardItemID = \
+        chessBoardInRoom(players, id, rooms, items, itemsDB)
     if not boardItemID:
         mud.send_message(id, "\nThere isn't a chess board here.\n\n")
         return
-    rid=players[id]['room']
     # create the game state
     if not items[boardItemID].get('gameState'):
-        items[boardItemID]['gameState']={}
+        items[boardItemID]['gameState'] = {}
     if not items[boardItemID]['gameState'].get('state'):
-        items[boardItemID]['gameState']['state']=initialChessBoard()
-        items[boardItemID]['gameState']['turn']='white'
-        items[boardItemID]['gameState']['history']=[]
+        items[boardItemID]['gameState']['state'] = initialChessBoard()
+        items[boardItemID]['gameState']['turn'] = 'white'
+        items[boardItemID]['gameState']['history'] = []
     # get the game history
-    gameState=items[boardItemID]['gameState']['state']
+    gameState = items[boardItemID]['gameState']['state']
     if not params:
-        showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
+        showChessBoard(gameState, id, mud,
+                       items[boardItemID]['gameState']['turn'])
         return
     if players[id]['canGo'] != 1 or \
        players[id]['frozenStart'] > 0:
-        mud.send_message(id, randomDescription("\nYou try to make a chess move but find that you lack any ability to|You suddenly lose all enthusiasm for chess")+".\n\n")
+        desc = \
+            randomDescription("\nYou try to make a chess move but find " +
+                              "that you lack any ability to|" +
+                              "You suddenly lose all enthusiasm for chess")
+        mud.send_message(id, desc + ".\n\n")
         return
-    params=params.lower().strip()
+    params = params.lower().strip()
     if 'undo' in params:
-        if len(items[boardItemID]['gameState']['history'])<2:
-            params='reset'
+        if len(items[boardItemID]['gameState']['history']) < 2:
+            params = 'reset'
         else:
             mud.send_message(id, '\nUndoing last chess move.\n')
             items[boardItemID]['gameState']['history'].pop()
-            gameState=items[boardItemID]['gameState']['history'][-1]
-            items[boardItemID]['gameState']['state']=gameState
-            if items[boardItemID]['gameState']['turn']=='white':
-                items[boardItemID]['gameState']['turn']='black'
+            gameState = items[boardItemID]['gameState']['history'][-1]
+            items[boardItemID]['gameState']['state'] = gameState
+            if items[boardItemID]['gameState']['turn'] == 'white':
+                items[boardItemID]['gameState']['turn'] = 'black'
             else:
-                items[boardItemID]['gameState']['turn']='white'
-            showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
+                items[boardItemID]['gameState']['turn'] = 'white'
+            showChessBoard(gameState, id, mud,
+                           items[boardItemID]['gameState']['turn'])
             return
     # begin a new chess game
     if 'reset' in params or \
@@ -3541,221 +3799,262 @@ def chess(params,mud,playersDB: {},players: {},rooms: {}, \
        'begin again' in params or \
        'new game' in params:
         mud.send_message(id, '\nStarting a new game.\n')
-        items[boardItemID]['gameState']['state']=initialChessBoard()
-        items[boardItemID]['gameState']['turn']='white'
-        items[boardItemID]['gameState']['history']=[]
-        gameState=items[boardItemID]['gameState']['state']
-        showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
+        items[boardItemID]['gameState']['state'] = initialChessBoard()
+        items[boardItemID]['gameState']['turn'] = 'white'
+        items[boardItemID]['gameState']['history'] = []
+        gameState = items[boardItemID]['gameState']['state']
+        showChessBoard(gameState, id, mud,
+                       items[boardItemID]['gameState']['turn'])
         return
     if 'move' in params:
-        params=params.replace('move ','').replace('to ','').replace('from ','').replace('.','').replace('-','').strip()
-        chessMoves=params.split(' ')
+        params = params.replace('move ', '').replace('to ', '')
+        params = params.replace('from ', '').replace('.', '')
+        params = params.replace('-', '').strip()
+        chessMoves = params.split(' ')
 
-        if len(chessMoves)==1:
-            if len(params)!=4:
+        if len(chessMoves) == 1:
+            if len(params) != 4:
                 mud.send_message(id, "\nEnter a move such as g8f6.\n")
                 return
-            chessMoves=[params[:2],params[2:]]
+            chessMoves = [params[:2], params[2:]]
 
-        if len(chessMoves)!=2:
+        if len(chessMoves) != 2:
             mud.send_message(id, "\nThat's not a valid move.\n")
             return
-        if len(chessMoves[0])!=2 or \
-           len(chessMoves[1])!=2:
+        if len(chessMoves[0]) != 2 or \
+           len(chessMoves[1]) != 2:
             mud.send_message(id, "\nEnter a move such as g8 f6.\n")
             return
-        if moveChessPiece(chessMoves[0]+chessMoves[1], \
-                          items[boardItemID]['gameState']['state'], \
-                          items[boardItemID]['gameState']['turn'],id,mud):
-            mud.send_message(id, "\n"+items[boardItemID]['gameState']['turn']+ \
-                             " moves from "+chessMoves[0]+" to "+chessMoves[1]+".\n")
-            gameState=items[boardItemID]['gameState']['state']
-            currTurn=items[boardItemID]['gameState']['turn']
-            if currTurn=='white':
-                items[boardItemID]['gameState']['player1']=players[id]['name']
-                items[boardItemID]['gameState']['turn']='black'
+        if moveChessPiece(chessMoves[0] + chessMoves[1],
+                          items[boardItemID]['gameState']['state'],
+                          items[boardItemID]['gameState']['turn'],
+                          id, mud):
+            mud.send_message(id, "\n" +
+                             items[boardItemID]['gameState']['turn'] +
+                             " moves from " + chessMoves[0] +
+                             " to " + chessMoves[1] + ".\n")
+            gameState = items[boardItemID]['gameState']['state']
+            currTurn = items[boardItemID]['gameState']['turn']
+            if currTurn == 'white':
+                items[boardItemID]['gameState']['player1'] = \
+                    players[id]['name']
+                items[boardItemID]['gameState']['turn'] = 'black'
                 # send a notification to the other player
                 if items[boardItemID]['gameState'].get('player2'):
                     for p in players:
-                        if p==id:
+                        if p == id:
                             continue
-                        if players[p]['name'] == items[boardItemID]['gameState']['player2']:
+                        if players[p]['name'] == \
+                           items[boardItemID]['gameState']['player2']:
                             if players[p]['room'] == players[id]['room']:
-                                showChessBoard(gameState,p,mud, \
-                                               items[boardItemID]['gameState']['turn'])
+                                turnStr = \
+                                    items[boardItemID]['gameState']['turn']
+                                showChessBoard(gameState, p, mud,
+                                               turnStr)
             else:
-                items[boardItemID]['gameState']['player2']=players[id]['name']
-                items[boardItemID]['gameState']['turn']='white'
+                items[boardItemID]['gameState']['player2'] = \
+                    players[id]['name']
+                items[boardItemID]['gameState']['turn'] = 'white'
                 # send a notification to the other player
                 if items[boardItemID]['gameState'].get('player1'):
                     for p in players:
-                        if p==id:
+                        if p == id:
                             continue
-                        if players[p]['name'] == items[boardItemID]['gameState']['player1']:
+                        if players[p]['name'] == \
+                           items[boardItemID]['gameState']['player1']:
                             if players[p]['room'] == players[id]['room']:
-                                showChessBoard(gameState,p,mud,items[boardItemID]['gameState']['turn'])
+                                turnStr = \
+                                    items[boardItemID]['gameState']['turn']
+                                showChessBoard(gameState, p, mud,
+                                               turnStr)
             items[boardItemID]['gameState']['history'].append(gameState.copy())
-            showChessBoard(gameState,id,mud,currTurn)
+            showChessBoard(gameState, id, mud, currTurn)
             return
         else:
             mud.send_message(id, "\nThat's not a valid move.\n")
             return
-    showChessBoard(gameState,id,mud,items[boardItemID]['gameState']['turn'])
+    showChessBoard(gameState, id, mud,
+                   items[boardItemID]['gameState']['turn'])
 
-def graphics(params,mud,playersDB: {},players: {},rooms: {}, \
-             npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {}, \
-             sentimentDB: {},guildsDB: {},clouds: {}):
+
+def graphics(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
     """Turn graphical output on or off
     """
-    graphicsState=params.lower().strip()
-    if graphicsState=='off' or \
-       graphicsState=='false' or \
-       graphicsState=='no':
-        players[id]['graphics']='off'
+    graphicsState = params.lower().strip()
+    if graphicsState == 'off' or \
+       graphicsState == 'false' or \
+       graphicsState == 'no':
+        players[id]['graphics'] = 'off'
         mud.send_message(id, "Graphics have been turned off.\n\n")
     else:
-        players[id]['graphics']='on'
+        players[id]['graphics'] = 'on'
         mud.send_message(id, "Graphics have been activated.\n\n")
 
-def go(params,mud,playersDB: {},players: {},rooms: {}, \
-       npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-       envDB: {},env: {},eventDB: {},eventSchedule, \
-       id: int,fights: {},corpses: {},blocklist, \
-       mapArea: [],characterClassDB: {},spellsDB: {}, \
-       sentimentDB: {},guildsDB: {},clouds: {}):
+
+def go(params, mud, playersDB: {}, players: {}, rooms: {},
+       npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+       envDB: {}, env: {}, eventDB: {}, eventSchedule,
+       id: int, fights: {}, corpses: {}, blocklist,
+       mapArea: [], characterClassDB: {}, spellsDB: {},
+       sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
                 players[id]['frozenDescription']) + '\n\n')
         return
 
-    if playerIsTrapped(id,players,rooms):
-        describeTrappedPlayer(mud,id,players,rooms)
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
         return
 
     if players[id]['canGo'] == 1:
         # store the exit name
         ex = params.lower()
 
-        stepping=False
+        stepping = False
         if '######step######' in ex:
             if rooms[players[id]['room']]['trap'].get('trapActivation'):
-                if rooms[players[id]['room']]['trap']['trapActivation']=='tripwire':
-                    ex=ex.replace('######step######','')
-                    stepping=True
+                if rooms[players[id]['room']]['trap']['trapActivation'] == \
+                   'tripwire':
+                    ex = ex.replace('######step######', '')
+                    stepping = True
 
         # store the player's current room
         rm = rooms[players[id]['room']]
 
         # if the specified exit is found in the room's exits list
-        rmExits=getRoomExits(mud,rooms,players,id)
+        rmExits = getRoomExits(mud, rooms, players, id)
         if ex in rmExits:
             # check if there is enough room
-            targetRoom=None
+            targetRoom = None
             if ex in rm['exits']:
-                targetRoom=rm['exits'][ex]
+                targetRoom = rm['exits'][ex]
             elif rm.get('tideOutExits'):
-                targetRoom=rm['tideOutExits'][ex]
+                targetRoom = rm['tideOutExits'][ex]
             elif rm.get('exitsWhenWearing'):
-                targetRoom=rm['exitsWhenWearing'][ex]
+                targetRoom = rm['exitsWhenWearing'][ex]
             if targetRoom:
-                if rooms[targetRoom]['maxPlayers']>-1:
-                    if playersInRoom(targetRoom,players,npcs) >= \
+                if rooms[targetRoom]['maxPlayers'] > -1:
+                    if playersInRoom(targetRoom, players, npcs) >= \
                        rooms[targetRoom]['maxPlayers']:
                         mud.send_message(id, 'The room is full.\n\n')
                         return
 
-                #Check that the player is not too tall
-                if rooms[targetRoom]['maxPlayerSize']>-1:
+                # Check that the player is not too tall
+                if rooms[targetRoom]['maxPlayerSize'] > -1:
                     if players[id]['siz'] > \
                        rooms[targetRoom]['maxPlayerSize']:
-                        mud.send_message(id, "The entrance is too small for you to enter.\n\n")
+                        mud.send_message(id, "The entrance is too small " +
+                                         "for you to enter.\n\n")
                         return
 
                 if not stepping:
-                    if trapActivation(mud,id,players,rooms,ex):
+                    if trapActivation(mud, id, players, rooms, ex):
                         return
 
-                if rooms[players[id]['room']]['onWater']==0:
+                if rooms[players[id]['room']]['onWater'] == 0:
+                    desc = \
+                        randomDescription(players[id]['outDescription'])
                     messageToPlayersInRoom(mud, players, id, '<f32>' +
                                            players[id]['name'] + '<r> ' +
-                                           randomDescription(players[id]['outDescription']) +
-                                           " via exit " + ex + '\n')
+                                           desc + " via exit " + ex + '\n')
 
                 # Trigger old room eventOnLeave for the player
-                if rooms[players[id]['room']]['eventOnLeave'] is not "":
-                    addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
-                                   id, eventSchedule, eventDB)
+                if rooms[players[id]['room']]['eventOnLeave'] != "":
+                    idx = int(rooms[players[id]['room']]['eventOnLeave'])
+                    addToScheduler(idx, id, eventSchedule, eventDB)
 
                 # Does the player have any follower NPCs or familiars?
                 followersMsg = ""
                 for (nid, pl) in list(npcs.items()):
-                    if npcs[nid]['follow'] == players[id]['name'] or \
-                       (npcs[nid]['familiarOf'] == players[id]['name'] and \
-                        npcs[nid]['familiarMode'] == 'follow'):
+                    if (npcs[nid]['follow'] == players[id]['name'] or
+                        (npcs[nid]['familiarOf'] == players[id]['name'] and
+                         npcs[nid]['familiarMode'] == 'follow')):
                         # is the npc in the same room as the player?
                         if npcs[nid]['room'] == players[id]['room']:
                             # is the player within the permitted npc path?
                             if rm['exits'][ex] in list(npcs[nid]['path']) or \
                                npcs[nid]['familiarOf'] == players[id]['name']:
-                                followerRoomID=rm['exits'][ex]
-                                if npcs[nid]['siz'] <= rooms[followerRoomID]['maxPlayerSize']:
+                                followerRoomID = rm['exits'][ex]
+                                if npcs[nid]['siz'] <= \
+                                   rooms[followerRoomID]['maxPlayerSize']:
                                     npcs[nid]['room'] = followerRoomID
-                                    followersMsg = followersMsg + '<f32>' + \
+                                    np = npcs[nid]
+                                    desc = \
+                                        randomDescription(np['inDescription'])
+                                    followersMsg = \
+                                        followersMsg + '<f32>' + \
                                         npcs[nid]['name'] + '<r> ' + \
-                                        randomDescription(npcs[nid]['inDescription']) + '.\n\n'
-                                    messageToPlayersInRoom(mud,players,id, \
-                                                           '<f32>'+ \
-                                                           npcs[nid]['name']+ \
-                                                           '<r> '+ \
-                                                           randomDescription(npcs[nid]['outDescription'])+ \
-                                                           " via exit "+ex+'\n')
+                                        desc + '.\n\n'
+                                    desc = \
+                                        randomDescription(np['outDescription'])
+                                    messageToPlayersInRoom(mud, players, id,
+                                                           '<f32>' +
+                                                           np['name'] +
+                                                           '<r> ' +
+                                                           desc +
+                                                           " via exit " +
+                                                           ex + '\n')
                                 else:
-                                    # The room height is too small for the follower
+                                    # The room height is too small
+                                    # for the follower
                                     npcs[nid]['follow'] = ""
                             else:
                                 # not within the npc path, stop following
-                                #print(npcs[nid]['name'] + ' stops following (out of path)\n')
+                                # print(npcs[nid]['name'] +
+                                # ' stops following (out of path)\n')
                                 npcs[nid]['follow'] = ""
                         else:
                             # stop following
-                            #print(npcs[nid]['name'] + ' stops following\n')
+                            # print(npcs[nid]['name'] + ' stops following\n')
                             npcs[nid]['follow'] = ""
 
                 # update the player's current room to the one the exit leads to
-                if rooms[players[id]['room']]['onWater']==1:
-                    playersMoveTogether(id,rm['exits'][ex],mud, \
-                                        playersDB,players,rooms,npcsDB,npcs, \
-                                        itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                                        fights,corpses,blocklist,mapArea, \
-                                        characterClassDB,spellsDB,sentimentDB,guildsDB)
+                if rooms[players[id]['room']]['onWater'] == 1:
+                    playersMoveTogether(id, rm['exits'][ex], mud,
+                                        playersDB, players, rooms,
+                                        npcsDB, npcs,
+                                        itemsDB, items, envDB, env,
+                                        eventDB, eventSchedule,
+                                        fights, corpses, blocklist, mapArea,
+                                        characterClassDB, spellsDB,
+                                        sentimentDB, guildsDB, clouds)
                 players[id]['room'] = rm['exits'][ex]
                 rm = rooms[players[id]['room']]
 
                 # trigger new room eventOnEnter for the player
-                if rooms[players[id]['room']]['eventOnEnter'] is not "":
-                    addToScheduler(int(rooms[players[id]['room']]['eventOnEnter']),
-                                   id, eventSchedule, eventDB)
+                if rooms[players[id]['room']]['eventOnEnter'] != "":
+                    idx = \
+                        int(rooms[players[id]['room']]['eventOnEnter'])
+                    addToScheduler(idx, id, eventSchedule, eventDB)
 
-                if rooms[players[id]['room']]['onWater']==0:
+                if rooms[players[id]['room']]['onWater'] == 0:
+                    desc = randomDescription(players[id]['inDescription'])
                     messageToPlayersInRoom(mud, players, id, '<f32>' +
                                            players[id]['name'] + '<r> ' +
-                                           randomDescription(players[id]['inDescription']) + "\n\n")
+                                           desc + "\n\n")
                     # send the player a message telling them where they are now
-                    mud.send_message(id, \
-                                     'You arrive at <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
+                    desc = \
+                        'You arrive at ' + \
+                        '<f106>{}'.format(rooms[players[id]['room']]['name'])
+                    mud.send_message(id, desc + "\n\n")
                 else:
                     # send the player a message telling them where they are now
-                    mud.send_message(id, \
-                                     'You row to <f106>{}'.format(rooms[players[id]['room']]['name']) + "\n\n")
+                    desc = \
+                        'You row to ' + \
+                        '<f106>{}'.format(rooms[players[id]['room']]['name'])
+                    mud.send_message(id, desc + "\n\n")
 
-                look('',mud,playersDB,players,rooms,npcsDB,npcs, \
-                     itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                     id,fights,corpses,blocklist,mapArea, \
-                     characterClassDB,spellsDB,sentimentDB,guildsDB,clouds)
+                look('', mud, playersDB, players, rooms, npcsDB, npcs,
+                     itemsDB, items, envDB, env, eventDB, eventSchedule,
+                     id, fights, corpses, blocklist, mapArea,
+                     characterClassDB, spellsDB, sentimentDB,
+                     guildsDB, clouds)
                 # report any followers
                 if len(followersMsg) > 0:
                     messageToPlayersInRoom(mud, players, id, followersMsg)
@@ -3768,103 +4067,104 @@ def go(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, 'Somehow, your legs refuse to obey your will.\n')
 
 
-def goNorth(params,mud,playersDB,players,rooms, \
-            npcsDB,npcs,itemsDB,items,envDB, \
-            env,eventDB,eventSchedule,id,fights, \
-            corpses,blocklist,mapArea,characterClassDB, \
-            spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('north',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
+def goNorth(params, mud, playersDB, players, rooms,
+            npcsDB, npcs, itemsDB, items, envDB,
+            env, eventDB, eventSchedule, id, fights,
+            corpses, blocklist, mapArea, characterClassDB,
+            spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('north', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
 
-def goSouth(params,mud,playersDB,players,rooms, \
-            npcsDB,npcs,itemsDB,items,envDB, \
-            env,eventDB,eventSchedule,id,fights, \
-            corpses,blocklist,mapArea,characterClassDB, \
-            spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('south',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
 
-def goEast(params,mud,playersDB,players,rooms, \
-           npcsDB,npcs,itemsDB,items,envDB, \
-           env,eventDB,eventSchedule,id,fights, \
-           corpses,blocklist,mapArea,characterClassDB, \
-           spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('east',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
+def goSouth(params, mud, playersDB, players, rooms,
+            npcsDB, npcs, itemsDB, items, envDB,
+            env, eventDB, eventSchedule, id, fights,
+            corpses, blocklist, mapArea, characterClassDB,
+            spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('south', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
 
-def goWest(params,mud,playersDB,players,rooms, \
-           npcsDB,npcs,itemsDB,items,envDB, \
-           env,eventDB,eventSchedule,id,fights, \
-           corpses,blocklist,mapArea,characterClassDB, \
-           spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('west',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
 
-def goUp(params,mud,playersDB,players,rooms, \
-         npcsDB,npcs,itemsDB,items,envDB, \
-         env,eventDB,eventSchedule,id,fights, \
-         corpses,blocklist,mapArea,characterClassDB, \
-         spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('up',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
+def goEast(params, mud, playersDB, players, rooms,
+           npcsDB, npcs, itemsDB, items, envDB,
+           env, eventDB, eventSchedule, id, fights,
+           corpses, blocklist, mapArea, characterClassDB,
+           spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('east', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
 
-def goDown(params,mud,playersDB,players,rooms, \
-           npcsDB,npcs,itemsDB,items,envDB, \
-           env,eventDB,eventSchedule,id,fights, \
-           corpses,blocklist,mapArea,characterClassDB, \
-           spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('down',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
 
-def goIn(params,mud,playersDB,players,rooms, \
-         npcsDB,npcs,itemsDB,items,envDB, \
-         env,eventDB,eventSchedule,id,fights, \
-         corpses,blocklist,mapArea,characterClassDB, \
-         spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('in',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
+def goWest(params, mud, playersDB, players, rooms,
+           npcsDB, npcs, itemsDB, items, envDB,
+           env, eventDB, eventSchedule, id, fights,
+           corpses, blocklist, mapArea, characterClassDB,
+           spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('west', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
 
-def goOut(params,mud,playersDB,players,rooms, \
-          npcsDB,npcs,itemsDB,items,envDB, \
-          env,eventDB,eventSchedule,id,fights, \
-          corpses,blocklist,mapArea,characterClassDB, \
-          spellsDB,sentimentDB,guildsDB,clouds) -> None:
-    go('out',mud,playersDB,players,rooms,npcsDB, \
-       npcs,itemsDB,items,envDB,env,eventDB,eventSchedule, \
-       id,fights,corpses,blocklist,mapArea,characterClassDB, \
-       spellsDB,sentimentDB,guildsDB,clouds)
 
-def conjureRoom(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist: {}, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+def goUp(params, mud, playersDB, players, rooms,
+         npcsDB, npcs, itemsDB, items, envDB,
+         env, eventDB, eventSchedule, id, fights,
+         corpses, blocklist, mapArea, characterClassDB,
+         spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('up', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
+
+
+def goDown(params, mud, playersDB, players, rooms,
+           npcsDB, npcs, itemsDB, items, envDB,
+           env, eventDB, eventSchedule, id, fights,
+           corpses, blocklist, mapArea, characterClassDB,
+           spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('down', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
+
+
+def goIn(params, mud, playersDB, players, rooms,
+         npcsDB, npcs, itemsDB, items, envDB,
+         env, eventDB, eventSchedule, id, fights,
+         corpses, blocklist, mapArea, characterClassDB,
+         spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('in', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
+
+
+def goOut(params, mud, playersDB, players, rooms,
+          npcsDB, npcs, itemsDB, items, envDB,
+          env, eventDB, eventSchedule, id, fights,
+          corpses, blocklist, mapArea, characterClassDB,
+          spellsDB, sentimentDB, guildsDB, clouds) -> None:
+    go('out', mud, playersDB, players, rooms, npcsDB,
+       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+       id, fights, corpses, blocklist, mapArea, characterClassDB,
+       spellsDB, sentimentDB, guildsDB, clouds)
+
+
+def conjureRoom(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist: {},
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     params = params.replace('room ', '')
     roomDirection = params.lower().strip()
-    possibleDirections = (
-        'north',
-        'south',
-        'east',
-        'west',
-        'up',
-        'down',
-        'in',
-        'out')
+    possibleDirections = ('north', 'south', 'east', 'west',
+                          'up', 'down', 'in', 'out')
     oppositeDirection = {
         'north': 'south',
         'south': 'north',
@@ -3873,14 +4173,15 @@ def conjureRoom(params,mud,playersDB: {},players: {},rooms: {}, \
         'up': 'down',
         'down': 'up',
         'in': 'out',
-        'out': 'in'}
+        'out': 'in'
+    }
     if roomDirection not in possibleDirections:
         mud.send_message(id, 'Specify a room direction.\n\n')
         return False
 
     # Is there already a room in that direction?
     playerRoomID = players[id]['room']
-    roomExits = getRoomExits(mud,rooms,players,id)
+    roomExits = getRoomExits(mud, rooms, players, id)
     if roomExits.get(roomDirection):
         mud.send_message(id, 'A room already exists in that direction.\n\n')
         return False
@@ -3889,9 +4190,14 @@ def conjureRoom(params,mud,playersDB: {},players: {},rooms: {}, \
     if len(roomID) == 0:
         roomID = '$rid=1$'
 
+    desc = \
+        "You are in an empty room. There is a triangular symbol carved " + \
+        "into the wall depicting a peasant digging with a spade. " + \
+        "Underneath it is an inscription which reads 'aedificium'."
+
     newrm = {
         'name': 'Empty room',
-        'description': "You are in an empty room. There is a triangular symbol carved into the wall depicting a peasant digging with a spade. Underneath it is an inscription which reads 'aedificium'.",
+        'description': desc,
         'roomTeleport': "",
         'conditional': [],
         'trap': {},
@@ -3904,26 +4210,27 @@ def conjureRoom(params,mud,playersDB: {},players: {},rooms: {}, \
         'terrainDifficulty': 0,
         'coords': [],
         'exits': {
-            oppositeDirection[roomDirection]: playerRoomID}}
+            oppositeDirection[roomDirection]: playerRoomID
+        }
+    }
     rooms[roomID] = newrm
     roomExits[roomDirection] = roomID
 
     # update the room coordinates
     for rm in rooms:
         rooms[rm]['coords'] = []
-    mapArea = assignCoordinates(rooms)
 
     log("New room: " + roomID, 'info')
     saveUniverse(rooms, npcsDB, npcs, itemsDB, items, envDB, env, guildsDB)
     mud.send_message(id, 'Room created.\n\n')
 
 
-def conjureItem(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+def conjureItem(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     itemName = params.lower()
     if len(itemName) == 0:
         mud.send_message(id, "Specify the name of an item to conjure.\n\n")
@@ -3961,9 +4268,12 @@ def conjureItem(params,mud,playersDB: {},players: {},rooms: {}, \
     if itemID != -1:
         # Generate item
         itemKey = getFreeKey(items)
-        items[itemKey] = {'id': itemID, 'room': players[id]['room'],
-                          'whenDropped': int(time.time()),
-                          'lifespan': 900000000, 'owner': id}
+        items[itemKey] = {
+            'id': itemID,
+            'room': players[id]['room'],
+            'whenDropped': int(time.time()),
+            'lifespan': 900000000, 'owner': id
+        }
 
         mud.send_message(id, itemsDB[itemID]['article'] + ' ' +
                          itemsDB[itemID]['name'] +
@@ -3973,7 +4283,7 @@ def conjureItem(params,mud,playersDB: {},players: {},rooms: {}, \
     return False
 
 
-def randomFamiliar(npcsDB):
+def randomFamiliar(npcsDB: {}):
     """Picks a familiar at random and returns its index
     """
     possibleFamiliars = []
@@ -3982,16 +4292,17 @@ def randomFamiliar(npcsDB):
             if len(details['familiarOf']) == 0:
                 possibleFamiliars.append(int(index))
     if len(possibleFamiliars) > 0:
-        randIndex=len(possibleFamiliars)-1
+        randIndex = len(possibleFamiliars) - 1
         return possibleFamiliars[randint(0, randIndex)]
     return -1
 
-def conjureNPC(params,mud,playersDB: {},players: {},rooms: {}, \
-               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-               envDB: {},env: {},eventDB: {},eventSchedule, \
-               id: int,fights: {},corpses: {},blocklist, \
-               mapArea: [],characterClassDB: {},spellsDB: {}, \
-               sentimentDB: {},guildsDB: {},clouds: {}):
+
+def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not params.startswith('npc '):
         if not params.startswith('familiar'):
             return False
@@ -4052,106 +4363,106 @@ def conjureNPC(params,mud,playersDB: {},players: {},rooms: {}, \
                 return False
 
     # default medium size
-    newNPC = {"name": npcName,
-              "whenDied": None,
-              "inv": [],
-              "conv": npcConv,
-              "room": players[id]['room'],
-              "path": [],
-              "bodyType": "",
-              "moveDelay": npcMoveDelay,
-              "moveType": "",
-              "moveTimes": [],
-              "vocabulary": npcVocabulary,
-              "talkDelay": npcTalkDelay,
-              "timeTalked": 0,
-              "lastSaid": 0,
-              "lastRoom": None,
-              "lastMoved": 0,
-              "randomizer": 0,
-              "randomFactor": npcRandomFactor,
-              "follow": "",
-              "canWield": 0,
-              "canWear": 0,
-              "visibleWhenWearing": [],
-              "race": "",
-              "characterClass": "",
-              "archetype": "",
-              "proficiencies": [],
-              "fightingStyle": "",
-              "restRequired": 0,
-              "enemy": "",
-              "tempCharmStart": 0,
-              "tempCharmDuration": 0,
-              "tempCharm": 0,
-              "tempCharmTarget": "",
-              "guild": "",
-              "guildRole": "",
-              "tempHitPointsDuration": 0,
-              "tempHitPointsStart": 0,
-              "tempHitPoints": 0,
-              "spellSlots": {},
-              "preparedSpells": {},
-              "hpMax": npcHitPoints,
-              "hp": npcHitPoints,
-              "charge": 1233,
-              "lvl": 5,
-              "exp": 32,
-              "str": npcStrength,
-              "siz": npcSize,
-              "wei": 100,
-              "per": 3,
-              "endu": 1,
-              "cha": 4,
-              "int": 2,
-              "agi": 6,
-              "luc": 1,
-              "cool": 0,
-              "ref": 1,
-              "cred": 122,
-              "clo_head": 0,
-              "clo_neck": 0,
-              "clo_larm": 0,
-              "clo_rarm": 0,
-              "clo_lhand": 0,
-              "clo_rhand": 0,
-              "clo_lfinger": 0,
-              "clo_rfinger": 0,
-              "clo_rwrist": 0,
-              "clo_lwrist": 0,
-              "clo_chest": 0,
-              "clo_lleg": 0,
-              "clo_rleg": 0,
-              "clo_feet": 0,
-              "imp_head": 0,
-              "imp_larm": 0,
-              "imp_rarm": 0,
-              "imp_lhand": 0,
-              "imp_rhand": 0,
-              "imp_chest": 0,
-              "imp_back": 0,
-              "imp_lleg": 0,
-              "imp_rleg": 0,
-              "imp_feet": 0,
-              "inDescription": npcInDescription,
-              "outDescription": npcOutDescription,
-              "lookDescription": npcLookDescription,
-              "canGo": 0,
-              "canLook": 1,
-              "canWield": 0,
-              "canWear": 0,
-              "visibleWhenWearing": [],
-              "frozenStart": 0,
-              "frozenDuration": 0,
-              "frozenDescription": "",
-              "affinity": {},
-              "familiar": -1,
-              "familiarOf": npcFamiliarOf,
-              "familiarTarget": "",
-              "familiarType": npcFamiliarType,
-              "familiarMode": npcFamiliarMode,
-              "animalType": npcAnimalType
-              }
+    newNPC = {
+        "name": npcName,
+        "whenDied": None,
+        "inv": [],
+        "conv": npcConv,
+        "room": players[id]['room'],
+        "path": [],
+        "bodyType": "",
+        "moveDelay": npcMoveDelay,
+        "moveType": "",
+        "moveTimes": [],
+        "vocabulary": npcVocabulary,
+        "talkDelay": npcTalkDelay,
+        "timeTalked": 0,
+        "lastSaid": 0,
+        "lastRoom": None,
+        "lastMoved": 0,
+        "randomizer": 0,
+        "randomFactor": npcRandomFactor,
+        "follow": "",
+        "canWield": 0,
+        "canWear": 0,
+        "race": "",
+        "characterClass": "",
+        "archetype": "",
+        "proficiencies": [],
+        "fightingStyle": "",
+        "restRequired": 0,
+        "enemy": "",
+        "tempCharmStart": 0,
+        "tempCharmDuration": 0,
+        "tempCharm": 0,
+        "tempCharmTarget": "",
+        "guild": "",
+        "guildRole": "",
+        "tempHitPointsDuration": 0,
+        "tempHitPointsStart": 0,
+        "tempHitPoints": 0,
+        "spellSlots": {},
+        "preparedSpells": {},
+        "hpMax": npcHitPoints,
+        "hp": npcHitPoints,
+        "charge": 1233,
+        "lvl": 5,
+        "exp": 32,
+        "str": npcStrength,
+        "siz": npcSize,
+        "wei": 100,
+        "per": 3,
+        "endu": 1,
+        "cha": 4,
+        "int": 2,
+        "agi": 6,
+        "luc": 1,
+        "cool": 0,
+        "ref": 1,
+        "cred": 122,
+        "clo_head": 0,
+        "clo_neck": 0,
+        "clo_larm": 0,
+        "clo_rarm": 0,
+        "clo_lhand": 0,
+        "clo_rhand": 0,
+        "clo_lfinger": 0,
+        "clo_rfinger": 0,
+        "clo_rwrist": 0,
+        "clo_lwrist": 0,
+        "clo_chest": 0,
+        "clo_lleg": 0,
+        "clo_rleg": 0,
+        "clo_feet": 0,
+        "imp_head": 0,
+        "imp_larm": 0,
+        "imp_rarm": 0,
+        "imp_lhand": 0,
+        "imp_rhand": 0,
+        "imp_chest": 0,
+        "imp_back": 0,
+        "imp_lleg": 0,
+        "imp_rleg": 0,
+        "imp_feet": 0,
+        "inDescription": npcInDescription,
+        "outDescription": npcOutDescription,
+        "lookDescription": npcLookDescription,
+        "canGo": 0,
+        "canLook": 1,
+        "canWield": 0,
+        "canWear": 0,
+        "visibleWhenWearing": [],
+        "frozenStart": 0,
+        "frozenDuration": 0,
+        "frozenDescription": "",
+        "affinity": {},
+        "familiar": -1,
+        "familiarOf": npcFamiliarOf,
+        "familiarTarget": "",
+        "familiarType": npcFamiliarType,
+        "familiarMode": npcFamiliarMode,
+        "animalType": npcAnimalType
+    }
 
     if isFamiliar:
         if players[id]['familiar'] != -1:
@@ -4178,12 +4489,12 @@ def conjureNPC(params,mud,playersDB: {},players: {},rooms: {}, \
     return True
 
 
-def dismiss(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: [],characterClassDB: {},spellsDB: {}, \
-            sentimentDB: {},guildsDB: {},clouds: {}):
+def dismiss(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
     if params.lower().startswith('familiar'):
         players[id]['familiar'] = -1
         familiarRemoved = False
@@ -4208,53 +4519,53 @@ def dismiss(params,mud,playersDB: {},players: {},rooms: {}, \
             mud.send_message(id, "\n\n")
 
 
-def conjure(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: [],characterClassDB: {},spellsDB: {}, \
-            sentimentDB: {},guildsDB: {},clouds: {}):
+def conjure(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
 
     if params.startswith('familiar'):
-        conjureNPC(params,mud,playersDB,players,rooms,
-                   npcsDB,npcs,itemsDB,items,envDB,env,
-                   eventDB,eventSchedule,id,fights,corpses,
-                   blocklist,mapArea,characterClassDB,
-                   spellsDB,sentimentDB,guildsDB,clouds)
+        conjureNPC(params, mud, playersDB, players, rooms,
+                   npcsDB, npcs, itemsDB, items, envDB, env,
+                   eventDB, eventSchedule, id, fights, corpses,
+                   blocklist, mapArea, characterClassDB,
+                   spellsDB, sentimentDB, guildsDB, clouds)
         return
 
     if params.startswith('room '):
-        conjureRoom(params,mud,playersDB,players,rooms,npcsDB, \
-                    npcs,itemsDB,items,envDB,env,eventDB, \
-                    eventSchedule,id,fights,corpses,blocklist, \
-                    mapArea,characterClassDB,spellsDB, \
-                    sentimentDB,guildsDB,clouds)
+        conjureRoom(params, mud, playersDB, players, rooms, npcsDB,
+                    npcs, itemsDB, items, envDB, env, eventDB,
+                    eventSchedule, id, fights, corpses, blocklist,
+                    mapArea, characterClassDB, spellsDB,
+                    sentimentDB, guildsDB, clouds)
         return
 
     if params.startswith('npc '):
-        conjureNPC(params,mud,playersDB,players,rooms,
-                   npcsDB,npcs,itemsDB,items,envDB,env,
-                   eventDB,eventSchedule,id,fights,corpses,
-                   blocklist,mapArea,characterClassDB,
-                   spellsDB,sentimentDB,guildsDB,clouds)
+        conjureNPC(params, mud, playersDB, players, rooms,
+                   npcsDB, npcs, itemsDB, items, envDB, env,
+                   eventDB, eventSchedule, id, fights, corpses,
+                   blocklist, mapArea, characterClassDB,
+                   spellsDB, sentimentDB, guildsDB, clouds)
         return
 
-    conjureItem(params,mud,playersDB,players,rooms,npcsDB,npcs, \
-                itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                id,fights,corpses,blocklist,mapArea, \
-                characterClassDB,spellsDB,sentimentDB,guildsDB, \
+    conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs,
+                itemsDB, items, envDB, env, eventDB, eventSchedule,
+                id, fights, corpses, blocklist, mapArea,
+                characterClassDB, spellsDB, sentimentDB, guildsDB,
                 clouds)
 
 
-def destroyItem(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+def destroyItem(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     itemName = params.lower()
     if len(itemName) == 0:
         mud.send_message(id, "Specify the name of an item to destroy.\n\n")
@@ -4277,16 +4588,17 @@ def destroyItem(params,mud,playersDB: {},players: {},rooms: {}, \
     del items[item]
     log("Item destroyed: " + destroyedName +
         ' in ' + players[id]['room'], 'info')
-    saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB,
+                 items, envDB, env, guildsDB)
     return True
 
 
-def destroyNPC(params,mud,playersDB: {},players: {},rooms: {}, \
-               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-               envDB: {},env: {},eventDB: {},eventSchedule, \
-               id: int,fights: {},corpses: {},blocklist, \
-               mapArea: [],characterClassDB: {},spellsDB: {}, \
-               sentimentDB: {},guildsDB: {},clouds: {}):
+def destroyNPC(params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
     npcName = params.lower().replace('npc ', '').strip().replace('"', '')
     if len(npcName) == 0:
         mud.send_message(id, "Specify the name of an NPC to destroy.\n\n")
@@ -4311,16 +4623,17 @@ def destroyNPC(params,mud,playersDB: {},players: {},rooms: {}, \
     del npcsDB[npcID]
     log("NPC destroyed: " + destroyedName +
         ' in ' + players[id]['room'], 'info')
-    saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB,
+                 items, envDB, env, guildsDB)
     return True
 
 
-def destroyRoom(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+def destroyRoom(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     params = params.replace('room ', '')
     roomDirection = params.lower().strip()
     possibleDirections = (
@@ -4342,8 +4655,7 @@ def destroyRoom(params,mud,playersDB: {},players: {},rooms: {}, \
         return False
 
     # Is there already a room in that direction?
-    playerRoomID = players[id]['room']
-    roomExits = getRoomExits(mud,rooms,players,id)
+    roomExits = getRoomExits(mud, rooms, players, id)
     if not roomExits.get(roomDirection):
         mud.send_message(id, 'There is no room in that direction.\n\n')
         return False
@@ -4361,51 +4673,51 @@ def destroyRoom(params,mud,playersDB: {},players: {},rooms: {}, \
     # update the map area
     for rm in rooms:
         rooms[rm]['coords'] = []
-    mapArea = assignCoordinates(rooms)
 
     log("Room destroyed: " + roomToDestroyID, 'info')
-    saveUniverse(rooms,npcsDB,npcs,itemsDB,items,envDB,env,guildsDB)
+    saveUniverse(rooms, npcsDB, npcs, itemsDB,
+                 items, envDB, env, guildsDB)
     mud.send_message(id, "Room destroyed.\n\n")
     return True
 
 
-def destroy(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: [],characterClassDB: {},spellsDB: {},
-            sentimentDB: {},guildsDB: {},clouds):
+def destroy(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds):
     if not isWitch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
 
     if params.startswith('room '):
-        destroyRoom(params,mud,playersDB,players,rooms,npcsDB, \
-                    npcs,itemsDB,items,envDB,env,eventDB, \
-                    eventSchedule,id,fights,corpses,blocklist, \
-                    mapArea,characterClassDB,spellsDB, \
-                    sentimentDB,guildsDB,clouds)
+        destroyRoom(params, mud, playersDB, players, rooms, npcsDB,
+                    npcs, itemsDB, items, envDB, env, eventDB,
+                    eventSchedule, id, fights, corpses, blocklist,
+                    mapArea, characterClassDB, spellsDB,
+                    sentimentDB, guildsDB, clouds)
     else:
         if params.startswith('npc '):
-            destroyNPC(params,mud,playersDB,players,rooms,npcsDB, \
-                       npcs,itemsDB,items,envDB,env,eventDB, \
-                       eventSchedule,id,fights,corpses,blocklist, \
-                       mapArea,characterClassDB,spellsDB, \
-                       sentimentDB,guildsDB,clouds)
+            destroyNPC(params, mud, playersDB, players, rooms, npcsDB,
+                       npcs, itemsDB, items, envDB, env, eventDB,
+                       eventSchedule, id, fights, corpses, blocklist,
+                       mapArea, characterClassDB, spellsDB,
+                       sentimentDB, guildsDB, clouds)
         else:
-            destroyItem(params,mud,playersDB,players,rooms,npcsDB, \
-                        npcs,itemsDB,items,envDB,env,eventDB, \
-                        eventSchedule,id,fights,corpses,blocklist, \
-                        mapArea,characterClassDB,spellsDB, \
-                        sentimentDB,guildsDB,clouds)
+            destroyItem(params, mud, playersDB, players, rooms, npcsDB,
+                        npcs, itemsDB, items, envDB, env, eventDB,
+                        eventSchedule, id, fights, corpses, blocklist,
+                        mapArea, characterClassDB, spellsDB,
+                        sentimentDB, guildsDB, clouds)
 
 
-def drop(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {},
-         sentimentDB: {},guildsDB: {},clouds: {}):
+def drop(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     # Check if inventory is empty
     if len(list(players[id]['inv'])) == 0:
         mud.send_message(id, 'You don`t have that!\n\n')
@@ -4414,7 +4726,6 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
     itemInDB = False
     itemInInventory = False
     itemID = None
-    itemName = None
     target = str(params).lower()
     if target.startswith('the '):
         target = params.replace('the ', '')
@@ -4425,7 +4736,6 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
             if str(iid) == str(item):
                 if itemsDB[iid]['name'].lower() == target:
                     itemID = iid
-                    itemName = itemsDB[iid]['name']
                     itemInInventory = True
                     itemInDB = True
                     break
@@ -4439,16 +4749,17 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
                 if str(iid) == str(item):
                     if target in itemsDB[iid]['name'].lower():
                         itemID = iid
-                        itemName = itemsDB[iid]['name']
                         itemInInventory = True
                         itemInDB = True
                         break
 
     if itemInDB and itemInInventory:
-        if playerIsTrapped(id,players,rooms):
+        if playerIsTrapped(id, players, rooms):
             mud.send_message(
                 id, randomDescription(
-                    "You're trapped|The trap restricts your ability to drop anything|The trap restricts your movement") + '.\n\n')
+                    "You're trapped|" +
+                    "The trap restricts your ability to drop anything|" +
+                    "The trap restricts your movement") + '.\n\n')
             return
 
         inventoryCopy = deepcopy(players[id]['inv'])
@@ -4465,11 +4776,13 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
         removeItemFromClothing(players, id, int(i))
 
         # Create item on the floor in the same room as the player
-        items[getFreeKey(items)] = {'id': itemID,
-                                    'room': players[id]['room'],
-                                    'whenDropped': int(time.time()),
-                                    'lifespan': 900000000,
-                                    'owner': id}
+        items[getFreeKey(items)] = {
+            'id': itemID,
+            'room': players[id]['room'],
+            'whenDropped': int(time.time()),
+            'lifespan': 900000000,
+            'owner': id
+        }
 
         # Print itemsInWorld to console for debugging purposes
         # for x in itemsInWorld:
@@ -4487,7 +4800,7 @@ def drop(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, 'You don`t have that!\n\n')
 
 
-def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud) -> bool:
+def openItemUnlock(items: {}, itemsDB: {}, id, iid, players: {}, mud) -> bool:
     unlockItemID = itemsDB[items[iid]['id']]['lockedWithItem']
     if not str(unlockItemID).isdigit():
         return True
@@ -4500,11 +4813,9 @@ def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud) -> bool:
             break
     if keyFound:
         mud.send_message(
-            id,
-            'You use ' +
+            id, 'You use ' +
             itemsDB[unlockItemID]['article'] +
-            ' ' +
-            itemsDB[unlockItemID]['name'])
+            ' ' + itemsDB[unlockItemID]['name'])
     else:
         if len(itemsDB[unlockItemID]['open_failed_description']) > 0:
             mud.send_message(
@@ -4515,31 +4826,27 @@ def openItemUnlock(items: {},itemsDB: {},id,iid,players: {},mud) -> bool:
             else:
                 if randint(0, 1) == 1:
                     mud.send_message(
-                        id,
-                        "You don't have " +
+                        id, "You don't have " +
                         itemsDB[unlockItemID]['article'] +
-                        " " +
-                        itemsDB[unlockItemID]['name'] +
+                        " " + itemsDB[unlockItemID]['name'] +
                         ".\n\n")
                 else:
                     mud.send_message(
-                        id,
-                        "Looks like you need " +
+                        id, "Looks like you need " +
                         itemsDB[unlockItemID]['article'] +
-                        " " +
-                        itemsDB[unlockItemID]['name'] +
+                        " " + itemsDB[unlockItemID]['name'] +
                         " for this.\n\n")
         return False
     return True
 
 
-def describeContainerContents(mud,id,itemsDB: {},itemID: {},returnMsg):
+def describeContainerContents(mud, id, itemsDB: {}, itemID: {}, returnMsg):
     if not itemsDB[itemID]['state'].startswith('container open'):
         if returnMsg:
             return ''
         else:
             return
-    containsList=itemsDB[itemID]['contains']
+    containsList = itemsDB[itemID]['contains']
     noOfItems = len(containsList)
     containerMsg = '<f15>You see '
 
@@ -4558,7 +4865,8 @@ def describeContainerContents(mud,id,itemsDB: {},itemID: {},returnMsg):
 
         containerMsg += \
             itemsDB[int(contentsID)]['article'] + \
-            ' <b234><f220>' + itemsDB[int(contentsID)]['name'] + '<r>'
+            ' <b234><f220>' + \
+            itemsDB[int(contentsID)]['name'] + '<r>'
         itemCtr += 1
 
     containerMsg = containerMsg + '.\n'
@@ -4566,15 +4874,15 @@ def describeContainerContents(mud,id,itemsDB: {},itemID: {},returnMsg):
         containerMsg = '\n' + containerMsg
         return containerMsg
     else:
-        mud.send_message_wrap(id,'<f220>',containerMsg + '\n')
+        mud.send_message_wrap(id, '<f220>', containerMsg + '\n')
 
 
-def openItemContainer(params,mud,playersDB: {},players: {},rooms: {}, \
-                      npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                      envDB: {},env: {},eventDB: {},eventSchedule, \
-                      id: int,fights: {},corpses: {},target,
-                      itemsInWorldCopy: {},iid):
-    if not openItemUnlock(items,itemsDB,id,iid,players,mud):
+def openItemContainer(params, mud, playersDB: {}, players: {}, rooms: {},
+                      npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                      envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                      id: int, fights: {}, corpses: {}, target,
+                      itemsInWorldCopy: {}, iid):
+    if not openItemUnlock(items, itemsDB, id, iid, players, mud):
         return
 
     itemID = items[iid]['id']
@@ -4582,7 +4890,8 @@ def openItemContainer(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, "It's already open\n\n")
         return
 
-    itemsDB[itemID]['state'] = itemsDB[itemID]['state'].replace('closed', 'open')
+    itemsDB[itemID]['state'] = \
+        itemsDB[itemID]['state'].replace('closed', 'open')
     itemsDB[itemID]['short_description'] = \
         itemsDB[itemID]['short_description'].replace('closed', 'open')
     itemsDB[itemID]['long_description'] = \
@@ -4593,18 +4902,19 @@ def openItemContainer(params,mud,playersDB: {},players: {},rooms: {}, \
     if len(itemsDB[itemID]['open_description']) > 0:
         mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
     else:
-        itemArticle=itemsDB[itemID]['article']
-        if itemArticle=='a':
-            itemArticle='the'
-        mud.send_message(id, 'You open '+itemArticle+ \
-                         ' '+itemsDB[itemID]['name'] + '.\n\n')
-    describeContainerContents(mud,id,itemsDB,itemID,False)
+        itemArticle = itemsDB[itemID]['article']
+        if itemArticle == 'a':
+            itemArticle = 'the'
+        mud.send_message(id, 'You open ' + itemArticle +
+                         ' ' + itemsDB[itemID]['name'] + '.\n\n')
+    describeContainerContents(mud, id, itemsDB, itemID, False)
 
-def leverUp(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},target, \
-            itemsInWorldCopy: {},iid):
+
+def leverUp(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, target,
+            itemsInWorldCopy: {}, iid):
     itemID = items[iid]['id']
     linkedItemID = int(itemsDB[itemID]['linkedItem'])
     roomID = itemsDB[itemID]['exit']
@@ -4618,17 +4928,21 @@ def leverUp(params,mud,playersDB: {},players: {},rooms: {}, \
         exitName = itemsDB[itemID]['exitName'].split('|')
 
         if linkedItemID > 0:
+            desc = itemsDB[linkedItemID]['short_description']
             itemsDB[linkedItemID]['short_description'] = \
-                itemsDB[linkedItemID]['short_description'].replace('open', 'closed')
+                desc.replace('open', 'closed')
+            desc = itemsDB[linkedItemID]['long_description']
             itemsDB[linkedItemID]['long_description'] = \
-                itemsDB[linkedItemID]['long_description'].replace('open', 'closed')
+                desc.replace('open', 'closed')
             itemsDB[linkedItemID]['state'] = 'closed'
             linkedItemID2 = int(itemsDB[linkedItemID]['linkedItem'])
             if linkedItemID2 > 0:
+                desc = itemsDB[linkedItemID2]['short_description']
                 itemsDB[linkedItemID2]['short_description'] = \
-                    itemsDB[linkedItemID2]['short_description'].replace('open', 'closed')
+                    desc.replace('open', 'closed')
+                desc = itemsDB[linkedItemID2]['long_description']
                 itemsDB[linkedItemID2]['long_description'] = \
-                    itemsDB[linkedItemID2]['long_description'].replace('open', 'closed')
+                    desc.replace('open', 'closed')
                 itemsDB[linkedItemID2]['state'] = 'closed'
 
         if len(roomID) > 0:
@@ -4641,23 +4955,22 @@ def leverUp(params,mud,playersDB: {},players: {},rooms: {}, \
                 del rooms[rm]['exits'][exitName[1]]
 
     if len(itemsDB[itemID]['close_description']) > 0:
-        mud.send_message_wrap(id,'<f220>', \
+        mud.send_message_wrap(id, '<f220>',
                               itemsDB[itemID]['close_description'] + '\n\n')
     else:
         mud.send_message(
-            id,
-            'You push ' +
+            id, 'You push ' +
             itemsDB[itemID]['article'] +
-            ' ' +
-            itemsDB[itemID]['name'] +
+            ' ' + itemsDB[itemID]['name'] +
             '\n\n')
 
-def leverDown(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},target, \
-              itemsInWorldCopy: {},iid):
-    if not openItemUnlock(items,itemsDB,id,iid,players,mud):
+
+def leverDown(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, target,
+              itemsInWorldCopy: {}, iid):
+    if not openItemUnlock(items, itemsDB, id, iid, players, mud):
         return
 
     itemID = items[iid]['id']
@@ -4673,17 +4986,21 @@ def leverDown(params,mud,playersDB: {},players: {},rooms: {}, \
         exitName = itemsDB[itemID]['exitName'].split('|')
 
         if linkedItemID > 0:
+            desc = itemsDB[linkedItemID]['short_description']
             itemsDB[linkedItemID]['short_description'] = \
-                itemsDB[linkedItemID]['short_description'].replace('closed', 'open')
+                desc.replace('closed', 'open')
+            desc = itemsDB[linkedItemID]['long_description']
             itemsDB[linkedItemID]['long_description'] = \
-                itemsDB[linkedItemID]['long_description'].replace('closed', 'open')
+                desc.replace('closed', 'open')
             itemsDB[linkedItemID]['state'] = 'open'
             linkedItemID2 = int(itemsDB[linkedItemID]['linkedItem'])
             if linkedItemID2 > 0:
+                desc = itemsDB[linkedItemID2]['short_description']
                 itemsDB[linkedItemID2]['short_description'] = \
-                    itemsDB[linkedItemID2]['short_description'].replace('closed', 'open')
+                    desc.replace('closed', 'open')
+                desc = itemsDB[linkedItemID2]['long_description']
                 itemsDB[linkedItemID2]['long_description'] = \
-                    itemsDB[linkedItemID2]['long_description'].replace('closed', 'open')
+                    desc.replace('closed', 'open')
                 itemsDB[linkedItemID2]['state'] = 'open'
 
         if len(roomID) > 0:
@@ -4698,25 +5015,25 @@ def leverDown(params,mud,playersDB: {},players: {},rooms: {}, \
             rooms[rm]['exits'][exitName[1]] = players[id]['room']
 
     if len(itemsDB[itemID]['open_description']) > 0:
-        mud.send_message_wrap(id,'<f220>', \
-                              itemsDB[itemID]['open_description'] + '\n\n')
+        mud.send_message_wrap(id, '<f220>',
+                              itemsDB[itemID]['open_description'] +
+                              '\n\n')
     else:
         mud.send_message(
-            id,
-            'You pull ' +
+            id, 'You pull ' +
             itemsDB[itemID]['article'] +
-            ' ' +
-            itemsDB[itemID]['name'] +
+            ' ' + itemsDB[itemID]['name'] +
             '\n\n')
 
-def openItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
-                 npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                 envDB: {},env: {},eventDB: {},eventSchedule, \
-                 id: int,fights: {},corpses: {},target, \
-                 itemsInWorldCopy: {},iid):
+
+def openItemDoor(params, mud, playersDB: {}, players: {}, rooms: {},
+                 npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                 id: int, fights: {}, corpses: {}, target,
+                 itemsInWorldCopy: {}, iid):
     if not openItemUnlock(items, itemsDB, id, iid, players, mud):
         return
-    
+
     itemID = items[iid]['id']
     linkedItemID = int(itemsDB[itemID]['linkedItem'])
     roomID = itemsDB[itemID]['exit']
@@ -4724,16 +5041,22 @@ def openItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
         exitName = itemsDB[itemID]['exitName'].split('|')
 
         itemsDB[itemID]['state'] = 'open'
+        desc = itemsDB[itemID]['short_description']
         itemsDB[itemID]['short_description'] = \
-            itemsDB[itemID]['short_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
+            desc.replace('closed', 'open').replace('drawn up', 'drawn down')
+        desc = itemsDB[itemID]['long_description']
         itemsDB[itemID]['long_description'] = \
-            itemsDB[itemID]['long_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
+            desc.replace('closed', 'open').replace('drawn up', 'drawn down')
 
         if linkedItemID > 0:
+            desc = itemsDB[linkedItemID]['short_description']
             itemsDB[linkedItemID]['short_description'] = \
-                itemsDB[linkedItemID]['short_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
+                desc.replace('closed',
+                             'open').replace('drawn up', 'drawn down')
+            desc = itemsDB[linkedItemID]['long_description']
             itemsDB[linkedItemID]['long_description'] = \
-                itemsDB[linkedItemID]['long_description'].replace('closed', 'open').replace('drawn up', 'drawn down')
+                desc.replace('closed',
+                             'open').replace('drawn up', 'drawn down')
             itemsDB[linkedItemID]['state'] = 'open'
 
         if len(roomID) > 0:
@@ -4751,19 +5074,18 @@ def openItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, itemsDB[itemID]['open_description'] + '\n\n')
     else:
         mud.send_message(
-            id,
-            'You open ' +
+            id, 'You open ' +
             itemsDB[itemID]['article'] +
-            ' ' +
-            itemsDB[itemID]['name'] +
+            ' ' + itemsDB[itemID]['name'] +
             '\n\n')
 
-def openItem(params,mud,playersDB: {},players: {},rooms: {}, \
-             npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-             envDB: {},env: {},eventDB: {},eventSchedule, \
-             id: int,fights: {},corpses: {},blocklist, \
-             mapArea: [],characterClassDB: {},spellsDB: {}, \
-             sentimentDB: {},guildsDB: {},clouds: {}):
+
+def openItem(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+             envDB: {}, env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4771,34 +5093,36 @@ def openItem(params,mud,playersDB: {},players: {},rooms: {}, \
         return
 
     if target.startswith('the '):
-        target=target.replace('the ','')
+        target = target.replace('the ', '')
 
     itemsInWorldCopy = deepcopy(items)
     for (iid, pl) in list(itemsInWorldCopy.items()):
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
                 if itemsDB[items[iid]['id']]['state'] == 'closed':
-                    openItemDoor(params,mud,playersDB,players,rooms, \
-                                 npcsDB,npcs,itemsDB,items,envDB,env, \
-                                 eventDB,eventSchedule,id,fights, \
-                                 corpses,target,itemsInWorldCopy, \
+                    openItemDoor(params, mud, playersDB, players, rooms,
+                                 npcsDB, npcs, itemsDB, items, envDB, env,
+                                 eventDB, eventSchedule, id, fights,
+                                 corpses, target, itemsInWorldCopy,
                                  iid)
                     return
-                if itemsDB[items[iid]['id']]['state'].startswith('container closed'):
-                    openItemContainer(params,mud,playersDB,players, \
-                                      rooms,npcsDB,npcs,itemsDB, \
-                                      items,envDB,env,eventDB, \
-                                      eventSchedule,id,fights,corpses, \
-                                      target,itemsInWorldCopy,iid)
+                idx = items[iid]['id']
+                if itemsDB[idx]['state'].startswith('container closed'):
+                    openItemContainer(params, mud, playersDB, players,
+                                      rooms, npcsDB, npcs, itemsDB,
+                                      items, envDB, env, eventDB,
+                                      eventSchedule, id, fights, corpses,
+                                      target, itemsInWorldCopy, iid)
                     return
     mud.send_message(id, "You can't open it.\n\n")
 
-def pullLever(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist: {}, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def pullLever(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist: {},
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4810,25 +5134,26 @@ def pullLever(params,mud,playersDB: {},players: {},rooms: {}, \
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
                 if itemsDB[items[iid]['id']]['state'] == 'lever up':
-                    leverDown(params,mud,playersDB,players,rooms, \
-                              npcsDB,npcs,itemsDB,items,envDB, \
-                              env,eventDB,eventSchedule,id,fights, \
-                              corpses,target,itemsInWorldCopy,iid)
+                    leverDown(params, mud, playersDB, players, rooms,
+                              npcsDB, npcs, itemsDB, items, envDB,
+                              env, eventDB, eventSchedule, id, fights,
+                              corpses, target, itemsInWorldCopy, iid)
                     return
                 else:
                     mud.send_message(id, 'Nothing happens.\n\n')
                     return
     mud.send_message(id, "There's nothing to pull.\n\n")
 
-def pushLever(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def pushLever(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.lower()
     if target.startswith('the '):
-        target=target.replace('the ','')
+        target = target.replace('the ', '')
 
     if target.startswith('registration'):
         enableRegistrations(mud, id, players)
@@ -4839,26 +5164,27 @@ def pushLever(params,mud,playersDB: {},players: {},rooms: {}, \
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
                 if not itemsDB[items[iid]['id']]['state']:
-                    heave(params,mud,playersDB,players,rooms, \
-                          npcsDB,npcs,itemsDB,items,envDB,env, \
-                          eventDB,eventSchedule,id,fights, \
-                          corpses,blocklist,mapArea,characterClassDB, \
-                          spellsDB,sentimentDB,guildsDB,clouds)
+                    heave(params, mud, playersDB, players, rooms,
+                          npcsDB, npcs, itemsDB, items, envDB, env,
+                          eventDB, eventSchedule, id, fights,
+                          corpses, blocklist, mapArea, characterClassDB,
+                          spellsDB, sentimentDB, guildsDB, clouds)
                     return
                 elif itemsDB[items[iid]['id']]['state'] == 'lever down':
-                    leverUp(params,mud,playersDB,players,rooms,npcsDB, \
-                            npcs,itemsDB,items,envDB,env,eventDB, \
-                            eventSchedule,id,fights,corpses,target, \
-                            itemsInWorldCopy,iid)
+                    leverUp(params, mud, playersDB, players, rooms, npcsDB,
+                            npcs, itemsDB, items, envDB, env, eventDB,
+                            eventSchedule, id, fights, corpses, target,
+                            itemsInWorldCopy, iid)
                     return
     mud.send_message(id, 'Nothing happens.\n\n')
 
-def windLever(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+
+def windLever(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4870,23 +5196,24 @@ def windLever(params,mud,playersDB: {},players: {},rooms: {}, \
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
                 if itemsDB[items[iid]['id']]['state'] == 'lever up':
-                    leverDown(params,mud,playersDB,players,rooms, \
-                              npcsDB,npcs,itemsDB,items,envDB, \
-                              env,eventDB,eventSchedule,id, \
-                              fights,corpses,target, \
-                              itemsInWorldCopy,iid)
+                    leverDown(params, mud, playersDB, players, rooms,
+                              npcsDB, npcs, itemsDB, items, envDB,
+                              env, eventDB, eventSchedule, id,
+                              fights, corpses, target,
+                              itemsInWorldCopy, iid)
                     return
                 else:
                     mud.send_message(id, "It's wound all the way.\n\n")
                     return
     mud.send_message(id, "There's nothing to wind.\n\n")
 
-def unwindLever(params,mud,playersDB: {},players: {},rooms: {}, \
-                npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                envDB: {},env: {},eventDB: {},eventSchedule, \
-                id: int,fights: {},corpses: {},blocklist, \
-                mapArea: [],characterClassDB: {},spellsDB: {}, \
-                sentimentDB: {},guildsDB: {},clouds: {}):
+
+def unwindLever(params, mud, playersDB: {}, players: {}, rooms: {},
+                npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                id: int, fights: {}, corpses: {}, blocklist,
+                mapArea: [], characterClassDB: {}, spellsDB: {},
+                sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4898,21 +5225,22 @@ def unwindLever(params,mud,playersDB: {},players: {},rooms: {}, \
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
                 if itemsDB[items[iid]['id']]['state'] == 'lever down':
-                    leverUp(params,mud,playersDB,players,rooms, \
-                            npcsDB,npcs,itemsDB,items,envDB,env, \
-                            eventDB,eventSchedule,id,fights, \
-                            corpses,target,itemsInWorldCopy,iid)
+                    leverUp(params, mud, playersDB, players, rooms,
+                            npcsDB, npcs, itemsDB, items, envDB, env,
+                            eventDB, eventSchedule, id, fights,
+                            corpses, target, itemsInWorldCopy, iid)
                     return
                 else:
                     mud.send_message(id, "It's unwound all the way.\n\n")
                     return
     mud.send_message(id, "There's nothing to unwind.\n\n")
 
-def closeItemContainer(params,mud,playersDB: {},players: {},rooms: {}, \
-                       npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                       envDB: {},env: {},eventDB: {},eventSchedule, \
-                       id: int,fights: {},corpses: {},target, \
-                       itemsInWorldCopy: {},iid):
+
+def closeItemContainer(params, mud, playersDB: {}, players: {}, rooms: {},
+                       npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                       envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                       id: int, fights: {}, corpses: {}, target,
+                       itemsInWorldCopy: {}, iid):
     itemID = items[iid]['id']
     if itemsDB[itemID]['state'].startswith('container closed'):
         mud.send_message(id, "It's already closed\n\n")
@@ -4922,33 +5250,34 @@ def closeItemContainer(params,mud,playersDB: {},players: {},rooms: {}, \
         mud.send_message(id, "That's not possible.\n\n")
         return
 
-    itemsDB[itemID]['state'] = itemsDB[itemID]['state'].replace(
-        'open', 'closed')
-    itemsDB[itemID]['short_description'] = itemsDB[itemID]['short_description'].replace(
-        'open', 'closed')
-    itemsDB[itemID]['long_description'] = itemsDB[itemID]['long_description'].replace(
-        'open', 'closed')
+    itemsDB[itemID]['state'] = \
+        itemsDB[itemID]['state'].replace('open', 'closed')
+    itemsDB[itemID]['short_description'] = \
+        itemsDB[itemID]['short_description'].replace('open', 'closed')
+    itemsDB[itemID]['long_description'] = \
+        itemsDB[itemID]['long_description'].replace('open', 'closed')
 
     if len(itemsDB[itemID]['close_description']) > 0:
         mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
     else:
-        itemArticle=itemsDB[itemID]['article']
-        if itemArticle=='a':
-            itemArticle='the'
-        mud.send_message(id,'You close '+itemArticle+ \
-                         ' '+itemsDB[itemID]['name']+'.\n\n')
+        itemArticle = itemsDB[itemID]['article']
+        if itemArticle == 'a':
+            itemArticle = 'the'
+        mud.send_message(id, 'You close ' + itemArticle +
+                         ' ' + itemsDB[itemID]['name'] + '.\n\n')
 
-def closeItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
-                  npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-                  envDB: {},env: {},eventDB: {},eventSchedule, \
-                  id: int,fights: {},corpses: {},target, \
-                  itemsInWorldCopy: {},iid):
+
+def closeItemDoor(params, mud, playersDB: {}, players: {}, rooms: {},
+                  npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+                  envDB: {}, env: {}, eventDB: {}, eventSchedule,
+                  id: int, fights: {}, corpses: {}, target,
+                  itemsInWorldCopy: {}, iid):
     itemID = items[iid]['id']
     linkedItemID = int(itemsDB[itemID]['linkedItem'])
     roomID = itemsDB[itemID]['exit']
     if '|' not in itemsDB[itemID]['exitName']:
         return
-    
+
     exitName = itemsDB[itemID]['exitName'].split('|')
 
     itemsDB[itemID]['state'] = 'closed'
@@ -4958,10 +5287,12 @@ def closeItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
         itemsDB[itemID]['long_description'].replace('open', 'closed')
 
     if linkedItemID > 0:
+        desc = itemsDB[linkedItemID]['short_description']
         itemsDB[linkedItemID]['short_description'] = \
-            itemsDB[linkedItemID]['short_description'].replace('open', 'closed').replace('drawn down', 'drawn up')
+            desc.replace('open', 'closed').replace('drawn down', 'drawn up')
+        desc = itemsDB[linkedItemID]['long_description']
         itemsDB[linkedItemID]['long_description'] = \
-            itemsDB[linkedItemID]['long_description'].replace('open', 'closed').replace('drawn down', 'drawn up')
+            desc.replace('open', 'closed').replace('drawn down', 'drawn up')
         itemsDB[linkedItemID]['state'] = 'closed'
 
     if len(roomID) > 0:
@@ -4976,17 +5307,17 @@ def closeItemDoor(params,mud,playersDB: {},players: {},rooms: {}, \
     if len(itemsDB[itemID]['close_description']) > 0:
         mud.send_message(id, itemsDB[itemID]['close_description'] + '\n\n')
     else:
-        mud.send_message(id,'You close '+ \
-                         itemsDB[itemID]['article']+' '+ \
-                         itemsDB[itemID]['name']+'\n\n')
+        mud.send_message(id, 'You close ' +
+                         itemsDB[itemID]['article'] + ' ' +
+                         itemsDB[itemID]['name'] + '\n\n')
 
 
-def closeItem(params,mud,playersDB: {},players: {},rooms: {}, \
-              npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-              envDB: {},env: {},eventDB: {},eventSchedule, \
-              id: int,fights: {},corpses: {},blocklist, \
-              mapArea: [],characterClassDB: {},spellsDB: {}, \
-              sentimentDB: {},guildsDB: {},clouds: {}):
+def closeItem(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -4994,37 +5325,38 @@ def closeItem(params,mud,playersDB: {},players: {},rooms: {}, \
         return
 
     if target.startswith('the '):
-        target=target.replace('the ','')
+        target = target.replace('the ', '')
 
     itemsInWorldCopy = deepcopy(items)
     for (iid, pl) in list(itemsInWorldCopy.items()):
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
             if target in itemsDB[items[iid]['id']]['name'].lower():
                 if itemsDB[items[iid]['id']]['state'] == 'open':
-                    closeItemDoor(params,mud,playersDB,players, \
-                                  rooms,npcsDB,npcs,itemsDB, \
-                                  items,envDB,env,eventDB, \
-                                  eventSchedule,id,fights, \
-                                  corpses,target,itemsInWorldCopy, \
+                    closeItemDoor(params, mud, playersDB, players,
+                                  rooms, npcsDB, npcs, itemsDB,
+                                  items, envDB, env, eventDB,
+                                  eventSchedule, id, fights,
+                                  corpses, target, itemsInWorldCopy,
                                   iid)
                     return
-                if itemsDB[items[iid]['id']]['state'].startswith(
-                        'container open'):
-                    closeItemContainer(params,mud,playersDB,players, \
-                                       rooms,npcsDB,npcs,itemsDB, \
-                                       items,envDB,env,eventDB, \
-                                       eventSchedule,id,fights, \
-                                       corpses,target,itemsInWorldCopy, \
+                idx = items[iid]['id']
+                if itemsDB[idx]['state'].startswith('container open'):
+                    closeItemContainer(params, mud, playersDB, players,
+                                       rooms, npcsDB, npcs, itemsDB,
+                                       items, envDB, env, eventDB,
+                                       eventSchedule, id, fights,
+                                       corpses, target, itemsInWorldCopy,
                                        iid)
                     return
     mud.send_message(id, "You can't close it.\n\n")
 
-def putItem(params,mud,playersDB: {},players: {},rooms: {}, \
-            npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-            envDB: {},env: {},eventDB: {},eventSchedule, \
-            id: int,fights: {},corpses: {},blocklist, \
-            mapArea: {},characterClassDB: {},spellsDB: {}, \
-            sentimentDB: {},guildsDB: {},clouds: {}):
+
+def putItem(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: {}, characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
     if ' in ' not in params:
         if ' on ' not in params:
             if ' into ' not in params:
@@ -5079,30 +5411,30 @@ def putItem(params,mud,playersDB: {},players: {},rooms: {}, \
 
     for (iid, pl) in list(itemsInWorldCopy.items()):
         if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-            if containerName.lower(
-            ) in itemsDB[items[iid]['id']]['name'].lower():
-                if itemsDB[items[iid]['id']]['state'].startswith(
-                        'container open'):
-                    if ' noput' not in itemsDB[items[iid]['id']]['state']:
-                        maxItemsInContainer=itemsDB[items[iid]['id']]['useTimes']
-                        if maxItemsInContainer==0 or \
-                           len(itemsDB[items[iid]['id']]['contains'])<maxItemsInContainer:
+            iName = itemsDB[items[iid]['id']]['name'].lower()
+            if containerName.lower() in iName:
+                idx = items[iid]['id']
+                if itemsDB[idx]['state'].startswith('container open'):
+                    if ' noput' not in itemsDB[idx]['state']:
+                        maxItemsInContainer = itemsDB[idx]['useTimes']
+                        if maxItemsInContainer == 0 or \
+                           len(itemsDB[idx]['contains']) < maxItemsInContainer:
                             players[id]['inv'].remove(str(itemID))
                             removeItemFromClothing(players, id, itemID)
-                            itemsDB[items[iid]['id']]['contains'].append(str(itemID))
+                            itemsDB[idx]['contains'].append(str(itemID))
+                            idx = items[iid]['id']
                             mud.send_message(id, 'You put ' +
                                              itemsDB[itemID]['article'] +
-                                             ' ' +
-                                             itemsDB[itemID]['name'] +
+                                             ' ' + itemsDB[itemID]['name'] +
                                              inon +
-                                             itemsDB[items[iid]['id']]['article'] +
+                                             itemsDB[idx]['article'] +
                                              ' ' +
-                                             itemsDB[items[iid]['id']]['name'] +
+                                             itemsDB[idx]['name'] +
                                              '.\n\n')
                         else:
                             mud.send_message(
-                                id, 'No more items can be put ' + inon + ' ' + \
-                                itemsDB[items[iid]['id']]['article'] + ' ' + \
+                                id, 'No more items can be put ' + inon + ' ' +
+                                itemsDB[items[iid]['id']]['article'] + ' ' +
                                 itemsDB[items[iid]['id']]['name'] + ".\n\n")
                     else:
                         if 'on' in inon:
@@ -5113,8 +5445,8 @@ def putItem(params,mud,playersDB: {},players: {},rooms: {}, \
                                 id, "You can't put anything in that.\n\n")
                     return
                 else:
-                    if itemsDB[items[iid]['id']]['state'].startswith(
-                            'container closed'):
+                    idx = items[iid]['id']
+                    if itemsDB[idx]['state'].startswith('container closed'):
                         if 'on' in inon:
                             mud.send_message(id, "You can't.\n\n")
                         else:
@@ -5132,12 +5464,12 @@ def putItem(params,mud,playersDB: {},players: {},rooms: {}, \
     mud.send_message(id, "You don't see " + containerName + ".\n\n")
 
 
-def take(params,mud,playersDB: {},players: {},rooms: {}, \
-         npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-         envDB: {},env: {},eventDB: {},eventSchedule, \
-         id: int,fights: {},corpses: {},blocklist, \
-         mapArea: [],characterClassDB: {},spellsDB: {}, \
-         sentimentDB: {},guildsDB: {},clouds: {}):
+def take(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, randomDescription(
@@ -5147,10 +5479,10 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
     if params:
         # get into, get through
         if params.startswith('into') or params.startswith('through'):
-            climb(params,mud,playersDB,players,rooms,npcsDB,npcs, \
-                  itemsDB,items,envDB,env,eventDB,eventSchedule, \
-                  id,fights,corpses,blocklist,mapArea,characterClassDB, \
-                  spellsDB,sentimentDB,guildsDB,clouds)
+            climb(params, mud, playersDB, players, rooms, npcsDB, npcs,
+                  itemsDB, items, envDB, env, eventDB, eventSchedule,
+                  id, fights, corpses, blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds)
             return
 
     if len(str(params)) < 3:
@@ -5176,13 +5508,12 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
             continue
         if int(itemsDB[iid2]['weight']) == 0:
             if itemsDB[iid2].get('takeFail'):
-                mud.send_message_wrap(id,'<f220>', \
-                                      randomDescription(itemsDB[iid2]['takeFail'])+ \
-                                      "\n\n")
+                desc = randomDescription(itemsDB[iid2]['takeFail'])
+                mud.send_message_wrap(id, '<f220>', desc + "\n\n")
             else:
-                mud.send_message(id,"You can't pick that up.\n\n")
+                mud.send_message(id, "You can't pick that up.\n\n")
             return
-        if itemIsVisible(id,players,iid2,itemsDB):
+        if itemIsVisible(id, players, iid2, itemsDB):
             # ID of the item to be picked up
             itemName = itemsDB[iid2]['name']
             itemInDB = True
@@ -5196,24 +5527,23 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
         for (iid, pl) in list(itemsInWorldCopy.items()):
             if itemsInWorldCopy[iid]['room'] != players[id]['room']:
                 continue
-            itemIndex=itemsInWorldCopy[iid]['id']
+            itemIndex = itemsInWorldCopy[iid]['id']
             if target not in itemsDB[itemIndex]['name'].lower():
                 continue
             if int(itemsDB[itemIndex]['weight']) == 0:
                 if itemsDB[itemIndex].get('takeFail'):
-                    mud.send_message_wrap(id,'<f220>', \
-                                          randomDescription(itemsDB[itemIndex]['takeFail'])+ \
-                                          "\n\n")
+                    desc = randomDescription(itemsDB[itemIndex]['takeFail'])
+                    mud.send_message_wrap(id, '<f220>', desc + "\n\n")
                 else:
                     mud.send_message(id, "You can't pick that up.\n\n")
                 return
 
             itemName = itemsDB[itemIndex]['name']
-            if itemInInventory(players,id,itemName,itemsDB):
+            if itemInInventory(players, id, itemName, itemsDB):
                 mud.send_message(
                     id, 'You are already carring ' + itemName + '\n\n')
                 return
-            if itemIsVisible(id,players,itemIndex,itemsDB):
+            if itemIsVisible(id, players, itemIndex, itemsDB):
                 # ID of the item to be picked up
                 itemInDB = True
             break
@@ -5223,7 +5553,7 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
             # item in same room as player
             if itemsInWorldCopy[iid]['room'] != players[id]['room']:
                 continue
-            itemIndex=itemsInWorldCopy[iid]['id']
+            itemIndex = itemsInWorldCopy[iid]['id']
             # item has the expected name
             if itemsDB[itemIndex]['name'] != itemName:
                 continue
@@ -5234,35 +5564,38 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
                     playerInventoryWeight(id, players, itemsDB)
 
                 if players[id]['wei'] + \
-                    itemsDB[itemIndex]['weight'] > maxWeight:
+                   itemsDB[itemIndex]['weight'] > maxWeight:
                     mud.send_message(id, "You can't carry any more.\n\n")
                     return
 
                 # is the player restricted by a trap
-                if playerIsTrapped(id,players,rooms):
+                if playerIsTrapped(id, players, rooms):
                     mud.send_message(
-                        id, randomDescription("You're trapped|" + \
-                            "The trap restricts your ability to take anything|" + \
-                            "The trap restricts your movement") + '.\n\n')
+                        id, randomDescription("You're trapped|" +
+                                              "The trap restricts your " +
+                                              "ability to take anything|" +
+                                              "The trap restricts your " +
+                                              "movement") + '.\n\n')
                     return
 
                 # add the item to the player's inventory
                 players[id]['inv'].append(str(itemIndex))
                 # update the weight of the player
-                players[id]['wei'] = playerInventoryWeight(id,players,itemsDB)
-                updatePlayerAttributes(id,players,itemsDB,itemIndex,1)
+                players[id]['wei'] = \
+                    playerInventoryWeight(id, players, itemsDB)
+                updatePlayerAttributes(id, players, itemsDB, itemIndex, 1)
                 # remove the item from the dict
                 del items[iid]
                 itemPickedUp = True
                 break
             else:
-                mud.send_message(id,'You try to pick up ' + itemName + \
+                mud.send_message(id, 'You try to pick up ' + itemName +
                                  " but find that your arms won't move.\n\n")
                 return
 
     if itemPickedUp:
-        mud.send_message(id,'You pick up and place ' + \
-            itemName + ' in your inventory.\n\n')
+        mud.send_message(id, 'You pick up and place ' +
+                         itemName + ' in your inventory.\n\n')
         itemPickedUp = False
     else:
         # are there any open containers with this item?
@@ -5274,7 +5607,7 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
             # is the item in the same room as the player?
             if itemsInWorldCopy[iid]['room'] != players[id]['room']:
                 continue
-            itemIndex=itemsInWorldCopy[iid]['id']
+            itemIndex = itemsInWorldCopy[iid]['id']
             # is this an open container
             if not itemsDB[itemIndex]['state'].startswith('container open'):
                 continue
@@ -5287,54 +5620,59 @@ def take(params,mud,playersDB: {},players: {},rooms: {}, \
                 # can the item be taken?
                 if itemsDB[int(containerItemID)]['weight'] == 0:
                     if itemsDB[int(containerItemID)].get('takeFail'):
-                        mud.send_message_wrap(id,'<f220>', \
-                                              randomDescription(itemsDB[int(containerItemID)]['takeFail'])+ \
-                                              "\n\n")
+                        idx = int(containerItemID)
+                        desc = \
+                            randomDescription(itemsDB[idx]['takeFail'])
+                        mud.send_message_wrap(id, '<f220>', desc + "\n\n")
                     else:
-                        mud.send_message(id,"You can't pick that up.\n\n")
+                        mud.send_message(id, "You can't pick that up.\n\n")
                     return
                 else:
                     # can the player move?
                     if players[id]['canGo'] != 0:
                         # is the item too heavy?
                         carryingWeight = \
-                            playerInventoryWeight(id,players,itemsDB)
-                        if carryingWeight + \
-                                itemsDB[int(containerItemID)]['weight'] > maxWeight:
-                            mud.send_message(id,"You can't carry any more.\n\n")
+                            playerInventoryWeight(id, players, itemsDB)
+                        idx = int(containerItemID)
+                        if carryingWeight + itemsDB[idx]['weight'] > maxWeight:
+                            mud.send_message(id,
+                                             "You can't carry any more.\n\n")
                             return
 
                         # add the item to the player's inventory
                         players[id]['inv'].append(containerItemID)
                         # remove the item from the container
                         itemsDB[itemIndex]['contains'].remove(containerItemID)
-                        mud.send_message(id, 'You take ' + \
-                                         itemsDB[int(containerItemID)]['article'] + \
-                                         ' ' + \
-                                         itemsDB[int(containerItemID)]['name'] + \
-                                         ' from ' + \
-                                         itemsDB[itemIndex]['article'] + \
-                                         ' ' + \
-                                         itemsDB[itemIndex]['name'] + \
+                        idx = int(containerItemID)
+                        mud.send_message(id, 'You take ' +
+                                         itemsDB[idx]['article'] +
+                                         ' ' +
+                                         itemsDB[idx]['name'] +
+                                         ' from ' +
+                                         itemsDB[itemIndex]['article'] +
+                                         ' ' +
+                                         itemsDB[itemIndex]['name'] +
                                          '.\n\n')
                     else:
-                        mud.send_message(id, 'You try to pick up ' + \
-                                         itemsDB[int(containerItemID)]['article'] + \
-                                         ' ' + \
-                                         itemsDB[int(containerItemID)]['name'] + \
-                                         " but find that your arms won't move.\n\n")
+                        idx = int(containerItemID)
+                        mud.send_message(id, 'You try to pick up ' +
+                                         itemsDB[idx]['article'] +
+                                         ' ' +
+                                         itemsDB[idx]['name'] +
+                                         " but find that your arms won't " +
+                                         "move.\n\n")
                     return
 
-        mud.send_message(id,'You cannot see '+target+' anywhere.\n\n')
+        mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
         itemPickedUp = False
 
 
-def runCommand(command,params,mud,playersDB: {},players: {},rooms: {}, \
-               npcsDB: {},npcs: {},itemsDB: {},items: {}, \
-               envDB: {},env: {},eventDB: {},eventSchedule, \
-               id: int,fights: {},corpses: {},blocklist, \
-               mapArea: [],characterClassDB: {},spellsDB: {}, \
-               sentimentDB: {},guildsDB: {},clouds: {}):
+def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
     switcher = {
         "sendCommandError": sendCommandError,
         "go": go,
@@ -5408,7 +5746,6 @@ def runCommand(command,params,mud,playersDB: {},players: {},rooms: {}, \
         "eat": eat,
         "drink": eat,
         "kick": kick,
-        "remove": kick,
         "change": changeSetting,
         "blocklist": showBlocklist,
         "block": block,
@@ -5468,16 +5805,16 @@ def runCommand(command,params,mud,playersDB: {},players: {},rooms: {}, \
     }
 
     try:
-        switcher[command](params,mud,playersDB,players,rooms,npcsDB, \
-                          npcs,itemsDB,items,envDB,env,eventDB, \
-                          eventSchedule,id,fights,corpses,blocklist, \
-                          mapArea,characterClassDB,spellsDB, \
-                          sentimentDB,guildsDB,clouds)
+        switcher[command](params, mud, playersDB, players, rooms, npcsDB,
+                          npcs, itemsDB, items, envDB, env, eventDB,
+                          eventSchedule, id, fights, corpses, blocklist,
+                          mapArea, characterClassDB, spellsDB,
+                          sentimentDB, guildsDB, clouds)
     except Exception as e:
         # print(str(e))
-        switcher["sendCommandError"](e,mud,playersDB,players,rooms, \
-                                     npcsDB,npcs,itemsDB,items, \
-                                     envDB,env,eventDB,eventSchedule, \
-                                     id,fights,corpses,blocklist, \
-                                     mapArea,characterClassDB,spellsDB, \
-                                     sentimentDB,guildsDB,clouds)
+        switcher["sendCommandError"](e, mud, playersDB, players, rooms,
+                                     npcsDB, npcs, itemsDB, items,
+                                     envDB, env, eventDB, eventSchedule,
+                                     id, fights, corpses, blocklist,
+                                     mapArea, characterClassDB, spellsDB,
+                                     sentimentDB, guildsDB, clouds)
