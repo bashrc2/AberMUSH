@@ -19,9 +19,9 @@ author: Mark Frimston - mfrimston@gmail.com
 import socket
 import select
 import time
-import sys
 import textwrap
 from cmsg import cmsg
+
 
 class MudServer(object):
     """A basic server for text-based Multi-User Dungeon (MUD) games.
@@ -88,7 +88,6 @@ class MudServer(object):
     # list of newly-added occurences
     _new_events = []
 
-
     def __init__(self):
         """Constructs the MudServer object and starts listening for
         new players.
@@ -121,7 +120,6 @@ class MudServer(object):
         # start listening for connections on the socket
         self._listen_socket.listen(1)
 
-
     def update(self):
         """Checks for new players, disconnected players, and new
         messages sent from players. This method must be called before
@@ -141,7 +139,6 @@ class MudServer(object):
         self._events = list(self._new_events)
         self._new_events = []
 
-
     def get_new_players(self):
         """Returns a list containing info on any new players that have
         entered the game since the last call to 'update'. Each item in
@@ -155,7 +152,6 @@ class MudServer(object):
                 retval.append(ev[1])
         # return the info list
         return retval
-
 
     def get_disconnected_players(self):
         """Returns a list containing info on any players that have left
@@ -171,7 +167,6 @@ class MudServer(object):
                 retval.append(ev[1])
         # return the info list
         return retval
-
 
     def get_commands(self):
         """Returns a list containing any commands sent from players
@@ -190,7 +185,6 @@ class MudServer(object):
         # return the info list
         return retval
 
-
     def send_message_wrap(self, to, prefix, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
@@ -200,19 +194,20 @@ class MudServer(object):
         # message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
-        wrapped=textwrap.wrap(message, width=65)
-        prependChar='<f15><b0>'
+        wrapped = textwrap.wrap(message, width=65)
+        prependChar = '<f15><b0>'
         if prefix:
-            prependChar=prefix
+            prependChar = prefix
         for messageLine in wrapped:
-            sendCtr=0
-            while not self._attempt_send(to, cmsg(prependChar+messageLine)+'\n'):
+            sendCtr = 0
+            while not self._attempt_send(to,
+                                         cmsg(prependChar + messageLine) +
+                                         '\n'):
                 time.sleep(1)
-                sendCtr+=1
-                if sendCtr>4:
+                sendCtr += 1
+                if sendCtr > 4:
                     break
-        self._attempt_send(to,'\n')
-
+        self._attempt_send(to, '\n')
 
     def send_message(self, to, message):
         """Sends the text in the 'message' parameter to the player with
@@ -223,13 +218,14 @@ class MudServer(object):
         # message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
-        sendCtr=0
-        while not self._attempt_send(to, cmsg('<f15><b0>'+message)+'\n'):
+        sendCtr = 0
+        while not self._attempt_send(to,
+                                     cmsg('<f15><b0>' + message) +
+                                     '\n'):
             time.sleep(1)
-            sendCtr+=1
-            if sendCtr>4:
+            sendCtr += 1
+            if sendCtr > 4:
                 break
-
 
     def send_image(self, to, message, noDelay=False) -> None:
         """Sends the ANSI image in the 'message' parameter to the player with
@@ -238,36 +234,39 @@ class MudServer(object):
         """
         if '\n' not in message:
             return
-        messageLines=message.split('\n')
-        if len(messageLines)<10:
+        messageLines = message.split('\n')
+        if len(messageLines) < 10:
             return
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
-            linectr=len(messageLines)
+            linectr = len(messageLines)
             for lineStr in messageLines:
-                if linectr<=30:
-                    self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
+                if linectr <= 30:
+                    self._clients[to].socket.sendall(bytearray(lineStr + '\n',
+                                                               'utf-8'))
                     time.sleep(0.03)
-                linectr-=1
-            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'),'utf-8'))
+                linectr -= 1
+            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
-            print("Couldnt send image to Player ID "+str(to)+", socket error: "+str(e))
+            print("Couldnt send image to Player ID " + str(to) +
+                  ", socket error: " + str(e))
             pass
         except BlockingIOError as e:
-            print("Couldnt send image to Player ID "+str(to)+", socket error: "+str(e))
+            print("Couldnt send image to Player ID " + str(to) +
+                  ", socket error: " + str(e))
             pass
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("Couldnt send image to Player ID "+str(to)+", socket error: "+str(e))
+            print("Couldnt send image to Player ID " + str(to) +
+                  ", socket error: " + str(e))
             self._handle_disconnect(to)
         if not noDelay:
             time.sleep(1)
-
 
     def send_game_board(self, to, message) -> None:
         """Sends the ANSI game board in the 'message' parameter to the player with
@@ -276,29 +275,32 @@ class MudServer(object):
         """
         if '\n' not in message:
             return
-        messageLines=message.split('\n')
+        messageLines = message.split('\n')
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
             for lineStr in messageLines:
-                self._clients[to].socket.sendall(bytearray(lineStr+'\n','utf-8'))
+                self._clients[to].socket.sendall(bytearray(lineStr + '\n',
+                                                           'utf-8'))
                 time.sleep(0.03)
-            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'),'utf-8'))
+            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
-            print("Couldnt send game board to player ID "+str(to)+", socket error: "+str(e))
+            print("Couldnt send game board to player ID " + str(to) +
+                  ", socket error: " + str(e))
             pass
         except BlockingIOError as e:
-            print("Couldnt send game board to player ID "+str(to)+", socket error: "+str(e))
+            print("Couldnt send game board to player ID " + str(to) +
+                  ", socket error: " + str(e))
             pass
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("Couldnt send game board to player ID "+str(to)+", socket error: "+str(e))
+            print("Couldnt send game board to player ID " + str(to) +
+                  ", socket error: " + str(e))
             self._handle_disconnect(to)
-
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
@@ -312,7 +314,6 @@ class MudServer(object):
         # stop listening for new clients
         self._listen_socket.close()
 
-
     def _attempt_send(self, clid, data) -> bool:
         try:
             # look up the client in the client map and use 'sendall' to send
@@ -323,24 +324,25 @@ class MudServer(object):
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
-            print("Failed to send data. Player ID "+str(clid)+": "+str(e))
+            print("Failed to send data. Player ID " + str(clid) +
+                  ": " + str(e))
             pass
             return False
         except BlockingIOError as e:
-            print("Failed to send data. Player ID "+str(clid)+": "+str(e))
+            print("Failed to send data. Player ID " + str(clid) +
+                  ": " + str(e))
             pass
             return False
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as e:
-            print("Failed to send data. Player ID "+str(clid)+": "+str(e)+'. Disconnecting.')
+            print("Failed to send data. Player ID " + str(clid) +
+                  ": " + str(e) + '. Disconnecting.')
             self._handle_disconnect(clid)
             return False
         return True
 
-
     def _check_for_new_connections(self):
-
         # 'select' is used to check whether there is data waiting to be read
         # from the socket. We pass in 3 lists of sockets, the first being those
         # to check for readability. It returns 3 lists, the first being
@@ -364,8 +366,9 @@ class MudServer(object):
 
         # construct a new _Client object to hold info about the newly connected
         # client. Use 'nextid' as the new client's id number
-        self._clients[self._nextid] = MudServer._Client(joined_socket, addr[0],
-                                                        "", time.time())
+        self._clients[self._nextid] = \
+            MudServer._Client(joined_socket, addr[0],
+                              "", time.time())
 
         # add a new player occurence to the new events list with the player's
         # id number
@@ -375,9 +378,7 @@ class MudServer(object):
         # unique id number
         self._nextid += 1
 
-
     def _check_for_disconnected(self):
-
         # go through all the clients
         for id, cl in list(self._clients.items()):
 
@@ -396,12 +397,9 @@ class MudServer(object):
             # update the last check time
             cl.lastcheck = time.time()
 
-
     def _check_for_messages(self):
-
         # go through all the clients
         for id, cl in list(self._clients.items()):
-
             # we use 'select' to test whether there is data waiting to be read
             # from the client socket. The function takes 3 lists of sockets,
             # the first being those to test for readability. It returns 3 list
@@ -414,7 +412,7 @@ class MudServer(object):
             if cl.socket not in rlist:
                 continue
 
-            data=None
+            data = None
             try:
                 # read data from the socket, using a max length of 4096
                 data = cl.socket.recv(4096).decode("latin1")
@@ -422,17 +420,17 @@ class MudServer(object):
             # if there is a problem reading from the socket (e.g. the client
             # has disconnected) a socket error will be raised
             except socket.error:
-                print('Socket error receiving data. Disconnecting Player ID '+str(id))
+                print('Socket error receiving data. Disconnecting Player ID ' +
+                      str(id))
                 self._handle_disconnect(id)
                 return
 
-            if data!=None:
+            if data is not None:
                 # process the data, stripping out any special Telnet commands
                 message = self._process_sent_data(cl, data)
 
                 # if there was a message in the data
                 if message:
-
                     # remove any spaces, tabs etc from the start and end of
                     # the message
                     message = message.strip()
@@ -448,9 +446,7 @@ class MudServer(object):
                     self._new_events.append((self._EVENT_COMMAND, id,
                                              command, params))
 
-
     def _handle_disconnect(self, clid):
-
         # remove the client from the clients map
         del(self._clients[clid])
 
@@ -458,9 +454,7 @@ class MudServer(object):
         # player's id number
         self._new_events.append((self._EVENT_PLAYER_LEFT, clid))
 
-
     def _process_sent_data(self, client, data):
-
         # the Telnet protocol allows special command codes to be inserted into
         # messages. For our very simple server we don't need to response to
         # any of these codes, but we must at least detect and skip over them
@@ -474,12 +468,10 @@ class MudServer(object):
 
         # go through the data a character at a time
         for c in data:
-
             # handle the character differently depending on the state we're in:
 
             # normal state
             if state == self._READ_STATE_NORMAL:
-
                 # if we received the special 'interpret as command' code,
                 # switch to 'command' state so that we handle the next
                 # character as a command code and not as regular text data
