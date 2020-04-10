@@ -7,14 +7,10 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 import os
 from functions import log
 from functions import saveState
 from functions import loadPlayersDB
-from random import randint
 from copy import deepcopy
 
 import time
@@ -138,32 +134,35 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
         motdFile = open(str(Config.get('System', 'Motd')), "r")
         motdLines = motdFile.readlines()
         motdFile.close()
-        linesCount = len(motdLines)
         for l in motdLines:
-            lineStr=l[:-1]
+            lineStr = l[:-1]
             if lineStr.strip().startswith('images/'):
-                motdImageFile=lineStr.strip()
+                motdImageFile = lineStr.strip()
                 if os.path.isfile(motdImageFile):
                     with open(motdImageFile, 'r') as imgFile:
-                        mud.send_image(id,'\n'+imgFile.read(),True)
+                        mud.send_image(id, '\n' + imgFile.read(), True)
             else:
                 mud.send_message(id, lineStr)
 
         if not os.path.isfile(".disableRegistrations"):
             mud.send_message_wrap(
-                id, '<f220>', \
-                'You can create a new Character, or use the guest account, username: Guest, password: Password')
+                id, '<f220>',
+                'You can create a new Character, or use the guest account, ' +
+                'username: Guest, password: Password')
             mud.send_message(
-                id, "What is your username? (type <f255>new<r> for new character)\n")
+                id, "What is your username? " +
+                "(type <f255>new<r> for new character)\n")
         else:
             mud.send_message(
-                id, '<f0><b220> New account registrations are currently closed')
+                id,
+                '<f0><b220> New account registrations are currently closed')
 
             mud.send_message(id, "\nWhat is your username?\n\n")
         log("Player ID " + str(id) + " has connected", "info")
 
 
-def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminalMode: {}):
+def runPlayerDisconnections(mud, id, players, playersDB, fights,
+                            Config, terminalMode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
 
@@ -172,7 +171,7 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminal
         if id not in players:
             continue
 
-        terminalMode[str(id)]=False
+        terminalMode[str(id)] = False
         log("Player ID " + str(id) + " has disconnected (" +
             str(players[id]['name']) + ")", "info")
 
@@ -185,48 +184,57 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights, Config,terminal
                    and players[pid]['room'] == players[id]['room'] \
                    and players[pid]['name'] != players[id]['name']:
                     mud.send_message(
-                        pid, "<f32><u>{}<r>'s body has vanished.".format(
-                            players[id]['name']) + "\n\n")
+                        pid, "<f32><u>{}<r>'s body has vanished" +
+                        ".".format(players[id]['name']) + "\n\n")
 
         # Code here to save player to the database after he's disconnected and
         # before removing him from players dictionary
         if players[id]['authenticated'] is not None:
             log("Player disconnected, saving state", "info")
-            saveState(players[id],playersDB,False)
+            saveState(players[id], playersDB, False)
             playersDB = loadPlayersDB()
 
         # Create a deep copy of fights, iterate through it and remove fights
         # disconnected player was taking part in
         fightsCopy = deepcopy(fights)
         for (fight, pl) in fightsCopy.items():
-            if fightsCopy[fight]['s1'] == players[id]['name'] or fightsCopy[fight]['s2'] == players[id]['name']:
+            if fightsCopy[fight]['s1'] == players[id]['name'] or \
+               fightsCopy[fight]['s2'] == players[id]['name']:
                 del fights[fight]
 
         # remove the player's entry in the player dictionary
         del players[id]
 
 
-def runPlayerConnections(mud,id,players,playersDB,fights,Config,terminalMode: {}):
-    runNewPlayerConnections(mud,id,players,playersDB,fights,Config)
-    runPlayerDisconnections(mud,id,players,playersDB,fights,Config,terminalMode)
+def runPlayerConnections(mud, id, players, playersDB, fights,
+                         Config, terminalMode: {}):
+    runNewPlayerConnections(mud, id, players, playersDB, fights, Config)
+    runPlayerDisconnections(mud, id, players, playersDB, fights,
+                            Config, terminalMode)
 
 
-def disconnectIdlePlayers(mud,players: {},allowedPlayerIdle: int,playersDB: {}) -> bool:
+def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
+                          playersDB: {}) -> bool:
     # Evaluate player idle time and disconnect if required
-    authenticatedPlayersDisconnected=False
+    authenticatedPlayersDisconnected = False
     now = int(time.time())
     playersCopy = deepcopy(players)
     for p in playersCopy:
         if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
             if players[p]['authenticated'] is not None:
                 mud.send_message_wrap(
-                    p,"<f232><b11>",
-                    "<f232><b11>Your body starts tingling. You instinctively hold your hand up to your face and notice you slowly begin to vanish. You are being disconnected due to inactivity...\n")
-                saveState(players[p],playersDB,False)
-                authenticatedPlayersDisconnected=True
+                    p, "<f232><b11>",
+                    "<f232><b11>Your body starts tingling. " +
+                    "You instinctively hold your hand up to " +
+                    "your face and notice you slowly begin to " +
+                    "vanish. You are being disconnected due " +
+                    "to inactivity...\n")
+                saveState(players[p], playersDB, False)
+                authenticatedPlayersDisconnected = True
             else:
                 mud.send_message(
-                    p, "<f232><b11>You are being disconnected due to inactivity. Bye!\n")
+                    p, "<f232><b11>You are being disconnected " +
+                    "due to inactivity. Bye!\n")
             log("Character " +
                 str(players[p]['name']) +
                 " is being disconnected due to inactivity.", "warning")
@@ -235,7 +243,8 @@ def disconnectIdlePlayers(mud,players: {},allowedPlayerIdle: int,playersDB: {}) 
             mud._handle_disconnect(p)
     return authenticatedPlayersDisconnected
 
-def playerInGame(id,username: str,players: {}) -> bool:
+
+def playerInGame(id, username: str, players: {}) -> bool:
     """ is the given player already logged in?
     """
     for pl in players:
@@ -246,7 +255,8 @@ def playerInGame(id,username: str,players: {}) -> bool:
             return True
     return False
 
-def initialSetupAfterLogin(mud,id,players: {},dbResponse: []):
+
+def initialSetupAfterLogin(mud, id, players: {}, dbResponse: []):
     """Sets up a player after login
     """
     players[id]['authenticated'] = True
@@ -270,7 +280,8 @@ def initialSetupAfterLogin(mud,id,players: {},dbResponse: []):
     players[id]['language'] = dbResponse[17]
     players[id]['convstate'] = dbResponse[18]  # .split(',')
     # Example: item_list = [e for e in item_list if e not in ('item', 5)]
-    #players[id]['inv'] = [e for e in players[id]['inv'] if e not in ('', ' ')]
+    # players[id]['inv'] = [e for e in
+    # players[id]['inv'] if e not in ('', ' ')]
     players[id]['clo_head'] = dbResponse[20]
     players[id]['clo_neck'] = dbResponse[21]
     players[id]['clo_larm'] = dbResponse[22]
@@ -364,15 +375,28 @@ def initialSetupAfterLogin(mud,id,players: {},dbResponse: []):
            and players[pid]['room'] == players[id]['room'] \
            and players[pid]['name'] != players[id]['name']:
             mud.send_message(
-                pid, '{} has materialised out of thin air nearby.'.format(
-                    players[id]['name']) + "\n\n")
+                pid, '{} has materialised out of thin air nearby' +
+                '.'.format(players[id]['name']) + "\n\n")
 
     # send the new player a welcome message
-    mud.send_message_wrap(id, '<f255>', \
-                          '<f220>Welcome to AberMUSH!, {}. '.format(players[id]['name']))
-    mud.send_message_wrap(id, '<f255>', \
-                          '<f255>Hello there traveller! You have connected to an AberMUSH server. You can move around the rooms along with other players (if you are lucky to meet any), attack each other (including NPCs), pick up and drop items and chat. Make sure to visit the repo for further info. Thanks for your interest in AberMUSH.')
-    mud.send_message_wrap(id, '<f255>', \
-                          "<f255>Type '<r><f220>help<r><f255>' for a list of all currently implemented commands/functions.")
-    mud.send_message_wrap(id, '<f255>', \
-                          "<f255>Type '<r><f220>look<r><f255>' to see what's around you.\n\n")
+    mud.send_message_wrap(id, '<f255>',
+                          '<f220>Welcome to AberMUSH!, {}.' +
+                          ' '.format(players[id]['name']))
+    mud.send_message_wrap(id, '<f255>',
+                          '<f255>Hello there traveller! ' +
+                          'You have connected to an AberMUSH ' +
+                          'server. You can move around the ' +
+                          'rooms along with other players ' +
+                          '(if you are lucky to meet any), ' +
+                          'attack each other (including NPCs), ' +
+                          'pick up and drop items and chat. ' +
+                          'Make sure to visit the repo for ' +
+                          'further info. Thanks for your ' +
+                          'interest in AberMUSH.')
+    mud.send_message_wrap(id, '<f255>',
+                          "<f255>Type '<r><f220>help<r><f255>' " +
+                          "for a list of all currently implemented " +
+                          "commands/functions.")
+    mud.send_message_wrap(id, '<f255>',
+                          "<f255>Type '<r><f220>look<r><f255>' " +
+                          "to see what's around you.\n\n")
