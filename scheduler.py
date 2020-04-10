@@ -7,15 +7,9 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-import os
-from functions import log
 from events import evaluateEvent
 from random import randint
 from copy import deepcopy
-from npcs import moveNPCs
 
 import time
 
@@ -31,14 +25,9 @@ def runMessages(mud, channels, players):
                 for m in ch:
                     if ch[m]['channel'] == c:
                         mud.send_message(
-                            p,
-                            "[<f191>" +
-                            ch[m]['channel'] +
-                            "<r>] <f32>" +
-                            ch[m]['sender'] +
-                            "<r>: " +
-                            ch[m]['message'] +
-                            "\n")
+                            p, "[<f191>" + ch[m]['channel'] +
+                            "<r>] <f32>" + ch[m]['sender'] +
+                            "<r>: " + ch[m]['message'] + "\n")
                         # del channels[m]
 
 
@@ -47,8 +36,10 @@ def runEnvironment(mud, players, env):
     # players in the same room as the ENV elements
     for (eid, pl) in list(env.items()):
         now = int(time.time())
-        if now > env[eid]['timeTalked'] + \
-                env[eid]['talkDelay'] + env[eid]['randomizer']:
+        if now > \
+           env[eid]['timeTalked'] + \
+           env[eid]['talkDelay'] + \
+           env[eid]['randomizer']:
             if len(env[eid]['vocabulary']) > 1:
                 rnd = randint(0, len(env[eid]['vocabulary']) - 1)
                 while rnd is env[eid]['lastSaid']:
@@ -70,36 +61,25 @@ def runEnvironment(mud, players, env):
                         mud.send_message(pid, msg)
                         env[eid]['lastSaid'] = rnd
                         env[eid]['timeTalked'] = now
-                        env[eid]['randomizer'] = randint(
-                            0, env[eid]['randomFactor'])
+                        env[eid]['randomizer'] = \
+                            randint(0, env[eid]['randomFactor'])
 
 
-def runSchedule(
-        mud,
-        eventSchedule,
-        players,
-        npcs,
-        itemsInWorld,
-        env,
-        npcsDB,
-        envDB):
+def runSchedule(mud, eventSchedule, players: {}, npcs: {},
+                itemsInWorld: {}, env, npcsDB: {}, envDB: {}):
     # Evaluate the Event Schedule
     for (event, pl) in list(eventSchedule.items()):
         if time.time() < eventSchedule[event]['time']:
             continue
         # its time to run the event!
         if eventSchedule[event]['type'] == "msg":
-            mud.send_message(int(eventSchedule[event]['target']), str(
-                eventSchedule[event]['body']) + "\n")
+            mud.send_message(int(eventSchedule[event]['target']),
+                             str(eventSchedule[event]['body']) + "\n")
         else:
             evaluateEvent(
                 eventSchedule[event]['target'],
                 eventSchedule[event]['type'],
                 eventSchedule[event]['body'],
-                players,
-                npcs,
-                itemsInWorld,
-                env,
-                npcsDB,
-                envDB)
+                players, npcs, itemsInWorld, env,
+                npcsDB, envDB)
         del eventSchedule[event]
