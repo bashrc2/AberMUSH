@@ -585,3 +585,14 @@ def prepareSpells(mud, id, players):
         else:
             players[id]['prepareSpellProgress'] = \
                 players[id]['prepareSpellProgress'] + 1
+
+
+def messageToPlayersInRoom(mud, players, id, msg):
+    # go through all the players in the game
+    for (pid, pl) in list(players.items()):
+        # if player is in the same room and isn't the player
+        # sending the command
+        if players[pid]['room'] == players[id]['room'] and \
+           pid != id:
+            if playerIsVisible(mud, pid, players, id, players):
+                mud.send_message(pid, msg)

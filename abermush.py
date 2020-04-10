@@ -548,7 +548,7 @@ while True:
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
     runNPCs(mud, npcs, players, fights, corpses, scriptedEventsDB, itemsDB,
-            npcsTemplate, rooms, mapArea, clouds)
+            npcsTemplate, rooms, mapArea, clouds, eventSchedule)
 
     runEnvironment(mud, players, env)
 

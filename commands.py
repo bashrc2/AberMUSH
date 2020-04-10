@@ -7,6 +7,7 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
+from functions import messageToPlayersInRoom
 from functions import TimeStringToSec
 from functions import addToScheduler
 from functions import getFreeKey
@@ -3154,17 +3155,6 @@ def playersMoveTogether(id, rm, mud,
             if rooms[rm]['eventOnEnter'] != "":
                 addToScheduler(int(rooms[rm]['eventOnEnter']),
                                pid, eventSchedule, eventDB)
-
-
-def messageToPlayersInRoom(mud, players, id, msg):
-    # go through all the players in the game
-    for (pid, pl) in list(players.items()):
-        # if player is in the same room and isn't the player
-        # sending the command
-        if players[pid]['room'] == players[id]['room'] and \
-           pid != id:
-            if playerIsVisible(mud, pid, players, id, players):
-                mud.send_message(pid, msg)
 
 
 def bioOfPlayer(mud, id, pid, players, itemsDB):
