@@ -22,6 +22,10 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+wearLocation = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
+                'chest', 'feet', 'lfinger', 'rfinger', 'back',
+                'lleg', 'rleg')
+
 
 def TimeStringToSec(durationStr: str) -> int:
     """Converts a description of a duration such as '1 hour'
@@ -585,6 +589,41 @@ def prepareSpells(mud, id, players):
         else:
             players[id]['prepareSpellProgress'] = \
                 players[id]['prepareSpellProgress'] + 1
+
+
+def isWearing(id, players: {}, itemList: []) -> bool:
+    """Given a list of possible item IDs is the player wearing any of them?
+    """
+    if not itemList:
+        return False
+
+    for itemID in itemList:
+        if not str(itemID).isdigit():
+            print('isWearing: ' + str(itemID) + ' is not a digit')
+            continue
+        itemID = int(itemID)
+        for locn in wearLocation:
+            if int(players[id]['clo_'+locn]) == itemID:
+                return True
+        if int(players[id]['clo_lhand']) == itemID or \
+           int(players[id]['clo_rhand']) == itemID:
+            return True
+    return False
+
+
+def playerIsVisible(mud, observerId: int, observers: {},
+                    otherPlayerId: int, others: {}) -> bool:
+    """Is the other player visible to the observer?
+    """
+    observerId = int(observerId)
+    otherPlayerId = int(otherPlayerId)
+    if not others[otherPlayerId].get('visibleWhenWearing'):
+        return True
+    if others[otherPlayerId].get('visibleWhenWearing'):
+        if isWearing(observerId, observers,
+                     others[otherPlayerId]['visibleWhenWearing']):
+            return True
+    return False
 
 
 def messageToPlayersInRoom(mud, players, id, msg):

@@ -7,6 +7,9 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
+from functions import wearLocation
+from functions import isWearing
+from functions import playerIsVisible
 from functions import messageToPlayersInRoom
 from functions import TimeStringToSec
 from functions import addToScheduler
@@ -68,10 +71,6 @@ from suntime import Sun
 
 import decimal
 dec = decimal.Decimal
-
-wearLocation = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
-                'chest', 'feet', 'lfinger', 'rfinger', 'back',
-                'lleg', 'rleg')
 
 # maximum weight of items which can be carried
 maxWeight = 100
@@ -1598,21 +1597,6 @@ def speak(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, "You switch to speaking in " + lang + "\n\n")
 
 
-def playerIsVisible(mud, observerId: int, observers: {},
-                    otherPlayerId: int, others: {}) -> bool:
-    """Is the other player visible to the observer?
-    """
-    observerId = int(observerId)
-    otherPlayerId = int(otherPlayerId)
-    if not others[otherPlayerId].get('visibleWhenWearing'):
-        return True
-    if others[otherPlayerId].get('visibleWhenWearing'):
-        if isWearing(observerId, observers,
-                     others[otherPlayerId]['visibleWhenWearing']):
-            return True
-    return False
-
-
 def say(params, mud, playersDB: {}, players: {}, rooms: {},
         npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
         env: {}, eventDB: {}, eventSchedule,
@@ -2697,26 +2681,6 @@ def describe(params, mud, playersDB: {}, players: {}, rooms: {},
                         rooms, npcsDB, npcs, itemsDB,
                         items, envDB, env, guildsDB)
                     return
-
-
-def isWearing(id, players: {}, itemList: []) -> bool:
-    """Given a list of possible item IDs is the player wearing any of them?
-    """
-    if not itemList:
-        return False
-
-    for itemID in itemList:
-        if not str(itemID).isdigit():
-            print('isWearing: ' + str(itemID) + ' is not a digit')
-            continue
-        itemID = int(itemID)
-        for locn in wearLocation:
-            if int(players[id]['clo_'+locn]) == itemID:
-                return True
-        if int(players[id]['clo_lhand']) == itemID or \
-           int(players[id]['clo_rhand']) == itemID:
-            return True
-    return False
 
 
 def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
