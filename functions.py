@@ -22,6 +22,7 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
+
 def TimeStringToSec(durationStr: str) -> int:
     """Converts a description of a duration such as '1 hour'
        into a number of seconds
@@ -39,6 +40,7 @@ def TimeStringToSec(durationStr: str) -> int:
         return int(dur[0]) * 60 * 60 * 24
     return 1
 
+
 def getSentiment(text: str, sentimentDB: {}) -> int:
     """Returns a sentiment score for the given text
        which can be positive or negative
@@ -50,22 +52,25 @@ def getSentiment(text: str, sentimentDB: {}) -> int:
             sentiment = sentiment + value
     return sentiment
 
+
 def getGuildSentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
-    """Returns the sentiment of the guild of the first player towards the second
+    """Returns the sentiment of the guild of the first player
+    towards the second
     """
     if not players[id].get('guild'):
         return 0
     if not players[id].get('guildRole'):
         return 0
-    guildName=players[id]['guild']
+    guildName = players[id]['guild']
     if not guilds.get(guildName):
         return 0
-    otherPlayerName=npcs[p]['name']
-    if not guilds[guildname]['affinity'].get(otherPlayerName):
+    otherPlayerName = npcs[p]['name']
+    if not guilds[guildName]['affinity'].get(otherPlayerName):
         return 0
     # NOTE: this could be adjusted by the strength of affinity
     # between the player and the guild, but for now it's just hardcoded
-    return int(guilds[guildname]['affinity'][otherPlayerName]/2)
+    return int(guilds[guildName]['affinity'][otherPlayerName] / 2)
+
 
 def baselineAffinity(players, id):
     """Returns the average affinity value for the player
@@ -84,7 +89,8 @@ def baselineAffinity(players, id):
     return averageAffinity
 
 
-def increaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> None:
+def increaseAffinityBetweenPlayers(players: {}, id, npcs: {},
+                                   p, guilds: {}) -> None:
     """Increases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -96,11 +102,11 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
         if len(players[id]['animalType']) > 0:
             return
 
-    max_affinity=10
+    max_affinity = 10
 
     recipientName = npcs[p]['name']
     if players[id]['affinity'].get(recipientName):
-        if players[id]['affinity'][recipientName]<max_affinity:
+        if players[id]['affinity'][recipientName] < max_affinity:
             players[id]['affinity'][recipientName] += 1
     else:
         # set the affinity to an assumed average
@@ -108,17 +114,19 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
 
     # adjust guild affinity
     if players[id].get('guild') and players[id].get('guildRole'):
-        guildName=players[id]['guild']
+        guildName = players[id]['guild']
         if guilds.get(guildName):
-            guild=guilds[guildName]
+            guild = guilds[guildName]
             if guild['affinity'].get(recipientName):
-                if guild['affinity'][recipientName]<max_affinity:
+                if guild['affinity'][recipientName] < max_affinity:
                     guild['affinity'][recipientName] += 1
             else:
                 guild['affinity'][recipientName] = \
                     baselineAffinity(players, id)
 
-def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> None:
+
+def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
+                                   p, guilds: {}) -> None:
     """Decreases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -130,11 +138,11 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
         if len(players[id]['animalType']) > 0:
             return
 
-    min_affinity=-10
+    min_affinity = -10
 
     recipientName = npcs[p]['name']
     if players[id]['affinity'].get(recipientName):
-        if players[id]['affinity'][recipientName]>min_affinity:
+        if players[id]['affinity'][recipientName] > min_affinity:
             players[id]['affinity'][recipientName] -= 1
 
         # Avoid zero values
@@ -146,11 +154,11 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
 
     # adjust guild affinity
     if players[id].get('guild') and players[id].get('guildRole'):
-        guildName=players[id]['guild']
+        guildName = players[id]['guild']
         if guilds.get(guildName):
-            guild=guilds[guildName]
+            guild = guilds[guildName]
             if guild['affinity'].get(recipientName):
-                if guild['affinity'][recipientName]>min_affinity:
+                if guild['affinity'][recipientName] > min_affinity:
                     guild['affinity'][recipientName] -= 1
                 # Avoid zero values
                 if guild['affinity'][recipientName] == 0:
@@ -158,6 +166,7 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {}, p, guilds: {}) -> 
             else:
                 guild['affinity'][recipientName] = \
                     baselineAffinity(players, id)
+
 
 def randomDescription(descriptionList):
     if '|' in descriptionList:
@@ -178,8 +187,8 @@ def levelUp(id, players, characterClassDB, increment):
                 if isinstance(prof, list):
                     players[id]['proficiencies'].remove(prof)
             # update proficiencies
-            for prof in characterClassDB[template['characterClass']][str(
-                    players[id]['lvl'])]:
+            idx = players[id]['characterClass']
+            for prof in characterClassDB[idx][str(players[id]['lvl'])]:
                 if prof not in players[id]['proficiencies']:
                     players[id]['proficiencies'].append(prof)
 
@@ -188,8 +197,7 @@ def stowHands(id, players: {}, itemsDB: {}, mud):
     if int(players[id]['clo_rhand']) > 0:
         itemID = int(players[id]['clo_rhand'])
         mud.send_message(
-            id,
-            'You stow <b234>' +
+            id, 'You stow <b234>' +
             itemsDB[itemID]['article'] +
             ' ' +
             itemsDB[itemID]['name'] +
@@ -199,8 +207,7 @@ def stowHands(id, players: {}, itemsDB: {}, mud):
     if int(players[id]['clo_lhand']) > 0:
         itemID = int(players[id]['clo_lhand'])
         mud.send_message(
-            id,
-            'You stow <b234>' +
+            id, 'You stow <b234>' +
             itemsDB[itemID]['article'] +
             ' ' +
             itemsDB[itemID]['name'] +
@@ -209,78 +216,21 @@ def stowHands(id, players: {}, itemsDB: {}, mud):
 
 
 def sizeFromDescription(description):
-    tinyEntity = (
-        'tiny',
-        'moth',
-        'butterfly',
-        'insect',
-        'beetle',
-        'ant',
-        'bee',
-        'wasp',
-        'hornet',
-        'mosquito',
-        'lizard',
-        'mouse',
-        'rat',
-        'crab',
-        'roach',
-        'snail',
-        'slug',
-        'hamster',
-        'gerbil')
-    smallEntity = (
-        'small',
-        'dog',
-        'cat',
-        'weasel',
-        'owl',
-        'hawk',
-        'crow',
-        'rook',
-        'robbin',
-        'penguin',
-        'bird',
-        'pidgeon',
-        'wolf',
-        'badger',
-        'fox',
-        'rat',
-        'dwarf',
-        'mini',
-        'fish',
-        'lobster',
-        'koala',
-        'goblin')
-    largeEntity = (
-        'large',
-        'tiger',
-        'lion',
-        'tiger',
-        'wolf',
-        'leopard',
-        'bear',
-        'elk',
-        'deer',
-        'horse',
-        'bison',
-        'moose',
-        'kanga',
-        'zebra',
-        'oxe',
-        'beest',
-        'troll',
-        'taur')
+    tinyEntity = ('tiny', 'moth', 'butterfly', 'insect', 'beetle', 'ant',
+                  'bee', 'wasp', 'hornet', 'mosquito', 'lizard', 'mouse',
+                  'rat', 'crab', 'roach', 'snail', 'slug', 'hamster',
+                  'gerbil')
+    smallEntity = ('small', 'dog', 'cat', 'weasel', 'owl', 'hawk', 'crow',
+                   'rook', 'robbin', 'penguin', 'bird', 'pidgeon', 'wolf',
+                   'badger', 'fox', 'rat', 'dwarf', 'mini', 'fish',
+                   'lobster', 'koala', 'goblin')
+    largeEntity = ('large', 'tiger', 'lion', 'tiger', 'wolf', 'leopard',
+                   'bear', 'elk', 'deer', 'horse', 'bison', 'moose',
+                   'kanga', 'zebra', 'oxe', 'beest', 'troll', 'taur')
     hugeEntity = ('huge', 'ogre', 'elephant', 'mastodon', 'giraffe', 'titan')
     gargantuanEntity = ('gargantuan', 'dragon', 'whale')
-    smallerEntity = (
-        'young',
-        'child',
-        'cub',
-        'kitten',
-        'puppy',
-        'juvenile',
-        'kid')
+    smallerEntity = ('young', 'child', 'cub', 'kitten', 'puppy', 'juvenile',
+                     'kid')
     description2 = description.lower()
     size = 2
     for e in tinyEntity:
@@ -315,7 +265,8 @@ def sizeFromDescription(description):
 def updatePlayerAttributes(id, players, itemsDB, itemID, mult):
     playerAttributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
     for attr in playerAttributes:
-        players[id][attr] = players[id][attr] + \
+        players[id][attr] = \
+            players[id][attr] + \
             (mult * itemsDB[itemID]['mod_' + attr])
     # experience returns to zero
     itemsDB[itemID]['mod_exp'] = 0
@@ -333,11 +284,13 @@ def playerInventoryWeight(id, players, itemsDB):
 
     return weight
 
+
 def hash_password(password):
     """Hash a password for storing."""
     salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
-    pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
-                                  salt, 100000)
+    pwdhash = \
+        hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
+                            salt, 100000)
     pwdhash = binascii.hexlify(pwdhash)
     return (salt + pwdhash).decode('ascii')
 
@@ -346,27 +299,28 @@ def verify_password(stored_password, provided_password):
     """Verify a stored password against one provided by user"""
     salt = stored_password[:64]
     stored_password = stored_password[64:]
-    pwdhash = hashlib.pbkdf2_hmac('sha512',
-                                  provided_password.encode('utf-8'),
-                                  salt.encode('ascii'),
-                                  100000)
+    pwdhash = \
+        hashlib.pbkdf2_hmac('sha512',
+                            provided_password.encode('utf-8'),
+                            salt.encode('ascii'), 100000)
     pwdhash = binascii.hexlify(pwdhash).decode('ascii')
     return pwdhash == stored_password
 
-# Function to silently remove file
 
-
-def silentRemove(filename):
+def silentRemove(filename: str):
+    """Function to silently remove file
+    """
     try:
         os.remove(filename)
-    except OSError as e:  # this would be "except OSError, e:" before Python 2.6
-        if e.errno != errno.ENOENT:  # errno.ENOENT = no such file or directory
-            raise  # re-raise exception if a different error occurred
+    except OSError as e:
+        if e.errno != errno.ENOENT:
+            raise
 
-# Function to load all registered players from JSON files
-# def loadPlayersDB(location = "./players", forceLowercase = True):
-def loadPlayersDB(location=str(Config.get('Players','Location')), \
+
+def loadPlayersDB(location=str(Config.get('Players', 'Location')),
                   forceLowercase=True):
+    """Function to load all registered players from JSON files
+    """
     DB = {}
     playerFiles = [i for i in os.listdir(
         location) if os.path.splitext(i)[1] == ".player"]
@@ -384,13 +338,13 @@ def loadPlayersDB(location=str(Config.get('Players','Location')), \
         return(DB)
 
     # for i in playersDB:
-        #print(i, playersDB[i])
-
-# Function used for loggin messages to stdout and a disk file
+        # print(i, playersDB[i])
 
 
 def log(content, type):
-    #logfile = './dum.log'
+    """Function used for logging messages to stdout and a disk file
+    """
+    # logfile = './dum.log'
     logfile = str(Config.get('Logs', 'ServerLog'))
     print(str(time.strftime("%d/%m/%Y") + " " +
               time.strftime("%I:%M:%S") + " [" + type + "] " + content))
@@ -398,15 +352,15 @@ def log(content, type):
         log = open(logfile, 'a')
     else:
         log = open(logfile, 'w')
-    log.write(str(time.strftime("%d/%m/%Y") + " " + \
+    log.write(str(time.strftime("%d/%m/%Y") + " " +
               time.strftime("%I:%M:%S") + " [" + type + "] " + content) + '\n')
     log.close()
 
-# Function for returning a first available key value for appending a new
-# element to a dictionary
-
 
 def getFreeKey(itemsDict, start=None):
+    """Function for returning a first available key value for appending a new
+    element to a dictionary
+    """
     if start is None:
         try:
             for x in range(0, len(itemsDict) + 1):
@@ -424,11 +378,11 @@ def getFreeKey(itemsDict, start=None):
                 found = True
         return(start)
 
-# Function for returning a first available room key value for appending a
-# room element to a dictionary
-
 
 def getFreeRoomKey(rooms):
+    """Function for returning a first available room key value for appending a
+    room element to a dictionary
+    """
     maxRoomID = -1
     for rmkey in rooms.keys():
         roomIDStr = rmkey.replace('$', '').replace('rid=', '')
@@ -443,34 +397,42 @@ def getFreeRoomKey(rooms):
         return '$rid=' + str(maxRoomID + 1) + '$'
     return ''
 
-# Function for adding events to event scheduler
-
 
 def addToScheduler(eventID, targetID, scheduler, database):
+    """Function for adding events to event scheduler
+    """
     if isinstance(eventID, int):
         for item in database:
             if int(item[0]) == eventID:
-                scheduler[getFreeKey(scheduler)] = {'time': int(time.time(
-                ) + int(item[1])), 'target': int(targetID), 'type': item[2], 'body': item[3]}
+                scheduler[getFreeKey(scheduler)] = {
+                    'time': int(time.time() + int(item[1])),
+                    'target': int(targetID),
+                    'type': item[2],
+                    'body': item[3]
+                }
     elif isinstance(eventID, str):
         item = eventID.split('|')
-        scheduler[getFreeKey(scheduler)] = {'time': int(time.time(
-        ) + int(item[0])), 'target': int(targetID), 'type': item[1], 'body': item[2]}
+        scheduler[getFreeKey(scheduler)] = {
+            'time': int(time.time() + int(item[0])),
+            'target': int(targetID),
+            'type': item[1],
+            'body': item[2]
+        }
 
 
 def loadPlayer(name, db):
     try:
         # with open(path + name + ".player", "r") as read_file:
-            # dict = json.loads(read_file.read())
-            # return(dict)
-        #print(str(db[name.lower() + ".player"]))
+        #     dict = json.loads(read_file.read())
+        #     return(dict)
+        # print(str(db[name.lower() + ".player"]))
         return(db[name.lower() + ".player"])
     except Exception:
         pass
 
 
-def savePlayer(player,masterDB,savePassword, \
-               path=str(Config.get('Players','Location'))+"/"):
+def savePlayer(player, masterDB, savePassword,
+               path=str(Config.get('Players', 'Location')) + "/"):
     DB = loadPlayersDB(forceLowercase=False)
     for p in DB:
         if (player['name'] + ".player").lower() == p.lower():
@@ -485,56 +447,56 @@ def savePlayer(player,masterDB,savePassword, \
 
             with open(path + player['name'] + ".player", 'w') as fp:
                 fp.write(json.dumps(newPlayer))
-            masterDB = loadPlayersDB()
-
-def saveState(player,masterDB,savePassword):
-    tempVar = 0
-    savePlayer(player,masterDB,savePassword)
-    #masterDB = loadPlayersDB()
+            loadPlayersDB()
 
 
-def saveUniverse(rooms: {},npcsDB: {},npcs: {}, \
-                 itemsDB: {},items: {}, \
-                 envDB: {},env: {},guildsDB: {}):
+def saveState(player, masterDB, savePassword):
+    savePlayer(player, masterDB, savePassword)
+    # masterDB = loadPlayersDB()
+
+
+def saveUniverse(rooms: {}, npcsDB: {}, npcs: {},
+                 itemsDB: {}, items: {},
+                 envDB: {}, env: {}, guildsDB: {}):
     # save rooms
     if os.path.isfile('universe.json'):
-        os.rename('universe.json','universe2.json')
+        os.rename('universe.json', 'universe2.json')
     with open("universe.json", 'w') as fp:
         fp.write(json.dumps(rooms))
 
     # save items
     if os.path.isfile('universe_items.json'):
-        os.rename('universe_items.json','universe_items2.json')
+        os.rename('universe_items.json', 'universe_items2.json')
     with open("universe_items.json", 'w') as fp:
         fp.write(json.dumps(items))
 
     # save itemsDB
     if os.path.isfile('universe_itemsdb.json'):
-        os.rename('universe_itemsdb.json','universe_itemsdb2.json')
+        os.rename('universe_itemsdb.json', 'universe_itemsdb2.json')
     with open("universe_itemsdb.json", 'w') as fp:
         fp.write(json.dumps(itemsDB))
 
     # save environment actors
     if os.path.isfile('universe_actorsdb.json'):
-        os.rename('universe_actorsdb.json','universe_actorsdb2.json')
+        os.rename('universe_actorsdb.json', 'universe_actorsdb2.json')
     with open("universe_actorsdb.json", 'w') as fp:
         fp.write(json.dumps(envDB))
 
     # save environment actors
     if os.path.isfile('universe_actors.json'):
-        os.rename('universe_actors.json','universe_actors2.json')
+        os.rename('universe_actors.json', 'universe_actors2.json')
     with open("universe_actors.json", 'w') as fp:
         fp.write(json.dumps(env))
 
     # save npcs
     if os.path.isfile('universe_npcs.json'):
-        os.rename('universe_npcs.json','universe_npcs2.json')
+        os.rename('universe_npcs.json', 'universe_npcs2.json')
     with open("universe_npcs.json", 'w') as fp:
         fp.write(json.dumps(npcs))
 
     # save npcsDB
     if os.path.isfile('universe_npcsdb.json'):
-        os.rename('universe_npcsdb.json','universe_npcsdb2.json')
+        os.rename('universe_npcsdb.json', 'universe_npcsdb2.json')
     with open("universe_npcsdb.json", 'w') as fp:
         fp.write(json.dumps(npcsDB))
 
@@ -544,9 +506,11 @@ def str2bool(v):
 
 
 def sendToChannel(sender, channel, message, channels):
-        #print("Im in!")
-    channels[getFreeKey(channels)] = {"channel": str(
-        channel), "message": str(message), "sender": str(sender)}
+    # print("Im in!")
+    channels[getFreeKey(channels)] = {
+        "channel": str(channel),
+        "message": str(message),
+        "sender": str(sender)}
     # print(channels)
 
 
@@ -607,7 +571,8 @@ def prepareSpells(mud, id, players):
         return
 
     if players[id]['prepareSpellTime'] > 0:
-        if players[id]['prepareSpellProgress'] >= players[id]['prepareSpellTime']:
+        if players[id]['prepareSpellProgress'] >= \
+           players[id]['prepareSpellTime']:
             spellName = players[id]['prepareSpell']
             players[id]['preparedSpells'][spellName] = 1
             players[id]['spellSlots'][spellName] = 1
@@ -615,9 +580,8 @@ def prepareSpells(mud, id, players):
             players[id]['prepareSpellProgress'] = 0
             players[id]['prepareSpellTime'] = 0
             mud.send_message(
-                id,
-                "You prepared the spell <f220>" +
-                spellName +
-                "<r>\n\n")
+                id, "You prepared the spell <f220>" +
+                spellName + "<r>\n\n")
         else:
-            players[id]['prepareSpellProgress'] = players[id]['prepareSpellProgress'] + 1
+            players[id]['prepareSpellProgress'] = \
+                players[id]['prepareSpellProgress'] + 1
