@@ -96,7 +96,7 @@
         "lookDescription": "The rat watches you with its dark beady eyes"
     },
     "64": {
-        "name": "the black panther",
+        "name": "the lynx",
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
