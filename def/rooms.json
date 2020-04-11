@@ -2614,7 +2614,7 @@
             "south": "$rid=301$",
             "west": "$rid=349$"
         },
-        "name": "Thick Woodland",
+        "name": "Dense Woodland",
         "description": "You are deep in the woods. The trees are thick dark and tangled, and branches spread out above you, hiding the sky. Its hard to tell where you can wander from here, amidst the thickets and bushes.",
         "roomTeleport": "",
         "conditional": [
@@ -4005,11 +4005,11 @@
     },
     "$rid=581$": {
         "name": "The Island Coast",
-        "description": "You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. There is absolutely nowhere here to land.",
+        "description": "You are rowing past the south of the island. You can't see more than a few yards into the dense woodland. There is absolutely nowhere here to land.",
         "roomTeleport": "",
         "conditional": [
-	    ["sunrise","true","You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. There is absolutely nowhere here to land.","581_sun"],
-	    ["sunset","true","You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. There is absolutely nowhere here to land.","581_sun"]
+	    ["sunrise","true","You are rowing past the south of the island. You can't see more than a few yards into the dense woodland. There is absolutely nowhere here to land.","581_sun"],
+	    ["sunset","true","You are rowing past the south of the island. You can't see more than a few yards into the dense woodland. There is absolutely nowhere here to land.","581_sun"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -4018,7 +4018,7 @@
         "maxPlayers": 2,
         "weather": 1,
         "onWater": 1,
-        "tideOutDescription" : "You are rowing past the south of the island. You can't see more than a few yards into the thick jungle. Jagged rocks protrude from the shoreline.",
+        "tideOutDescription" : "You are rowing past the south of the island. You can't see more than a few yards into the dense woodland. Jagged rocks protrude from the shoreline.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4117,7 +4117,7 @@
     },
     "$rid=586$": {
         "name": "The Sandy Beach",
-        "description": "This is a long stretch of golden sand. The beach quickly reaches a line of palm trees and disappears into a thick jungle.",
+        "description": "This is a long stretch of golden sand. The beach quickly reaches a line of trees and disappears into a dense woodland.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4127,7 +4127,7 @@
         "maxPlayers": -1,
         "weather": 1,
         "onWater": 0,
-        "tideOutDescription" : "This is a long stretch of golden sand. The exposed beach eventually reaches a line of palm trees and disappears into a thick jungle.",
+        "tideOutDescription" : "This is a long stretch of golden sand. The exposed beach eventually reaches a line of trees and disappears into a dense woodland.",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4137,7 +4137,7 @@
     },
     "$rid=587$": {
         "name": "The Tall Cliff",
-        "description": "You stand on a tall cliff at the corner of the island. From the top you can see far in all directions. Far away to the north, on the horizon, you can just make out the mainland, while nearer to you this island is completely forested with palm trees.",
+        "description": "You stand on a tall cliff at the corner of the island. From the top you can see far in all directions. Far away to the north, on the horizon, you can just make out the mainland, while nearer to you this island is completely forested.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4156,7 +4156,7 @@
     },
     "$rid=588$": {
         "name": "The Sandy Beach",
-        "description": "A short stretch of golden sand, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up. To the west the top of a sunken ship is just visible above the waterline.",
+        "description": "A short stretch of golden sand, edged with large green trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up. To the west the top of a sunken ship is just visible above the waterline.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4166,7 +4166,7 @@
         "maxPlayers": -1,
         "weather": 1,
         "onWater": 0,
-        "tideOutDescription" : "A short stretch of golden sand and occasional rockpools, edged with large green palm trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up. On the beach to the west you see the remains of a wrecked ship.",
+        "tideOutDescription" : "A short stretch of golden sand and occasional rockpools, edged with large green trees. Small footprints lead off into the trees. A large wooden post has been driven into the sand, for tying boats up. On the beach to the west you see the remains of a wrecked ship.",
         "terrainDifficulty": 0,
         "coords": [],
         "tideOutExits": {
@@ -4178,8 +4178,8 @@
         }
     },
     "$rid=589$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of trees and ivy. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4199,8 +4199,8 @@
         }
     },
     "$rid=590$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of trees and ivy. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4220,8 +4220,8 @@
         }
     },
     "$rid=591$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. The jungle opens out here into a large clearing. A camp fire still smoulders in one corner.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of trees and ivy. The woodland opens out here into a large clearing. A camp fire still smoulders in one corner.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4242,8 +4242,8 @@
         }
     },
     "$rid=592$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of trees and vines. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4263,8 +4263,8 @@
         }
     },
     "$rid=593$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth. A large fallen log blocks the way west.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of entwined trees and ivy. It is quite heavy going, as you have to hack your way through the undergrowth. A large fallen log blocks the way west.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4284,8 +4284,8 @@
         }
     },
     "$rid=594$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of entwined trees and vines. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4306,8 +4306,8 @@
         }
     },
     "$rid=595$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of entwined trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4327,8 +4327,8 @@
         }
     },
     "$rid=596$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of entangled trees, ivy and ferns. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4347,8 +4347,8 @@
         }
     },
     "$rid=597$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of entangled trees and giant ferns. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4368,8 +4368,8 @@
         }
     },
     "$rid=598$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of trees and giant ferns. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4389,8 +4389,8 @@
         }
     },
     "$rid=599$": {
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of trees and giant ferns. It is quite heavy going, as you have to hack your way through the undergrowth.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -4417,8 +4417,8 @@
             "south": "$rid=595$",
             "west": "$rid=594$"
         },
-        "name": "The Thick Jungle",
-        "description": "You are pushing through a thick jungle of trees and creepers. It is quite heavy going, as you have to hack your way through the undergrowth. There is a cave mouth here.",
+        "name": "Dense Woodland",
+        "description": "You are pushing through a dense woodland of entwined trees and giant ferns. It is quite heavy going, as you have to hack your way through the undergrowth. There is a cave mouth here.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
