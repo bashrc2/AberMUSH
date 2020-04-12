@@ -2814,7 +2814,7 @@
         "imp_feet" : "0",
         "inDescription": "slithers in",
         "outDescription": "slithers",
-        "lookDescription": "The snake looks like an adder, grown to giant proportions via some magical power. Its forked tongue flicking in and out. Its reptillian eyes observe you suspiciously."
+        "lookDescription": "The snake looks like an adder, grown to monstrous proportions via some arcane magic|The giant snake's slitted eyes observe you, as if to assess what kind of meal you would make|The giant snake's slitted eye observes you, as if to judge whether you are worth eating"
     },
     "536": {
         "inDescription": "scurries in",
@@ -2825,7 +2825,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-            [["e","i","u"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously|# Lets forth a bloodcurdling shriek|# Cleans its whiskers|# Glares at you"]
+            [["e","i","u","o"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously|# Lets forth a bloodcurdling shriek|# Cleans its whiskers|# Glares at you"]
         ],
         "path" : [],
         "bodyType": "",
