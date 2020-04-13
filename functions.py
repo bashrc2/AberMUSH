@@ -219,14 +219,14 @@ def stowHands(id, players: {}, itemsDB: {}, mud):
         players[id]['clo_lhand'] = 0
 
 
-def sizeFromDescription(description):
+def sizeFromDescription(description: str):
     tinyEntity = ('tiny', 'moth', 'butterfly', 'insect', 'beetle', 'ant',
                   'bee', 'wasp', 'hornet', 'mosquito', 'lizard', 'mouse',
                   'rat', 'crab', 'roach', 'snail', 'slug', 'hamster',
                   'gerbil')
-    smallEntity = ('small', 'dog', 'cat', 'weasel', 'owl', 'hawk', 'crow',
-                   'rook', 'robbin', 'penguin', 'bird', 'pidgeon', 'wolf',
-                   'badger', 'fox', 'rat', 'dwarf', 'mini', 'fish',
+    smallEntity = ('small', 'dog', 'cat', 'weasel', 'otter', 'owl', 'hawk',
+                   'crow', 'rook', 'robin', 'penguin', 'bird', 'pidgeon',
+                   'wolf', 'badger', 'fox', 'rat', 'dwarf', 'mini', 'fish',
                    'lobster', 'koala', 'goblin')
     largeEntity = ('large', 'tiger', 'lion', 'tiger', 'wolf', 'leopard',
                    'bear', 'elk', 'deer', 'horse', 'bison', 'moose',
