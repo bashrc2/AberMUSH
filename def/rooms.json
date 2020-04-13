@@ -1645,7 +1645,11 @@
         "name": "Wild Courtyard",
         "description": "You stand in a wide courtyard, flanked on all sides by masses of thick trees. The courtyard itself is overrun and completely out of control. A huge stone tower rises up above the strangling bushes and vegetation to loom some fifty feet above the courtyard. To the south a huge pair of gates flanked by tall menhirs guard the entry to the courtyard.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","You stand in a wide courtyard, flanked on all sides by masses of densely branching trees with untidy rooks nests. The courtyard itself is overrun by weeds and completely out of control. A huge stone tower rises up above the strangling bushes and vegetation to loom some fifty feet above the courtyard. To the south a huge pair of gates flanked by tall menhirs guard the entry to the courtyard."],
+	    ["season","autumn","You stand in a wide courtyard, flanked on all sides by many dense trees. The courtyard itself is covered with golden leaf litter. A huge stone tower rises up above the strangling bushes and vegetation to loom some fifty feet above the courtyard. To the south a huge pair of gates flanked by tall menhirs guard the entry to the courtyard."],
+	    ["season","winter","You stand in a wide courtyard, flanked on all sides by many leafless trees. The courtyard itself is overrun by weeds and completely out of control. A huge stone tower rises up above the strangling bushes and vegetation to loom some fifty feet above the courtyard. To the south a huge pair of gates flanked by tall menhirs guard the entry to the courtyard."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
