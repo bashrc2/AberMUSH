@@ -1729,7 +1729,9 @@
         "name": "Old Orchard",
         "description": "Twisted grey trunks of apple trees surround you here. You are in the orchard, which runs along the west side of the north wing of the house, surrounded by stone walls on all sides but the south. Ivy grows over all the walls, twining up in search of light. A ramshackle wooden construction lies to the south. Although the trees have evidently been untended for some time, they are still strong. Arches lead through the grey walls to the east and north.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["season","spring","Twisted grey trunks of apple trees surround you here. You are in the orchard, which runs along the west side of the north wing of the house, surrounded by stone walls on all sides but the south. Ivy grows over all the walls, twining up in search of light. A ramshackle wooden construction lies to the south. Although the trees have evidently been untended for some time, they are still strong and dotted with messy rooks nests. Arches lead through the grey walls to the east and north."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -4680,6 +4682,7 @@
         "description": "The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the green shadows of the forest.",
         "roomTeleport": "",
         "conditional": [
+	    ["season","spring","The path plunges eastwards into a thick mass of tangled oak and beech trees containing messy rooks nests. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the green shadows of the forest."],
 	    ["season","autumn","The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the dark shadows of the forest."],
 	    ["season","winter","The path plunges eastwards into a thick mass of tangled oak and beech trees. Within yards it almost vanishes out of sight, weaving amidst the trunks and lost in the bleak shadows of the forest.","651_winter"]
 	],
