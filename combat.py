@@ -631,6 +631,23 @@ def getAttackDescription(animalType: str, weaponType: str) -> (str, str):
         attackDescriptionSecond = \
             attackStrings[randint(0, len(attackStrings) - 1)]
 
+    if weaponType.startswith("pole"):
+        attackStrings = ["stab at", "jab at", "lunge at", "hook",
+                         "chop at", "hammer", "smash"]
+        attackDescriptionFirst = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackStrings = [
+            "stabbed at",
+            "jabbed at",
+            "lunged at",
+            "hooked",
+            "chopped at",
+            "hammered",
+            "smashed"
+        ]
+        attackDescriptionSecond = \
+            attackStrings[randint(0, len(attackStrings) - 1)]
+
     if weaponType.startswith("poison"):
         attackStrings = ["poison"]
         attackDescriptionFirst = \
