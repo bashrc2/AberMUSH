@@ -445,9 +445,10 @@ def savePlayer(player, masterDB, savePassword,
             silentRemove(path + player['name'] + ".player")
             newPlayer = deepcopy(temp)
             newPlayer['pwd'] = temp['pwd']
-            for key in newPlayer:
+            for key in newPlayer:                
                 if key != "pwd" or savePassword:
-                    newPlayer[key] = player[key]
+                    if player.get(key):
+                        newPlayer[key] = player[key]
 
             with open(path + player['name'] + ".player", 'w') as fp:
                 fp.write(json.dumps(newPlayer))
