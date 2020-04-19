@@ -87,7 +87,7 @@ def htmlLogin(baseDir: str, registrationsOpen: bool,
         with open(baseDir + '/webserver/login.txt', 'r') as file:
             loginText = '<p class="login-text">' + file.read() + '</p>'
 
-    cssFilename = baseDir + '/webserver/abermush-login.css'
+    cssFilename = baseDir + '/webserver/login.css'
     with open(cssFilename, 'r') as cssFile:
         loginCSS = cssFile.read()
 
