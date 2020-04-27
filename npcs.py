@@ -575,8 +575,9 @@ def conversationState(word, conversation_states, nid, npcs,
     return False, True, match_ctr
 
 
-def conversationCondition(word, conversation_states, nid, npcs, match_ctr,
-                          players, rooms, id):
+def conversationCondition(word: str, conversation_states, nid,
+                          npcs: {}, match_ctr: int,
+                          players: {}, rooms: {}, id):
     conditionType = ''
     if '>' in word.lower():
         conditionType = '>'
