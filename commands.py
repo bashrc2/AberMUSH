@@ -4161,6 +4161,7 @@ def conjureRoom(params, mud, playersDB: {}, players: {}, rooms: {},
         "maxPlayers": -1,
         'weather': 0,
         'tideOutDescription': "",
+        'region': "",
         'terrainDifficulty': 0,
         'coords': [],
         'exits': {
