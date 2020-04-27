@@ -1651,15 +1651,15 @@ def say(params, mud, playersDB: {}, players: {}, rooms: {},
                         if players[id]['speakLanguage'] != 'cant':
                             pLang = players[id]['speakLanguage']
                             desc = \
-                                '<f220>{}<r> says something in ' + \
-                                '<f159>{}<r>'.format(pName, pLang)
+                                '<f220>{}<r> says '.format(pName) + \
+                                'something in <f159>{}<r>'.format(pLang)
                             mud.send_message_wrap(
                                 pid, '<f230>', desc + "\n\n")
                         else:
                             mud.send_message_wrap(
                                 pid, '<f230>',
-                                '<f220>{}<r> says: ' +
-                                '<f159>{}'.format(pName, cantStr) + "\n\n")
+                                '<f220>{}<r> says: '.format(pName) +
+                                '<f159>{}'.format(cantStr) + "\n\n")
     else:
         mud.send_message_wrap(
             id, '<f230>',

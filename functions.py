@@ -445,7 +445,7 @@ def savePlayer(player, masterDB, savePassword,
             silentRemove(path + player['name'] + ".player")
             newPlayer = deepcopy(temp)
             newPlayer['pwd'] = temp['pwd']
-            for key in newPlayer:                
+            for key in newPlayer:
                 if key != "pwd" or savePassword:
                     if player.get(key):
                         newPlayer[key] = player[key]

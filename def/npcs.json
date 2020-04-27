@@ -2419,8 +2419,8 @@
         "conv" : [
             [["rose","valentine","?","affinity>=0"],"Have a special gift","giveondate","1114","14/2"],
             [["have","order","like","food","pork","eat","please","affinity>=0"],"Here you go","give","799"],
-            [["have","order","like","beer","ale","drink","please","affinity>=0"],"Free as in beer","image:givedrink","state:beer given","give","114"],
-            [["state:beer given","have","order","like","beer","ale","drink","please","affinity>=0"],"Have another one then","give","114"],
+            [["have","order","like","beer","ale","drink","please","affinity>=0","region=tranoch"],"Free as in beer","image:givedrink","state:beer given","give","114"],
+            [["state:beer given","have","order","like","beer","ale","drink","please","affinity>=0","region=tranoch"],"Have another one then","give","114"],
             [["have","sell","like","opium","?"], "We don't have any left|None left. We sold out|Out of stock at present"],
             [["cutlery","dishes","plate","fork"], "I wish that creatures would tidy up after themselves"],
             [["darts"], "The darts club is every wednesday"],

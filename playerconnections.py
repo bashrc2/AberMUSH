@@ -184,8 +184,8 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights,
                    and players[pid]['room'] == players[id]['room'] \
                    and players[pid]['name'] != players[id]['name']:
                     mud.send_message(
-                        pid, "<f32><u>{}<r>'s body has vanished" +
-                        ".".format(players[id]['name']) + "\n\n")
+                        pid, "<f32><u>{}<r>".format(players[id]['name']) +
+                        "'s body has vanished.\n\n")
 
         # Code here to save player to the database after he's disconnected and
         # before removing him from players dictionary
@@ -375,13 +375,13 @@ def initialSetupAfterLogin(mud, id, players: {}, dbResponse: []):
            and players[pid]['room'] == players[id]['room'] \
            and players[pid]['name'] != players[id]['name']:
             mud.send_message(
-                pid, '{} has materialised out of thin air nearby' +
-                '.'.format(players[id]['name']) + "\n\n")
+                pid, '{} '.format(players[id]['name']) +
+                'has materialised out of thin air nearby.\n\n')
 
     # send the new player a welcome message
     mud.send_message_wrap(id, '<f255>',
-                          '<f220>Welcome to AberMUSH!, {}.' +
-                          ' '.format(players[id]['name']))
+                          '<f220>Welcome to AberMUSH!, ' +
+                          '{}. '.format(players[id]['name']))
     mud.send_message_wrap(id, '<f255>',
                           '<f255>Hello there traveller! ' +
                           'You have connected to an AberMUSH ' +

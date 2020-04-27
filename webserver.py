@@ -65,7 +65,7 @@ def htmlLogin(baseDir: str, registrationsOpen: bool,
               autocomplete=True) -> str:
     """Shows the login screen
     """
-    loginImageFilename = baseDir + '/webserver/login.png'
+    # loginImageFilename = baseDir + '/webserver/login.png'
 
     accounts = noOfAccounts(baseDir)
     if accounts > 0:
@@ -428,7 +428,7 @@ class PubServer(BaseHTTPRequestHandler):
                     self._400()
                     return
 
-        GETstartTime = time.time()
+        # GETstartTime = time.time()
 
         if self.path == '/logout':
             msg = \
@@ -445,9 +445,9 @@ class PubServer(BaseHTTPRequestHandler):
         if self.server.debug:
             print(str(self.headers))
 
-        cookie = None
-        if self.headers.get('Cookie'):
-            cookie = self.headers['Cookie']
+        # cookie = None
+        # if self.headers.get('Cookie'):
+        #     cookie = self.headers['Cookie']
 
         # check authorization
         authorized = self._isAuthorized()
@@ -462,10 +462,11 @@ class PubServer(BaseHTTPRequestHandler):
             self.server.session = createSession(self.server.useTor)
 
         # is this a html request?
-        htmlGET = False
+        # htmlGET = False
         if self.headers.get('Accept'):
             if self._requestHTTP():
-                htmlGET = True
+                print('htmlGET')
+                # htmlGET = True
         else:
             if self.headers.get('Connection'):
                 # https://developer.mozilla.org/en-US/

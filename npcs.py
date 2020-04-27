@@ -526,8 +526,8 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                        players[pid]['room'] == npcs[nid]['room']:
                         mud.send_message(
                             pid,
-                            "<f220>{}<r> <f88>has been killed" +
-                            ".".format(npcs[nid]['name']) + "\n")
+                            "<f220>{}<r> ".format(npcs[nid]['name']) +
+                            "<f88>has been killed.\n")
                         npcs[nid]['lastRoom'] = npcs[nid]['room']
                         npcs[nid]['room'] = None
                         npcs[nid]['hp'] = npcsTemplate[nid]['hp']
@@ -576,7 +576,7 @@ def conversationState(word, conversation_states, nid, npcs,
 
 
 def conversationCondition(word, conversation_states, nid, npcs, match_ctr,
-                          players, id):
+                          players, rooms, id):
     conditionType = ''
     if '>' in word.lower():
         conditionType = '>'
@@ -646,6 +646,11 @@ def conversationCondition(word, conversation_states, nid, npcs, match_ctr,
         currValue = players[id]['guild'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
         conditionType = '='
+    if varStr == 'region':
+        rm = players[id]['room']
+        currValue = rooms[rm]['region'].lower()
+        targetValue = word.lower().split(conditionType)[1].strip()
+        conditionType = '='
     if varStr == 'notguild':
         currValue = players[id]['guild'].lower()
         targetValue = word.lower().split(conditionType)[1].strip()
@@ -713,8 +718,9 @@ def conversationCondition(word, conversation_states, nid, npcs, match_ctr,
     return True, True, match_ctr + 1
 
 
-def conversationWordCount(message, words_list, npcs, nid,
-                          conversation_states, players, id):
+def conversationWordCount(message, words_list, npcs: {}, nid,
+                          conversation_states,
+                          players: {}, rooms: {}, id):
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
     """
@@ -738,7 +744,8 @@ def conversationWordCount(message, words_list, npcs, nid,
                 conversationCondition(word_match,
                                       conversation_states,
                                       nid, npcs,
-                                      match_ctr, players, id)
+                                      match_ctr,
+                                      players, rooms, id)
 
             if not continueMatching:
                 break
@@ -1184,7 +1191,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
             match_ctr = \
                 conversationWordCount(message, conv[0], npcs,
                                       nid, conversation_states,
-                                      players, id)
+                                      players, rooms, id)
             # store the best match
             if match_ctr > max_match_ctr:
                 max_match_ctr = match_ctr
