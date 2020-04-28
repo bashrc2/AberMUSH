@@ -187,7 +187,7 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
                 if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
                     desc = rooms[roomID]['trap']['trapActivationDescription']
                     mud.sendMessage(id, trapTag +
-                                     randomDescription(desc) + '.<r>\n\n')
+                                    randomDescription(desc) + '.<r>\n\n')
                 else:
                     trapActivationDescribe(mud, id, players, roomID, rooms,
                                            penaltyValue, trapTag)
@@ -208,7 +208,7 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
                 if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
                     desc = rooms[roomID]['trap']['trapActivationDescription']
                     mud.sendMessage(id, trapTag +
-                                     randomDescription(desc) + '.<r>\n\n')
+                                    randomDescription(desc) + '.<r>\n\n')
                 else:
                     trapActivationDescribe(mud, id, players, roomID, rooms,
                                            penaltyValue, trapTag)

@@ -661,7 +661,7 @@ while True:
                                 id, "\n<f220>This character name is " +
                                 "already taken!")
                             mud.sendMessage(id,
-                                             "Press ENTER to continue...\n\n")
+                                            "Press ENTER to continue...\n\n")
                             taken = True
                             break
 
@@ -877,17 +877,17 @@ while True:
                                     familiarRecall(mud, players, id,
                                                    npcs, npcsDB)
                                     mud.sendMessage(id,
-                                                     "CONNECT login " +
-                                                     "success\n\n")
+                                                    "CONNECT login " +
+                                                    "success\n\n")
                                     connectCommand = True
                                 else:
                                     mud.sendMessage(id,
-                                                     "CONNECT login failed: " +
-                                                     "player already in " +
-                                                     "game\n\n")
+                                                    "CONNECT login failed: " +
+                                                    "player already in " +
+                                                    "game\n\n")
                             else:
                                 mud.sendMessage(id,
-                                                 "CONNECT login failed\n\n")
+                                                "CONNECT login failed\n\n")
                     command = ''
 
                 if not connectCommand:
@@ -896,7 +896,7 @@ while True:
                             mud.sendMessage(
                                 id, "\n<f220>Name cannot be a digit")
                             mud.sendMessage(id,
-                                             "Press ENTER to continue...\n\n")
+                                            "Press ENTER to continue...\n\n")
                             command = ''
 
                         if len(command.strip()) < 2:
@@ -904,7 +904,7 @@ while True:
                                 id,
                                 "\n<f220>Name must be at least two characters")
                             mud.sendMessage(id,
-                                             "Press ENTER to continue...\n\n")
+                                            "Press ENTER to continue...\n\n")
                             command = ''
 
                     if terminalEmulator(command, params, mud, id):
@@ -942,7 +942,7 @@ while True:
                                 command +
                                 '<r> was not found!\n')
                             mud.sendMessage(id,
-                                             '<f15>What is your username?\n\n')
+                                            '<f15>What is your username?\n\n')
                             log("Player ID " +
                                 str(id) +
                                 " has requested non existent user (" +
@@ -950,7 +950,7 @@ while True:
                                 ")", "info")
                     else:
                         mud.sendMessage(id, 'Hi <u><f32>' +
-                                         players[id]['name'] + '<r>!\n\n')
+                                        players[id]['name'] + '<r>!\n\n')
             else:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):

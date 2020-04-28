@@ -177,7 +177,7 @@ def morrisMove(moveDescription: str,
                             gameState['morrisTurn'] = 'black'
                         else:
                             mud.sendMessage(id, '\nAll your counters ' +
-                                             'have been placed.\n')
+                                            'have been placed.\n')
                     else:
                         if blackCounters > 0:
                             board = morrisBoardSet(board, index, '○')
@@ -188,39 +188,39 @@ def morrisMove(moveDescription: str,
                             gameState['morrisTurn'] = 'white'
                         else:
                             mud.sendMessage(id, '\nAll your counters ' +
-                                             'have been placed.\n')
+                                            'have been placed.\n')
                 break
             index += 1
     else:
         if turn == 'white' and whiteCounters > 0:
             mud.sendMessage(id, '\nPlace your counters first before ' +
-                             'moving any of them.\n')
+                            'moving any of them.\n')
             return
         elif turn == 'black' and blackCounters > 0:
             mud.sendMessage(id, '\nPlace your counters first before ' +
-                             'moving any of them.\n')
+                            'moving any of them.\n')
             return
 
         # move a counter from one place to another
         if boardMove[0] == boardMove[1]:
             mud.sendMessage(id, '\nSpecify coordinates to move ' +
-                             'from and to.\n')
+                            'from and to.\n')
             return
         if boardMove[0][0] != boardMove[1][0] and \
            boardMove[0][1] != boardMove[1][1]:
             mud.sendMessage(id, '\nYou can only move vertically ' +
-                             'or horizontally.\n')
+                            'or horizontally.\n')
             return
         fromIndex = 0
         for loc in validMorrisBoardLocations:
             if loc == boardMove[0]:
                 if turn == 'white' and board[fromIndex] != '●':
                     mud.sendMessage(id, "\nThere isn't a counter at " +
-                                     loc + '\n')
+                                    loc + '\n')
                     return
                 if turn == 'black' and board[fromIndex] != '○':
                     mud.sendMessage(id, "\nThere isn't a counter at " +
-                                     loc + '\n')
+                                    loc + '\n')
                     return
                 break
             fromIndex += 1
@@ -229,7 +229,7 @@ def morrisMove(moveDescription: str,
             if loc == boardMove[1]:
                 if board[toIndex] != '':
                     mud.sendMessage(id, "\nThere is already a counter at " +
-                                     loc + '\n')
+                                    loc + '\n')
                     return
                 if turn == 'white':
                     board = morrisBoardSet(board, toIndex, '●')
@@ -346,7 +346,7 @@ def showMorrisBoard(players: {}, id, mud, rooms: {},
     if not items[gameItemID]['gameState'].get('morrisTurn'):
         items[gameItemID]['gameState']['morrisTurn'] = 'white'
     mud.sendMessage(id, items[gameItemID]['gameState']['morrisTurn'] +
-                     "'s move\n")
+                    "'s move\n")
 
 
 def takeMorrisCounter(takeDescription: str,
@@ -383,7 +383,7 @@ def takeMorrisCounter(takeDescription: str,
                         boardMove.append(w)
     if len(boardMove) != 1:
         mud.sendMessage(id, '\nSpecify the coordinate of the ' +
-                         'counter to be taken.\n')
+                        'counter to be taken.\n')
         return
 
     if noOfMills('black', board) > \

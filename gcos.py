@@ -15,9 +15,9 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
 
     if 'while' in params:
         mud.sendMessage(id, "skip_bytesfullblockbscountseekskipifofsta" +
-                         "tusibsobsconviflagoflagseek_bytesnonenoxferwr" +
-                         "itingarchiveaforcefinteractivecatapultilinkld" +
-                         "ereferenceLno-dereferencePrecursiveRsymbolic")
+                        "tusibsobsconviflagoflagseek_bytesnonenoxferwr" +
+                        "itingarchiveaforcefinteractivecatapultilinkld" +
+                        "ereferenceLno-dereferencePrecursiveRsymbolic")
         mud.sendMessage(id, "usage: printf FORMAT")
         mud.sendMessage(id, "bad field specification")
         mud.sendMessage(id, "\n>")
@@ -69,15 +69,15 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
 
     if command == 'cat' and ';' not in params:
         mud.sendMessage(id, "<f220>There is a fair fort upon the sea-shore." +
-                         "\nPleasantly, each is given his desire.\n" +
-                         "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
-                         " they earned.\nOn Wednesday, I saw men in conflict" +
-                         ";\non Thursday, it was reproaches they contended " +
-                         "with.\nAnd hair was red with blood, and lamenting " +
-                         "on harps.\nWeary were the men of Gwynedd the day " +
-                         "they came,\nand atop the stone of Maelwy they " +
-                         "shelter shields.\nA host of kinsmen fell by the " +
-                         "descendant.")
+                        "\nPleasantly, each is given his desire.\n" +
+                        "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
+                        " they earned.\nOn Wednesday, I saw men in conflict" +
+                        ";\non Thursday, it was reproaches they contended " +
+                        "with.\nAnd hair was red with blood, and lamenting " +
+                        "on harps.\nWeary were the men of Gwynedd the day " +
+                        "they came,\nand atop the stone of Maelwy they " +
+                        "shelter shields.\nA host of kinsmen fell by the " +
+                        "descendant.")
         mud.sendMessage(id, "\n>")
         return True
 
@@ -152,10 +152,10 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
 
     if command == 'wget':
         mud.sendMessage(id, "100%[=========================================" +
-                         "==================================================" +
-                         "==>]   1.41K  --.-KB/s    in 1s")
+                        "==================================================" +
+                        "==>]   1.41K  --.-KB/s    in 1s")
         mud.sendMessage(id, "1989-12-08 10:39:10 (1 KB/s) - " +
-                         "saved to tape 0 [232/232]")
+                        "saved to tape 0 [232/232]")
         mud.sendMessage(id, "\n>")
         return True
 
@@ -181,9 +181,9 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
     if command in invalidNames:
         mud.sendMessage(id, "<f220>System GCOS3 MOD400 - S104 -0714/1417")
         mud.sendMessage(id, "<f220>Aberystwyth Computing " +
-                         "Research Group ready!")
+                        "Research Group ready!")
         mud.sendMessage(id,
-                         "<f220>Logged in from DLCP terminal \"cormorant\"")
+                        "<f220>Logged in from DLCP terminal \"cormorant\"")
         if params:
             possibleShells = {
                 "/bin/busybox": "VAR: applet not found",

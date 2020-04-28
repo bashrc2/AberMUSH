@@ -380,23 +380,23 @@ def initialSetupAfterLogin(mud, id, players: {}, dbResponse: []):
 
     # send the new player a welcome message
     mud.sendMessageWrap(id, '<f255>',
-                          '<f220>Welcome to AberMUSH!, ' +
-                          '{}. '.format(players[id]['name']))
+                        '<f220>Welcome to AberMUSH!, ' +
+                        '{}. '.format(players[id]['name']))
     mud.sendMessageWrap(id, '<f255>',
-                          '<f255>Hello there traveller! ' +
-                          'You have connected to an AberMUSH ' +
-                          'server. You can move around the ' +
-                          'rooms along with other players ' +
-                          '(if you are lucky to meet any), ' +
-                          'attack each other (including NPCs), ' +
-                          'pick up and drop items and chat. ' +
-                          'Make sure to visit the repo for ' +
-                          'further info. Thanks for your ' +
-                          'interest in AberMUSH.')
+                        '<f255>Hello there traveller! ' +
+                        'You have connected to an AberMUSH ' +
+                        'server. You can move around the ' +
+                        'rooms along with other players ' +
+                        '(if you are lucky to meet any), ' +
+                        'attack each other (including NPCs), ' +
+                        'pick up and drop items and chat. ' +
+                        'Make sure to visit the repo for ' +
+                        'further info. Thanks for your ' +
+                        'interest in AberMUSH.')
     mud.sendMessageWrap(id, '<f255>',
-                          "<f255>Type '<r><f220>help<r><f255>' " +
-                          "for a list of all currently implemented " +
-                          "commands/functions.")
+                        "<f255>Type '<r><f220>help<r><f255>' " +
+                        "for a list of all currently implemented " +
+                        "commands/functions.")
     mud.sendMessageWrap(id, '<f255>',
-                          "<f255>Type '<r><f220>look<r><f255>' " +
-                          "to see what's around you.\n\n")
+                        "<f255>Type '<r><f220>look<r><f255>' " +
+                        "to see what's around you.\n\n")

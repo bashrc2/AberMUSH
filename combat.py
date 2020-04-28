@@ -974,7 +974,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
        players[s1id]['canAttack'] == 0:
         desc = players[s1id]['frozenDescription']
         mud.sendMessage(s2id,
-                         randomDescription(desc) + '\n')
+                        randomDescription(desc) + '\n')
         return
 
     if playerIsTrapped(s1id, players, rooms):

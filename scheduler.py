@@ -74,7 +74,7 @@ def runSchedule(mud, eventSchedule, players: {}, npcs: {},
         # its time to run the event!
         if eventSchedule[event]['type'] == "msg":
             mud.sendMessage(int(eventSchedule[event]['target']),
-                             str(eventSchedule[event]['body']) + "\n")
+                            str(eventSchedule[event]['body']) + "\n")
         else:
             evaluateEvent(
                 eventSchedule[event]['target'],

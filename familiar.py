@@ -75,7 +75,7 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
     else:
         if len(roomExits) > 1:
             mud.sendMessage(id, "There are " + str(len(roomExits)) +
-                             " exits.")
+                            " exits.")
         else:
             exitDescription = randomDescription("a single|one")
             mud.sendMessage(id, "There is " + exitDescription + " exit.")

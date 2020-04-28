@@ -785,7 +785,7 @@ def conversationGive(bestMatch, bestMatchAction,
                         bestMatch + ".")
                 else:
                     mud.sendMessage(id, "<f220>" +
-                                     bestMatch.replace('#', '').strip() + ".")
+                                    bestMatch.replace('#', '').strip() + ".")
                 mud.sendMessage(
                     id, "<f220>" + npcs[nid]['name'] +
                     "<r> gives you " + itemsDB[itemID]['article'] +
@@ -1119,9 +1119,9 @@ def conversationBuyOrExchange(
                             ' ' + itemsDB[itemSellID]['name'] + ".\n\n")
                     else:
                         mud.sendMessage(id, "<f220>" + npcs[nid]['name'] +
-                                         "<r> says: I see you already have " +
-                                         itemsDB[itemSellID]['article'] + ' ' +
-                                         itemsDB[itemSellID]['name'] + ".\n\n")
+                                        "<r> says: I see you already have " +
+                                        itemsDB[itemSellID]['article'] + ' ' +
+                                        itemsDB[itemSellID]['name'] + ".\n\n")
                 else:
                     if bestMatchAction == 'buy':
                         mud.sendMessage(
