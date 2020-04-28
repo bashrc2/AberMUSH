@@ -74,11 +74,11 @@ def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
                     if players[pid2]['authenticated'] is not None \
                        and players[pid2]['room'] == players[pid]['lastRoom'] \
                        and players[pid2]['name'] != players[pid]['name']:
-                        mud.send_message(
+                        mud.sendMessage(
                             pid2, '<u><f32>{}'.format(players[pid]['name']) +
                             '<r> <f124>has been killed.\n')
                         players[pid]['lastRoom'] = None
-                        mud.send_message(
+                        mud.sendMessage(
                             pid, '<b88><f158>Oh dear! You have died!\n')
 
                 # Add Player Death event (ID:666) to eventSchedule

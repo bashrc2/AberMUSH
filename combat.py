@@ -46,7 +46,7 @@ def sendCombatImage(mud, id, players: {}, race: str,
     if not os.path.isfile(combatImageFilename):
         return
     with open(combatImageFilename, 'r') as imgFile:
-        mud.send_image(id, '\n' + imgFile.read())
+        mud.sendImage(id, '\n' + imgFile.read())
 
 
 def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
@@ -63,7 +63,7 @@ def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
                 players[p]['frozenDuration'] = 0
                 players[p]['frozenDescription'] = ""
                 if not isNPC:
-                    mud.send_message(
+                    mud.sendMessage(
                         p, "<f220>You find that you can move again.<r>\n\n")
 
 
@@ -87,7 +87,7 @@ def updateTemporaryHitPoints(mud, players: {}, isNPC: bool) -> None:
                 players[p]['tempHitPointsStart'] = 0
                 players[p]['tempHitPointsDuration'] = 0
                 if not isNPC:
-                    mud.send_message(
+                    mud.sendMessage(
                         p, "<f220>Your magical protection expires.<r>\n\n")
 
 
@@ -116,7 +116,7 @@ def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
                         players[p]['tempCharm']
                 players[p]['tempCharm'] = 0
                 if not isNPC:
-                    mud.send_message(
+                    mud.sendMessage(
                         p, "<f220>A charm spell wears off.<r>\n\n")
 
 
@@ -224,7 +224,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
         if putOnArmor:
             if npcs[nid]['clo_chest'] != itemID:
                 npcs[nid]['clo_chest'] = itemID
-                mud.send_message(
+                mud.sendMessage(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
@@ -241,7 +241,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
                 npcs[nid]['inv'].append(str(itemID))
                 npcs[nid]['clo_chest'] = itemID
                 del items[itemArmorIndex]
-                mud.send_message(
+                mud.sendMessage(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
@@ -260,7 +260,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
             if pickedUpWeapon:
                 npcs[nid]['inv'].append(str(itemID))
                 del items[itemWeaponIndex]
-                mud.send_message(
+                mud.sendMessage(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
@@ -270,7 +270,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
                     itemsDB[itemID]['name'] +
                     '\n')
             else:
-                mud.send_message(
+                mud.sendMessage(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
@@ -799,7 +799,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
     # is the player frozen?
     if players[s1id]['frozenStart'] > 0 or players[s1id]['canAttack'] == 0:
-        mud.send_message(
+        mud.sendMessage(
             s2id,
             randomDescription(players[s1id]['frozenDescription']) + '\n')
         return
@@ -832,16 +832,16 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             getWeaponHeld(s1id, players, itemsDB)
         if not canUseWeapon(s1id, players, itemsDB, weaponID):
             lockItemID = itemsDB[weaponID]['lockedWithItem']
-            mud.send_message(
+            mud.sendMessage(
                 s1id, 'You take aim, but find you have no ' +
                 itemsDB[lockItemID]['name'].lower() + '.\n')
-            mud.send_message(
+            mud.sendMessage(
                 s2id, '<f32>' +
                 players[s1id]['name'] +
                 '<r> takes aim, but finds they have no ' +
                 itemsDB[lockItemID]['name'].lower() + '.\n')
             stowHands(s1id, players, itemsDB, mud)
-            mud.send_message(
+            mud.sendMessage(
                 s2id, '<f32>' +
                 players[s1id]['name'] +
                 '<r> stows ' +
@@ -894,7 +894,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         players, s1id, players, s2id, guilds)
                     sendCombatImage(mud, s1id, players,
                                     players[s1id]['race'], weaponType)
-                    mud.send_message(
+                    mud.sendMessage(
                         s1id, 'You ' +
                         attackDescriptionFirst +
                         ' <f32><u>' +
@@ -905,7 +905,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         damageDescription + '.\n')
                     sendCombatImage(mud, s2id, players,
                                     players[s1id]['race'], weaponType)
-                    mud.send_message(
+                    mud.sendMessage(
                         s2id, '<f32>' +
                         players[s1id]['name'] +
                         '<r> has ' +
@@ -919,7 +919,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     # Attack deflected by armor
                     sendCombatImage(mud, s1id, players,
                                     players[s2id]['race'], "resist")
-                    mud.send_message(
+                    mud.sendMessage(
                         s1id, 'You ' +
                         attackDescriptionFirst +
                         ' <f32><u>' +
@@ -927,7 +927,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         '<r> but their armor deflects it.\n')
                     sendCombatImage(mud, s2id, players,
                                     players[s2id]['race'], "resist")
-                    mud.send_message(
+                    mud.sendMessage(
                         s2id, '<f32>' +
                         players[s1id]['name'] +
                         '<r> has ' +
@@ -935,16 +935,16 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         ' you but it is deflected by your armor.\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
-            mud.send_message(
+            mud.sendMessage(
                 s1id, 'You miss trying to hit <f32><u>' +
                 players[s2id]['name'] + '\n')
-            mud.send_message(
+            mud.sendMessage(
                 s2id, '<f32><u>' +
                 players[s1id]['name'] +
                 '<r> missed while trying to hit you!\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
-        mud.send_message(
+        mud.sendMessage(
             s1id,
             '<f225>Suddenly you stop. It wouldn`t be a good ' +
             'idea to attack <f32>' +
@@ -973,7 +973,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     if players[s1id]['frozenStart'] > 0 or \
        players[s1id]['canAttack'] == 0:
         desc = players[s1id]['frozenDescription']
-        mud.send_message(s2id,
+        mud.sendMessage(s2id,
                          randomDescription(desc) + '\n')
         return
 
@@ -1004,7 +1004,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
             getWeaponHeld(s1id, players, itemsDB)
         if not canUseWeapon(s1id, players, itemsDB, weaponID):
             lockItemID = itemsDB[weaponID]['lockedWithItem']
-            mud.send_message(
+            mud.sendMessage(
                 s1id,
                 'You take aim, but find you have no ' +
                 itemsDB[lockItemID]['name'].lower() +
@@ -1053,7 +1053,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                                                    s2id, guilds)
                     sendCombatImage(mud, s1id, players,
                                     players[s1id]['race'], weaponType)
-                    mud.send_message(
+                    mud.sendMessage(
                         s1id,
                         'You ' +
                         attackDescriptionFirst +
@@ -1069,7 +1069,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                     # Attack deflected by armor
                     sendCombatImage(mud, s1id, players,
                                     npcs[s2id]['race'], "resist")
-                    mud.send_message(
+                    mud.sendMessage(
                         s1id, 'You ' +
                         attackDescriptionFirst +
                         ' <f32><u>' +
@@ -1077,12 +1077,12 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                         '<r> but their armor deflects it.\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
-            mud.send_message(
+            mud.sendMessage(
                 s1id, 'You miss <f220>' +
                 npcs[s2id]['name'] + '<r> completely!\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
-        mud.send_message(
+        mud.sendMessage(
             s1id,
             '<f225>Suddenly you stop. It wouldn`t be a good ' +
             'idea to attack <u><f21>' +
@@ -1110,7 +1110,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
 
     # is the player frozen?
     if npcs[s1id]['frozenStart'] > 0:
-        mud.send_message(
+        mud.sendMessage(
             s2id, '<f220>' +
             npcs[s1id]['name'] +
             "<r> tries to attack but can't move\n")
@@ -1179,7 +1179,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 else:
                     sendCombatImage(mud, s2id, players,
                                     npcs[s1id]['animalType'], weaponType)
-                mud.send_message(
+                mud.sendMessage(
                     s2id, '<f220>' +
                     npcs[s1id]['name'] + '<r> has ' +
                     attackDescriptionSecond +
@@ -1189,13 +1189,13 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
         else:
             sendCombatImage(mud, s2id, players,
                             players[s2id]['race'], "resist")
-            mud.send_message(
+            mud.sendMessage(
                 s2id, '<f220>' + npcs[s1id]['name'] +
                 '<r> has ' + attackDescriptionSecond +
                 ' you but it is deflected by your armor.\n')
     else:
         npcs[s1id]['lastCombatAction'] = int(time.time())
-        mud.send_message(
+        mud.sendMessage(
             s2id, '<f220>' + npcs[s1id]['name'] +
             '<r> has missed you completely!\n')
     npcs[s1id]['lastCombatAction'] = int(time.time())
@@ -1256,7 +1256,7 @@ def playerBeginsAttack(players: {}, id, target: str,
     """
     targetFound = False
     if players[id]['name'].lower() == target.lower():
-        mud.send_message(
+        mud.sendMessage(
             id,
             'You attempt hitting yourself and realise this ' +
             'might not be the most productive way of using your time.\n')
@@ -1281,7 +1281,7 @@ def playerBeginsAttack(players: {}, id, target: str,
                 's2type': 'pc',
                 'retaliated': 0
             }
-            mud.send_message(
+            mud.sendMessage(
                 id, '<f214>Attacking <r><f255>' + target + '!\n')
             # addToScheduler('0|msg|<b63>You are being attacked by ' +
             # players[id]['name'] + "!", pid, eventSchedule, eventDB)
@@ -1303,7 +1303,7 @@ def playerBeginsAttack(players: {}, id, target: str,
 
                 # check for familiar
                 if npcs[nid]['familiarOf'] == players[id]['name']:
-                    mud.send_message(
+                    mud.sendMessage(
                         id,
                         randomDescription("You can't attack your own " +
                                           "familiar|You consider attacking " +
@@ -1313,7 +1313,7 @@ def playerBeginsAttack(players: {}, id, target: str,
                     return False
 
                 if npcs[nid]['isAttackable'] == 0:
-                    mud.send_message(id, "You can't attack them\n\n")
+                    mud.sendMessage(id, "You can't attack them\n\n")
                     return False
 
                 fights[len(fights)] = {
@@ -1325,11 +1325,11 @@ def playerBeginsAttack(players: {}, id, target: str,
                     's2type': 'npc',
                     'retaliated': 0
                 }
-                mud.send_message(
+                mud.sendMessage(
                     id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
 
     if not targetFound:
-        mud.send_message(
+        mud.sendMessage(
             id, 'You cannot see ' + target + ' anywhere nearby.\n')
     return targetFound
 
@@ -1376,7 +1376,7 @@ def npcBeginsAttack(npcs: {}, id, target: str, players: {},
             npcUpdateLuck(id, npcs, items, itemsDB)
             npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
 
-            mud.send_message(
+            mud.sendMessage(
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
 
             # addToScheduler('0|msg|<b63>You are being attacked by ' +

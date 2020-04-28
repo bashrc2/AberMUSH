@@ -24,7 +24,7 @@ def runMessages(mud, channels, players):
                 # print(c)
                 for m in ch:
                     if ch[m]['channel'] == c:
-                        mud.send_message(
+                        mud.sendMessage(
                             p, "[<f191>" + ch[m]['channel'] +
                             "<r>] <f32>" + ch[m]['sender'] +
                             "<r>: " + ch[m]['message'] + "\n")
@@ -52,13 +52,13 @@ def runEnvironment(mud, players, env):
                     if len(env[eid]['vocabulary']) > 1:
                         msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
                             env[eid]['vocabulary'][rnd] + "\n\n"
-                        mud.send_message(pid, msg)
+                        mud.sendMessage(pid, msg)
                         env[eid]['lastSaid'] = rnd
                         env[eid]['timeTalked'] = now
                     else:
                         msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
                             env[eid]['vocabulary'][0] + "\n\n"
-                        mud.send_message(pid, msg)
+                        mud.sendMessage(pid, msg)
                         env[eid]['lastSaid'] = rnd
                         env[eid]['timeTalked'] = now
                         env[eid]['randomizer'] = \
@@ -73,7 +73,7 @@ def runSchedule(mud, eventSchedule, players: {}, npcs: {},
             continue
         # its time to run the event!
         if eventSchedule[event]['type'] == "msg":
-            mud.send_message(int(eventSchedule[event]['target']),
+            mud.sendMessage(int(eventSchedule[event]['target']),
                              str(eventSchedule[event]['body']) + "\n")
         else:
             evaluateEvent(

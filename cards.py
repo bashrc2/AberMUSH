@@ -240,7 +240,7 @@ def dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
         if 'myself' in name or ' me' in name or ' self' in name:
             cardPlayerId = dealerId
         else:
-            mud.send_message(dealerId, "\nThey're not in the room.\n")
+            mud.sendMessage(dealerId, "\nThey're not in the room.\n")
             return False
     cardPlayerName = players[cardPlayerId]['name']
     hands[cardPlayerName] = ''
@@ -256,13 +256,13 @@ def dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
     if ctr > 0:
         hands[cardPlayerName] = hands[cardPlayerName]
         if dealerId == cardPlayerId:
-            mud.send_message(dealerId, '\nYou deal ' + str(ctr) +
+            mud.sendMessage(dealerId, '\nYou deal ' + str(ctr) +
                              ' cards to yourself.\n')
         else:
-            mud.send_message(dealerId,
+            mud.sendMessage(dealerId,
                              '\nYou deal ' + str(ctr) +
                              ' cards to '+cardPlayerName+'.\n')
-            mud.send_message(cardPlayerId,
+            mud.sendMessage(cardPlayerId,
                              '\n' + players[dealerId]['name'] + ' deals ' +
                              str(ctr) + ' cards to you.\n')
         return True
@@ -310,7 +310,7 @@ def dealToPlayers(players: {}, dealerId, description: str,
     """
     gameItemID = cardGameInRoom(players, dealerId, rooms, items, itemsDB)
     if not gameItemID:
-        mud.send_message(dealerId,
+        mud.sendMessage(dealerId,
                          '\nThere are no playing cards here.\n')
         return
 
@@ -334,7 +334,7 @@ def dealToPlayers(players: {}, dealerId, description: str,
         playerCount += 1
 
     if playerCount == 0:
-        mud.send_message(dealerId, '\nName some players to deal to.\n')
+        mud.sendMessage(dealerId, '\nName some players to deal to.\n')
         return
 
     # initialise the deck
@@ -394,20 +394,20 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
     """
     gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
-        mud.send_message(id, '\nThere are no playing cards here.\n')
+        mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
 
     playerName = players[id]['name']
     if not items[gameItemID].get('gameState'):
-        mud.send_message(id, '\nNo cards have been dealt.\n')
+        mud.sendMessage(id, '\nNo cards have been dealt.\n')
         return
 
     if not items[gameItemID]['gameState'].get('hands'):
-        mud.send_message(id, '\nNo hands have been dealt.\n')
+        mud.sendMessage(id, '\nNo hands have been dealt.\n')
         return
 
     if not items[gameItemID]['gameState']['hands'].get(playerName):
-        mud.send_message(id, '\nNo hands have been dealt to ' +
+        mud.sendMessage(id, '\nNo hands have been dealt to ' +
                          playerName+'.\n')
         return
 
@@ -468,7 +468,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
     mud.send_game_board(id, boardStr)
     rankedStr = cardRank(handStr)
     if rankedStr:
-        mud.send_message(id, 'You have ' + str(rankedStr[0]) + '.\n\n')
+        mud.sendMessage(id, 'You have ' + str(rankedStr[0]) + '.\n\n')
 
     if not items[gameItemID]['gameState'].get('called'):
         return
@@ -482,10 +482,10 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
         if id == p:
             continue
         if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            mud.send_message(p, '\n' + players[id]['name'] +
+            mud.sendMessage(p, '\n' + players[id]['name'] +
                              ' shows their hand.\n' + boardStr)
             if rankedStr:
-                mud.send_message(p, players[id]['name'] + ' has ' +
+                mud.sendMessage(p, players[id]['name'] + ' has ' +
                                  str(rankedStr[0]) + '.\n\n')
 
 
@@ -493,41 +493,41 @@ def swapCard(cardDescription: str, players: {}, id, mud, rooms: {},
              items: {}, itemsDB: {}) -> None:
     gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
-        mud.send_message(id, '\nThere are no playing cards here.\n')
+        mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
 
     cardStr = parseCard(cardDescription)
     if not cardStr:
-        mud.send_message(id, "\nThat's not a card.\n")
+        mud.sendMessage(id, "\nThat's not a card.\n")
         return
 
     playerName = players[id]['name']
     if not items[gameItemID].get('gameState'):
-        mud.send_message(id, '\nNo cards have been dealt.\n')
+        mud.sendMessage(id, '\nNo cards have been dealt.\n')
         return
 
     if items[gameItemID]['gameState'].get('called'):
         if items[gameItemID]['gameState']['called'] != 0:
-            mud.send_message(id, '\nThis round is over. Deal again.\n')
+            mud.sendMessage(id, '\nThis round is over. Deal again.\n')
             return
 
     if not items[gameItemID]['gameState'].get('hands'):
-        mud.send_message(id, '\nNo hands have been dealt.\n')
+        mud.sendMessage(id, '\nNo hands have been dealt.\n')
         return
 
     if not items[gameItemID]['gameState']['hands'].get(playerName):
-        mud.send_message(id, '\nNo hands have been dealt to you.\n')
+        mud.sendMessage(id, '\nNo hands have been dealt to you.\n')
         return
 
     handStr = items[gameItemID]['gameState']['hands'][playerName]
     if cardStr not in handStr:
-        mud.send_message(id, '\n' + cardStr.upper() +
+        mud.sendMessage(id, '\n' + cardStr.upper() +
                          ' is not in your hand.\n')
         return
 
     deck = items[gameItemID]['gameState']['deck'].split()
     if len(deck) == 0:
-        mud.send_message(id, '\nNo more cards in the deck.\n')
+        mud.sendMessage(id, '\nNo more cards in the deck.\n')
         return
     nextCard = deck.pop(randrange(len(deck)))
     items[gameItemID]['gameState']['deck'] = ""
@@ -548,8 +548,8 @@ def swapCard(cardDescription: str, players: {}, id, mud, rooms: {},
             continue
         otherPlayerName = players[p]['name']
         if items[gameItemID]['gameState']['hands'].get(otherPlayerName):
-            mud.send_message(p, '\n' + playerName + ' swaps a card.\n')
-    mud.send_message(p, '\nYou swap a card.\n')
+            mud.sendMessage(p, '\n' + playerName + ' swaps a card.\n')
+    mud.sendMessage(p, '\nYou swap a card.\n')
     showHandOfCards(players, id, mud, rooms, items, itemsDB)
 
 
@@ -557,36 +557,36 @@ def shuffleCards(players: {}, id, mud, rooms: {},
                  items: {}, itemsDB: {}) -> None:
     gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
-        mud.send_message(id, '\nThere are no playing cards here.\n')
+        mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
 
-    mud.send_message(id, '\nYou shuffle the cards.\n')
+    mud.sendMessage(id, '\nYou shuffle the cards.\n')
 
     for p in players:
         if players[p]['room'] != players[id]['room']:
             continue
         if p == id:
             continue
-        mud.send_message(p, '\n' + players[id]['name'] + ' shuffles cards.\n')
+        mud.sendMessage(p, '\n' + players[id]['name'] + ' shuffles cards.\n')
 
 
 def callCards(players: {}, id, mud, rooms: {},
               items: {}, itemsDB: {}) -> None:
     gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
-        mud.send_message(id, '\nThere are no playing cards here.\n')
+        mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
 
     playerName = players[id]['name']
     if not items[gameItemID].get('gameState'):
-        mud.send_message(id, '\nNo cards have been dealt.\n')
+        mud.sendMessage(id, '\nNo cards have been dealt.\n')
         return
 
     if not items[gameItemID]['gameState'].get('hands'):
-        mud.send_message(id, '\nNo hands have been dealt.\n')
+        mud.sendMessage(id, '\nNo hands have been dealt.\n')
         return
 
-    mud.send_message(id, '\nYou call.\n')
+    mud.sendMessage(id, '\nYou call.\n')
     items[gameItemID]['gameState']['called'] = 1
     for p in players:
         if players[p]['room'] != players[id]['room']:
@@ -594,7 +594,7 @@ def callCards(players: {}, id, mud, rooms: {},
         if p == id:
             continue
         if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            mud.send_message(p, '\n' + playerName + ' calls.\n')
+            mud.sendMessage(p, '\n' + playerName + ' calls.\n')
 
     resultStr = ''
     for p in players:
@@ -612,11 +612,11 @@ def callCards(players: {}, id, mud, rooms: {},
                     '<r> has nothing.\n'
 
     if len(resultStr) == 0:
-        mud.send_message(id, '\nNo hands have been dealt.\n')
+        mud.sendMessage(id, '\nNo hands have been dealt.\n')
         return
 
     for p in players:
         if players[p]['room'] != players[id]['room']:
             continue
         if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            mud.send_message(p, '\n' + resultStr)
+            mud.sendMessage(p, '\n' + resultStr)

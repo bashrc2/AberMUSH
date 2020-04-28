@@ -50,7 +50,7 @@ def familiarRecall(mud, players, id, npcs, npcsDB):
             if not npcs.get(nid):
                 npcs[nid] = deepcopy(npcsDB[nid])
             npcs[nid]['room'] = players[id]['room']
-            mud.send_message(id, "Your familiar is recalled.\n\n")
+            mud.sendMessage(id, "Your familiar is recalled.\n\n")
             break
 
 
@@ -69,16 +69,16 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
     startRoomID = npcs[nid]['room']
     roomExits = rooms[startRoomID]['exits']
 
-    mud.send_message(id, "Your familiar says:\n")
+    mud.sendMessage(id, "Your familiar says:\n")
     if len(roomExits) == 0:
-        mud.send_message(id, "There are no exits.")
+        mud.sendMessage(id, "There are no exits.")
     else:
         if len(roomExits) > 1:
-            mud.send_message(id, "There are " + str(len(roomExits)) +
+            mud.sendMessage(id, "There are " + str(len(roomExits)) +
                              " exits.")
         else:
             exitDescription = randomDescription("a single|one")
-            mud.send_message(id, "There is " + exitDescription + " exit.")
+            mud.sendMessage(id, "There is " + exitDescription + " exit.")
     creaturesCount = 0
     creaturesFriendly = 0
     creaturesRaces = []
@@ -154,7 +154,7 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
                                 creaturesMsg = \
                                     creaturesMsg + ' and <f220>' + r + 's<r>.'
                         ctr = ctr + 1
-        mud.send_message(id, creaturesMsg)
+        mud.sendMessage(id, creaturesMsg)
 
     itemsInRoom = 0
     weaponsInRoom = 0
@@ -175,18 +175,18 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
                     if items[iid]['edible'] != 0:
                         edibleInRoom += 1
     if armorInRoom > 0 and weaponsInRoom > 0:
-        mud.send_message(id, 'There are some weapons and armor here.')
+        mud.sendMessage(id, 'There are some weapons and armor here.')
     else:
         if armorInRoom > 0:
-            mud.send_message(id, 'There is some armor here.')
+            mud.sendMessage(id, 'There is some armor here.')
         else:
             if weaponsInRoom > 0:
-                mud.send_message(id, 'There are some weapons here.')
+                mud.sendMessage(id, 'There are some weapons here.')
             else:
-                mud.send_message(id, 'There are some items here.')
+                mud.sendMessage(id, 'There are some items here.')
     if edibleInRoom:
-        mud.send_message(id, 'There are some edibles here.')
-    mud.send_message(id, '\n\n')
+        mud.sendMessage(id, 'There are some edibles here.')
+    mud.sendMessage(id, '\n\n')
 
 
 def familiarHide(nid, npcs, npcsDB):
@@ -233,11 +233,11 @@ def familiarScoutInDirection(mud, players, id, startRoomID, roomExits,
                rooms[roomExits[direction]]['maxPlayerSize']:
                 newPath = [startRoomID, roomExits[direction]]
             else:
-                mud.send_message(id, "It's too small to enter!\n\n")
+                mud.sendMessage(id, "It's too small to enter!\n\n")
         else:
             newPath = [startRoomID, roomExits[direction]]
     else:
-        mud.send_message(id, "I can't go that way!\n\n")
+        mud.sendMessage(id, "I can't go that way!\n\n")
     return newPath
 
 

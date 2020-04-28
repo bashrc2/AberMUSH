@@ -587,7 +587,7 @@ while True:
            players[id]['authenticated'] is None:
             if not os.path.isfile(".disableRegistrations"):
                 players[id]['idleStart'] = int(time.time())
-                mud.send_message(
+                mud.sendMessage(
                     id, "<f220>Ok, Starting character creation " +
                     "from the beginning!\n")
                 players[id]['exAttribute0'] = 1000
@@ -596,9 +596,9 @@ while True:
            players[id]['exAttribute0'] is not None and \
            players[id]['authenticated'] is None:
             players[id]['idleStart'] = int(time.time())
-            mud.send_message(id, "<f220>Ok, leaving the character creation.\n")
+            mud.sendMessage(id, "<f220>Ok, leaving the character creation.\n")
             players[id]['exAttribute0'] = None
-            mud.send_message(
+            mud.sendMessage(
                 id,
                 "<f15>What is your username?<r>\n<f246>Type " +
                 "'<f253>new<r><f246>' to create a character.\n\n")
@@ -609,7 +609,7 @@ while True:
         if players[id]['exAttribute0'] == 1000:
             players[id]['idleStart'] = int(time.time())
             # First step of char creation
-            mud.send_message(id, "<f220>\nWhat is going to be your name?\n\n")
+            mud.sendMessage(id, "<f220>\nWhat is going to be your name?\n\n")
             for c in mud._clients:
                 # print(str(mud._clients[c].address))
                 pass
@@ -632,9 +632,9 @@ while True:
                     if command.startswith('restart') or \
                        command.startswith('shutdown'):
                         terminalMode[str(id)] = False
-                        mud.send_message(id, "\nBYE\n\n")
+                        mud.sendMessage(id, "\nBYE\n\n")
                     else:
-                        mud.send_message(id, ">")
+                        mud.sendMessage(id, ">")
                         log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
@@ -642,25 +642,25 @@ while True:
 
             if not taken and not terminalMode.get(str(id)):
                 if command.strip().isdigit():
-                    mud.send_message(
+                    mud.sendMessage(
                         id, "\n<f220>Name cannot be a digit")
-                    mud.send_message(id, "Press ENTER to continue...\n\n")
+                    mud.sendMessage(id, "Press ENTER to continue...\n\n")
                     taken = True
 
                 if not taken:
                     if len(command.strip()) < 2:
-                        mud.send_message(
+                        mud.sendMessage(
                             id, "\n<f220>Name must be at least two characters")
-                        mud.send_message(id, "Press ENTER to continue...\n\n")
+                        mud.sendMessage(id, "Press ENTER to continue...\n\n")
                         taken = True
 
                 if not taken:
                     for p in playersDB:
                         if playersDB[p]['name'].lower() == command.lower():
-                            mud.send_message(
+                            mud.sendMessage(
                                 id, "\n<f220>This character name is " +
                                 "already taken!")
-                            mud.send_message(id,
+                            mud.sendMessage(id,
                                              "Press ENTER to continue...\n\n")
                             taken = True
                             break
@@ -675,7 +675,7 @@ while True:
                         command + ' ' + params, "info")
                 else:
                     if terminalMode.get(str(id)) is True:
-                        mud.send_message(id, ">")
+                        mud.sendMessage(id, ">")
                         log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
@@ -683,7 +683,7 @@ while True:
 
             if not taken:
                 players[id]['exAttribute1'] = command.strip()
-                mud.send_message(
+                mud.sendMessage(
                     id, "<f220>Now what would you like your " +
                     "password to be?\n\n")
                 players[id]['exAttribute0'] = 1002
@@ -695,11 +695,11 @@ while True:
 
         if players[id]['exAttribute0'] == 1002:
             # store the password
-            mud.send_message(id, "<f220>\nOk, got that.\n")
+            mud.sendMessage(id, "<f220>\nOk, got that.\n")
             players[id]['exAttribute2'] = command.strip()
 
             players[id]['idleStart'] = int(time.time())
-            mud.send_message(id, "<f220>\nSelect your character race:\n\n")
+            mud.sendMessage(id, "<f220>\nSelect your character race:\n\n")
             ctr = 0
             typesStr = '  '
             for (name, p) in list(racesDB.items()):
@@ -711,7 +711,7 @@ while True:
                 if ctr > 7:
                     typesStr = typesStr + '\n  '
                     ctr = 0
-            mud.send_message(id, typesStr + '\n\n')
+            mud.sendMessage(id, typesStr + '\n\n')
             players[id]['exAttribute0'] = 1003
             break
 
@@ -719,10 +719,10 @@ while True:
             players[id]['idleStart'] = int(time.time())
             selectedRace = command.lower().strip()
             if not racesDB.get(selectedRace):
-                mud.send_message(
+                mud.sendMessage(
                     id, "<f220>\nUnrecognized character race.<r>\n\n")
                 players[id]['exAttribute0'] = 1000
-                mud.send_message(
+                mud.sendMessage(
                     id,
                     "<f15>What is your username?<r>\n<f246>Type " +
                     "'<f253>new<r><f246>' to create a character.\n\n")
@@ -732,7 +732,7 @@ while True:
                 command = 'witch'
                 players[id]['exAttribute0'] = 1004
             else:
-                mud.send_message(
+                mud.sendMessage(
                     id, "<f220>\nSelect your character class:\n\n")
                 ctr = 0
                 classStr = '  '
@@ -747,7 +747,7 @@ while True:
                     if ctr > 7:
                         classStr = classStr + '\n  '
                         ctr = 0
-                mud.send_message(id, classStr + '\n\n')
+                mud.sendMessage(id, classStr + '\n\n')
                 players[id]['exAttribute0'] = 1004
                 break
 
@@ -764,10 +764,10 @@ while True:
                 unrecognized = True
 
             if unrecognized:
-                mud.send_message(
+                mud.sendMessage(
                     id, "<f220>\nUnrecognized character class.<r>\n\n")
                 players[id]['exAttribute0'] = 1000
-                mud.send_message(
+                mud.sendMessage(
                     id,
                     "<f15>What is your username?<r>\n<f246>Type " +
                     "'<f253>new<r><f246>' to create a character.\n\n")
@@ -825,12 +825,12 @@ while True:
             playersDB = loadPlayersDB()
 
             players[id]['exAttribute0'] = None
-            mud.send_message(
+            mud.sendMessage(
                 id,
                 '<f220>Your character has now been created, ' +
                 'you can log in using credentials you have provided.\n')
-            # mud.send_message(id, '<f15>What is your username?')
-            mud.send_message(
+            # mud.sendMessage(id, '<f15>What is your username?')
+            mud.sendMessage(
                 id,
                 "<f15>What is your username?<r>\n<f246>Type " +
                 "'<f253>new<r><f246>' to create a character.\n\n")
@@ -853,7 +853,7 @@ while True:
                 connectStr = command.strip().lower()
                 connectCommand = False
                 if connectStr.lower() == 'connect':
-                    mud.send_message(id, "Login via CONNECT\n\n")
+                    mud.sendMessage(id, "Login via CONNECT\n\n")
                     if ' ' in params:
                         connectUsername = params.split(' ', 1)[0]
                         players[id]['name'] = connectUsername
@@ -876,34 +876,34 @@ while True:
                                                            players, dbResponse)
                                     familiarRecall(mud, players, id,
                                                    npcs, npcsDB)
-                                    mud.send_message(id,
+                                    mud.sendMessage(id,
                                                      "CONNECT login " +
                                                      "success\n\n")
                                     connectCommand = True
                                 else:
-                                    mud.send_message(id,
+                                    mud.sendMessage(id,
                                                      "CONNECT login failed: " +
                                                      "player already in " +
                                                      "game\n\n")
                             else:
-                                mud.send_message(id,
+                                mud.sendMessage(id,
                                                  "CONNECT login failed\n\n")
                     command = ''
 
                 if not connectCommand:
                     if not terminalMode.get(str(id)):
                         if command.strip().isdigit():
-                            mud.send_message(
+                            mud.sendMessage(
                                 id, "\n<f220>Name cannot be a digit")
-                            mud.send_message(id,
+                            mud.sendMessage(id,
                                              "Press ENTER to continue...\n\n")
                             command = ''
 
                         if len(command.strip()) < 2:
-                            mud.send_message(
+                            mud.sendMessage(
                                 id,
                                 "\n<f220>Name must be at least two characters")
-                            mud.send_message(id,
+                            mud.sendMessage(id,
                                              "Press ENTER to continue...\n\n")
                             command = ''
 
@@ -916,7 +916,7 @@ while True:
                         command = ''
                     else:
                         if terminalMode.get(str(id)) is True:
-                            mud.send_message(id, ">")
+                            mud.sendMessage(id, ">")
 
                 if command:
                     file = loadPlayer(command, playersDB)
@@ -931,17 +931,17 @@ while True:
                     log("Player ID " + str(id) +
                         " has requested existing user (" + command +
                         ")", "info")
-                    mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
-                    mud.send_message(id, '<f15>What is your password?\n\n')
+                    mud.sendMessage(id, 'Hi <u><f32>' + command + '<r>!')
+                    mud.sendMessage(id, '<f15>What is your password?\n\n')
                 else:
                     if not connectCommand:
                         if not terminalMode.get(str(id)):
-                            mud.send_message(
+                            mud.sendMessage(
                                 id,
                                 '<f202>User <f32>' +
                                 command +
                                 '<r> was not found!\n')
-                            mud.send_message(id,
+                            mud.sendMessage(id,
                                              '<f15>What is your username?\n\n')
                             log("Player ID " +
                                 str(id) +
@@ -949,7 +949,7 @@ while True:
                                 command +
                                 ")", "info")
                     else:
-                        mud.send_message(id, 'Hi <u><f32>' +
+                        mud.sendMessage(id, 'Hi <u><f32>' +
                                          players[id]['name'] + '<r>!\n\n')
             else:
                 # New player creation here
@@ -957,27 +957,27 @@ while True:
                     players[id]['idleStart'] = int(time.time())
                     log("Player ID " + str(id) +
                         " has initiated character creation.", "info")
-                    mud.send_message(
+                    mud.sendMessage(
                         id,
                         "<f220>Welcome Traveller! So you have decided " +
                         "to create an account, that's awesome! Thank " +
                         "you for your interest in AberMUSH, hope you " +
                         "enjoy yourself while you're here.")
-                    mud.send_message(
+                    mud.sendMessage(
                         id,
                         "Note: You can type 'startover' at any time to " +
                         "restart the character creation process.\n")
-                    mud.send_message(
+                    mud.sendMessage(
                         id, "<f230>Press ENTER to continue...\n\n")
-                    # mud.send_message(id,
+                    # mud.sendMessage(id,
                     #                  "<f220>What is going to be your name?")
                     # Set eAttribute0 to 1000, signifying this client has
                     # initialised a player creation process.
                     players[id]['exAttribute0'] = 1000
                 else:
-                    mud.send_message(
+                    mud.sendMessage(
                         id, "<f220>New registrations are closed at this time.")
-                    mud.send_message(
+                    mud.sendMessage(
                         id, "<f230>Press ENTER to continue...\n\n")
         elif (players[id]['name'] is not None and
               players[id]['authenticated'] is None):
@@ -994,9 +994,9 @@ while True:
                     if players[id]['name'].startswith('restart') or \
                        players[id]['name'].startswith('shutdown'):
                         terminalMode[str(id)] = False
-                        mud.send_message(id, "\nBYE\n\n")
+                        mud.sendMessage(id, "\nBYE\n\n")
                     else:
-                        mud.send_message(id, ">")
+                        mud.sendMessage(id, ">")
                         log("Player ID " +
                             str(id) +
                             " logged into GCOS-3/TSS with command - " +
@@ -1016,19 +1016,19 @@ while True:
                     initialSetupAfterLogin(mud, id, players, dbResponse)
                     familiarRecall(mud, players, id, npcs, npcsDB)
                 else:
-                    mud.send_message(
+                    mud.sendMessage(
                         id, '<f202>This character is already in the world!')
                     log("Player ID " + str(id) +
                         " has requested a character which is already in " +
                         "the world!", "info")
                     players[id]['name'] = None
-                    mud.send_message(id, '<f15>What is your username? ')
+                    mud.sendMessage(id, '<f15>What is your username? ')
             else:
-                mud.send_message(id, '<f202>Password incorrect!\n')
+                mud.sendMessage(id, '<f202>Password incorrect!\n')
                 log("Player ID " + str(id) + " has failed authentication",
                     "info")
                 players[id]['name'] = None
-                mud.send_message(id, '<f15>What is your username? ')
+                mud.sendMessage(id, '<f15>What is your username? ')
 
         else:
             players[id]['idleStart'] = int(time.time())

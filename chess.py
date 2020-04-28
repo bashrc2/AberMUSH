@@ -28,7 +28,7 @@ uni_pieces = {
 def showChessBoard(gameState: [], id, mud, turn: str) -> None:
     """Shows the chess board
     """
-    mud.send_message(id, '\n')
+    mud.sendMessage(id, '\n')
     boardStr = ''
     i = 0
     if turn == 'white':

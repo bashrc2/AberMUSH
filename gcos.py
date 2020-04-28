@@ -14,61 +14,61 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
     command = command.strip().lower()
 
     if 'while' in params:
-        mud.send_message(id, "skip_bytesfullblockbscountseekskipifofsta" +
+        mud.sendMessage(id, "skip_bytesfullblockbscountseekskipifofsta" +
                          "tusibsobsconviflagoflagseek_bytesnonenoxferwr" +
                          "itingarchiveaforcefinteractivecatapultilinkld" +
                          "ereferenceLno-dereferencePrecursiveRsymbolic")
-        mud.send_message(id, "usage: printf FORMAT")
-        mud.send_message(id, "bad field specification")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "usage: printf FORMAT")
+        mud.sendMessage(id, "bad field specification")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'ls' or command == 'dir':
-        mud.send_message(id, "<f220>.")
-        mud.send_message(id, "<f220>..")
-        mud.send_message(
+        mud.sendMessage(id, "<f220>.")
+        mud.sendMessage(id, "<f220>..")
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 am/")
-        mud.send_message(
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 ddd/")
-        mud.send_message(
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 gdd/")
-        mud.send_message(
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 pdd/")
-        mud.send_message(
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 sci/")
-        mud.send_message(
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 sss/")
-        mud.send_message(
+        mud.sendMessage(
             id, "<f220>drwxr-xr-x 105   09:41 udd/")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'mkdir' or \
        command == 'rm' or \
        command == 'rmdir' or \
        command == 'echo':
-        mud.send_message(id, "<f220>OK")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>OK")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'passwd' or command == 'pass':
-        mud.send_message(id, "<f220>New password:")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>New password:")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'telnet':
-        mud.send_message(id, "<f220>Connected to tape drive 0")
-        mud.send_message(id, "\n<f220>Datanet 1200 open")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Connected to tape drive 0")
+        mud.sendMessage(id, "\n<f220>Datanet 1200 open")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'chown':
-        mud.send_message(id, "<f220>Load tape drive")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Load tape drive")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'cat' and ';' not in params:
-        mud.send_message(id, "<f220>There is a fair fort upon the sea-shore." +
+        mud.sendMessage(id, "<f220>There is a fair fort upon the sea-shore." +
                          "\nPleasantly, each is given his desire.\n" +
                          "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
                          " they earned.\nOn Wednesday, I saw men in conflict" +
@@ -78,85 +78,85 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
                          "they came,\nand atop the stone of Maelwy they " +
                          "shelter shields.\nA host of kinsmen fell by the " +
                          "descendant.")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'unmount':
-        mud.send_message(id, "<f220>Tape drive 1 spinup")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Tape drive 1 spinup")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'mount':
-        mud.send_message(id, "<f220>Tape drive 1 mounted")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Tape drive 1 mounted")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'shred ' or command == 'dd':
-        mud.send_message(id, "<f220>ERROR 7291")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>ERROR 7291")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'chmod':
-        mud.send_message(id, "<f220>Confirmed")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Confirmed")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'pwd' or command == 'dirname':
-        mud.send_message(id, "<f220>/udd/acrc/cormorant")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>/udd/acrc/cormorant")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'whoami':
-        mud.send_message(id, "<f220>cormorant")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>cormorant")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'who':
-        mud.send_message(id, "<f220>amsys")
-        mud.send_message(id, "<f220>blacksmith")
-        mud.send_message(id, "<f220>cormorant")
-        mud.send_message(id, "<f220>greenman")
-        mud.send_message(id, "<f220>solo")
-        mud.send_message(id, "<f220>titan2")
-        mud.send_message(id, "<f220>vulcan")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>amsys")
+        mud.sendMessage(id, "<f220>blacksmith")
+        mud.sendMessage(id, "<f220>cormorant")
+        mud.sendMessage(id, "<f220>greenman")
+        mud.sendMessage(id, "<f220>solo")
+        mud.sendMessage(id, "<f220>titan2")
+        mud.sendMessage(id, "<f220>vulcan")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'nmap':
-        mud.send_message(id, "<f220>Press START")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Press START")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'shutdown' or command == 'reset':
-        mud.send_message(id, "<f220>Tape drive 0 spindown")
-        mud.send_message(id, "<f220>Tape drive 1 spindown")
-        mud.send_message(id, ">")
+        mud.sendMessage(id, "<f220>Tape drive 0 spindown")
+        mud.sendMessage(id, "<f220>Tape drive 1 spindown")
+        mud.sendMessage(id, ">")
         return True
 
     if command == 'uname' or command == 'arch':
-        mud.send_message(id, "<f220>GCOS-3 TSS")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>GCOS-3 TSS")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'who' or command == 'whoami' or command == 'whois':
-        mud.send_message(id, "<f220>cormorant")
-        mud.send_message(id, "<f220>Data Services Division. Room 5A")
-        mud.send_message(id, "<f220>Aberystwyth Computing Research Centre")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>cormorant")
+        mud.sendMessage(id, "<f220>Data Services Division. Room 5A")
+        mud.sendMessage(id, "<f220>Aberystwyth Computing Research Centre")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'useradd' or command == 'adduser':
-        mud.send_message(id, "<f220>Rewind tape drive 1")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "<f220>Rewind tape drive 1")
+        mud.sendMessage(id, "\n>")
         return True
 
     if command == 'wget':
-        mud.send_message(id, "100%[=========================================" +
+        mud.sendMessage(id, "100%[=========================================" +
                          "==================================================" +
                          "==>]   1.41K  --.-KB/s    in 1s")
-        mud.send_message(id, "1989-12-08 10:39:10 (1 KB/s) - " +
+        mud.sendMessage(id, "1989-12-08 10:39:10 (1 KB/s) - " +
                          "saved to tape 0 [232/232]")
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "\n>")
         return True
 
     invalidNames = ("sh", "bash", "chcon", "chgrp", "chown", "chmod", "cp",
@@ -179,10 +179,10 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
                     "users", "useradd", "adduser", "yes", "/bin/busybox",
                     "busybox", "/bin/bash", "bash", "/bin/sh")
     if command in invalidNames:
-        mud.send_message(id, "<f220>System GCOS3 MOD400 - S104 -0714/1417")
-        mud.send_message(id, "<f220>Aberystwyth Computing " +
+        mud.sendMessage(id, "<f220>System GCOS3 MOD400 - S104 -0714/1417")
+        mud.sendMessage(id, "<f220>Aberystwyth Computing " +
                          "Research Group ready!")
-        mud.send_message(id,
+        mud.sendMessage(id,
                          "<f220>Logged in from DLCP terminal \"cormorant\"")
         if params:
             possibleShells = {
@@ -194,11 +194,11 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
                 if possShell in params:
                     shellParam = params.split(possShell, 1)[1].strip()
                     shellResponse = shellResponse.replace('VAR', shellParam)
-                    mud.send_message(id, "\n>" + possShell + ' ' + shellParam)
-                    mud.send_message(id, "\n" + shellResponse)
-                    mud.send_message(id, "\n>")
+                    mud.sendMessage(id, "\n>" + possShell + ' ' + shellParam)
+                    mud.sendMessage(id, "\n" + shellResponse)
+                    mud.sendMessage(id, "\n>")
                     return True
-        mud.send_message(id, "\n>")
+        mud.sendMessage(id, "\n>")
         return True
 
     return False

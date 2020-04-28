@@ -200,7 +200,7 @@ def levelUp(id, players, characterClassDB, increment):
 def stowHands(id, players: {}, itemsDB: {}, mud):
     if int(players[id]['clo_rhand']) > 0:
         itemID = int(players[id]['clo_rhand'])
-        mud.send_message(
+        mud.sendMessage(
             id, 'You stow <b234>' +
             itemsDB[itemID]['article'] +
             ' ' +
@@ -210,7 +210,7 @@ def stowHands(id, players: {}, itemsDB: {}, mud):
 
     if int(players[id]['clo_lhand']) > 0:
         itemID = int(players[id]['clo_lhand'])
-        mud.send_message(
+        mud.sendMessage(
             id, 'You stow <b234>' +
             itemsDB[itemID]['article'] +
             ' ' +
@@ -584,7 +584,7 @@ def prepareSpells(mud, id, players):
             players[id]['prepareSpell'] = ""
             players[id]['prepareSpellProgress'] = 0
             players[id]['prepareSpellTime'] = 0
-            mud.send_message(
+            mud.sendMessage(
                 id, "You prepared the spell <f220>" +
                 spellName + "<r>\n\n")
         else:
@@ -635,4 +635,4 @@ def messageToPlayersInRoom(mud, players, id, msg):
         if players[pid]['room'] == players[id]['room'] and \
            pid != id:
             if playerIsVisible(mud, pid, players, id, players):
-                mud.send_message(pid, msg)
+                mud.sendMessage(pid, msg)

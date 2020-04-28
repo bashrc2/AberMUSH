@@ -185,7 +185,7 @@ class MudServer(object):
         # return the info list
         return retval
 
-    def send_message_wrap(self, to, prefix, message):
+    def sendMessageWrap(self, to, prefix, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -209,7 +209,7 @@ class MudServer(object):
                     break
         self._attempt_send(to, '\n')
 
-    def send_message(self, to, message):
+    def sendMessage(self, to, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -227,7 +227,7 @@ class MudServer(object):
             if sendCtr > 4:
                 break
 
-    def send_image(self, to, message, noDelay=False) -> None:
+    def sendImage(self, to, message, noDelay=False) -> None:
         """Sends the ANSI image in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -264,7 +264,7 @@ class MudServer(object):
         except socket.error as e:
             print("Couldnt send image to Player ID " + str(to) +
                   ", socket error: " + str(e))
-            self._handle_disconnect(to)
+            self._handleDisconnect(to)
         if not noDelay:
             time.sleep(1)
 
@@ -300,7 +300,7 @@ class MudServer(object):
         except socket.error as e:
             print("Couldnt send game board to player ID " + str(to) +
                   ", socket error: " + str(e))
-            self._handle_disconnect(to)
+            self._handleDisconnect(to)
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
@@ -338,7 +338,7 @@ class MudServer(object):
         except socket.error as e:
             print("Failed to send data. Player ID " + str(clid) +
                   ": " + str(e) + '. Disconnecting.')
-            self._handle_disconnect(clid)
+            self._handleDisconnect(clid)
             return False
         return True
 
@@ -422,7 +422,7 @@ class MudServer(object):
             except socket.error:
                 print('Socket error receiving data. Disconnecting Player ID ' +
                       str(id))
-                self._handle_disconnect(id)
+                self._handleDisconnect(id)
                 return
 
             if data is not None:
@@ -446,7 +446,7 @@ class MudServer(object):
                     self._new_events.append((self._EVENT_COMMAND, id,
                                              command, params))
 
-    def _handle_disconnect(self, clid):
+    def _handleDisconnect(self, clid):
         # remove the client from the clients map
         del(self._clients[clid])
 

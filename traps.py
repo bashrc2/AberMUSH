@@ -36,14 +36,14 @@ def describeTrappedPlayer(mud, id, players: {}, rooms: {}):
         desc = "You struggle with the net but it's pinning you down|" + \
             "You seem to be trapped in a net|Being covered by a net " + \
             "makes it difficult to move"
-        mud.send_message(id, randomDescription(desc)+'.\n\n')
+        mud.sendMessage(id, randomDescription(desc)+'.\n\n')
 
     if rooms[roomID]['trap']['trapType'] == 'chain net':
         desc = "You struggle with the net but its chain webbing is " + \
             "pinning you down|You seem to be trapped in a net made " + \
             "from linked chains|Being covered by a chain net makes " + \
             "it difficult to move"
-        mud.send_message(id, randomDescription(desc)+'.\n\n')
+        mud.sendMessage(id, randomDescription(desc)+'.\n\n')
 
 
 def playerIsTrapped(id, players: {}, rooms: {}):
@@ -69,7 +69,7 @@ def describeTrapDeactivation(mud, roomID, trap, players: {}):
             if trap['trapType'] == 'net' or \
                trap['trapType'] == 'chain net':
                 desc = 'The ' + trap['trapType'] + ' lifts and you escape'
-                mud.send_message(id, randomDescription(desc)+'.\n\n')
+                mud.sendMessage(id, randomDescription(desc)+'.\n\n')
 
 
 def holdingCuttingWeapon(id, players: {}, itemsDB: {}):
@@ -96,7 +96,7 @@ def escapeWithCuttingTool(mud, id, players: {}, rooms: {}, itemsDB: {}):
             "Looks like you need to use a cutting tool, otherwise " + \
             "you'll be here for a while|Looks like you need something " + \
             "to cut with"
-        mud.send_message(
+        mud.sendMessage(
             id, randomDescription(desc) + '.\n\n')
         return
     roomID = players[id]['room']
@@ -111,17 +111,17 @@ def escapeWithCuttingTool(mud, id, players: {}, rooms: {}, itemsDB: {}):
         desc = 'You slash at the ' + rooms[roomID]['trap']['trapType'] + \
             damageStr + '|You cut the ' + \
             rooms[roomID]['trap']['trapType'] + damageStr
-        mud.send_message(id, randomDescription(desc) + '.\n\n')
+        mud.sendMessage(id, randomDescription(desc) + '.\n\n')
     else:
         rooms[roomID]['trap']['trapDamaged'] = 0
         rooms[roomID]['trap']['trappedPlayers'].clear()
         if len(rooms[roomID]['trap']['trapEscapeDescription']) > 0:
             desc = rooms[roomID]['trap']['trapEscapeDescription']
-            mud.send_message(id, randomDescription(desc) + '.\n\n')
+            mud.sendMessage(id, randomDescription(desc) + '.\n\n')
         else:
             desc = 'You cut a large hole in the ' + \
                 rooms[roomID]['trap']['trapType'] + ' and escape'
-            mud.send_message(
+            mud.sendMessage(
                 id, randomDescription(desc) + '.\n\n')
 
 
@@ -130,7 +130,7 @@ def escapeFromTrap(mud, id, players: {}, rooms: {}, itemsDB: {}):
     """
     roomID = players[id]['room']
     if not rooms[roomID]['trap'].get('trapEscapeMethod'):
-        mud.send_message(
+        mud.sendMessage(
             id, randomDescription("Nothing happens") + '.\n\n')
         return
     escapeMethod = rooms[roomID]['trap']['trapEscapeMethod']
@@ -147,18 +147,18 @@ def trapActivationDescribe(mud, id, players, roomID, rooms,
                 "You hear a click as you step onto a pressure plate. A " + \
                 rooms[roomID]['trap']['trapType'] + \
                 " falls from above and pins you down"
-            mud.send_message(id, randomDescription(desc) + '.<r>\n\n')
+            mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
         else:
             desc = trapTag + "A " + rooms[roomID]['trap']['trapType'] + \
                 " falls from above and pins you down"
-            mud.send_message(id, randomDescription(desc) + '.<r>\n\n')
+            mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
 
     if rooms[roomID]['trap']['trapType'].startswith('dart'):
         desc = trapTag + \
             "Poisoned darts emerge from holes in the wall and " + \
             "sting you for <r><f15><b88>* " + str(penaltyValue) + \
             " *<r>" + trapTag + " hit points"
-        mud.send_message(id, randomDescription(desc) + '.<r>\n\n')
+        mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
 
 
 def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
@@ -186,7 +186,7 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
                 players[id][penaltyType] -= penaltyValue
                 if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
                     desc = rooms[roomID]['trap']['trapActivationDescription']
-                    mud.send_message(id, trapTag +
+                    mud.sendMessage(id, trapTag +
                                      randomDescription(desc) + '.<r>\n\n')
                 else:
                     trapActivationDescribe(mud, id, players, roomID, rooms,
@@ -207,7 +207,7 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
                 players[id][penaltyType] -= penaltyValue
                 if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
                     desc = rooms[roomID]['trap']['trapActivationDescription']
-                    mud.send_message(id, trapTag +
+                    mud.sendMessage(id, trapTag +
                                      randomDescription(desc) + '.<r>\n\n')
                 else:
                     trapActivationDescribe(mud, id, players, roomID, rooms,
