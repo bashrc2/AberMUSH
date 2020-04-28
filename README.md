@@ -249,6 +249,17 @@ To show an image during a conversation:
 
 If an image then exists in `images/events` called `givedrink` then it will be shown when the conversation event happens.
 
+If an NPC moves between rooms then you can make conversation lines dependent on being in a particular region.
+
+``` text
+"conv" : [
+    [["what","you","doing","?","region=cave"],"I'm digging for gold"]
+    [["what","you","doing","?","region=garden"],"I'm doing some gardening"]
+],
+```
+
+Region names can be set within `rooms.json`, and could be for a single room or a group of rooms.
+
 ### Spoken Languages
 
 Players and NPCs have their own languages: `common`, `dwarvish`, `elvish`, `draconic` and `druidic`. Goblins and humans may not be able to understand each other.
