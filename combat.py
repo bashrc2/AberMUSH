@@ -303,12 +303,33 @@ def npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
             npcs[id][c] = itemID
 
 
+def twoHandedWeapon(id: int, players: {}, itemsDB: {}) -> None:
+    """ If carrying a two handed weapon then make sure
+    that the other hand is empty
+    """
+    itemIDleft = players[id]['clo_lhand']
+    itemIDright = players[id]['clo_rhand']
+    # items on both hands
+    if itemIDleft == 0 or itemIDright == 0:
+        return
+    # at least one item is two handed
+    if itemsDB[itemIDleft]['bothHands'] == 0 and \
+       itemsDB[itemIDright]['bothHands'] == 0:
+        return
+    if itemsDB[itemIDright]['bothHands'] == 1:
+        players[id]['clo_lhand'] = 0
+    else:
+        players[id]['clo_rhand'] = 0
+
+
 def weaponDamage(id: int, players: {}, itemsDB: {},
                  weaponType: str, characterClassDB: {}) -> int:
     """Calculates the amount of damage which a player can do
        with weapons held
     """
     damage = 0
+
+    twoHandedWeapon(id, players, itemsDB)
 
     itemID = players[id]['clo_lhand']
     if itemID > 0:
