@@ -3037,8 +3037,19 @@ def stow(params, mud, playersDB: {}, players: {}, rooms: {},
 
 def wearClothing(itemID, players: {}, id, clothingType,
                  mud, itemsDB: {}) -> bool:
-    if itemsDB[itemID]['clo_' + clothingType] > 0:
-        players[id]['clo_' + clothingType] = itemID
+    clothingParam = 'clo_' + clothingType
+    if itemsDB[itemID][clothingParam] > 0:
+        players[id][clothingParam] = itemID
+
+        # handle items which are pairs
+        if itemsDB[itemID]['article'] == 'some':
+            if clothingType == 'lleg' or clothingType == 'rleg':
+                players[id]['clo_lleg'] = itemID
+                players[id]['clo_rleg'] = itemID
+            elif clothingType == 'lhand' or clothingType == 'rhand':
+                players[id]['clo_lhand'] = itemID
+                players[id]['clo_rhand'] = itemID
+
         clothingOpened = False
         if len(itemsDB[itemID]['open_description']) > 0:
             desc = \
@@ -3076,6 +3087,16 @@ def unwearClothing(players: {}, id, clothingType, mud, itemsDB: {}):
             mud.sendMessage(id, 'You remove ' +
                             itemsDB[itemID]['article'] + ' <b234>' +
                             itemsDB[itemID]['name'] + '\n\n')
+
+        # handle items which are pairs
+        if itemsDB[itemID]['article'] == 'some':
+            if clothingType == 'lleg' or clothingType == 'rleg':
+                players[id]['clo_lleg'] = 0
+                players[id]['clo_rleg'] = 0
+            elif clothingType == 'lhand' or clothingType == 'rhand':
+                players[id]['clo_lhand'] = 0
+                players[id]['clo_rhand'] = 0
+
         players[id]['clo_'+clothingType] = 0
 
 
