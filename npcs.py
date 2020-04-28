@@ -42,7 +42,7 @@ def corpseExists(corpses: {}, room: str, name: str) -> bool:
     return False
 
 
-def npcsRest(npcs):
+def npcsRest(npcs) -> None:
     """Rest restores hit points of NPCs
     """
     for p in npcs:
@@ -54,7 +54,7 @@ def npcsRest(npcs):
             npcs[p]['restRequired'] = 0
 
 
-def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType):
+def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType) -> str:
     """An NPC follows another NPC or player
        Enabling NPCs to move around in groups
     """
@@ -235,7 +235,7 @@ def entityIsActive(id, players: {}, rooms: {},
     return True
 
 
-def moveNPCs(npcs, players, mud, now, nid):
+def moveNPCs(npcs, players, mud, now, nid) -> None:
     """If movement is defined for an NPC this moves it around
     """
     if now > npcs[nid]['lastMoved'] + \
@@ -352,7 +352,7 @@ def removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
         return False
 
 
-def npcRespawns(npcs):
+def npcRespawns(npcs: {}) -> None:
     """Respawns inactive NPCs
     """
     for (nid, pl) in list(npcs.items()):
@@ -368,8 +368,9 @@ def npcRespawns(npcs):
                     " hit points", "info")
 
 
-def runMobileItems(itemsDB: {}, items: {}, eventSchedule, scriptedEventsDB,
-                   rooms: {}, mapArea, clouds: {}):
+def runMobileItems(itemsDB: {}, items: {}, eventSchedule,
+                   scriptedEventsDB,
+                   rooms: {}, mapArea, clouds: {}) -> None:
     """Updates all NPCs
     """
     for (item, pl) in list(items.items()):
@@ -392,7 +393,7 @@ def runMobileItems(itemsDB: {}, items: {}, eventSchedule, scriptedEventsDB,
 
 def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
             itemsDB: {}, npcsTemplate, rooms: {}, mapArea, clouds: {},
-            eventSchedule):
+            eventSchedule) -> None:
     """Updates all NPCs
     """
 
@@ -559,8 +560,9 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                             "<f220>{}".format(', '.join(droppedItems)) + "\n")
 
 
-def conversationState(word, conversation_states, nid, npcs,
-                      match_ctr) -> (bool, bool, int):
+def conversationState(word: str, conversation_states: {},
+                      nid, npcs: {},
+                      match_ctr: int) -> (bool, bool, int):
     """Is the conversations with this npc in the given state?
        Returns True if the conversation is in the given state
        Also returns True if subsequent words can also be matched
@@ -575,9 +577,10 @@ def conversationState(word, conversation_states, nid, npcs,
     return False, True, match_ctr
 
 
-def conversationCondition(word: str, conversation_states, nid,
-                          npcs: {}, match_ctr: int,
-                          players: {}, rooms: {}, id):
+def conversationCondition(word: str, conversation_states: {},
+                          nid, npcs: {}, match_ctr: int,
+                          players: {}, rooms: {},
+                          id) -> (bool, bool, int):
     conditionType = ''
     if '>' in word.lower():
         conditionType = '>'
@@ -719,9 +722,9 @@ def conversationCondition(word: str, conversation_states, nid,
     return True, True, match_ctr + 1
 
 
-def conversationWordCount(message, words_list, npcs: {}, nid,
-                          conversation_states,
-                          players: {}, rooms: {}, id):
+def conversationWordCount(message: str, words_list: [], npcs: {},
+                          nid, conversation_states: {},
+                          players: {}, rooms: {}, id) -> int:
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
     """
@@ -760,7 +763,7 @@ def conversationWordCount(message, words_list, npcs: {}, nid,
 def conversationGive(best_match, best_match_action,
                      best_match_action_param0, players, id,
                      mud, npcs, nid, itemsDB, puzzledStr,
-                     guildsDB):
+                     guildsDB) -> bool:
     """Conversation in which an NPC gives something to you
     """
     if best_match_action == 'give' or \
@@ -799,7 +802,7 @@ def conversationSkill(best_match, best_match_action,
                       best_match_action_param0,
                       best_match_action_param1,
                       players, id, mud, npcs, nid, itemsDB,
-                      puzzledStr, guildsDB):
+                      puzzledStr, guildsDB) -> bool:
     """Conversation in which an NPC gives or alters a skill
     """
     if best_match_action == 'skill' or \
@@ -849,7 +852,7 @@ def conversationExperience(
         best_match_action_param0,
         best_match_action_param1,
         players, id, mud, npcs, nid, itemsDB,
-        puzzledStr, guildsDB):
+        puzzledStr, guildsDB) -> bool:
     """Conversation in which an NPC increases your experience
     """
     if best_match_action == 'exp' or \
@@ -873,7 +876,7 @@ def conversationJoinGuild(
         best_match_action_param0,
         best_match_action_param1,
         players, id, mud, npcs, nid, itemsDB,
-        puzzledStr, guildsDB):
+        puzzledStr, guildsDB) -> bool:
     """Conversation in which an NPC adds you to a guild
     """
     if best_match_action == 'clan' or \
@@ -900,7 +903,7 @@ def conversationFamiliarMode(
         best_match_action_param0,
         best_match_action_param1,
         players, id, mud, npcs, npcsDB, rooms,
-        nid, items, itemsDB, puzzledStr):
+        nid, items, itemsDB, puzzledStr) -> bool:
     """Switches the mode of a familiar
     """
     if best_match_action == 'familiar':
@@ -938,7 +941,7 @@ def conversationFamiliarMode(
 def conversationTransport(
         best_match_action, best_match_action_param0,
         mud, id, players: {}, best_match, npcs: {}, nid,
-        puzzledStr, guildsDB: {}, rooms: {}):
+        puzzledStr, guildsDB: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some location
     """
     if best_match_action == 'transport' or \
@@ -971,7 +974,7 @@ def conversationTaxi(
         best_match_action, best_match_action_param0,
         best_match_action_param1, players,
         id, mud, best_match, npcs, nid, itemsDB,
-        puzzledStr, guildsDB, rooms):
+        puzzledStr, guildsDB, rooms) -> bool:
     """Conversation in which an NPC transports you to some
     location in exchange for payment/barter
     """
@@ -1016,7 +1019,7 @@ def conversationGiveOnDate(
         best_match_action, best_match_action_param0,
         best_match_action_param1, players,
         id, mud, npcs, nid, itemsDB, best_match,
-        puzzledStr, guildsDB):
+        puzzledStr, guildsDB) -> bool:
     """Conversation in which an NPC gives something to you on
     a particular date of the year eg. Some festival or holiday
     """
@@ -1068,7 +1071,7 @@ def conversationBuyOrExchange(
         best_match_action_param0,
         best_match_action_param1,
         npcs, nid, mud, id, players, itemsDB,
-        puzzledStr, guildsDB):
+        puzzledStr, guildsDB) -> bool:
     """Conversation in which an NPC exchanges/swaps some item
     with you or in which you buy some item from them
     """
@@ -1148,7 +1151,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                     items: {}, itemsDB: {}, rooms: {},
                     id: int, nid: int, message,
                     characterClassDB: {}, sentimentDB: {},
-                    guildsDB: {}, clouds: {}):
+                    guildsDB: {}, clouds: {}) -> None:
     """Conversation with an NPC
     This typically works by matching some words and then
     producing a corresponding response and/or action
