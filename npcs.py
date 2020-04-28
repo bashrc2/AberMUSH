@@ -1206,24 +1206,26 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                 conversationNewState = ''
                 imageName = None
                 if len(conv) >= 3:
-                    if conv[2].lower().startswith('image:'):
-                        imageName = conv[2].lower().split(':')[1].strip()
-
-                    if conv[2].lower().startswith('state:'):
-                        conversationNewState = \
-                            conv[2].lower().split(':')[1].strip()
-                        if len(conv) >= 4:
-                            bestMatchAction = conv[3]
-                        if len(conv) >= 5:
-                            bestMatchActionParam0 = conv[4]
-                        if len(conv) >= 6:
-                            bestMatchActionParam1 = conv[5]
-                    else:
-                        bestMatchAction = conv[2]
-                        if len(conv) >= 4:
-                            bestMatchActionParam0 = conv[3]
-                        if len(conv) >= 5:
-                            bestMatchActionParam1 = conv[4]
+                    idx = 2
+                    ctr = 0
+                    while idx < len(conv):
+                        if ':' not in conv[idx]:
+                            if ctr == 0:
+                                bestMatchAction = conv[idx]
+                            elif ctr == 1:
+                                bestMatchActionParam0 = conv[idx]
+                            elif ctr == 2:
+                                bestMatchActionParam1 = conv[idx]
+                            ctr += 1
+                            idx += 1
+                            continue
+                        if conv[idx].lower().startswith('image:'):
+                            imageName = \
+                                conv[idx].lower().split(':')[1].strip()
+                        elif conv[idx].lower().startswith('state:'):
+                            conversationNewState = \
+                                conv[idx].lower().split(':')[1].strip()
+                        idx += 1
 
     # sentimentScore = \
     #     getSentiment(message, sentimentDB) + \
