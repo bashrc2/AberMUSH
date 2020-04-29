@@ -411,6 +411,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         'clo_rleg': npcsDB[int(body[0])]['clo_rleg'],
         'clo_feet': npcsDB[int(body[0])]['clo_feet'],
         'imp_head': npcsDB[int(body[0])]['imp_head'],
+        'imp_neck': npcsDB[int(body[0])]['imp_neck'],
         'imp_larm': npcsDB[int(body[0])]['imp_larm'],
         'imp_rarm': npcsDB[int(body[0])]['imp_rarm'],
         'imp_lhand': npcsDB[int(body[0])]['imp_lhand'],
