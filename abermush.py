@@ -388,7 +388,7 @@ log("Scripted Events loaded: " + str(counter), "info")
 
 # Load registered players DB
 playersDB = loadPlayersDB()
-log("Registered player accounts loaded: " + str(len(playersDB)), "info")
+log("Registered players: " + str(len(playersDB)), "info")
 
 # Execute Reserved Event 1 and 2
 # Using -1 for target since no players can be targeted with an event at

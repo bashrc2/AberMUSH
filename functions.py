@@ -425,7 +425,9 @@ def addToScheduler(eventID, targetID, scheduler, database):
         }
 
 
-def loadPlayer(name: str, location=str(Config.get('Players', 'Location'))) -> dict:
+def loadPlayer(name: str,
+               location=str(Config.get('Players',
+                                       'Location'))) -> dict:
     try:
         with open(os.path.join(location, name + ".player"), "r") as read_file:
             playerDict = json.loads(read_file.read())
