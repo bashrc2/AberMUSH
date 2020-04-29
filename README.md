@@ -652,7 +652,7 @@ hold dagger right
 hold dagger left
 ```
 
-With the possibility of using two weapons at the same time.
+With the possibility of using two weapons at the same time. However, some weapons require two hands to use and this is specified by the `bothHands` parameter in `items.json`.
 
 Similar applies with armour:
 
