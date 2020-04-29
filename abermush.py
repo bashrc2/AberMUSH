@@ -847,7 +847,7 @@ while True:
            players[id]['exAttribute0'] is None:
             if command.lower() != "new":
                 players[id]['idleStart'] = int(time.time())
-                dbResponse = None
+                pl = None
 
                 # check for logins with CONNECT username password
                 connectStr = command.strip().lower()
@@ -858,9 +858,8 @@ while True:
                         connectUsername = params.split(' ', 1)[0]
                         players[id]['name'] = connectUsername
                         connectPassword = params.split(' ', 1)[1].strip()
-                        pl = loadPlayer(connectUsername, playersDB)
+                        pl = loadPlayer(connectUsername)
                         if pl is not None:
-                            dbResponse = tuple(pl.values())
                             dbPass = pl['pwd']
                             if connectUsername == 'Guest':
                                 dbPass = hash_password(pl['pwd'])
@@ -873,7 +872,7 @@ while True:
                                         connectPassword
                                     players[id]['exAttribute0'] = None
                                     initialSetupAfterLogin(mud, id,
-                                                           players, dbResponse)
+                                                           players, pl)
                                     familiarRecall(mud, players, id,
                                                    npcs, npcsDB)
                                     mud.sendMessage(id,
@@ -919,14 +918,12 @@ while True:
                             mud.sendMessage(id, ">")
 
                 if command:
-                    file = loadPlayer(command, playersDB)
-                    if file is not None:
-                        dbResponse = tuple(file.values())
+                    pl = loadPlayer(command)
 
                 # print(dbResponse)
 
-                if dbResponse is not None and not connectCommand:
-                    players[id]['name'] = dbResponse[0]
+                if pl is not None and not connectCommand:
+                    players[id]['name'] = pl['name']
 
                     log("Player ID " + str(id) +
                         " has requested existing user (" + command +
@@ -981,7 +978,7 @@ while True:
                         id, "<f230>Press ENTER to continue...\n\n")
         elif (players[id]['name'] is not None and
               players[id]['authenticated'] is None):
-            pl = loadPlayer(players[id]['name'], playersDB)
+            pl = loadPlayer(players[id]['name'])
             # print(pl)
             dbPass = pl['pwd']
 
@@ -1013,7 +1010,7 @@ while True:
             playerFound = playerInGame(id, players[id]['name'], players)
             if verify_password(dbPass, command):
                 if not playerFound:
-                    initialSetupAfterLogin(mud, id, players, dbResponse)
+                    initialSetupAfterLogin(mud, id, players, pl)
                     familiarRecall(mud, players, id, npcs, npcsDB)
                 else:
                     mud.sendMessage(

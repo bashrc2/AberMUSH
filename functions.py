@@ -326,8 +326,9 @@ def loadPlayersDB(location=str(Config.get('Players', 'Location')),
     """Function to load all registered players from JSON files
     """
     DB = {}
-    playerFiles = [i for i in os.listdir(
-        location) if os.path.splitext(i)[1] == ".player"]
+    playerFiles = \
+        [i for i in os.listdir(location)
+         if os.path.splitext(i)[1] == ".player"]
     for f in playerFiles:
         with open(os.path.join(location, f)) as file_object:
             DB[f] = json.loads(file_object.read())
@@ -424,15 +425,14 @@ def addToScheduler(eventID, targetID, scheduler, database):
         }
 
 
-def loadPlayer(name, db):
+def loadPlayer(name: str, location=str(Config.get('Players', 'Location'))) -> dict:
     try:
-        # with open(path + name + ".player", "r") as read_file:
-        #     dict = json.loads(read_file.read())
-        #     return(dict)
-        # print(str(db[name.lower() + ".player"]))
-        return(db[name.lower() + ".player"])
+        with open(os.path.join(location, name + ".player"), "r") as read_file:
+            playerDict = json.loads(read_file.read())
+            return(playerDict)
     except Exception:
         pass
+    return {}
 
 
 def savePlayer(player, masterDB, savePassword,
