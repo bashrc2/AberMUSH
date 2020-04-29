@@ -298,7 +298,7 @@ def initialSetupAfterLogin(mud, id, players: {}, dbResponse: []):
     players[id]['language'] = dbResponse[ctr]
     ctr += 1
     players[id]['convstate'] = dbResponse[ctr]  # .split(',')
-    ctr += 1
+    ctr += 2
     # Example: item_list = [e for e in item_list if e not in ('item', 5)]
     # players[id]['inv'] = [e for e in
     # players[id]['inv'] if e not in ('', ' ')]
