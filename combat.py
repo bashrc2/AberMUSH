@@ -25,6 +25,7 @@ import time
 defenseClothing = (
     'clo_chest',
     'clo_head',
+    'clo_neck',
     'clo_larm',
     'clo_rarm',
     'clo_lleg',
