@@ -11236,7 +11236,7 @@
         "description": "The alley is narrow and twisting. Stone walled buildings rise up on either side, bulging out and eclipsing the alley in a shadowy twilight. A weatherbeaten wooden sign swings over a dilapidated ill fitting door, proclaiming in faded letters 'The Old Seadog Inn'.",
         "roomTeleport": "",
         "conditional": [
-	    ["hour",">19","The alley is narrow and twisting. Stone walled buildings rise up on either side, bulging out and eclipsing the alley in a shadowy twilight. A weatherbeaten wooden sign swings over a dilapidated ill fitting door, proclaiming in faded letters 'The Old Seadog Inn'. From inside comes the sound of loud chatter, and singing."],
+	    ["hour",">19","The alley is narrow and twisting. Stone walled buildings rise up on either side, bulging out and eclipsing the alley in a shadowy twilight. A weatherbeaten wooden sign swings over a dilapidated ill fitting door, proclaiming in faded letters 'The Old Seadog Inn'. From inside comes the sound of loud chatter, and singing."]
 	],
         "trap": {},
         "eventOnEnter": "",
