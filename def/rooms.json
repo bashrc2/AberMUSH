@@ -3208,7 +3208,7 @@
         "roomTeleport": "",
         "conditional": [
 	    ["hour","<8","The night's drinking is over and the bar is empty. Displaced coasters, drug paraphenalia and cutlery remain strewn around. The door leading back out looks inviting."],
-	    ["hour","<10","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is clearing up wreckage from the previous night, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out looks tempting."],
+	    ["hour","<10","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is clearing up wreckage from the previous night, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out looks tempting.","432c"],
 	    ["hour","<17","Everything about the inn appears disreputable. It's also not busy. Most peasants are out there toiling in the fields. The inn-keeper is fussing about, tidying and scrubbing away blood stains from the previous night. Used opium pipes and empty ale flagons are strewn about. The door leading back out looks tempting.","432b"],
 	    ["hold","114","You stare dispondently into your flagon of ale, but matters don't seem to improve. Is it worth drinking a beverage this cheap, you ask yourself. There's a door leading out."]
 	],
