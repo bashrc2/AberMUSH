@@ -921,16 +921,19 @@ while True:
                     pl = loadPlayer(command)
 
                 # print(dbResponse)
-
+                askForPassword = False
                 if pl is not None and not connectCommand:
-                    players[id]['name'] = pl['name']
+                    if pl.get('name'):
+                        players[id]['name'] = pl['name']
 
-                    log("Player ID " + str(id) +
-                        " has requested existing user (" + command +
-                        ")", "info")
-                    mud.sendMessage(id, 'Hi <u><f32>' + command + '<r>!')
-                    mud.sendMessage(id, '<f15>What is your password?\n\n')
-                else:
+                        log("Player ID " + str(id) +
+                            " has requested existing user (" + command +
+                            ")", "info")
+                        mud.sendMessage(id, 'Hi <u><f32>' + command + '<r>!')
+                        mud.sendMessage(id, '<f15>What is your password?\n\n')
+                        askForPassword = True
+
+                if not askForPassword:
                     if not connectCommand:
                         if not terminalMode.get(str(id)):
                             mud.sendMessage(
