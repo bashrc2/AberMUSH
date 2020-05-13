@@ -885,7 +885,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
         # A dodge value used to adjust agility of the player being attacked
         # This is proportional to their luck, which can be modified by
-        # various items        
+        # various items
         dodgeValue = 0
         if players[s2id].get('dodge'):
             if players[s2id]['dodge'] == 1:
