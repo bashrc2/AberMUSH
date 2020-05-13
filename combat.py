@@ -850,7 +850,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
     if players[s1id].get('dodge'):
         if players[s1id]['dodge'] == 1:
             players[s1id]['dodge'] = 0
-            mud.sendMessage(s1id, '<f32>You dodge.\n')
+            mud.sendMessage(s1id, '<f32>You dodge<r>.\n')
             mud.sendMessage(
                 s2id, '<f32>' + players[s1id]['name'] +
                 '<r> tries to dodge.\n')
