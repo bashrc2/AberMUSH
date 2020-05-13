@@ -407,7 +407,7 @@ def canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
     if itemID == 0:
         return True
     lockItemID = itemsDB[itemID]['lockedWithItem']
-    if lockItemID.isdigit():
+    if str(lockItemID).isdigit():
         if lockItemID > 0:
             itemName = itemsDB[lockItemID]['name']
             for i in list(players[id]['inv']):
