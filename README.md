@@ -677,6 +677,8 @@ If you are attacked then your `hit points` will decrease. Rest, or the consumpti
 
 The type or armor which players (including NPCs) are wearing can also modify their agility, altering their combat performance. Agility values for armor items can be set with the `mod_agi` parameter. Negative values mean that wearing the item slows the player down. Positive values improve fighting performance.
 
+While fighting you can use the `dodge` command to try to evade the attacker's next blow. You will miss a turn when trying to attack, but are less lightly to be hit in the current round. Success in dodging depends on your `luck` and `agility`, which can vary depending upon items carried or worn and the weather/terrain.
+
 ### NPCs in Combat
 
 NPCs are able to pick up and use any weapons or armor available in the vicinity. For some types of NPC, such as small animals, this isn't appropriate and so it's possible to set `canWear` and `canWield` parameters to zero within `npcs.json` if necessary.
