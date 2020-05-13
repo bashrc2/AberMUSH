@@ -110,7 +110,7 @@ def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
 
     mud.sendMessage(
         id, randomDescription(
-            "You dodge|You perform some fancy footwork|You duck|You swerve") +
+            "Ok|Ok, here goes...") +
         '\n\n')
     players[id]['dodge'] = 1
 

@@ -885,7 +885,13 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
         if players[s2id].get('dodge'):
             if players[s2id]['dodge'] == 1:
                 dodgeValue = randint(0, players[s2id]['luc'])
-                mud.sendMessage(s2id, '<f32>You dodge<r>.\n')
+                dodgeDescription = \
+                    randomDescription('You dodge|' +
+                                      'You swerve to avoid being hit|' +
+                                      'You pivot|' +
+                                      'You duck')
+                mud.sendMessage(s2id,
+                                '<f32>' + dodgeDescription + '<r>.\n')
                 mud.sendMessage(
                     s1id, '<f32>' + players[s2id]['name'] +
                     '<r> tries to dodge.\n')
@@ -1214,7 +1220,13 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     if players[s2id].get('dodge'):
         if players[s2id]['dodge'] == 1:
             dodgeValue = randint(0, players[s2id]['luc'])
-            mud.sendMessage(s2id, '<f32>You dodge<r>.\n')
+            dodgeDescription = \
+                randomDescription('You dodge|' +
+                                  'You swerve to avoid being hit|' +
+                                  'You pivot|' +
+                                  'You duck')
+            mud.sendMessage(s2id,
+                            '<f32>' + dodgeDescription + '<r>.\n')
             players[s2id]['dodge'] = 0
 
     # Do the damage to PC here
