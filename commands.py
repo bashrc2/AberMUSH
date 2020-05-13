@@ -39,6 +39,7 @@ from traps import escapeFromTrap
 from combat import isAttacking
 from combat import getAttackingTarget
 from combat import playerBeginsAttack
+from combat import isPlayerFighting
 from chess import showChessBoard
 from chess import initialChessBoard
 from chess import moveChessPiece
@@ -74,6 +75,40 @@ dec = decimal.Decimal
 
 # maximum weight of items which can be carried
 maxWeight = 100
+
+
+def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
+    if players[id]['frozenStart'] != 0:
+        mud.sendMessage(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '\n\n')
+        return
+
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if not isPlayerFighting(id, players, fights):
+        mud.sendMessage(
+            id, randomDescription(
+                "You try dodging, but then realize that you're not actually " +
+                "fighting|You practice dodging an imaginary attacker") +
+            '\n\n')
+        return
+
+    if players[id]['canGo'] != 1:
+        mud.sendMessage(
+            id, randomDescription(
+                "You try to dodge, but don't seem to be able to move") +
+            '\n\n')
+        return
+
+    players[id]['dodge'] = 1
 
 
 def removeItemFromClothing(players: {}, id: int, itemID: int) -> None:
@@ -329,6 +364,7 @@ def freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                                 if fights[fight]['s1id'] == p or \
                                    fights[fight]['s2id'] == p:
                                     del fights[fight]
+                                    players[p]['isInCombat'] = 0
                             players[p]['canGo'] = 0
                             players[p]['canAttack'] = 0
                             mud.sendMessage(
@@ -355,6 +391,7 @@ def freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                                 if fights[fight]['s1id'] == p or \
                                    fights[fight]['s2id'] == p:
                                     del fights[fight]
+                                    npcs[p]['isInCombat'] = 0
 
                             npcs[p]['canGo'] = 0
                             npcs[p]['canAttack'] = 0
@@ -944,6 +981,9 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(id,
                     '  step over tripwire [exit]               - ' +
                     'Step over a tripwire in the given direction')
+    mud.sendMessage(id,
+                    '  dodge                                   - ' +
+                    'Dodge an attacker on the next combat round')
     mud.sendMessage(id, '\n\n')
 
 
@@ -5778,7 +5818,8 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "swap": swapACard,
         "shuffle": shuffle,
         "call": callCardGame,
-        "morris": morrisGame
+        "morris": morrisGame,
+        "dodge": dodge
     }
 
     try:

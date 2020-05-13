@@ -44,7 +44,8 @@ def removeCorpses(corpses: {}):
             del corpses[c]
 
 
-def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
+def runDeaths(mud, players: {}, npcs: {}, corpses, fights: {},
+              eventSchedule, scriptedEventsDB):
     # Handle Player Deaths
     for (pid, pl) in list(players.items()):
         if players[pid]['authenticated']:
@@ -67,8 +68,24 @@ def runDeaths(mud, players, corpses, fights, eventSchedule, scriptedEventsDB):
                 players[pid]['room'] = '$rid=1262$'
                 fightsCopy = deepcopy(fights)
                 for (fight, pl) in fightsCopy.items():
-                    if fightsCopy[fight]['s1id'] == pid or \
-                       fightsCopy[fight]['s2id'] == pid:
+                    if ((fightsCopy[fight]['s1type'] == 'pc' and
+                         fightsCopy[fight]['s1id'] == pid) or
+                        (fightsCopy[fight]['s2type'] == 'pc' and
+                         fightsCopy[fight]['s2id'] == pid)):
+                        # clear the combat flag
+                        if fightsCopy[fight]['s1type'] == 'pc':
+                            fid = fightsCopy[fight]['s1id']
+                            players[fid]['isInCombat'] = 0
+                        elif fightsCopy[fight]['s1type'] == 'npc':
+                            fid = fightsCopy[fight]['s1id']
+                            npcs[fid]['isInCombat'] = 0
+                        if fightsCopy[fight]['s2type'] == 'pc':
+                            fid = fightsCopy[fight]['s2id']
+                            players[fid]['isInCombat'] = 0
+                        elif fightsCopy[fight]['s2type'] == 'npc':
+                            fid = fightsCopy[fight]['s2id']
+                            npcs[fid]['isInCombat'] = 0
+                        players[pid]['isInCombat'] = 0
                         del fights[fight]
                 for (pid2, pl) in list(players.items()):
                     if players[pid2]['authenticated'] is not None \

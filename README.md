@@ -82,6 +82,7 @@ pull [item]                             - Pulls a lever
 affinity [player name]                  - Shows your affinity level with another player
 cut/escape                              - Attempt to escape from a trap
 step over tripwire [exit]               - Step over a tripwire in the given direction
+dodge                                   - Dodge an attacker on the next combat round
 ```
 
 ## Chess Commands

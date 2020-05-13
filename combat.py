@@ -837,14 +837,24 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
     terrainDifficulty = \
         rooms[players[s1id]['room']]['terrainDifficulty'] * \
         10 / maxTerrainDifficulty
-
+        
     # Agility of player
     if int(time.time()) < \
        players[s1id]['lastCombatAction'] + \
-       10 - players[s1id]['agi'] - \
+       10 - players[s1id]['agi'] - dodgeValue - \
        armorAgility(s1id, players, itemsDB) + \
        terrainDifficulty + temperatureDifficulty + weightDifficulty:
         return
+
+    # if the player is dodging then miss a turn
+    if players[s1id].get('dodge'):
+        if players[s1id]['dodge'] == 1:
+            players[s1id]['dodge'] = 0
+            mud.sendMessage(s1id, '<f32>You dodge.\n')
+            mud.sendMessage(
+                s2id, '<f32>' + players[s1id]['name'] +
+                '<r> tries to dodge.\n')
+            return
 
     if players[s2id]['isAttackable'] == 1:
         players[s1id]['isInCombat'] = 1
@@ -873,13 +883,22 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
+        # A dodge value used to adjust agility of the player being attacked
+        dodgeValue = 0
+        if players[s2id].get('dodge'):
+            if players[s2id]['dodge'] == 1:
+                # TODO this could be adjusted depending on the agility of the
+                # player being attacked
+                dodgeValue = 3
+
         # Do damage to the PC here
         if attackRoll(
             players[s1id]['luc'] +
             weaponProficiency(
                 s1id, players,
                 weaponType,
-                characterClassDB)):
+                characterClassDB) -
+            dodgeValue):
             damageValue, armorClass, damageDescription = \
                 calculateDamage(weaponDamage(s1id, players, itemsDB,
                                              weaponType, characterClassDB),
@@ -976,6 +995,8 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             if fightsCopy[fight]['s1id'] == s1id and \
                fightsCopy[fight]['s2id'] == s2id:
                 del fights[fight]
+                players[s1id]['isInCombat'] = 0
+                players[s2id]['isInCombat'] = 0
 
 
 def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
@@ -1114,6 +1135,8 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
             if fightsCopy[fight]['s1id'] == s1id and \
                fightsCopy[fight]['s2id'] == s2id:
                 del fights[fight]
+                players[s1id]['isInCombat'] = 0
+                npcs[s2id]['isInCombat'] = 0
 
 
 def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
@@ -1223,7 +1246,20 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
-def runFights(mud, players: {}, npcs: {}, fights, items: {}, itemsDB: {},
+def isPlayerFighting(id, players: {}, fights: {}) -> bool:
+    """Returns true if the player is fighting
+    """
+    for (fid, pl) in list(fights.items()):
+        if fights[fid]['s1type'] == 'pc':
+            if fights[fid]['s1'] == players[id]['name']:
+                return True
+        if fights[fid]['s2type'] == 'pc':
+            if fights[fid]['s2'] == players[id]['name']:
+                return True
+    return False
+
+
+def runFights(mud, players: {}, npcs: {}, fights: {}, items: {}, itemsDB: {},
               rooms: {}, maxTerrainDifficulty, mapArea: [], clouds: {},
               racesDB: {}, characterClassDB: {}, guilds: {}):
     """Handles fights

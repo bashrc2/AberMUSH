@@ -470,7 +470,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                   fights[fid]['s1type'] == 'npc' and
                   fights[fid]['retaliated'] == 0):
                 # print('npc is attacking npc')
-                # BETA: set las combat action to now when attacking a player
+                # BETA: set last combat action to now when attacking a player
                 npcs[fights[fid]['s2id']]['lastCombatAction'] = \
                     int(time.time())
                 fights[fid]['retaliated'] = 1
@@ -506,8 +506,23 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                     players[pl]['familiar'] -= 1
             fightsCopy = deepcopy(fights)
             for (fight, pl) in fightsCopy.items():
-                if fightsCopy[fight]['s1id'] == nid or \
-                   fightsCopy[fight]['s2id'] == nid:
+                if ((fightsCopy[fight]['s1type'] == 'npc' and
+                     fightsCopy[fight]['s1id'] == nid) or
+                    (fightsCopy[fight]['s2type'] == 'npc' and
+                     fightsCopy[fight]['s2id'] == nid)):
+                    # clear the combat flag
+                    if fightsCopy[fight]['s1type'] == 'pc':
+                        fid = fightsCopy[fight]['s1id']
+                        players[fid]['isInCombat'] = 0
+                    elif fightsCopy[fight]['s1type'] == 'npc':
+                        fid = fightsCopy[fight]['s1id']
+                        npcs[fid]['isInCombat'] = 0
+                    if fightsCopy[fight]['s2type'] == 'pc':
+                        fid = fightsCopy[fight]['s2id']
+                        players[fid]['isInCombat'] = 0
+                    elif fightsCopy[fight]['s2type'] == 'npc':
+                        fid = fightsCopy[fight]['s2id']
+                        npcs[fid]['isInCombat'] = 0
                     del fights[fight]
                     corpseName = str(npcs[nid]['name'] + "'s corpse")
                     if not corpseExists(corpses,
