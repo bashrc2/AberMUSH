@@ -462,7 +462,7 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
     currTemp = terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
 
     # Adjust for rain
-    if getRainAtCoords([y, x], mapArea, clouds):
+    if getRainAtCoords([coords[0], coords[1]], mapArea, clouds):
         currTemp = currTemp * 0.8
 
     if clouds[x][y] < getCloudThreshold(currTemp):
