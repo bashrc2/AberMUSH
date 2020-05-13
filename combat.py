@@ -837,11 +837,11 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
     terrainDifficulty = \
         rooms[players[s1id]['room']]['terrainDifficulty'] * \
         10 / maxTerrainDifficulty
-        
+
     # Agility of player
     if int(time.time()) < \
        players[s1id]['lastCombatAction'] + \
-       10 - players[s1id]['agi'] - dodgeValue - \
+       10 - players[s1id]['agi'] - \
        armorAgility(s1id, players, itemsDB) + \
        terrainDifficulty + temperatureDifficulty + weightDifficulty:
         return
@@ -893,12 +893,11 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
         # Do damage to the PC here
         if attackRoll(
-            players[s1id]['luc'] +
+            players[s1id]['luc'] - dodgeValue +
             weaponProficiency(
                 s1id, players,
                 weaponType,
-                characterClassDB) -
-            dodgeValue):
+                characterClassDB)):
             damageValue, armorClass, damageDescription = \
                 calculateDamage(weaponDamage(s1id, players, itemsDB,
                                              weaponType, characterClassDB),
