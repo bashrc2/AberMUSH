@@ -108,17 +108,11 @@ def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
             '\n\n')
         return
 
-    if players[id]['dodge'] == 0:
-        mud.sendMessage(
-            id, randomDescription(
-                "You dodge") +
-            '\n\n')
-        players[id]['dodge'] = 1
-    else:
-        mud.sendMessage(
-            id, randomDescription(
-                "You're already set to dodge the next attack") +
-            '\n\n')
+    mud.sendMessage(
+        id, randomDescription(
+            "You dodge") +
+        '\n\n')
+    players[id]['dodge'] = 1
 
 
 def removeItemFromClothing(players: {}, id: int, itemID: int) -> None:
