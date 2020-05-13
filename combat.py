@@ -849,10 +849,6 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
     # if the player is dodging then miss a turn
     if players[s1id].get('dodge'):
         if players[s1id]['dodge'] == 1:
-            mud.sendMessage(s1id, '<f32>You dodge<r>.\n')
-            mud.sendMessage(
-                s2id, '<f32>' + players[s1id]['name'] +
-                '<r> tries to dodge.\n')
             return
 
     if players[s2id]['isAttackable'] == 1:
@@ -889,6 +885,10 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
         if players[s2id].get('dodge'):
             if players[s2id]['dodge'] == 1:
                 dodgeValue = randint(0, players[s2id]['luc'])
+                mud.sendMessage(s2id, '<f32>You dodge<r>.\n')
+                mud.sendMessage(
+                    s1id, '<f32>' + players[s2id]['name'] +
+                    '<r> tries to dodge.\n')
                 players[s2id]['dodge'] = 0
 
         # Do damage to the PC here
@@ -1041,7 +1041,6 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     # if the player is dodging then miss a turn
     if players[s1id].get('dodge'):
         if players[s1id]['dodge'] == 1:
-            mud.sendMessage(s1id, '<f32>You dodge<r>.\n')
             return
 
     if npcs[s2id]['isAttackable'] == 1:
@@ -1068,6 +1067,9 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         if npcs[s2id].get('dodge'):
             if npcs[s2id]['dodge'] == 1:
                 dodgeValue = randint(0, npcs[s2id]['luc'])
+                mud.sendMessage(
+                    s1id, '<f32>' + npcs[s2id]['name'] +
+                    '<r> tries to dodge.\n')
                 npcs[s2id]['dodge'] = 0
 
         # Do damage to the NPC here
@@ -1194,9 +1196,6 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     # if the npc is dodging then miss a turn
     if npcs[s1id].get('dodge'):
         if npcs[s1id]['dodge'] == 1:
-            mud.sendMessage(
-                s2id, '<f32>' + npcs[s1id]['name'] +
-                '<r> tries to dodge.\n')
             return
 
     npcs[s1id]['isInCombat'] = 1
@@ -1215,6 +1214,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     if players[s2id].get('dodge'):
         if players[s2id]['dodge'] == 1:
             dodgeValue = randint(0, players[s2id]['luc'])
+            mud.sendMessage(s2id, '<f32>You dodge<r>.\n')
             players[s2id]['dodge'] = 0
 
     # Do the damage to PC here
