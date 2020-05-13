@@ -1038,6 +1038,13 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
        temperatureDifficulty + weightDifficulty:
         return
 
+    # if the player is dodging then miss a turn
+    if players[s1id].get('dodge'):
+        if players[s1id]['dodge'] == 1:
+            players[s1id]['dodge'] = 0
+            mud.sendMessage(s1id, '<f32>You dodge<r>.\n')
+            return
+
     if npcs[s2id]['isAttackable'] == 1:
         players[s1id]['isInCombat'] = 1
         npcs[s2id]['isInCombat'] = 1
@@ -1055,9 +1062,17 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
+        # A dodge value used to adjust agility of the player being attacked
+        # This is proportional to their luck, which can be modified by
+        # various items
+        dodgeValue = 0
+        if npcs[s2id].get('dodge'):
+            if npcs[s2id]['dodge'] == 1:
+                dodgeValue = randint(0, npcs[s2id]['luc'])
+
         # Do damage to the NPC here
         if attackRoll(
-            players[s1id]['luc'] +
+            players[s1id]['luc'] - dodgeValue +
             weaponProficiency(
                 s1id, players,
                 weaponType,
@@ -1176,6 +1191,15 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
        temperatureDifficulty + weightDifficulty:
         return
 
+    # if the npc is dodging then miss a turn
+    if npcs[s1id].get('dodge'):
+        if npcs[s1id]['dodge'] == 1:
+            npcs[s1id]['dodge'] = 0
+            mud.sendMessage(
+                s2id, '<f32>' + npcs[s1id]['name'] +
+                '<r> tries to dodge.\n')
+            return
+
     npcs[s1id]['isInCombat'] = 1
     players[s2id]['isInCombat'] = 1
 
@@ -1185,8 +1209,16 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
 
     weaponID, weaponType, roundsOfFire = getWeaponHeld(s1id, npcs, itemsDB)
 
+    # A dodge value used to adjust agility of the player being attacked
+    # This is proportional to their luck, which can be modified by
+    # various items
+    dodgeValue = 0
+    if players[s2id].get('dodge'):
+        if players[s2id]['dodge'] == 1:
+            dodgeValue = randint(0, players[s2id]['luc'])
+
     # Do the damage to PC here
-    if attackRoll(npcs[s1id]['luc'] +
+    if attackRoll(npcs[s1id]['luc'] - dodgeValue +
                   weaponProficiency(s1id, npcs, weaponType, characterClassDB)):
         damageValue, armorClass, damageDescription = \
             calculateDamage(weaponDamage(s1id, npcs, itemsDB,
