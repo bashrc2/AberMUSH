@@ -7319,7 +7319,7 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-	    [["a","e","i","u"],"# The hound looks at you curiously|# The hound pricks up its ears"]
+	    [["a","e","i","u"],"# looks at you curiously|# pricks up its ears"]
 	],
         "path" : ["$rid=1305$"],
         "bodyType": "",
