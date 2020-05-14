@@ -7330,9 +7330,9 @@
             [["hide","hidden"],"slinks off into the shadows","familiar","hide"],
             [["tell","say","describe","see","sight"],"locates a vantage point with a clear line of sight|uses its keen sense of sight","familiar","see"],
             [["help"],"looks disinterested"],
-            [["you"],"looks disinterested|pricks up its ears"],
-            [["magic","spell"],"doesn't respond"],
-            [["say","speak"],"howls|yaps|growls"]
+            [["you"],"looks disinterested|pricks up its ears|rolls its head to one side"],
+            [["magic","spell"],"hold out one paw in mid air"],
+            [["say","speak"],"howls|yaps|growls|barks"]
 	],
         "path" : ["$rid=1305$"],
         "bodyType": "",

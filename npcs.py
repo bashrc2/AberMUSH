@@ -960,7 +960,7 @@ def conversationFamiliarMode(
         else:
             mud.sendMessage(
                 id, "<f220>" + npcs[nid]['name'] +
-                "<r> looks " + puzzledStr+".\n\n")
+                "<r> looks " + puzzledStr + ".\n\n")
             return False
     return False
 
