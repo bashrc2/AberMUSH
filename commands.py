@@ -4002,10 +4002,11 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                             # is the player within the permitted npc path?
                             if rm['exits'][ex] in list(npcs[nid]['path']) or \
                                npcs[nid]['familiarOf'] == players[id]['name']:
-                                followerRoomID = rm['exits'][ex]
-                                if npcs[nid]['siz'] <= \
-                                   rooms[followerRoomID]['maxPlayerSize']:
-                                    npcs[nid]['room'] = followerRoomID
+                                follRoomID = rm['exits'][ex]                                
+                                if rooms[follRoomID]['maxPlayerSize'] < 0 or \
+                                   npcs[nid]['siz'] <= \
+                                   rooms[follRoomID]['maxPlayerSize']:
+                                    npcs[nid]['room'] = follRoomID
                                     np = npcs[nid]
                                     desc = \
                                         randomDescription(np['inDescription'])
