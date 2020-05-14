@@ -4804,7 +4804,7 @@
         "imp_feet" : "0"
     },
     "1104": {
-        "inDescription": "wanders in|slinks in|casually walks in and sits",
+        "inDescription": "wanders in|saunters in|slinks in|casually walks in and sits",
         "outDescription": "saunters out|wanders out|departs",
         "lookDescription": "The cat watches you with half open eyes|The cat glances at you, then looks away again|The cat is sitting with its paws tucked under its body",
         "name": "the black cat",
