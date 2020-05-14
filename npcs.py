@@ -928,7 +928,7 @@ def conversationFamiliarMode(
                 if mode in getFamiliarModes():
                     if mode == 'follow':
                         familiarDefaultMode(nid, npcs, npcsDB)
-                    if mode == 'hide':
+                    elif mode == 'hide':
                         familiarHide(nid, npcs, npcsDB)
                     mud.sendMessage(
                         id, "<f220>" + npcs[nid]['name'] +
@@ -937,7 +937,7 @@ def conversationFamiliarMode(
                         familiarScout(mud, players, id, nid,
                                       npcs, npcsDB, rooms,
                                       bestMatchActionParam1)
-                    if mode == 'see':
+                    elif mode == 'see':
                         familiarSight(mud, nid, npcs, npcsDB,
                                       rooms, players, id, items,
                                       itemsDB)
