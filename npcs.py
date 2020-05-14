@@ -500,8 +500,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
 
         # NPC moves to the next location
         now = int(time.time())
-        if not npcIsFamiliar and \
-           isInFight is False and \
+        if isInFight is False and \
            len(npcs[nid]['path']) > 0:
             moveNPCs(npcs, players, mud, now, nid)
 

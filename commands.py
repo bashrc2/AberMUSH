@@ -3994,9 +3994,9 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                 # Does the player have any follower NPCs or familiars?
                 followersMsg = ""
                 for (nid, pl) in list(npcs.items()):
-                    if (npcs[nid]['follow'] == players[id]['name'] or
-                        (npcs[nid]['familiarOf'] == players[id]['name'] and
-                         npcs[nid]['familiarMode'] == 'follow')):
+                    if ((npcs[nid]['follow'] == players[id]['name'] or
+                         npcs[nid]['familiarOf'] == players[id]['name']) and
+                        npcs[nid]['familiarMode'] == 'follow'):
                         # is the npc in the same room as the player?
                         if npcs[nid]['room'] == players[id]['room']:
                             # is the player within the permitted npc path?
