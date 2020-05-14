@@ -894,7 +894,8 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                                 '<f32>' + dodgeDescription + '<r>.\n')
                 mud.sendMessage(
                     s1id, '<f32>' + players[s2id]['name'] +
-                    '<r> tries to dodge.\n')
+                    '<r> tries to ' +
+                    dodgeDescription.replace('You ', '') + '.\n')
                 players[s2id]['dodge'] = 0
 
         # Do damage to the PC here
