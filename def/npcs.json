@@ -7319,7 +7319,20 @@
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
-	    [["a","e","i","u"],"# looks at you curiously|# pricks up its ears"]
+	    [["follow","me"],"moves close by your side","familiar","follow"],
+	    [["scout"],"bounds off","familiar","scout","any"],
+	    [["scout","north"],"bounds off","familiar","scout","north"],
+	    [["scout","south"],"bounds off","familiar","scout","south"],
+	    [["scout","east"],"bounds off","familiar","scout","east"],
+	    [["scout","west"],"bounds off","familiar","scout","west"],
+	    [["scout","up"],"bounds off","familiar","scout","up"],
+	    [["scout","down"],"bounds off","familiar","scout","down"],
+	    [["hide","hidden"],"slinks off into the shadows","familiar","hide"],
+	    [["tell","say","describe","see","sight"],"locates a vantage point with a clear line of sight|finds a perch from which to view the area|uses its sense of sight","familiar","see"],
+            [["help"],"looks disinterested"],
+            [["you"],"looks disinterested|pricks up its ears"],
+            [["magic","spell"],"doesn't respond"],
+            [["say","speak"],"howls|yaps|growls"]
 	],
         "path" : ["$rid=1305$"],
         "bodyType": "",

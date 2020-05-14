@@ -930,9 +930,9 @@ def conversationFamiliarMode(
                         familiarDefaultMode(nid, npcs, npcsDB)
                     elif mode == 'hide':
                         familiarHide(nid, npcs, npcsDB)
-                    mud.sendMessage(
-                        id, "<f220>" + npcs[nid]['name'] +
-                        "<r> " + bestMatch + ".\n\n")
+                        mud.sendMessage(
+                            id, "<f220>" + npcs[nid]['name'] +
+                            "<r> " + bestMatch + ".\n\n")
                     if mode == 'scout':
                         familiarScout(mud, players, id, nid,
                                       npcs, npcsDB, rooms,
