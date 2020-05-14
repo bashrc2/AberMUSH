@@ -457,6 +457,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
         for (fid, pl) in list(fights.items()):
             if fights[fid]['s2id'] == nid and \
                npcs[fights[fid]['s2id']]['isInCombat'] == 1 and \
+               fights[fid]['s2type'] == 'npc' and \
                fights[fid]['s1type'] == 'pc' and \
                fights[fid]['retaliated'] == 0:
                 # print('player is attacking npc')
