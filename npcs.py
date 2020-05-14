@@ -398,13 +398,23 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
     """
 
     for (nid, pl) in list(npcs.items()):
-        npcActive = \
-            entityIsActive(nid, npcs, rooms,
-                           npcs[nid]['moveTimes'],
-                           mapArea, clouds)
-        removeInactiveEntity(nid, npcs, nid, npcs, npcActive)
-        if not npcActive:
-            continue
+        # is the NPC a familiar?
+        npcIsFamiliar = False
+        for (pid, pl) in list(players.items()):
+            if npcs[nid]['familiarOf'] == players[pid]['name']:
+                npcIsFamiliar = True
+                break
+        
+        if not npcIsFamiliar:
+            # is the NPC active according to moveTimes?
+            npcActive = \
+                entityIsActive(nid, npcs, rooms,
+                               npcs[nid]['moveTimes'],
+                               mapArea, clouds)
+            removeInactiveEntity(nid, npcs, nid, npcs, npcActive)
+            if not npcActive:
+                continue
+
         # Check if any player is in the same room, then send a random
         # message to them
         now = int(time.time())
@@ -928,7 +938,7 @@ def conversationFamiliarMode(
                 if mode in getFamiliarModes():
                     if mode == 'follow':
                         familiarDefaultMode(nid, npcs, npcsDB)
-                    elif mode == 'hide':
+                    if mode == 'hide':
                         familiarHide(nid, npcs, npcsDB)
                         mud.sendMessage(
                             id, "<f220>" + npcs[nid]['name'] +
@@ -937,7 +947,7 @@ def conversationFamiliarMode(
                         familiarScout(mud, players, id, nid,
                                       npcs, npcsDB, rooms,
                                       bestMatchActionParam1)
-                    elif mode == 'see':
+                    if mode == 'see':
                         familiarSight(mud, nid, npcs, npcsDB,
                                       rooms, players, id, items,
                                       itemsDB)
