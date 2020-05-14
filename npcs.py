@@ -400,11 +400,12 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
     for (nid, pl) in list(npcs.items()):
         # is the NPC a familiar?
         npcIsFamiliar = False
-        for (pid, pl) in list(players.items()):
-            if npcs[nid]['familiarOf'] == players[pid]['name']:
-                npcIsFamiliar = True
-                break
-        
+        if len(npcs[nid]['familiarOf']) > 0:
+            for (pid, pl) in list(players.items()):
+                if npcs[nid]['familiarOf'] == players[pid]['name']:
+                    npcIsFamiliar = True
+                    break
+
         if not npcIsFamiliar:
             # is the NPC active according to moveTimes?
             npcActive = \
