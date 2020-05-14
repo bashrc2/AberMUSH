@@ -4826,7 +4826,7 @@
             [["attack"],"Sits with their paws outstretched|Twitches their ears back"],
             [["you"],"Sits and licks one of their paws|Twitches their whiskers"],
             [["magic","spell"],"Sniffs at an object|Pricks up their ears"],
-            [["say","speak"],"Meows|Yawns|Growls"]
+            [["say","speak"],"Meows|Yawns|Growls","image:catalert"]
 	],
         "path" : [],
         "bodyType": "",
