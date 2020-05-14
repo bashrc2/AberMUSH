@@ -1536,6 +1536,8 @@ def npcAggression(npcs: {}, players: {}, fights: {}, mud,
     """Aggressive npcs start fights
     """
     for (nid, pl) in list(npcs.items()):
+        if not npcs[nid].get('isAggressive'):
+            continue
         if not npcs[nid]['isAggressive']:
             continue
         # dead npcs don't attack
