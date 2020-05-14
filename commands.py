@@ -3264,7 +3264,10 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
         wearingMsg = playerName + ' are wearing'
         wearingCtr2 = 0
         for cl in wearLocation:
-            if int(players[pid]['clo_'+cl]) > 0:
+            if not players[pid].get('clo_'+cl):
+                continue
+            clothingItemID = players[pid]['clo_'+cl]
+            if int(clothingItemID) > 0:
                 if wearingCtr2 > 0:
                     if wearingCtr2 == wearingCtr - 1:
                         wearingMsg = wearingMsg + ' and '
@@ -3273,8 +3276,8 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                 else:
                     wearingMsg = wearingMsg + ' '
                 wearingMsg = wearingMsg + \
-                    itemsDB[players[pid]['clo_'+cl]]['article'] + \
-                    ' ' + itemsDB[players[pid]['clo_'+cl]]['name']
+                    itemsDB[clothingItemID]['article'] + \
+                    ' ' + itemsDB[clothingItemID]['name']
                 if cl == 'neck':
                     wearingMsg = \
                         wearingMsg + ' around ' + playerName2 + ' neck'
@@ -4451,6 +4454,7 @@ def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "clo_rwrist": 0,
         "clo_lwrist": 0,
         "clo_chest": 0,
+        "clo_back": 0,
         "clo_lleg": 0,
         "clo_rleg": 0,
         "clo_feet": 0,
