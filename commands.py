@@ -4389,6 +4389,7 @@ def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
     newNPC = {
         "name": npcName,
         "whenDied": None,
+        "isAggressive": 0,
         "inv": [],
         "conv": npcConv,
         "room": players[id]['room'],
