@@ -7707,7 +7707,7 @@
         "imp_lleg" : "0",
         "imp_rleg" : "0",
         "imp_feet" : "0",
-        "inDescription": "circles and then lands on a tree|flies in and perches",
+        "inDescription": "circles and then lands|flies in and perches",
         "outDescription": "flies off|flaps noisily and is gone",
         "lookDescription": "The rook sits on a branch close to its nest, watching you"
     },
