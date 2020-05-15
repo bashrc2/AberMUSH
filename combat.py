@@ -501,6 +501,10 @@ def getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "headbutt",
                 "trample"
             ]
+        elif 'dragon' in animalType:
+            attackStrings = [
+                "breathe fire on"
+            ]
         else:
             attackStrings = [
                 "savage",
@@ -542,6 +546,10 @@ def getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             attackStrings = [
                 "headbutted",
                 "trampled"
+            ]
+        elif 'dragon' in animalType:
+            attackStrings = [
+                "breathed fire on"
             ]
         else:
             attackStrings = [
