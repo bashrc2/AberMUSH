@@ -3995,14 +3995,14 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                 followersMsg = ""
                 for (nid, pl) in list(npcs.items()):
                     if ((npcs[nid]['follow'] == players[id]['name'] or
-                         npcs[nid]['familiarOf'] == players[id]['name']) and
-                        npcs[nid]['familiarMode'] == 'follow'):
+                        npcs[nid]['familiarOf'] == players[id]['name']) and
+                       npcs[nid]['familiarMode'] == 'follow'):
                         # is the npc in the same room as the player?
                         if npcs[nid]['room'] == players[id]['room']:
                             # is the player within the permitted npc path?
                             if rm['exits'][ex] in list(npcs[nid]['path']) or \
                                npcs[nid]['familiarOf'] == players[id]['name']:
-                                follRoomID = rm['exits'][ex]                                
+                                follRoomID = rm['exits'][ex]
                                 if rooms[follRoomID]['maxPlayerSize'] < 0 or \
                                    npcs[nid]['siz'] <= \
                                    rooms[follRoomID]['maxPlayerSize']:

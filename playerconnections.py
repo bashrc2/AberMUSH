@@ -135,8 +135,8 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
         motdFile = open(str(Config.get('System', 'Motd')), "r")
         motdLines = motdFile.readlines()
         motdFile.close()
-        for l in motdLines:
-            lineStr = l[:-1]
+        for fileLine in motdLines:
+            lineStr = fileLine[:-1]
             if lineStr.strip().startswith('images/'):
                 motdImageFile = lineStr.strip()
                 if os.path.isfile(motdImageFile):

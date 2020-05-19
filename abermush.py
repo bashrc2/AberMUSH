@@ -378,9 +378,9 @@ for file in files:
     f = open(file, 'r')
     # print(file)
     lines = [line.rstrip() for line in f.readlines()[2:]]
-    for l in lines[1:]:
-        if len(l) > 0:
-            scriptedEventsDB.append([lines[0]] + l.split('|'))
+    for fileLine in lines[1:]:
+        if len(fileLine) > 0:
+            scriptedEventsDB.append([lines[0]] + fileLine.split('|'))
             # print(lines)
             f.close()
 
