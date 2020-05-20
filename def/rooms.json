@@ -8584,7 +8584,9 @@
         "name": "The Bucket",
         "description": "You are sitting in a large wooden bucket, suspended from a rope above",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are sitting in a large wooden bucket, suspended from a rope above. Rainwater runs down the walls surrounding you"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -8608,7 +8610,9 @@
         "name": "The Tangled Riverbank",
         "description": "You are fighting your way along the edge of thick and tangled bushes and trees. The thorny undergrowth pushes out towards the the river forcing you to clamber along the very edge of the bank.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are fighting your way along the edge of thick and tangled bushes and trees. The thorny undergrowth pushes out towards the the river forcing you to clamber along the muddy edge of the bank."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9427,7 +9431,9 @@
         "name": "The Narrow Path",
         "description": "You are following a narrow difficult path, which twists its way along a crack in the cliff, rising up from the forest to the top of the cliff high above. To the south a narrow slanting cavemouth leads into darkness.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are following a narrow slippery path, which twists its way along a crack in the cliff, rising up from the forest to the top of the cliff high above. To the south a narrow slanting cavemouth leads into darkness."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9517,7 +9523,9 @@
         "name": "The Eastern Side Of The Valley",
         "description": "You are standing amidst some trees on the eastern edge of the valley. The forest continues to the north, south and east, and across a shallow stream to the way west. The ground drops away to the east, leading down towards the ever twinkling sea.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain amidst some trees on the eastern edge of the valley. The forest continues to the north, south and east, and across a shallow stream to the way west. The ground drops away to the east, leading down towards the ever twinkling sea."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9754,7 +9762,9 @@
         "name": "Arched Entry",
         "description": "You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors lie in rotting pieces on the floor, and water drips down the moss covered stonework.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors lie in damp rotting pieces on the floor, and water drips down the moss covered stonework."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9862,7 +9872,9 @@
         "name": "The Path",
         "description": "You stand on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -9930,7 +9942,9 @@
         "name": "The Humpbacked Bridge",
         "description": "You are standing at the northern end of a small humpbacked bridge, a picturesque stone structure, coated in moss and creepers, which crosses the stream to the south of you. Paths seem to converge here from the north, west and east.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain at the northern end of a small humpbacked bridge, a picturesque stone structure, coated in moss and creepers, which crosses the stream to the south of you. Paths seem to converge here from the north, west and east."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -10330,7 +10344,9 @@
         "name": "The Grassy Ruins",
         "description": "You stand beside an ancient ruined wall. Thick carpets of grass and moss cover the wall, and the many fallen stones which lie at its base. At the corner where the wall turns from west to north, a large piece of the wall has fallen, possibly allowing you to climb up and through the gap.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand beside an ancient ruined wall. Thick carpets of wet grass and moss cover the wall, and the many fallen stones which lie at its base. At the corner where the wall turns from west to north, a large piece of the wall has fallen, possibly allowing you to climb up and through the gap."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
