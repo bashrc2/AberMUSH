@@ -2054,7 +2054,7 @@
             "east": "$rid=278$",
             "up": "$rid=274$"
         },
-        "name": "The Base Of The Stairs ",
+        "name": "The Base Of The Stairs",
         "description": "This room is small and roughly circular in area. The walls are stone. Archways lead to the north and east wings of the house. A spiral staircase twists up to the first floor.",
         "roomTeleport": "",
         "conditional": [],
@@ -7661,7 +7661,7 @@
             "south": "$rid=951$"
         },
         "name": "Dwarven Hall",
-        "description": "You are standing in a pillared dwarven hall, with a high arched roof. The carefully sculpted ceiling bears a picture of Snow White, at work rest and play. The last is by far the most interesting. Passages lead east and south ",
+        "description": "You are standing in a pillared dwarven hall, with a high arched roof. The carefully sculpted ceiling bears a picture of Snow White, at work rest and play. The last is by far the most interesting. Passages lead east and south",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -8561,7 +8561,7 @@
     },
     "$rid=1041$": {
         "name": "Hanging On A Rope",
-        "description": "You are hanging onto a length of rope ",
+        "description": "You are hanging onto a length of rope",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -8582,7 +8582,7 @@
     },
     "$rid=1042$": {
         "name": "The Bucket",
-        "description": "You are sitting in a large wooden bucket, suspended from a rope above, ",
+        "description": "You are sitting in a large wooden bucket, suspended from a rope above",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
