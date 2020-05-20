@@ -88,7 +88,7 @@
         "description": "Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter, and the twittering of birds rises from the hedgerows.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle to each other in the shelter, and gentle rain falls"]
+	    ["rain","yes","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle to each other in the shelter, and gentle rain falls"],
 	    ["hour","<8","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter"],
 	    ["hour",">20","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter"]
 	],
