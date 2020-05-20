@@ -88,8 +88,9 @@
         "description": "Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter, and the twittering of birds rises from the hedgerows.",
         "roomTeleport": "",
         "conditional": [
-	    ["hour","<8","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."],
-	    ["hour",">20","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter."]
+	    ["rain","yes","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle to each other in the shelter, and gentle rain falls"]
+	    ["hour","<8","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter"],
+	    ["hour",">20","Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -427,8 +428,9 @@
         "description": "The dormitory passage comes to an end here. A grating in the roof lets in light.",
         "roomTeleport": "",
         "conditional": [
-	    ["hour","<7","The dormitory passage comes to an end here. There is a large grating in the roof."],
-	    ["hour",">21","The dormitory passage comes to an end here. There is a large grating in the roof."]
+	    ["rain","yes","The dormitory passage comes to an end here. A grating in the roof lets in rain forming a damp area on the floor"]
+	    ["hour","<7","The dormitory passage comes to an end here. There is a large grating in the roof"],
+	    ["hour",">21","The dormitory passage comes to an end here. There is a large grating in the roof"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -549,7 +551,9 @@
         "name": "The Temple Courtyard",
         "description": "You stand in the central courtyard of the monastery. To the north is the temple where monks would pray and meditate, searching for enlightenment. On both sides of the courtyard are various buildings, while the entrance is to the south.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain in the central courtyard of the monastery. To the north is the temple where monks would pray and meditate, searching for enlightenment. On both sides of the courtyard are various buildings, while the entrance is to the south"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -568,9 +572,11 @@
     },
     "$rid=57$": {
         "name": "The Temple Steps",
-        "description": "You stand at half-way up the steps to the temple. From your position you can see the entrie monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather.",
+        "description": "You stand half-way up the steps to the temple. From your position you can see the entrie monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain half-way up the steps to the temple. From your position you can see the entrie monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -591,7 +597,7 @@
         "description": "As you round a corner you are confronted by a huge stone wall towering fifty, maybe sixty feet up above you. This massive buttressed stonework spans the width of the valley, from one sheer rocky wall to the other. A dusty path winds northwards away from the wall.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","As you round a corner you are confronted by a huge stone wall towering fifty, maybe sixty feet up above you. This massive buttressed stonework spans the width of the valley, from one sheer rocky wall to the other. A muddy path winds northwards away from the wall."]
+	    ["rain","yes","As you round a corner you are confronted by a huge stone wall towering fifty, maybe sixty feet up above you. This massive buttressed stonework spans the width of the valley, from one sheer rocky wall to the other. A muddy path winds northwards away from the wall"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -614,7 +620,7 @@
         "description": "You feet crunch over the gravel and rock. Small amounts of grass peek through the rubble providing relief to the endless swathe of grey crumbling stone. A faint dusty path winds away northwards towards a ruined cottage.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You feet crunch over the wet gravel and rock. Small amounts of grass peek through the rubble providing relief to the endless swathe of grey crumbling stone. A faint muddy path winds away northwards towards a ruined cottage."]
+	    ["rain","yes","You feet crunch over the wet gravel and rock. Small amounts of grass peek through the rubble providing relief to the endless swathe of grey crumbling stone. A faint muddy path winds away northwards towards a ruined cottage"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -701,7 +707,7 @@
         "description": "You stand in the remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the damp remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north."]
+	    ["rain","yes","You stand in the damp remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -725,7 +731,7 @@
         "description": "The wind swirls and howls eerily down the valley, eddying around the ruined cottages that litter the valley floor. Paths run both up and down the valley, through the desolation.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","The wind and rain swirls and howls eerily down the valley, eddying around the ruined cottages that litter the valley floor. Paths run both up and down the valley, through the desolation."]
+	    ["rain","yes","The wind and rain swirls and howls eerily down the valley, eddying around the ruined cottages that litter the valley floor. Paths run both up and down the valley, through the desolation"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -748,7 +754,7 @@
         "description": "You stand in a narrow hanging valley, about two hundred feet up above the mountain pass. A narrow path plunges steeply downwards, dropping preciptiously over the lip of the valley. Elsewhere a few vague trails scuff their way between the rocks and the thin clinging gorse.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in a narrow hanging valley, about two hundred feet up above the mountain pass. A narrow path plunges steeply downwards, dropping preciptiously over the lip of the valley. Elsewhere a few vague trails scuff their way between the slippery rocks and the thin clinging gorse."]
+	    ["rain","yes","You stand in a narrow hanging valley, about two hundred feet up above the mountain pass. A narrow path plunges steeply downwards, dropping preciptiously over the lip of the valley. Elsewhere a few vague trails scuff their way between the slippery rocks and the thin clinging gorse"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -792,7 +798,7 @@
         "description": "You stand precariously on a short rock ledge, high above a pebble beach. Behind you is a large window, leading to a dimly lit room.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand precariously in the rain on a short rock ledge, high above a pebble beach. Behind you is a large window, leading to a dimly lit room."]
+	    ["rain","yes","You stand precariously in the rain on a short rock ledge, high above a pebble beach. Behind you is a large window, leading to a dimly lit room"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -831,7 +837,7 @@
         "description": "You are clinging onto the top of the woodpile. The slightest slip and you'll be back at the bottom looking very silly. The temple roof slopes down to your west. Down below you the ground looks hard and considerably distant.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are clinging onto the top of the woodpile. The slightest slip and you'll be back at the bottom looking very silly. Drops of rain drip from the temple roof, which slopes down to your west. Down below you the ground looks hard and considerably distant."]
+	    ["rain","yes","You are clinging onto the top of the woodpile. The slightest slip and you'll be back at the bottom looking very silly. Drops of rain drip from the temple roof, which slopes down to your west. Down below you the ground looks hard and considerably distant"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -872,7 +878,7 @@
         "description": "You stand outside a large well built viking temple hall. The building is solid rather than beautiful, which is fortunate as a large woodpile rests against the east wall. A narrow path leads north through the trees and south up to a stout door.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the rain outside a large well built viking temple hall. The building is solid rather than beautiful, which is fortunate as a large woodpile rests against the east wall. A narrow path leads north through the trees and south up to a stout door."]
+	    ["rain","yes","You stand in the rain outside a large well built viking temple hall. The building is solid rather than beautiful, which is fortunate as a large woodpile rests against the east wall. A narrow path leads north through the trees and south up to a stout door"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -1340,7 +1346,9 @@
         "name": "Sloping Wasteland",
         "description": "You are trudging through the barren country just north of the city of Tranoch. Up ahead of you the slopes are coated in pines, standing in soldierlike ranks along the horizon.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are trudging in the rain through the barren country just north of the city of Tranoch. Up ahead of you the slopes are coated in pines, standing in soldierlike ranks along the horizon"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1388,7 +1396,7 @@
         "description": "The graveyard comes to a halt at a low stone wall. Bushes and ivy tangle across the wall, and on the far side reeds and a weeping willow jut out from an impentrable mass of soft soggy mud. A narrow weed covered path winds east between the gravestones.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","The graveyard comes to a halt at a low stone wall. Bushes and ivy tangle across the wall, and on the far side reeds and a weeping willow jut out from an impentrable mass of soft soggy mud. A narrow weed covered path with occasional puddles winds east between the gravestones."]
+	    ["rain","yes","The graveyard comes to a halt at a low stone wall. Bushes and ivy tangle across the wall, and on the far side reeds and a weeping willow jut out from an impentrable mass of soft soggy mud. A narrow weed covered path with occasional puddles winds east between the gravestones"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -1436,7 +1444,7 @@
         "description": "A huge tower juts out from the wall, guarding the corner of the city from on high. Up above you can catch the glint of steel on spears as the guard watches over the northern boundaries of civilisation. A narrow path runs west and south around the city walls. Elsewhere thick pines blanket the land.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","A huge tower juts out from the wall, guarding the corner of the city from on high. Up above through the rain you can catch the glint of steel on spears as the guard watches over the northern boundaries of civilisation. A narrow path runs west and south around the city walls. Elsewhere thick pines blanket the land."]
+	    ["rain","yes","A huge tower juts out from the wall, guarding the corner of the city from on high. Up above through the rain you can catch the glint of steel on spears as the guard watches over the northern boundaries of civilisation. A narrow path runs west and south around the city walls. Elsewhere thick pines blanket the land"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -1862,8 +1870,9 @@
         "description": "You are standing in a dimly-lit shed. All the garden tools were kept here.",
         "roomTeleport": "",
         "conditional": [
-	    ["hour","<8","You are standing in a darkened shed. All the garden tools were kept here."],
-	    ["hour",">20","You are standing in a dark shed. Garden tools are usually kept here."]
+	    ["rain","yes","You are standing in a dimly-lit shed. All the garden tools were kept here. Rain patters on the roof"],
+	    ["hour","<8","You are standing in a darkened shed. All the garden tools were kept here"],
+	    ["hour",">20","You are standing in a dark shed. Garden tools are usually kept here"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -2113,7 +2122,9 @@
         "name": "Front Grounds Of The House",
         "description": "You are standing on the approach to a small country house which has a squat tower rising from it. Although the lawn is now knee-high, with molehills decorating it, and the roof appears to be lacking several slates, the elegance of the original construction is still apparent. The two-winged house fills your vision to the south and west; there is a door set into the west wall. A beech hedge on the north side of the lawn is broken to allow passage through.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain on the approach to a small country house which has a squat tower rising from it. Although the lawn is now knee-high, with molehills decorating it, and the roof appears to be lacking several slates, the elegance of the original construction is still apparent. The two-winged house fills your vision to the south and west; there is a door set into the west wall. A beech hedge on the north side of the lawn is broken to allow passage through"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3009,7 +3020,7 @@
         "description": "You are walking the main street which runs north and south through Tranoch, linking the north and south gates. The road is cobbled, but pitted and worn from the heavy merchant caravans which often pass this way. A narrow street turns east off the main road, leading towards a market square.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are walking the main street which runs north and south through Tranoch, linking the north and south gates. The road is cobbled, but pitted with puddles worn from the heavy merchant caravans which often pass this way. A narrow street turns east off the main road, leading towards a market square."]
+	    ["rain","yes","You are walking the main street which runs north and south through Tranoch, linking the north and south gates. The road is cobbled, but pitted with puddles worn from the heavy merchant caravans which often pass this way. A narrow street turns east off the main road, leading towards a market square"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3033,7 +3044,7 @@
         "description": "You are standing at the southern gate of the City Of Tranoch. Ahead of you a narrow well built road runs out of the city and south through the fields which surround it. The road leads north into the city.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are standing in the rain at the southern gate of the City Of Tranoch. Ahead of you a narrow well built road runs out of the city and south through the fields which surround it. The road leads north into the city."]
+	    ["rain","yes","You are standing in the rain at the southern gate of the City Of Tranoch. Ahead of you a narrow well built road runs out of the city and south through the fields which surround it. The road leads north into the city"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3056,7 +3067,7 @@
         "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west."]
+	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3105,7 +3116,7 @@
         "description": "You are walking down a dark and gloomy passage that threads its way north and south between two rows of tall overhanging oak beam buildings. A single crude gutter runs down the centre of the street, intended to carry away the dirt and sludge, it merely seems to collect it up. A cleaner looking street branches off eastwards between two buildings.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are walking down a dark and gloomy passage that threads its way north and south between two rows of tall overhanging oak beam buildings. A single crude gutter runs with a trickle of dirty rain water down the centre of the street. A cleaner looking street branches off eastwards between two buildings."]
+	    ["rain","yes","You are walking down a dark and gloomy passage that threads its way north and south between two rows of tall overhanging oak beam buildings. A single crude gutter runs with a trickle of dirty rain water down the centre of the street. A cleaner looking street branches off eastwards between two buildings"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3129,7 +3140,7 @@
         "description": "You are following a narrow street which turns westwards into a rather smelly courtyard, and also runs south along the line of the city wall.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are following a narrow street which is somewhat sheltered from the rain by houses on either side. It turns westwards into a rather smelly courtyard, and also runs south along the line of the city wall."]
+	    ["rain","yes","You are following a narrow street which is somewhat sheltered from the rain by houses on either side. It turns westwards into a rather smelly courtyard, and also runs south along the line of the city wall"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3270,7 +3281,7 @@
         "description": "You are standing in the shadows on one side of a broad and smelly yard. The ground is covered in horse dung, and as people cross it clouds of flies buzz up angrily around them. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow gloomy alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are standing in the shadows on one side of a broad and smelly yard. The ground is covered in horse dung, washed into stinky puddles by the rain. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow gloomy alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar."],
+	    ["rain","yes","You are standing in the shadows on one side of a broad and smelly yard. The ground is covered in horse dung, washed into stinky puddles by the rain. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow gloomy alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar"],
 	    ["hour","<5","You are standing in the darkness on one side of a broad and smelly yard. The ground is covered in horse dung. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"],
 	    ["hour","<8","You are standing in the dim light of dawn on one side of a broad and smelly yard. The ground is covered in horse dung. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"],
 	    ["hour",">20","You are standing in the darkness on one side of a broad and smelly yard. The ground is covered in horse dung. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"]
@@ -3297,7 +3308,7 @@
         "description": "You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy, and everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you. The alley follows the wall both east, and west opening up at either end.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy and rain runs down the walls and into dank guttering. Everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you. The alley follows the wall both east, and west opening up at either end."]
+	    ["rain","yes","You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy and rain runs down the walls and into dank guttering. Everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you. The alley follows the wall both east, and west opening up at either end"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3320,7 +3331,7 @@
         "description": "You stand just inside the north gate of the city of Tranoch, gateway to the western seas, the den of pirates, smugglers, merchants and the occasional honest man. A narrow lane leads south into a tangle of buildings. To your north a narrow archway pierces the city wall and leads outside into the wide world beyond. A tempting dark alleyway runs east along the side of the city walls.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You shelter from the rain just inside the north gate of the city of Tranoch, gateway to the western seas, the den of pirates, smugglers, merchants and the occasional honest man. A narrow lane leads south into a tangle of buildings. To your north a narrow archway pierces the city wall and leads outside into the wide world beyond. A tempting dark alleyway runs east along the side of the city walls."]
+	    ["rain","yes","You shelter from the rain just inside the north gate of the city of Tranoch, gateway to the western seas, the den of pirates, smugglers, merchants and the occasional honest man. A narrow lane leads south into a tangle of buildings. To your north a narrow archway pierces the city wall and leads outside into the wide world beyond. A tempting dark alleyway runs east along the side of the city walls"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3364,7 +3375,7 @@
         "description": "The narrow street comes to a small, stout looking gatehouse. A narrow cobbled lane runs east through the gate out into the wide world beyond.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","The narrow street comes to a small, stout looking gatehouse. A narrow and slippery cobbled lane runs east through the gate out into the wide world beyond."]
+	    ["rain","yes","The narrow street comes to a small, stout looking gatehouse. A narrow and slippery cobbled lane runs east through the gate out into the wide world beyond"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -5089,7 +5100,9 @@
         "name": "Mountain Road",
         "description": "You stand at the western end of the mountain road. As the road dips eastwards and downwards the grey rocky slopes give way to first thin and then thick forest. To the east the road winds rapidly out of view as it twists and climbs the mountainsides.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain at the western end of the mountain road. As the road dips eastwards and downwards the grey rocky slopes give way to first thin and then thick forest. To the east the road winds rapidly out of view as it twists and climbs the mountainsides"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5131,7 +5144,9 @@
         "name": "The Mountain Road",
         "description": "The track turns sharply around, winding its way east-west across the mountains. Dreary mountain peaks rise around you, and the air is chill and damp. There is little vegetation to break the monotony of the landscape, the odd stunted and bent conifer, fighting for survival, and a few mosses and low bushes here and there. A narrow path fights its way southwards up through the bushes.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","The track turns sharply around, winding its way east-west across the mountains. Dreary mountain peaks rise around you, and the air is chill and damp from rain. There is little vegetation to break the monotony of the landscape, the odd stunted and bent conifer, fighting for survival, and a few mosses and low bushes here and there. A narrow path fights its way southwards up through the bushes"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5158,7 +5173,9 @@
         "name": "The Foot Of The Central Mountains",
         "description": "You stand at the foot of a high and steeply rising mountain range. The tall gloomy mountains rise up steeply to the north and east, their gloomy cloud shrouded heads rising high into the skies. A well worn path picks its way east and west through the foothills.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain at the foot of a high and steeply rising mountain range. The tall gloomy mountains rise up steeply to the north and east, their gloomy cloud shrouded heads rising high into the skies. A well worn path picks its way east and west through the foothills"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5380,7 +5397,9 @@
         "name": "Narrow Lane",
         "description": "A narrow lane leads down from the centre of the village towards the village temple. A wide archway leads into large wooden temple hall.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","A narrow lane leads down from the centre of the village towards the village temple. A wide archway leads into large wooden temple hall. It's raining"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5900,7 +5919,9 @@
         "name": "The west end of the rock",
         "description": "You are standing at the top of a cliff which forms the western edge of the island rock, with no obvious way down to the beach below. The grass extends right to the edge of the cliff.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain at the top of a cliff which forms the western edge of the island rock, with no obvious way down to the beach below. The grass extends right to the edge of the cliff"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5920,9 +5941,11 @@
     },
     "$rid=772$": {
         "name": "The south end of the rock",
-        "description": "You are standing among a pile of crumbling ruins, which were once a  magnificent castle. Some of the stones have a strange inscription carved into them, while others have been blackened by fire. A small tower with a short flagpole has survived the ravages of time, but there seems to be no way to climb up to it.",
+        "description": "You are standing among a pile of crumbling ruins, which were once a magnificent castle. Some of the stones have a strange inscription carved into them, while others have been blackened by fire. A small tower with a short flagpole has survived the ravages of time, but there seems to be no way to climb up to it.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain among a pile of crumbling ruins, which were once a magnificent castle. Some of the stones have a strange inscription carved into them, while others have been blackened by fire. A small tower with a short flagpole has survived the ravages of time, but there seems to be no way to climb up to it"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -8611,7 +8634,7 @@
         "description": "You are fighting your way along the edge of thick and tangled bushes and trees. The thorny undergrowth pushes out towards the the river forcing you to clamber along the very edge of the bank.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are fighting your way along the edge of thick and tangled bushes and trees. The thorny undergrowth pushes out towards the the river forcing you to clamber along the muddy edge of the bank."]
+	    ["rain","yes","You are fighting your way along the edge of thick and tangled bushes and trees. The thorny undergrowth pushes out towards the the river forcing you to clamber along the muddy edge of the bank"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -9432,7 +9455,7 @@
         "description": "You are following a narrow difficult path, which twists its way along a crack in the cliff, rising up from the forest to the top of the cliff high above. To the south a narrow slanting cavemouth leads into darkness.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are following a narrow slippery path, which twists its way along a crack in the cliff, rising up from the forest to the top of the cliff high above. To the south a narrow slanting cavemouth leads into darkness."]
+	    ["rain","yes","You are following a narrow slippery path, which twists its way along a crack in the cliff, rising up from the forest to the top of the cliff high above. To the south a narrow slanting cavemouth leads into darkness"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -9524,7 +9547,7 @@
         "description": "You are standing amidst some trees on the eastern edge of the valley. The forest continues to the north, south and east, and across a shallow stream to the way west. The ground drops away to the east, leading down towards the ever twinkling sea.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are standing in the rain amidst some trees on the eastern edge of the valley. The forest continues to the north, south and east, and across a shallow stream to the way west. The ground drops away to the east, leading down towards the ever twinkling sea."]
+	    ["rain","yes","You are standing in the rain amidst some trees on the eastern edge of the valley. The forest continues to the north, south and east, and across a shallow stream to the way west. The ground drops away to the east, leading down towards the ever twinkling sea"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -9763,7 +9786,7 @@
         "description": "You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors lie in rotting pieces on the floor, and water drips down the moss covered stonework.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors lie in damp rotting pieces on the floor, and water drips down the moss covered stonework."]
+	    ["rain","yes","You stand in what must have once been a magnificent arched entrance, with huge oak doors, and a carved doorway fit for a palace. Now however the doors lie in damp rotting pieces on the floor, and water drips down the moss covered stonework"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -9873,7 +9896,7 @@
         "description": "You stand on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the rain on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley."]
+	    ["rain","yes","You stand in the rain on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -9943,7 +9966,7 @@
         "description": "You are standing at the northern end of a small humpbacked bridge, a picturesque stone structure, coated in moss and creepers, which crosses the stream to the south of you. Paths seem to converge here from the north, west and east.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are standing in the rain at the northern end of a small humpbacked bridge, a picturesque stone structure, coated in moss and creepers, which crosses the stream to the south of you. Paths seem to converge here from the north, west and east."]
+	    ["rain","yes","You are standing in the rain at the northern end of a small humpbacked bridge, a picturesque stone structure, coated in moss and creepers, which crosses the stream to the south of you. Paths seem to converge here from the north, west and east"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -10345,7 +10368,7 @@
         "description": "You stand beside an ancient ruined wall. Thick carpets of grass and moss cover the wall, and the many fallen stones which lie at its base. At the corner where the wall turns from west to north, a large piece of the wall has fallen, possibly allowing you to climb up and through the gap.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand beside an ancient ruined wall. Thick carpets of wet grass and moss cover the wall, and the many fallen stones which lie at its base. At the corner where the wall turns from west to north, a large piece of the wall has fallen, possibly allowing you to climb up and through the gap."]
+	    ["rain","yes","You stand beside an ancient ruined wall. Thick carpets of wet grass and moss cover the wall, and the many fallen stones which lie at its base. At the corner where the wall turns from west to north, a large piece of the wall has fallen, possibly allowing you to climb up and through the gap"]
 	],
         "trap": {},
         "eventOnEnter": "",
