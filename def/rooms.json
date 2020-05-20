@@ -590,7 +590,9 @@
         "name": "Mighty Wall",
         "description": "As you round a corner you are confronted by a huge stone wall towering fifty, maybe sixty feet up above you. This massive buttressed stonework spans the width of the valley, from one sheer rocky wall to the other. A dusty path winds northwards away from the wall.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","As you round a corner you are confronted by a huge stone wall towering fifty, maybe sixty feet up above you. This massive buttressed stonework spans the width of the valley, from one sheer rocky wall to the other. A muddy path winds northwards away from the wall."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -611,7 +613,9 @@
         "name": "Desolate Path",
         "description": "You feet crunch over the gravel and rock. Small amounts of grass peek through the rubble providing relief to the endless swathe of grey crumbling stone. A faint dusty path winds away northwards towards a ruined cottage.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You feet crunch over the wet gravel and rock. Small amounts of grass peek through the rubble providing relief to the endless swathe of grey crumbling stone. A faint muddy path winds away northwards towards a ruined cottage."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -696,7 +700,9 @@
         "name": "Remains Of The Cottage",
         "description": "You stand in the remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the damp remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -718,7 +724,9 @@
         "name": "Weatherworn Ruins",
         "description": "The wind swirls and howls eerily down the valley, eddying around the ruined cottages that litter the valley floor. Paths run both up and down the valley, through the desolation.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","The wind and rain swirls and howls eerily down the valley, eddying around the ruined cottages that litter the valley floor. Paths run both up and down the valley, through the desolation."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -739,7 +747,9 @@
         "name": "Hanging Valley",
         "description": "You stand in a narrow hanging valley, about two hundred feet up above the mountain pass. A narrow path plunges steeply downwards, dropping preciptiously over the lip of the valley. Elsewhere a few vague trails scuff their way between the rocks and the thin clinging gorse.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in a narrow hanging valley, about two hundred feet up above the mountain pass. A narrow path plunges steeply downwards, dropping preciptiously over the lip of the valley. Elsewhere a few vague trails scuff their way between the slippery rocks and the thin clinging gorse."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -781,7 +791,9 @@
         "name": "The rock ledge",
         "description": "You stand precariously on a short rock ledge, high above a pebble beach. Behind you is a large window, leading to a dimly lit room.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand precariously in the rain on a short rock ledge, high above a pebble beach. Behind you is a large window, leading to a dimly lit room."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -818,13 +830,15 @@
         "name": "Top Of The Woodpile",
         "description": "You are clinging onto the top of the woodpile. The slightest slip and you'll be back at the bottom looking very silly. The temple roof slopes down to your west. Down below you the ground looks hard and considerably distant.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are clinging onto the top of the woodpile. The slightest slip and you'll be back at the bottom looking very silly. Drops of rain drip from the temple roof, which slopes down to your west. Down below you the ground looks hard and considerably distant."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "tideOutDescription" : "",
         "region": "",
@@ -857,7 +871,9 @@
         "name": "Outside Temple",
         "description": "You stand outside a large well built viking temple hall. The building is solid rather than beautiful, which is fortunate as a large woodpile rests against the east wall. A narrow path leads north through the trees and south up to a stout door.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain outside a large well built viking temple hall. The building is solid rather than beautiful, which is fortunate as a large woodpile rests against the east wall. A narrow path leads north through the trees and south up to a stout door."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1371,7 +1387,9 @@
         "name": "Gloomy Graveyard",
         "description": "The graveyard comes to a halt at a low stone wall. Bushes and ivy tangle across the wall, and on the far side reeds and a weeping willow jut out from an impentrable mass of soft soggy mud. A narrow weed covered path winds east between the gravestones.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","The graveyard comes to a halt at a low stone wall. Bushes and ivy tangle across the wall, and on the far side reeds and a weeping willow jut out from an impentrable mass of soft soggy mud. A narrow weed covered path with occasional puddles winds east between the gravestones."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1417,7 +1435,9 @@
         "name": "Mighty Tower",
         "description": "A huge tower juts out from the wall, guarding the corner of the city from on high. Up above you can catch the glint of steel on spears as the guard watches over the northern boundaries of civilisation. A narrow path runs west and south around the city walls. Elsewhere thick pines blanket the land.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","A huge tower juts out from the wall, guarding the corner of the city from on high. Up above through the rain you can catch the glint of steel on spears as the guard watches over the northern boundaries of civilisation. A narrow path runs west and south around the city walls. Elsewhere thick pines blanket the land."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -1909,7 +1929,7 @@
         "exits": {
             "down": "$rid=274$"
         },
-        "name": "The Top Of The Tower ",
+        "name": "The Top Of The Tower",
         "description": "You are standing at the top of the small tower. The parapet is a little low, but you can see in all directions over it. To the north is the town of Tranoch. The sea rolls endlessly to the west. Your view south is limited by the woodland, but moorland can be glimpsed beyond it. To the east, the mountains rear.",
         "roomTeleport": "",
         "conditional": [],
