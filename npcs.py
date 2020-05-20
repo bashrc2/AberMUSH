@@ -74,6 +74,10 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType) -> str:
     return ''
 
 
+def getSolar() -> None:
+    return Sun(52.414, 4.081)
+
+
 def entityIsActive(id, players: {}, rooms: {},
                    moveTimes: [], mapArea: [], clouds: {}) -> bool:
     if len(moveTimes) == 0:
@@ -144,7 +148,7 @@ def entityIsActive(id, players: {}, rooms: {},
            timeRangeType == 'dawn':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = Sun(52.414, 4.081)
+            sun = getSolar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
@@ -160,7 +164,7 @@ def entityIsActive(id, players: {}, rooms: {},
            timeRangeType == 'dusk':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = Sun(52.414, 4.081)
+            sun = getSolar()
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
@@ -184,7 +188,7 @@ def entityIsActive(id, players: {}, rooms: {},
         if timeRangeType == 'rainday':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = Sun(52.414, 4.081)
+            sun = getSolar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if currHour < sunRiseTime or \
@@ -203,7 +207,7 @@ def entityIsActive(id, players: {}, rooms: {},
         if timeRangeType == 'rainnight':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = Sun(52.414, 4.081)
+            sun = getSolar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if currHour >= sunRiseTime and \
@@ -222,7 +226,7 @@ def entityIsActive(id, players: {}, rooms: {},
         if timeRangeType == 'rainmorning':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = Sun(52.414, 4.081)
+            sun = getSolar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             if currHour < sunRiseTime or \
                currHour > 12:
@@ -255,7 +259,7 @@ def entityIsActive(id, players: {}, rooms: {},
         if timeRangeType == 'rainevening':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = Sun(52.414, 4.081)
+            sun = getSolar()
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if currHour < 17 or \
                currHour > sunSetTime:
