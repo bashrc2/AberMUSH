@@ -428,7 +428,7 @@
         "description": "The dormitory passage comes to an end here. A grating in the roof lets in light.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","The dormitory passage comes to an end here. A grating in the roof lets in rain forming a damp area on the floor"]
+	    ["rain","yes","The dormitory passage comes to an end here. A grating in the roof lets in rain forming a damp area on the floor"],
 	    ["hour","<7","The dormitory passage comes to an end here. There is a large grating in the roof"],
 	    ["hour",">21","The dormitory passage comes to an end here. There is a large grating in the roof"]
 	],
