@@ -2988,7 +2988,9 @@
         "name": "High Street",
         "description": "You are walking the main street which runs north and south through Tranoch, linking the north and south gates. The road is cobbled, but pitted and worn from the heavy merchant caravans which often pass this way. A narrow street turns east off the main road, leading towards a market square.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are walking the main street which runs north and south through Tranoch, linking the north and south gates. The road is cobbled, but pitted with puddles worn from the heavy merchant caravans which often pass this way. A narrow street turns east off the main road, leading towards a market square."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3010,7 +3012,9 @@
         "name": "The Southern Gate",
         "description": "You are standing at the southern gate of the City Of Tranoch. Ahead of you a narrow well built road runs out of the city and south through the fields which surround it. The road leads north into the city.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain at the southern gate of the City Of Tranoch. Ahead of you a narrow well built road runs out of the city and south through the fields which surround it. The road leads north into the city."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3031,7 +3035,9 @@
         "name": "Market Square",
         "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3053,6 +3059,7 @@
         "description": "The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean, and the birds still sing and twitter in the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire.",
         "roomTeleport": "",
         "conditional": [
+	    ["rainday","yes","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. The air is humid with rain, and water drips from the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire."],
 	    ["hour","<8","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."],
 	    ["hour",">20","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."]
 	],
@@ -3077,7 +3084,9 @@
         "name": "Gloomy Street",
         "description": "You are walking down a dark and gloomy passage that threads its way north and south between two rows of tall overhanging oak beam buildings. A single crude gutter runs down the centre of the street, intended to carry away the dirt and sludge, it merely seems to collect it up. A cleaner looking street branches off eastwards between two buildings.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are walking down a dark and gloomy passage that threads its way north and south between two rows of tall overhanging oak beam buildings. A single crude gutter runs with a trickle of dirty rain water down the centre of the street. A cleaner looking street branches off eastwards between two buildings."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3099,7 +3108,9 @@
         "name": "Side Street",
         "description": "You are following a narrow street which turns westwards into a rather smelly courtyard, and also runs south along the line of the city wall.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are following a narrow street which is somewhat sheltered from the rain by houses on either side. It turns westwards into a rather smelly courtyard, and also runs south along the line of the city wall."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3140,7 +3151,11 @@
         "name": "High Street",
         "description": "You are walking along the high street, the main road bisecting the town from north to south, between the two main gates. Tall proud merchants houses rise on either side of the street arching out above you, and blocking out most of the sunlight. To the east a wide courtyard leads up to the high temple, which rumour has it is a good place to sacrifice treasures.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rainday","yes","You are walking along the rainy high street, the main road bisecting the town from north to south, between the two main gates. Tall proud merchants houses rise on either side of the street arching out above you. To the east a wide courtyard leads up to the high temple, which rumour has it is a good place to sacrifice treasures."],
+	    ["hour","<8","You are walking along the high street, the main road bisecting the town from north to south, between the two main gates. Tall proud merchants houses rise on either side of the street arching out above you. To the east a wide courtyard leads up to the high temple, which rumour has it is a good place to sacrifice treasures."],
+	    ["hour",">17","You are walking along the high street, the main road bisecting the town from north to south, between the two main gates. Tall proud merchants houses rise on either side of the street arching out above you. To the east a wide courtyard leads up to the high temple, which rumour has it is a good place to sacrifice treasures."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3207,6 +3222,9 @@
         "description": "Everything about the inn appears disreputable. Customers murmur and finger weapons as you wander in, while all around you people lie semi-unconcious surrounded by the smell of opium. The door leading back out looks highly promising, unless you wish to play the local game of getting to the bar without dying first.",
         "roomTeleport": "",
         "conditional": [
+	    ["rainevening","yes","Everything about the inn appears disreputable. Customers murmur and finger weapons as you wander in, while all around you people lie semi-unconcious surrounded by the smell of opium. The door leading back out into the rain looks highly promising, unless you wish to play the local game of getting to the bar without dying first."],
+	    ["rainmorning","yes","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is clearing up wreckage from the previous night, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out into the rainy street looks tempting.","432c"],
+	    ["rainafternoon","yes","Everything about the inn appears disreputable. It's also not busy. Most peasants are out there toiling in the rain. The inn-keeper is fussing about, tidying and scrubbing away blood stains from the previous night. Used opium pipes and empty ale flagons are strewn about. The door leading back out looks tempting.","432b"],
 	    ["hour","<8","The night's drinking is over and the bar is empty. Displaced coasters, drug paraphenalia and cutlery remain strewn around. The door leading back out looks inviting."],
 	    ["hour","<10","Not much is going on within this disreputable establishment. It's dark, customers have been kicked out and the bar is empty. The inn-keeper is clearing up wreckage from the previous night, cleaning up spilt ale, opium pipes, lost darts and randomly displaced cutlery. The door leading back out looks tempting.","432c"],
 	    ["hour","<17","Everything about the inn appears disreputable. It's also not busy. Most peasants are out there toiling in the fields. The inn-keeper is fussing about, tidying and scrubbing away blood stains from the previous night. Used opium pipes and empty ale flagons are strewn about. The door leading back out looks tempting.","432b"],
@@ -3232,6 +3250,7 @@
         "description": "You are standing in the shadows on one side of a broad and smelly yard. The ground is covered in horse dung, and as people cross it clouds of flies buzz up angrily around them. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow gloomy alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.",
         "roomTeleport": "",
         "conditional": [
+	    ["rain","yes","You are standing in the shadows on one side of a broad and smelly yard. The ground is covered in horse dung, washed into stinky puddles by the rain. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow gloomy alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar."],
 	    ["hour","<5","You are standing in the darkness on one side of a broad and smelly yard. The ground is covered in horse dung. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"],
 	    ["hour","<8","You are standing in the dim light of dawn on one side of a broad and smelly yard. The ground is covered in horse dung. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"],
 	    ["hour",">20","You are standing in the darkness on one side of a broad and smelly yard. The ground is covered in horse dung. On the southern side of the yard stands a very seedy looking inn. A reasonably wide cobbled road runs east out of the yard, and a narrow dark alley slinks off to the west past a large trapdoor, you assume for getting barrels into the inn cellar.","433b"]
@@ -3257,7 +3276,9 @@
         "name": "Dark Alley",
         "description": "You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy, and everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you. The alley follows the wall both east, and west opening up at either end.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are walking down an unpleasant narrow alleyway, jammed between the back walls of some of the cities more notorious establishments, and the city wall. The light is dim and shadowy and rain runs down the walls and into dank guttering. Everywhere you look there appears to be a nook or cranny where someone might be waiting to jump out on you. The alley follows the wall both east, and west opening up at either end."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3278,7 +3299,9 @@
         "name": "The Northern Gate",
         "description": "You stand just inside the north gate of the city of Tranoch, gateway to the western seas, the den of pirates, smugglers, merchants and the occasional honest man. A narrow lane leads south into a tangle of buildings. To your north a narrow archway pierces the city wall and leads outside into the wide world beyond. A tempting dark alleyway runs east along the side of the city walls.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You shelter from the rain just inside the north gate of the city of Tranoch, gateway to the western seas, the den of pirates, smugglers, merchants and the occasional honest man. A narrow lane leads south into a tangle of buildings. To your north a narrow archway pierces the city wall and leads outside into the wide world beyond. A tempting dark alleyway runs east along the side of the city walls."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -3320,7 +3343,9 @@
         "name": "The Eastern Gate",
         "description": "The narrow street comes to a small, stout looking gatehouse. A narrow cobbled lane runs east through the gate out into the wide world beyond.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","The narrow street comes to a small, stout looking gatehouse. A narrow and slippery cobbled lane runs east through the gate out into the wide world beyond."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
