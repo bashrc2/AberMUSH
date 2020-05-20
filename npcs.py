@@ -74,7 +74,7 @@ def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType) -> str:
     return ''
 
 
-def getSolar() -> None:
+def getSolar():
     return Sun(52.414, 4.081)
 
 

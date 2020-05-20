@@ -56,6 +56,7 @@ from morris import takeMorrisCounter
 from proficiencies import thievesCant
 
 from npcs import npcConversation
+from npcs import getSolar
 
 from familiar import getFamiliarName
 
@@ -67,8 +68,6 @@ import time
 import datetime
 import os.path
 from random import randint
-
-from suntime import Sun
 
 import decimal
 dec = decimal.Decimal
@@ -1750,7 +1749,7 @@ def conditionalRoom(condType: str, cond: str, description: str, id,
        condType == 'dawn':
         currTime = datetime.datetime.today()
         currHour = currTime.hour
-        sun = Sun(52.414, 4.081)
+        sun = getSolar()
         sunRiseTime = sun.get_local_sunrise_time(currTime).hour
         if 'true' in cond.lower() or \
            'y' in cond.lower():
@@ -1764,7 +1763,7 @@ def conditionalRoom(condType: str, cond: str, description: str, id,
        condType == 'dusk':
         currTime = datetime.datetime.today()
         currHour = currTime.hour
-        sun = Sun(52.414, 4.081)
+        sun = getSolar()
         sunSetTime = sun.get_local_sunset_time(currTime).hour
         if 'true' in cond.lower() or \
            'y' in cond.lower():
@@ -2015,7 +2014,7 @@ def roomIllumination(roomImage, outdoors: bool):
         return roomImage
     currTime = datetime.datetime.today()
     currHour = currTime.hour
-    sun = Sun(52.414, 4.081)
+    sun = getSolar()
     sunRiseTime = sun.get_local_sunrise_time(currTime).hour
     sunSetTime = sun.get_local_sunset_time(currTime).hour
     if currHour > sunRiseTime+1 and currHour < sunSetTime-1:
@@ -2117,7 +2116,7 @@ def showRoomImage(mud, id, roomId, rooms: {}, players: {},
     roomImageFilename = 'images/rooms/' + roomIdStr
     if os.path.isfile(roomImageFilename + '_night'):
         currTime = datetime.datetime.today()
-        sun = Sun(52.414, 4.081)
+        sun = getSolar()
         sunRiseTime = sun.get_local_sunrise_time(currTime).hour
         sunSetTime = sun.get_local_sunset_time(currTime).hour
         if currTime.hour < sunRiseTime or \
