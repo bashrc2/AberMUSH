@@ -325,7 +325,7 @@ You may want the description of a room to change if some condition is met. For e
 
 This provides different room descriptions in the morning to at other times.
 
-Possible condition types are `hour`, `month`, `season`, `dayofweek`, `date`, `skill`, `hold` and `wear`.
+Possible condition types are `hour`, `month`, `season`, `dayofweek`, `date`, `skill`, `rain`, `rainmorning`, `rainafternoon`, `rainevening`, `rainnight`, `sunrise`, `sunset`, `hold` and `wear`.
 
 You can use this to do things like describing a dark cave by default but changing the description if you are holding a lamp, of having different descriptions for different seasons of the year.
 

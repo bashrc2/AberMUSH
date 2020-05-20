@@ -170,7 +170,96 @@ def entityIsActive(id, players: {}, rooms: {},
                 if not (currHour < sunSetTime or currHour > sunSetTime + 1):
                     return False
 
-        if timeRangeType.startswith('rain'):
+        if timeRangeType == 'rain':
+            rm = players[id]['room']
+            coords = rooms[rm]['coords']
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not getRainAtCoords(coords, mapArea, clouds):
+                    return False
+            else:
+                if getRainAtCoords(coords, mapArea, clouds):
+                    return False
+
+        if timeRangeType == 'rainday':
+            currTime = datetime.datetime.today()
+            currHour = currTime.hour
+            sun = Sun(52.414, 4.081)
+            sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+            sunSetTime = sun.get_local_sunset_time(currTime).hour
+            if currHour < sunRiseTime or \
+               currHour > sunSetTime:
+                return False
+            rm = players[id]['room']
+            coords = rooms[rm]['coords']
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not getRainAtCoords(coords, mapArea, clouds):
+                    return False
+            else:
+                if getRainAtCoords(coords, mapArea, clouds):
+                    return False
+
+        if timeRangeType == 'rainnight':
+            currTime = datetime.datetime.today()
+            currHour = currTime.hour
+            sun = Sun(52.414, 4.081)
+            sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+            sunSetTime = sun.get_local_sunset_time(currTime).hour
+            if currHour >= sunRiseTime and \
+               currHour <= sunSetTime:
+                return False
+            rm = players[id]['room']
+            coords = rooms[rm]['coords']
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not getRainAtCoords(coords, mapArea, clouds):
+                    return False
+            else:
+                if getRainAtCoords(coords, mapArea, clouds):
+                    return False
+
+        if timeRangeType == 'rainmorning':
+            currTime = datetime.datetime.today()
+            currHour = currTime.hour
+            sun = Sun(52.414, 4.081)
+            sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+            if currHour < sunRiseTime or \
+               currHour > 12:
+                return False
+            rm = players[id]['room']
+            coords = rooms[rm]['coords']
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not getRainAtCoords(coords, mapArea, clouds):
+                    return False
+            else:
+                if getRainAtCoords(coords, mapArea, clouds):
+                    return False
+
+        if timeRangeType == 'rainafternoon':
+            currTime = datetime.datetime.today()
+            currHour = currTime.hour
+            if currHour < 12 or currHour > 17:
+                return False
+            rm = players[id]['room']
+            coords = rooms[rm]['coords']
+            if 'true' in timeRangeStart.lower() or \
+               'y' in timeRangeStart.lower():
+                if not getRainAtCoords(coords, mapArea, clouds):
+                    return False
+            else:
+                if getRainAtCoords(coords, mapArea, clouds):
+                    return False
+
+        if timeRangeType == 'rainevening':
+            currTime = datetime.datetime.today()
+            currHour = currTime.hour
+            sun = Sun(52.414, 4.081)
+            sunSetTime = sun.get_local_sunset_time(currTime).hour
+            if currHour < 17 or \
+               currHour > sunSetTime:
+                return False
             rm = players[id]['room']
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
