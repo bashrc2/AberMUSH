@@ -38433,6 +38433,7 @@
         "name": "fallen statue",
         "short_description": "A fallen marble statue lies fractured into several pieces on the ground, surrounded by tough windswept grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards",
         "long_description": "A fallen marble statue lies fractured into several pieces on the ground, surrounded by tough windswept grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards",
+	"takeFail": "The giant marble pieces are much too heavy to move",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
