@@ -101,10 +101,10 @@ class MudServer(object):
         # create a new tcp socket which will be used to listen for new clients
         self._listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # set a special option on the socket which allows the port to be
+        # set a special option on the socket which allows the port to be used
         # immediately without having to wait
-        self._listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
-                                       1)
+        self._listen_socket.setsockopt(socket.SOL_SOCKET,
+                                       socket.SO_REUSEADDR, 1)
 
         # bind the socket to an ip address and port. Port 23 is the standard
         # telnet port which telnet clients will use, however on some platforms
