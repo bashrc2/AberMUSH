@@ -32,17 +32,34 @@ def describeTrappedPlayer(mud, id, players: {}, rooms: {}):
     if not rooms[roomID]['trap'].get('trapType'):
         return
 
-    if rooms[roomID]['trap']['trapType'] == 'net':
+    trapType = rooms[roomID]['trap']['trapType']
+    if trapType == 'net':
         desc = "You struggle with the net but it's pinning you down|" + \
             "You seem to be trapped in a net|Being covered by a net " + \
             "makes it difficult to move"
         mud.sendMessage(id, randomDescription(desc)+'.\n\n')
-
-    if rooms[roomID]['trap']['trapType'] == 'chain net':
+    elif trapType == 'chain net':
         desc = "You struggle with the net but its chain webbing is " + \
             "pinning you down|You seem to be trapped in a net made " + \
             "from linked chains|Being covered by a chain net makes " + \
             "it difficult to move"
+        mud.sendMessage(id, randomDescription(desc)+'.\n\n')
+    elif trapType == 'tar pit':
+        desc = "You have sunk into a pit of sticky tar, " + \
+            "which prevents you from moving|" + \
+            "Sticky tar surrounds you, preventing you from moving"
+        mud.sendMessage(id, randomDescription(desc)+'.\n\n')
+    elif trapType == 'pit':
+        desc = "You have fallen into a pit in the ground, which you " + \
+            "don't seem to be able to get out from|" + \
+            "You appear to be in a hole in the ground"
+        mud.sendMessage(id, randomDescription(desc)+'.\n\n')
+    elif trapType == 'ditch' or trapType == 'marsh':
+        desc = "You have fallen into a " + \
+            trapType + " full of thick mud, " + \
+            "which is too slippery to get out from|" + \
+            "You appear to be swimming very slowly in a " + \
+            trapType + " full of thick mud"
         mud.sendMessage(id, randomDescription(desc)+'.\n\n')
 
 
@@ -65,11 +82,20 @@ def describeTrapDeactivation(mud, roomID, trap, players: {}):
             continue
         if players[id]['room'] != roomID:
             continue
-        if players[id]['name'] in trap['trappedPlayers']:
-            if trap['trapType'] == 'net' or \
-               trap['trapType'] == 'chain net':
-                desc = 'The ' + trap['trapType'] + ' lifts and you escape'
-                mud.sendMessage(id, randomDescription(desc)+'.\n\n')
+        if players[id]['name'] not in trap['trappedPlayers']:
+            continue
+        if trap['trapType'] == 'net' or \
+           trap['trapType'] == 'chain net':
+            desc = 'The ' + trap['trapType'] + ' lifts and you escape'
+            mud.sendMessage(id, randomDescription(desc)+'.\n\n')
+        elif trap['trapType'] == 'pit' or trap['trapType'] == 'tar pit':
+            desc = 'You clamber out from the ' + \
+                trap['trapType']
+            mud.sendMessage(id, randomDescription(desc)+'.\n\n')
+        elif trap['trapType'] == 'ditch' or trap['trapType'] == 'marsh':
+            desc = 'With squelching noises, you climb out of the muddy ' + \
+                trap['trapType']
+            mud.sendMessage(id, randomDescription(desc)+'.\n\n')
 
 
 def holdingCuttingWeapon(id, players: {}, itemsDB: {}):
@@ -140,20 +166,25 @@ def escapeFromTrap(mud, id, players: {}, rooms: {}, itemsDB: {}):
 
 def trapActivationDescribe(mud, id, players, roomID, rooms,
                            penaltyValue, trapTag):
-    if rooms[roomID]['trap']['trapType'] == 'net' or \
-       rooms[roomID]['trap']['trapType'] == 'chain net':
+    trapType = rooms[roomID]['trap']['trapType']
+    if trapType == 'net' or \
+       trapType == 'chain net':
         if rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
             desc = trapTag + \
                 "You hear a click as you step onto a pressure plate. A " + \
-                rooms[roomID]['trap']['trapType'] + \
-                " falls from above and pins you down"
+                trapType + " falls from above and pins you down"
             mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
         else:
-            desc = trapTag + "A " + rooms[roomID]['trap']['trapType'] + \
+            desc = trapTag + "A " + trapType + \
                 " falls from above and pins you down"
             mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
-
-    if rooms[roomID]['trap']['trapType'].startswith('dart'):
+    elif trapType == 'pit' or trapType == 'tar pit':
+        desc = trapTag + "You fall into a " + trapType
+        mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
+    elif trapType == 'ditch' or trapType == 'marsh':
+        desc = trapTag + "You fall into a muddy " + trapType
+        mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
+    elif trapType.startswith('dart'):
         desc = trapTag + \
             "Poisoned darts emerge from holes in the wall and " + \
             "sting you for <r><f15><b88>* " + str(penaltyValue) + \
@@ -172,29 +203,9 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
         return False
     trapTag = '<f202>'
 
-    # tripwire
-    if rooms[roomID]['trap']['trapActivation'] == 'tripwire':
-        if rooms[roomID]['trap'].get('trapExit'):
-            if rooms[roomID]['trap']['trapExit'] == exitDirection:
-                rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
-                if TimeStringToSec(rooms[roomID]['trap']['trapDuration']) > 0:
-                    rooms[roomID]['trap']['trapActivationTime'] = \
-                        int(time.time())
-                rooms[roomID]['trap']['trapDamaged'] = 0
-                penaltyType = rooms[roomID]['trap']['trapPenaltyType']
-                penaltyValue = randint(1, rooms[roomID]['trap']['trapPenalty'])
-                players[id][penaltyType] -= penaltyValue
-                if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
-                    desc = rooms[roomID]['trap']['trapActivationDescription']
-                    mud.sendMessage(id, trapTag +
-                                    randomDescription(desc) + '.<r>\n\n')
-                else:
-                    trapActivationDescribe(mud, id, players, roomID, rooms,
-                                           penaltyValue, trapTag)
-                return True
-
-    # pressure plate
-    if rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
+    if rooms[roomID]['trap']['trapActivation'] == 'tripwire' or \
+       rooms[roomID]['trap']['trapActivation'].startswith('move') or \
+       rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
         if rooms[roomID]['trap'].get('trapExit'):
             if rooms[roomID]['trap']['trapExit'] == exitDirection:
                 rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]

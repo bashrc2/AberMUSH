@@ -2171,7 +2171,7 @@
         "description": "It's very dark here. You move around blindly by sense of touch.",
         "roomTeleport": "",
         "conditional": [
-	    ["hold","lightsource","You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.","298_light"]	    
+	    ["hold","lightsource","You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.","298_light"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -2190,7 +2190,7 @@
         "description": "Darkness surrounds you.",
         "roomTeleport": "",
         "conditional": [
-	    ["hold","lightsource","You stand in a dark gloomy chamber, just east of the misty lake. A single, large stone slab is set into the floor.","299_light"]	    
+	    ["hold","lightsource","You stand in a dark gloomy chamber, just east of the misty lake. A single, large stone slab is set into the floor.","299_light"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -2806,7 +2806,23 @@
 	    ["hour","<8","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."],
 	    ["hour",">20","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."]
 	],
-        "trap": {},
+        "trap": {
+	    "trapType": "marsh",
+	    "trapExit": "west",
+	    "trapPerception": 2,
+	    "trapActivation": "move",
+	    "trapActivationTime": 0,
+	    "trapActivationDescription": "",
+	    "trapEscapeMethod": "wait",
+	    "trapDamagedMax": 99999,
+	    "trapDamaged": 0,
+	    "trapEscapeDescription": "",
+	    "trapDuration": "1 min",
+	    "trapPenaltyType": "hp",
+	    "trapPenalty": 0,
+	    "trapResetTime": "30 mins",
+	    "trappedPlayers": []
+	},
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
@@ -6933,7 +6949,7 @@
 	"exitsWhenWearing": [
 	    ["west","1341","$rid=1396$"],
 	    ["west","1410","$rid=1396$"]
-	],	
+	],
         "exits": {
             "north": "$rid=853$",
             "east": "$rid=854$",
@@ -9106,7 +9122,7 @@
         "description": "You are in a dark east-west corridor.",
         "roomTeleport": "",
         "conditional": [
-	    ["hold","lightsource","You are in a shadowy east-west corridor that links two caves.","1084_light"]	    
+	    ["hold","lightsource","You are in a shadowy east-west corridor that links two caves.","1084_light"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -9125,7 +9141,7 @@
         "description": "You are in a dark cave. Not much can be seen here.",
         "roomTeleport": "",
         "conditional": [
-	    ["hold","lightsource","You are in a dark cave with earth walls, and a rather low ceiling. The earth gives way to stone in both of the passages leading east and west from the cave.","1085_light"]	    
+	    ["hold","lightsource","You are in a dark cave with earth walls, and a rather low ceiling. The earth gives way to stone in both of the passages leading east and west from the cave.","1085_light"]
 	],
         "trap": {},
         "eventOnEnter": "",
