@@ -54,7 +54,7 @@ def describeTrappedPlayer(mud, id, players: {}, rooms: {}):
             "don't seem to be able to get out from|" + \
             "You appear to be in a hole in the ground"
         mud.sendMessage(id, randomDescription(desc)+'.\n\n')
-    elif trapType == 'ditch' or trapType == 'marsh':
+    elif trapType == 'ditch' or trapType == 'marsh' or trapType == 'bog':
         desc = "You have fallen into a " + \
             trapType + " full of thick mud, " + \
             "which is too slippery to get out from|" + \
@@ -92,7 +92,8 @@ def describeTrapDeactivation(mud, roomID, trap, players: {}):
             desc = 'You clamber out from the ' + \
                 trap['trapType']
             mud.sendMessage(id, randomDescription(desc)+'.\n\n')
-        elif trap['trapType'] == 'ditch' or trap['trapType'] == 'marsh':
+        elif (trap['trapType'] == 'ditch' or trap['trapType'] == 'marsh' or
+              trap['trapType'] == 'bog'):
             desc = 'With squelching noises, you climb out of the muddy ' + \
                 trap['trapType']
             mud.sendMessage(id, randomDescription(desc)+'.\n\n')
@@ -184,8 +185,9 @@ def trapActivationDescribe(mud, id, players, roomID, rooms,
     elif trapType == 'pit' or trapType == 'tar pit':
         desc = trapTag + "You fall into a " + trapType
         mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
-    elif trapType == 'ditch' or trapType == 'marsh':
-        desc = trapTag + "You fall into a muddy " + trapType
+    elif trapType == 'ditch' or trapType == 'marsh' or trapType == 'bog':
+        desc = trapTag + "You fall into a muddy " + trapType + "|" + \
+            trapTag + "You slip and fall into a muddy " + trapType
         mud.sendMessage(id, randomDescription(desc) + '.<r>\n\n')
     elif trapType.startswith('dart'):
         desc = trapTag + \
