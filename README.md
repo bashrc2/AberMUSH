@@ -816,6 +816,7 @@ To create a falling net trap activated by a pressure plate:
     "trapExit": "north",
     "trapPerception": 2,
     "trapActivation": "pressure",
+    "trapActivationProbability": 100,
     "trapActivationTime": 0,
     "trapActivationDescription": "",
     "trapEscapeMethod": "slashing",
