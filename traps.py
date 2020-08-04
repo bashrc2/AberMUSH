@@ -162,6 +162,9 @@ def escapeFromTrap(mud, id, players: {}, rooms: {}, itemsDB: {}):
     escapeMethod = rooms[roomID]['trap']['trapEscapeMethod']
     if 'slash' in escapeMethod:
         escapeWithCuttingTool(mud, id, players, rooms, itemsDB)
+    else:
+        mud.sendMessage(
+            id, randomDescription("Nothing happens") + '.\n\n')
 
 
 def trapActivationDescribe(mud, id, players, roomID, rooms,

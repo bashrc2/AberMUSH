@@ -806,7 +806,7 @@ To set a dart trap when exiting north within `rooms.json`:
 },
 ```
 
-This causes a sting of up to 10 hit points. `trapPerception` specifies the minimum perception (`per` value in player json file) needed to see the trap, and it gets reset after two hours if activated.
+This causes a sting of up to 10 hit points. `trapPerception` specifies the minimum perception (`per` value in player json file) needed to see the trap, and it gets reset after two hours if activated. `trapActivationProbability` indicates that the trap always works 100% of the time when the tripwire is crossed.
 
 To create a falling net trap activated by a pressure plate:
 
@@ -832,6 +832,31 @@ To create a falling net trap activated by a pressure plate:
 ```
 
 When the net falls on a player it will prevent them from moving for up to 5 mins. During that time they can try to cut themselves out if they are holding a `slashing` type weapon. They will need to do 20 points of damage to the net to escape. Hence with a sword it may be easy to break free, but with a small dagger it may take a while. If you're trapped by a net then other players or NPCs have an advantage when attacking you.
+
+To create a tar pit trap activated when a player tries to move in a given direction:
+
+``` text
+"trap": {
+    "trapType": "tar pit",
+    "trapExit": "west",
+    "trapPerception": 2,
+    "trapActivation": "move",
+    "trapActivationProbability": 40,
+    "trapActivationTime": 0,
+    "trapActivationDescription": "",
+    "trapEscapeMethod": "wait",
+    "trapDamagedMax": 99999,
+    "trapDamaged": 0,
+    "trapEscapeDescription": "",
+    "trapDuration": "1 min",
+    "trapPenaltyType": "hp",
+    "trapPenalty": 0,
+    "trapResetTime": "30 mins",
+    "trappedPlayers": []
+},
+```
+
+When you try to move west you will get stick in the tar pit 40% of the time. Once stuck the only thing you can do is to wait for one minute. Other possible traps are "ditch", "marsh" and "pit".
 
 ### Room images
 
