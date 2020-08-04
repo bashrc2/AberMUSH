@@ -203,9 +203,10 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
         return False
     trapTag = '<f202>'
 
-    if rooms[roomID]['trap']['trapActivation'] == 'tripwire' or \
-       rooms[roomID]['trap']['trapActivation'].startswith('move') or \
-       rooms[roomID]['trap']['trapActivation'].startswith('pressure'):
+    activationType = rooms[roomID]['trap']['trapActivation']
+    if activationType == 'tripwire' or \
+       activationType.startswith('move') or \
+       activationType.startswith('pressure'):
         if rooms[roomID]['trap'].get('trapExit'):
             if rooms[roomID]['trap']['trapExit'] == exitDirection:
                 rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
