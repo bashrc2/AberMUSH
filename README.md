@@ -791,6 +791,7 @@ To set a dart trap when exiting north within `rooms.json`:
     "trapExit": "north",
     "trapPerception": 2,
     "trapActivation": "tripwire",
+    "trapActivationProbability": 100,
     "trapActivationTime": 0,
     "trapActivationDescription": "",
     "trapEscapeMethod": "",
