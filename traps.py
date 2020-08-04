@@ -207,7 +207,11 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
     if activationType == 'tripwire' or \
        activationType.startswith('move') or \
        activationType.startswith('pressure'):
-        if rooms[roomID]['trap'].get('trapExit'):
+        prob = 100
+        if rooms[roomID]['trap'].get('trapActivationProbability'):
+            prob = rooms[roomID]['trap']['trapActivationProbability']
+        randPercent = randint(1, 100)
+        if randPercent < prob and rooms[roomID]['trap'].get('trapExit'):
             if rooms[roomID]['trap']['trapExit'] == exitDirection:
                 rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
                 if TimeStringToSec(rooms[roomID]['trap']['trapDuration']) > 0:
