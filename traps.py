@@ -203,33 +203,54 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
         return False
     trapTag = '<f202>'
 
+    # recognised activation type
     activationType = rooms[roomID]['trap']['trapActivation']
-    if activationType == 'tripwire' or \
-       activationType.startswith('move') or \
-       activationType.startswith('pressure'):
-        prob = 100
-        if rooms[roomID]['trap'].get('trapActivationProbability'):
-            prob = rooms[roomID]['trap']['trapActivationProbability']
-        randPercent = randint(1, 100)
-        if randPercent < prob and rooms[roomID]['trap'].get('trapExit'):
-            if rooms[roomID]['trap']['trapExit'] == exitDirection:
-                rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
-                if TimeStringToSec(rooms[roomID]['trap']['trapDuration']) > 0:
-                    rooms[roomID]['trap']['trapActivationTime'] = \
-                        int(time.time())
-                rooms[roomID]['trap']['trapDamaged'] = 0
-                penaltyType = rooms[roomID]['trap']['trapPenaltyType']
-                penaltyValue = randint(1, rooms[roomID]['trap']['trapPenalty'])
-                players[id][penaltyType] -= penaltyValue
-                if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
-                    desc = rooms[roomID]['trap']['trapActivationDescription']
-                    mud.sendMessage(id, trapTag +
-                                    randomDescription(desc) + '.<r>\n\n')
-                else:
-                    trapActivationDescribe(mud, id, players, roomID, rooms,
-                                           penaltyValue, trapTag)
-                return True
-    return False
+    if not (activationType == 'tripwire' or
+            activationType.startswith('move') or
+            activationType.startswith('pressure')):
+        return False
+
+    # probability of the trap being activated
+    prob = 100
+    if rooms[roomID]['trap'].get('trapActivationProbability'):
+        prob = rooms[roomID]['trap']['trapActivationProbability']
+    randPercent = randint(1, 100)
+    if randPercent > prob:
+        return False
+
+    # which exit activates the trap?
+    if not rooms[roomID]['trap'].get('trapExit'):
+        return False
+
+    # are we going in that direction?
+    if rooms[roomID]['trap']['trapExit'] != exitDirection:
+        return False
+
+    # add player to the list of trapped ones
+    rooms[roomID]['trap']['trappedPlayers'] = [players[id]['name']]
+
+    # record the time when the trap was activated
+    if TimeStringToSec(rooms[roomID]['trap']['trapDuration']) > 0:
+        rooms[roomID]['trap']['trapActivationTime'] = \
+            int(time.time())
+
+    # reset the amount of damage to the trap
+    rooms[roomID]['trap']['trapDamaged'] = 0
+
+    # subtract a trap penalty from the player
+    penaltyType = rooms[roomID]['trap']['trapPenaltyType']
+    penaltyValue = randint(1, rooms[roomID]['trap']['trapPenalty'])
+    players[id][penaltyType] -= penaltyValue
+
+    # describe the trapped player
+    if len(rooms[roomID]['trap']['trapActivationDescription']) > 0:
+        desc = rooms[roomID]['trap']['trapActivationDescription']
+        mud.sendMessage(id, trapTag +
+                        randomDescription(desc) + '.<r>\n\n')
+    else:
+        trapActivationDescribe(mud, id, players, roomID, rooms,
+                               penaltyValue, trapTag)
+    return True
 
 
 def runTraps(mud, rooms: {}, players: {}, npcs: {}):
