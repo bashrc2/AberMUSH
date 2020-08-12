@@ -358,7 +358,9 @@ def raceResistance(id: int, players: {}, racesDB: {}, weaponType: str) -> int:
     if weaponType.endswith('bow'):
         resistParam = 'resist_piercing'
 
-    if weaponType.endswith('sling'):
+    if weaponType.endswith('sling') or \
+       'flail' in weaponType or \
+       'whip' in weaponType:
         resistParam = 'resist_bludgeoning'
 
     if players[id].get('race'):
