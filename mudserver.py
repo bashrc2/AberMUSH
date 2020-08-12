@@ -447,12 +447,18 @@ class MudServer(object):
                                              command, params))
 
     def _handleDisconnect(self, clid):
-        # remove the client from the clients map
-        del(self._clients[clid])
+        playerLeft = False
+        try:
+            # remove the client from the clients map
+            del(self._clients[clid])
+            playerLeft = True
+        except BaseException:
+            print('Unable to remove client ' + str(clid))
 
-        # add a 'player left' occurence to the new events list, with the
-        # player's id number
-        self._new_events.append((self._EVENT_PLAYER_LEFT, clid))
+        if playerLeft:
+            # add a 'player left' occurence to the new events list, with the
+            # player's id number
+            self._new_events.append((self._EVENT_PLAYER_LEFT, clid))
 
     def _process_sent_data(self, client, data):
         # the Telnet protocol allows special command codes to be inserted into
