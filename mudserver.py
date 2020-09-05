@@ -1,6 +1,7 @@
 __filename__ = "mudserver.py"
 __author__ = "Bob Mottram"
-__credits__ = ["Bartek Radwanski", "Mark Frimston"]
+__credits__ = ["Bartek Radwanski", "Mark Frimston",
+               "Dave P. https://github.com/dpallot"]
 __license__ = "AGPL3+"
 __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
@@ -16,11 +17,37 @@ server running then used to send and receive messages from players.
 author: Mark Frimston - mfrimston@gmail.com
 """
 
+import signal
 import socket
 import select
 import time
+import sys
 import textwrap
 from cmsg import cmsg
+from WebSocketServer import WebSocket, WebSocketServer
+from threads import threadWithTrace
+
+
+class MudServerWS(WebSocket):
+    ws_clients = []
+    server = None
+
+    def handleMessage(self):
+        for client in self.ws_clients:
+            if client != self:
+                client.sendMessage(self.address[0] + u' - ' + self.data)
+
+    def handleConnected(self):
+        print(self.address, 'connected')
+        for client in self.ws_clients:
+            client.sendMessage(self.address[0] + u' - connected')
+        self.ws_clients.append(self)
+
+    def handleClose(self):
+        self.ws_clients.remove(self)
+        print(self.address, 'closed')
+        for client in self.ws_clients:
+            client.sendMessage(self.address[0] + u' - disconnected')
 
 
 class MudServer(object):
@@ -88,10 +115,35 @@ class MudServer(object):
     # list of newly-added occurences
     _new_events = []
 
+    _WS_PORT = 6221
+
+    def close_sig_handler(self, signal, frame):
+        self._websocket_server_thread.kill()
+        self._websocket_server.close()
+        print('Websocket server closed')
+        self.shutdown()
+        sys.exit()
+
+    def run_websocket_server(self):
+        """start the websocket server
+        """
+        self._websocket_server = \
+            WebSocketServer('localhost', self._WS_PORT, MudServerWS)
+        self._websocket_server.server = self
+        signal.signal(signal.SIGINT, self.close_sig_handler)
+        print('Websocket server starting on port ' + str(self._WS_PORT))
+        self._websocket_server_thread = \
+            threadWithTrace(target=self._websocket_server.serveforever,
+                            args=(), daemon=True)
+        self._websocket_server_thread.start()
+        print('Websocket server running')
+
     def __init__(self):
         """Constructs the MudServer object and starts listening for
         new players.
         """
+
+        self.run_websocket_server()
 
         self._clients = {}
         self._nextid = 0
