@@ -11,9 +11,9 @@ __status__ = "Production"
    import signal
    import sys
    from WebSocketServer import WebSocket, WebSocketServer
-   import mudserverws.py
+   from  mudserverws import MudServerWS
 
-   server = SimpleWebSocketServer('localhost', port, MUDServerWS)
+   server = WebSocketServer('localhost', port, MudServerWS)
 
    def close_sig_handler(signal, frame):
       server.close()
@@ -29,7 +29,7 @@ from WebSocketServer import WebSocket
 clients = []
 
 
-class MUDServerWS(WebSocket):
+class MudServerWS(WebSocket):
     def handleMessage(self):
         for client in clients:
             if client != self:

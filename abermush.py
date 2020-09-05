@@ -56,6 +56,7 @@ import time
 
 # import the MUD server class
 from mudserver import MudServer
+from mudserverws import MudServerWS
 
 # import random generator library
 import random
