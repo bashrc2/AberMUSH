@@ -330,10 +330,14 @@ class MudServer(object):
                 if linectr <= 30:
                     if cl.client_type == self._CLIENT_TELNET:
                         cl.socket.sendall(bytearray(lineStr + '\n', 'utf-8'))
+                    elif cl.client_type == self._CLIENT_WEBSOCKET:
+                        cl.socket.sendMessage(lineStr + '\n')
                     time.sleep(0.03)
                 linectr -= 1
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
+            elif cl.client_type == self._CLIENT_WEBSOCKET:
+                cl.socket.sendMessage(cmsg('<b0>'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
@@ -369,9 +373,13 @@ class MudServer(object):
             for lineStr in messageLines:
                 if cl.client_type == self._CLIENT_TELNET:
                     cl.socket.sendall(bytearray(lineStr + '\n', 'utf-8'))
+                elif cl.client_type == self._CLIENT_WEBSOCKET:
+                    cl.socket.sendMessage(lineStr + '\n')
                 time.sleep(0.03)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
+            elif cl.client_type == self._CLIENT_WEBSOCKET:
+                cl.socket.sendMessage(cmsg('<b0>'))
         # KeyError will be raised if there is no client with the given
         # id in the map
         except KeyError as e:
@@ -409,6 +417,8 @@ class MudServer(object):
             cl = self._clients[clid]
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(data, "latin1"))
+            elif cl.client_type == self._CLIENT_WEBSOCKET:
+                cl.socket.sendMessage(data)
             return True
         # KeyError will be raised if there is no client with the given
         # id in the map
@@ -497,29 +507,30 @@ class MudServer(object):
         for id, cl in list(self._clients.items()):
             if self._clients[id].client_type != self._CLIENT_TELNET:
                 continue
+            sock = cl.socket
             # we use 'select' to test whether there is data waiting to
             # be read from the client socket. The function takes 3 lists
             # of sockets, the first being those to test for readability.
             # It returns 3 list of sockets, the first being those that
             # are actually readable.
-            rlist, wlist, xlist = select.select([cl.socket], [], [], 0)
+            rlist, wlist, xlist = select.select([sock], [], [], 0)
 
             # if the client socket wasn't in the readable list, there
             # is no new data from the client - we can skip it and move
             # on to the next one
-            if cl.socket not in rlist:
+            if sock not in rlist:
                 continue
 
             data = None
             try:
                 # read data from the socket, using a max length of 4096
-                data = cl.socket.recv(4096).decode("latin1")
+                data = sock.recv(4096).decode("latin1")
 
             # if there is a problem reading from the socket (e.g. the client
             # has disconnected) a socket error will be raised
             except socket.error:
-                print('Socket error receiving data. Disconnecting Player ID ' +
-                      str(id))
+                print('Socket error receiving data. ' +
+                      'Disconnecting Player ID ' + str(id))
                 self.handleDisconnect(id)
                 return
 
