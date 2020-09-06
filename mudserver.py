@@ -45,15 +45,11 @@ class MudServerWS(WebSocket):
         for client in ws_clients:
             client.sendMessage(self.address[0] +
                                u' - websocket connected')
-        print('Test1')
         if self.server.parent:
-            print('Test2')
             self._id = self.server.parent.getNextId()
-            print('Test3 ' + str(self._id))
             print('Connect websocket client ' + str(self._id))
             self.server.parent.add_new_player(self._CLIENT_WEBSOCKET, self,
                                               self.address[0])
-        print('Test4')
         ws_clients.append(self)
         print(self.address, 'websocket connected')
 
