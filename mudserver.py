@@ -178,23 +178,25 @@ class MudServer(object):
         self._events = []
         self._new_events = []
 
-        # create a new tcp socket which will be used to listen for new clients
+        # create a new tcp socket which will be used to listen for
+        # new clients
         self._listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # set a special option on the socket which allows the port to be used
-        # immediately without having to wait
+        # set a special option on the socket which allows the port to
+        # be used immediately without having to wait
         self._listen_socket.setsockopt(socket.SOL_SOCKET,
                                        socket.SO_REUSEADDR, 1)
 
         # bind the socket to an ip address and port. Port 23 is the standard
-        # telnet port which telnet clients will use, however on some platforms
-        # this requires root permissions, so we use a higher arbitrary port
-        # number instead: 1234. Address 0.0.0.0 means that we will bind to all
-        # of the available network interfaces
+        # telnet port which telnet clients will use, however on some
+        # platforms this requires root permissions, so we use a higher
+        # arbitrary port number instead: 1234. Address 0.0.0.0 means
+        # that we will bind to all of the available network interfaces
         self._listen_socket.bind(("0.0.0.0", 35123))
 
-        # set to non-blocking mode. This means that when we call 'accept', it
-        # will return immediately without waiting for a connection
+        # set to non-blocking mode. This means that when we call
+        # 'accept', it will return immediately without waiting for a
+        # connection
         self._listen_socket.setblocking(False)
 
         # start listening for connections on the socket
@@ -227,7 +229,8 @@ class MudServer(object):
         retval = []
         # go through all the events in the main list
         for ev in self._events:
-            # if the event is a new player occurence, add the info to the list
+            # if the event is a new player occurence, add the info to
+            # the list
             if ev[0] == self._EVENT_NEW_PLAYER:
                 retval.append(ev[1])
         # return the info list
@@ -270,8 +273,8 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
-        # we make sure to put a newline on the end so the client receives the
-        # message on its own line
+        # we make sure to put a newline on the end so the client receives
+        # the message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
         wrapped = textwrap.wrap(message, width=65)
@@ -294,8 +297,8 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
-        # we make sure to put a newline on the end so the client receives the
-        # message on its own line
+        # we make sure to put a newline on the end so the client receives
+        # the message on its own line
         # print("sending...")
         # self._attempt_send(to, cmsg(message)+"\n\r")
         sendCtr = 0
@@ -319,8 +322,8 @@ class MudServer(object):
             return
         try:
             # look up the client in the client map and use 'sendall' to send
-            # the message string on the socket. 'sendall' ensures that all of
-            # the data is sent in one go
+            # the message string on the socket. 'sendall' ensures that
+            # all of the data is sent in one go
             cl = self._clients[to]
             linectr = len(messageLines)
             for lineStr in messageLines:
@@ -360,8 +363,8 @@ class MudServer(object):
         messageLines = message.split('\n')
         try:
             # look up the client in the client map and use 'sendall' to send
-            # the message string on the socket. 'sendall' ensures that all of
-            # the data is sent in one go
+            # the message string on the socket. 'sendall' ensures that
+            # all of the data is sent in one go
             cl = self._clients[to]
             for lineStr in messageLines:
                 if cl.client_type == self._CLIENT_TELNET:
@@ -369,8 +372,8 @@ class MudServer(object):
                 time.sleep(0.03)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
-        # KeyError will be raised if there is no client with the given id in
-        # the map
+        # KeyError will be raised if there is no client with the given
+        # id in the map
         except KeyError as e:
             print("Couldnt send game board to player ID " + str(to) +
                   ", socket error: " + str(e))
@@ -494,15 +497,16 @@ class MudServer(object):
         for id, cl in list(self._clients.items()):
             if self._clients[id].client_type != self._CLIENT_TELNET:
                 continue
-            # we use 'select' to test whether there is data waiting to be read
-            # from the client socket. The function takes 3 lists of sockets,
-            # the first being those to test for readability. It returns 3 list
-            # of sockets, the first being those that are actually readable.
+            # we use 'select' to test whether there is data waiting to
+            # be read from the client socket. The function takes 3 lists
+            # of sockets, the first being those to test for readability.
+            # It returns 3 list of sockets, the first being those that
+            # are actually readable.
             rlist, wlist, xlist = select.select([cl.socket], [], [], 0)
 
-            # if the client socket wasn't in the readable list, there is no
-            # new data from the client - we can skip it and move on to the next
-            # one
+            # if the client socket wasn't in the readable list, there
+            # is no new data from the client - we can skip it and move
+            # on to the next one
             if cl.socket not in rlist:
                 continue
 
@@ -520,7 +524,8 @@ class MudServer(object):
                 return
 
             if data is not None:
-                # process the data, stripping out any special Telnet commands
+                # process the data, stripping out any special Telnet
+                # commands
                 message = self._process_sent_data(cl, data)
 
                 # if there was a message in the data
@@ -533,8 +538,8 @@ class MudServer(object):
                     # and its parameters (the rest of the message)
                     command, params = (message.split(" ", 1) + ["", ""])[:2]
 
-                    # add a command occurence to the new events list with the
-                    # player's id number, the command and its parameters
+                    # add a command occurence to the new events list with
+                    # the player's id number, the command and its parameters
                     # self._new_events.append((self._EVENT_COMMAND, id,
                     # command.lower(), params))
                     self._new_events.append((self._EVENT_COMMAND, id,
@@ -555,10 +560,10 @@ class MudServer(object):
             self._new_events.append((self._EVENT_PLAYER_LEFT, clid))
 
     def _process_sent_data(self, client, data):
-        # the Telnet protocol allows special command codes to be inserted into
-        # messages. For our very simple server we don't need to response to
-        # any of these codes, but we must at least detect and skip over them
-        # so that we don't interpret them as text data.
+        # the Telnet protocol allows special command codes to be inserted
+        # into messages. For our very simple server we don't need to
+        # response to any of these codes, but we must at least detect
+        # and skip over them so that we don't interpret them as text data.
         # More info on the Telnet protocol can be found here:
         # http://pcmicro.com/netfoss/telnet.html
 
@@ -568,9 +573,8 @@ class MudServer(object):
 
         # go through the data a character at a time
         for c in data:
-            # handle the character differently depending on the state we're in:
-
-            # normal state
+            # handle the character differently depending on the state
+            # we're in: normal state
             if state == self._READ_STATE_NORMAL:
                 # if we received the special 'interpret as command' code,
                 # switch to 'command' state so that we handle the next
@@ -585,10 +589,10 @@ class MudServer(object):
                     message = client.buffer
                     client.buffer = ""
 
-                # some telnet clients send the characters as soon as the user
-                # types them. So if we get a backspace character, this is where
-                # the user has deleted a character and we should delete the
-                # last character from the buffer.
+                # some telnet clients send the characters as soon as the
+                # user types them. So if we get a backspace character,
+                # this is where the user has deleted a character and we
+                # should delete the last character from the buffer.
                 elif c == "\x08":
                     client.buffer = client.buffer[:-1]
 
@@ -600,10 +604,10 @@ class MudServer(object):
             # command state
             elif state == self._READ_STATE_COMMAND:
 
-                # the special 'start of subnegotiation' command code indicates
-                # that the following characters are a list of options until
-                # we're told otherwise. We switch into 'subnegotiation' state
-                # to handle this
+                # the special 'start of subnegotiation' command code
+                # indicates that the following characters are a list of
+                # options until we're told otherwise. We switch into
+                # 'subnegotiation' state to handle this
                 if ord(c) == self._TN_SUBNEGOTIATION_START:
                     state = self._READ_STATE_SUBNEG
 
@@ -614,17 +618,17 @@ class MudServer(object):
                                 self._TN_DONT):
                     state = self._READ_STATE_COMMAND
 
-                # for all other command codes, there is no accompanying data so
-                # we can return to 'normal' state.
+                # for all other command codes, there is no accompanying
+                # data so we can return to 'normal' state.
                 else:
                     state = self._READ_STATE_NORMAL
 
             # subnegotiation state
             elif state == self._READ_STATE_SUBNEG:
 
-                # if we reach an 'end of subnegotiation' command, this ends the
-                # list of options and we can return to 'normal' state.
-                # Otherwise we must remain in this state
+                # if we reach an 'end of subnegotiation' command, this
+                # ends the list of options and we can return to 'normal'
+                # state. Otherwise we must remain in this state
                 if ord(c) == self._TN_SUBNEGOTIATION_END:
                     state = self._READ_STATE_NORMAL
 
