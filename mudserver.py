@@ -27,27 +27,45 @@ from cmsg import cmsg
 from WebSocketServer import WebSocket, WebSocketServer
 from threads import threadWithTrace
 
+ws_clients = []
+
 
 class MudServerWS(WebSocket):
-    ws_clients = []
-    server = None
+    _id = -1
+
+    _CLIENT_WEBSOCKET = 2
 
     def handleMessage(self):
-        for client in self.ws_clients:
+        for client in ws_clients:
             if client != self:
                 client.sendMessage(self.address[0] + u' - ' + self.data)
 
     def handleConnected(self):
-        print(self.address, 'connected')
-        for client in self.ws_clients:
-            client.sendMessage(self.address[0] + u' - connected')
-        self.ws_clients.append(self)
+        print(self.address, 'websocket connecting')
+        for client in ws_clients:
+            client.sendMessage(self.address[0] +
+                               u' - websocket connected')
+        print('Test1')
+        if self.server.parent:
+            print('Test2')
+            self._id = self.server.parent.getNextId()
+            print('Test3 ' + str(self._id))
+            print('Connect websocket client ' + str(self._id))
+            self.server.parent.add_new_player(self._CLIENT_WEBSOCKET, self,
+                                              self.address[0])
+        print('Test4')
+        ws_clients.append(self)
+        print(self.address, 'websocket connected')
 
     def handleClose(self):
-        self.ws_clients.remove(self)
-        print(self.address, 'closed')
-        for client in self.ws_clients:
-            client.sendMessage(self.address[0] + u' - disconnected')
+        if self.server.parent:
+            print('Disconnect websocket client ' + str(self._id))
+            self.server.parent.handleDisconnect(self._id)
+        ws_clients.remove(self)
+        print(self.address, 'websocket closed')
+        for client in ws_clients:
+            client.sendMessage(self.address[0] +
+                               u' - websocket disconnected')
 
 
 class MudServer(object):
@@ -61,8 +79,8 @@ class MudServer(object):
     running.
     """
 
-    # An inner class which is instantiated for each connected client to store
-    # info about them
+    # An inner class which is instantiated for each connected client
+    # to store info about them
 
     class _Client(object):
         """Holds information about a connected player"""
@@ -125,6 +143,9 @@ class MudServer(object):
 
     _WS_PORT = 6221
 
+    def getNextId(self) -> int:
+        return self._nextid
+
     def close_sig_handler(self, signal, frame):
         self._websocket_server_thread.kill()
         self._websocket_server.close()
@@ -136,8 +157,7 @@ class MudServer(object):
         """start the websocket server
         """
         self._websocket_server = \
-            WebSocketServer('localhost', self._WS_PORT, MudServerWS)
-        self._websocket_server.server = self
+            WebSocketServer('localhost', self._WS_PORT, MudServerWS, self)
         signal.signal(signal.SIGINT, self.close_sig_handler)
         print('Websocket server starting on port ' + str(self._WS_PORT))
         self._websocket_server_thread = \
@@ -326,7 +346,7 @@ class MudServer(object):
         except socket.error as e:
             print("Couldnt send image to Player ID " + str(to) +
                   ", socket error: " + str(e))
-            self._handleDisconnect(to)
+            self.handleDisconnect(to)
         if not noDelay:
             time.sleep(1)
 
@@ -364,7 +384,7 @@ class MudServer(object):
         except socket.error as e:
             print("Couldnt send game board to player ID " + str(to) +
                   ", socket error: " + str(e))
-            self._handleDisconnect(to)
+            self.handleDisconnect(to)
 
     def shutdown(self):
         """Closes down the server, disconnecting all clients and
@@ -378,17 +398,17 @@ class MudServer(object):
         # stop listening for new clients
         self._listen_socket.close()
 
-    def _attempt_send(self, clid, data) -> bool:
+    def _attempt_send(self, clid: int, data) -> bool:
         try:
-            # look up the client in the client map and use 'sendall' to send
-            # the message string on the socket. 'sendall' ensures that all of
-            # the data is sent in one go
+            # look up the client in the client map and use 'sendall'
+            # to send the message string on the socket. 'sendall'
+            # ensures that all of the data is sent in one go
             cl = self._clients[clid]
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(data, "latin1"))
             return True
-        # KeyError will be raised if there is no client with the given id in
-        # the map
+        # KeyError will be raised if there is no client with the given
+        # id in the map
         except KeyError as e:
             print("Failed to send data. Player ID " + str(clid) +
                   ": " + str(e))
@@ -404,52 +424,58 @@ class MudServer(object):
         except socket.error as e:
             print("Failed to send data. Player ID " + str(clid) +
                   ": " + str(e) + '. Disconnecting.')
-            self._handleDisconnect(clid)
+            self.handleDisconnect(clid)
             return False
         return True
 
-    def _check_for_new_connections(self):
-        # 'select' is used to check whether there is data waiting to be read
-        # from the socket. We pass in 3 lists of sockets, the first being those
-        # to check for readability. It returns 3 lists, the first being
-        # the sockets that are readable. The last parameter is how long to wait
-        # - we pass in 0 so that it returns immediately without waiting
-        rlist, wlist, xlist = select.select([self._listen_socket], [], [], 0)
-
-        # if the socket wasn't in the readable list, there's no data available,
-        # meaning no clients waiting to connect, and so we can exit the method
-        # here
-        if self._listen_socket not in rlist:
-            return
-
-        # 'accept' returns a new socket and address info which can be used to
-        # communicate with the new client
-        joined_socket, addr = self._listen_socket.accept()
-
-        # set non-blocking mode on the new socket. This means that 'send' and
-        # 'recv' will return immediately without waiting
-        joined_socket.setblocking(False)
-
-        # construct a new _Client object to hold info about the newly connected
-        # client. Use 'nextid' as the new client's id number
+    def add_new_player(self, client_type: int,
+                       joined_socket, address: str):
+        # construct a new _Client object to hold info about the newly
+        # connected client. Use 'nextid' as the new client's id number
         self._clients[self._nextid] = \
-            MudServer._Client(self._CLIENT_TELNET, joined_socket, addr[0],
+            MudServer._Client(client_type, joined_socket, address,
                               "", time.time())
 
-        # add a new player occurence to the new events list with the player's
-        # id number
+        # add a new player occurence to the new events list with the
+        # player's id number
         self._new_events.append((self._EVENT_NEW_PLAYER, self._nextid))
 
         # add 1 to 'nextid' so that the next client to connect will get a
         # unique id number
         self._nextid += 1
+        return self._nextid - 1
+
+    def _check_for_new_connections(self):
+        # 'select' is used to check whether there is data waiting to be
+        # read from the socket. We pass in 3 lists of sockets, the
+        # first being those to check for readability. It returns 3
+        # lists, the first being the sockets that are readable. The
+        # last parameter is how long to wait - we pass in 0 so that
+        # it returns immediately without waiting
+        rlist, wlist, xlist = select.select([self._listen_socket], [], [], 0)
+
+        # if the socket wasn't in the readable list, there's no data
+        # available, meaning no clients waiting to connect, and so we
+        # can exit the method here
+        if self._listen_socket not in rlist:
+            return
+
+        # 'accept' returns a new socket and address info which can be
+        # used to communicate with the new client
+        joined_socket, addr = self._listen_socket.accept()
+
+        # set non-blocking mode on the new socket. This means that 'send'
+        # and 'recv' will return immediately without waiting
+        joined_socket.setblocking(False)
+
+        self.add_new_player(self._CLIENT_TELNET, joined_socket, addr[0])
 
     def _check_for_disconnected(self):
         # go through all the clients
         for id, cl in list(self._clients.items()):
 
-            # if we last checked the client less than 5 seconds ago, skip this
-            # client and move on to the next one
+            # if we last checked the client less than 5 seconds ago,
+            # skip this client and move on to the next one
             if time.time() - cl.lastcheck < 5.0:
                 continue
 
@@ -466,6 +492,8 @@ class MudServer(object):
     def _check_for_messages(self):
         # go through all the clients
         for id, cl in list(self._clients.items()):
+            if self._clients[id].client_type != self._CLIENT_TELNET:
+                continue
             # we use 'select' to test whether there is data waiting to be read
             # from the client socket. The function takes 3 lists of sockets,
             # the first being those to test for readability. It returns 3 list
@@ -488,7 +516,7 @@ class MudServer(object):
             except socket.error:
                 print('Socket error receiving data. Disconnecting Player ID ' +
                       str(id))
-                self._handleDisconnect(id)
+                self.handleDisconnect(id)
                 return
 
             if data is not None:
@@ -512,7 +540,7 @@ class MudServer(object):
                     self._new_events.append((self._EVENT_COMMAND, id,
                                              command, params))
 
-    def _handleDisconnect(self, clid):
+    def handleDisconnect(self, clid: int):
         playerLeft = False
         try:
             # remove the client from the clients map

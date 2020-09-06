@@ -575,8 +575,10 @@ class WebSocket(object):
 
 
 class WebSocketServer(object):
-    def __init__(self, host, port, websocketclass, selectInterval=0.1):
+    def __init__(self, host, port, websocketclass, parent,
+                 selectInterval=0.1):
         self.websocketclass = websocketclass
+        self.parent = parent
 
         if (host == ''):
             host = None
