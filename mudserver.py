@@ -67,6 +67,8 @@ class MudServer(object):
     class _Client(object):
         """Holds information about a connected player"""
 
+        # The type of client
+        client_type = 0
         # the socket object used to communicate with this client
         socket = None
         # the ip address of this client
@@ -76,11 +78,17 @@ class MudServer(object):
         # the last time we checked if the client was still connected
         lastcheck = 0
 
-        def __init__(self, socket, address, buffer, lastcheck):
+        def __init__(self, client_type: int,
+                     socket, address: str, buffer: str,
+                     lastcheck):
+            self.client_type = client_type
             self.socket = socket
             self.address = address
             self.buffer = buffer
             self.lastcheck = lastcheck
+
+    _CLIENT_TELNET = 1
+    _CLIENT_WEBSOCKET = 2
 
     # Used to store different types of occurences
     _EVENT_NEW_PLAYER = 1
@@ -293,14 +301,16 @@ class MudServer(object):
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
+            cl = self._clients[to]
             linectr = len(messageLines)
             for lineStr in messageLines:
                 if linectr <= 30:
-                    self._clients[to].socket.sendall(bytearray(lineStr + '\n',
-                                                               'utf-8'))
+                    if cl.client_type == self._CLIENT_TELNET:
+                        cl.socket.sendall(bytearray(lineStr + '\n', 'utf-8'))
                     time.sleep(0.03)
                 linectr -= 1
-            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
+            if cl.client_type == self._CLIENT_TELNET:
+                cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
@@ -332,11 +342,13 @@ class MudServer(object):
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
+            cl = self._clients[to]
             for lineStr in messageLines:
-                self._clients[to].socket.sendall(bytearray(lineStr + '\n',
-                                                           'utf-8'))
+                if cl.client_type == self._CLIENT_TELNET:
+                    cl.socket.sendall(bytearray(lineStr + '\n', 'utf-8'))
                 time.sleep(0.03)
-            self._clients[to].socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
+            if cl.client_type == self._CLIENT_TELNET:
+                cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
         # KeyError will be raised if there is no client with the given id in
         # the map
         except KeyError as e:
@@ -371,7 +383,9 @@ class MudServer(object):
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that all of
             # the data is sent in one go
-            self._clients[clid].socket.sendall(bytearray(data, "latin1"))
+            cl = self._clients[clid]
+            if cl.client_type == self._CLIENT_TELNET:
+                cl.socket.sendall(bytearray(data, "latin1"))
             return True
         # KeyError will be raised if there is no client with the given id in
         # the map
@@ -419,7 +433,7 @@ class MudServer(object):
         # construct a new _Client object to hold info about the newly connected
         # client. Use 'nextid' as the new client's id number
         self._clients[self._nextid] = \
-            MudServer._Client(joined_socket, addr[0],
+            MudServer._Client(self._CLIENT_TELNET, joined_socket, addr[0],
                               "", time.time())
 
         # add a new player occurence to the new events list with the player's
