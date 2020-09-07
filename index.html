@@ -12,7 +12,7 @@
       --main-font-size: 20px;
       --title-font-size: 40px;
       --button-font-size: 30px;
-      --image-font-size: 20px;
+      --image-font-size: 14px;
       --text-padding: 32px;
   }
   @font-face {
@@ -148,7 +148,7 @@
 
       destination = "roomdescription";
       if (message.includes("****TITLE****")) {
-	  clearText()
+	  clearAll()
 	  destination = "roomtitle";
 	  message = message.replace("****TITLE****", "");
 	  message = message.replace("You arrive at ", "");
@@ -164,15 +164,20 @@
 	  message = message.replace("****IMAGE****", "");
       }
       var cdiv = document.getElementById(destination);
-      if (destination == "roomimage" || destination == "roomimage") {
+      if (destination == "roomtitle" || destination == "roomimage") {
 	  cdiv.innerHTML = "";
       }
 
-      // split the message into lines
-      var lines = message.split('\n');
-      msgStr = "";
-      for (var i = 0; i < lines.length; i++) {
-          msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
+      if (destination != "roomtitle") {
+	  // split the message into lines
+	  var lines = message.split('\n');
+	  msgStr = "";
+	  for (var i = 0; i < lines.length; i++) {
+              msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
+	  }
+      }
+      else {
+	  msgStr = ansi_up.ansi_to_html(message.replace('\n', ''));
       }
 
       // NOTE: This is slow
@@ -184,12 +189,25 @@
 
   window.addEventListener("load", init, false);
 
-  function clearText() {
+  if(typeof(String.prototype.trim) === "undefined")
+  {
+      String.prototype.trim = function() 
+      {
+          return String(this).replace(/^\s+|\s+$/g, '');
+      };
+  }
+
+  function clearAll() {
       var cdiv = document.getElementById("roomdescription");
       cdiv.innerHTML = "";
       var cdiv = document.getElementById("roomimage");
       cdiv.innerHTML = "";
       var cdiv = document.getElementById("roomtitle");
+      cdiv.innerHTML = "";
+  }
+
+  function clearText() {
+      var cdiv = document.getElementById("roomdescription");
       cdiv.innerHTML = "";
   }
 
