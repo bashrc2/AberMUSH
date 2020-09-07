@@ -271,6 +271,12 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
+        cl = self._clients[to]
+        # Don't wrap on the websockets version, because html
+        # will do this for us
+        if cl.client_type == self._CLIENT_WEBSOCKET:
+            self.sendMessage(to, message)
+            return
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")

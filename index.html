@@ -34,7 +34,7 @@
       color: var(--title-text-color);
   }
   #roomimage {
-      font-family: 'Octavius';
+      font-family: monospace;
       font-size: var(--image-font-size);
   }
   #roomdescription {
@@ -42,6 +42,7 @@
       font-size: var(--main-font-size);
       padding: var(--text-padding) var(--text-padding);
       color: var(--main-text-color);
+      line-height: 200%;
   }
   textarea {
       font-family: 'Octavius';
@@ -172,7 +173,11 @@
 	  // split the message into lines
 	  var lines = message.split('\n');
 	  msgStr = "";
-	  for (var i = 0; i < lines.length; i++) {
+	  var maxLines = lines.length;
+	  if (destination == "roomimage") {
+	      if (maxLines > 40) maxLines = 40;
+	  }
+	  for (var i = 0; i < maxLines; i++) {
               msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
 	  }
       }

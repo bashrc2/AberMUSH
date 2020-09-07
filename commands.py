@@ -2491,7 +2491,7 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 break
 
             if len(message) > 0:
-                mud.sendMessage(id, "It's " + itemName + ".")
+                mud.sendMessage(id, "***CLEAR***It's " + itemName + ".")
                 mud.sendMessageWrap(id, '', message + "\n\n")
                 messageSent = True
                 if itemCounter > 1:
@@ -2734,7 +2734,7 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                    id: int, fights: {}, corpses: {}, blocklist,
                    mapArea: [], characterClassDB: {}, spellsDB: {},
                    sentimentDB: {}, guildsDB: {}, clouds: {}):
-    mud.sendMessage(id, 'You check your inventory.')
+    mud.sendMessage(id, '****CLEAR****You check your inventory.')
     if len(list(players[id]['inv'])) == 0:
         mud.sendMessage(id, 'You haven`t got any items on you.\n\n')
         return
