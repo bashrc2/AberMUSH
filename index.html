@@ -3,12 +3,19 @@
 <meta charset="utf-8" />
 <style>
   @charset "UTF-8";
-div.editable {
-    width: 80%;
-    height: 50%;
-    border: 1px solid black;
-    padding: 5px;
-}  
+  div.editable {
+      width: 80%;
+      height: 50%;
+      border: 1px solid black;
+      padding: 5px;
+  }
+  body, html {
+      background-color: black;
+      color: lightgrey;
+  }
+  .inputtext {
+      background-color: #333;
+  }
 </style>
 
 <title>AberMUSH</title>
@@ -17,6 +24,7 @@ div.editable {
 <script language="javascript" type="text/javascript">
 
   var ansi_up = new AnsiUp;
+  var msgStr = '';
 
   function init()
   {
@@ -26,6 +34,9 @@ div.editable {
 
   function doConnect()
   {
+      msgStr = '';
+      var cdiv = document.getElementById("htmloutputtext");
+      cdiv.innerHTML = '';
       websocket = new WebSocket("ws://localhost:6221/");
       websocket.onopen = function(evt) { onOpen(evt) };
       websocket.onclose = function(evt) { onClose(evt) };
@@ -74,11 +85,10 @@ div.editable {
       if (message == "\x00") return;
       var cdiv = document.getElementById("htmloutputtext");
       var lines = message.split('\n');
-      var msgStr = '';
       for (var i = 0; i < lines.length; i++) {
           msgStr += ansi_up.ansi_to_html(lines[i]) + '<br>';
       }
-      cdiv.innerHTML += msgStr;
+      cdiv.innerHTML = msgStr;
       window.scrollTo(0,document.body.scrollHeight);
   }
 
@@ -105,7 +115,7 @@ div.editable {
 <form name="myform">
   <div id="htmloutputtext" contenteditable="true"></div>
   <p>
-    <textarea name="inputtext" cols="80"></textarea>
+    <textarea name="inputtext" cols="1000"></textarea>
   </p>
   <p>
     <input type="button" name=sendButton value="Send" onClick="sendText();">
