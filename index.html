@@ -9,10 +9,10 @@
       --main-text-color: white;
       --inputbox-color: #111;
       --button-text-color: yellow;
-      --main-font-size: 28px;
+      --main-font-size: 20px;
       --title-font-size: 40px;
       --button-font-size: 30px;
-      --image-font-size: 28px;
+      --image-font-size: 20px;
       --text-padding: 32px;
   }
   @font-face {
@@ -153,6 +153,11 @@
 	  message = message.replace("****TITLE****", "");
 	  message = message.replace("You arrive at ", "");
 	  message = message.replace("You row to ", "");
+      }
+      if (message.includes("****CLEAR****")) {
+	  message = message.replace("****CLEAR****", "");
+	  var cdiv = document.getElementById(destination);
+	  cdiv.innerHTML = "";
       }
       if (message.includes("****IMAGE****")) {
 	  destination = "roomimage";

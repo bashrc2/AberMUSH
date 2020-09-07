@@ -299,6 +299,8 @@ class MudServer(object):
         if cl.client_type != self._CLIENT_WEBSOCKET:
             if '****TITLE****' in message:
                 message = message.replace('****TITLE****', '')
+            elif '****CLEAR****' in message:
+                message = message.replace('****CLEAR****', '')
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")

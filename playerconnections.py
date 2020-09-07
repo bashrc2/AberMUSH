@@ -288,7 +288,7 @@ def initialSetupAfterLogin(mud, id, players: {}, loadedJson: {}) -> None:
 
     # send the new player a welcome message
     mud.sendMessageWrap(id, '<f255>',
-                        '<f220>Welcome to AberMUSH!, ' +
+                        '****CLEAR****<f220>Welcome to AberMUSH!, ' +
                         '{}. '.format(players[id]['name']))
     mud.sendMessageWrap(id, '<f255>',
                         '<f255>Hello there traveller! ' +
