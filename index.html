@@ -87,7 +87,8 @@ div.editable {
   }
 
   function clearText() {
-      document.myform.outputtext.value = "";
+      var cdiv = document.getElementById("htmloutputtext");
+      cdiv.innerHTML = "";
   }
 
   function doDisconnect() {
@@ -102,9 +103,6 @@ div.editable {
 <form name="myform">
   <div id="htmloutputtext" contenteditable="true">This area supports html.<br>
   </div>
-  <p>
-    <textarea name="outputtext" rows="1" cols="80"></textarea>
-  </p>
   <p>
     <textarea name="inputtext" cols="80"></textarea>
   </p>

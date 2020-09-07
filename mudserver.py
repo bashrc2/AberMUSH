@@ -322,15 +322,18 @@ class MudServer(object):
             # all of the data is sent in one go
             cl = self._clients[to]
             linectr = len(messageLines)
-            for lineStr in messageLines:
-                if linectr <= 30:
-                    msgStr = lineStr + '\n'
-                    if cl.client_type == self._CLIENT_TELNET:
+            if cl.client_type == self._CLIENT_TELNET:
+                for lineStr in messageLines:
+                    if linectr <= 30:
+                        msgStr = lineStr + '\n'
                         cl.socket.sendall(bytearray(msgStr, 'utf-8'))
-                    elif cl.client_type == self._CLIENT_WEBSOCKET:
-                        cl.socket.sendMessage(msgStr)
-                    time.sleep(0.03)
-                linectr -= 1
+                        time.sleep(0.03)
+                    linectr -= 1
+            elif cl.client_type == self._CLIENT_WEBSOCKET:
+                for lineStr in messageLines:
+                    msgStr = lineStr + '\n'
+                    cl.socket.sendMessage(msgStr)
+                # cl.socket.sendMessage(message)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
             elif cl.client_type == self._CLIENT_WEBSOCKET:
