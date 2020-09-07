@@ -73,10 +73,7 @@ div.editable {
   {
       var cdiv = document.getElementById("htmloutputtext");
       cdiv.innerHTML += ansi_up.ansi_to_html(message)+'<br>';
-      cdiv.scrollTop = cdiv.scrollHeight;
-      //document.myform.htmloutputtext.innerHTML += ansi_up.ansi_to_html(message);
-      //document.myform.outputtext.value += message
-      //document.myform.outputtext.scrollTop = document.myform.outputtext.scrollHeight;
+      window.scrollTo(0,document.body.scrollHeight);
   }
 
   window.addEventListener("load", init, false);
@@ -101,8 +98,7 @@ div.editable {
 <div id="output"></div>
 
 <form name="myform">
-  <div id="htmloutputtext" contenteditable="true">This area supports html.<br>
-  </div>
+  <div id="htmloutputtext" contenteditable="true"></div>
   <p>
     <textarea name="inputtext" cols="80"></textarea>
   </p>
