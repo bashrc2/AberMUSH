@@ -3,6 +3,14 @@
 <meta charset="utf-8" />
 <style>
   @charset "UTF-8";
+  :root {
+      --main-background-color: black;
+      --main-text-color: lightgrey;
+      --inputbox-color: #222;
+      --button-text-color: yellow;
+      --main-font-size: 20px;
+      --button-font-size: 30px;      
+  }
   @font-face {
       font-family: 'Octavius';
       font-style: normal;
@@ -10,31 +18,38 @@
       font-display: block;
       src: url('./fonts/Octavius.woff2') format('woff2');
   }
-  div.editable {
-      width: 100%;
-      height: 50%;
-      border: 3px solid white;
-      padding: 5px;
-  }
   body, html {
       font-family: 'Octavius';
-      background-color: black;
-      color: lightgrey;
+      font-size: var(--main-font-size);
+      background-color: var(--main-background-color);
+      color: var(--main-text-color);
+  }
+  div.roomimage {
+      font-family: 'Octavius';
+      font-size: 32px;
+  }
+  div.roomdescription {
+      font-family: 'Octavius';
+      font-size: var(--main-font-size);
   }
   textarea {
       font-family: 'Octavius';
+      font-size: var(--main-font-size);
       width: 100%;
-      background-color: #333;
-      color: lightgrey;
+      background-color: var(--inputbox-color);
+      color: var(--main-text-color);
+      padding: 16px 16px;
+      border: 0;
   }
   input[type=button] {
       font-family: 'Octavius';
-      background-color: #333;
-      color: yellow;
+      font-size: var(--button-font-size);
+      background-color: var(--inputbox-color);
+      color: var(--button-text-color);
   }
   #t01 {
       width: 100%;
-      background-color: black;
+      background-color: var(--main-background-color);
   }
 </style>
 
@@ -49,6 +64,15 @@
   {
       document.myform.inputtext.value = ""
       document.myform.disconnectButton.disabled = true;
+
+      var inputbox = document.getElementById("inputtext");
+      inputbox.focus();
+
+      inputbox.addEventListener("keydown", function (e) {
+	  if (e.keyCode === 13) {  // "Enter"
+	      sendText();
+	  }
+      });
   }
 
   function doConnect()
@@ -64,6 +88,7 @@
       websocket.onclose = function(evt) { onClose(evt) };
       websocket.onmessage = function(evt) { onMessage(evt) };
       websocket.onerror = function(evt) { onError(evt) };
+      document.getElementById("inputtext").focus();
   }
 
   function onOpen(evt)
@@ -101,6 +126,7 @@
       writeToScreen(message);
       websocket.send(message);
       document.myform.inputtext.value = "";
+      document.getElementById("inputtext").focus();
   }
 
   function writeToScreen(message)
@@ -137,12 +163,13 @@
       cdiv.innerHTML += msgStr;
 
       window.scrollTo(0,document.body.scrollHeight);
+      document.getElementById("inputtext").focus();
   }
 
   window.addEventListener("load", init, false);
 
   function sendText() {
-      doSend( document.myform.inputtext.value );
+      doSend( document.myform.inputtext.value );      
   }
 
   function clearText() {
@@ -156,8 +183,8 @@
 
   function doDisconnect() {
       websocket.close();
+      document.getElementById("inputtext").focus();
   }
-
 
 </script>
 
@@ -180,7 +207,7 @@
     </tr>
     <tr>
       <td>
-	<textarea name="inputtext" cols="1000"></textarea>
+	<textarea name="inputtext" id="inputtext" autofocus></textarea>
       </td>
     </tr>
     <tr>
