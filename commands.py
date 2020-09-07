@@ -2491,7 +2491,7 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 break
 
             if len(message) > 0:
-                mud.sendMessage(id, "***CLEAR***It's " + itemName + ".")
+                mud.sendMessage(id, "****CLEAR****It's " + itemName + ".")
                 mud.sendMessageWrap(id, '', message + "\n\n")
                 messageSent = True
                 if itemCounter > 1:
