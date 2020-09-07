@@ -3,23 +3,38 @@
 <meta charset="utf-8" />
 <style>
   @charset "UTF-8";
+  @font-face {
+      font-family: 'Octavius';
+      font-style: normal;
+      font-weight: normal;
+      font-display: block;
+      src: url('./fonts/Octavius.woff2') format('woff2');
+  }
   div.editable {
-      width: 80%;
+      width: 100%;
       height: 50%;
-      border: 1px solid black;
+      border: 3px solid white;
       padding: 5px;
   }
   body, html {
+      font-family: 'Octavius';
       background-color: black;
       color: lightgrey;
   }
   textarea {
+      font-family: 'Octavius';
+      width: 100%;
       background-color: #333;
       color: lightgrey;
   }
   input[type=button] {
+      font-family: 'Octavius';
       background-color: #333;
       color: yellow;
+  }
+  #t01 {
+      width: 100%;
+      background-color: black;
   }
 </style>
 
@@ -38,7 +53,11 @@
 
   function doConnect()
   {
-      var cdiv = document.getElementById("htmloutputtext");
+      var cdiv = document.getElementById("roomdescription");
+      cdiv.innerHTML = "";
+      var cdiv = document.getElementById("roomimage");
+      cdiv.innerHTML = "";
+      var cdiv = document.getElementById("roomtitle");
       cdiv.innerHTML = "";
       websocket = new WebSocket("ws://localhost:6221/");
       websocket.onopen = function(evt) { onOpen(evt) };
@@ -90,12 +109,21 @@
       // that the client is still active
       if (message == "\x00") return;
 
-      var cdiv = document.getElementById("htmloutputtext");
-
-      // should the screen be cleared?
-      if (message.includes("****CLEAR****")) {
-	  clearText();
-	  message = message.replace("****CLEAR****", "");
+      destination = "roomdescription";
+      if (message.includes("****TITLE****")) {
+	  clearText()
+	  destination = "roomtitle";
+	  message = message.replace("****TITLE****", "");
+	  message = message.replace("You arrive at ", "");
+	  message = message.replace("You row to ", "");
+      }
+      if (message.includes("****IMAGE****")) {
+	  destination = "roomimage";
+	  message = message.replace("****IMAGE****", "");
+      }
+      var cdiv = document.getElementById(destination);
+      if (destination == "roomimage" || destination == "roomimage") {
+	  cdiv.innerHTML = "";
       }
 
       // split the message into lines
@@ -118,7 +146,11 @@
   }
 
   function clearText() {
-      var cdiv = document.getElementById("htmloutputtext");
+      var cdiv = document.getElementById("roomdescription");
+      cdiv.innerHTML = "";
+      var cdiv = document.getElementById("roomimage");
+      cdiv.innerHTML = "";
+      var cdiv = document.getElementById("roomtitle");
       cdiv.innerHTML = "";
   }
 
@@ -132,16 +164,34 @@
 <div id="output"></div>
 
 <form name="myform">
-  <div id="htmloutputtext" contenteditable="true"></div>
-  <p>
-    <textarea name="inputtext" cols="1000"></textarea>
-  </p>
-  <p>
-    <input type="button" id="sendButton" name="sendButton" value="Send" onClick="sendText();">
-    <input type="button" name="clearButton" value="Clear" onClick="clearText();">
-    <input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
-    <input type="button" name="connectButton" value="Connect" onClick="doConnect();">
-  </p>
+  <table id="maintable">
+    <tr>
+      <th>
+	<div id="roomtitle" contenteditable="true">Room Title</div>
+      </th>
+    </tr>
+    <tr>
+      <td>
+	<div id="roomdescription" contenteditable="true">Room Description</div>
+      </td>
+      <td>
+	<div id="roomimage" contenteditable="true">Room Image</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<textarea name="inputtext" cols="1000"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<input type="button" id="sendButton" name="sendButton" value="Send" onClick="sendText();">
+	<input type="button" name="clearButton" value="Clear" onClick="clearText();">
+	<input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
+	<input type="button" name="connectButton" value="Connect" onClick="doConnect();">
+      </td>
+    </tr>
+  </table>
 
 
 </form>

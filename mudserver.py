@@ -295,6 +295,10 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
+        cl = self._clients[to]
+        if cl.client_type != self._CLIENT_WEBSOCKET:
+            if '****TITLE****' in message:
+                message = message.replace('****TITLE****', '')
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
@@ -332,7 +336,7 @@ class MudServer(object):
                         time.sleep(0.03)
                     linectr -= 1
             elif cl.client_type == self._CLIENT_WEBSOCKET:
-                cl.socket.sendMessage('****CLEAR****' + message)
+                cl.socket.sendMessage('****IMAGE****' + message)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
             elif cl.client_type == self._CLIENT_WEBSOCKET:
@@ -378,7 +382,7 @@ class MudServer(object):
                         cl.socket.sendMessage(msgStr)
                     time.sleep(0.03)
             elif cl.client_type == self._CLIENT_WEBSOCKET:
-                cl.socket.sendMessage('****CLEAR****' + message)
+                cl.socket.sendMessage('****IMAGE****' + message)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
             elif cl.client_type == self._CLIENT_WEBSOCKET:

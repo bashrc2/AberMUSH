@@ -2264,7 +2264,8 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                   "the floor.")
 
             mud.sendMessageWrap(id, '<f230>',
-                                "<f230>" + roomDescription.strip())
+                                "<f230>" +
+                                roomDescription.strip())
             playershere = []
 
             itemshere = []
@@ -4062,13 +4063,13 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                                            desc + "\n\n")
                     # send the player a message telling them where they are now
                     desc = \
-                        'You arrive at ' + \
+                        '****TITLE****You arrive at ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
                     mud.sendMessage(id, desc + "\n\n")
                 else:
                     # send the player a message telling them where they are now
                     desc = \
-                        'You row to ' + \
+                        '****TITLE****You row to ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
                     mud.sendMessage(id, desc + "\n\n")
 
