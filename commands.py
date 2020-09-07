@@ -2386,7 +2386,7 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 messageSent = True
 
             if len(message) > 0:
-                mud.sendMessage(id, message + "\n\n")
+                mud.sendMessage(id, "****CLEAR****" + message + "\n\n")
                 messageSent = True
 
             message = ""
@@ -3190,7 +3190,8 @@ def playersMoveTogether(id, rm, mud,
 def bioOfPlayer(mud, id, pid, players, itemsDB):
     if players[pid].get('race'):
         if len(players[pid]['race']) > 0:
-            mud.sendMessage(id, '<f32>' + players[pid]['name'] + '<r> (' +
+            mud.sendMessage(id, '****CLEAR****<f32>' +
+                            players[pid]['name'] + '<r> (' +
                             players[pid]['race'] + ' ' +
                             players[pid]['characterClass'] + ')\n')
 
