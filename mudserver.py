@@ -36,9 +36,11 @@ class MudServerWS(WebSocket):
     _CLIENT_WEBSOCKET = 2
 
     def handleMessage(self):
-        for client in ws_clients:
-            if client != self:
-                client.sendMessage(self.address[0] + u' - ' + self.data)
+        # web interface sent a message
+        # print('Player ' + str(self._id) + u' sent: ' + self.data)
+        if self._id < 0:
+            return
+        self.server.parent.receiveMessage(self._id, self.data.strip())
 
     def handleConnected(self):
         print(self.address, 'websocket connecting')
@@ -503,6 +505,20 @@ class MudServer(object):
             # update the last check time
             cl.lastcheck = time.time()
 
+    def receiveMessage(self, id: int, message: str):
+        """Receives a command from a player
+        """
+        # separate the message into the command (the first word)
+        # and its parameters (the rest of the message)
+        command, params = (message.split(" ", 1) + ["", ""])[:2]
+
+        # add a command occurence to the new events list with
+        # the player's id number, the command and its parameters
+        # self._new_events.append((self._EVENT_COMMAND, id,
+        # command.lower(), params))
+        self._new_events.append((self._EVENT_COMMAND, id,
+                                 command, params))
+
     def _check_for_messages(self):
         # go through all the clients
         for id, cl in list(self._clients.items()):
@@ -544,18 +560,7 @@ class MudServer(object):
                 if message:
                     # remove any spaces, tabs etc from the start and end of
                     # the message
-                    message = message.strip()
-
-                    # separate the message into the command (the first word)
-                    # and its parameters (the rest of the message)
-                    command, params = (message.split(" ", 1) + ["", ""])[:2]
-
-                    # add a command occurence to the new events list with
-                    # the player's id number, the command and its parameters
-                    # self._new_events.append((self._EVENT_COMMAND, id,
-                    # command.lower(), params))
-                    self._new_events.append((self._EVENT_COMMAND, id,
-                                             command, params))
+                    self.receiveMessage(id, message.strip())
 
     def handleDisconnect(self, clid: int):
         playerLeft = False
