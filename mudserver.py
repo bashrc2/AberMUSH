@@ -330,7 +330,7 @@ class MudServer(object):
                         time.sleep(0.03)
                     linectr -= 1
             elif cl.client_type == self._CLIENT_WEBSOCKET:
-                cl.socket.sendMessage(message)
+                cl.socket.sendMessage('****CLEAR****' + message)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
             elif cl.client_type == self._CLIENT_WEBSOCKET:
@@ -376,7 +376,7 @@ class MudServer(object):
                         cl.socket.sendMessage(msgStr)
                     time.sleep(0.03)
             elif cl.client_type == self._CLIENT_WEBSOCKET:
-                cl.socket.sendMessage(message)
+                cl.socket.sendMessage('****CLEAR****' + message)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
             elif cl.client_type == self._CLIENT_WEBSOCKET:
