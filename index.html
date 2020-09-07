@@ -13,8 +13,13 @@
       background-color: black;
       color: lightgrey;
   }
-  .inputtext {
+  textarea {
       background-color: #333;
+      color: lightgrey;
+  }
+  input[type=button] {
+      background-color: #333;
+      color: yellow;
   }
 </style>
 
@@ -76,6 +81,7 @@
   {
       writeToScreen(message);
       websocket.send(message);
+      document.myform.inputtext.value = "";
   }
 
   function writeToScreen(message)
@@ -131,10 +137,10 @@
     <textarea name="inputtext" cols="1000"></textarea>
   </p>
   <p>
-    <input type="button" name=sendButton value="Send" onClick="sendText();">
-    <input type="button" name=clearButton value="Clear" onClick="clearText();">
-    <input type="button" name=disconnectButton value="Disconnect" onClick="doDisconnect();">
-    <input type="button" name=connectButton value="Connect" onClick="doConnect();">
+    <input type="button" id="sendButton" name="sendButton" value="Send" onClick="sendText();">
+    <input type="button" name="clearButton" value="Clear" onClick="clearText();">
+    <input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
+    <input type="button" name="connectButton" value="Connect" onClick="doConnect();">
   </p>
 
 
