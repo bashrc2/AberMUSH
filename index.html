@@ -71,13 +71,18 @@ div.editable {
 
   function writeToScreen(message)
   {
+      if (message == "\x00") return;
       var cdiv = document.getElementById("htmloutputtext");
-      cdiv.innerHTML += ansi_up.ansi_to_html(message)+'<br>';
+      var lines = message.split('\n');
+      var msgStr = '';
+      for (var i = 0; i < lines.length; i++) {
+          msgStr += ansi_up.ansi_to_html(lines[i]) + '<br>';
+      }
+      cdiv.innerHTML += msgStr;
       window.scrollTo(0,document.body.scrollHeight);
   }
 
   window.addEventListener("load", init, false);
-
 
   function sendText() {
       doSend( document.myform.inputtext.value );
