@@ -5,11 +5,15 @@
   @charset "UTF-8";
   :root {
       --main-background-color: black;
-      --main-text-color: lightgrey;
-      --inputbox-color: #222;
+      --title-text-color: lightgrey;
+      --main-text-color: white;
+      --inputbox-color: #111;
       --button-text-color: yellow;
-      --main-font-size: 20px;
-      --button-font-size: 30px;      
+      --main-font-size: 28px;
+      --title-font-size: 40px;
+      --button-font-size: 30px;
+      --image-font-size: 28px;
+      --text-padding: 32px;
   }
   @font-face {
       font-family: 'Octavius';
@@ -24,13 +28,20 @@
       background-color: var(--main-background-color);
       color: var(--main-text-color);
   }
-  div.roomimage {
+  #roomtitle {
       font-family: 'Octavius';
-      font-size: 32px;
+      font-size: var(--title-font-size);
+      color: var(--title-text-color);
   }
-  div.roomdescription {
+  #roomimage {
+      font-family: 'Octavius';
+      font-size: var(--image-font-size);
+  }
+  #roomdescription {
       font-family: 'Octavius';
       font-size: var(--main-font-size);
+      padding: var(--text-padding) var(--text-padding);
+      color: var(--main-text-color);
   }
   textarea {
       font-family: 'Octavius';
@@ -70,7 +81,7 @@
 
       inputbox.addEventListener("keydown", function (e) {
 	  if (e.keyCode === 13) {  // "Enter"
-	      sendText();
+	      doSend( document.myform.inputtext.value );      
 	  }
       });
   }
@@ -168,10 +179,6 @@
 
   window.addEventListener("load", init, false);
 
-  function sendText() {
-      doSend( document.myform.inputtext.value );      
-  }
-
   function clearText() {
       var cdiv = document.getElementById("roomdescription");
       cdiv.innerHTML = "";
@@ -194,15 +201,15 @@
   <table id="maintable">
     <tr>
       <th>
-	<div id="roomtitle" contenteditable="true">Room Title</div>
+	<div id="roomtitle" name="roomtitle" contenteditable="true">Room Title</div>
       </th>
     </tr>
     <tr>
       <td>
-	<div id="roomdescription" contenteditable="true">Room Description</div>
+	<div id="roomdescription" name="roomdescription" contenteditable="true">Room Description</div>
       </td>
       <td>
-	<div id="roomimage" contenteditable="true">Room Image</div>
+	<div id="roomimage" name="roomimage" contenteditable="true">Room Image</div>
       </td>
     </tr>
     <tr>
@@ -212,7 +219,6 @@
     </tr>
     <tr>
       <td>
-	<input type="button" id="sendButton" name="sendButton" value="Send" onClick="sendText();">
 	<input type="button" name="clearButton" value="Clear" onClick="clearText();">
 	<input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
 	<input type="button" name="connectButton" value="Connect" onClick="doConnect();">
