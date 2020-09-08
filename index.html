@@ -10,6 +10,7 @@
       --inputbox-color: #111;
       --button-text-color: yellow;
       --main-font-size: 20px;
+      --input-font-size: 28px;
       --title-font-size: 40px;
       --button-font-size: 30px;
       --image-font-size: 14px;
@@ -32,6 +33,7 @@
       font-family: 'Octavius';
       font-size: var(--title-font-size);
       color: var(--title-text-color);
+      float: left;
   }
   #roomimage {
       font-family: monospace;
@@ -46,20 +48,23 @@
   }
   textarea {
       font-family: 'Octavius';
-      font-size: var(--main-font-size);
-      width: 100%;
+      font-size: var(--input-font-size);
+      width: 92%;
       background-color: var(--inputbox-color);
       color: var(--main-text-color);
       padding: 16px 16px;
       border: 0;
+      margin-left: 3%;
   }
   input[type=button] {
       font-family: 'Octavius';
       font-size: var(--button-font-size);
       background-color: var(--inputbox-color);
       color: var(--button-text-color);
+      float: right;
+      margin: 3% 3%;
   }
-  #t01 {
+  #maintable {
       width: 100%;
       background-color: var(--main-background-color);
   }
@@ -82,7 +87,7 @@
 
       inputbox.addEventListener("keydown", function (e) {
 	  if (e.keyCode === 13) {  // "Enter"
-	      doSend( document.myform.inputtext.value );      
+	      doSend( document.myform.inputtext.value );
 	  }
       });
   }
@@ -196,7 +201,7 @@
 
   if(typeof(String.prototype.trim) === "undefined")
   {
-      String.prototype.trim = function() 
+      String.prototype.trim = function()
       {
           return String(this).replace(/^\s+|\s+$/g, '');
       };
@@ -228,32 +233,39 @@
 <form name="myform">
   <table id="maintable">
     <tr>
-      <th>
-	<div id="roomtitle" name="roomtitle" contenteditable="true">Room Title</div>
-      </th>
-    </tr>
-    <tr>
+
       <td>
-	<div id="roomdescription" name="roomdescription" contenteditable="true">Room Description</div>
+	<table id="texttable">
+	  <tr>
+	    <td>
+	      <div id="roomtitle" name="roomtitle" contenteditable="true">Room Title</div>
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <td>
+	      <div id="roomdescription" name="roomdescription" contenteditable="true">Room Description</div>
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <td>
+	      <textarea name="inputtext" id="inputtext" autofocus></textarea>
+	      <br>
+	      <input type="button" name="clearButton" value="Clear" onClick="clearText();">
+	      <input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
+	      <input type="button" name="connectButton" value="Connect" onClick="doConnect();">
+	    </td>
+	  </tr>
+	</table>
       </td>
+
       <td>
 	<div id="roomimage" name="roomimage" contenteditable="true">Room Image</div>
       </td>
-    </tr>
-    <tr>
-      <td>
-	<textarea name="inputtext" id="inputtext" autofocus></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td>
-	<input type="button" name="clearButton" value="Clear" onClick="clearText();">
-	<input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
-	<input type="button" name="connectButton" value="Connect" onClick="doConnect();">
-      </td>
+
     </tr>
   </table>
-
 
 </form>
 </html>
