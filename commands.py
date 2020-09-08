@@ -552,7 +552,7 @@ def kick(params, mud, playersDB: {}, players: {}, rooms: {},
     for (pid, pl) in list(players.items()):
         if players[pid]['name'] == playerName:
             mud.sendMessage(id, "Removing player " + playerName + "\n\n")
-            mud._handleDisconnect(pid)
+            mud.handleDisconnect(pid)
             return
 
     mud.sendMessage(id, "There are no players with that name.\n\n")
@@ -574,7 +574,7 @@ def shutdown(params, mud, playersDB: {}, players: {}, rooms: {},
     log("Universe saved", "info")
     for (pid, pl) in list(players.items()):
         mud.sendMessage(pid, "Game server shutting down...\n\n")
-        mud._handleDisconnect(pid)
+        mud.handleDisconnect(pid)
     log("Shutting down", "info")
     sys.exit()
 
@@ -592,7 +592,7 @@ def resetUniverse(params, mud, playersDB: {}, players: {}, rooms: {},
     log('Universe reset', 'info')
     for (pid, pl) in list(players.items()):
         mud.sendMessage(pid, "Game server shutting down...\n\n")
-        mud._handleDisconnect(pid)
+        mud.handleDisconnect(pid)
     log("Shutting down", "info")
     sys.exit()
 
@@ -603,7 +603,7 @@ def quit(params, mud, playersDB: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
          sentimentDB: {}, guildsDB: {}, clouds: {}):
-    mud._handleDisconnect(id)
+    mud.handleDisconnect(id)
 
 
 def who(params, mud, playersDB: {}, players: {}, rooms: {},

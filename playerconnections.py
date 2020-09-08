@@ -23,7 +23,7 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
     for id in mud.get_new_players():
         if len(players) >= maximum_players:
             mud.sendMessage(id, "Player limit reached\n\n")
-            mud._handleDisconnect(id)
+            mud.handleDisconnect(id)
 
         # add the new player to the dictionary, noting that they've not been
         # named yet.
@@ -241,7 +241,7 @@ def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
                 " is being disconnected due to inactivity.", "warning")
             log("Disconnecting client " + str(p), "warning")
             del players[p]
-            mud._handleDisconnect(p)
+            mud.handleDisconnect(p)
     return authenticatedPlayersDisconnected
 
 
