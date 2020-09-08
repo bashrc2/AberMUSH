@@ -36978,8 +36978,8 @@
     },
     "1418": {
         "name": "wooden table",
-        "short_description": "A wooden tavern table build from solid planks. There is a pack of cards here.",
-        "long_description": "A wooden tavern table build from solid planks. There is a pack of cards and a Nine Men's Morris board here.",
+        "short_description": "A wooden tavern table built from solid planks. There is a pack of cards here.",
+        "long_description": "A wooden tavern table built from solid planks. There is a pack of cards and a Nine Men's Morris board here.",
 	"takeFail": "Stealing the table from this seedy locale would not be a wise move.",
         "moveTimes": [],
         "clo_head": 0,

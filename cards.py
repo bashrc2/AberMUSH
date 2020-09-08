@@ -503,11 +503,15 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
         if players[id]['graphics'] == 'off':
             graphicalCards = False
     if graphicalCards:
-        for lineRowStr in lines:
-            lineStr = ''
-            for s in lineRowStr:
-                lineStr += s
-            boardStr += lineStr+'\n'
+        if mud.playerUsingWebInterface(id):
+            # TODO show cards as html
+            boardStr += '<i>Show cards as html</i>'
+        else:
+            for lineRowStr in lines:
+                lineStr = ''
+                for s in lineRowStr:
+                    lineStr += s
+                boardStr += lineStr + '\n'
     else:
         boardStr += cardDescriptions
 

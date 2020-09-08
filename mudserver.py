@@ -266,6 +266,15 @@ class MudServer(object):
         # return the info list
         return retval
 
+    def playerUsingWebInterface(self, id: int) -> bool:
+        """Returns true if the player with the given id is
+        using the web interface
+        """
+        cl = self._clients[id]
+        if cl.client_type == self._CLIENT_WEBSOCKET:
+            return True
+        return False
+
     def sendMessageWrap(self, to, prefix, message):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
