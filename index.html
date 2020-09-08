@@ -77,14 +77,28 @@
 
   var ansi_up = new AnsiUp;
 
-  function init()
+  function initial_layout()
   {
       document.myform.inputtext.value = ""
       document.myform.disconnectButton.disabled = true;
 
+      // buttons not initially visible
+      document.myform.connectButton.style.visibility = "visible";
+      document.myform.disconnectButton.style.visibility = "hidden";
+      document.myform.clearButton.style.visibility = "hidden";
+
+      // hide input box
+      document.myform.inputtext.style.visibility = "hidden";
+
       var inputbox = document.getElementById("inputtext");
       inputbox.focus();
+  }
 
+  function init()
+  {
+      initial_layout();
+
+      var inputbox = document.getElementById("inputtext");
       inputbox.addEventListener("keydown", function (e) {
 	  if (e.keyCode === 13) {  // "Enter"
 	      doSend( document.myform.inputtext.value );
@@ -105,6 +119,15 @@
       websocket.onclose = function(evt) { onClose(evt) };
       websocket.onmessage = function(evt) { onMessage(evt) };
       websocket.onerror = function(evt) { onError(evt) };
+
+      // make buttons visible
+      document.myform.connectButton.style.visibility = "hidden";
+      document.myform.disconnectButton.style.visibility = "visible";
+      document.myform.clearButton.style.visibility = "visible";
+
+      // make input box visible
+      document.myform.inputtext.style.visibility = "visible";
+
       document.getElementById("inputtext").focus();
   }
 
@@ -223,7 +246,7 @@
 
   function doDisconnect() {
       websocket.close();
-      document.getElementById("inputtext").focus();
+      initial_layout();
   }
 
 </script>
@@ -233,37 +256,41 @@
 <form name="myform">
   <table id="maintable">
     <tr>
-
       <td>
 	<table id="texttable">
 	  <tr>
 	    <td>
-	      <div id="roomtitle" name="roomtitle" contenteditable="true">Room Title</div>
+	      <div id="roomtitle" name="roomtitle" contenteditable="true">A B E R M U S H
+	      </div>
+	      <br>
+	      <input type="button" name="connectButton" value="Connect" onClick="doConnect();">
 	    </td>
 	  </tr>
-
 	  <tr>
 	    <td>
-	      <div id="roomdescription" name="roomdescription" contenteditable="true">Room Description</div>
 	    </td>
 	  </tr>
-
+	  <tr>
+	    <td>
+	      <div id="roomdescription" name="roomdescription" contenteditable="true">
+		Welcome to AberMUSH, based on the AberMUD universe.
+	      </div>
+	    </td>
+	  </tr>
 	  <tr>
 	    <td>
 	      <textarea name="inputtext" id="inputtext" autofocus></textarea>
 	      <br>
 	      <input type="button" name="clearButton" value="Clear" onClick="clearText();">
 	      <input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
-	      <input type="button" name="connectButton" value="Connect" onClick="doConnect();">
 	    </td>
 	  </tr>
 	</table>
       </td>
-
       <td>
-	<div id="roomimage" name="roomimage" contenteditable="true">Room Image</div>
+	<div id="roomimage" name="roomimage" contenteditable="true">
+	</div>
       </td>
-
     </tr>
   </table>
 
