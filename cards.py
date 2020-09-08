@@ -182,9 +182,16 @@ def parseCard(cardDescription: str) -> str:
     and turns it into "a♠"
     """
     suitName = {
+        "sword": "♥",
+        "collar": "♥",
         "heart": "♥",
         "diamond": "♦",
+        "horn": "♦",
+        "coin": "♦",
         "club": "♣",
+        "loop": "♣",
+        "leashe": "♠",
+        "cup": "♠",
         "spade": "♠"
     }
     detectedSuit = ''
@@ -281,6 +288,19 @@ def cardGameInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
     return None
 
 
+def cardGamePack(players: {}, id, rooms: {}, items: {}, itemsDB: {}) -> str:
+    """Returns the card pack name to use
+    """
+    rid = players[id]['room']
+    for i in items:
+        if items[i]['room'] != rid:
+            continue
+        if 'cards' in itemsDB[items[i]['id']]['game'].lower():
+            if itemsDB[items[i]['id']].get('cardPack'):
+                return itemsDB[items[i]['id']]['cardPack']
+    return None
+
+
 def getNumberFromText(text: str) -> int:
     """If there is a number in the given text then return it
     """
@@ -364,7 +384,7 @@ def dealToPlayers(players: {}, dealerId, description: str,
     items[gameItemID]['gameState']['deck'] = str(deck)
 
 
-def getCardDescription(rank: str, suit: str) -> str:
+def getCardDescription(pack: str, rank: str, suit: str) -> str:
     """Given rank as a single character and suit
     returns a description of the card
     This is used for non-graphical output
@@ -373,19 +393,40 @@ def getCardDescription(rank: str, suit: str) -> str:
     if rankStr.startswith('K'):
         rankStr = 'King'
     elif rankStr.startswith('Q'):
-        rankStr = 'Queen'
+        if pack == 'set1':
+            rankStr = 'Knight'
+        else:
+            rankStr = 'Queen'
     elif rankStr.startswith('A'):
         rankStr = 'Ace'
     elif rankStr.startswith('J'):
         rankStr = 'Jack'
 
     if suit == '♥':
-        return str(rankStr) + ' of hearts\n'
+        if pack == 'cloisters':
+            return str(rankStr) + ' of collars\n'
+        elif pack == 'set1':
+            return str(rankStr) + ' of swords\n'
+        else:
+            return str(rankStr) + ' of hearts\n'
     elif suit == '♦':
-        return str(rankStr) + ' of diamonds\n'
+        if pack == 'cloisters':
+            return str(rankStr) + ' of horns\n'
+        elif pack == 'set1':
+            return str(rankStr) + ' of coins\n'
+        else:
+            return str(rankStr) + ' of diamonds\n'
     elif suit == '♣':
-        return str(rankStr) + ' of clubs\n'
-    return str(rankStr) + ' of spades\n'
+        if pack == 'cloisters':
+            return str(rankStr) + ' of loops\n'
+        else:
+            return str(rankStr) + ' of clubs\n'
+    if pack == 'cloisters':
+        return str(rankStr) + ' of leashes\n'
+    elif pack == 'set1':
+        return str(rankStr) + ' of cups\n'
+    else:
+        return str(rankStr) + ' of spades\n'
 
 
 def showHandOfCards(players: {}, id, mud, rooms: {},
@@ -396,6 +437,11 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
     if not gameItemID:
         mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
+
+    # get the pack to be shown within the web interface
+    pack = cardGamePack(players, id, rooms, items, itemsDB)
+    if not pack:
+        pack = 'standard'
 
     playerName = players[id]['name']
     if not items[gameItemID].get('gameState'):
@@ -429,7 +475,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
             suit = cardStr[2]
         suitColor = "\u001b[38;5;245m"
 
-        cardDescriptions += getCardDescription(rank, suit)
+        cardDescriptions += getCardDescription(pack, rank, suit)
 
         if suit == '♥' or suit == '♦':
             suitColor = "\u001b[31m"

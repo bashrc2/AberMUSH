@@ -879,113 +879,147 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(id, '****CLEAR****\n')
     mud.sendMessage(id, 'Commands:')
     mud.sendMessage(id,
-                    '  <f220>help witch|spell|cards|chess|morris<f255>     - Show help')
+                    '  <f220>help witch|spell|cards|chess|morris<f255>' +
+                    '     - Show help')
     mud.sendMessage(id,
-                    '  <f220>bio [description]<f255>                       - ' +
+                    '  <f220>bio [description]<f255>' +
+                    '                       - ' +
                     'Set a description of yourself')
     mud.sendMessage(id,
-                    '  <f220>graphics [on|off]<f255>                       - ' +
+                    '  <f220>graphics [on|off]<f255>' +
+                    '                       - ' +
                     'Turn graphic content on or off')
     mud.sendMessage(id,
-                    '  <f220>change password [newpassword]<f255>           - ' +
+                    '  <f220>change password [newpassword]<f255>' +
+                    '           - ' +
                     'Change your password')
     mud.sendMessage(id,
-                    '  <f220>who<f255>                                     - ' +
+                    '  <f220>who<f255>' +
+                    '                                     - ' +
                     'List players and where they are')
     mud.sendMessage(id,
-                    '  <f220>quit/exit<f255>                               - ' +
+                    '  <f220>quit/exit<f255>' +
+                    '                               - ' +
                     'Leave the game')
     mud.sendMessage(id,
-                    '  <f220>eat/drink [item]<f255>                        - ' +
+                    '  <f220>eat/drink [item]<f255>' +
+                    '                        - ' +
                     'Eat or drink a consumable')
     mud.sendMessage(id,
-                    '  <f220>speak [language]<f255>                        - ' +
+                    '  <f220>speak [language]<f255>' +
+                    '                        - ' +
                     'Switch to speaking a different language')
     mud.sendMessage(id,
-                    '  <f220>say [message]<f255>                           - ' +
+                    '  <f220>say [message]<f255>' +
+                    '                           - ' +
                     'Says something out loud, ' +
                     "e.g. 'say Hello'")
     mud.sendMessage(id,
-                    '  <f220>look/examine<f255>                            - ' +
+                    '  <f220>look/examine<f255>' +
+                    '                            - ' +
                     'Examines the ' +
                     "surroundings, items in the room, NPCs or other " +
                     "players e.g. 'examine inn-keeper'")
     mud.sendMessage(id,
-                    '  <f220>go [exit]<f255>                               - ' +
+                    '  <f220>go [exit]<f255>' +
+                    '                               - ' +
                     'Moves through the exit ' +
                     "specified, e.g. 'go outside'")
     mud.sendMessage(id,
-                    '  <f220>climb though [exit]<f255>                     - ' +
+                    '  <f220>climb though [exit]<f255>' +
+                    '                     - ' +
                     'Try to climb through an exit')
     mud.sendMessage(id,
-                    '  <f220>move/roll/heave [target]<f255>                - ' +
+                    '  <f220>move/roll/heave [target]<f255>' +
+                    '                - ' +
                     'Try to move or roll a heavy object')
     mud.sendMessage(id,
-                    '  <f220>jump to [exit]<f255>                          - ' +
+                    '  <f220>jump to [exit]<f255>' +
+                    '                          - ' +
                     'Try to jump onto something')
     mud.sendMessage(id,
-                    '  <f220>attack [target]<f255>                         - ' +
+                    '  <f220>attack [target]<f255>' +
+                    '                         - ' +
                     'Attack target ' +
                     "specified, e.g. 'attack knight'")
     mud.sendMessage(id,
-                    '  <f220>check inventory<f255>                         - ' +
+                    '  <f220>check inventory<f255>' +
+                    '                         - ' +
                     'Check the contents of ' +
                     "your inventory")
     mud.sendMessage(id,
-                    '  <f220>take/get [item]<f255>                         - ' +
+                    '  <f220>take/get [item]<f255>' +
+                    '                         - ' +
                     'Pick up an item lying ' +
                     "on the floor")
     mud.sendMessage(id,
-                    '  <f220>put [item] in/on [item]<f255>                 - ' +
+                    '  <f220>put [item] in/on [item]<f255>' +
+                    '                 - ' +
                     'Put an item into or onto another one')
     mud.sendMessage(id,
-                    '  <f220>drop [item]<f255>                             - ' +
+                    '  <f220>drop [item]<f255>' +
+                    '                             - ' +
                     'Drop an item from your inventory ' +
                     "on the floor")
     mud.sendMessage(id,
-                    '  <f220>use/hold/pick/wield [item] [left|right]<f255> - ' +
+                    '  <f220>use/hold/pick/wield [item] ' +
+                    '[left|right]<f255> - ' +
                     'Transfer an item to your hands')
     mud.sendMessage(id,
-                    '  <f220>stow<f255>                                    - ' +
+                    '  <f220>stow<f255>' +
+                    '                                    - ' +
                     'Free your hands of items')
     mud.sendMessage(id,
-                    '  <f220>wear [item]<f255>                             - ' +
+                    '  <f220>wear [item]<f255>' +
+                    '                             - ' +
                     'Wear an item')
     mud.sendMessage(id,
-                    '  <f220>remove/unwear [item]<f255>                    - ' +
+                    '  <f220>remove/unwear [item]<f255>' +
+                    '                    - ' +
                     'Remove a worn item')
     mud.sendMessage(id,
-                    '  <f220>whisper [target] [message]<f255>              - ' +
+                    '  <f220>whisper [target] [message]<f255>' +
+                    '              - ' +
                     'Whisper to a player in the same room')
     mud.sendMessage(id,
-                    '  <f220>tell/ask [target] [message]<f255>             - ' +
+                    '  <f220>tell/ask [target] [message]<f255>' +
+                    '             - ' +
                     'Send a tell message to another player or NPC')
     mud.sendMessage(id,
-                    '  <f220>open [item]<f255>                             - ' +
+                    '  <f220>open [item]<f255>' +
+                    '                             - ' +
                     'Open an item or door')
     mud.sendMessage(id,
-                    '  <f220>close [item]<f255>                            - ' +
+                    '  <f220>close [item]<f255>' +
+                    '                            - ' +
                     'Close an item or door')
     mud.sendMessage(id,
-                    '  <f220>push [item]<f255>                             - ' +
+                    '  <f220>push [item]<f255>' +
+                    '                             - ' +
                     'Pushes a lever')
     mud.sendMessage(id,
-                    '  <f220>pull [item]<f255>                             - ' +
+                    '  <f220>pull [item]<f255>' +
+                    '                             - ' +
                     'Pulls a lever')
     mud.sendMessage(id,
-                    '  <f220>wind [item]<f255>                             - ' +
+                    '  <f220>wind [item]<f255>' +
+                    '                             - ' +
                     'Winds a lever')
     mud.sendMessage(id,
-                    '  <f220>affinity [player name]<f255>                  - ' +
+                    '  <f220>affinity [player name]<f255>' +
+                    '                  - ' +
                     'Shows your affinity level with another player')
     mud.sendMessage(id,
-                    '  <f220>cut/escape<f255>                              - ' +
+                    '  <f220>cut/escape<f255>' +
+                    '                              - ' +
                     'Attempt to escape from a trap')
     mud.sendMessage(id,
-                    '  <f220>step over tripwire [exit]<f255>               - ' +
+                    '  <f220>step over tripwire [exit]<f255>' +
+                    '               - ' +
                     'Step over a tripwire in the given direction')
     mud.sendMessage(id,
-                    '  <f220>dodge<f255>                                   - ' +
+                    '  <f220>dodge<f255>' +
+                    '                                   - ' +
                     'Dodge an attacker on the next combat round')
     mud.sendMessage(id, '\n\n')
 
