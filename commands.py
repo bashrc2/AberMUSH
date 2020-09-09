@@ -1199,20 +1199,31 @@ def helpCards(params, mud, playersDB: {}, players: {}, rooms: {},
               sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
-                    'shuffle                                 - ' +
+                    '<f220>shuffle<f255>' +
+                    '                                 - ' +
                     'Shuffles the deck')
     mud.sendMessage(id,
-                    'deal to [player names]                  - ' +
+                    '<f220>deal to [player names]<f255>' +
+                    '                  - ' +
                     'Deals cards')
     mud.sendMessage(id,
-                    'hand                                    - ' +
+                    '<f220>hand<f255>' +
+                    '                                    - ' +
                     'View your hand of cards')
     mud.sendMessage(id,
-                    'swap [card description]                 - ' +
+                    '<f220>swap [card description]<f255>' +
+                    '                 - ' +
                     'Swaps a card')
     mud.sendMessage(id,
-                    'call                                    - ' +
+                    '<f220>call<f255>' +
+                    '                                    - ' +
                     'Players show their hands')
+    mud.sendMessage(id, '\n\n')
+    mud.sendMessage(id, 'Possible suits are: <f32>leashes, collars, ' +
+                    'swords, horns, coins, clubs, cups, hearts, ' +
+                    'diamonds and spades.<r>\n\n')
+    mud.sendMessage(id, 'In some packs the <f32>Queen<r> is replaced ' +
+                    'by a <f32>Knight<r>.\n\n')
     mud.sendMessage(id, '\n\n')
 
 
