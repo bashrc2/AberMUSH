@@ -1218,10 +1218,9 @@ def helpCards(params, mud, playersDB: {}, players: {}, rooms: {},
                     '<f220>call<f255>' +
                     '                                    - ' +
                     'Players show their hands')
-    mud.sendMessage(id, '\n')
     mud.sendMessage(id, 'Possible suits are: <f32>leashes, collars, ' +
                     'swords, horns, coins, clubs, cups, hearts, ' +
-                    'diamonds and spades.<r>\n')
+                    'diamonds and spades.<r>')
     mud.sendMessage(id, 'In some packs the <f32>Queen<r> is replaced ' +
                     'by a <f32>Knight<r>.')
     mud.sendMessage(id, '\n\n')
