@@ -228,8 +228,8 @@
       // NOTE: This is slow
       cdiv.innerHTML += msgStr;
 
-      window.scrollTo(0,document.body.scrollHeight);
       document.getElementById("inputtext").focus();
+      window.scrollTo(0,document.body.scrollHeight);
   }
 
   window.addEventListener("load", init, false);
