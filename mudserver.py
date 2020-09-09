@@ -399,7 +399,10 @@ class MudServer(object):
                         cl.socket.sendMessage(msgStr)
                     time.sleep(0.03)
             elif cl.client_type == self._CLIENT_WEBSOCKET:
-                cl.socket.sendMessage('****IMAGE****' + message)
+                if '<img class="playingcard" ' not in message:
+                    cl.socket.sendMessage('****IMAGE****' + message)
+                else:
+                    cl.socket.sendMessage('****CLEAR****' + message)
             if cl.client_type == self._CLIENT_TELNET:
                 cl.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
             elif cl.client_type == self._CLIENT_WEBSOCKET:

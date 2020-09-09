@@ -68,6 +68,12 @@
       width: 100%;
       background-color: var(--main-background-color);
   }
+  #cards {
+      height: 20%;
+  }
+  #playingcard {
+      height: 20%;
+  }
 </style>
 
 <title>AberMUSH</title>
@@ -198,15 +204,21 @@
       }
 
       if (destination != "roomtitle") {
-	  // split the message into lines
-	  var lines = message.split('\n');
-	  msgStr = "";
-	  var maxLines = lines.length;
-	  if (destination == "roomimage") {
-	      if (maxLines > 40) maxLines = 40;
+	  if (message.includes('<img class=')) {
+	      // playing card images
+	      msgStr = message;
 	  }
-	  for (var i = 0; i < maxLines; i++) {
-              msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
+	  else {	      
+	      // split the message into lines
+	      var lines = message.split('\n');
+	      msgStr = "";
+	      var maxLines = lines.length;
+	      if (destination == "roomimage") {
+		  if (maxLines > 40) maxLines = 40;
+	      }
+	      for (var i = 0; i < maxLines; i++) {
+		  msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
+	      }
 	  }
       }
       else {

@@ -268,7 +268,7 @@ def dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
         else:
             mud.sendMessage(dealerId,
                             '\nYou deal ' + str(ctr) +
-                            ' cards to '+cardPlayerName+'.\n')
+                            ' cards to ' + cardPlayerName + '.\n')
             mud.sendMessage(cardPlayerId,
                             '\n' + players[dealerId]['name'] + ' deals ' +
                             str(ctr) + ' cards to you.\n')
@@ -401,6 +401,24 @@ def getCardDescription(pack: str, rank: str, suit: str) -> str:
         rankStr = 'Ace'
     elif rankStr.startswith('J'):
         rankStr = 'Jack'
+    elif rankStr.startswith('2'):
+        rankStr = 'Two'
+    elif rankStr.startswith('3'):
+        rankStr = 'Three'
+    elif rankStr.startswith('4'):
+        rankStr = 'Four'
+    elif rankStr.startswith('5'):
+        rankStr = 'Five'
+    elif rankStr.startswith('6'):
+        rankStr = 'Six'
+    elif rankStr.startswith('7'):
+        rankStr = 'Seven'
+    elif rankStr.startswith('8'):
+        rankStr = 'Eight'
+    elif rankStr.startswith('9'):
+        rankStr = 'Nine'
+    elif rankStr.startswith('10'):
+        rankStr = 'Ten'
 
     if suit == '♥':
         if pack == 'cloisters':
@@ -462,6 +480,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
     lines = [[] for i in range(9)]
     cardColor = "\u001b[38;5;240m"
     cardDescriptions = ''
+    htmlStr = '<table id="cards"><tr>'
 
     for cardStr in hand:
         if len(cardStr) < 2:
@@ -475,7 +494,15 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
             suit = cardStr[2]
         suitColor = "\u001b[38;5;245m"
 
-        cardDescriptions += getCardDescription(pack, rank, suit)
+        desc = getCardDescription(pack, rank, suit)
+        cardDescriptions += desc.strip()
+
+        # create html for the web interface
+        htmlStr += '<td>'
+        htmlStr += '<img class="playingcard" ' + \
+            'src="cardpacks/' + pack.lower() + '/' + \
+            desc.replace(' ', '_').lower() + '.jpg" />'
+        htmlStr += '</td>'
 
         if suit == '♥' or suit == '♦':
             suitColor = "\u001b[31m"
@@ -496,6 +523,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
                                                    rank, cardColor))
         lines[8].append('└─────────┘')
 
+    htmlStr += '</tr></table>'
     boardStr = cardColor + '\n'
 
     graphicalCards = True
@@ -504,8 +532,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
             graphicalCards = False
     if graphicalCards:
         if mud.playerUsingWebInterface(id):
-            # TODO show cards as html
-            boardStr += '<i>Show cards as html</i>'
+            boardStr = htmlStr
         else:
             for lineRowStr in lines:
                 lineStr = ''
