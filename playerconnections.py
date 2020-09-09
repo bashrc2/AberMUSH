@@ -149,10 +149,10 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
             mud.sendMessageWrap(
                 id, '<f220>',
                 'You can create a new Character, or use the guest account, ' +
-                'username: Guest, password: Password')
+                'username: <f32>Guest<r>, password: <f32>Password<r>')
             mud.sendMessage(
                 id, "What is your username? " +
-                "(type <f255>new<r> for new character)\n")
+                "(type <f32>new<r> for new character)\n")
         else:
             mud.sendMessage(
                 id,
