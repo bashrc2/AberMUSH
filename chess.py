@@ -100,15 +100,15 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
 
             boardHtml += '</tr>'
             i += 1
-        boardHtml += '<tr>' + \
-            '<td><label class="coord">a</label></td>' + \
-            '<td><label class="coord">b</label></td>' + \
-            '<td><label class="coord">c</label></td>' + \
-            '<td><label class="coord">d</label></td>' + \
-            '<td><label class="coord">e</label></td>' + \
-            '<td><label class="coord">f</label></td>' + \
-            '<td><label class="coord">g</label></td>' + \
-            '<td><label class="coord">h</label></td>' + \
+        boardHtml += '<tr><td> </td>' + \
+            '<td><label class="coord"><center>a</center></label></td>' + \
+            '<td><label class="coord"><center>b</center></label></td>' + \
+            '<td><label class="coord"><center>c</center></label></td>' + \
+            '<td><label class="coord"><center>d</center></label></td>' + \
+            '<td><label class="coord"><center>e</center></label></td>' + \
+            '<td><label class="coord"><center>f</center></label></td>' + \
+            '<td><label class="coord"><center>g</center></label></td>' + \
+            '<td><label class="coord"><center>h</center></label></td>' + \
             '</tr>'
     else:
         for row in gameState:
@@ -139,15 +139,15 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
             boardHtml = '<td><label class="coord">' + \
                 str(8 - i) + '</label></td>' + boardHtml
             i += 1
-        boardHtml += '<tr>' + \
-            '<td><label class="coord">h</label></td>' + \
-            '<td><label class="coord">g</label></td>' + \
-            '<td><label class="coord">f</label></td>' + \
-            '<td><label class="coord">e</label></td>' + \
-            '<td><label class="coord">d</label></td>' + \
-            '<td><label class="coord">c</label></td>' + \
-            '<td><label class="coord">b</label></td>' + \
-            '<td><label class="coord">a</label></td>' + \
+        boardHtml += '<tr><td> </td>' + \
+            '<td><label class="coord"><center>h</center></label></td>' + \
+            '<td><label class="coord"><center>g</center></label></td>' + \
+            '<td><label class="coord"><center>f</center></label></td>' + \
+            '<td><label class="coord"><center>e</center></label></td>' + \
+            '<td><label class="coord"><center>d</center></label></td>' + \
+            '<td><label class="coord"><center>c</center></label></td>' + \
+            '<td><label class="coord"><center>b</center></label></td>' + \
+            '<td><label class="coord"><center>a</center></label></td>' + \
             '</tr>'
     mud.send_game_board(id, boardHtml + '\n')
 
