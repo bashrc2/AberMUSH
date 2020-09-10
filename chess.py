@@ -109,11 +109,11 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
             '<td><label class="coord"><center>f</center></label></td>' + \
             '<td><label class="coord"><center>g</center></label></td>' + \
             '<td><label class="coord"><center>h</center></label></td>' + \
-            '</tr>'
+            '</tr></table>'
     else:
+        boardHtml = ''
         for row in gameState:
             boardRowStr = ''
-            boardHtml += '<tr>'
             j = 0
             for p in row:
                 pieceStr = '<td><div class="parent">'
@@ -133,12 +133,16 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
                 boardRowStr = pieceStr + boardRowStr
                 j += 1
 
-            boardHtml += boardRowStr + '</tr>'
-
             # show row number
-            boardHtml = '<td><label class="coord">' + \
-                str(8 - i) + '</label></td>' + boardHtml
+            boardRowStr = '<tr><td><label class="coord">' + \
+                str(8 - i) + '</label></td>' + \
+                boardRowStr + '</tr>'
+
+            boardHtml = boardRowStr + boardHtml
+
             i += 1
+
+        boardHtml = '<table id="chess">' + boardHtml
         boardHtml += '<tr><td> </td>' + \
             '<td><label class="coord"><center>h</center></label></td>' + \
             '<td><label class="coord"><center>g</center></label></td>' + \
@@ -148,7 +152,7 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
             '<td><label class="coord"><center>c</center></label></td>' + \
             '<td><label class="coord"><center>b</center></label></td>' + \
             '<td><label class="coord"><center>a</center></label></td>' + \
-            '</tr>'
+            '</tr></table>'
     mud.send_game_board(id, boardHtml + '\n')
 
 
