@@ -28994,7 +28994,7 @@
         "article": "an"
     },
     "1202": {
-        "name": "oak table",
+        "name": "small oak table",
         "short_description": "A small oak table stands here.",
         "long_description": "Mystic symbols are inlaid into its top, along with a chess board.",
         "clo_head": 0,
@@ -29061,7 +29061,7 @@
         "linkedItem": 0,
         "exit": "",
         "lightSource": 0,
-        "article": "an"
+        "article": "a"
     },
     "1204": {
         "name": "curious statue",
