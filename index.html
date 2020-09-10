@@ -73,8 +73,15 @@
   #cards img {
       width: 90%;
   }
+  #chess {
+      width: 80%;
+      padding: 0;
+      border: 0;
+      cellspacing: 0;
+      cellpadding: 0;
+  }
   #chess img {
-      width: 99.5%;
+      width: 100%;
   }
   .textentrycol {
       width: 50%;
@@ -83,15 +90,27 @@
       position: relative;
       top: 0;
       left: 0;
+      padding: 0 0;
+      margin: 0 0;
+      width: 100%;
+      height: 100%;
+      display: block;
   }
-  #chess {
-      width: 80%;
+  table,
+  td,
+  th {
+      border-color: transparent;
+      padding: 0;
+      cellspacing: 0;
+      cellpadding: 0;
   }
+  td img {vertical-align: bottom;}
   .coord {
       font-family: 'Octavius';
       font-size: var(--chess-font-size);
       color: var(--chess-text-color);
       text-align: center;
+      padding: 20px 20px;
   }
   .board {
       position: relative;
