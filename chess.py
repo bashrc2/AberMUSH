@@ -24,10 +24,21 @@ uni_pieces = {
     'r': '♖', 'n': '♘', 'b': '♗', 'q': '♕', 'k': '♔', 'p': '♙', '.': '·'
 }
 
+uni_pieces_html = {
+    'r': 'black_rook', 'n': 'black_knight', 'b': 'black_bishop',
+    'q': 'black_queen', 'k': 'black_king', 'p': 'black_pawn',
+    'R': 'white_rook', 'N': 'white_knight', 'B': 'white_bishop',
+    'Q': 'white_queen', 'K': 'white_king', 'P': 'white_pawn'
+}
 
-def showChessBoard(gameState: [], id, mud, turn: str) -> None:
+
+def showChessBoard(boardName: str, gameState: [],
+                   id: int, mud, turn: str) -> None:
     """Shows the chess board
     """
+    if mud.playerUsingWebInterface(id):
+        showChessBoardAsHtml(boardName, gameState, id, mud, turn)
+        return
     mud.sendMessage(id, '\n')
     boardStr = ''
     i = 0
@@ -48,6 +59,94 @@ def showChessBoard(gameState: [], id, mud, turn: str) -> None:
             i += 1
         boardStr += '\n    h g f e d c b a \n\n'
     mud.send_game_board(id, boardStr)
+
+
+def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
+                         mud, turn: str) -> None:
+    """Shows the chess board as html for the web interface
+    """
+    boardDir = 'chessboards/' + boardName + '/'
+    boardHtml = '<table id="chess">'
+    i = 0
+    if turn == 'white':
+        for row in gameState:
+            boardHtml += '<tr>'
+
+            # show row number
+            boardHtml += '<td>'
+            boardHtml += '<label class="coord">' + str(8 - i) + '</label>'
+            boardHtml += '</td>'
+
+            j = 0
+            for p in row:
+                boardHtml += '<td><div class="parent">'
+
+                if (j + (i % 2)) % 2 == 0:
+                    boardHtml += '<img class="board" src="' + \
+                        boardDir + 'black_square.png" />'
+                else:
+                    boardHtml += '<img class="board" src="' + \
+                        boardDir + 'white_square.png" />'
+
+                if uni_pieces_html[p] != '.':
+                    boardHtml += '<img class="boardpiece" src="' + \
+                        boardDir + uni_pieces_html[p] + '.png" />'
+
+                boardHtml += '</div></td>'
+                j += 1
+
+            boardHtml += '</tr>'
+            i += 1
+        boardHtml += '<tr>' + \
+            '<td><label class="coord">a</label></td>' + \
+            '<td><label class="coord">b</label></td>' + \
+            '<td><label class="coord">c</label></td>' + \
+            '<td><label class="coord">d</label></td>' + \
+            '<td><label class="coord">e</label></td>' + \
+            '<td><label class="coord">f</label></td>' + \
+            '<td><label class="coord">g</label></td>' + \
+            '<td><label class="coord">h</label></td>' + \
+            '</tr>'
+    else:
+        for row in gameState:
+            boardRowStr = ''
+            boardHtml += '<tr>'
+            j = 0
+            for p in row:
+                pieceStr = '<td><div class="parent">'
+
+                if (j + (i % 2)) % 2 == 0:
+                    pieceStr += '<img class="board" src="' + \
+                        boardDir + 'black_square.png" />'
+                else:
+                    pieceStr += '<img class="board" src="' + \
+                        boardDir + 'white_square.png" />'
+
+                if uni_pieces_html[p] != '.':
+                    pieceStr += '<img class="boardpiece" src="' + \
+                        boardDir + uni_pieces_html[p] + '.png" />'
+                pieceStr += '</div></td>'
+
+                boardRowStr = pieceStr + boardRowStr
+                j += 1
+
+            boardHtml += boardRowStr + '</tr>'
+
+            # show row number
+            boardHtml = '<td><label class="coord">' + \
+                str(8 - i) + '</label></td>' + boardHtml
+            i += 1
+        boardHtml += '<tr>' + \
+            '<td><label class="coord">h</label></td>' + \
+            '<td><label class="coord">g</label></td>' + \
+            '<td><label class="coord">f</label></td>' + \
+            '<td><label class="coord">e</label></td>' + \
+            '<td><label class="coord">d</label></td>' + \
+            '<td><label class="coord">c</label></td>' + \
+            '<td><label class="coord">b</label></td>' + \
+            '<td><label class="coord">a</label></td>' + \
+            '</tr>'
+    mud.send_game_board(id, boardHtml)
 
 
 def initialChessBoard() -> []:
@@ -79,7 +178,8 @@ def chessPieceSet(gameState: [], coord: str, piece: str) -> None:
         row[:col] + piece + row[(col + 1):]
 
 
-def moveChessPiece(moveStr: str, gameState: [], turn: str, id, mud) -> bool:
+def moveChessPiece(moveStr: str, gameState: [],
+                   turn: str, id: int, mud) -> bool:
     match = re.match('([a-h][1-8])'*2, moveStr.lower())
     if not match:
         return False

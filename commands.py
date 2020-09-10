@@ -1177,16 +1177,20 @@ def helpChess(params, mud, playersDB: {}, players: {}, rooms: {},
               sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
-                    'chess                                   - ' +
+                    '<f220>chess<f255>' +
+                    '                                   - ' +
                     'Shows the board')
     mud.sendMessage(id,
-                    'chess reset                             - ' +
+                    '<f220>chess reset<f255>' +
+                    '                             - ' +
                     'Rests the game')
     mud.sendMessage(id,
-                    'chess move [coords]                     - ' +
+                    '<f220>chess move [coords]<f255>' +
+                    '                     - ' +
                     'eg. chess move e2e3')
     mud.sendMessage(id,
-                    'chess undo                              - ' +
+                    '<f220>chess undo<f255>' +
+                    '                              - ' +
                     'undoes the last move')
     mud.sendMessage(id, '\n\n')
 
@@ -3832,8 +3836,11 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
         items[boardItemID]['gameState']['history'] = []
     # get the game history
     gameState = items[boardItemID]['gameState']['state']
+    gameBoardName = None
+    if items[boardItemID]['gameState'].get('boardName'):
+        gameBoardName = items[boardItemID]['gameState']['boardName']
     if not params:
-        showChessBoard(gameState, id, mud,
+        showChessBoard(gameBoardName, gameState, id, mud,
                        items[boardItemID]['gameState']['turn'])
         return
     if players[id]['canGo'] != 1 or \
@@ -3857,7 +3864,7 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
                 items[boardItemID]['gameState']['turn'] = 'black'
             else:
                 items[boardItemID]['gameState']['turn'] = 'white'
-            showChessBoard(gameState, id, mud,
+            showChessBoard(gameBoardName, gameState, id, mud,
                            items[boardItemID]['gameState']['turn'])
             return
     # begin a new chess game
@@ -3871,7 +3878,7 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
         items[boardItemID]['gameState']['turn'] = 'white'
         items[boardItemID]['gameState']['history'] = []
         gameState = items[boardItemID]['gameState']['state']
-        showChessBoard(gameState, id, mud,
+        showChessBoard(gameBoardName, gameState, id, mud,
                        items[boardItemID]['gameState']['turn'])
         return
     if 'move' in params:
@@ -3917,7 +3924,8 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
                             if players[p]['room'] == players[id]['room']:
                                 turnStr = \
                                     items[boardItemID]['gameState']['turn']
-                                showChessBoard(gameState, p, mud,
+                                showChessBoard(gameBoardName,
+                                               gameState, p, mud,
                                                turnStr)
             else:
                 items[boardItemID]['gameState']['player2'] = \
@@ -3933,15 +3941,15 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
                             if players[p]['room'] == players[id]['room']:
                                 turnStr = \
                                     items[boardItemID]['gameState']['turn']
-                                showChessBoard(gameState, p, mud,
-                                               turnStr)
+                                showChessBoard(gameBoardName, gameState,
+                                               p, mud, turnStr)
             items[boardItemID]['gameState']['history'].append(gameState.copy())
-            showChessBoard(gameState, id, mud, currTurn)
+            showChessBoard(gameBoardName, gameState, id, mud, currTurn)
             return
         else:
             mud.sendMessage(id, "\nThat's not a valid move.\n")
             return
-    showChessBoard(gameState, id, mud,
+    showChessBoard(gameBoardName, gameState, id, mud,
                    items[boardItemID]['gameState']['turn'])
 
 
