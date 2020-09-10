@@ -223,6 +223,8 @@
       if (message.includes("****IMAGE****")) {
 	  destination = "roomimage";
 	  message = message.replace("****IMAGE****", "");
+	  var cdiv = document.getElementById("roomdescription");
+	  cdiv.innerHTML = "";
       }
       var cdiv = document.getElementById(destination);
       if (destination == "roomtitle" || destination == "roomimage") {
