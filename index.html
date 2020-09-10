@@ -7,9 +7,11 @@
       --main-background-color: black;
       --title-text-color: lightgrey;
       --main-text-color: white;
+      --chess-text-color: white;
       --inputbox-color: #111;
       --button-text-color: yellow;
       --main-font-size: 20px;
+      --chess-font-size: 30px;
       --input-font-size: 28px;
       --title-font-size: 40px;
       --button-font-size: 30px;
@@ -74,10 +76,19 @@
   #chess img {
       width: 98%;
   }
+  .textentrycol {
+      min-width: 50%;
+  }
   .parent {
       position: relative;
       top: 0;
       left: 0;
+  }
+  .coord {
+      font-family: 'Octavius';
+      font-size: var(--chess-font-size);
+      color: var(--chess-text-color);
+      text-align: center;
   }
   .board {
       position: relative;
@@ -88,6 +99,7 @@
       position: absolute;
       top: 10%;
       left: 10%;
+      width: 80%;
   }
 </style>
 
@@ -283,7 +295,7 @@
 <form name="myform">
   <table id="maintable">
     <tr>
-      <td>
+      <td class="textentrycol">
 	<table id="texttable">
 	  <tr>
 	    <td>

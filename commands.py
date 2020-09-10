@@ -3725,6 +3725,20 @@ def chessBoardInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
     return None
 
 
+def chessBoardName(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
+    """Returns the name of the chess board if there is one in the room
+    This then corresponds to the subdirectory within chessboards, where
+    icons exist
+    """
+    rid = players[id]['room']
+    for i in items:
+        if items[i]['room'] != rid:
+            continue
+        if itemsDB[items[i]['id']].get('boardName'):
+            return itemsDB[items[i]['id']]['boardName']
+    return None
+
+
 def deal(params, mud, playersDB: {}, players: {}, rooms: {},
          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -3836,9 +3850,8 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
         items[boardItemID]['gameState']['history'] = []
     # get the game history
     gameState = items[boardItemID]['gameState']['state']
-    gameBoardName = None
-    if items[boardItemID]['gameState'].get('boardName'):
-        gameBoardName = items[boardItemID]['gameState']['boardName']
+    gameBoardName = \
+        chessBoardName(players, id, rooms, items, itemsDB)
     if not params:
         showChessBoard(gameBoardName, gameState, id, mud,
                        items[boardItemID]['gameState']['turn'])

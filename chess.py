@@ -65,6 +65,9 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
                          mud, turn: str) -> None:
     """Shows the chess board as html for the web interface
     """
+    if not boardName:
+        print('No chess board name is specified for this room')
+        return
     boardDir = 'chessboards/' + boardName + '/'
     boardHtml = '<table id="chess">'
     i = 0
@@ -88,7 +91,7 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
                     boardHtml += '<img class="board" src="' + \
                         boardDir + 'white_square.png" />'
 
-                if uni_pieces_html[p] != '.':
+                if p != '.':
                     boardHtml += '<img class="boardpiece" src="' + \
                         boardDir + uni_pieces_html[p] + '.png" />'
 
@@ -122,7 +125,7 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
                     pieceStr += '<img class="board" src="' + \
                         boardDir + 'white_square.png" />'
 
-                if uni_pieces_html[p] != '.':
+                if p != '.':
                     pieceStr += '<img class="boardpiece" src="' + \
                         boardDir + uni_pieces_html[p] + '.png" />'
                 pieceStr += '</div></td>'
@@ -146,7 +149,7 @@ def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
             '<td><label class="coord">b</label></td>' + \
             '<td><label class="coord">a</label></td>' + \
             '</tr>'
-    mud.send_game_board(id, boardHtml)
+    mud.send_game_board(id, boardHtml + '\n')
 
 
 def initialChessBoard() -> []:
