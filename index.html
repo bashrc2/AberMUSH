@@ -207,6 +207,7 @@
       // that the client is still active
       if (message == "\x00") return;
 
+      var clearRoomText = false;
       destination = "roomdescription";
       if (message.includes("****TITLE****")) {
 	  clearAll()
@@ -217,12 +218,14 @@
       }
       if (message.includes("****CLEAR****")) {
 	  message = message.replace("****CLEAR****", "");
+	  clearRoomText = true;
 	  var cdiv = document.getElementById(destination);
 	  cdiv.innerHTML = "";
       }
       if (message.includes("****IMAGE****")) {
 	  destination = "roomimage";
 	  message = message.replace("****IMAGE****", "");
+	  clearRoomText = true;
 	  var cdiv = document.getElementById("roomdescription");
 	  cdiv.innerHTML = "";
       }
@@ -253,7 +256,12 @@
 	  msgStr = ansi_up.ansi_to_html(message.replace('\n', ''));
       }
 
-      // NOTE: This is slow
+      if (destination == "roomdescription") {
+	  while (msgStr.includes("<br><br><br>")) {
+	      msgStr = msgStr.replace("<br><br><br>", "<br><br>");
+	  }
+      }
+
       cdiv.innerHTML += msgStr;
 
       document.getElementById("inputtext").focus();
