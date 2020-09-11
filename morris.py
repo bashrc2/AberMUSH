@@ -364,7 +364,7 @@ def showMorrisBoardAsHtml(boardName: str,
     boardHtml = '<div class="parent">'
     boardHtml += \
         '<img class="morrisboard" src="' + boardDir + 'board.jpg" />'
-    counterWidth = 5
+    counterWidth = 8
     counterWidthHalf = counterWidth / 2
     for i in range(24):
         x = int(locations[i][0])

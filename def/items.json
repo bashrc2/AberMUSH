@@ -19158,7 +19158,7 @@
         "name": "tall archway",
         "short_description": "The archway is high overhead",
         "long_description": "The archway is high overhead",
-	"takeFail": "You can't take the archway.",	
+	"takeFail": "You can't take the archway.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
@@ -24948,7 +24948,7 @@
         "exit": "$rid=305$",
         "lightSource": 0,
         "article": "a"
-    },    
+    },
     "1013": {
         "name": "gold scimitar",
         "short_description": "A golden scimitar has been left here.",
@@ -37028,7 +37028,7 @@
         "heave": "",
         "jumpTo": "",
         "game": "cards morris",
-	"morrisBoardName": "wood1",
+	"morrisBoardName": "rustic",
 	"cardPack": "cloisters",
         "gameState": {},
         "state": "container open always",
