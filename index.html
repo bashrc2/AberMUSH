@@ -239,6 +239,10 @@
 	  message = message.replace("You arrive at ", "");
 	  message = message.replace("You row to ", "");
       }
+      if (message.includes("****DISCONNECT****")) {
+	  message = message.replace("****DISCONNECT****", "");
+	  initial_layout();
+      }
       if (message.includes("****CLEAR****")) {
 	  message = message.replace("****CLEAR****", "");
 	  clearRoomText = true;

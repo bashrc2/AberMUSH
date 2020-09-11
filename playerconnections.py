@@ -229,13 +229,13 @@ def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
                     "You instinctively hold your hand up to " +
                     "your face and notice you slowly begin to " +
                     "vanish. You are being disconnected due " +
-                    "to inactivity...\n")
+                    "to inactivity...****DISCONNECT****\n")
                 saveState(players[p], playersDB, False)
                 authenticatedPlayersDisconnected = True
             else:
                 mud.sendMessage(
                     p, "<f232><b11>You are being disconnected " +
-                    "due to inactivity. Bye!\n")
+                    "due to inactivity. Bye!****DISCONNECT****\n")
             log("Character " +
                 str(players[p]['name']) +
                 " is being disconnected due to inactivity.", "warning")

@@ -316,6 +316,8 @@ class MudServer(object):
                 message = message.replace('****TITLE****', '')
             elif '****CLEAR****' in message:
                 message = message.replace('****CLEAR****', '')
+            elif '****DISCONNECT****' in message:
+                message = message.replace('****DISCONNECT****', '')
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
