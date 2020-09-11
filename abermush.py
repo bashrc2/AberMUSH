@@ -358,7 +358,8 @@ for k in itemsDB:
                v == "moveTimes" or
                v == "takeFail" or
                v == "cardPack" or
-               v == "boardName" or
+               v == "chessBoardName" or
+               v == "morrisBoardName" or
                v == "article"):
             itemsDB[k][v] = int(itemsDB[k][v])
 

@@ -52,6 +52,7 @@ from morris import showMorrisBoard
 from morris import morrisMove
 from morris import resetMorrisBoard
 from morris import takeMorrisCounter
+from morris import getMorrisBoardName
 
 from proficiencies import thievesCant
 
@@ -3734,8 +3735,8 @@ def chessBoardName(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
     for i in items:
         if items[i]['room'] != rid:
             continue
-        if itemsDB[items[i]['id']].get('boardName'):
-            return itemsDB[items[i]['id']]['boardName']
+        if itemsDB[items[i]['id']].get('chessBoardName'):
+            return itemsDB[items[i]['id']]['chessBoardName']
     return None
 
 
@@ -3824,7 +3825,8 @@ def morrisGame(params, mud, playersDB: {}, players: {}, rooms: {},
                    items, itemsDB)
         return
 
-    showMorrisBoard(players, id, mud, rooms, items, itemsDB)
+    boardName = getMorrisBoardName(players, id, rooms, items, itemsDB)
+    showMorrisBoard(boardName, players, id, mud, rooms, items, itemsDB)
 
 
 def chess(params, mud, playersDB: {}, players: {}, rooms: {},
