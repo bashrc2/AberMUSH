@@ -6,6 +6,8 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
+import os
+
 validMorrisBoardLocations = [
     'a1', 'd1', 'g1',
     'b2', 'd2', 'f2',
@@ -296,9 +298,141 @@ def resetMorrisBoard(players: {}, id: int, mud, rooms: {},
     showMorrisBoard(boardName, players, id, mud, rooms, items, itemsDB)
 
 
+def boardLocationIndexes(boardName: str) -> {}:
+    """Returns a dictionary containing board coordinates for each index
+    """
+    locationsFilename = 'morrisboards/' + boardName + '/locations.txt'
+    if not os.path.isfile(locationsFilename):
+        print('No morris locations file: ' + locationsFilename)
+        return None
+    index = 0
+    locations = {}
+    # read the locations file
+    with open(locationsFilename, "r") as f:
+        lines = f.readlines()
+        for horizontal in lines:
+            if ' ' not in horizontal:
+                continue
+            coords = horizontal.strip().split(' ')
+            for locn in coords:
+                if ',' not in locn:
+                    continue
+                x = locn.split(',')[0].strip()
+                y = locn.split(',')[1].strip()
+                if x.isdigit() and y.isdigit():
+                    locations[index] = [int(x), int(y)]
+                    index += 1
+    if index != 24:
+        print('Invalid morris locations file: ' + locationsFilename)
+        print('Indexes: ' + str(index))
+        print('locations: ' + str(locations))
+        return None
+    return locations
+
+
+def showMorrisBoardAsHtml(boardName: str,
+                          players: {}, id: int, mud, rooms: {},
+                          items: {}, itemsDB: {}) -> None:
+    """Shows the board as html for the web interface
+    """
+    locations = boardLocationIndexes(boardName)
+    if not locations:
+        mud.sendMessage(id, '\nSomething went wrong loading morris ' +
+                        'board files.\n')
+        return
+
+    gameItemID = morrisBoardInRoom(players, id, rooms, items, itemsDB)
+    if not gameItemID:
+        mud.sendMessage(id, '\nThere are no Morris board here.\n')
+        return
+    boardDir = 'morrisboards/' + boardName + '/'
+
+    if not items[gameItemID].get('gameState'):
+        items[gameItemID]['gameState'] = {}
+
+    if items[gameItemID]['gameState'].get('morris'):
+        board = items[gameItemID]['gameState']['morris']
+    else:
+        board = '·' * 24
+        items[gameItemID]['gameState']['morris'] = board
+
+    if not items[gameItemID]['gameState'].get('millsWhite'):
+        items[gameItemID]['gameState']['millsWhite'] = 0
+    if not items[gameItemID]['gameState'].get('millsBlack'):
+        items[gameItemID]['gameState']['millsBlack'] = 0
+
+    boardHtml = '<div class="parent">'
+    boardHtml += \
+        '<img class="morrisboard" src="' + boardDir + 'board.jpg" />'
+    counterWidth = 5
+    counterWidthHalf = counterWidth / 2
+    for i in range(24):
+        x = int(locations[i][0])
+        y = int(locations[i][1])
+        if board[i] == '○':
+            boardHtml += \
+                '<img src="' + boardDir + 'player1.png" ' \
+                'style="position:absolute;' + \
+                'width:' + str(counterWidth) + '%;' + \
+                'left:' + \
+                str(int((x * 100 / 1024) - counterWidthHalf)) + '%;' + \
+                'top:' + \
+                str(int((y * 100 / 1024) - counterWidthHalf)) + '%;' + \
+                '" />'
+        elif board[i] == '●':
+            boardHtml += \
+                '<img src="' + boardDir + 'player2.png" ' \
+                'style="position:absolute;' + \
+                'width:' + str(counterWidth) + '%;' + \
+                'left:' + \
+                str(int((x * 100 / 1024) - counterWidthHalf)) + '%;' + \
+                'top:' + \
+                str(int((y * 100 / 1024) - counterWidthHalf)) + '%;' + \
+                '" />'
+    boardHtml += '</div>\n'
+
+    mud.send_game_board(id, boardHtml)
+
+    whiteCounters = 9
+    if items[gameItemID]['gameState'].get('morrisWhite'):
+        whiteCounters = int(items[gameItemID]['gameState']['morrisWhite'])
+
+    blackCounters = 9
+    if items[gameItemID]['gameState'].get('morrisBlack'):
+        blackCounters = int(items[gameItemID]['gameState']['morrisBlack'])
+
+    if whiteCounters == 0 and blackCounters == 0:
+        if morrisPieces('white', board) <= 2:
+            mud.sendMessage(id, 'Black wins\n')
+            return
+        elif morrisPieces('black', board) <= 2:
+            mud.sendMessage(id, 'White wins\n')
+            return
+
+    if noOfMills('black', board) > \
+       items[gameItemID]['gameState']['millsBlack']:
+        mud.sendMessage(id, 'Black has a mill. Take a white counter.\n')
+        return
+    if noOfMills('white', board) > \
+       items[gameItemID]['gameState']['millsWhite']:
+        mud.sendMessage(id, 'White has a mill. Take a black counter.\n')
+        return
+
+    if not items[gameItemID]['gameState'].get('morrisTurn'):
+        items[gameItemID]['gameState']['morrisTurn'] = 'white'
+    mud.sendMessage(id, items[gameItemID]['gameState']['morrisTurn'] +
+                    "'s move\n")
+
+
 def showMorrisBoard(boardName: str,
-                    players: {}, id, mud, rooms: {},
+                    players: {}, id: int, mud, rooms: {},
                     items: {}, itemsDB: {}) -> None:
+    """Draws the morris board
+    """
+    if mud.playerUsingWebInterface(id):
+        showMorrisBoardAsHtml(boardName, players, id, mud, rooms,
+                              items, itemsDB)
+        return
     gameItemID = morrisBoardInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
         mud.sendMessage(id, '\nThere are no Morris board here.\n')
