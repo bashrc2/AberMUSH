@@ -350,11 +350,11 @@ class MudServer(object):
         messageLines = message.split('\n')
         if len(messageLines) < 10:
             return
+        cl = self._clients[to]
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that
             # all of the data is sent in one go
-            cl = self._clients[to]
             linectr = len(messageLines)
             if cl.client_type == self._CLIENT_TELNET:
                 for lineStr in messageLines:
@@ -386,7 +386,8 @@ class MudServer(object):
                   ", socket error: " + str(e))
             self.handleDisconnect(to)
         if not noDelay:
-            time.sleep(1)
+            if cl.client_type == self._CLIENT_TELNET:
+                time.sleep(1)
 
     def send_game_board(self, to, message) -> None:
         """Sends the ANSI game board in the 'message' parameter to the player with
