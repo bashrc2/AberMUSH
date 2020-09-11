@@ -1033,25 +1033,32 @@ def helpSpell(params, mud, playersDB: {}, players: {}, rooms: {},
               sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
-                    'prepare spells                          - ' +
+                    '<f220>prepare spells<f255>' +
+                    '                          - ' +
                     'List spells which can be prepared')
     mud.sendMessage(id,
-                    'prepare [spell name]                    - ' +
+                    '<f220>prepare [spell name]<f255>' +
+                    '                    - ' +
                     'Prepares a spell')
     mud.sendMessage(id,
-                    'spells                                  - ' +
+                    '<f220>spells<f255>' +
+                    '                                  - ' +
                     'Lists your prepared spells')
     mud.sendMessage(id,
-                    'clear spells                            - ' +
+                    '<f220>clear spells<f255>' +
+                    '                            - ' +
                     'Clears your prepared spells list')
     mud.sendMessage(id,
-                    'cast find familiar                      - ' +
+                    '<f220>cast find familiar<f255>' +
+                    '                      - ' +
                     'Summons a familiar with random form')
     mud.sendMessage(id,
-                    'dismiss familiar                        - ' +
+                    '<f220>dismiss familiar<f255>' +
+                    '                        - ' +
                     'Dismisses a familiar')
     mud.sendMessage(id,
-                    'cast [spell name] on [target]           - ' +
+                    '<f220>cast [spell name] on [target]<f255>' +
+                    '           - ' +
                     'Cast a spell on a player or NPC')
 
     mud.sendMessage(id, '\n\n')
@@ -1068,79 +1075,104 @@ def helpWitch(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "You're not a witch.\n\n")
         return
     mud.sendMessage(id,
-                    'close registrations                     - ' +
+                    '<f220>close registrations<f255>' +
+                    '                     - ' +
                     'Closes registrations of new players')
     mud.sendMessage(id,
-                    'open registrations                      - ' +
+                    '<f220>open registrations<f255>' +
+                    '                      - ' +
                     'Allows registrations of new players')
     mud.sendMessage(id,
-                    'mute/silence [target]                   - ' +
+                    '<f220>mute/silence [target]<f255>' +
+                    '                   - ' +
                     'Mutes a player and prevents them from attacking')
     mud.sendMessage(id,
-                    'unmute/unsilence [target]               - ' +
+                    '<f220>unmute/unsilence [target]<f255>' +
+                    '               - ' +
                     'Unmutes a player')
     mud.sendMessage(id,
-                    'freeze [target]                         - ' +
+                    '<f220>freeze [target]<f255>' +
+                    '                         - ' +
                     'Prevents a player from moving or attacking')
     mud.sendMessage(id,
-                    'unfreeze [target]                       - ' +
+                    '<f220>unfreeze [target]<f255>' +
+                    '                       - ' +
                     'Allows a player to move or attack')
     mud.sendMessage(id,
-                    'teleport [room]                         - ' +
+                    '<f220>teleport [room]<f255>' +
+                    '                         - ' +
                     'Teleport to a room')
     mud.sendMessage(id,
-                    'summon [target]                         - ' +
+                    '<f220>summon [target]<f255>' +
+                    '                         - ' +
                     'Summons a player to your location')
     mud.sendMessage(id,
-                    'kick/remove [target]                    - ' +
+                    '<f220>kick/remove [target]<f255>' +
+                    '                    - ' +
                     'Remove a player from the game')
     mud.sendMessage(id,
-                    'blocklist                               - ' +
+                    '<f220>blocklist<f255>' +
+                    '                               - ' +
                     'Show the current blocklist')
     mud.sendMessage(id,
-                    'block [word or phrase]                  - ' +
+                    '<f220>block [word or phrase]<f255>' +
+                    '                  - ' +
                     'Adds a word or phrase to the blocklist')
     mud.sendMessage(id,
-                    'unblock [word or phrase]                - ' +
+                    '<f220>unblock [word or phrase]<f255>' +
+                    '                - ' +
                     'Removes a word or phrase to the blocklist')
     mud.sendMessage(id,
-                    'describe "room" "room name"             - ' +
+                    '<f220>describe "room" "room name"<f255>' +
+                    '             - ' +
                     'Changes the name of the current room')
     mud.sendMessage(id,
-                    'describe "room description"             - ' +
+                    '<f220>describe "room description"<f255>' +
+                    '             - ' +
                     'Changes the current room description')
     mud.sendMessage(id,
-                    'describe "tide" "room description"      - ' +
+                    '<f220>describe "tide" "room description"<f255>' +
+                    '      - ' +
                     'Changes the room description when tide is out')
     mud.sendMessage(id,
-                    'describe "item" "item description"      - ' +
+                    '<f220>describe "item" "item description"<f255>' +
+                    '      - ' +
                     'Changes the description of an item in the room')
     mud.sendMessage(id,
-                    'describe "NPC" "NPC description"        - ' +
+                    '<f220>describe "NPC" "NPC description"<f255>' +
+                    '        - ' +
                     'Changes the description of an NPC in the room')
     mud.sendMessage(id,
-                    'conjure room [direction]                - ' +
+                    '<f220>conjure room [direction]<f255>' +
+                    '                - ' +
                     'Creates a new room in the given direction')
     mud.sendMessage(id,
-                    'conjure npc [target]                    - ' +
+                    '<f220>conjure npc [target]<f255>' +
+                    '                    - ' +
                     'Creates a named NPC in the room')
     mud.sendMessage(id,
-                    'conjure [item]                          - ' +
+                    '<f220>conjure [item]<f255>' +
+                    '                          - ' +
                     'Creates a new item in the room')
     mud.sendMessage(id,
-                    'destroy room [direction]                - ' +
+                    '<f220>destroy room [direction]<f255>' +
+                    '                - ' +
                     'Removes the room in the given direction')
     mud.sendMessage(id,
-                    'destroy npc [target]                    - ' +
+                    '<f220>destroy npc [target]<f255>' +
+                    '                    - ' +
                     'Removes a named NPC from the room')
     mud.sendMessage(id,
-                    'destroy [item]                          - ' +
+                    '<f220>destroy [item]<f255>' +
+                    '                          - ' +
                     'Removes an item from the room')
     mud.sendMessage(id,
-                    'resetuniverse                           - ' +
+                    '<f220>resetuniverse<f255>' +
+                    '                           - ' +
                     'Resets the universe, losing any changes from defaults')
     mud.sendMessage(id,
-                    'shutdown                                - ' +
+                    '<f220>shutdown<f255>' +
+                    '                                - ' +
                     'Shuts down the game server')
     mud.sendMessage(id, '\n\n')
 
@@ -1153,19 +1185,24 @@ def helpMorris(params, mud, playersDB: {}, players: {}, rooms,
                sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
-                    'morris                                  - ' +
+                    '<f220>morris<f255>' +
+                    '                                  - ' +
                     'Show the board')
     mud.sendMessage(id,
-                    'morris put [coordinate]                 - ' +
+                    '<f220>morris put [coordinate]<f255>' +
+                    '                 - ' +
                     'Place a counter')
     mud.sendMessage(id,
-                    'morris move [from coord] [to coord]     - ' +
+                    '<f220>morris move [from coord] [to coord]<f255>' +
+                    '     - ' +
                     'Move a counter')
     mud.sendMessage(id,
-                    'morris take [coordinate]                - ' +
+                    '<f220>morris take [coordinate]<f255>' +
+                    '                - ' +
                     'Remove a counter after mill')
     mud.sendMessage(id,
-                    'morris reset                            - ' +
+                    '<f220>morris reset<f255>' +
+                    '                            - ' +
                     'Resets the board')
     mud.sendMessage(id, '\n\n')
 
