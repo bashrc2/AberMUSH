@@ -134,11 +134,12 @@
   function initial_layout()
   {
       document.myform.inputtext.value = ""
-      document.myform.disconnectButton.disabled = true;
 
       // buttons not initially visible
       document.myform.connectButton.style.visibility = "visible";
+      document.myform.connectButton.disabled = false;
       document.myform.disconnectButton.style.visibility = "hidden";
+      document.myform.disconnectButton.disabled = true;
       document.myform.clearButton.style.visibility = "hidden";
 
       // hide input box
