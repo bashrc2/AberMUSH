@@ -275,7 +275,20 @@ class MudServer(object):
             return True
         return False
 
-    def sendMessageWrap(self, to, prefix, message):
+    def removeWebSocketCommands(self, id: int, message: str) -> str:
+        """Removes special commands used by the web interface
+        """
+        cl = self._clients[id]
+        if cl.client_type != self._CLIENT_WEBSOCKET:
+            if '****TITLE****' in message:
+                message = message.replace('****TITLE****', '')
+            if '****CLEAR****' in message:
+                message = message.replace('****CLEAR****', '')
+            if '****DISCONNECT****' in message:
+                message = message.replace('****DISCONNECT****', '')
+        return message
+
+    def sendMessageWrap(self, to, prefix, message: str):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -286,6 +299,9 @@ class MudServer(object):
         if cl.client_type == self._CLIENT_WEBSOCKET:
             self.sendMessage(to, message)
             return
+
+        message = self.removeWebSocketCommands(to, message)
+
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
@@ -305,19 +321,12 @@ class MudServer(object):
                     break
         self._attempt_send(to, '\n')
 
-    def sendMessage(self, to, message):
+    def sendMessage(self, to: int, message: str):
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
-        cl = self._clients[to]
-        if cl.client_type != self._CLIENT_WEBSOCKET:
-            if '****TITLE****' in message:
-                message = message.replace('****TITLE****', '')
-            elif '****CLEAR****' in message:
-                message = message.replace('****CLEAR****', '')
-            elif '****DISCONNECT****' in message:
-                message = message.replace('****DISCONNECT****', '')
+        message = self.removeWebSocketCommands(to, message)
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
