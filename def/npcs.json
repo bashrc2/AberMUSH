@@ -999,7 +999,8 @@
             [["affinity<0","hello","hi","greet"],"Begone!"],
             [["affinity<0","language=cant","help"],"I'm not inclined to assist one such as yourself"],
             [["affinity>=0","language=cant","help"],"I have no advice for you"],
-            [["language=cant","what","who","where","when"],"I don't know anything about that"]
+            [["language=cant","what","who","where","when"],"I don't know anything about that"],
+	    [["family","poem","riddle","tale"],"I am wandering eternally. Oh God, to whom are given my brothers’ horses and their land?|I have gazed on uncultivated land from the mound of Gorwynion. Long is the course of the sun; longer my remembrances|The walls remember the great invasion. Cynddylan was slain defending Tranoch, a desolate town.|I had brothers whom invaders took from me. My misfortune caused it|Ice covers Maes Maoddyn: because of the destruction of the well-nurtured one, there is thick snow on the grave of Erinfedd.|In the time when they were fair, the daughters of Cyndrwyn were loved: Heledd, Gwladus and Gwenddwyn. I had pleasant sisters. I lost them all totally"]
         ],
         "path" : ["$rid=434$","$rid=433$","$rid=435$","$rid=422$"],
         "bodyType": "",
