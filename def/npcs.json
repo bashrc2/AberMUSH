@@ -8216,7 +8216,7 @@
         "conv" : [
             [["who","?"],"I am guardian of the forest"]
         ],
-        "path" : ["$rid=1032$","$rid=1315$","$rid=1314$","$rid=1318$","$rid=1103$",,"$rid=1319$"],
+        "path" : ["$rid=1032$","$rid=1315$","$rid=1314$","$rid=1318$","$rid=1103$","$rid=1319$"],
         "bodyType": "",
         "moveDelay" : "50",
         "moveType" : "patrol",
