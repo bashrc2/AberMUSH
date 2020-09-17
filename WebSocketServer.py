@@ -15,6 +15,7 @@ import hashlib
 import base64
 import socket
 import struct
+import ssl
 import errno
 import codecs
 from collections import deque
@@ -22,7 +23,7 @@ from select import select
 from http.server import BaseHTTPRequestHandler
 from io import BytesIO
 
-__all__ = ['WebSocket', 'WebSocketServer']
+__all__ = ['WebSocket', 'WebSocketServer', 'tlsWebSocketServer']
 
 
 def _check_unicode(val):
@@ -97,7 +98,7 @@ class WebSocket(object):
         self.lengtharray = None
         self.index = 0
         self.request = None
-        self.usingssl = False
+        self.usingtls = False
 
         self.frag_start = False
         self.frag_type = BINARY
@@ -693,3 +694,35 @@ class WebSocketServer(object):
     def serveforever(self):
         while True:
             self.serveonce()
+
+
+class tlsWebSocketServer(WebSocketServer):
+
+    def __init__(self, host: str, port: int,
+                 websocketclass, certfile=None,
+                 keyfile=None, version=ssl.PROTOCOL_TLSv1,
+                 selectInterval=0.1, tls_context=None):
+
+        WebSocketServer.__init__(self, host, port,
+                                 websocketclass, selectInterval)
+
+        if tls_context is None:
+            self.context = ssl.SSLContext(version)
+            self.context.load_cert_chain(certfile, keyfile)
+        else:
+            self.context = tls_context
+
+    def close(self):
+        super(tlsWebSocketServer, self).close()
+
+    def _decorateSocket(self, sock):
+        sslsock = self.context.wrap_socket(sock, server_side=True)
+        return sslsock
+
+    def _constructWebSocket(self, sock, address):
+        ws = self.websocketclass(self, sock, address)
+        ws.usingtls = True
+        return ws
+
+    def serveforever(self):
+        super(tlsWebSocketServer, self).serveforever()

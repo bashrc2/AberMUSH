@@ -9,6 +9,7 @@ __status__ = "Production"
 
 import os
 import json
+import ssl
 
 from functions import log
 from functions import saveState
@@ -425,8 +426,13 @@ players = {}
 # list of players
 playerList = []
 
+websocket_tls = False
+websocket_cert = './cert.pem'
+websocket_key = './key.pem'
+websocket_ver = ssl.PROTOCOL_TLSv1
+
 # start the server
-mud = MudServer()
+mud = MudServer(websocket_tls, websocket_cert, websocket_key, websocket_ver)
 
 # weather
 currHour = datetime.datetime.today().hour

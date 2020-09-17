@@ -22,9 +22,10 @@ import socket
 import select
 import time
 import sys
+import ssl
 import textwrap
 from cmsg import cmsg
-from WebSocketServer import WebSocket, WebSocketServer
+from WebSocketServer import WebSocket, WebSocketServer, tlsWebSocketServer
 from threads import threadWithTrace
 
 ws_clients = []
@@ -151,11 +152,16 @@ class MudServer(object):
         self.shutdown()
         sys.exit()
 
-    def run_websocket_server(self):
+    def run_websocket_server(self, tls: bool, cert: str, key: str, ver):
         """start the websocket server
         """
-        self._websocket_server = \
-            WebSocketServer('localhost', self._WS_PORT, MudServerWS, self)
+        if not tls:
+            self._websocket_server = \
+                WebSocketServer('localhost', self._WS_PORT, MudServerWS, self)
+        else:
+            self._websocket_server = \
+                tlsWebSocketServer('localhost', self._WS_PORT,
+                                   MudServerWS, cert, key, ver)
         signal.signal(signal.SIGINT, self.close_sig_handler)
         print('Websocket server starting on port ' + str(self._WS_PORT))
         self._websocket_server_thread = \
@@ -164,12 +170,14 @@ class MudServer(object):
         self._websocket_server_thread.start()
         print('Websocket server running')
 
-    def __init__(self):
+    def __init__(self, tls=False,
+                 cert='./cert.pem', key='./key.pem',
+                 ver=ssl.PROTOCOL_TLSv1):
         """Constructs the MudServer object and starts listening for
         new players.
         """
 
-        self.run_websocket_server()
+        self.run_websocket_server(tls, cert, key, ver)
 
         self._clients = {}
         self._nextid = 0
