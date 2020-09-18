@@ -10,6 +10,7 @@ __status__ = "Production"
 import os
 import json
 import ssl
+import sys
 
 from functions import log
 from functions import saveState
@@ -121,6 +122,22 @@ channels = {}
 
 # Specify allowed player idle time
 allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
+
+# websocket settings
+websocket_tls = False
+websocket_cert = None
+websocket_key = None
+websocket_ver = ssl.PROTOCOL_TLSv1
+if 'true' in Config.get('Web', 'tlsEnabled').lower():
+    websocket_tls = True
+    websocket_cert = str(Config.get('Web', 'tlsCert'))
+    if not os.path.isfile(websocket_cert):
+        print('TLS certificate not found: ' + websocket_cert)
+        sys.exit()
+    websocket_key = str(Config.get('Web', 'tlsKey'))
+    if not os.path.isfile(websocket_key):
+        print('TLS certificate key not found: ' + websocket_key)
+        sys.exit()
 
 log("Loading sentiment...", "info")
 
@@ -425,11 +442,6 @@ players = {}
 
 # list of players
 playerList = []
-
-websocket_tls = False
-websocket_cert = './cert.pem'
-websocket_key = './key.pem'
-websocket_ver = ssl.PROTOCOL_TLSv1
 
 # start the server
 mud = MudServer(websocket_tls, websocket_cert, websocket_key, websocket_ver)
