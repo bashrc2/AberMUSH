@@ -172,7 +172,7 @@ class MudServer(object):
 
     def __init__(self, tls=False,
                  cert='./cert.pem', key='./key.pem',
-                 ver=ssl.PROTOCOL_TLSv1):
+                 ver=ssl.PROTOCOL_TLS_SERVER):
         """Constructs the MudServer object and starts listening for
         new players.
         """

@@ -127,17 +127,12 @@ allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 websocket_tls = False
 websocket_cert = None
 websocket_key = None
-websocket_ver = ssl.PROTOCOL_TLSv1
+websocket_ver = ssl.PROTOCOL_TLS_SERVER
 if 'true' in Config.get('Web', 'tlsEnabled').lower():
     websocket_tls = True
-    websocket_cert = str(Config.get('Web', 'tlsCert'))
-    if not os.path.isfile(websocket_cert):
-        print('TLS certificate not found: ' + websocket_cert)
-        sys.exit()
-    websocket_key = str(Config.get('Web', 'tlsKey'))
-    if not os.path.isfile(websocket_key):
-        print('TLS certificate key not found: ' + websocket_key)
-        sys.exit()
+    # resolve any symbolic links with realpath
+    websocket_cert = os.path.realpath(str(Config.get('Web', 'tlsCert')))
+    websocket_key = os.path.realpath(str(Config.get('Web', 'tlsKey')))
 
 log("Loading sentiment...", "info")
 

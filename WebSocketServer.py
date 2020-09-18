@@ -700,7 +700,7 @@ class tlsWebSocketServer(WebSocketServer):
 
     def __init__(self, host: str, port: int,
                  websocketclass, certfile=None,
-                 keyfile=None, version=ssl.PROTOCOL_TLSv1,
+                 keyfile=None, version=ssl.PROTOCOL_TLS_SERVER,
                  selectInterval=0.1, tls_context=None):
 
         WebSocketServer.__init__(self, host, port,
@@ -708,6 +708,9 @@ class tlsWebSocketServer(WebSocketServer):
 
         if tls_context is None:
             self.context = ssl.SSLContext(version)
+            # if you get a permission error here:
+            #     usermod -g ssl-cert abermush
+            # and ensure that the group is set to ssl-cert in the daemon
             self.context.load_cert_chain(certfile, keyfile)
         else:
             self.context = tls_context
