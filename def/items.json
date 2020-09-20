@@ -5312,7 +5312,7 @@
     "208": {
         "name": "oak table",
         "short_description": "A stout oak table.",
-        "long_description": "A stout oak table stands next to the bed. It has a chess board on it.",
+        "long_description": "A stout oak table stands next to the bed. It has an ornate chess board on it, with pieces representing opposing tribes from earlier centuries.",
 	"takeFail": "The oak table is too heavy to be moved by you alone.",
         "moveTimes": [],
         "clo_head": 0,
