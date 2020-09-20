@@ -57,13 +57,13 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         return True
 
     if command == 'telnet':
-        mud.sendMessage(id, "<f220>Connected to DSS cartridge 0")
+        mud.sendMessage(id, "<f220>Connected to DSS port C")
         mud.sendMessage(id, "\n<f220>Datanet 1200 open")
         mud.sendMessage(id, "\n>")
         return True
 
     if command == 'chown':
-        mud.sendMessage(id, "<f220>Load DSS cartridge")
+        mud.sendMessage(id, "<f220>Load DSS port C")
         mud.sendMessage(id, "\n>")
         return True
 
@@ -82,12 +82,12 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         return True
 
     if command == 'unmount':
-        mud.sendMessage(id, "<f220>DSS cartridge 1 spinup")
+        mud.sendMessage(id, "<f220>DSS port C spinup")
         mud.sendMessage(id, "\n>")
         return True
 
     if command == 'mount':
-        mud.sendMessage(id, "<f220>DSS cartridge 1 mounted")
+        mud.sendMessage(id, "<f220>DSS port C mounted")
         mud.sendMessage(id, "\n>")
         return True
 
@@ -128,8 +128,8 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         return True
 
     if command == 'shutdown' or command == 'reset':
-        mud.sendMessage(id, "<f220>DSS cartridge 0 spindown")
-        mud.sendMessage(id, "<f220>DSS cartridge 1 spindown")
+        mud.sendMessage(id, "<f220>DSS port A spindown")
+        mud.sendMessage(id, "<f220>DSS port C spindown")
         mud.sendMessage(id, ">")
         return True
 
@@ -146,7 +146,12 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         return True
 
     if command == 'useradd' or command == 'adduser':
-        mud.sendMessage(id, "<f220>Rewind DSS cartridge 1")
+        mud.sendMessage(id, "<f220>Rewind DSS port B")
+        mud.sendMessage(id, "\n>")
+        return True
+
+    if command == 'printf':
+        mud.sendMessage(id, "<f220>DSS port B interlace enabled")
         mud.sendMessage(id, "\n>")
         return True
 
@@ -155,7 +160,7 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
                         "==================================================" +
                         "==>]   1.41K  --.-KB/s    in 1s")
         mud.sendMessage(id, "1989-12-08 10:39:10 (1 KB/s) - " +
-                        "saved to DSS cartridge 0 [232/232]")
+                        "saved to DSS port A [232/232]")
         mud.sendMessage(id, "\n>")
         return True
 
