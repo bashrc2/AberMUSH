@@ -1257,6 +1257,10 @@ def helpCards(params, mud, playersDB: {}, players: {}, rooms: {},
                     '                 - ' +
                     'Swaps a card')
     mud.sendMessage(id,
+                    '<f220>stick<f255>' +
+                    '                 - ' +
+                    "Don't swap any cards")
+    mud.sendMessage(id,
                     '<f220>call<f255>' +
                     '                                    - ' +
                     'Players show their hands')
@@ -1794,6 +1798,20 @@ def say(params, mud, playersDB: {}, players: {}, rooms: {},
             id, '<f230>',
             'To your horror, you realise you somehow cannot force ' +
             'yourself to utter a single word!\n')
+
+
+def stick(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+          env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
+    say('stick', mud, playersDB, players, rooms,
+        npcsDB, npcs, itemsDB, items, envDB,
+        env, eventDB, eventSchedule,
+        id, fights, corpses, blocklist,
+        mapArea, characterClassDB, spellsDB,
+        sentimentDB, guildsDB, clouds)
 
 
 def holdingLightSource(players: {}, id, items: {}, itemsDB: {}) -> bool:
@@ -5932,6 +5950,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "deal": deal,
         "hand": handOfCards,
         "swap": swapACard,
+        "stick": stick,
         "shuffle": shuffle,
         "call": callCardGame,
         "morris": morrisGame,

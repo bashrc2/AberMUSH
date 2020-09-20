@@ -10,7 +10,6 @@ __status__ = "Production"
 import os
 import json
 import ssl
-import sys
 
 from functions import log
 from functions import saveState
