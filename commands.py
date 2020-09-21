@@ -2255,10 +2255,11 @@ def blackBackground(image: str) -> str:
     if not ';2;255;255;255' in firstPixel:
         if not ';2;254;254;254' in firstPixel:
             return image
-        else:
-            return image.replace(';2;254;254;254m', ';2;0;0;0m')
-    else:
-        return image.replace(';2;255;255;255m', ';2;0;0;0m')
+    for p in range(252, 255):
+        image = image.replace(';2;' + str(p) + ';' +
+                              str(p) + ';' + str(p) + 'm',
+                              ';2;0;0;0m')
+    return image
 
 
 def showItemImage(mud, id, itemId, players: {}) -> None:
