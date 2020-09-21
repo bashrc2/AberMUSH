@@ -48,6 +48,13 @@
       color: var(--main-text-color);
       line-height: 200%;
   }
+  #initialText {
+      font-family: 'Octavius';
+      font-size: var(--main-font-size);
+      padding: var(--text-padding) var(--text-padding);
+      color: var(--main-text-color);
+      line-height: 200%;
+  }
   textarea {
       font-family: 'Octavius';
       font-size: var(--input-font-size);
@@ -330,7 +337,7 @@
       initial_layout();
   }
 
-</script>
+  </script>
 
 <div id="output"></div>
 
@@ -374,7 +381,12 @@
       </td>
       <td class="textentrycol">
 	<div id="roomimage" name="roomimage" contenteditable="true">
-	  <center><img src="index2.jpg" style="width:100%" /></center>
+          <div id="initialText" name="initialText">
+            <p>Once upon a time. Somewhere in Wales. There was a wizard named Anarchy. The wizard ruled the realm anarchically - as anarcho-wizards have a tendency to. But when the dwarven miners of the northern mountains broke through into the underworld they inadvertently released an arcane demon who had been shackled there since the First Age of the world. The demon laid waste to the land, reanimating its minions to sieze the mighty city of Tranoch.</p>
+            <p>The wizards and witches were once rival druidic sects. But now they must form a new alliance to banish the demon and restore the embattled city to its former glory.</p>
+          </div>
+
+	  <center><img src="index2.jpg" style="height:40%" /></center>
 	</div>
       </td>
     </tr>
