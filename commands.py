@@ -2249,13 +2249,14 @@ def showSpellImage(mud, id, spellId, players: {}) -> None:
 def blackBackground(image: str) -> str:
     """If an image has a white background then convert it to black
     """
-    whitePixel = '^[[48;2;255;255;255m^[[38;2;255;255;255m'
-    if not image.startswith(whitePixel):
-        whitePixel = whitePixel.replace('255', '254')
-        if not image.startswith(whitePixel):
+    firstPixel = image.split('m', 1)
+    if not ';2;255;255;255m' in firstPixel:
+        if not ';2;254;254;254m' in firstPixel:
             return image
-    blackPixel = whitePixel.replace('255', '0')
-    return image.replace(whitePixel, blackPixel)
+        else:
+            return image.replace(';2;254;254;254m', ';2;0;0;0m')
+    else:
+        return image.replace(';2;255;255;255m', ';2;0;0;0m')
 
 
 def showItemImage(mud, id, itemId, players: {}) -> None:
