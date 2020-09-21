@@ -2251,8 +2251,11 @@ def blackBackground(image: str) -> str:
     """
     whitePixel = '^[[48;2;255;255;255m^[[38;2;255;255;255m'
     if not image.startswith(whitePixel):
-        return image
-    return image.replace(';2;255;255;255m', ';2;0;0;0m')
+        whitePixel = whitePixel.replace('255', '254')
+        if not image.startswith(whitePixel):
+            return image
+    blackPixel = whitePixel.replace('255', '0')
+    return image.replace(whitePixel, blackPixel)
 
 
 def showItemImage(mud, id, itemId, players: {}) -> None:
