@@ -2246,6 +2246,15 @@ def showSpellImage(mud, id, spellId, players: {}) -> None:
         mud.sendImage(id, '\n' + spellFile.read())
 
 
+def blackBackground(image: str) -> str:
+    """If an image has a white background then convert it to black
+    """
+    whitePixel = '^[[48;2;255;255;255m^[[38;2;255;255;255m'
+    if not image.startswith(whitePixel):
+        return image
+    return image.replace(';2;255;255;255m', ';2;0;0;0m')
+
+
 def showItemImage(mud, id, itemId, players: {}) -> None:
     """Shows an image for the item if it exists
     """
@@ -2256,7 +2265,7 @@ def showItemImage(mud, id, itemId, players: {}) -> None:
     if not os.path.isfile(itemImageFilename):
         return
     with open(itemImageFilename, 'r') as itemFile:
-        mud.sendImage(id, '\n' + itemFile.read())
+        mud.sendImage(id, '\n' + blackBackground(itemFile.read()))
 
 
 def showNPCImage(mud, id, npcName, players: {}) -> None:
