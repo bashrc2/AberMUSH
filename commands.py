@@ -2249,7 +2249,9 @@ def showSpellImage(mud, id, spellId, players: {}) -> None:
 def blackBackground(image: str) -> str:
     """If an image has a white background then convert it to black
     """
-    firstPixel = image.split('m', 1)
+    if 'm' not in image:
+        return image
+    firstPixel = image.split('m', 1)[0]
     if not ';2;255;255;255m' in firstPixel:
         if not ';2;254;254;254m' in firstPixel:
             return image
