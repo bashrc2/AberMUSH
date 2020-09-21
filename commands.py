@@ -2252,8 +2252,8 @@ def blackBackground(image: str) -> str:
     if 'm' not in image:
         return image
     firstPixel = image.split('m', 1)[0]
-    if not ';2;255;255;255m' in firstPixel:
-        if not ';2;254;254;254m' in firstPixel:
+    if not ';2;255;255;255' in firstPixel:
+        if not ';2;254;254;254' in firstPixel:
             return image
         else:
             return image.replace(';2;254;254;254m', ';2;0;0;0m')
