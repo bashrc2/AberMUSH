@@ -36423,8 +36423,8 @@
     },
     "1410": {
         "name": "arcane ring",
-        "short_description": "The ring is jet black and has a celtic knot pattern around the outside.",
-        "long_description": "The ring is jet black and has a celtic knot pattern around the outside.",
+        "short_description": "The ring is made of brightly polished copper and has a celtic knot pattern around the outside.",
+        "long_description": "The ring is made of brightly polished copper and has a celtic knot pattern around the outside.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
