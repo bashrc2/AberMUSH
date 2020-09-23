@@ -632,7 +632,7 @@
     },
     "31": {
         "name": "monks bones",
-        "short_description": "A human skeleton, now  picked clean by time.",
+        "short_description": "A human skeleton, now picked clean by time.",
         "long_description": "A skeleton sits here in a full lotus position, grinning at you macabrely.",
         "clo_head": 0,
         "clo_neck": 0,
