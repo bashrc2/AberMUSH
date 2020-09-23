@@ -36075,9 +36075,9 @@
         "article": "a"
     },
     "1405": {
-        "name": "goddess shield",
-        "short_description": "A small shield with goddess face carved on it.",
-        "long_description": "The small shield is round and made from a interlocking wooden pieces. It is elaborately carved with the angry face of a goddess. Curls of her voluminous hair radiate out towards its circumference.",
+        "name": "woad shield",
+        "short_description": "A small shield painted with a blue waod pattern.",
+        "long_description": "The small shield is round and made from a interlocking wooden pieces. It is painted with blue woad spots which make it strikingly visible from a distance.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
