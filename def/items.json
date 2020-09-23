@@ -35519,7 +35519,7 @@
     "1342": {
         "name": "iron cauldron",
         "short_description": "An iron cauldron",
-        "long_description": "The iron cauldron is suspended on three chains from a frame over the fireplace. Elaborate etchings around the rim of the cauldron depict the mythic saga of a water goddess",
+        "long_description": "The iron cauldron is suspended on a chain from a frame over the fireplace. Elaborate etchings around the rim of the cauldron depict the mythic saga of a water goddess",
 	"takeFail": "It's much too heavy to carry.",
         "moveTimes": [],
         "clo_head": 0,
