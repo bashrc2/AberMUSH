@@ -358,7 +358,11 @@ class MudServer(object):
         messageLines = message.split('\n')
         if len(messageLines) < 10:
             return
-        cl = self._clients[to]
+        try:
+            cl = self._clients[to]
+        except BaseException:
+            print('Client index ' + str(to) + ' was not found')
+            return
         try:
             # look up the client in the client map and use 'sendall' to send
             # the message string on the socket. 'sendall' ensures that
