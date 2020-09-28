@@ -29040,7 +29040,7 @@
         "heave": "",
         "jumpTo": "",
         "game": "chess",
-	"chessBoardName": "sense",
+	"chessBoardName": "classic",
         "gameState": {},
         "state": "container open always",
         "visibleWhenWearing": [],
