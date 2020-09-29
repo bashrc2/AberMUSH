@@ -1,8 +1,8 @@
 ![AberMUSH](docs/logo.png)
 
-# AberMUSH
+<blockquote>"It is said that the First Age of the world was the age of dwarves and dragons, when the black sword was forged, the Second Age was the age of war, where magicians and warriors fought for power. The Third Age will be the age of power for the magic is strong again."</blockquote>
 
-A modern MU* engine with [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Software/Games/AberMUD5/SOURCE/) version 5 universe, originally written in 1991. Engage in adventures, battles, excessive drinking and gambling disputes in and around the magnificent city of Tranoch. DnD-like combat and creatures in a fantasy setting containing roughly 600 locations.
+AberMUSH is a modern MU* engine with [AberMUD](http://ftp.linux.org.uk/pub/linux/alan/Software/Games/AberMUD5/SOURCE/) version 5 universe, originally written in 1991. Engage in adventures, battles, excessive drinking and gambling disputes in and around the magnificent city of Tranoch. DnD-like combat and creatures in a fantasy setting containing roughly 600 locations.
 
 This game includes 8 bit console graphics, but if you are a MUD purist or don't need graphics then you can turn them off.
 
