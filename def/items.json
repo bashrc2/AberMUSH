@@ -29065,8 +29065,8 @@
     },
     "1204": {
         "name": "curious statue",
-        "short_description": "The statue has a menacing, powerful air.",
-        "long_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air.",
+        "short_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air. Its third eye glares across the hallway.|The statue appears menacing but also has a serene pose.",
+        "long_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air. Its third eye glares across the hallway.|The statue appears menacing but also has a serene pose.",
 	"takeFail": "You try to move the statue but an overwhelming sense of relaxation overpowers you.",
         "moveTimes": [],
         "clo_head": 0,
