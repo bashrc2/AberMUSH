@@ -514,6 +514,17 @@ You can then use the command:
 climb through window
 ```
 
+If there are items in the room which the player might try to climb, but which aren't climbable then you can specify a failure message for that.
+
+``` text
+    "3713": {
+        "name": "snowman",
+        "short_description": "A giant snowman.",
+        "long_description": "A giant snowman.",
+        "climbFail": "You try to climb onto the snowman, but slip back down again.",
+        ...
+```
+
 ### Visibility
 
 Some wearable items may allow the player to see things which are otherwise hidden. So for example wearing a certain necklace might allow you to see an ancester spirit or hidden treasure.

@@ -369,6 +369,7 @@ for k in itemsDB:
                v == "exitName" or
                v == "moveTimes" or
                v == "takeFail" or
+               v == "climbFail" or
                v == "cardPack" or
                v == "chessBoardName" or
                v == "morrisBoardName" or

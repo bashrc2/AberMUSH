@@ -3534,6 +3534,7 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "You try to move but find that you " +
                         "lack any ability to.\n\n")
         return
+    failMsg = None
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
             itemId = items[item]['id']
@@ -3548,6 +3549,8 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
                     mud.sendMessage(id, itemsDB[itemId]['name'] +
                                     " is closed.\n\n")
                     continue
+            if itemsDB[itemId].get('climbFail'):
+                failMsg = itemsDB[itemId]['climbFail']
             targetRoom = itemsDB[itemId]['exit']
             if rooms[targetRoom]['maxPlayerSize'] > -1:
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
@@ -3591,7 +3594,10 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
                  mapArea, characterClassDB, spellsDB,
                  sentimentDB, guildsDB, clouds)
             return
-    mud.sendMessage(id, "Nothing happens.\n\n")
+    if failMsg:
+        mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
+    else:
+        mud.sendMessage(id, "Nothing happens.\n\n")
 
 
 def heave(params, mud, playersDB: {}, players: {}, rooms: {},

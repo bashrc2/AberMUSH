@@ -29065,9 +29065,10 @@
     },
     "1204": {
         "name": "curious statue",
-        "short_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air. Its third eye glares across the hallway.|The statue appears menacing but also has a serene pose.|The enigmatic pose of the statue with its glaring third eye gives a sense of menacing mysticism.",
-        "long_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air. Its third eye glares across the hallway.|The statue appears menacing but also has a serene pose.|The enigmatic pose of the statue with its glaring third eye gives a sense of menacing mysticism.",
+        "short_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air. Its third eye glares across the hallway.|The statue appears menacing but also has a serene pose. A whisp of smoke emerges from its opium pipe.|The enigmatic pose of the statue with its glaring third eye gives a sense of menacing mysticism.",
+        "long_description": "A tall statue stands in front of the oak doors, gazing at you through baleful glowing eyes. It is depicted smoking an opium pipe from one side of its mouth and also appears to have a third eye in the center of its forehead.|The statue has a menacing, powerful air. Its third eye glares across the hallway.|The statue appears menacing but also has a serene pose. A whisp of smoke emerges from its opium pipe.|The enigmatic pose of the statue with its glaring third eye gives a sense of menacing mysticism.",
 	"takeFail": "You try to take the statue, but it's much too big and heavy.|You try to move the statue but an overwhelming sense of relaxation overpowers you.",
+	"climbFail": "You try to climb up the statue, but its polished plinth affords you no footholds.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
