@@ -11665,7 +11665,7 @@
     },
     "$rid=1312$": {
         "name": "The Wide Pass",
-        "description": "The pass widens out to the north, the oppresive cliffs spreading back into steep snowbanks. To the south however the pass narrows dramatically into a single narrow gap between sheer cliffs. The wind howls through the gap, sucking snow and ice down it at tremendous speeds.",
+        "description": "The pass widens out to the north, the oppressive cliffs spreading back into steep snowbanks. To the south however the pass narrows dramatically into a single narrow gap between sheer cliffs. The wind howls through the gap, sucking snow and ice down it at tremendous speeds.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
