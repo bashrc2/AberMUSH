@@ -104,6 +104,7 @@ If you can find a deck of cards:
 shuffle                                 - Shuffles the deck
 deal to [player names]                  - Deals cards
 hand                                    - View your hand of cards
+stick                                   - Stick with your current hand
 swap [card description]                 - Swaps a card
 call                                    - Players show their hands
 ```
