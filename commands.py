@@ -3540,6 +3540,8 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
             itemId = items[item]['id']
             if not itemIsVisible(id, players, itemId, itemsDB):
                 continue
+            if itemsDB[itemId].get('climbFail'):
+                failMsg = itemsDB[itemId]['climbFail']
             if not itemsDB[itemId].get('climbThrough'):
                 continue
             if not itemsDB[itemId].get('exit'):
@@ -3549,8 +3551,6 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
                     mud.sendMessage(id, itemsDB[itemId]['name'] +
                                     " is closed.\n\n")
                     continue
-            if itemsDB[itemId].get('climbFail'):
-                failMsg = itemsDB[itemId]['climbFail']
             targetRoom = itemsDB[itemId]['exit']
             if rooms[targetRoom]['maxPlayerSize'] > -1:
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
