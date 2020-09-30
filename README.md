@@ -91,6 +91,8 @@ dodge                                   - Dodge an attacker on the next combat r
 
 ## Chess Commands
 
+![AberMUSH](docs/chess.jpg)
+
 If you can find a chess board to play on:
 
 ``` text
