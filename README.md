@@ -12,7 +12,7 @@ This game includes 8 bit console graphics, but if you are a MUD purist or don't 
 
 Based on dumserver by Bartek Radwanski and Mark Frimston https://github.com/wowpin/dumserver
 
-![AberMUSH](docs/screenshot.jpg)
+![AberMUSH](docs/screenshot2.jpg)
 
 You can also use a mud client of your choice if you wish - use connection details below:
 
