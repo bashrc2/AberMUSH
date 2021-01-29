@@ -10802,7 +10802,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 1,
+        "weather": 0,
         "onWater": 0,
         "tideOutDescription" : "",
         "region": "",
