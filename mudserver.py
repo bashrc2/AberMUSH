@@ -145,14 +145,15 @@ class MudServer(object):
     def getNextId(self) -> int:
         return self._nextid
 
-    def close_sig_handler(self, signal, frame):
+    def close_sig_handler(self, signal, frame) -> None:
         self._websocket_server_thread.kill()
         self._websocket_server.close()
         print('Websocket server closed')
         self.shutdown()
         sys.exit()
 
-    def run_websocket_server(self, tls: bool, cert: str, key: str, ver):
+    def run_websocket_server(self, tls: bool,
+                             cert: str, key: str, ver) -> None:
         """start the websocket server
         """
         if not tls:
@@ -208,7 +209,7 @@ class MudServer(object):
         # start listening for connections on the socket
         self._listen_socket.listen(1)
 
-    def update(self):
+    def update(self) -> None:
         """Checks for new players, disconnected players, and new
         messages sent from players. This method must be called before
         up-to-date info can be obtained from the 'get_new_players',
@@ -227,7 +228,7 @@ class MudServer(object):
         self._events = list(self._new_events)
         self._new_events = []
 
-    def get_new_players(self):
+    def get_new_players(self) -> []:
         """Returns a list containing info on any new players that have
         entered the game since the last call to 'update'. Each item in
         the list is a player id number.
@@ -242,7 +243,7 @@ class MudServer(object):
         # return the info list
         return retval
 
-    def get_disconnected_players(self):
+    def get_disconnected_players(self) -> []:
         """Returns a list containing info on any players that have left
         the game since the last call to 'update'. Each item in the list
         is a player id number.
@@ -257,7 +258,7 @@ class MudServer(object):
         # return the info list
         return retval
 
-    def get_commands(self):
+    def get_commands(self) -> []:
         """Returns a list containing any commands sent from players
         since the last call to 'update'. Each item in the list is a
         3-tuple containing the id number of the sending player, a
@@ -278,7 +279,12 @@ class MudServer(object):
         """Returns true if the player with the given id is
         using the web interface
         """
-        cl = self._clients[id]
+        try:
+            cl = self._clients[id]
+        except BaseException:
+            print('playerUsingWebInterface: client index ' +
+                  str(id) + ' was not found')
+            return False
         if cl.client_type == self._CLIENT_WEBSOCKET:
             return True
         return False
@@ -286,7 +292,12 @@ class MudServer(object):
     def removeWebSocketCommands(self, id: int, message: str) -> str:
         """Removes special commands used by the web interface
         """
-        cl = self._clients[id]
+        try:
+            cl = self._clients[id]
+        except BaseException:
+            print('removeWebSocketCommands: client index ' +
+                  str(id) + ' was not found')
+            return message
         if cl.client_type != self._CLIENT_WEBSOCKET:
             if '****TITLE****' in message:
                 message = message.replace('****TITLE****', '')
@@ -296,12 +307,17 @@ class MudServer(object):
                 message = message.replace('****DISCONNECT****', '')
         return message
 
-    def sendMessageWrap(self, to, prefix, message: str):
+    def sendMessageWrap(self, to, prefix, message: str) -> None:
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
-        cl = self._clients[to]
+        try:
+            cl = self._clients[to]
+        except BaseException:
+            print('sendMessageWrap: client index ' +
+                  str(to) + ' was not found')
+            return
         # Don't wrap on the websockets version, because html
         # will do this for us
         if cl.client_type == self._CLIENT_WEBSOCKET:
@@ -329,7 +345,7 @@ class MudServer(object):
                     break
         self._attempt_send(to, '\n')
 
-    def sendMessage(self, to: int, message: str):
+    def sendMessage(self, to: int, message: str) -> None:
         """Sends the text in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -361,7 +377,8 @@ class MudServer(object):
         try:
             cl = self._clients[to]
         except BaseException:
-            print('Client index ' + str(to) + ' was not found')
+            print('sendImage: client index ' + str(to) +
+                  ' was not found')
             return
         try:
             # look up the client in the client map and use 'sendall' to send
@@ -448,7 +465,7 @@ class MudServer(object):
                   ", socket error: " + str(e))
             self.handleDisconnect(to)
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Closes down the server, disconnecting all clients and
         closing the listen socket.
         """
@@ -493,7 +510,7 @@ class MudServer(object):
         return True
 
     def add_new_player(self, client_type: int,
-                       joined_socket, address: str):
+                       joined_socket, address: str) -> int:
         # construct a new _Client object to hold info about the newly
         # connected client. Use 'nextid' as the new client's id number
         self._clients[self._nextid] = \
@@ -509,7 +526,7 @@ class MudServer(object):
         self._nextid += 1
         return self._nextid - 1
 
-    def _check_for_new_connections(self):
+    def _check_for_new_connections(self) -> None:
         # 'select' is used to check whether there is data waiting to be
         # read from the socket. We pass in 3 lists of sockets, the
         # first being those to check for readability. It returns 3
@@ -534,7 +551,7 @@ class MudServer(object):
 
         self.add_new_player(self._CLIENT_TELNET, joined_socket, addr[0])
 
-    def _check_for_disconnected(self):
+    def _check_for_disconnected(self) -> None:
         # go through all the clients
         for id, cl in list(self._clients.items()):
 
@@ -553,7 +570,7 @@ class MudServer(object):
             # update the last check time
             cl.lastcheck = time.time()
 
-    def receiveMessage(self, id: int, message: str):
+    def receiveMessage(self, id: int, message: str) -> None:
         """Receives a command from a player
         """
         # separate the message into the command (the first word)
@@ -567,7 +584,7 @@ class MudServer(object):
         self._new_events.append((self._EVENT_COMMAND, id,
                                  command, params))
 
-    def _check_for_messages(self):
+    def _check_for_messages(self) -> None:
         # go through all the clients
         for id, cl in list(self._clients.items()):
             if self._clients[id].client_type != self._CLIENT_TELNET:
@@ -610,7 +627,7 @@ class MudServer(object):
                     # the message
                     self.receiveMessage(id, message.strip())
 
-    def handleDisconnect(self, clid: int):
+    def handleDisconnect(self, clid: int) -> None:
         playerLeft = False
         try:
             # remove the client from the clients map
@@ -624,7 +641,7 @@ class MudServer(object):
             # player's id number
             self._new_events.append((self._EVENT_PLAYER_LEFT, clid))
 
-    def _process_sent_data(self, client, data):
+    def _process_sent_data(self, client, data) -> str:
         # the Telnet protocol allows special command codes to be inserted
         # into messages. For our very simple server we don't need to
         # response to any of these codes, but we must at least detect
