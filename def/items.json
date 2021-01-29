@@ -30605,9 +30605,9 @@
     },
     "1251": {
         "name": "old shields",
-        "short_description": "Remnants of ancient heroes and glories.",
-        "long_description": "Remnants of ancient heroes and glories.",
-	"takeFail": "They're fixed in place.",
+        "short_description": "Hanging at regularly spaced intervals between pillars, the shields are remnants of ancient heroes and glories. They are elaborately decorated with intricate patterns and heraldic insignia.",
+        "long_description": "Hanging at regularly spaced intervals between pillars, the shields are remnants of ancient heroes and glories. They are elaborately decorated with intricate patterns and heraldic insignia.",
+	"takeFail": "You try to remove the shields, but they're very securely fastened to the walls, as if by magical force.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
