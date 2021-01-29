@@ -29206,8 +29206,8 @@
     },
     "1207": {
         "name": "fragment of obsidian",
-        "short_description": "The obisidan is razor sharp.",
-        "long_description": "A jagged fragment of obsidian lies here.",
+        "short_description": "A jagged fragment of obsidian, which is razor sharp.",
+        "long_description": "A jagged fragment of obsidian, which is razor sharp.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
