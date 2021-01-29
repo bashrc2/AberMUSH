@@ -4892,7 +4892,7 @@
     "199": {
         "name": "smelly incense",
         "short_description": "Phew.. really pongs.",
-        "long_description": "A stick of incense has been left here. Judging by the smell the owner finally had enough of it.",
+        "long_description": "A stick of incense. Judging by the smell the owner finally had enough of it.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
