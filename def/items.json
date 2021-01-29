@@ -4684,8 +4684,8 @@
     },
     "196": {
         "name": "brass candelabrum",
-        "short_description": "The brass candelabrum holds many candles.",
-        "long_description": "The brass candelabrum holds many candles.",
+        "short_description": "The elaborate brass candelabrum holds many candles.",
+        "long_description": "The elaborate brass candelabrum holds many candles.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
