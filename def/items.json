@@ -4684,15 +4684,15 @@
     },
     "196": {
         "name": "brass candelabrum",
-        "short_description": "A brass candelabrum sits here.",
-        "long_description": "A brass candelabrum stands on the south side of the altar.",
+        "short_description": "The brass candelabrum holds many candles.",
+        "long_description": "The brass candelabrum holds many candles.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_lwrist": 0,
         "clo_rwrist": 0,
@@ -4748,7 +4748,7 @@
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
-        "lightSource": 0,
+        "lightSource": 1,
         "article": "a"
     },
     "197": {
