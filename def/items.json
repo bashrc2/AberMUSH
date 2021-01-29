@@ -4822,8 +4822,8 @@
     },
     "198": {
         "name": "golden goblet",
-        "short_description": "A golden goblet glitters before you.",
-        "long_description": "A golden goblet stands on the western side of the altar.",
+        "short_description": "A very fine looking golden goblet",
+        "long_description": "A very fine looking golden goblet",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
