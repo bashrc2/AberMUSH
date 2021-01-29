@@ -31098,9 +31098,9 @@
     },
     "1269": {
         "name": "small well",
-        "short_description": "It appears to have dried up.",
-        "long_description": "It appears to have dried up.",
-	"takeFail": "Taking the well would be silly.",
+        "short_description": "The small well appears to have dried up. You can probably clamber down it without too much trouble.",
+        "long_description": "The small well appears to have dried up. You can probably clamber down it without too much trouble.",
+	"takeFail": "Taking the well would clearly be silly.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
