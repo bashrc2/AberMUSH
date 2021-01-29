@@ -29137,8 +29137,8 @@
     },
     "1206": {
         "name": "piece of pumice",
-        "short_description": "A piece of pumice lies before you.",
-        "long_description": "The rock is light and full of bubbles.",
+        "short_description": "The pumice rock is light in weight and colour, and filled with hundreds of tiny bubble holes.",
+        "long_description": "The pumice rock is light in weight and colour, and filled with hundreds of tiny bubble holes.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
