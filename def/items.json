@@ -36775,7 +36775,7 @@
     },
     "1415": {
         "name": "ancient stone statue",
-        "short_description": "",
+        "short_description": "Crudely carved out of sandstone and resting on a plinth the ram's head statue with its giant curling horns glares at you.",
         "long_description": "Crudely carved out of sandstone and resting on a plinth the ram's head statue with its giant curling horns glares at you.",
 	"takeFail": "It's too heavy to move, let alone carry.",
 	"climbFail": "You try to climb up the ancient statue, but the plinth has nothing that you can get a hold upon",
