@@ -1901,7 +1901,7 @@
     "69": {
         "name": "black bottle",
         "short_description": "A small black bottle.",
-        "long_description": "A small black bottle lies here. The bottle seems to shake and rattle, as if something very large is trying to get out.",
+        "long_description": "A small black bottle. It seems to shake and rattle, as if something very large is trying to get out.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 1,
@@ -1970,7 +1970,7 @@
     "76": {
         "name": "crystal wand",
         "short_description": "Delicate and very fine.",
-        "long_description": "A delicate crystal wand lies here.",
+        "long_description": "A delicate crystal wand.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -2039,7 +2039,7 @@
     "77": {
         "name": "smelly fish",
         "short_description": "Not exactly fresh fish.",
-        "long_description": "A smelly fish lies on the ground. The stink wafts up around you making your eyes water.",
+        "long_description": "A smelly fish. The stink wafts up around you making your eyes water.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -2597,7 +2597,7 @@
     "106": {
         "name": "large axe",
         "short_description": "Crude but vicious.",
-        "long_description": "A very sharp axe lies here.",
+        "long_description": "A very sharp axe.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -2666,7 +2666,7 @@
     "107": {
         "name": "leather jacket",
         "short_description": "Thick leather.",
-        "long_description": "A thick leather jacket lies here.",
+        "long_description": "A thick leather jacket.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -3287,7 +3287,7 @@
     "169": {
         "name": "bronze ingot",
         "short_description": "Probably quite valuable",
-        "long_description": "A bronze ingot lies on the floor.",
+        "long_description": "A large bronze ingot lies on the floor.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -3325,7 +3325,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "mod_cool": 0,
-        "weight": 100,
+        "weight": 200,
         "edible": 0,
         "climbThrough": "",
         "heave": "",
@@ -3634,7 +3634,7 @@
     "174": {
         "name": "footstool",
         "short_description": "a footstool",
-        "long_description": "A footstool lies somewhat incongruously here.",
+        "long_description": "A modest footstool. Useful in all manner of situations",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -26904,7 +26904,7 @@
     "1091": {
         "name": "pillar",
         "short_description": "About sixty foot long.",
-        "long_description": "A long stone pillar lies on the ground, where it has crashed down from one of the walls.",
+        "long_description": "A long stone pillar lies on the ground, where it has crashed down from one of the walls. A big fracture at one end indicates where it must have impacted.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27042,7 +27042,7 @@
     "1095": {
         "name": "chip of rock",
         "short_description": "A small piece of phosphorescent rock.",
-        "long_description": "A small chip of rock lies on the floor.",
+        "long_description": "A small chip of phosphorescent rock.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27111,7 +27111,7 @@
     "1100": {
         "name": "branch",
         "short_description": "A longish piece of broken wood.",
-        "long_description": "A long broken branch has been left here.",
+        "long_description": "A long broken tree branch.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27388,7 +27388,7 @@
         "name": "bell rope",
         "short_description": "Good strong rope",
         "long_description": "Good strong rope",
-	"takeFail": "It's securely fastened somewhere above.",
+	"takeFail": "The rope is securely fastened somewhere high above.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
@@ -28154,7 +28154,7 @@
     "1164": {
         "name": "obsidian pillar",
         "short_description": "A tall obsidian pillar stands beside the pool.",
-        "long_description": "The pillar is marked will many deep, and very large sucker marks.",
+        "long_description": "The tall obsidian pillar stands beside the pool, and is marked will many deep and very large sucker marks.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
