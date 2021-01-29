@@ -4822,8 +4822,8 @@
     },
     "198": {
         "name": "golden goblet",
-        "short_description": "A very fine looking golden goblet",
-        "long_description": "A very fine looking golden goblet",
+        "short_description": "A very fine looking golden goblet, with various gods and dragons carved around its exterior",
+        "long_description": "A very fine looking golden goblet, with various gods and dragons carved around its exterior",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
