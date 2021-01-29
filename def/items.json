@@ -28571,8 +28571,8 @@
     },
     "1193": {
         "name": "soap",
-        "short_description": "A piece of old soap has been left here.",
-        "long_description": "Very dirty, it wouldn't help clean anything now.",
+        "short_description": "Very grubby-looking, it wouldn't help clean anything now.",
+        "long_description": "Very grubby-looking, it wouldn't help clean anything now.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28782,8 +28782,8 @@
     },
     "1199": {
         "name": "scarred shelves",
-        "short_description": "Anything of any value has been burned away.",
-        "long_description": "Anything of any value has been burned away.",
+        "short_description": "Scorched by fire, anything of any value has been burned away.",
+        "long_description": "Scorched by fire, anything of any value has been burned away.",
 	"takeFail": "The shelves are too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -28853,8 +28853,8 @@
     },
     "1200": {
         "name": "oak door",
-        "short_description": "The doors stand closed.",
-        "long_description": "Tall and splendidly carved.",
+        "short_description": "The doors stands closed.",
+        "long_description": "The door is tall and very splendidly carved. It stands closed",
 	"takeFail": "You try to pull the door off its hinges, but it's too firmly attached.",
         "moveTimes": [],
         "clo_head": 0,
