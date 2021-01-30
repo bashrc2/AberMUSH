@@ -27,6 +27,7 @@ import textwrap
 from cmsg import cmsg
 from WebSocketServer import WebSocket, WebSocketServer, tlsWebSocketServer
 from threads import threadWithTrace
+from functions import showTiming
 
 ws_clients = []
 
@@ -350,7 +351,13 @@ class MudServer(object):
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
+        previousTiming = time.time()
+
         message = self.removeWebSocketCommands(to, message)
+
+        previousTiming = \
+            showTiming(previousTiming, "removeWebSocketCommands")
+
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
@@ -363,6 +370,8 @@ class MudServer(object):
             sendCtr += 1
             if sendCtr > 4:
                 break
+        previousTiming = \
+            showTiming(previousTiming, "_attempt_send")
 
     def sendImage(self, to, message, noDelay=False) -> None:
         """Sends the ANSI image in the 'message' parameter to the player with
