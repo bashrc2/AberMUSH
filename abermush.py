@@ -91,7 +91,7 @@ npcsDB = {}
 npcs = {}
 
 # Declare NPCs master (template) dict
-npcsTemplate = {}
+# npcsTemplate = {}
 
 # Declare env dict
 env = {}
@@ -425,7 +425,7 @@ log("State Save interval: " + str(stateSaveInterval) + " seconds", "info")
 lastStateSave = int(time.time())
 
 # Deepcopy npcs fetched from a database into a master template
-npcsTemplate = deepcopy(npcs)
+# npcsTemplate = deepcopy(npcs)
 
 # List items in world for debugging purposes
 # for x in itemsInWorld:
@@ -622,7 +622,7 @@ while True:
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
     runNPCs(mud, npcs, players, fights, corpses, scriptedEventsDB, itemsDB,
-            npcsTemplate, rooms, mapArea, clouds, eventSchedule)
+            npcs, rooms, mapArea, clouds, eventSchedule)
 
     previousTiming = \
         showTiming(previousTiming, "update npcs")
@@ -648,7 +648,8 @@ while True:
     previousTiming = \
         showTiming(previousTiming, "schedule")
 
-    npcsTemplate = deepcopy(npcs)
+    # NOTE: takes a long time
+    # npcsTemplate = deepcopy(npcs)
 
     previousTiming = \
         showTiming(previousTiming, "copy npcs")
