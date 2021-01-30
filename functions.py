@@ -638,3 +638,12 @@ def messageToPlayersInRoom(mud, players, id, msg):
            pid != id:
             if playerIsVisible(mud, pid, players, id, players):
                 mud.sendMessage(pid, msg)
+
+
+def showTiming(previousTiming, commentStr: str):
+    """Shows the length of time since the previous benchmark
+    """
+    currTime = time.time()
+    timeDiff = int((currTime - previousTiming) * 1000)
+    print('TIMING: ' + commentStr + ' = ' + str(timeDiff) + 'mS')
+    return currTime

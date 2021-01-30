@@ -11,6 +11,7 @@ import os
 import json
 import ssl
 
+from functions import showTiming
 from functions import log
 from functions import saveState
 from functions import saveUniverse
@@ -475,6 +476,8 @@ if loadBlocklist("blocked.txt", blocklist):
 
 terminalMode = {}
 
+previousTiming = time.time()
+
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
     # print(int(time.time()))
@@ -489,24 +492,51 @@ while True:
                 if rooms[rm].get('roomTeleport'):
                     players[p]['room'] = rooms[rm]['roomTeleport']
 
+    previousTiming = \
+        showTiming(previousTiming, "teleport every N seconds")
+
+    previousTiming2 = time.time()
+
     now = int(time.time())
     if now >= lastTempHitPointsUpdate + tempHitPointsUpdateInterval:
         lastTempHitPointsUpdate = now
         updateTemporaryHitPoints(mud, players, False)
         updateTemporaryHitPoints(mud, npcs, True)
+
+        previousTiming = \
+            showTiming(previousTiming, "update hit points")
+
         updateTemporaryIncapacitation(mud, players, False)
         updateTemporaryIncapacitation(mud, npcs, True)
+
+        previousTiming = \
+            showTiming(previousTiming, "update incapacitation")
+
         updateTemporaryCharm(mud, players, False)
         updateTemporaryCharm(mud, npcs, True)
+
+        previousTiming = \
+            showTiming(previousTiming, "update charm")
+
         runTraps(mud, rooms, players, npcs)
+
+        previousTiming = \
+            showTiming(previousTiming, "update traps")
+
+    previousTiming = \
+        showTiming(previousTiming2, "various updates")
 
     now = int(time.time())
     if now >= lastWeatherUpdate + weatherUpdateInterval:
         lastWeatherUpdate = now
         temperature = getTemperature()
+        previousTiming = \
+            showTiming(previousTiming, "get temperature")
         # print("Temperature " + str(temperature))
         windDirection = generateCloud(r1, rooms, mapArea, clouds, cloudGrid,
                                       tileSize, windDirection)
+        previousTiming = \
+            showTiming(previousTiming, "calc wind directions")
         # plotClouds(rooms, mapArea, clouds, temperature)
 
     # update player list
@@ -517,20 +547,35 @@ while True:
             if players[p]['name'] not in playerList:
                 playerList.append(players[p]['name'])
 
+    previousTiming = \
+        showTiming(previousTiming, "update player list")
+
     # Aggressive NPCs may attack players
     npcAggression(npcs, players, fights, mud, itemsInWorld, itemsDB)
+
+    previousTiming = \
+        showTiming(previousTiming, "update npc attacks")
 
     # pause for 1/5 of a second on each loop, so that we don't constantly
     # use 100% CPU time
     time.sleep(0.1)
     # print(eventSchedule)
 
+    previousTiming = \
+        showTiming(previousTiming, "sleep")
+
     # 'update' must be called in the loop to keep the game running and give
     # us up-to-date information
     mud.update()
 
+    previousTiming = \
+        showTiming(previousTiming, "update mud")
+
     if disconnectIdlePlayers(mud, players, allowedPlayerIdle, playersDB):
         playersDB = loadPlayersDB()
+
+    previousTiming = \
+        showTiming(previousTiming, "disconnect idle platers")
 
     # Check if State Save is due and execute it if required
     now = int(time.time())
@@ -549,41 +594,74 @@ while True:
                          envDB, env, guildsDB)
         lastStateSave = now
 
+    previousTiming = \
+        showTiming(previousTiming, "save game")
+
     # Handle Player Deaths
     runDeaths(mud, players, npcs, corpses, fights,
               eventSchedule, scriptedEventsDB)
+
+    previousTiming = \
+        showTiming(previousTiming, "handle deaths")
 
     # Handle Fights
     runFights(mud, players, npcs, fights, itemsInWorld, itemsDB, rooms,
               maxTerrainDifficulty, mapArea, clouds, racesDB, characterClassDB,
               guildsDB)
 
+    previousTiming = \
+        showTiming(previousTiming, "update fights")
+
     # Some items can appear only at certain times
     runMobileItems(itemsDB, itemsInWorld, eventSchedule,
                    scriptedEventsDB, rooms, mapArea, clouds)
+
+    previousTiming = \
+        showTiming(previousTiming, "update mobile items")
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
     runNPCs(mud, npcs, players, fights, corpses, scriptedEventsDB, itemsDB,
             npcsTemplate, rooms, mapArea, clouds, eventSchedule)
 
+    previousTiming = \
+        showTiming(previousTiming, "update npcs")
+
     runEnvironment(mud, players, env)
+
+    previousTiming = \
+        showTiming(previousTiming, "update environment")
 
     removeCorpses(corpses)
 
+    previousTiming = \
+        showTiming(previousTiming, "remove dead")
+
     npcRespawns(npcs)
+
+    previousTiming = \
+        showTiming(previousTiming, "respawns")
 
     runSchedule(mud, eventSchedule, players, npcs, itemsInWorld, env,
                 npcsDB, envDB)
+
+    previousTiming = \
+        showTiming(previousTiming, "schedule")
 
     npcsTemplate = deepcopy(npcs)
 
     runMessages(mud, channels, players)
 
+    previousTiming = \
+        showTiming(previousTiming, "messages")
+
     channels.clear()
 
     runPlayerConnections(mud, id, players, playersDB, fights,
                          Config, terminalMode)
+
+    previousTiming = \
+        showTiming(previousTiming, "player connections")
 
     # rest restores hp and allows spell learning
     now = int(time.time())
@@ -591,6 +669,9 @@ while True:
         lastRestUpdate = now
         playersRest(mud, players)
         npcsRest(npcs)
+
+    previousTiming = \
+        showTiming(previousTiming, "resting")
 
     # go through any new commands sent from players
     for (id, command, params) in mud.get_commands():
@@ -1057,3 +1138,5 @@ while True:
                                eventSchedule, id, fights, corpses, blocklist,
                                mapArea, characterClassDB, spellsDB,
                                sentimentDB, guildsDB, clouds)
+    previousTiming = \
+        showTiming(previousTiming, "player commands")
