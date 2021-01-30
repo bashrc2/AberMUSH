@@ -3321,11 +3321,11 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
 
     desc = \
         randomDescription(players[pid]['lookDescription'])
-    mud.sendMessageWrap(id, '', desc + '\n')
+    mud.sendMessageWrap(id, '', desc + '<r>\n')
 
     if players[pid].get('canGo'):
         if players[pid]['canGo'] == 0:
-            mud.sendMessage(id, 'They are frozen.\n')
+            mud.sendMessage(id, 'They are frozen.<r>\n')
 
     # count items of clothing
     wearingCtr = 0
@@ -3345,7 +3345,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
         mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
                         itemsDB[players[pid]['clo_rhand']]['article'] +
                         ' ' + itemsDB[players[pid]['clo_rhand']]['name'] +
-                        ' in ' + playerName2 + ' right hand.\n')
+                        ' in ' + playerName2 + ' right hand.<r>\n')
     if players[pid].get('clo_rfinger'):
         if int(players[pid]['clo_rfinger']) > 0:
             mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
@@ -3353,19 +3353,19 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                             ' ' +
                             itemsDB[players[pid]['clo_rfinger']]['name'] +
                             ' on the finger of ' + playerName2 +
-                            ' right hand.\n')
+                            ' right hand.<r>\n')
     if int(players[pid]['clo_lhand']) > 0:
         mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
                         itemsDB[players[pid]['clo_lhand']]['article'] +
                         ' ' + itemsDB[players[pid]['clo_lhand']]['name'] +
-                        ' in ' + playerName2 + ' left hand.\n')
+                        ' in ' + playerName2 + ' left hand.<r>\n')
     if players[pid].get('clo_lfinger'):
         if int(players[pid]['clo_lfinger']) > 0:
             mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
                             itemsDB[players[pid]['clo_lfinger']]['article'] +
                             ' '+itemsDB[players[pid]['clo_lfinger']]['name'] +
                             ' on the finger of ' + playerName2 +
-                            ' left hand.\n')
+                            ' left hand.<r>\n')
 
     if wearingCtr > 0:
         wearingMsg = playerName + ' are wearing'
@@ -3401,8 +3401,8 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                     wearingMsg = \
                         wearingMsg + ' on ' + playerName2 + ' right leg'
                 wearingCtr2 += 1
-        mud.sendMessage(id, wearingMsg + '.\n')
-    mud.sendMessage(id, '\n')
+        mud.sendMessage(id, wearingMsg + '.<r>\n')
+    mud.sendMessage(id, '<r>\n')
 
 
 def bio(params, mud, playersDB: {}, players: {}, rooms: {},
