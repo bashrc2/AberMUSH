@@ -3317,7 +3317,7 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                     else:
                         languagesStr = languagesStr + lang
                     langCtr += 1
-                mud.sendMessage(id, 'Languages: ' + languagesStr + '\n')
+                mud.sendMessage(id, 'Languages:<r> ' + languagesStr + '\n')
 
     desc = \
         randomDescription(players[pid]['lookDescription'])
