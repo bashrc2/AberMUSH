@@ -10,6 +10,7 @@ __status__ = "Production"
 from events import evaluateEvent
 from random import randint
 from copy import deepcopy
+from functions import showTiming
 
 import time
 
@@ -17,7 +18,13 @@ import time
 def runMessages(mud, channels, players):
     # go through channels messages queue and send messages to subscribed
     # players
+    previousTiming = time.time()
+
     ch = deepcopy(channels)
+
+    previousTiming = \
+        showTiming(previousTiming, "copy channels")
+
     for p in players:
         if players[p]['channels'] is not None:
             for c in players[p]['channels']:
@@ -29,6 +36,10 @@ def runMessages(mud, channels, players):
                             "<r>] <f32>" + ch[m]['sender'] +
                             "<r>: " + ch[m]['message'] + "\n")
                         # del channels[m]
+        previousTiming = \
+            showTiming(previousTiming, "send message " +
+                       str(len(players[p]['channels'])) + ' x ' +
+                       str(len(ch)))
 
 
 def runEnvironment(mud, players, env):
