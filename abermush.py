@@ -650,6 +650,9 @@ while True:
 
     npcsTemplate = deepcopy(npcs)
 
+    previousTiming = \
+        showTiming(previousTiming, "copy npcs")
+
     runMessages(mud, channels, players)
 
     previousTiming = \
