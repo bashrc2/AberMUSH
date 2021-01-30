@@ -1032,7 +1032,8 @@ while True:
                             " has requested existing user (" + command +
                             ")", "info")
                         mud.sendMessage(id, 'Hi <u><f32>' + command + '<r>!')
-                        mud.sendMessage(id, '<f15>What is your password?\n\n')
+                        mud.sendMessage(id,
+                                        '<f15>What is your password?<r>\n\n')
                         askForPassword = True
 
                 if not askForPassword:
