@@ -2440,7 +2440,7 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
                         '<f220>{}'.format(', '.join(itemshere))
                     mud.sendMessageWrap(id, '<f220>', desc)
 
-            mud.sendMessage(id, "\n")
+            mud.sendMessage(id, "<r>\n")
         else:
             # If argument is given, then evaluate it
             param = params.lower()
@@ -2597,24 +2597,24 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
 
             if len(message) > 0:
                 mud.sendMessage(id, "****CLEAR****It's " + itemName + ".")
-                mud.sendMessageWrap(id, '', message + "\n\n")
+                mud.sendMessageWrap(id, '', message + "<r>\n\n")
                 messageSent = True
                 if itemCounter > 1:
                     mud.sendMessage(
                         id, "You can see " +
                         str(itemCounter) +
-                        " of those in the vicinity.\n\n")
+                        " of those in the vicinity.<r>\n\n")
 
             # If no message has been sent, it means no player/npc/item was
             # found
             if not messageSent:
-                mud.sendMessage(id, "Look at what?\n")
+                mud.sendMessage(id, "Look at what?<r>\n")
     else:
         mud.sendMessage(
             id,
             '****CLEAR****' +
             'You somehow cannot muster enough perceptive powers ' +
-            'to perceive and describe your immediate surroundings...\n')
+            'to perceive and describe your immediate surroundings...<r>\n')
 
 
 def escapeTrap(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -4196,13 +4196,13 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                     desc = \
                         '****TITLE****You arrive at ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
-                    mud.sendMessage(id, desc + "\n\n")
+                    mud.sendMessage(id, desc + "<r>\n\n")
                 else:
                     # send the player a message telling them where they are now
                     desc = \
                         '****TITLE****You row to ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
-                    mud.sendMessage(id, desc + "\n\n")
+                    mud.sendMessage(id, desc + "<r>\n\n")
 
                 look('', mud, playersDB, players, rooms, npcsDB, npcs,
                      itemsDB, items, envDB, env, eventDB, eventSchedule,
