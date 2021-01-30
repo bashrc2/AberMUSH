@@ -4058,7 +4058,7 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
-                players[id]['frozenDescription']) + '\n\n')
+                players[id]['frozenDescription']) + '<r>\n\n')
         return
 
     if playerIsTrapped(id, players, rooms):
@@ -4095,7 +4095,7 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                 if rooms[targetRoom]['maxPlayers'] > -1:
                     if playersInRoom(targetRoom, players, npcs) >= \
                        rooms[targetRoom]['maxPlayers']:
-                        mud.sendMessage(id, 'The room is full.\n\n')
+                        mud.sendMessage(id, 'The room is full.<r>\n\n')
                         return
 
                 # Check that the player is not too tall
@@ -4103,7 +4103,7 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                     if players[id]['siz'] > \
                        rooms[targetRoom]['maxPlayerSize']:
                         mud.sendMessage(id, "The entrance is too small " +
-                                        "for you to enter.\n\n")
+                                        "for you to enter.<r>\n\n")
                         return
 
                 if not stepping:
@@ -4216,9 +4216,10 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
         else:
             # the specified exit wasn't found in the current room
             # send back an 'unknown exit' message
-            mud.sendMessage(id, "Unknown exit <f226>'{}'".format(ex) + "\n\n")
+            mud.sendMessage(id, "Unknown exit <f226>'{}'".format(ex) +
+                            "<r>\n\n")
     else:
-        mud.sendMessage(id, 'Somehow, your legs refuse to obey your will.\n')
+        mud.sendMessage(id, 'Somehow, your legs refuse to obey your will.<r>\n')
 
 
 def goNorth(params, mud, playersDB, players, rooms,
