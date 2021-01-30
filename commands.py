@@ -2841,10 +2841,10 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                    sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '****CLEAR****You check your inventory.')
     if len(list(players[id]['inv'])) == 0:
-        mud.sendMessage(id, 'You haven`t got any items on you.\n\n')
+        mud.sendMessage(id, 'You haven`t got any items on you.<r>\n\n')
         return
 
-    mud.sendMessage(id, 'You are currently in possession of:\n')
+    mud.sendMessage(id, 'You are currently in possession of:<r>\n')
     for i in list(players[id]['inv']):
         if int(players[id]['clo_lhand']) == int(i):
             mud.sendMessage(id, ' * ' +
@@ -2916,7 +2916,7 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                         itemsDB[int(i)]['article'] +
                         ' <b234>' +
                         itemsDB[int(i)]['name'])
-    mud.sendMessage(id, '\n\n')
+    mud.sendMessage(id, '<r>\n\n')
 
 
 def changeSetting(params, mud, playersDB: {}, players: {}, rooms: {},
