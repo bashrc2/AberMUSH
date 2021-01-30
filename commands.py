@@ -64,7 +64,8 @@ from familiar import getFamiliarName
 import os
 import re
 import sys
-from copy import deepcopy
+# from copy import deepcopy
+from functions import deepcopy
 import time
 import datetime
 import os.path

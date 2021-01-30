@@ -9,8 +9,9 @@ __status__ = "Production"
 
 from events import evaluateEvent
 from random import randint
-from copy import deepcopy
+# from copy import deepcopy
 from functions import showTiming
+from functions import deepcopy
 
 import time
 

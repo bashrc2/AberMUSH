@@ -8,7 +8,8 @@ __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
 from functions import randomDescription
-from copy import deepcopy
+from functions import deepcopy
+# from copy import deepcopy
 
 # Movement modes for familiars
 familiarModes = ("follow", "scout", "hide", "see")

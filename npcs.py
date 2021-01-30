@@ -19,8 +19,9 @@ from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import randomDescription
+from functions import deepcopy
 from random import randint
-from copy import deepcopy
+# from copy import deepcopy
 from familiar import getFamiliarModes
 from familiar import familiarDefaultMode
 from familiar import familiarScout
