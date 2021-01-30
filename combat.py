@@ -12,9 +12,8 @@ from functions import stowHands
 from functions import prepareSpells
 from functions import randomDescription
 from functions import decreaseAffinityBetweenPlayers
-from functions import deepcopy
 from random import randint
-# from copy import deepcopy
+from copy import deepcopy
 from environment import getTemperatureAtCoords
 from proficiencies import damageProficiency
 from proficiencies import defenseProficiency

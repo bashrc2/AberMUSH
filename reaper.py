@@ -30,9 +30,8 @@ __status__ = "Production"
 #       ::::::`:::::;'  /  /   `#
 
 from functions import addToScheduler
-from functions import deepcopy
 from npcs import corpseExists
-# from copy import deepcopy
+from copy import deepcopy
 
 import time
 

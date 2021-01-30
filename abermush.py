@@ -11,7 +11,6 @@ import os
 import json
 import ssl
 
-from functions import deepcopy
 from functions import showTiming
 from functions import log
 from functions import saveState
@@ -64,7 +63,7 @@ from mudserver import MudServer
 import random
 
 # import the deepcopy library
-# from copy import deepcopy
+from copy import deepcopy
 
 # import config parser
 import configparser

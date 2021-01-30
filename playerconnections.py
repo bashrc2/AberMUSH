@@ -11,8 +11,7 @@ import os
 from functions import log
 from functions import saveState
 from functions import loadPlayersDB
-from functions import deepcopy
-# from copy import deepcopy
+from copy import deepcopy
 
 import time
 
