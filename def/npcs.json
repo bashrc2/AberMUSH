@@ -5400,7 +5400,10 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common","druidic"],
-        "conv" : [],
+        "conv" : [
+            [["bees","?"], "Bees you say?"],
+            [["beekeeper","honey","?"], "Indeed, I am a beekeeper|Yes, I am a beekeeper"]
+        ],
         "path" : ["$rid=1290$","$rid=432$"],
         "bodyType": "",
         "moveDelay" : "4100",
