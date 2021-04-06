@@ -678,5 +678,5 @@ def showTiming(previousTiming, commentStr: str):
     """
     currTime = time.time()
     timeDiff = int((currTime - previousTiming) * 1000)
-    print('TIMING: ' + commentStr + ' = ' + str(timeDiff) + 'mS')
+    # print('TIMING: ' + commentStr + ' = ' + str(timeDiff) + 'mS')
     return currTime
