@@ -909,12 +909,9 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 players[s2id]['dodge'] = 0
 
         # Do damage to the PC here
-        if attackRoll(
-            players[s1id]['luc'] - dodgeValue +
-            weaponProficiency(
-                s1id, players,
-                weaponType,
-                characterClassDB)):
+        proficiency = \
+            weaponProficiency(s1id, players, weaponType, characterClassDB)
+        if attackRoll(players[s1id]['luc'] - dodgeValue + proficiency):
             damageValue, armorClass, damageDescription = \
                 calculateDamage(weaponDamage(s1id, players, itemsDB,
                                              weaponType, characterClassDB),
@@ -1090,17 +1087,15 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 npcs[s2id]['dodge'] = 0
 
         # Do damage to the NPC here
-        if attackRoll(
-            players[s1id]['luc'] - dodgeValue +
-            weaponProficiency(
-                s1id, players,
-                weaponType,
-                characterClassDB)):
+        proficiency = \
+            weaponProficiency(s1id, players, weaponType, characterClassDB)
+        if attackRoll(players[s1id]['luc'] - dodgeValue + proficiency):
+            damage = weaponDamage(s1id, players, itemsDB,
+                                  weaponType, characterClassDB)
+            defense = weaponDefense(s2id, npcs, itemsDB, racesDB,
+                                    weaponType, characterClassDB)
             damageValue, armorClass, damageDescription = \
-                calculateDamage(weaponDamage(s1id, players, itemsDB,
-                                             weaponType, characterClassDB),
-                                weaponDefense(s2id, npcs, itemsDB, racesDB,
-                                              weaponType, characterClassDB))
+                calculateDamage(damage, defense)
 
             npcWearsArmor(s2id, npcs, itemsDB)
 
@@ -1243,12 +1238,13 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     # Do the damage to PC here
     if attackRoll(npcs[s1id]['luc'] - dodgeValue +
                   weaponProficiency(s1id, npcs, weaponType, characterClassDB)):
+        damage = weaponDamage(s1id, npcs, itemsDB,
+                              weaponType, characterClassDB)
+        defense = weaponDefense(s2id, players, itemsDB,
+                                racesDB, weaponType, characterClassDB)
         damageValue, armorClass, damageDescription = \
-            calculateDamage(weaponDamage(s1id, npcs, itemsDB,
-                                         weaponType, characterClassDB),
-                            weaponDefense(s2id, players, itemsDB,
-                                          racesDB, weaponType,
-                                          characterClassDB))
+            calculateDamage(damage, defense)
+
         if roundsOfFire < 1:
             roundsOfFire = 1
         attackDescriptionFirst, attackDescriptionSecond = \
