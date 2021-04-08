@@ -12286,7 +12286,7 @@
         "coords": []
     },
     "$rid=1370$": {
-        "name": "The Guard Room",
+        "name": "The Barracks Guard Room",
         "description": "You find yourself in the guards main barrack room. Bunks line the walls, and weapon racks stand in the centre. A single narrow door leads east.",
         "roomTeleport": "",
         "conditional": [],
