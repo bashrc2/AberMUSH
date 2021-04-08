@@ -12994,7 +12994,7 @@
 	    "down": "$rid=1370$"
         },
         "name": "Barracks Bunk Bed",
-        "description": "You are in a bunk bed. It's not exactly comfortable, but might be adequate to recouperate after a fight",
+        "description": "You are in a bunk bed. It's not exactly comfortable, but might be adequate to recouperate after an epic battle.",
         "roomTeleport": "",
         "conditional": [
 	],
