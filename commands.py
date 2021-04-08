@@ -3342,9 +3342,15 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
         playerName3 = 'have'
 
     if int(players[pid]['clo_rhand']) > 0:
+        handItemID = players[pid]['clo_rhand']
+        itemName = itemsDB[handItemID]['name']
+        if 'right hand ' in itemName:
+            itemName = itemName.replace('right hand ', '')
+        elif 'right handed ' in itemName:
+            itemName = itemName.replace('right handed ', '')
         mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
-                        itemsDB[players[pid]['clo_rhand']]['article'] +
-                        ' ' + itemsDB[players[pid]['clo_rhand']]['name'] +
+                        itemsDB[handItemID]['article'] +
+                        ' ' + itemName +
                         ' in ' + playerName2 + ' right hand.<r>\n')
     if players[pid].get('clo_rfinger'):
         if int(players[pid]['clo_rfinger']) > 0:
@@ -3355,9 +3361,15 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                             ' on the finger of ' + playerName2 +
                             ' right hand.<r>\n')
     if int(players[pid]['clo_lhand']) > 0:
+        handItemID = players[pid]['clo_lhand']
+        itemName = itemsDB[handItemID]['name']
+        if 'left hand ' in itemName:
+            itemName = itemName.replace('left hand ', '')
+        elif 'left handed ' in itemName:
+            itemName = itemName.replace('left handed ', '')
         mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
                         itemsDB[players[pid]['clo_lhand']]['article'] +
-                        ' ' + itemsDB[players[pid]['clo_lhand']]['name'] +
+                        ' ' + itemName +
                         ' in ' + playerName2 + ' left hand.<r>\n')
     if players[pid].get('clo_lfinger'):
         if int(players[pid]['clo_lfinger']) > 0:
