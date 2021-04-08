@@ -65,7 +65,7 @@ speak [language]                        - Switch to speaking a different languag
 say [message]                           - Says something out loud
 look/examine                            - Examines the surroundings
 go [exit]                               - Moves through the exit specified
-climb though [exit]                     - Try to climb through an exit
+climb though/onto [exit]                - Try to climb through or onto an exit
 move/roll/heave [target]                - Try to move or roll a heavy object
 jump to [exit]                          - Try to jump onto something
 attack [target]                         - Attack another player or NPC
