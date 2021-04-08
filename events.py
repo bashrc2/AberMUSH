@@ -210,6 +210,10 @@ def setPlayerClo_lfinger(etarget, ebody, players, npcs,
                          items, env, npcsDB, envDB):
     return
 
+def setPlayerClo_gloves(etarget, ebody, players, npcs,
+                        items, env, npcsDB, envDB):
+    return
+
 
 def setPlayerClo_rfinger(etarget, ebody, players, npcs,
                          items, env, npcsDB, envDB):
@@ -403,6 +407,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         'clo_rarm': npcsDB[int(body[0])]['clo_rarm'],
         'clo_lhand': npcsDB[int(body[0])]['clo_lhand'],
         'clo_rhand': npcsDB[int(body[0])]['clo_rhand'],
+        'clo_gloves': npcsDB[int(body[0])]['clo_gloves'],
         'clo_lfinger': npcsDB[int(body[0])]['clo_lfinger'],
         'clo_rfinger': npcsDB[int(body[0])]['clo_rfinger'],
         'clo_chest': npcsDB[int(body[0])]['clo_chest'],
@@ -415,6 +420,7 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         'imp_larm': npcsDB[int(body[0])]['imp_larm'],
         'imp_rarm': npcsDB[int(body[0])]['imp_rarm'],
         'imp_lhand': npcsDB[int(body[0])]['imp_lhand'],
+        'imp_gloves': npcsDB[int(body[0])]['imp_gloves'],
         'imp_lfinger': npcsDB[int(body[0])]['imp_lfinger'],
         'imp_rhand': npcsDB[int(body[0])]['imp_rhand'],
         'imp_rfinger': npcsDB[int(body[0])]['imp_rfinger'],
@@ -551,6 +557,7 @@ def evaluateEvent(
         "setPlayerClo_rarm": setPlayerClo_rarm,
         "setPlayerClo_lhand": setPlayerClo_lhand,
         "setPlayerClo_rhand": setPlayerClo_rhand,
+        "setPlayerClo_gloves": setPlayerClo_gloves,
         "setPlayerClo_lfinger": setPlayerClo_lfinger,
         "setPlayerClo_rfinger": setPlayerClo_rfinger,
         "setPlayerClo_lwrist": setPlayerClo_lwrist,

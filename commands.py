@@ -2870,6 +2870,15 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                             '<r> (right leg)')
             continue
 
+        if players[id].get('clo_gloves'):
+            if int(players[id]['clo_gloves']) == int(i):
+                mud.sendMessage(id, ' * ' +
+                                itemsDB[int(i)]['article'] +
+                                ' <b234>' +
+                                itemsDB[int(i)]['name'] +
+                                '<r> (hands)')
+                continue
+
         if int(players[id]['clo_rhand']) == int(i):
             mud.sendMessage(id, ' * ' +
                             itemsDB[int(i)]['article'] +
@@ -2899,6 +2908,7 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
            int(players[id]['clo_rwrist']) == int(i) or \
            int(players[id]['clo_larm']) == int(i) or \
            int(players[id]['clo_rarm']) == int(i) or \
+           int(players[id]['clo_gloves']) == int(i) or \
            int(players[id]['clo_lfinger']) == int(i) or \
            int(players[id]['clo_rfinger']) == int(i) or \
            int(players[id]['clo_neck']) == int(i) or \
@@ -3378,6 +3388,12 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                             ' '+itemsDB[players[pid]['clo_lfinger']]['name'] +
                             ' on the finger of ' + playerName2 +
                             ' left hand.<r>\n')
+    if players[pid].get('clo_gloves'):
+        if int(players[pid]['clo_gloves']) > 0:
+            mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
+                            itemsDB[players[pid]['clo_gloves']]['article'] +
+                            ' '+itemsDB[players[pid]['clo_gloves']]['name'] +
+                            ' on the hands of ' + playerName2 + '<r>\n')
 
     if wearingCtr > 0:
         wearingMsg = playerName + ' are wearing'
@@ -4595,6 +4611,7 @@ def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "clo_rarm": 0,
         "clo_lhand": 0,
         "clo_rhand": 0,
+        "clo_gloves": 0,
         "clo_lfinger": 0,
         "clo_rfinger": 0,
         "clo_rwrist": 0,

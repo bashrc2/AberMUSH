@@ -24,7 +24,7 @@ Config.read('config.ini')
 
 wearLocation = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
                 'chest', 'feet', 'lfinger', 'rfinger', 'back',
-                'lleg', 'rleg')
+                'lleg', 'rleg', 'gloves')
 
 _dispatcher = {}
 
