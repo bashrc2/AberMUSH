@@ -13009,5 +13009,26 @@
         "region": "",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1409$": {
+        "exits": {
+	    "out": "$rid=211$"
+        },
+        "name": "Four Poster Bed",
+        "description": "You sink into the luxurious matress of the four poster bed",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }

@@ -5531,7 +5531,7 @@
         "article": "a"
     },
     "210": {
-        "name": "fourposter bed",
+        "name": "four poster bed",
         "short_description": "The four poster bed is made from beautiful oak with silk bedding and regal red drapes.",
         "long_description": "The four poster bed is made from beautiful oak with silk bedding and regal red drapes.",
         "clo_head": 0,
@@ -5574,7 +5574,7 @@
         "mod_cool": 0,
         "weight": 1000,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You climber onto the four poster bed",
         "heave": "",
         "jumpTo": "",
         "game": "",
@@ -5596,7 +5596,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1409$",
         "lightSource": 0,
         "article": "a"
     },
