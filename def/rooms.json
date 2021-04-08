@@ -13015,7 +13015,7 @@
 	    "out": "$rid=211$"
         },
         "name": "Four Poster Bed",
-        "description": "You sink into the luxurious matress of the four poster bed",
+        "description": "You sink into the luxurious mattress of the four poster bed",
         "roomTeleport": "",
         "conditional": [
 	],
