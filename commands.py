@@ -3212,12 +3212,14 @@ def wearClothing(itemID, players: {}, id, clothingType,
 
         clothingOpened = False
         if len(itemsDB[itemID]['open_description']) > 0:
+            # there is a special description for wearing
             desc = \
                 randomDescription(itemsDB[itemID]['open_description'])
             if ' open' not in itemsDB[itemID]['open_description']:
                 mud.sendMessage(id, desc + '\n\n')
                 clothingOpened = True
         if not clothingOpened:
+            # generic weating description
             mud.sendMessage(
                 id,
                 'You put on ' +
