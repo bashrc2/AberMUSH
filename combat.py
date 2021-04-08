@@ -424,46 +424,41 @@ def getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
     """Returns the type of weapon held, or fists if none
     is held and the rounds of fire
     """
-    if players[id]['clo_rhand'] > 0 and players[id]['clo_lhand'] == 0:
+    fighter = players[id]
+    if fighter['clo_rhand'] > 0 and fighter['clo_lhand'] == 0:
         # something in right hand
-        itemID = int(players[id]['clo_rhand'])
+        itemID = int(fighter['clo_rhand'])
         if itemsDB[itemID]['mod_str'] > 0:
             if len(itemsDB[itemID]['type']) > 0:
                 return itemID, itemsDB[itemID]['type'], itemsDB[itemID]['rof']
 
-    if players[id]['clo_lhand'] > 0 and players[id]['clo_rhand'] == 0:
+    if fighter['clo_lhand'] > 0 and fighter['clo_rhand'] == 0:
         # something in left hand
-        itemID = int(players[id]['clo_lhand'])
+        itemID = int(fighter['clo_lhand'])
         if itemsDB[itemID]['mod_str'] > 0:
             if len(itemsDB[itemID]['type']) > 0:
                 return itemID, itemsDB[itemID]['type'], itemsDB[itemID]['rof']
 
-    if players[id]['clo_lhand'] > 0 and players[id]['clo_rhand'] > 0:
+    if fighter['clo_lhand'] > 0 and fighter['clo_rhand'] > 0:
         # something in both hands
-        itemRightID = int(players[id]['clo_rhand'])
-        itemLeftID = int(players[id]['clo_lhand'])
+        itemRightID = int(fighter['clo_rhand'])
+        itemRight = itemsDB[itemRightID]
+        itemLeftID = int(fighter['clo_lhand'])
+        itemLeft = itemsDB[itemLeftID]
         if randint(0, 1) == 1:
-            if itemsDB[itemRightID]['mod_str'] > 0:
-                if len(itemsDB[itemRightID]['type']) > 0:
-                    return itemRightID, \
-                        itemsDB[itemRightID]['type'], \
-                        itemsDB[itemRightID]['rof']
-            if itemsDB[itemLeftID]['mod_str'] > 0:
-                if len(itemsDB[itemLeftID]['type']) > 0:
-                    return itemLeftID, \
-                        itemsDB[itemLeftID]['type'], \
-                        itemsDB[itemLeftID]['rof']
+            if itemRight['mod_str'] > 0:
+                if len(itemRight['type']) > 0:
+                    return itemRightID, itemRight['type'], itemRight['rof']
+            if itemLeft['mod_str'] > 0:
+                if len(itemLeft['type']) > 0:
+                    return itemLeftID, itemLeft['type'], itemLeft['rof']
         else:
-            if itemsDB[itemLeftID]['mod_str'] > 0:
-                if len(itemsDB[itemLeftID]['type']) > 0:
-                    return itemLeftID, \
-                        itemsDB[itemLeftID]['type'], \
-                        itemsDB[itemLeftID]['rof']
-            if itemsDB[itemRightID]['mod_str'] > 0:
-                if len(itemsDB[itemRightID]['type']) > 0:
-                    return itemRightID, \
-                        itemsDB[itemRightID]['type'], \
-                        itemsDB[itemRightID]['rof']
+            if itemLeft['mod_str'] > 0:
+                if len(itemLeft['type']) > 0:
+                    return itemLeftID, itemLeft['type'], itemLeft['rof']
+            if itemRight['mod_str'] > 0:
+                if len(itemRight['type']) > 0:
+                    return itemRightID, itemRight['type'], itemRight['rof']
     return 0, "fists", 1
 
 
