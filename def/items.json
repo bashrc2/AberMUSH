@@ -39453,7 +39453,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You climb up the ladder mounted at the far end of the bunk beds",
         "heave": "",
         "jumpTo": "",
         "game": "",
@@ -39475,7 +39475,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1408$",
         "lightSource": 0,
         "article": "some"
     }

@@ -12988,5 +12988,26 @@
         "region": "",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1408$": {
+        "exits": {
+	    "down": "$rid=1370$"
+        },
+        "name": "Barracks Bunk Bed",
+        "description": "You are in a bunk bed. It's not exactly comfortable, but might be adequate to recouperate after a fight",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }

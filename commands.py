@@ -928,9 +928,9 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                     'Moves through the exit ' +
                     "specified, e.g. 'go outside'")
     mud.sendMessage(id,
-                    '  <f220>climb though [exit]<f255>' +
+                    '  <f220>climb though/up [exit]<f255>' +
                     '                     - ' +
-                    'Try to climb through an exit')
+                    'Try to climb through/up an exit')
     mud.sendMessage(id,
                     '  <f220>move/roll/heave [target]<f255>' +
                     '                - ' +
