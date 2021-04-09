@@ -771,8 +771,7 @@
     "$rid=87$": {
         "exits": {
             "north": "$rid=659$",
-            "up": "$rid=86$",
-            "down": "$rid=659$"
+            "up": "$rid=86$"
         },
         "name": "Mountain Track",
         "description": "The narrow track twists and turns up along the side of the mountain path, writhing and fighting for every foot of height it gains. In places it becomes almost vertical as it struggles its way upwards.",
@@ -5178,8 +5177,7 @@
         "exits": {
             "east": "$rid=660$",
             "south": "$rid=87$",
-            "west": "$rid=658$",
-            "up": "$rid=87$"
+            "west": "$rid=658$"
         }
     },
     "$rid=660$": {
