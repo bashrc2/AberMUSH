@@ -704,10 +704,10 @@
             "down": "$rid=80$"
         },
         "name": "Remains Of The Cottage",
-        "description": "You stand in the remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north.",
+        "description": "You stand in the remains of what was once a two storey cottage. Brickwork and rubble is strewn around, but you can still follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the damp remains of what was once a two storey cottage. You can follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north"]
+	    ["rain","yes","You stand in the damp remains of what was once a two storey cottage. Brickwork and rubble is strewn around, but you can still follow the low stumps of the walls, tracing out a kitchen, study, dining room, and even a small cupboard. When you catch sight of a narrow set of steps leading down from the old study you catch a strange vision, almost an ancestral memory, of a little cottage with a herb garden and a small graveyard to the north"]
 	],
         "trap": {},
         "eventOnEnter": "",
