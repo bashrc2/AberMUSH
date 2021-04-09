@@ -877,11 +877,19 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                   blocklist, mapArea, characterClassDB,
                   spellsDB, sentimentDB, guildsDB, clouds)
         return
+    if params.lower().startswith('emot'):
+        helpEmote(params, mud, playersDB, players,
+                  rooms, npcsDB, npcs, itemsDB,
+                  items, envDB, env, eventDB, eventSchedule,
+                  id, fights, corpses,
+                  blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds)
+        return
 
     mud.sendMessage(id, '****CLEAR****\n')
     mud.sendMessage(id, 'Commands:')
     mud.sendMessage(id,
-                    '  <f220>help witch|spell|cards|chess|morris<f255>' +
+                    '  <f220>help witch|spell|emote|cards|chess|morris<f255>' +
                     '     - Show help')
     mud.sendMessage(id,
                     '  <f220>bio [description]<f255>' +
@@ -1062,6 +1070,17 @@ def helpSpell(params, mud, playersDB: {}, players: {}, rooms: {},
                     '           - ' +
                     'Cast a spell on a player or NPC')
 
+    mud.sendMessage(id, '\n\n')
+
+
+def helpEmote(params, mud, playersDB: {}, players: {}, rooms: {},
+              npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+              envDB: {}, env: {}, eventDB: {}, eventSchedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              mapArea: [], characterClassDB: {}, spellsDB: {},
+              sentimentDB: {}, guildsDB: {}, clouds: {}):
+    mud.sendMessage(id, '\n')
+    mud.sendMessage(id, '<f220>laugh<f255>')
     mud.sendMessage(id, '\n\n')
 
 
@@ -1799,6 +1818,40 @@ def say(params, mud, playersDB: {}, players: {}, rooms: {},
             id, '<f230>',
             'To your horror, you realise you somehow cannot force ' +
             'yourself to utter a single word!\n')
+
+
+def emote(params, mud, playersDB: {}, players: {}, rooms: {},
+          id: int, emoteDescription: str):
+    if players[id]['canSay'] == 1:
+        # go through every player in the game
+        for (pid, pl) in list(players.items()):
+            # if they're in the same room as the player
+            if players[pid]['room'] == players[id]['room']:
+                # can the other player see this player?
+                if not playerIsVisible(mud, pid, players, id, players):
+                    continue
+
+                # send them a message telling them what the player did
+                pName = players[id]['name']
+                desc = \
+                    '<f220>{}<r> {}<f159>'.format(pName, emoteDescription)
+                mud.sendMessageWrap(
+                    pid, '<f230>', desc + "\n\n")
+    else:
+        mud.sendMessageWrap(
+            id, '<f230>',
+            'To your horror, you realise you somehow cannot force ' +
+            'yourself to make any expression!\n')
+
+
+def laugh(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+          env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'laughs')
 
 
 def stick(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -5887,6 +5940,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "ex": look,
         "help": help,
         "say": say,
+        "laugh": laugh,
         "attack": attack,
         "shoot": attack,
         "take": take,
