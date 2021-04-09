@@ -1081,6 +1081,19 @@ def helpEmote(params, mud, playersDB: {}, players: {}, rooms: {},
               sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id, '<f220>laugh<f255>')
+    mud.sendMessage(id, '<f220>think<f255>')
+    mud.sendMessage(id, '<f220>applaud<f255>')
+    mud.sendMessage(id, '<f220>astonished<f255>')
+    mud.sendMessage(id, '<f220>confused<f255>')
+    mud.sendMessage(id, '<f220>bow<f255>')
+    mud.sendMessage(id, '<f220>calm<f255>')
+    mud.sendMessage(id, '<f220>cheer<f255>')
+    mud.sendMessage(id, '<f220>curious<f255>')
+    mud.sendMessage(id, '<f220>curtsey<f255>')
+    mud.sendMessage(id, '<f220>frown<f255>')
+    mud.sendMessage(id, '<f220>giggle<f255>')
+    mud.sendMessage(id, '<f220>grin<f255>')
+    mud.sendMessage(id, '<f220>relieved<f255>')
     mud.sendMessage(id, '\n\n')
 
 
@@ -1852,6 +1865,136 @@ def laugh(params, mud, playersDB: {}, players: {}, rooms: {},
           sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'laughs')
+
+
+def thinking(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+             env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'is thinking')
+
+
+def applaud(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+            env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'applauds')
+
+
+def astonished(params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+               env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'is astonished')
+
+
+def confused(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+             env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'looks confused')
+
+
+def bow(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+        env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB: {},
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'takes a bow')
+
+
+def calm(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+        env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB: {},
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'looks calm')
+
+
+def cheer(params, mud, playersDB: {}, players: {}, rooms: {},
+        npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+        env: {}, eventDB: {}, eventSchedule,
+        id: int, fights: {}, corpses: {}, blocklist,
+        mapArea: [], characterClassDB: {}, spellsDB: {},
+        sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'cheers heartily')
+
+
+def curious(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+            env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'looks curious')
+
+
+def curtsey(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+            env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'curtseys')
+
+
+def frown(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+            env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'frowns')
+
+
+def giggle(params, mud, playersDB: {}, players: {}, rooms: {},
+           npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+           env: {}, eventDB: {}, eventSchedule,
+           id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'giggles')
+
+
+def grin(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+         env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'grins')
+
+
+def relieved(params, mud, playersDB: {}, players: {}, rooms: {},
+             npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+             env: {}, eventDB: {}, eventSchedule,
+             id: int, fights: {}, corpses: {}, blocklist,
+             mapArea: [], characterClassDB: {}, spellsDB: {},
+             sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'looks relieved')
 
 
 def stick(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -5941,6 +6084,26 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "help": help,
         "say": say,
         "laugh": laugh,
+        "think": thinking,
+        "thinking": thinking,
+        "applaud": applaud,
+        "clap": applaud,
+        "astonished": astonished,
+        "surprised": astonished,
+        "surprise": astonished,
+        "confused": confused,
+        "bow": bow,
+        "calm": calm,
+        "cheer": cheer,
+        "curious": curious,
+        "curtsey": curtsey,
+        "frown": frown,
+        "scowl": frown,
+        "giggle": giggle,
+        "chuckle": giggle,
+        "grin": grin,
+        "relieved": relieved,
+        "relief": relieved,
         "attack": attack,
         "shoot": attack,
         "take": take,
