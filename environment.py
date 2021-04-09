@@ -207,16 +207,18 @@ def findRoomWithoutCoords(rooms: {}):
     max_east = 0
     for rm in rooms:
         # Room without coords
-        if rooms[rm]['coordsAssigned']:
-            if rooms[rm]['coords'][1] > max_east:
-                max_east = rooms[rm]['coords'][1]
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        if rooms[rm]['coords'][1] > max_east:
+            max_east = rooms[rm]['coords'][1]
 
     for rm in rooms:
         # Room without coords
-        if not rooms[rm]['coordsAssigned']:
-            rooms[rm]['coordsAssigned'] = True
-            rooms[rm]['coords'] = [0, max_east + 1000, 0]
-            return rooms[rm]
+        if rooms[rm]['coordsAssigned']:
+            continue
+        rooms[rm]['coordsAssigned'] = True
+        rooms[rm]['coords'] = [0, max_east + 1000, 0]
+        return rooms[rm]
 
     return None
 
@@ -275,8 +277,8 @@ def assignCoordinates(rooms: {}) -> []:
         for rm in rooms:
             if len(rooms[rm]['coords']) < 3:
                 continue
-            adjust = (trimCoords[i][1] - trimCoords[i][0]) - 1
             if rooms[rm]['coords'][1] >= trimCoords[i][1]:
+                adjust = (trimCoords[i][1] - trimCoords[i][0]) - 2
                 rooms[rm]['coords'][1] -= adjust
 
     # recalculate the map area
