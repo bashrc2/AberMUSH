@@ -95,64 +95,127 @@ def assignInitialCoordinates(rooms: {}, rm: str) -> None:
         rooms[rm]['coords'] = [0, 0, 0]
 
 
+def findRoomCollisions(rooms: {}) -> None:
+    """Marks rooms whose geolocations collide
+    """
+    ctr = 0
+    totalCtr = 0
+    roomDict = {}
+    for rm in rooms:
+        roomDict[ctr] = rm
+        ctr += 1
+    ctr = 0
+    for index1 in range(len(rooms)):
+        rm  = roomDict[index1]
+        # Room with coords
+        if len(rooms[rm]['coords']) > 2:
+            if rooms[rm]['coords'][0] == 0 and \
+               rooms[rm]['coords'][1] == 0 and \
+               rooms[rm]['coords'][2] == 0:
+                continue
+            totalCtr += 1
+            for index2 in range(index1, len(rooms)):
+                rm2  = roomDict[index2]
+                if len(rooms[rm2]['coords']) > 2:
+                    if rm2 == rm:
+                        continue
+                    if rooms[rm2]['coords'][0] == 0 and \
+                       rooms[rm2]['coords'][1] == 0 and \
+                       rooms[rm2]['coords'][2] == 0:
+                        continue
+                    if rooms[rm]['coords'][0] != rooms[rm2]['coords'][0]:
+                        continue
+                    if rooms[rm]['coords'][1] != rooms[rm2]['coords'][1]:
+                        continue
+                    if rooms[rm]['coords'][2] != rooms[rm2]['coords'][2]:
+                        continue
+                    print('Collision between rooms ' +
+                          str(rm) + ' and ' + str(rm2))
+                    print(rooms[rm]['name'] + ' ' + str(rooms[rm]['coords']))
+                    print(rooms[rm2]['name'] + ' ' + str(rooms[rm2]['coords']))
+                    rooms[rm]['collides'] = rm2
+                    ctr += 1
+    if ctr > 0:
+        print(str(ctr) + ' room collisions out of ' + str(totalCtr))
+
+
 def findRoomWithoutCoords(rooms: {}):
     """Finds the next room without assigned coordinates
     """
     for rm in rooms:
         # Room with coords
-        if len(rooms[rm]['coords']) > 0:
+        if rooms[rm]['coordsAssigned']:
             # Search the exits for ones without coords
-            for ex in rooms[rm]['exits']:
-                rm2 = rooms[rooms[rm]['exits'][ex]]
-                if len(rm2['coords']) == 0:
+            for ex, roomId in rooms[rm]['exits'].items():
+                # room which is exited to
+                rm2 = rooms[str(roomId)]
+                if not rm2['coordsAssigned']:
                     if ex == 'north':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][0] += 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'northeast':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][0] += 1
                         rm2['coords'][1] -= 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'northwest':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][0] += 1
                         rm2['coords'][1] += 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'south':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][0] -= 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'southeast':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][0] -= 1
                         rm2['coords'][1] -= 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'southwest':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][0] -= 1
                         rm2['coords'][1] += 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'east':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][1] -= 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'west':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][1] += 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'up':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][2] += 1
+                        rm2['coordsAssigned'] = True
                         return rm2
                     if ex == 'down':
                         rm2['coords'] = rooms[rm]['coords'].copy()
                         rm2['coords'][2] -= 1
+                        rm2['coordsAssigned'] = True
                         return rm2
+    max_east = 0
     for rm in rooms:
         # Room without coords
-        if len(rooms[rm]['coords']) == 0:
-            rooms[rm]['coords'] = [0, 0, 0]
+        if rooms[rm]['coordsAssigned']:
+            if rooms[rm]['coords'][1] > max_east:
+                max_east = rooms[rm]['coords'][1]
+
+    for rm in rooms:
+        # Room without coords
+        if not rooms[rm]['coordsAssigned']:
+            rooms[rm]['coordsAssigned'] = True
+            rooms[rm]['coords'] = [0, max_east + 1000, 0]
             return rooms[rm]
 
     return None
@@ -161,14 +224,64 @@ def findRoomWithoutCoords(rooms: {}):
 def assignCoordinates(rooms: {}) -> []:
     """Assigns cartesian coordinates to each room and returns the limits
     """
-    mapArea = [[9999, -9999], [9999, -9999], [9999, -9999]]
+    mapArea = [[9999999999, -9999999999],
+               [9999999999, -9999999999],
+               [9999999999, -9999999999]]
     roomFound = True
+    for rm in rooms:
+        rooms[rm]['coordsAssigned'] = False
     while roomFound:
         newRoom = findRoomWithoutCoords(rooms)
         if newRoom is None:
             roomFound = False
             break
         coords = newRoom['coords']
+        # east/west extent
+        if coords[1] > mapArea[1][1]:
+            mapArea[1][1] = coords[1]
+        if coords[1] < mapArea[1][0]:
+            mapArea[1][0] = coords[1]
+
+    # map out gaps in horizontal spacing
+    min_east = mapArea[1][0]
+    max_east = mapArea[1][1]
+    occupied = [False] * ((max_east - min_east) + 1)
+    for rm in rooms:
+        if len(rooms[rm]['coords']) > 1:
+            occupied[rooms[rm]['coords'][1] - min_east] = True
+
+    # remove the horizontal spacing to compact the map
+    state = 0
+    start_east = 0
+    end_east = 0
+    trimCoords = []
+    for i in range(len(occupied)):
+        if state == 0:
+            if not occupied[i]:
+                state = 1
+                start_east = i
+        elif state == 1:
+            if occupied[i]:
+                state = 0
+                end_east = i
+                trimCoords.append([start_east - min_east,
+                                   end_east - min_east])
+
+    maxRange = len(trimCoords)
+    mapArea = [[9999999999, -9999999999],
+               [9999999999, -9999999999],
+               [9999999999, -9999999999]]
+    for i in range(maxRange - 1, 0, -1):
+        for rm in rooms:
+            if len(rooms[rm]['coords']) < 3:
+                continue
+            adjust = (trimCoords[i][1] - trimCoords[i][0]) - 1
+            if rooms[rm]['coords'][1] >= trimCoords[i][1]:
+                rooms[rm]['coords'][1] -= adjust
+
+    # recalculate the map area
+    for rm in rooms:
+        coords = rooms[rm]['coords']
         # north/south extent
         if coords[0] > mapArea[0][1]:
             mapArea[0][1] = coords[0]
@@ -184,6 +297,7 @@ def assignCoordinates(rooms: {}) -> []:
             mapArea[2][1] = coords[2]
         if coords[2] < mapArea[2][0]:
             mapArea[2][0] = coords[2]
+
     return mapArea
 
 

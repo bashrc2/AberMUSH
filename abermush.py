@@ -50,6 +50,7 @@ from environment import assignTerrainDifficulty
 from environment import assignCoordinates
 from environment import generateCloud
 from environment import getTemperature
+from environment import findRoomCollisions
 from traps import runTraps
 
 from gcos import terminalEmulator
@@ -168,6 +169,9 @@ maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 log("Terrain difficulty calculated. max=" + str(maxTerrainDifficulty), "info")
 
 mapArea = assignCoordinates(rooms)
+
+# check that there are no room collisions
+findRoomCollisions(rooms)
 
 log("Map coordinates:" + str(mapArea), "info")
 
