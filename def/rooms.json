@@ -1733,7 +1733,9 @@
         "name": "Base Of Tower",
         "description": "You are standing at the foot of an old stone tower. The stonework is crumbling and covered in moss and climbing plants. To the south the courtyard opens up a bit, and the path leads back towards the gate.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing at the foot of an old stone tower. Rain trickles down the sides of the crumbling and mossy stonework and drips from the leaves of the climbing plants which cling to it. To the south the courtyard opens up a bit, and the path leads back towards the gate."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
