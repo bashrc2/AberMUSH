@@ -210,6 +210,7 @@ def setPlayerClo_lfinger(etarget, ebody, players, npcs,
                          items, env, npcsDB, envDB):
     return
 
+
 def setPlayerClo_gloves(etarget, ebody, players, npcs,
                         items, env, npcsDB, envDB):
     return

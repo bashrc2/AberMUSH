@@ -4243,7 +4243,8 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
             mud.sendMessage(id, "Unknown exit <f226>'{}'".format(ex) +
                             "<r>\n\n")
     else:
-        mud.sendMessage(id, 'Somehow, your legs refuse to obey your will.<r>\n')
+        mud.sendMessage(id,
+                        'Somehow, your legs refuse to obey your will.<r>\n')
 
 
 def goNorth(params, mud, playersDB, players, rooms,

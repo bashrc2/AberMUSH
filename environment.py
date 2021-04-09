@@ -106,7 +106,7 @@ def findRoomCollisions(rooms: {}) -> None:
         ctr += 1
     ctr = 0
     for index1 in range(len(rooms)):
-        rm  = roomDict[index1]
+        rm = roomDict[index1]
         # Room with coords
         if len(rooms[rm]['coords']) > 2:
             if rooms[rm]['coords'][0] == 0 and \
@@ -115,7 +115,7 @@ def findRoomCollisions(rooms: {}) -> None:
                 continue
             totalCtr += 1
             for index2 in range(index1, len(rooms)):
-                rm2  = roomDict[index2]
+                rm2 = roomDict[index2]
                 if len(rooms[rm2]['coords']) > 2:
                     if rm2 == rm:
                         continue
