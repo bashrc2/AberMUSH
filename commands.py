@@ -3390,12 +3390,6 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                             ' '+itemsDB[players[pid]['clo_lfinger']]['name'] +
                             ' on the finger of ' + playerName2 +
                             ' left hand.<r>\n')
-    if players[pid].get('clo_gloves'):
-        if int(players[pid]['clo_gloves']) > 0:
-            mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
-                            itemsDB[players[pid]['clo_gloves']]['article'] +
-                            ' '+itemsDB[players[pid]['clo_gloves']]['name'] +
-                            ' on the hands of ' + playerName2 + '<r>\n')
 
     if wearingCtr > 0:
         wearingMsg = playerName + ' are wearing'
