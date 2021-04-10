@@ -36,6 +36,7 @@ from traps import describeTrappedPlayer
 from traps import trapActivation
 from traps import teleportFromTrap
 from traps import escapeFromTrap
+from combat import healthOfPlayer
 from combat import isAttacking
 from combat import getAttackingTarget
 from combat import playerBeginsAttack
@@ -3676,6 +3677,9 @@ def bioOfPlayer(mud, id, pid, players, itemsDB):
                         wearingMsg + ' on ' + playerName2 + ' right leg'
                 wearingCtr2 += 1
         mud.sendMessage(id, wearingMsg + '.<r>\n')
+
+    mud.sendMessage(id, '<f15>Health status:<r> ' +
+                    healthOfPlayer(pid, players) + '.<r>\n')
     mud.sendMessage(id, '<r>\n')
 
 

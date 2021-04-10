@@ -35,6 +35,34 @@ defenseClothing = (
     'clo_rwrist')
 
 
+def healthOfPlayer(pid: int, players: {}) -> str:
+    """Returns a description of health status
+    """
+    healthPercent = \
+        int(int(players[pid]['hp']) * 100 / int(players[pid]['hpMax']))
+    healthMsg = 'full health'
+    if healthPercent < 100:
+        if healthPercent >= 99:
+            healthMsg = 'lightly wounded'
+        elif healthPercent >= 84:
+            healthMsg = 'moderately wounded'
+        elif healthPercent >= 70:
+            healthMsg = 'considerably wounded'
+        elif healthPercent >= 56:
+            healthMsg = 'quite wounded'
+        elif healthPercent >= 42:
+            healthMsg = 'badly wounded'
+        elif healthPercent >= 28:
+            healthMsg = 'extremely wounded'
+        elif healthPercent >= 14:
+            healthMsg = 'critically wounded'
+        elif healthPercent >= 0:
+            healthMsg = 'unconscious and mortally wounded'
+        else:
+            healthMsg = 'dead'
+    return healthMsg
+
+
 def sendCombatImage(mud, id, players: {}, race: str,
                     weaponType: str) -> None:
     """Sends an image based on a character of a given race using a given weapon
