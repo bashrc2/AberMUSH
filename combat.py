@@ -32,7 +32,19 @@ defenseClothing = (
     'clo_lleg',
     'clo_rleg',
     'clo_lwrist',
-    'clo_rwrist')
+    'clo_rwrist',
+    'clo_lhand',
+    'clo_rhand')
+
+
+def holdingItem(id, players: {}, itemID, itemsDB: {}) -> bool:
+    """Returns true if the player is holding the given item
+    """
+    if str(players[id]['clo_rhand']) == str(itemID):
+        return True
+    elif str(players[id]['clo_lhand']) == str(itemID):
+        return True
+    return False
 
 
 def healthOfPlayer(pid: int, players: {}) -> str:
@@ -418,8 +430,15 @@ def weaponDefense(id: int, players: {}, itemsDB: {},
 
     for c in defenseClothing:
         itemID = int(players[id][c])
-        if itemID > 0:
-            defense = defense + int(itemsDB[itemID]['mod_endu'])
+        if itemID <= 0:
+            continue
+        # certain hand held items can be counted as defensive clothing
+        if c == 'clo_lhand' or c == 'clo_rhand':
+            itemName = itemsDB[itemID]['name'].lower()
+            if 'shield' not in itemName:
+                if 'staff' not in itemName:
+                    continue
+        defense = defense + int(itemsDB[itemID]['mod_endu'])
 
     if defense > 0:
         defenseProficiency(id, players, characterClassDB)
