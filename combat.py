@@ -424,7 +424,7 @@ def weaponDefense(id: int, players: {}, itemsDB: {},
             continue
 
         isShield = False
-        if 'shield' not in itemName or 'staff' not in itemName:
+        if 'shield' in itemName or 'staff' in itemName:
             isShield = True
 
         if c == 'clo_lhand' or c == 'clo_rhand':
