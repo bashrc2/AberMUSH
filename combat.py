@@ -40,7 +40,7 @@ def healthOfPlayer(pid: int, players: {}) -> str:
     """
     healthPercent = \
         int(int(players[pid]['hp']) * 100 / int(players[pid]['hpMax']))
-    healthMsg = 'full health'
+    healthMsg = 'in full health'
     if healthPercent < 100:
         if healthPercent >= 99:
             healthMsg = 'lightly wounded'
@@ -60,6 +60,11 @@ def healthOfPlayer(pid: int, players: {}) -> str:
             healthMsg = 'unconscious and mortally wounded'
         else:
             healthMsg = 'dead'
+        # add color for critical health
+        if healthPercent < 50:
+            healthMsg = '<f15><b88>' + healthMsg + '<r>'
+        elif healthPercent < 70:
+            healthMsg = '<f15><b166>' + healthMsg + '<r>'
     return healthMsg
 
 
@@ -984,7 +989,9 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         '<r> for <f15><b2> * ' +
                         modifierStr +
                         ' *<r> points of ' +
-                        damageDescription + '.\n')
+                        damageDescription + '.\n' +
+                        players[s2id]['name'] + ' is ' +
+                        healthOfPlayer(s2id, players) + '\n')
                     sendCombatImage(mud, s2id, players,
                                     players[s1id]['race'], weaponType)
                     mud.sendMessage(
@@ -995,7 +1002,9 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         ' you for <f15><b88> * ' +
                         modifierStr +
                         ' *<r> points of ' +
-                        damageDescription + '.\n')
+                        damageDescription + '.\n' +
+                        'Your health status is ' +
+                        healthOfPlayer(s2id, players) + '\n')
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
@@ -1162,7 +1171,9 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                         modifierStr +
                         ' * <r> points of ' +
                         damageDescription +
-                        '\n')
+                        '\n' +
+                        npcs[s2id]['name'] + ' is ' +
+                        healthOfPlayer(s2id, players) + '\n')
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
@@ -1308,7 +1319,9 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                     attackDescriptionSecond +
                     ' you for <f15><b88> * ' +
                     modifierStr + ' * <r> points of ' +
-                    damageDescription + '.\n')
+                    damageDescription + '.\n' +
+                    'Your health status is ' +
+                    healthOfPlayer(s2id, players) + '\n')
         else:
             sendCombatImage(mud, s2id, players,
                             players[s2id]['race'], "resist")
