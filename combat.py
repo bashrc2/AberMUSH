@@ -158,7 +158,7 @@ def _combatDamageFromWeapon(id, players: {},
         die = int(damageRoll.split('d')[1])
         noOfRolls = int(damageRoll.split('d')[0])
         score = 0
-        for roll in noOfRolls:
+        for roll in range(noOfRolls):
             score += randint(1, die + 1)
         if score > maxDamage:
             maxDamage = score
