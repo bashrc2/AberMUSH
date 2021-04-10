@@ -5,6 +5,9 @@ if [ -f /usr/bin/pacman ]; then
     INSTALL_PACKAGE="sudo pacman -S --noconfirm"
     PYTHON_PACKAGE="python"
 fi
+if [ -f /usr/bin/yum ]; then
+    INSTALL_PACKAGE="sudo yum -y install"
+fi
 $INSTALL_PACKAGE telnet
 $INSTALL_PACKAGE $PYTHON_PACKAGE
 $INSTALL_PACKAGE $PYTHON_PACKAGE-pip
