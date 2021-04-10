@@ -37,16 +37,6 @@ defenseClothing = (
     'clo_rhand')
 
 
-def holdingItem(id, players: {}, itemID, itemsDB: {}) -> bool:
-    """Returns true if the player is holding the given item
-    """
-    if str(players[id]['clo_rhand']) == str(itemID):
-        return True
-    elif str(players[id]['clo_lhand']) == str(itemID):
-        return True
-    return False
-
-
 def healthOfPlayer(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
