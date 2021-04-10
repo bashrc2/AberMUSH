@@ -976,6 +976,11 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 roundsOfFire = 1
             attackDescriptionFirst, attackDescriptionSecond = \
                 getAttackDescription("", weaponType)
+
+            # whether a hit occurs is probabilistic
+            armorClass = randint(0, armorClass)
+            damageValue = randint(0, damageValue)
+
             if armorClass <= damageValue:
                 if players[s1id]['hp'] > 0:
                     modifierStr = ''
@@ -1161,6 +1166,11 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 roundsOfFire = 1
             attackDescriptionFirst, attackDescriptionSecond = \
                 getAttackDescription("", weaponType)
+
+            # whether a hit occurs is probabilistic
+            armorClass = randint(0, armorClass)
+            damageValue = randint(0, damageValue)
+
             if armorClass <= damageValue:
                 if players[s1id]['hp'] > 0:
                     modifierStr = ''
@@ -1309,6 +1319,11 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             roundsOfFire = 1
         attackDescriptionFirst, attackDescriptionSecond = \
             getAttackDescription(npcs[s1id]['animalType'], weaponType)
+
+        # whether a hit occurs is probabilistic
+        armorClass = randint(0, armorClass)
+        damageValue = randint(0, damageValue)
+
         if armorClass <= damageValue:
             if npcs[s1id]['hp'] > 0:
                 modifierStr = ''
