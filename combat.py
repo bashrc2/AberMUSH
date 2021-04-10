@@ -64,8 +64,8 @@ def healthOfPlayer(pid: int, players: {}) -> str:
             healthMsg = 'extremely wounded'
         elif healthPercent >= 14:
             healthMsg = 'critically wounded'
-        elif healthPercent >= 0:
-            healthMsg = 'unconscious and mortally wounded'
+        elif healthPercent > 0:
+            healthMsg = 'gravely wounded'
         else:
             healthMsg = 'dead'
         # add color for critical health
