@@ -3555,7 +3555,7 @@ def playersMoveTogether(id, rm, mud,
                                pid, eventSchedule, eventDB)
 
 
-def bioOfPlayer(mud, id, pid, players, itemsDB):
+def bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
     thisPlayer = players[pid]
     if thisPlayer.get('race'):
         if len(thisPlayer['race']) > 0:
