@@ -38,8 +38,11 @@ defenseClothing = (
 def healthOfPlayer(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
-    healthPercent = \
-        int(int(players[pid]['hp']) * 100 / int(players[pid]['hpMax']))
+    hp = players[pid]['hp']
+    hpMax = 100
+    if players[pid].get('hpMax'):
+        hpMax = players[pid]['hpMax']
+    healthPercent = int(hp * 100 / hpMax)
     healthMsg = 'in full health'
     if healthPercent < 100:
         if healthPercent >= 99:
