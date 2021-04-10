@@ -1020,6 +1020,14 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         healthOfPlayer(s2id, players) + '\n')
                     sendCombatImage(mud, s2id, players,
                                     players[s1id]['race'], weaponType)
+
+                    healthDescription = healthOfPlayer(s2id, players)
+                    if 'dead' in healthDescription:
+                        healthDescription = 'You are ' + healthDescription
+                    else:
+                        healthDescription = \
+                            'Your health status is ' + healthDescription
+
                     mud.sendMessage(
                         s2id, '<f32>' +
                         players[s1id]['name'] +
@@ -1029,8 +1037,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         modifierStr +
                         ' *<r> points of ' +
                         damageDescription + '.\n' +
-                        'Your health status is ' +
-                        healthOfPlayer(s2id, players) + '\n')
+                        healthDescription + '\n')
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
@@ -1349,6 +1356,14 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 else:
                     sendCombatImage(mud, s2id, players,
                                     npcs[s1id]['animalType'], weaponType)
+
+                healthDescription = healthOfPlayer(s2id, players)
+                if 'dead' in healthDescription:
+                    healthDescription = 'You are ' + healthDescription
+                else:
+                    healthDescription = \
+                        'Your health status is ' + healthDescription
+
                 mud.sendMessage(
                     s2id, '<f220>' +
                     npcs[s1id]['name'] + '<r> has ' +
@@ -1356,8 +1371,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                     ' you for <f15><b88> * ' +
                     modifierStr + ' * <r> points of ' +
                     damageDescription + '.\n' +
-                    'Your health status is ' +
-                    healthOfPlayer(s2id, players) + '\n')
+                    healthDescription + '\n')
         else:
             sendCombatImage(mud, s2id, players,
                             players[s2id]['race'], "resist")
