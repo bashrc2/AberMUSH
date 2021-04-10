@@ -159,7 +159,7 @@ def _combatDamageFromWeapon(id, players: {},
         noOfRolls = int(damageRoll.split('d')[0])
         score = 0
         for roll in range(noOfRolls):
-            score += randint(1, die + 1)
+            score += randint(1, die)
         if score > maxDamage:
             maxDamage = score
             damageRollBest = damageRoll
@@ -204,7 +204,7 @@ def _combatAttackRoll(id, players: {}, weaponType: str,
                       dodgeModifier: int) -> bool:
     """Returns true if an attack against a target succeeds
     """
-    d20 = randint(1, 21)
+    d20 = randint(1, 20)
     if d20 == 1:
         # miss
         return False
