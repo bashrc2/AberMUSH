@@ -1095,6 +1095,7 @@ def helpEmote(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(id, '<f220>grin<f255>')
     mud.sendMessage(id, '<f220>relieved<f255>')
     mud.sendMessage(id, '<f220>yawn<f255>')
+    mud.sendMessage(id, '<f220>smug<f255>')
     mud.sendMessage(id, '\n\n')
 
 
@@ -1996,6 +1997,16 @@ def yawn(params, mud, playersDB: {}, players: {}, rooms: {},
          sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'yawns')
+
+
+def smug(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+         env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'looks smug')
 
 
 def relieved(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -6114,6 +6125,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "chuckle": giggle,
         "grin": grin,
         "yawn": yawn,
+        "smug": smug,
         "relieved": relieved,
         "relief": relieved,
         "attack": attack,
