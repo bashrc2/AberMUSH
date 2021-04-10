@@ -429,7 +429,7 @@ def weaponDefense(id: int, players: {}, itemsDB: {},
         if 'shield' in itemName or 'staff' in itemName:
             isShield = True
 
-        if c == 'clo_lhand' or c == 'clo_rhand':
+        if c == 'clo_lhand' or c == 'clo_rhand' or c == 'clo_gloves':
             # certain hand held items can be counted as defensive clothing
             if not isShield:
                 continue
