@@ -1176,7 +1176,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                         damageDescription +
                         '\n' +
                         npcs[s2id]['name'] + ' is ' +
-                        healthOfPlayer(s2id, players) + '\n')
+                        healthOfPlayer(s2id, npcs) + '\n')
             else:
                 if players[s1id]['hp'] > 0:
                     # Attack deflected by armor
