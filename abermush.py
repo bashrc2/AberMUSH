@@ -368,6 +368,7 @@ for k in itemsDB:
                v == "contains" or
                v == "climbThrough" or
                v == "damage" or
+               v == "cost" or
                v == "range" or
                v == "heave" or
                v == "jumpTo" or
