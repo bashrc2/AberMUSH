@@ -17,8 +17,6 @@ from random import randint
 # from copy import deepcopy
 from environment import getTemperatureAtCoords
 from proficiencies import damageProficiency
-from proficiencies import defenseProficiency
-from proficiencies import weaponProficiency
 from traps import playerIsTrapped
 import os
 import time
@@ -76,8 +74,162 @@ def healthOfPlayer(pid: int, players: {}) -> str:
     return healthMsg
 
 
-def sendCombatImage(mud, id, players: {}, race: str,
-                    weaponType: str) -> None:
+def _combatAbilityModifier(score: int) -> int:
+    """Returns the ability modifier
+    """
+    if score > 30:
+        return 10
+
+    abilityTable = (
+        [1, 1, -5],
+        [2, 3, -4],
+        [4, 5, -3],
+        [6, 7, -2],
+        [8, 9, -1],
+        [10, 11, 0],
+        [12, 13, 1],
+        [14, 15, 2],
+        [16, 17, 3],
+        [18, 19, 4],
+        [20, 21, 5],
+        [22, 23, 6],
+        [24, 25, 7],
+        [26, 27, 8],
+        [28, 29, 9],
+        [30, 30, 10]
+    )
+
+    for abilityRange in abilityTable:
+        if score >= abilityRange[0] and \
+           score <= abilityRange[1]:
+            return abilityRange[2]
+    return 0
+
+
+def _combatRaceResistance(id: int, players: {},
+                          racesDB: {}, weaponType: str) -> int:
+    """How much resistance does the player have to the weapon type
+       based upon their race
+    """
+    resistance = 0
+    resistParam = 'resist_' + weaponType.lower()
+
+    if weaponType.endswith('bow'):
+        resistParam = 'resist_piercing'
+
+    if weaponType.endswith('sling') or \
+       'flail' in weaponType or \
+       'whip' in weaponType:
+        resistParam = 'resist_bludgeoning'
+
+    if players[id].get('race'):
+        race = players[id]['race'].lower()
+        if racesDB.get(race):
+            if racesDB[race].get(resistParam):
+                resistance = racesDB[race][resistParam]
+
+    return resistance
+
+
+def _combatDamageFromWeapon(id, players: {},
+                            itemsDB: {}, weaponType: str,
+                            characterClassDB: {}) -> (int, str):
+    """find the weapon being used and return its damage value
+    """
+    weaponLocations = (
+        'clo_lhand',
+        'clo_rhand',
+        'clo_gloves'
+    )
+
+    # bare knuckle fight
+    damageRollBest = '1d3'
+    maxDamage = 1
+
+    for w in weaponLocations:
+        itemID = int(players[id][w])
+        if itemID <= 0:
+            continue
+        damageRoll = itemsDB[itemID]['damage']
+        if not damageRoll:
+            continue
+        if 'd' not in damageRoll:
+            continue
+        die = int(damageRoll.split('d')[1])
+        noOfRolls = int(damageRoll.split('d')[0])
+        score = 0
+        for roll in noOfRolls:
+            score += randint(1, die + 1)
+        if score > maxDamage:
+            maxDamage = score
+            damageRollBest = damageRoll
+    return maxDamage, damageRollBest
+
+
+def _combatArmorClass(id, players: {},
+                      racesDB: {}, attackWeaponType: str,
+                      itemsDB: {}) -> int:
+    """Returns the armor class for the given player
+    when attacked by the given weapon type
+    """
+    armorClass = 0
+    for c in defenseClothing:
+        itemID = int(players[id][c])
+        if itemID <= 0:
+            continue
+
+        armorClass += itemsDB[itemID]['armorClass']
+    if armorClass < 10:
+        armorClass += 10
+
+    raceArmor = _combatRaceResistance(id, players, racesDB,
+                                      attackWeaponType)
+    if armorClass < raceArmor:
+        armorClass = raceArmor
+
+    return armorClass
+
+
+def _combatProficiencyBonus(id, players: {}, weaponType: str,
+                            characterClassDB: {}) -> int:
+    """Returns the proficiency bonus with the given weapon type
+    """
+    return damageProficiency(id, players, weaponType,
+                             characterClassDB)
+
+
+def _combatAttackRoll(id, players: {}, weaponType: str,
+                      targetArmorClass: int,
+                      characterClassDB: {},
+                      dodgeModifier: int) -> bool:
+    """Returns true if an attack against a target succeeds
+    """
+    d20 = randint(1, 21)
+    if d20 == 1:
+        # miss
+        return False
+    if d20 == 20:
+        # critical hit
+        return True
+
+    abilityModifier = 0
+    if 'ranged' in weaponType:
+        abilityModifier = _combatAbilityModifier(players[id]['agi'])
+    else:
+        abilityModifier = _combatAbilityModifier(players[id]['str'])
+
+    proficiencyBonus = \
+        _combatProficiencyBonus(id, players, weaponType,
+                                characterClassDB)
+
+    if d20 + abilityModifier + proficiencyBonus >= \
+       targetArmorClass + dodgeModifier:
+        return True
+    return False
+
+
+def _sendCombatImage(mud, id, players: {}, race: str,
+                     weaponType: str) -> None:
     """Sends an image based on a character of a given race using a given weapon
     """
     if not (race and weaponType):
@@ -412,47 +564,6 @@ def raceResistance(id: int, players: {}, racesDB: {}, weaponType: str) -> int:
                 resistance = racesDB[race][resistParam]
 
     return resistance
-
-
-def weaponDefense(id: int, players: {}, itemsDB: {},
-                  racesDB: {}, weaponType: str,
-                  characterClassDB: {}) -> int:
-    """How much defense does a player have due to armor worn?
-    """
-    defense = raceResistance(id, players, racesDB, weaponType)
-
-    for c in defenseClothing:
-        itemID = int(players[id][c])
-        if itemID <= 0:
-            continue
-
-        itemName = itemsDB[itemID]['name'].lower()
-        isShield = False
-        if 'shield' in itemName or \
-           'staff' in itemName or \
-           'ring' in itemName or \
-           'gloves' in itemName:
-            isShield = True
-
-        if c == 'clo_lhand' or \
-           c == 'clo_rhand' or \
-           c == 'clo_lfinger' or \
-           c == 'clo_rfinger' or \
-           c == 'clo_gloves':
-            # certain hand held items can be counted as defensive clothing
-            if not isShield:
-                continue
-        else:
-            # shield, but not being held
-            if isShield:
-                continue
-        defense = defense + int(itemsDB[itemID]['mod_endu'])
-
-    if defense > 0:
-        defenseProficiency(id, players, characterClassDB)
-
-    # Total defense by shields or clothing
-    return defense
 
 
 def armorAgility(id: int, players: {}, itemsDB: {}) -> int:
@@ -866,18 +977,6 @@ def criticalHit() -> bool:
     return False
 
 
-def calculateDamage(weapons: int, defense: int) -> (int, int, str):
-    """Returns the amount of damage an attack causes
-    """
-    damageDescription = 'damage'
-    damageValue = weapons
-    armorClass = defense
-    if criticalHit():
-        damageDescription = 'critical damage'
-        damageValue = damageValue * 2
-    return damageValue, armorClass, damageDescription
-
-
 def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                             fights, fid, itemsDB: {},
                             rooms: {}, maxTerrainDifficulty, mapArea: [],
@@ -951,13 +1050,13 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
-        # A dodge value used to adjust agility of the player being attacked
+        # A dodge value used to adjust agility of the target player
         # This is proportional to their luck, which can be modified by
         # various items
-        dodgeValue = 0
+        dodgeModifier = 0
         if players[s2id].get('dodge'):
             if players[s2id]['dodge'] == 1:
-                dodgeValue = randint(0, players[s2id]['luc'])
+                dodgeModifier = randint(0, players[s2id]['luc'])
                 dodgeDescription = \
                     randomDescription('You dodge|' +
                                       'You swerve to avoid being hit|' +
@@ -971,101 +1070,70 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     dodgeDescription.replace('You ', '') + '.\n')
                 players[s2id]['dodge'] = 0
 
+        targetArmorClass = \
+            _combatArmorClass(s2id, players,
+                              racesDB, weaponType, itemsDB)
+
         # Do damage to the PC here
-        proficiency = \
-            weaponProficiency(s1id, players, weaponType, characterClassDB)
-        if attackRoll(players[s1id]['luc'] - dodgeValue + proficiency):
-            damageValue, armorClass, damageDescription = \
-                calculateDamage(weaponDamage(s1id, players, itemsDB,
-                                             weaponType, characterClassDB),
-                                weaponDefense(s2id, players, itemsDB,
-                                              racesDB, weaponType,
-                                              characterClassDB))
-            if roundsOfFire < 1:
-                roundsOfFire = 1
+        if _combatAttackRoll(s1id, players, weaponType,
+                             targetArmorClass, characterClassDB,
+                             dodgeModifier):
             attackDescriptionFirst, attackDescriptionSecond = \
                 getAttackDescription("", weaponType)
 
-            # whether a hit occurs is probabilistic
-            armorClass = randint(0, armorClass)
-            damageValue = randint(0, damageValue)
+            if roundsOfFire < 1:
+                roundsOfFire = 1
 
-            if armorClass <= damageValue:
-                if players[s1id]['hp'] > 0:
-                    modifierStr = ''
-                    for firingRound in range(roundsOfFire):
-                        modifier = \
-                            randint(0, 10) + \
-                            (damageValue * roundsOfFire) - \
-                            armorClass
-                        damagePoints = players[s1id]['str'] + modifier
-                        if damagePoints < 0:
-                            damagePoints = 0
-                        players[s2id]['hp'] = \
-                            players[s2id]['hp'] - damagePoints
-                        if len(modifierStr) == 0:
-                            modifierStr = modifierStr + str(damagePoints)
-                        else:
-                            modifierStr = \
-                                modifierStr + \
-                                ' + ' + str(damagePoints)
+            for firingRound in range(roundsOfFire):
+                if players[s1id]['hp'] <= 0:
+                    break
+                damageValue, damageRoll = \
+                    _combatDamageFromWeapon(s1id, players,
+                                            itemsDB, weaponType,
+                                            characterClassDB)
+                # eg "1d8 = 5"
+                damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
-                    decreaseAffinityBetweenPlayers(
-                        players, s2id, players, s1id, guilds)
-                    decreaseAffinityBetweenPlayers(
-                        players, s1id, players, s2id, guilds)
-                    sendCombatImage(mud, s1id, players,
-                                    players[s1id]['race'], weaponType)
-                    mud.sendMessage(
-                        s1id, 'You ' +
-                        attackDescriptionFirst +
-                        ' <f32><u>' +
-                        players[s2id]['name'] +
-                        '<r> for <f15><b2> * ' +
-                        modifierStr +
-                        ' *<r> points of ' +
-                        damageDescription + '.\n' +
-                        players[s2id]['name'] + ' is ' +
-                        healthOfPlayer(s2id, players) + '\n')
-                    sendCombatImage(mud, s2id, players,
-                                    players[s1id]['race'], weaponType)
+                players[s2id]['hp'] = \
+                    players[s2id]['hp'] - damageValue
+                if players[s2id]['hp'] < 0:
+                    players[s2id]['hp'] = 0
 
-                    healthDescription = healthOfPlayer(s2id, players)
-                    if 'dead' in healthDescription:
-                        healthDescription = 'You are ' + healthDescription
-                    else:
-                        healthDescription = \
-                            'Your health status is ' + healthDescription
+                decreaseAffinityBetweenPlayers(
+                    players, s2id, players, s1id, guilds)
+                decreaseAffinityBetweenPlayers(
+                    players, s1id, players, s2id, guilds)
+                _sendCombatImage(mud, s1id, players,
+                                 players[s1id]['race'], weaponType)
+                mud.sendMessage(
+                    s1id, 'You ' +
+                    attackDescriptionFirst +
+                    ' <f32><u>' +
+                    players[s2id]['name'] +
+                    '<r> for <f15><b2> * ' +
+                    damageValueDesc +
+                    ' *<r> points of damage.\n' +
+                    players[s2id]['name'] + ' is ' +
+                    healthOfPlayer(s2id, players) + '\n')
+                _sendCombatImage(mud, s2id, players,
+                                 players[s1id]['race'], weaponType)
 
-                    mud.sendMessage(
-                        s2id, '<f32>' +
-                        players[s1id]['name'] +
-                        '<r> has ' +
-                        attackDescriptionSecond +
-                        ' you for <f15><b88> * ' +
-                        modifierStr +
-                        ' *<r> points of ' +
-                        damageDescription + '.\n' +
-                        healthDescription + '\n')
-            else:
-                if players[s1id]['hp'] > 0:
-                    # Attack deflected by armor
-                    sendCombatImage(mud, s1id, players,
-                                    players[s2id]['race'], "resist")
-                    mud.sendMessage(
-                        s1id, 'You ' +
-                        attackDescriptionFirst +
-                        ' <f32><u>' +
-                        players[s2id]['name'] +
-                        '<r> but their armor deflects it.\n')
-                    sendCombatImage(mud, s2id, players,
-                                    players[s2id]['race'], "resist")
-                    mud.sendMessage(
-                        s2id, '<f32>' +
-                        players[s1id]['name'] +
-                        '<r> has ' +
-                        attackDescriptionSecond +
-                        ' you but it is deflected by your armor.\n')
+                healthDescription = healthOfPlayer(s2id, players)
+                if 'dead' in healthDescription:
+                    healthDescription = 'You are ' + healthDescription
+                else:
+                    healthDescription = \
+                        'Your health status is ' + healthDescription
+
+                mud.sendMessage(
+                    s2id, '<f32>' +
+                    players[s1id]['name'] +
+                    '<r> has ' +
+                    attackDescriptionSecond +
+                    ' you for <f15><b88> * ' +
+                    damageValueDesc +
+                    ' *<r> points of damage.\n' +
+                    healthDescription + '\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
             mud.sendMessage(
@@ -1153,85 +1221,66 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
-        # A dodge value used to adjust agility of the player being attacked
+        # A dodge value used to adjust agility of the target player
         # This is proportional to their luck, which can be modified by
         # various items
-        dodgeValue = 0
+        dodgeModifier = 0
         if npcs[s2id].get('dodge'):
             if npcs[s2id]['dodge'] == 1:
-                dodgeValue = randint(0, npcs[s2id]['luc'])
+                dodgeModifier = randint(0, npcs[s2id]['luc'])
                 mud.sendMessage(
                     s1id, '<f32>' + npcs[s2id]['name'] +
                     '<r> tries to dodge.\n')
                 npcs[s2id]['dodge'] = 0
 
-        # Do damage to the NPC here
-        proficiency = \
-            weaponProficiency(s1id, players, weaponType, characterClassDB)
-        if attackRoll(players[s1id]['luc'] - dodgeValue + proficiency):
-            damage = weaponDamage(s1id, players, itemsDB,
-                                  weaponType, characterClassDB)
-            defense = weaponDefense(s2id, npcs, itemsDB, racesDB,
-                                    weaponType, characterClassDB)
-            damageValue, armorClass, damageDescription = \
-                calculateDamage(damage, defense)
+        targetArmorClass = \
+            _combatArmorClass(s2id, npcs,
+                              racesDB, weaponType, itemsDB)
 
-            npcWearsArmor(s2id, npcs, itemsDB)
-
-            if roundsOfFire < 1:
-                roundsOfFire = 1
+        # Do damage to the PC here
+        if _combatAttackRoll(s1id, players, weaponType,
+                             targetArmorClass, characterClassDB,
+                             dodgeModifier):
             attackDescriptionFirst, attackDescriptionSecond = \
                 getAttackDescription("", weaponType)
 
-            # whether a hit occurs is probabilistic
-            armorClass = randint(0, armorClass)
-            damageValue = randint(0, damageValue)
+            if roundsOfFire < 1:
+                roundsOfFire = 1
 
-            if armorClass <= damageValue:
-                if players[s1id]['hp'] > 0:
-                    modifierStr = ''
-                    for firingRound in range(roundsOfFire):
-                        modifier = randint(0, 10) + damageValue - armorClass
-                        damagePoints = players[s1id]['str'] + modifier
-                        if damagePoints < 0:
-                            damagePoints = 0
-                        npcs[s2id]['hp'] = npcs[s2id]['hp'] - damagePoints
-                        if len(modifierStr) == 0:
-                            modifierStr = modifierStr + str(damagePoints)
-                        else:
-                            modifierStr = \
-                                modifierStr + ' + ' + str(damagePoints)
+            for firingRound in range(roundsOfFire):
+                if players[s1id]['hp'] <= 0:
+                    break
 
-                    decreaseAffinityBetweenPlayers(npcs, s2id, players,
-                                                   s1id, guilds)
-                    decreaseAffinityBetweenPlayers(players, s1id, npcs,
-                                                   s2id, guilds)
-                    sendCombatImage(mud, s1id, players,
-                                    players[s1id]['race'], weaponType)
-                    mud.sendMessage(
-                        s1id,
-                        'You ' +
-                        attackDescriptionFirst +
-                        ' <f220>' +
-                        npcs[s2id]['name'] +
-                        '<r> for <b2><f15> * ' +
-                        modifierStr +
-                        ' * <r> points of ' +
-                        damageDescription +
-                        '\n' +
-                        npcs[s2id]['name'] + ' is ' +
-                        healthOfPlayer(s2id, npcs) + '\n')
-            else:
-                if players[s1id]['hp'] > 0:
-                    # Attack deflected by armor
-                    sendCombatImage(mud, s1id, players,
-                                    npcs[s2id]['race'], "resist")
-                    mud.sendMessage(
-                        s1id, 'You ' +
-                        attackDescriptionFirst +
-                        ' <f32><u>' +
-                        npcs[s2id]['name'] +
-                        '<r> but their armor deflects it.\n')
+                damageValue, damageRoll = \
+                    _combatDamageFromWeapon(s1id, players,
+                                            itemsDB, weaponType,
+                                            characterClassDB)
+                # eg "1d8 = 5"
+                damageValueDesc = damageRoll + ' = ' + str(damageValue)
+
+                npcWearsArmor(s2id, npcs, itemsDB)
+
+                npcs[s2id]['hp'] = npcs[s2id]['hp'] - damageValue
+                if npcs[s2id]['hp'] < 0:
+                    npcs[s2id]['hp'] = 0
+
+                decreaseAffinityBetweenPlayers(npcs, s2id, players,
+                                               s1id, guilds)
+                decreaseAffinityBetweenPlayers(players, s1id, npcs,
+                                               s2id, guilds)
+                _sendCombatImage(mud, s1id, players,
+                                 players[s1id]['race'], weaponType)
+                mud.sendMessage(
+                    s1id,
+                    'You ' +
+                    attackDescriptionFirst +
+                    ' <f220>' +
+                    npcs[s2id]['name'] +
+                    '<r> for <b2><f15> * ' +
+                    damageValueDesc +
+                    ' * <r> points of damage\n' +
+                    npcs[s2id]['name'] + ' is ' +
+                    healthOfPlayer(s2id, npcs) + '\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
             mud.sendMessage(
@@ -1305,13 +1354,13 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
 
     weaponID, weaponType, roundsOfFire = getWeaponHeld(s1id, npcs, itemsDB)
 
-    # A dodge value used to adjust agility of the player being attacked
+    # A dodge value used to adjust agility of the target player
     # This is proportional to their luck, which can be modified by
     # various items
-    dodgeValue = 0
+    dodgeModifier = 0
     if players[s2id].get('dodge'):
         if players[s2id]['dodge'] == 1:
-            dodgeValue = randint(0, players[s2id]['luc'])
+            dodgeModifier = randint(0, players[s2id]['luc'])
             dodgeDescription = \
                 randomDescription('You dodge|' +
                                   'You swerve to avoid being hit|' +
@@ -1321,73 +1370,60 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                             '<f32>' + dodgeDescription + '<r>.\n')
             players[s2id]['dodge'] = 0
 
-    # Do the damage to PC here
-    if attackRoll(npcs[s1id]['luc'] - dodgeValue +
-                  weaponProficiency(s1id, npcs, weaponType, characterClassDB)):
-        damage = weaponDamage(s1id, npcs, itemsDB,
-                              weaponType, characterClassDB)
-        defense = weaponDefense(s2id, players, itemsDB,
-                                racesDB, weaponType, characterClassDB)
-        damageValue, armorClass, damageDescription = \
-            calculateDamage(damage, defense)
+    targetArmorClass = \
+        _combatArmorClass(s2id, players,
+                          racesDB, weaponType, itemsDB)
 
-        if roundsOfFire < 1:
-            roundsOfFire = 1
+    # Do damage to the PC here
+    if _combatAttackRoll(s1id, npcs, weaponType,
+                         targetArmorClass, characterClassDB,
+                         dodgeModifier):
         attackDescriptionFirst, attackDescriptionSecond = \
             getAttackDescription(npcs[s1id]['animalType'], weaponType)
 
-        # whether a hit occurs is probabilistic
-        armorClass = randint(0, armorClass)
-        damageValue = randint(0, damageValue)
+        if roundsOfFire < 1:
+            roundsOfFire = 1
 
-        if armorClass <= damageValue:
-            if npcs[s1id]['hp'] > 0:
-                modifierStr = ''
-                for firingRound in range(roundsOfFire):
-                    modifier = \
-                        randint(0, 10) + damageValue - \
-                        armorClass - npcs[s1id]['tempHitPoints']
-                    damagePoints = npcs[s1id]['str'] + modifier
-                    if damagePoints < 0:
-                        damagePoints = 0
-                    players[s2id]['hp'] = players[s2id]['hp'] - damagePoints
-                    if len(modifierStr) == 0:
-                        modifierStr = modifierStr + str(damagePoints)
-                    else:
-                        modifierStr = modifierStr + ' + ' + str(damagePoints)
-                decreaseAffinityBetweenPlayers(npcs, s1id, players,
-                                               s2id, guilds)
-                decreaseAffinityBetweenPlayers(players, s2id, npcs,
-                                               s1id, guilds)
-                if not npcs[s1id]['animalType']:
-                    sendCombatImage(mud, s2id, players,
-                                    npcs[s1id]['race'], weaponType)
-                else:
-                    sendCombatImage(mud, s2id, players,
-                                    npcs[s1id]['animalType'], weaponType)
+        for firingRound in range(roundsOfFire):
+            if npcs[s1id]['hp'] <= 0:
+                break
+            damageValue, damageRoll = \
+                _combatDamageFromWeapon(s1id, npcs,
+                                        itemsDB, weaponType,
+                                        characterClassDB)
+            # eg "1d8 = 5"
+            damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
-                healthDescription = healthOfPlayer(s2id, players)
-                if 'dead' in healthDescription:
-                    healthDescription = 'You are ' + healthDescription
-                else:
-                    healthDescription = \
-                        'Your health status is ' + healthDescription
+            players[s2id]['hp'] = players[s2id]['hp'] - damageValue
+            if players[s2id]['hp'] < 0:
+                players[s2id]['hp'] = 0
 
-                mud.sendMessage(
-                    s2id, '<f220>' +
-                    npcs[s1id]['name'] + '<r> has ' +
-                    attackDescriptionSecond +
-                    ' you for <f15><b88> * ' +
-                    modifierStr + ' * <r> points of ' +
-                    damageDescription + '.\n' +
-                    healthDescription + '\n')
-        else:
-            sendCombatImage(mud, s2id, players,
-                            players[s2id]['race'], "resist")
+            decreaseAffinityBetweenPlayers(npcs, s1id, players,
+                                           s2id, guilds)
+            decreaseAffinityBetweenPlayers(players, s2id, npcs,
+                                           s1id, guilds)
+            if not npcs[s1id]['animalType']:
+                _sendCombatImage(mud, s2id, players,
+                                 npcs[s1id]['race'], weaponType)
+            else:
+                _sendCombatImage(mud, s2id, players,
+                                 npcs[s1id]['animalType'], weaponType)
+
+            healthDescription = healthOfPlayer(s2id, players)
+            if 'dead' in healthDescription:
+                healthDescription = 'You are ' + healthDescription
+            else:
+                healthDescription = \
+                    'Your health status is ' + healthDescription
+
             mud.sendMessage(
-                s2id, '<f220>' + npcs[s1id]['name'] +
-                '<r> has ' + attackDescriptionSecond +
-                ' you but it is deflected by your armor.\n')
+                s2id, '<f220>' +
+                npcs[s1id]['name'] + '<r> has ' +
+                attackDescriptionSecond +
+                ' you for <f15><b88> * ' +
+                damageValueDesc + ' * <r> points of ' +
+                'damage.\n' +
+                healthDescription + '\n')
     else:
         npcs[s1id]['lastCombatAction'] = int(time.time())
         mud.sendMessage(
