@@ -43,30 +43,36 @@ def corpseExists(corpses: {}, room: str, name: str) -> bool:
     return False
 
 
-def npcsRest(npcs) -> None:
+def npcsRest(npcs: {}) -> None:
     """Rest restores hit points of NPCs
     """
     for p in npcs:
-        if npcs[p]['hp'] < npcs[p]['hpMax'] + npcs[p]['tempHitPoints']:
+        thisNPC = npcs[p]
+        if thisNPC['hp'] < thisNPC['hpMax'] + thisNPC['tempHitPoints']:
             if randint(0, 100) > 97:
-                npcs[p]['hp'] += 1
+                thisNPC['hp'] += 1
         else:
-            npcs[p]['hp'] = npcs[p]['hpMax'] + npcs[p]['tempHitPoints']
-            npcs[p]['restRequired'] = 0
+            thisNPC['hp'] = thisNPC['hpMax'] + thisNPC['tempHitPoints']
+            thisNPC['restRequired'] = 0
 
 
-def moveNPCsFollowLeader(npcs, players, mud, now, nid, moveType) -> str:
+def getLeaderRoomIndex(npcs: {}, players: {}, mud,
+                       now, nid: int, moveType: str) -> str:
     """An NPC follows another NPC or player
-       Enabling NPCs to move around in groups
+    This returns the index of the room where the leader is located
     """
     if moveType.startswith('leader:'):
         leaderName = moveType.split(':')[1]
         if len(leaderName) > 0:
+            # is the leader an NPC
             for (lid, pl) in list(npcs.items()):
-                if npcs[lid]['name'] == leaderName:
-                    if npcs[lid]['room'] != npcs[nid]['room']:
-                        npcs[nid]['guild'] = npcs[lid]['guild']
-                        return npcs[lid]['room']
+                leaderNPC = npcs[lid]
+                if leaderNPC['name'] == leaderName:
+                    if leaderNPC['room'] != npcs[nid]['room']:
+                        # follower NPCs are in the same guild
+                        npcs[nid]['guild'] = leaderNPC['guild']
+                        return leaderNPC['room']
+            # is the leader a player
             for (pid, pl) in list(players.items()):
                 if players[pid]['name'] == leaderName:
                     if players[pid]['room'] != npcs[nid]['room']:
@@ -332,23 +338,24 @@ def entityIsActive(id, players: {}, rooms: {},
 def moveNPCs(npcs, players, mud, now, nid) -> None:
     """If movement is defined for an NPC this moves it around
     """
-    if now > npcs[nid]['lastMoved'] + \
-       int(npcs[nid]['moveDelay']) + npcs[nid]['randomizer']:
+    thisNPC = npcs[nid]
+    if now > thisNPC['lastMoved'] + \
+       int(thisNPC['moveDelay']) + thisNPC['randomizer']:
         # Move types:
         #   random, cycle, inverse cycle, patrol, follow, leader:name
-        moveTypeLower = npcs[nid]['moveType'].lower()
+        moveTypeLower = thisNPC['moveType'].lower()
 
         followCycle = False
         if moveTypeLower.startswith('f'):
-            if len(npcs[nid]['follow']) == 0:
+            if len(thisNPC['follow']) == 0:
                 followCycle = True
                 # Look for a player to follow
                 for (pid, pl) in list(players.items()):
-                    if npcs[nid]['room'] == players[pid]['room']:
+                    if thisNPC['room'] == players[pid]['room']:
                         # follow by name
-                        # print(npcs[nid]['name'] + ' starts following ' +
+                        # print(thisNPC['name'] + ' starts following ' +
                         # players[pid]['name'] + '\n')
-                        npcs[nid]['follow'] = players[pid]['name']
+                        thisNPC['follow'] = players[pid]['name']
                         followCycle = False
             if not followCycle:
                 return
@@ -356,16 +363,16 @@ def moveNPCs(npcs, players, mud, now, nid) -> None:
         if moveTypeLower.startswith('c') or \
            moveTypeLower.startswith('p') or followCycle:
             npcRoomIndex = 0
-            npcRoomCurr = npcs[nid]['room']
-            for npcRoom in npcs[nid]['path']:
+            npcRoomCurr = thisNPC['room']
+            for npcRoom in thisNPC['path']:
                 if npcRoom == npcRoomCurr:
                     npcRoomIndex = npcRoomIndex + 1
                     break
                 npcRoomIndex = npcRoomIndex + 1
-            if npcRoomIndex >= len(npcs[nid]['path']):
+            if npcRoomIndex >= len(thisNPC['path']):
                 if moveTypeLower.startswith('p'):
-                    npcs[nid]['moveType'] = 'back'
-                    npcRoomIndex = len(npcs[nid]['path']) - 1
+                    thisNPC['moveType'] = 'back'
+                    npcRoomIndex = len(thisNPC['path']) - 1
                     if npcRoomIndex > 0:
                         npcRoomIndex = npcRoomIndex - 1
                 else:
@@ -373,47 +380,47 @@ def moveNPCs(npcs, players, mud, now, nid) -> None:
         else:
             if moveTypeLower.startswith('i') or moveTypeLower.startswith('b'):
                 npcRoomIndex = 0
-                npcRoomCurr = npcs[nid]['room']
-                for npcRoom in npcs[nid]['path']:
+                npcRoomCurr = thisNPC['room']
+                for npcRoom in thisNPC['path']:
                     if npcRoom == npcRoomCurr:
                         npcRoomIndex = npcRoomIndex - 1
                         break
                     npcRoomIndex = npcRoomIndex + 1
-                if npcRoomIndex >= len(npcs[nid]['path']):
-                    npcRoomIndex = len(npcs[nid]['path']) - 1
+                if npcRoomIndex >= len(thisNPC['path']):
+                    npcRoomIndex = len(thisNPC['path']) - 1
                 if npcRoomIndex < 0:
                     if moveTypeLower.startswith('b'):
-                        npcs[nid]['moveType'] = 'patrol'
+                        thisNPC['moveType'] = 'patrol'
                         npcRoomIndex = 0
-                        if npcRoomIndex < len(npcs[nid]['path']) - 1:
+                        if npcRoomIndex < len(thisNPC['path']) - 1:
                             npcRoomIndex = npcRoomIndex + 1
                     else:
-                        npcRoomIndex = len(npcs[nid]['path']) - 1
+                        npcRoomIndex = len(thisNPC['path']) - 1
             else:
                 npcRoomIndex = \
-                    moveNPCsFollowLeader(npcs, players, mud, now,
-                                         nid, moveTypeLower)
+                    getLeaderRoomIndex(npcs, players, mud, now,
+                                       nid, moveTypeLower)
                 if len(npcRoomIndex) == 0:
-                    npcRoomIndex = randint(0, len(npcs[nid]['path']) - 1)
+                    npcRoomIndex = randint(0, len(thisNPC['path']) - 1)
 
-        rm = npcs[nid]['path'][npcRoomIndex]
-        if npcs[nid]['room'] != rm:
+        rm = thisNPC['path'][npcRoomIndex]
+        if thisNPC['room'] != rm:
             for (pid, pl) in list(players.items()):
-                if npcs[nid]['room'] == players[pid]['room']:
+                if thisNPC['room'] == players[pid]['room']:
                     mud.sendMessage(
-                        pid, '<f220>' + npcs[nid]['name'] + "<r> " +
-                        randomDescription(npcs[nid]['outDescription']) +
+                        pid, '<f220>' + thisNPC['name'] + "<r> " +
+                        randomDescription(thisNPC['outDescription']) +
                         "\n\n")
-            npcs[nid]['room'] = rm
-            npcs[nid]['lastRoom'] = rm
+            thisNPC['room'] = rm
+            thisNPC['lastRoom'] = rm
             for (pid, pl) in list(players.items()):
-                if npcs[nid]['room'] == players[pid]['room']:
+                if thisNPC['room'] == players[pid]['room']:
                     mud.sendMessage(
-                        pid, '<f220>' + npcs[nid]['name'] + "<r> " +
-                        randomDescription(npcs[nid]['inDescription']) +
+                        pid, '<f220>' + thisNPC['name'] + "<r> " +
+                        randomDescription(thisNPC['inDescription']) +
                         "\n\n")
-        npcs[nid]['randomizer'] = randint(0, npcs[nid]['randomFactor'])
-        npcs[nid]['lastMoved'] = now
+        thisNPC['randomizer'] = randint(0, thisNPC['randomFactor'])
+        thisNPC['lastMoved'] = now
 
 
 def removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
@@ -431,18 +438,19 @@ def removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
                 purgatoryRoom = "$rid=" + str(timeRange[1]) + "$"
             break
 
-    if npcs[nid]['room'] == purgatoryRoom:
+    thisNPC = npcs[nid]
+    if thisNPC['room'] == purgatoryRoom:
         if npcActive:
-            if npcs[nid].get('lastRoom'):
+            if thisNPC.get('lastRoom'):
                 # recover from puratory
-                npcs[nid]['room'] = npcs[nid]['lastRoom']
+                thisNPC['room'] = thisNPC['lastRoom']
                 return True
         return False
 
     if not npcActive:
         # Move the NPC to purgatory
-        npcs[nid]['lastRoom'] = npcs[nid]['room']
-        npcs[nid]['room'] = purgatoryRoom
+        thisNPC['lastRoom'] = thisNPC['room']
+        thisNPC['room'] = purgatoryRoom
         return False
 
 
@@ -450,15 +458,16 @@ def npcRespawns(npcs: {}) -> None:
     """Respawns inactive NPCs
     """
     for (nid, pl) in list(npcs.items()):
-        if not npcs[nid]['whenDied']:
+        thisNPC = npcs[nid]
+        if not thisNPC['whenDied']:
             continue
-        if int(time.time()) >= npcs[nid]['whenDied'] + npcs[nid]['respawn']:
-            if len(npcs[nid]['familiarOf']) == 0:
-                npcs[nid]['whenDied'] = None
-                # npcs[nid]['room'] = npcsTemplate[nid]['room']
-                npcs[nid]['room'] = npcs[nid]['lastRoom']
-                log("respawning " + npcs[nid]['name'] +
-                    " with " + str(npcs[nid]['hp']) +
+        if int(time.time()) >= thisNPC['whenDied'] + thisNPC['respawn']:
+            if len(thisNPC['familiarOf']) == 0:
+                thisNPC['whenDied'] = None
+                # thisNPC['room'] = npcsTemplate[nid]['room']
+                thisNPC['room'] = thisNPC['lastRoom']
+                log("respawning " + thisNPC['name'] +
+                    " with " + str(thisNPC['hp']) +
                     " hit points", "info")
 
 
@@ -494,9 +503,10 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
     for (nid, pl) in list(npcs.items()):
         # is the NPC a familiar?
         npcIsFamiliar = False
-        if len(npcs[nid]['familiarOf']) > 0:
+        thisNPC = npcs[nid]
+        if len(thisNPC['familiarOf']) > 0:
             for (pid, pl) in list(players.items()):
-                if npcs[nid]['familiarOf'] == players[pid]['name']:
+                if thisNPC['familiarOf'] == players[pid]['name']:
                     npcIsFamiliar = True
                     break
 
@@ -504,7 +514,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
             # is the NPC active according to moveTimes?
             npcActive = \
                 entityIsActive(nid, npcs, rooms,
-                               npcs[nid]['moveTimes'],
+                               thisNPC['moveTimes'],
                                mapArea, clouds)
             removeInactiveEntity(nid, npcs, nid, npcs, npcActive)
             if not npcActive:
@@ -513,36 +523,36 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
         # Check if any player is in the same room, then send a random
         # message to them
         now = int(time.time())
-        if npcs[nid]['vocabulary'][0]:
+        if thisNPC['vocabulary'][0]:
             if now > \
-               npcs[nid]['timeTalked'] + \
-               npcs[nid]['talkDelay'] + \
-               npcs[nid]['randomizer']:
-                rnd = randint(0, len(npcs[nid]['vocabulary']) - 1)
-                while rnd is npcs[nid]['lastSaid']:
-                    rnd = randint(0, len(npcs[nid]['vocabulary']) - 1)
+               thisNPC['timeTalked'] + \
+               thisNPC['talkDelay'] + \
+               thisNPC['randomizer']:
+                rnd = randint(0, len(thisNPC['vocabulary']) - 1)
+                while rnd is thisNPC['lastSaid']:
+                    rnd = randint(0, len(thisNPC['vocabulary']) - 1)
                 for (pid, pl) in list(players.items()):
-                    if npcs[nid]['room'] == players[pid]['room']:
-                        if len(npcs[nid]['vocabulary']) > 1:
+                    if thisNPC['room'] == players[pid]['room']:
+                        if len(thisNPC['vocabulary']) > 1:
                             # mud.sendMessage(pid,
-                            # npcs[nid]['vocabulary'][rnd])
-                            msg = '<f220>' + npcs[nid]['name'] + \
+                            # thisNPC['vocabulary'][rnd])
+                            msg = '<f220>' + thisNPC['name'] + \
                                 '<r> says: <f86>' + \
-                                npcs[nid]['vocabulary'][rnd] + "\n\n"
+                                thisNPC['vocabulary'][rnd] + "\n\n"
                             mud.sendMessage(pid, msg)
-                            npcs[nid]['randomizer'] = \
-                                randint(0, npcs[nid]['randomFactor'])
-                            npcs[nid]['lastSaid'] = rnd
-                            npcs[nid]['timeTalked'] = now
+                            thisNPC['randomizer'] = \
+                                randint(0, thisNPC['randomFactor'])
+                            thisNPC['lastSaid'] = rnd
+                            thisNPC['timeTalked'] = now
                         else:
-                            # mud.sendMessage(pid, npcs[nid]['vocabulary'][0])
-                            msg = '<f220>' + npcs[nid]['name'] + \
+                            # mud.sendMessage(pid, thisNPC['vocabulary'][0])
+                            msg = '<f220>' + thisNPC['name'] + \
                                 '<r> says: <f86>' + \
-                                npcs[nid]['vocabulary'][0] + "\n\n"
+                                thisNPC['vocabulary'][0] + "\n\n"
                             mud.sendMessage(pid, msg)
-                            npcs[nid]['randomizer'] = \
-                                randint(0, npcs[nid]['randomFactor'])
-                            npcs[nid]['timeTalked'] = now
+                            thisNPC['randomizer'] = \
+                                randint(0, thisNPC['randomFactor'])
+                            thisNPC['timeTalked'] = now
 
         # Iterate through fights and see if anyone is attacking an NPC -
         # if so, attack him too if not in combat (TODO: and isAggressive =
@@ -595,16 +605,16 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
         # NPC moves to the next location
         now = int(time.time())
         if isInFight is False and \
-           len(npcs[nid]['path']) > 0:
+           len(thisNPC['path']) > 0:
             moveNPCs(npcs, players, mud, now, nid)
 
         # Check if NPC is still alive, if not, remove from room and
         # create a corpse, set isInCombat to 0, set whenDied to now
         # and remove any fights NPC was involved in
-        if npcs[nid]['hp'] <= 0:
-            npcs[nid]['isInCombat'] = 0
-            npcs[nid]['lastRoom'] = npcs[nid]['room']
-            npcs[nid]['whenDied'] = int(time.time())
+        if thisNPC['hp'] <= 0:
+            thisNPC['isInCombat'] = 0
+            thisNPC['lastRoom'] = thisNPC['room']
+            thisNPC['whenDied'] = int(time.time())
             # detach familiar from player
             for pl in players:
                 if players[pl]['name'] is None:
@@ -631,38 +641,38 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                         fid = fightsCopy[fight]['s2id']
                         npcs[fid]['isInCombat'] = 0
                     del fights[fight]
-                    corpseName = str(npcs[nid]['name'] + "'s corpse")
+                    corpseName = str(thisNPC['name'] + "'s corpse")
                     if not corpseExists(corpses,
-                                        npcs[nid]['room'],
+                                        thisNPC['room'],
                                         corpseName):
                         corpses[len(corpses)] = {
-                            'room': npcs[nid]['room'],
+                            'room': thisNPC['room'],
                             'name': corpseName,
-                            'inv': deepcopy(npcs[nid]['inv']),
+                            'inv': deepcopy(thisNPC['inv']),
                             'died': int(time.time()),
-                            'TTL': npcs[nid]['corpseTTL'],
+                            'TTL': thisNPC['corpseTTL'],
                             'owner': 1
                         }
             for (pid, pl) in list(players.items()):
                 if players[pid]['authenticated'] is not None:
                     if players[pid]['authenticated'] is not None and \
-                       players[pid]['room'] == npcs[nid]['room']:
+                       players[pid]['room'] == thisNPC['room']:
                         mud.sendMessage(
                             pid,
-                            "<f220>{}<r> ".format(npcs[nid]['name']) +
+                            "<f220>{}<r> ".format(thisNPC['name']) +
                             "<f88>has been killed.\n")
-                        npcs[nid]['lastRoom'] = npcs[nid]['room']
-                        npcs[nid]['room'] = None
-                        npcs[nid]['hp'] = npcsTemplate[nid]['hp']
+                        thisNPC['lastRoom'] = thisNPC['room']
+                        thisNPC['room'] = None
+                        thisNPC['hp'] = npcsTemplate[nid]['hp']
 
             # Drop NPC loot on the floor
             droppedItems = []
-            for i in npcs[nid]['inv']:
+            for i in thisNPC['inv']:
                 # print("Dropping item " + str(i[0]) +
                 # " likelihood of " + str(i[1]) + "%")
                 if randint(0, 100) < int(i[1]):
                     addToScheduler("0|spawnItem|" + str(i[0]) + ";" +
-                                   str(npcs[nid]['lastRoom']) + ";0;0",
+                                   str(thisNPC['lastRoom']) + ";0;0",
                                    -1, eventSchedule, scriptedEventsDB)
                     # print("Dropped!" + str(itemsDB[int(i[0])]['name']))
                     droppedItems.append(str(itemsDB[int(i[0])]['name']))
@@ -673,10 +683,10 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                 for p in players:
                     if players[p]['name'] is None:
                         continue
-                    if players[p]['room'] == npcs[nid]['lastRoom']:
+                    if players[p]['room'] == thisNPC['lastRoom']:
                         mud.sendMessage(
                             p, "Right before <f220>" +
-                            str(npcs[nid]['name']) +
+                            str(thisNPC['name']) +
                             "<r>'s lifeless body collapsed to the floor, " +
                             "it had dropped the following items: " +
                             "<f220>{}".format(', '.join(droppedItems)) + "\n")
@@ -690,10 +700,11 @@ def conversationState(word: str, conversationStates: {},
        Also returns True if subsequent words can also be matched
        and the current word match counter
     """
+    thisNPC = npcs[nid]
     if word.lower().startswith('state:'):
         requiredState = word.lower().split(':')[1].strip()
-        if npcs[nid]['name'] in conversationStates:
-            if conversationStates[npcs[nid]['name']] != requiredState:
+        if thisNPC['name'] in conversationStates:
+            if conversationStates[thisNPC['name']] != requiredState:
                 return False, False, matchCtr
             return True, True, matchCtr + 1
     return False, True, matchCtr
@@ -890,6 +901,7 @@ def conversationGive(bestMatch, bestMatchAction,
     """
     if bestMatchAction == 'give' or \
        bestMatchAction == 'gift':
+        thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0:
             itemID = int(bestMatchActionParam0)
             if itemID not in list(players[id]['inv']):
@@ -903,18 +915,18 @@ def conversationGive(bestMatch, bestMatchAction,
                                                guildsDB)
                 if '#' not in bestMatch:
                     mud.sendMessage(
-                        id, "<f220>" + npcs[nid]['name'] + "<r> says: " +
+                        id, "<f220>" + thisNPC['name'] + "<r> says: " +
                         bestMatch + ".")
                 else:
                     mud.sendMessage(id, "<f220>" +
                                     bestMatch.replace('#', '').strip() + ".")
                 mud.sendMessage(
-                    id, "<f220>" + npcs[nid]['name'] +
+                    id, "<f220>" + thisNPC['name'] +
                     "<r> gives you " + itemsDB[itemID]['article'] +
                     ' '+itemsDB[itemID]['name'] + ".\n\n")
                 return True
         mud.sendMessage(
-            id, "<f220>" + npcs[nid]['name'] +
+            id, "<f220>" + thisNPC['name'] +
             "<r> looks " + puzzledStr+".\n\n")
         return True
     return False
@@ -929,6 +941,7 @@ def conversationSkill(bestMatch, bestMatchAction,
     """
     if bestMatchAction == 'skill' or \
        bestMatchAction == 'teach':
+        thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0 and \
            len(bestMatchActionParam1) > 0:
             newSkill = bestMatchActionParam0.lower()
@@ -958,12 +971,12 @@ def conversationSkill(bestMatch, bestMatchAction,
             increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
 
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] + "<r> says: " + bestMatch +
+                id, "<f220>" + thisNPC['name'] + "<r> says: " + bestMatch +
                 ".\n\n")
             return True
         else:
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+                id, "<f220>" + thisNPC['name'] + "<r> looks " +
                 puzzledStr + ".\n\n")
             return False
     return False
@@ -1028,9 +1041,10 @@ def conversationFamiliarMode(
         nid, items, itemsDB, puzzledStr) -> bool:
     """Switches the mode of a familiar
     """
+    thisNPC = npcs[nid]
     if bestMatchAction == 'familiar':
         if len(bestMatchActionParam0) > 0:
-            if npcs[nid]['familiarOf'] == players[id]['name']:
+            if thisNPC['familiarOf'] == players[id]['name']:
                 mode = bestMatchActionParam0.lower().strip()
                 if mode in getFamiliarModes():
                     if mode == 'follow':
@@ -1038,7 +1052,7 @@ def conversationFamiliarMode(
                     if mode == 'hide':
                         familiarHide(nid, npcs, npcsDB)
                     mud.sendMessage(
-                        id, "<f220>" + npcs[nid]['name'] +
+                        id, "<f220>" + thisNPC['name'] +
                         "<r> " + bestMatch + ".\n\n")
                     if mode == 'scout':
                         familiarScout(mud, players, id, nid,
@@ -1051,10 +1065,10 @@ def conversationFamiliarMode(
                     return True
             else:
                 mud.sendMessage(
-                    id, npcs[nid]['name'] + " is not your familiar.\n\n")
+                    id, thisNPC['name'] + " is not your familiar.\n\n")
         else:
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] +
+                id, "<f220>" + thisNPC['name'] +
                 "<r> looks " + puzzledStr + ".\n\n")
             return False
     return False
@@ -1069,6 +1083,7 @@ def conversationTransport(
     if bestMatchAction == 'transport' or \
        bestMatchAction == 'ride' or \
        bestMatchAction == 'teleport':
+        thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0:
             roomID = bestMatchActionParam0
             mud.sendMessage(id, bestMatch)
@@ -1076,7 +1091,7 @@ def conversationTransport(
                 mud, players, id,
                 '<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
             players[id]['room'] = roomID
-            npcs[nid]['room'] = roomID
+            thisNPC['room'] = roomID
             increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
             increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
             messageToPlayersInRoom(
@@ -1086,7 +1101,7 @@ def conversationTransport(
                 id, "You are in " + rooms[roomID]['name']+"\n\n")
             return True
         mud.sendMessage(
-            id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+            id, "<f220>" + thisNPC['name'] + "<r> looks " +
             puzzledStr+".\n\n")
         return True
     return False
@@ -1101,6 +1116,7 @@ def conversationTaxi(
     location in exchange for payment/barter
     """
     if bestMatchAction == 'taxi':
+        thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0 and \
            len(bestMatchActionParam1) > 0:
             roomID = bestMatchActionParam0
@@ -1117,7 +1133,7 @@ def conversationTaxi(
                     mud, players, id,
                     '<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
                 players[id]['room'] = roomID
-                npcs[nid]['room'] = roomID
+                thisNPC['room'] = roomID
                 messageToPlayersInRoom(
                     mud, players, id,
                     '<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
@@ -1126,12 +1142,12 @@ def conversationTaxi(
                 return True
             else:
                 mud.sendMessage(
-                    id, "<f220>" + npcs[nid]['name'] + "<r> says: Give me " +
+                    id, "<f220>" + thisNPC['name'] + "<r> says: Give me " +
                     itemsDB[itemBuyID]['article'] + ' ' +
                     itemsDB[itemBuyID]['name'] + ".\n\n")
                 return True
         mud.sendMessage(
-            id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+            id, "<f220>" + thisNPC['name'] + "<r> looks " +
             puzzledStr + ".\n\n")
         return True
     return False
@@ -1147,6 +1163,7 @@ def conversationGiveOnDate(
     """
     if bestMatchAction == 'giveondate' or \
        bestMatchAction == 'giftondate':
+        thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0:
             itemID = int(bestMatchActionParam0)
             if itemID not in list(players[id]['inv']):
@@ -1169,20 +1186,20 @@ def conversationGiveOnDate(
                                 npcs, nid, players, id, guildsDB)
                             if '#' not in bestMatch:
                                 mud.sendMessage(
-                                    id, "<f220>" + npcs[nid]['name'] +
+                                    id, "<f220>" + thisNPC['name'] +
                                     "<r> says: " + bestMatch + ".")
                             else:
                                 mud.sendMessage(
                                     id, "<f220>" +
                                     bestMatch.replace('#', '').strip() + ".")
                             mud.sendMessage(
-                                id, "<f220>" + npcs[nid]['name'] +
+                                id, "<f220>" + thisNPC['name'] +
                                 "<r> gives you " +
                                 itemsDB[itemID]['article'] +
                                 ' ' + itemsDB[itemID]['name'] + ".\n\n")
                             return True
         mud.sendMessage(
-            id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+            id, "<f220>" + thisNPC['name'] + "<r> looks " +
             puzzledStr + ".\n\n")
         return True
     return False
@@ -1201,18 +1218,19 @@ def conversationBuyOrExchange(
        bestMatchAction == 'exchange' or \
        bestMatchAction == 'barter' or \
        bestMatchAction == 'trade':
+        thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0 and len(
                 bestMatchActionParam1) > 0:
             itemBuyID = int(bestMatchActionParam0)
             itemSellID = int(bestMatchActionParam1)
-            if str(itemSellID) not in list(npcs[nid]['inv']):
+            if str(itemSellID) not in list(thisNPC['inv']):
                 if bestMatchAction == 'buy':
                     mud.sendMessage(
-                        id, "<f220>" + npcs[nid]['name'] +
+                        id, "<f220>" + thisNPC['name'] +
                         "<r> says: I don't have any of those to sell.\n\n")
                 else:
                     mud.sendMessage(
-                        id, "<f220>" + npcs[nid]['name'] +
+                        id, "<f220>" + thisNPC['name'] +
                         "<r> says: I don't have any of those to trade.\n\n")
             else:
                 if str(itemBuyID) in list(players[id]['inv']):
@@ -1225,36 +1243,36 @@ def conversationBuyOrExchange(
                             playerInventoryWeight(id, players, itemsDB)
                         updatePlayerAttributes(
                             id, players, itemsDB, itemSellID, 1)
-                        if str(itemBuyID) not in list(npcs[nid]['inv']):
-                            npcs[nid]['inv'].append(str(itemBuyID))
+                        if str(itemBuyID) not in list(thisNPC['inv']):
+                            thisNPC['inv'].append(str(itemBuyID))
                         increaseAffinityBetweenPlayers(players, id, npcs,
                                                        nid, guildsDB)
                         increaseAffinityBetweenPlayers(npcs, nid, players,
                                                        id, guildsDB)
                         mud.sendMessage(
-                            id, "<f220>" + npcs[nid]['name'] +
+                            id, "<f220>" + thisNPC['name'] +
                             "<r> says: " + bestMatch + ".")
                         mud.sendMessage(
-                            id, "<f220>" + npcs[nid]['name'] +
+                            id, "<f220>" + thisNPC['name'] +
                             "<r> gives you " +
                             itemsDB[itemSellID]['article'] +
                             ' ' + itemsDB[itemSellID]['name'] + ".\n\n")
                     else:
-                        mud.sendMessage(id, "<f220>" + npcs[nid]['name'] +
+                        mud.sendMessage(id, "<f220>" + thisNPC['name'] +
                                         "<r> says: I see you already have " +
                                         itemsDB[itemSellID]['article'] + ' ' +
                                         itemsDB[itemSellID]['name'] + ".\n\n")
                 else:
                     if bestMatchAction == 'buy':
                         mud.sendMessage(
-                            id, "<f220>" + npcs[nid]['name'] + "<r> says: " +
+                            id, "<f220>" + thisNPC['name'] + "<r> says: " +
                             itemsDB[itemSellID]['article'] + ' ' +
                             itemsDB[itemSellID]['name'] + " costs " +
                             itemsDB[itemBuyID]['article'] + ' ' +
                             itemsDB[itemBuyID]['name'] + ".\n\n")
                     else:
                         mud.sendMessage(
-                            id, "<f220>" + npcs[nid]['name'] +
+                            id, "<f220>" + thisNPC['name'] +
                             "<r> says: I'll give you " +
                             itemsDB[itemSellID]['article'] +
                             ' ' + itemsDB[itemSellID]['name'] +
@@ -1263,7 +1281,7 @@ def conversationBuyOrExchange(
                             itemsDB[itemBuyID]['name'] + ".\n\n")
         else:
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+                id, "<f220>" + thisNPC['name'] + "<r> looks " +
                 puzzledStr + ".\n\n")
             return True
     return False
@@ -1278,12 +1296,13 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
     This typically works by matching some words and then
     producing a corresponding response and/or action
     """
-    if len(npcs[nid]['familiarOf']) > 0:
+    thisNPC = npcs[nid]
+    if len(thisNPC['familiarOf']) > 0:
         # is this a familiar of another player?
-        if npcs[nid]['familiarOf'] != players[id]['name']:
+        if thisNPC['familiarOf'] != players[id]['name']:
             # familiar only talks to its assigned player
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] +
+                id, "<f220>" + thisNPC['name'] +
                 "<r> ignores you.\n\n")
             return
 
@@ -1291,10 +1310,10 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
     if randint(0, 1) == 1:
         puzzledStr = 'confused'
 
-    if npcs[nid].get('language'):
-        if players[id]['speakLanguage'] not in npcs[nid]['language']:
+    if thisNPC.get('language'):
+        if players[id]['speakLanguage'] not in thisNPC['language']:
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+                id, "<f220>" + thisNPC['name'] + "<r> looks " +
                 puzzledStr +
                 ". They don't understand your language.\n\n")
             return
@@ -1310,7 +1329,8 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
     conversationNewState = ''
 
     # for each entry in the conversation list
-    for conv in npcs[nid]['conv']:
+    thisNPC = npcs[nid]
+    for conv in thisNPC['conv']:
         # entry must contain matching words and resulting reply
         if len(conv) >= 2:
             # count the number of matches for this line
@@ -1369,7 +1389,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
 
         if len(conversationNewState) > 0:
             # set the new conversation state with this npc
-            conversationStates[npcs[nid]['name']] = conversationNewState
+            conversationStates[thisNPC['name']] = conversationNewState
 
         if len(bestMatchAction) > 0:
             # give
@@ -1444,20 +1464,20 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                          itemsDB, puzzledStr, guildsDB):
                 return
 
-        if npcs[nid]['familiarOf'] == players[id]['name'] or \
-           len(npcs[nid]['animalType']) > 0 or \
+        if thisNPC['familiarOf'] == players[id]['name'] or \
+           len(thisNPC['animalType']) > 0 or \
            '#' in bestMatch:
             # Talking with a familiar or animal can include
             # non-verbal responses so we remove 'says'
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] + "<r> " +
+                id, "<f220>" + thisNPC['name'] + "<r> " +
                 bestMatch.replace('#', '').strip() + ".\n\n")
         else:
             mud.sendMessage(
-                id, "<f220>" + npcs[nid]['name'] + "<r> says: " +
+                id, "<f220>" + thisNPC['name'] + "<r> says: " +
                 bestMatch + ".\n\n")
     else:
         # No word matches
         mud.sendMessage(
-            id, "<f220>" + npcs[nid]['name'] +
+            id, "<f220>" + thisNPC['name'] +
             "<r> looks " + puzzledStr + ".\n\n")
