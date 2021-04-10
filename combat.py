@@ -34,7 +34,8 @@ defenseClothing = (
     'clo_lwrist',
     'clo_rwrist',
     'clo_lhand',
-    'clo_rhand')
+    'clo_rhand',
+    'clo_gloves')
 
 
 def healthOfPlayer(pid: int, players: {}) -> str:
