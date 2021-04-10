@@ -1080,22 +1080,24 @@ def helpEmote(params, mud, playersDB: {}, players: {}, rooms: {},
               mapArea: [], characterClassDB: {}, spellsDB: {},
               sentimentDB: {}, guildsDB: {}, clouds: {}):
     mud.sendMessage(id, '\n')
-    mud.sendMessage(id, '<f220>laugh<f255>')
-    mud.sendMessage(id, '<f220>think<f255>')
     mud.sendMessage(id, '<f220>applaud<f255>')
     mud.sendMessage(id, '<f220>astonished<f255>')
-    mud.sendMessage(id, '<f220>confused<f255>')
     mud.sendMessage(id, '<f220>bow<f255>')
+    mud.sendMessage(id, '<f220>confused<f255>')
     mud.sendMessage(id, '<f220>calm<f255>')
     mud.sendMessage(id, '<f220>cheer<f255>')
     mud.sendMessage(id, '<f220>curious<f255>')
     mud.sendMessage(id, '<f220>curtsey<f255>')
+    mud.sendMessage(id, '<f220>eyebrow<f255>')
     mud.sendMessage(id, '<f220>frown<f255>')
     mud.sendMessage(id, '<f220>giggle<f255>')
     mud.sendMessage(id, '<f220>grin<f255>')
+    mud.sendMessage(id, '<f220>laugh<f255>')
     mud.sendMessage(id, '<f220>relieved<f255>')
-    mud.sendMessage(id, '<f220>yawn<f255>')
     mud.sendMessage(id, '<f220>smug<f255>')
+    mud.sendMessage(id, '<f220>think<f255>')
+    mud.sendMessage(id, '<f220>wave<f255>')
+    mud.sendMessage(id, '<f220>yawn<f255>')
     mud.sendMessage(id, '\n\n')
 
 
@@ -1879,6 +1881,16 @@ def thinking(params, mud, playersDB: {}, players: {}, rooms: {},
           id, 'is thinking')
 
 
+def grimace(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+            env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'grimaces')
+
+
 def applaud(params, mud, playersDB: {}, players: {}, rooms: {},
             npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
             env: {}, eventDB: {}, eventSchedule,
@@ -1887,6 +1899,16 @@ def applaud(params, mud, playersDB: {}, players: {}, rooms: {},
             sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'applauds')
+
+
+def wave(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+         env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'waves')
 
 
 def astonished(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -1967,6 +1989,16 @@ def frown(params, mud, playersDB: {}, players: {}, rooms: {},
           sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'frowns')
+
+
+def eyebrow(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+            env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}):
+    emote(params, mud, playersDB, players, rooms,
+          id, 'raises an eyebrow')
 
 
 def giggle(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -6106,6 +6138,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "help": help,
         "say": say,
         "laugh": laugh,
+        "grimace": grimace,
         "think": thinking,
         "thinking": thinking,
         "applaud": applaud,
@@ -6121,10 +6154,12 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "curtsey": curtsey,
         "frown": frown,
         "scowl": frown,
+        "eyebrow": eyebrow,
         "giggle": giggle,
         "chuckle": giggle,
         "grin": grin,
         "yawn": yawn,
+        "wave": wave,
         "smug": smug,
         "relieved": relieved,
         "relief": relieved,
