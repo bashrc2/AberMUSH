@@ -1918,21 +1918,21 @@ def bow(params, mud, playersDB: {}, players: {}, rooms: {},
 
 
 def calm(params, mud, playersDB: {}, players: {}, rooms: {},
-        npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
-        env: {}, eventDB: {}, eventSchedule,
-        id: int, fights: {}, corpses: {}, blocklist,
-        mapArea: [], characterClassDB: {}, spellsDB: {},
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+         env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'looks calm')
 
 
 def cheer(params, mud, playersDB: {}, players: {}, rooms: {},
-        npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
-        env: {}, eventDB: {}, eventSchedule,
-        id: int, fights: {}, corpses: {}, blocklist,
-        mapArea: [], characterClassDB: {}, spellsDB: {},
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+          env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'cheers heartily')
 
@@ -1958,11 +1958,11 @@ def curtsey(params, mud, playersDB: {}, players: {}, rooms: {},
 
 
 def frown(params, mud, playersDB: {}, players: {}, rooms: {},
-            npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
-            env: {}, eventDB: {}, eventSchedule,
-            id: int, fights: {}, corpses: {}, blocklist,
-            mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+          env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'frowns')
 
