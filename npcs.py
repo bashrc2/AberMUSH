@@ -765,6 +765,16 @@ def conversationCondition(word: str, conversationStates: {},
         currValue = players[id]['luc']
     if varStr == 'cred':
         currValue = players[id]['cred']
+    if varStr == 'pp':
+        currValue = players[id]['pp']
+    if varStr == 'ep':
+        currValue = players[id]['ep']
+    if varStr == 'sp':
+        currValue = players[id]['sp']
+    if varStr == 'cp':
+        currValue = players[id]['cp']
+    if varStr == 'gp':
+        currValue = players[id]['gp']
     if varStr == 'reflex':
         currValue = players[id]['ref']
     if varStr == 'cool':

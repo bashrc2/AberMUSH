@@ -102,60 +102,124 @@ def modPlayerPer(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
     players[etarget]['per'] += int(ebody)
 
 
-def setPlayerCool(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerCool(etarget, ebody, players, npcs, items,
+                  env, npcsDB, envDB):
     players[etarget]['cool'] = int(ebody)
 
 
-def modPlayerCool(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerCool(etarget, ebody, players, npcs, items,
+                  env, npcsDB, envDB):
     players[etarget]['cool'] += int(ebody)
 
 
-def setPlayerEndu(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerEndu(etarget, ebody, players, npcs, items,
+                  env, npcsDB, envDB):
     players[etarget]['endu'] = int(ebody)
 
 
-def modPlayerEndu(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerEndu(etarget, ebody, players, npcs, items,
+                  env, npcsDB, envDB):
     players[etarget]['endu'] += int(ebody)
 
 
-def setPlayerCha(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerCha(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['cha'] = int(ebody)
 
 
-def modPlayerCha(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerCha(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['cha'] += int(ebody)
 
 
-def setPlayerInt(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerInt(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['inte'] = int(ebody)
 
 
-def modPlayerInt(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerInt(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['inte'] += int(ebody)
 
 
-def setPlayerAgi(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerAgi(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['agi'] = int(ebody)
 
 
-def modPlayerAgi(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerAgi(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['agi'] += int(ebody)
 
 
-def setPlayerLuc(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerLuc(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['luc'] = int(ebody)
 
 
-def modPlayerLuc(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerLuc(etarget, ebody, players, npcs, items,
+                 env, npcsDB, envDB):
     players[etarget]['luc'] += int(ebody)
 
 
-def setPlayerCred(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def setPlayerCred(etarget, ebody, players, npcs, items,
+                  env, npcsDB, envDB):
     players[etarget]['cred'] = int(ebody)
 
 
-def modPlayerCred(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def modPlayerCred(etarget, ebody, players, npcs, items,
+                  env, npcsDB, envDB):
     players[etarget]['cred'] += int(ebody)
+
+
+def setPlayerGoldPieces(etarget, ebody, players, npcs, items,
+                        env, npcsDB, envDB):
+    players[etarget]['gp'] = int(ebody)
+
+
+def modPlayerGoldPieces(etarget, ebody, players, npcs, items,
+                        env, npcsDB, envDB):
+    players[etarget]['gp'] += int(ebody)
+
+
+def setPlayerSilverPieces(etarget, ebody, players, npcs, items,
+                          env, npcsDB, envDB):
+    players[etarget]['sp'] = int(ebody)
+
+
+def modPlayerSilverPieces(etarget, ebody, players, npcs, items,
+                          env, npcsDB, envDB):
+    players[etarget]['sp'] += int(ebody)
+
+
+def setPlayerCopperPieces(etarget, ebody, players, npcs, items,
+                          env, npcsDB, envDB):
+    players[etarget]['cp'] = int(ebody)
+
+
+def modPlayerCopperPieces(etarget, ebody, players, npcs, items,
+                          env, npcsDB, envDB):
+    players[etarget]['cp'] += int(ebody)
+
+
+def setPlayerElectrumPieces(etarget, ebody, players, npcs, items,
+                            env, npcsDB, envDB):
+    players[etarget]['ep'] = int(ebody)
+
+
+def modPlayerElectrumPieces(etarget, ebody, players, npcs, items,
+                            env, npcsDB, envDB):
+    players[etarget]['ep'] += int(ebody)
+
+
+def setPlayerPlatinumPieces(etarget, ebody, players, npcs, items,
+                            env, npcsDB, envDB):
+    players[etarget]['pp'] = int(ebody)
+
+
+def modPlayerPlatinumPieces(etarget, ebody, players, npcs, items,
+                            env, npcsDB, envDB):
+    players[etarget]['pp'] += int(ebody)
 
 
 def setPlayerInv(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
@@ -388,6 +452,11 @@ def spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         'cool': npcsDB[int(body[0])]['cool'],
         'ref': npcsDB[int(body[0])]['ref'],
         'cred': npcsDB[int(body[0])]['cred'],
+        'pp': npcsDB[int(body[0])]['pp'],
+        'ep': npcsDB[int(body[0])]['ep'],
+        'cp': npcsDB[int(body[0])]['cp'],
+        'sp': npcsDB[int(body[0])]['sp'],
+        'gp': npcsDB[int(body[0])]['gp'],
         'inv': npcsDB[int(body[0])]['inv'],
         'speakLanguage': npcsDB[int(body[0])]['speakLanguage'],
         'language': npcsDB[int(body[0])]['language'],
@@ -552,6 +621,16 @@ def evaluateEvent(
         "modPlayerLuc": modPlayerLuc,
         "setPlayerCred": setPlayerCred,
         "modPlayerCred": modPlayerCred,
+        "setPlayerGoldPieces": setPlayerGoldPieces,
+        "modPlayerGoldPieces": modPlayerGoldPieces,
+        "setPlayerSilverPieces": setPlayerSilverPieces,
+        "modPlayerSilverPieces": modPlayerSilverPieces,
+        "setPlayerCopperPieces": setPlayerCopperPieces,
+        "modPlayerCopperPieces": modPlayerCopperPieces,
+        "setPlayerElectrumPieces": setPlayerElectrumPieces,
+        "modPlayerElectrumPieces": modPlayerElectrumPieces,
+        "setPlayerPlatinumPieces": setPlayerPlatinumPieces,
+        "modPlayerPlatinumPieces": modPlayerPlatinumPieces,
         "setPlayerInv": setPlayerInv,
         "setAuthenticated": setAuthenticated,
         "setPlayerClo_head": setPlayerClo_head,
