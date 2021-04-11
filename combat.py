@@ -1078,7 +1078,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
     currRoom = players[s1id]['room']
     weightDifficulty = \
-        getEncumberanceFromWeight(s1id, players, itemsDB)
+        int(getEncumberanceFromWeight(s1id, players, itemsDB) * 2)
     temperatureDifficulty = \
         getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
@@ -1260,7 +1260,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
 
     currRoom = players[s1id]['room']
     weightDifficulty = \
-        getEncumberanceFromWeight(s1id, players, itemsDB)
+        int(getEncumberanceFromWeight(s1id, players, itemsDB) * 2)
     temperatureDifficulty = \
         getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
@@ -1401,7 +1401,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
 
     currRoom = npcs[s1id]['room']
     weightDifficulty = \
-        getEncumberanceFromWeight(s1id, npcs, itemsDB)
+        int(getEncumberanceFromWeight(s1id, npcs, itemsDB) * 2)
     temperatureDifficulty = \
         getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
