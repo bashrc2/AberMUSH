@@ -155,7 +155,7 @@ def healthOfPlayer(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
     hp = players[pid]['hp']
-    hpMax = 100
+    hpMax = 11
     if players[pid].get('hpMax'):
         hpMax = players[pid]['hpMax']
     healthPercent = int(hp * 100 / hpMax)
