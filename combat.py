@@ -41,7 +41,8 @@ defenseClothing = (
 def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
                        mapArea: {}, clouds: {},
                        maxTerrainDifficulty: int) -> bool:
-    """Returns True if the player is available
+    """Returns True if the player is available.
+    Availability is encumbered by weight, temperature and terrain
     """
     currRoom = players[id]['room']
     weightDifficulty = \
