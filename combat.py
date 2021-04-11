@@ -1201,10 +1201,11 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
-                players[s2id]['hp'] = \
-                    players[s2id]['hp'] - damageValue
-                if players[s2id]['hp'] < 0:
-                    players[s2id]['hp'] = 0
+                if int(players[s2id]['hpMax']) < 999:
+                    players[s2id]['hp'] = \
+                        int(players[s2id]['hp']) - damageValue
+                    if players[s2id]['hp'] < 0:
+                        players[s2id]['hp'] = 0
 
                 decreaseAffinityBetweenPlayers(
                     players, s2id, players, s1id, guilds)
@@ -1222,6 +1223,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     ' *<r> points of damage.\n' +
                     players[s2id]['name'] + ' is ' +
                     healthOfPlayer(s2id, players) + '\n')
+
                 _sendCombatImage(mud, s2id, players,
                                  players[s1id]['race'], weaponType)
 
@@ -1356,9 +1358,10 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
 
                 npcWearsArmor(s2id, npcs, itemsDB)
 
-                npcs[s2id]['hp'] = npcs[s2id]['hp'] - damageValue
-                if npcs[s2id]['hp'] < 0:
-                    npcs[s2id]['hp'] = 0
+                if int(npcs[s2id]['hpMax']) < 999:
+                    npcs[s2id]['hp'] = int(npcs[s2id]['hp']) - damageValue
+                    if int(npcs[s2id]['hp']) < 0:
+                        npcs[s2id]['hp'] = 0
 
                 decreaseAffinityBetweenPlayers(npcs, s2id, players,
                                                s1id, guilds)
@@ -1479,9 +1482,10 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             # eg "1d8 = 5"
             damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
-            players[s2id]['hp'] = players[s2id]['hp'] - damageValue
-            if players[s2id]['hp'] < 0:
-                players[s2id]['hp'] = 0
+            if int(players[s2id]['hpMax']) < 999:
+                players[s2id]['hp'] = int(players[s2id]['hp']) - damageValue
+                if int(players[s2id]['hp']) < 0:
+                    players[s2id]['hp'] = 0
 
             decreaseAffinityBetweenPlayers(npcs, s1id, players,
                                            s2id, guilds)
