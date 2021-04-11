@@ -559,7 +559,7 @@ while True:
         showTiming(previousTiming, "update player list")
 
     # Aggressive NPCs may attack players
-    npcAggression(npcs, players, fights, mud, itemsInWorld, itemsDB)
+    npcAggression(npcs, players, fights, mud, itemsInWorld, itemsDB, racesDB)
 
     previousTiming = \
         showTiming(previousTiming, "update npc attacks")
@@ -1149,6 +1149,6 @@ while True:
                                itemsInWorld, envDB, env, scriptedEventsDB,
                                eventSchedule, id, fights, corpses, blocklist,
                                mapArea, characterClassDB, spellsDB,
-                               sentimentDB, guildsDB, clouds)
+                               sentimentDB, guildsDB, clouds, racesDB)
     previousTiming = \
         showTiming(previousTiming, "player commands")

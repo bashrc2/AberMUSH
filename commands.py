@@ -88,7 +88,7 @@ def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
@@ -134,7 +134,8 @@ def sendCommandError(params, mud, playersDB: {}, players: {}, rooms: {},
                      envDB: {}, env, eventDB: {}, eventSchedule, id: int,
                      fights: {}, corpses, blocklist, mapArea: [],
                      characterClassDB: {}, spellsDB: {},
-                     sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
+                     sentimentDB: {}, guildsDB: {},
+                     clouds: {}, racesDB: {}) -> None:
     mud.sendMessage(id, "Unknown command " + str(params) + "!\n")
 
 
@@ -188,7 +189,7 @@ def teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
              npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
              eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {}, sentimentDB: {},
-             guildsDB: {}, clouds: {}) -> None:
+             guildsDB: {}, clouds: {}, racesDB: {}) -> None:
 
     if players[id]['permissionLevel'] != 0:
         mud.sendMessage(id, "You don't have enough powers for that.\n\n")
@@ -221,7 +222,7 @@ def teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                          itemsDB, items, envDB, env, eventDB, eventSchedule,
                          id, fights, corpses, blocklist, mapArea,
                          characterClassDB, spellsDB, sentimentDB,
-                         guildsDB, clouds)
+                         guildsDB, clouds, racesDB)
                     return
 
             # try adding or removing "the"
@@ -244,7 +245,7 @@ def teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                          itemsDB, items, envDB, env, eventDB, eventSchedule,
                          id, fights, corpses, blocklist, mapArea,
                          characterClassDB, spellsDB, sentimentDB,
-                         guildsDB, clouds)
+                         guildsDB, clouds, racesDB)
                     return
 
             mud.sendMessage(
@@ -260,7 +261,7 @@ def summon(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
            npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
            eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             targetPlayer = params[0:].strip().lower()
@@ -294,7 +295,7 @@ def mute(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
          npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
          eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}) -> None:
     if players[id]['permissionLevel'] != 0:
         mud.sendMessage(
             id, "You aren't capable of doing that.\n\n")
@@ -324,7 +325,7 @@ def unmute(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
            npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
            eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}) -> None:
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}) -> None:
     if players[id]['permissionLevel'] != 0:
         mud.sendMessage(
             id, "You aren't capable of doing that.\n\n")
@@ -351,7 +352,7 @@ def freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
            npcs: {}, itemsDB: {}, items: {}, envDB: {}, env, eventDB: {},
            eventSchedule, id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}):
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -419,7 +420,7 @@ def unfreeze(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['permissionLevel'] == 0:
         if isWitch(id, players):
             target = params.partition(' ')[0]
@@ -452,7 +453,7 @@ def showBlocklist(params, mud, playersDB: {}, players: {}, rooms: {},
                   envDB: {}, env: {}, eventDB: {}, eventSchedule,
                   id: int, fights: {}, corpses: {}, blocklist,
                   mapArea: [], characterClassDB: {}, spellsDB: {},
-                  sentimentDB: {}, guildsDB: {}, clouds: {}):
+                  sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have sufficient powers to do that.\n")
         return
@@ -471,7 +472,7 @@ def block(params, mud, playersDB: {}, players: {}, rooms: {},
           env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have sufficient powers to do that.\n")
         return
@@ -481,7 +482,7 @@ def block(params, mud, playersDB: {}, players: {}, rooms: {},
                       itemsDB, items, envDB, env, eventDB, eventSchedule,
                       id, fights, corpses, blocklist, mapArea,
                       characterClassDB, spellsDB, sentimentDB, guildsDB,
-                      clouds)
+                      clouds, racesDB)
         return
 
     blockedstr = params.lower().strip().replace('"', '')
@@ -508,7 +509,7 @@ def unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
             eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have sufficient powers to do that.\n")
         return
@@ -518,7 +519,7 @@ def unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
                       id, fights, corpses, blocklist, mapArea,
                       characterClassDB, spellsDB, sentimentDB, guildsDB,
-                      clouds)
+                      clouds, racesDB)
         return
 
     unblockedstr = params.lower().strip().replace('"', '')
@@ -545,7 +546,7 @@ def kick(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have enough powers.\n\n")
         return
@@ -570,7 +571,7 @@ def shutdown(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have enough power to do that.\n\n")
         return
@@ -591,7 +592,7 @@ def resetUniverse(params, mud, playersDB: {}, players: {}, rooms: {},
                   envDB: {}, env: {}, eventDB: {}, eventSchedule,
                   id: int, fights: {}, corpses: {}, blocklist,
                   mapArea: [], characterClassDB: {}, spellsDB,
-                  sentimentDB: {}, guildsDB: {}, clouds: {}):
+                  sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have enough power to do that.\n\n")
         return
@@ -609,7 +610,7 @@ def quit(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.handleDisconnect(id)
 
 
@@ -618,7 +619,7 @@ def who(params, mud, playersDB: {}, players: {}, rooms: {},
         envDB: {}, env: {}, eventDB: {}, eventSchedule,
         id: int, fights: {}, corpses: {}, blocklist,
         mapArea: [], characterClassDB: {}, spellsDB,
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+        sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     counter = 1
     if players[id]['permissionLevel'] == 0:
         is_witch = isWitch(id, players)
@@ -655,7 +656,7 @@ def tell(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     told = False
     target = params.partition(' ')[0]
 
@@ -740,7 +741,7 @@ def tell(params, mud, playersDB: {}, players: {}, rooms: {},
                                         nid, message.lower(),
                                         characterClassDB,
                                         sentimentDB, guildsDB,
-                                        clouds)
+                                        clouds, racesDB)
                         told = True
                         break
 
@@ -757,7 +758,7 @@ def whisper(params, mud, playersDB: {}, players: {}, rooms: {},
             envDB: {}, env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.partition(' ')[0]
     message = params.replace(target, "")
 
@@ -840,14 +841,14 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB,
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if params.lower().startswith('card'):
         helpCards(params, mud, playersDB, players,
                   rooms, npcsDB, npcs, itemsDB,
                   items, envDB, env, eventDB, eventSchedule,
                   id, fights, corpses,
                   blocklist, mapArea, characterClassDB,
-                  spellsDB, sentimentDB, guildsDB, clouds)
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
     if params.lower().startswith('chess'):
         helpChess(params, mud, playersDB, players,
@@ -855,7 +856,7 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                   items, envDB, env, eventDB,
                   eventSchedule, id, fights, corpses,
                   blocklist, mapArea, characterClassDB,
-                  spellsDB, sentimentDB, guildsDB, clouds)
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
     if params.lower().startswith('morris'):
         helpMorris(params, mud, playersDB, players,
@@ -864,7 +865,7 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                    eventSchedule, id, fights, corpses,
                    blocklist, mapArea, characterClassDB,
                    spellsDB, sentimentDB,
-                   guildsDB, clouds)
+                   guildsDB, clouds, racesDB)
         return
     if params.lower().startswith('witch'):
         helpWitch(params, mud, playersDB, players,
@@ -872,7 +873,7 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                   items, envDB, env, eventDB,
                   eventSchedule, id, fights, corpses,
                   blocklist, mapArea, characterClassDB,
-                  spellsDB, sentimentDB, guildsDB, clouds)
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
     if params.lower().startswith('spell'):
         helpSpell(params, mud, playersDB, players,
@@ -880,7 +881,7 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                   items, envDB, env, eventDB, eventSchedule,
                   id, fights, corpses,
                   blocklist, mapArea, characterClassDB,
-                  spellsDB, sentimentDB, guildsDB, clouds)
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
     if params.lower().startswith('emot'):
         helpEmote(params, mud, playersDB, players,
@@ -888,7 +889,7 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                   items, envDB, env, eventDB, eventSchedule,
                   id, fights, corpses,
                   blocklist, mapArea, characterClassDB,
-                  spellsDB, sentimentDB, guildsDB, clouds)
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
 
     mud.sendMessage(id, '****CLEAR****\n')
@@ -1044,7 +1045,7 @@ def helpSpell(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
                     '<f220>prepare spells<f255>' +
@@ -1083,7 +1084,7 @@ def helpEmote(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id, '<f220>applaud<f255>')
     mud.sendMessage(id, '<f220>astonished<f255>')
@@ -1111,7 +1112,7 @@ def helpWitch(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '\n')
     if not isWitch(id, players):
         mud.sendMessage(id, "You're not a witch.\n\n")
@@ -1224,7 +1225,7 @@ def helpMorris(params, mud, playersDB: {}, players: {}, rooms,
                envDB: {}, env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
                     '<f220>morris<f255>' +
@@ -1254,7 +1255,7 @@ def helpChess(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
                     '<f220>chess<f255>' +
@@ -1280,7 +1281,7 @@ def helpCards(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '\n')
     mud.sendMessage(id,
                     '<f220>shuffle<f255>' +
@@ -1402,14 +1403,14 @@ def castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
                         id: int, fights: {}, corpses: {}, blocklist,
                         mapArea: [], characterClassDB: {}, spellsDB: {},
                         sentimentDB: {}, spellName: {}, spellDetails: {},
-                        clouds: {}, guildsDB: {}):
+                        clouds: {}, racesDB: {}, guildsDB: {}):
     if spellDetails['action'].startswith('familiar'):
         showSpellImage(mud, id, spellName.replace(' ', '_'), players)
         conjureNPC(spellDetails['action'], mud, playersDB, players,
                    rooms, npcsDB, npcs, itemsDB, items, envDB, env,
                    eventDB, eventSchedule, id, fights, corpses,
                    blocklist, mapArea, characterClassDB, spellsDB,
-                   sentimentDB, guildsDB, clouds)
+                   sentimentDB, guildsDB, clouds, racesDB)
         return
     mud.sendMessage(id, "Nothing happens.\n\n")
 
@@ -1419,7 +1420,7 @@ def castSpell(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
@@ -1498,7 +1499,8 @@ def castSpell(params, mud, playersDB: {}, players: {}, rooms: {},
                             env, eventDB, eventSchedule, id, fights,
                             corpses, blocklist, mapArea,
                             characterClassDB, spellsDB, sentimentDB,
-                            spellName, spellDetails, clouds, guildsDB)
+                            spellName, spellDetails,
+                            clouds, racesDB, guildsDB)
 
 
 def affinity(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -1506,7 +1508,7 @@ def affinity(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule: {},
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     otherPlayer = params.lower().strip()
     if len(otherPlayer) == 0:
         mud.sendMessage(id, 'With which player?\n\n')
@@ -1532,7 +1534,7 @@ def clearSpells(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if len(players[id]['preparedSpells']) > 0:
         players[id]['preparedSpells'].clear()
         players[id]['spellSlots'].clear()
@@ -1547,7 +1549,7 @@ def spells(params, mud, playersDB: {}, players: {}, rooms: {},
            envDB: {}, env: {}, eventDB: {}, eventSchedule,
            id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}):
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if len(players[id]['preparedSpells']) > 0:
         mud.sendMessage(id, 'Your prepared spells:\n')
         for name, details in players[id]['preparedSpells'].items():
@@ -1670,7 +1672,7 @@ def prepareSpell(params, mud, playersDB: {}, players: {}, rooms: {},
                  envDB: {}, env: {}, eventDB: {}, eventSchedule,
                  id: int, fights: {}, corpses: {}, blocklist,
                  mapArea: [], characterClassDB: {}, spellsDB: {},
-                 sentimentDB: {}, guildsDB: {}, clouds: {}):
+                 sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     spellName = params.lower().strip()
 
     # "learn spells" or "prepare spells" shows list of spells
@@ -1763,7 +1765,7 @@ def speak(params, mud, playersDB: {}, players: {}, rooms: {},
           env: {}, eventDB: {}, eventSchedule: {}, id: int,
           fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     lang = params.lower().strip()
     if lang not in players[id]['language']:
         mud.sendMessage(id, "You don't know how to speak that language\n\n")
@@ -1777,7 +1779,7 @@ def say(params, mud, playersDB: {}, players: {}, rooms: {},
         env: {}, eventDB: {}, eventSchedule,
         id: int, fights: {}, corpses: {}, blocklist,
         mapArea: [], characterClassDB: {}, spellsDB: {},
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+        sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['canSay'] == 1:
 
         # don't say if the string contains a blocked string
@@ -1871,7 +1873,7 @@ def laugh(params, mud, playersDB: {}, players: {}, rooms: {},
           env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'laughs')
 
@@ -1881,7 +1883,7 @@ def thinking(params, mud, playersDB: {}, players: {}, rooms: {},
              env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'is thinking')
 
@@ -1891,7 +1893,7 @@ def grimace(params, mud, playersDB: {}, players: {}, rooms: {},
             env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'grimaces')
 
@@ -1901,7 +1903,7 @@ def applaud(params, mud, playersDB: {}, players: {}, rooms: {},
             env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'applauds')
 
@@ -1911,7 +1913,7 @@ def wave(params, mud, playersDB: {}, players: {}, rooms: {},
          env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'waves')
 
@@ -1921,7 +1923,7 @@ def astonished(params, mud, playersDB: {}, players: {}, rooms: {},
                env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'is astonished')
 
@@ -1931,7 +1933,7 @@ def confused(params, mud, playersDB: {}, players: {}, rooms: {},
              env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'looks confused')
 
@@ -1941,7 +1943,7 @@ def bow(params, mud, playersDB: {}, players: {}, rooms: {},
         env: {}, eventDB: {}, eventSchedule,
         id: int, fights: {}, corpses: {}, blocklist,
         mapArea: [], characterClassDB: {}, spellsDB: {},
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+        sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'takes a bow')
 
@@ -1951,7 +1953,7 @@ def calm(params, mud, playersDB: {}, players: {}, rooms: {},
          env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'looks calm')
 
@@ -1961,7 +1963,7 @@ def cheer(params, mud, playersDB: {}, players: {}, rooms: {},
           env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'cheers heartily')
 
@@ -1971,7 +1973,7 @@ def curious(params, mud, playersDB: {}, players: {}, rooms: {},
             env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'looks curious')
 
@@ -1981,7 +1983,7 @@ def curtsey(params, mud, playersDB: {}, players: {}, rooms: {},
             env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'curtseys')
 
@@ -1991,7 +1993,7 @@ def frown(params, mud, playersDB: {}, players: {}, rooms: {},
           env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'frowns')
 
@@ -2001,7 +2003,7 @@ def eyebrow(params, mud, playersDB: {}, players: {}, rooms: {},
             env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'raises an eyebrow')
 
@@ -2011,7 +2013,7 @@ def giggle(params, mud, playersDB: {}, players: {}, rooms: {},
            env: {}, eventDB: {}, eventSchedule,
            id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}):
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'giggles')
 
@@ -2021,7 +2023,7 @@ def grin(params, mud, playersDB: {}, players: {}, rooms: {},
          env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'grins')
 
@@ -2031,7 +2033,7 @@ def yawn(params, mud, playersDB: {}, players: {}, rooms: {},
          env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'yawns')
 
@@ -2041,7 +2043,7 @@ def smug(params, mud, playersDB: {}, players: {}, rooms: {},
          env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'looks smug')
 
@@ -2051,7 +2053,7 @@ def relieved(params, mud, playersDB: {}, players: {}, rooms: {},
              env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     emote(params, mud, playersDB, players, rooms,
           id, 'looks relieved')
 
@@ -2061,13 +2063,13 @@ def stick(params, mud, playersDB: {}, players: {}, rooms: {},
           env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     say('stick', mud, playersDB, players, rooms,
         npcsDB, npcs, itemsDB, items, envDB,
         env, eventDB, eventSchedule,
         id, fights, corpses, blocklist,
         mapArea, characterClassDB, spellsDB,
-        sentimentDB, guildsDB, clouds)
+        sentimentDB, guildsDB, clouds, racesDB)
 
 
 def holdingLightSource(players: {}, id, items: {}, itemsDB: {}) -> bool:
@@ -2570,7 +2572,7 @@ def look(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['canLook'] == 1:
         if len(params) < 1:
             # If no arguments are given, then look around and describe
@@ -2877,7 +2879,7 @@ def escapeTrap(params, mud, playersDB: {}, players: {}, rooms: {},
                envDB: {}, env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not playerIsTrapped(id, players, rooms):
         mud.sendMessage(
             id, randomDescription(
@@ -2899,7 +2901,8 @@ def attack(params, mud, playersDB: {}, players: {}, rooms: {},
            envDB: {}, env: {}, eventDB: {}, eventSchedule,
            id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}):
+           sentimentDB: {}, guildsDB: {}, clouds: {},
+           racesDB: {}):
     if players[id]['frozenStart'] != 0:
         desc = players[id]['frozenDescription']
         mud.sendMessage(
@@ -2921,7 +2924,7 @@ def attack(params, mud, playersDB: {}, players: {}, rooms: {},
 
         if not isAttacking(players, id, fights):
             playerBeginsAttack(players, id, target,
-                               npcs, fights, mud)
+                               npcs, fights, mud, racesDB)
         else:
             currentTarget = getAttackingTarget(players, id, fights)
             if not isinstance(currentTarget, int):
@@ -2959,7 +2962,7 @@ def describe(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have enough powers.\n\n")
         return
@@ -3093,7 +3096,7 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                    envDB: {}, env: {}, eventDB: {}, eventSchedule,
                    id: int, fights: {}, corpses: {}, blocklist,
                    mapArea: [], characterClassDB: {}, spellsDB: {},
-                   sentimentDB: {}, guildsDB: {}, clouds: {}):
+                   sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     mud.sendMessage(id, '****CLEAR****You check your inventory.')
     if len(list(players[id]['inv'])) == 0:
         mud.sendMessage(id, 'You haven`t got any items on you.<r>\n\n')
@@ -3189,7 +3192,7 @@ def changeSetting(params, mud, playersDB: {}, players: {}, rooms: {},
                   envDB: {}, env: {}, eventDB: {}, eventSchedule,
                   id: int, fights: {}, corpses: {}, blocklist,
                   mapArea: [], characterClassDB: {}, spellsDB: {},
-                  sentimentDB: {}, guildsDB: {}, clouds: {}):
+                  sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     newPassword = ''
     if params.startswith('password '):
         newPassword = params.replace('password ', '')
@@ -3211,7 +3214,7 @@ def writeOnItem(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if ' on ' not in params:
         if ' onto ' not in params:
             if ' in ' not in params:
@@ -3236,7 +3239,7 @@ def check(params, mud, playersDB: {}, players: {}, rooms: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
           id: str, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if params.lower() == 'inventory' or \
        params.lower() == 'inv':
         checkInventory(params, mud, playersDB, players,
@@ -3244,7 +3247,7 @@ def check(params, mud, playersDB: {}, players: {}, rooms: {},
                        envDB, env, eventDB, eventSchedule,
                        id, fights, corpses, blocklist,
                        mapArea, characterClassDB, spellsDB,
-                       sentimentDB, guildsDB, clouds)
+                       sentimentDB, guildsDB, clouds, racesDB)
     elif params.lower() == 'stats':
         mud.sendMessage(id, 'You check your character sheet.\n')
     else:
@@ -3256,7 +3259,7 @@ def wear(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
@@ -3305,7 +3308,7 @@ def wield(params, mud, playersDB: {}, players: {}, rooms: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule: {},
           id: int, fights: {}, corpses: {}, blocklist: {},
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
@@ -3419,7 +3422,7 @@ def stow(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if len(list(players[id]['inv'])) == 0:
         return
 
@@ -3522,7 +3525,7 @@ def unwear(params, mud, playersDB: {}, players: {}, rooms: {},
            envDB: {}, env: {}, eventDB: {}, eventSchedule,
            id: int, fights: {}, corpses: {}, blocklist,
            mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}):
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if len(list(players[id]['inv'])) == 0:
         return
 
@@ -3535,7 +3538,7 @@ def playersMoveTogether(id, rm, mud,
                         itemsDB, items, envDB, env, eventDB, eventSchedule,
                         fights, corpses, blocklist, mapArea,
                         characterClassDB, spellsDB,
-                        sentimentDB, guildsDB, clouds) -> None:
+                        sentimentDB, guildsDB, clouds, racesDB) -> None:
     """In boats when one player rows the rest move with them
     """
     # go through all the players in the game
@@ -3552,7 +3555,8 @@ def playersMoveTogether(id, rm, mud,
             look('', mud, playersDB, players, rooms, npcsDB, npcs,
                  itemsDB, items, envDB, env, eventDB, eventSchedule,
                  pid, fights, corpses, blocklist, mapArea,
-                 characterClassDB, spellsDB, sentimentDB, guildsDB, clouds)
+                 characterClassDB, spellsDB, sentimentDB, guildsDB,
+                 clouds, racesDB)
 
             if rooms[rm]['eventOnEnter'] != "":
                 addToScheduler(int(rooms[rm]['eventOnEnter']),
@@ -3693,7 +3697,7 @@ def bio(params, mud, playersDB: {}, players: {}, rooms: {},
         envDB: {}, env: {}, eventDB: {}, eventSchedule,
         id: int, fights: {}, corpses: {}, blocklist,
         mapArea: [], characterClassDB: {}, spellsDB: {},
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+        sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if len(params) == 0:
         bioOfPlayer(mud, id, id, players, itemsDB)
         return
@@ -3735,7 +3739,7 @@ def eat(params, mud, playersDB: {}, players: {}, rooms: {},
         envDB: {}, env: {}, eventDB: {}, eventSchedule,
         id: int, fights: {}, corpses: {}, blocklist,
         mapArea: [], characterClassDB: {}, spellsDB: {},
-        sentimentDB: {}, guildsDB: {}, clouds: {}):
+        sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     food = params.lower()
     foodItemID = 0
     if len(list(players[id]['inv'])) > 0:
@@ -3778,7 +3782,7 @@ def stepOver(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     roomID = players[id]['room']
     if not rooms[roomID]['trap'].get('trapActivation'):
         mud.sendMessage(
@@ -3802,7 +3806,8 @@ def stepOver(params, mud, playersDB: {}, players: {}, rooms: {},
             go('######step######' + direction, mud, playersDB, players,
                rooms, npcsDB, npcs, itemsDB, items, envDB, env, eventDB,
                eventSchedule, id, fights, corpses, blocklist, mapArea,
-               characterClassDB, spellsDB, sentimentDB, guildsDB, clouds)
+               characterClassDB, spellsDB, sentimentDB, guildsDB,
+               clouds, racesDB)
             break
 
 
@@ -3811,7 +3816,7 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Climbing through or into an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -3876,7 +3881,7 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
                  envDB, env, eventDB, eventSchedule,
                  id, fights, corpses, blocklist,
                  mapArea, characterClassDB, spellsDB,
-                 sentimentDB, guildsDB, clouds)
+                 sentimentDB, guildsDB, clouds, racesDB)
             return
     if failMsg:
         mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
@@ -3889,7 +3894,7 @@ def heave(params, mud, playersDB: {}, players: {}, rooms: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Roll/heave an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -3956,7 +3961,7 @@ def heave(params, mud, playersDB: {}, players: {}, rooms: {},
                  envDB, env, eventDB, eventSchedule, id,
                  fights, corpses, blocklist,
                  mapArea, characterClassDB, spellsDB,
-                 sentimentDB, guildsDB, clouds)
+                 sentimentDB, guildsDB, clouds, racesDB)
             return
     mud.sendMessage(id, "Nothing happens.\n\n")
 
@@ -3966,7 +3971,7 @@ def jump(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Jumping onto an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -4045,7 +4050,7 @@ def jump(params, mud, playersDB: {}, players: {}, rooms: {},
                  envDB, env, eventDB, eventSchedule,
                  id, fights, corpses, blocklist,
                  mapArea, characterClassDB, spellsDB,
-                 sentimentDB, guildsDB, clouds)
+                 sentimentDB, guildsDB, clouds, racesDB)
             return
     desc = \
         randomDescription("You jump, expecting something to happen. " +
@@ -4090,7 +4095,7 @@ def deal(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Deal cards to other players
     """
     dealToPlayers(players, id, params.lower(),
@@ -4102,7 +4107,7 @@ def handOfCards(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Show hand of cards
     """
     showHandOfCards(players, id, mud, rooms, items, itemsDB)
@@ -4113,7 +4118,7 @@ def swapACard(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Swap a playing card for another from the deck
     """
     swapCard(params, players, id, mud, rooms, items, itemsDB)
@@ -4124,7 +4129,7 @@ def shuffle(params, mud, playersDB: {}, players: {}, rooms: {},
             envDB: {}, env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Shuffle a deck of cards
     """
     shuffleCards(players, id, mud, rooms, items, itemsDB)
@@ -4135,7 +4140,7 @@ def callCardGame(params, mud, playersDB: {}, players: {}, rooms: {},
                  envDB: {}, env: {}, eventDB: {}, eventSchedule,
                  id: int, fights: {}, corpses: {}, blocklist,
                  mapArea: [], characterClassDB: {}, spellsDB: {},
-                 sentimentDB: {}, guildsDB: {}, clouds: {}):
+                 sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Players show their cards
     """
     callCards(players, id, mud, rooms, items, itemsDB)
@@ -4146,7 +4151,7 @@ def morrisGame(params, mud, playersDB: {}, players: {}, rooms: {},
                envDB: {}, env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Show the nine men's morris board
     """
     params = params.lower()
@@ -4179,7 +4184,7 @@ def chess(params, mud, playersDB: {}, players: {}, rooms: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
           id: int, fights: {}, corpses: {}, blocklist,
           mapArea: [], characterClassDB: {}, spellsDB: {},
-          sentimentDB: {}, guildsDB: {}, clouds: {}):
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Jumping onto an item takes the player to a different room
     """
     # check if board exists in room
@@ -4318,7 +4323,7 @@ def graphics(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     """Turn graphical output on or off
     """
     graphicsState = params.lower().strip()
@@ -4337,7 +4342,7 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
        envDB: {}, env: {}, eventDB: {}, eventSchedule,
        id: int, fights: {}, corpses: {}, blocklist,
        mapArea: [], characterClassDB: {}, spellsDB: {},
-       sentimentDB: {}, guildsDB: {}, clouds: {}):
+       sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
@@ -4460,7 +4465,8 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                                         eventDB, eventSchedule,
                                         fights, corpses, blocklist, mapArea,
                                         characterClassDB, spellsDB,
-                                        sentimentDB, guildsDB, clouds)
+                                        sentimentDB, guildsDB, clouds,
+                                        racesDB)
                 players[id]['room'] = rm['exits'][ex]
                 rm = rooms[players[id]['room']]
 
@@ -4491,7 +4497,7 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
                      itemsDB, items, envDB, env, eventDB, eventSchedule,
                      id, fights, corpses, blocklist, mapArea,
                      characterClassDB, spellsDB, sentimentDB,
-                     guildsDB, clouds)
+                     guildsDB, clouds, racesDB)
                 # report any followers
                 if len(followersMsg) > 0:
                     messageToPlayersInRoom(mud, players, id, followersMsg)
@@ -4510,88 +4516,88 @@ def goNorth(params, mud, playersDB, players, rooms,
             npcsDB, npcs, itemsDB, items, envDB,
             env, eventDB, eventSchedule, id, fights,
             corpses, blocklist, mapArea, characterClassDB,
-            spellsDB, sentimentDB, guildsDB, clouds) -> None:
+            spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('north', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goSouth(params, mud, playersDB, players, rooms,
             npcsDB, npcs, itemsDB, items, envDB,
             env, eventDB, eventSchedule, id, fights,
             corpses, blocklist, mapArea, characterClassDB,
-            spellsDB, sentimentDB, guildsDB, clouds) -> None:
+            spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('south', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goEast(params, mud, playersDB, players, rooms,
            npcsDB, npcs, itemsDB, items, envDB,
            env, eventDB, eventSchedule, id, fights,
            corpses, blocklist, mapArea, characterClassDB,
-           spellsDB, sentimentDB, guildsDB, clouds) -> None:
+           spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('east', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goWest(params, mud, playersDB, players, rooms,
            npcsDB, npcs, itemsDB, items, envDB,
            env, eventDB, eventSchedule, id, fights,
            corpses, blocklist, mapArea, characterClassDB,
-           spellsDB, sentimentDB, guildsDB, clouds) -> None:
+           spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('west', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goUp(params, mud, playersDB, players, rooms,
          npcsDB, npcs, itemsDB, items, envDB,
          env, eventDB, eventSchedule, id, fights,
          corpses, blocklist, mapArea, characterClassDB,
-         spellsDB, sentimentDB, guildsDB, clouds) -> None:
+         spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('up', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goDown(params, mud, playersDB, players, rooms,
            npcsDB, npcs, itemsDB, items, envDB,
            env, eventDB, eventSchedule, id, fights,
            corpses, blocklist, mapArea, characterClassDB,
-           spellsDB, sentimentDB, guildsDB, clouds) -> None:
+           spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('down', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goIn(params, mud, playersDB, players, rooms,
          npcsDB, npcs, itemsDB, items, envDB,
          env, eventDB, eventSchedule, id, fights,
          corpses, blocklist, mapArea, characterClassDB,
-         spellsDB, sentimentDB, guildsDB, clouds) -> None:
+         spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('in', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def goOut(params, mud, playersDB, players, rooms,
           npcsDB, npcs, itemsDB, items, envDB,
           env, eventDB, eventSchedule, id, fights,
           corpses, blocklist, mapArea, characterClassDB,
-          spellsDB, sentimentDB, guildsDB, clouds) -> None:
+          spellsDB, sentimentDB, guildsDB, clouds, racesDB) -> None:
     go('out', mud, playersDB, players, rooms, npcsDB,
        npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
        id, fights, corpses, blocklist, mapArea, characterClassDB,
-       spellsDB, sentimentDB, guildsDB, clouds)
+       spellsDB, sentimentDB, guildsDB, clouds, racesDB)
 
 
 def conjureRoom(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -4599,7 +4605,7 @@ def conjureRoom(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist: {},
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     params = params.replace('room ', '')
     roomDirection = params.lower().strip()
     possibleDirections = ('north', 'south', 'east', 'west',
@@ -4670,7 +4676,7 @@ def conjureItem(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     itemName = params.lower()
     if len(itemName) == 0:
         mud.sendMessage(id, "Specify the name of an item to conjure.\n\n")
@@ -4742,7 +4748,7 @@ def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
                envDB: {}, env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not params.startswith('npc '):
         if not params.startswith('familiar'):
             return False
@@ -4938,7 +4944,7 @@ def dismiss(params, mud, playersDB: {}, players: {}, rooms: {},
             envDB: {}, env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if params.lower().startswith('familiar'):
         players[id]['familiar'] = -1
         familiarRemoved = False
@@ -4968,7 +4974,7 @@ def conjure(params, mud, playersDB: {}, players: {}, rooms: {},
             envDB: {}, env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have enough powers.\n\n")
         return
@@ -4978,7 +4984,7 @@ def conjure(params, mud, playersDB: {}, players: {}, rooms: {},
                    npcsDB, npcs, itemsDB, items, envDB, env,
                    eventDB, eventSchedule, id, fights, corpses,
                    blocklist, mapArea, characterClassDB,
-                   spellsDB, sentimentDB, guildsDB, clouds)
+                   spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
 
     if params.startswith('room '):
@@ -4986,7 +4992,7 @@ def conjure(params, mud, playersDB: {}, players: {}, rooms: {},
                     npcs, itemsDB, items, envDB, env, eventDB,
                     eventSchedule, id, fights, corpses, blocklist,
                     mapArea, characterClassDB, spellsDB,
-                    sentimentDB, guildsDB, clouds)
+                    sentimentDB, guildsDB, clouds, racesDB)
         return
 
     if params.startswith('npc '):
@@ -4994,14 +5000,14 @@ def conjure(params, mud, playersDB: {}, players: {}, rooms: {},
                    npcsDB, npcs, itemsDB, items, envDB, env,
                    eventDB, eventSchedule, id, fights, corpses,
                    blocklist, mapArea, characterClassDB,
-                   spellsDB, sentimentDB, guildsDB, clouds)
+                   spellsDB, sentimentDB, guildsDB, clouds, racesDB)
         return
 
     conjureItem(params, mud, playersDB, players, rooms, npcsDB, npcs,
                 itemsDB, items, envDB, env, eventDB, eventSchedule,
                 id, fights, corpses, blocklist, mapArea,
                 characterClassDB, spellsDB, sentimentDB, guildsDB,
-                clouds)
+                clouds, racesDB)
 
 
 def destroyItem(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -5009,7 +5015,7 @@ def destroyItem(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     itemName = params.lower()
     if len(itemName) == 0:
         mud.sendMessage(id, "Specify the name of an item to destroy.\n\n")
@@ -5042,7 +5048,7 @@ def destroyNPC(params, mud, playersDB: {}, players: {}, rooms: {},
                envDB: {}, env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     npcName = params.lower().replace('npc ', '').strip().replace('"', '')
     if len(npcName) == 0:
         mud.sendMessage(id, "Specify the name of an NPC to destroy.\n\n")
@@ -5077,7 +5083,7 @@ def destroyRoom(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     params = params.replace('room ', '')
     roomDirection = params.lower().strip()
     possibleDirections = (
@@ -5130,7 +5136,7 @@ def destroy(params, mud, playersDB: {}, players: {}, rooms: {},
             envDB: {}, env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: [], characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if not isWitch(id, players):
         mud.sendMessage(id, "You don't have enough powers.\n\n")
         return
@@ -5140,20 +5146,20 @@ def destroy(params, mud, playersDB: {}, players: {}, rooms: {},
                     npcs, itemsDB, items, envDB, env, eventDB,
                     eventSchedule, id, fights, corpses, blocklist,
                     mapArea, characterClassDB, spellsDB,
-                    sentimentDB, guildsDB, clouds)
+                    sentimentDB, guildsDB, clouds, racesDB)
     else:
         if params.startswith('npc '):
             destroyNPC(params, mud, playersDB, players, rooms, npcsDB,
                        npcs, itemsDB, items, envDB, env, eventDB,
                        eventSchedule, id, fights, corpses, blocklist,
                        mapArea, characterClassDB, spellsDB,
-                       sentimentDB, guildsDB, clouds)
+                       sentimentDB, guildsDB, clouds, racesDB)
         else:
             destroyItem(params, mud, playersDB, players, rooms, npcsDB,
                         npcs, itemsDB, items, envDB, env, eventDB,
                         eventSchedule, id, fights, corpses, blocklist,
                         mapArea, characterClassDB, spellsDB,
-                        sentimentDB, guildsDB, clouds)
+                        sentimentDB, guildsDB, clouds, racesDB)
 
 
 def drop(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -5161,7 +5167,7 @@ def drop(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     # Check if inventory is empty
     if len(list(players[id]['inv'])) == 0:
         mud.sendMessage(id, 'You don`t have that!\n\n')
@@ -5529,7 +5535,7 @@ def openItem(params, mud, playersDB: {}, players: {}, rooms: {},
              envDB: {}, env: {}, eventDB: {}, eventSchedule,
              id: int, fights: {}, corpses: {}, blocklist,
              mapArea: [], characterClassDB: {}, spellsDB: {},
-             sentimentDB: {}, guildsDB: {}, clouds: {}):
+             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -5566,7 +5572,7 @@ def pullLever(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist: {},
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -5594,7 +5600,7 @@ def pushLever(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.lower()
     if target.startswith('the '):
         target = target.replace('the ', '')
@@ -5612,7 +5618,7 @@ def pushLever(params, mud, playersDB: {}, players: {}, rooms: {},
                           npcsDB, npcs, itemsDB, items, envDB, env,
                           eventDB, eventSchedule, id, fights,
                           corpses, blocklist, mapArea, characterClassDB,
-                          spellsDB, sentimentDB, guildsDB, clouds)
+                          spellsDB, sentimentDB, guildsDB, clouds, racesDB)
                     return
                 elif itemsDB[items[iid]['id']]['state'] == 'lever down':
                     leverUp(params, mud, playersDB, players, rooms, npcsDB,
@@ -5628,7 +5634,7 @@ def windLever(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -5657,7 +5663,7 @@ def unwindLever(params, mud, playersDB: {}, players: {}, rooms: {},
                 envDB: {}, env: {}, eventDB: {}, eventSchedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 mapArea: [], characterClassDB: {}, spellsDB: {},
-                sentimentDB: {}, guildsDB: {}, clouds: {}):
+                sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -5761,7 +5767,7 @@ def closeItem(params, mud, playersDB: {}, players: {}, rooms: {},
               envDB: {}, env: {}, eventDB: {}, eventSchedule,
               id: int, fights: {}, corpses: {}, blocklist,
               mapArea: [], characterClassDB: {}, spellsDB: {},
-              sentimentDB: {}, guildsDB: {}, clouds: {}):
+              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     target = params.lower()
 
     if target.startswith('registration'):
@@ -5800,7 +5806,7 @@ def putItem(params, mud, playersDB: {}, players: {}, rooms: {},
             envDB: {}, env: {}, eventDB: {}, eventSchedule,
             id: int, fights: {}, corpses: {}, blocklist,
             mapArea: {}, characterClassDB: {}, spellsDB: {},
-            sentimentDB: {}, guildsDB: {}, clouds: {}):
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if ' in ' not in params:
         if ' on ' not in params:
             if ' into ' not in params:
@@ -5913,7 +5919,7 @@ def take(params, mud, playersDB: {}, players: {}, rooms: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
          id: int, fights: {}, corpses: {}, blocklist,
          mapArea: [], characterClassDB: {}, spellsDB: {},
-         sentimentDB: {}, guildsDB: {}, clouds: {}):
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(
@@ -5926,7 +5932,7 @@ def take(params, mud, playersDB: {}, players: {}, rooms: {},
             climb(params, mud, playersDB, players, rooms, npcsDB, npcs,
                   itemsDB, items, envDB, env, eventDB, eventSchedule,
                   id, fights, corpses, blocklist, mapArea, characterClassDB,
-                  spellsDB, sentimentDB, guildsDB, clouds)
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
             return
 
     if len(str(params)) < 3:
@@ -6117,7 +6123,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
                envDB: {}, env: {}, eventDB: {}, eventSchedule,
                id: int, fights: {}, corpses: {}, blocklist,
                mapArea: [], characterClassDB: {}, spellsDB: {},
-               sentimentDB: {}, guildsDB: {}, clouds: {}):
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
     switcher = {
         "sendCommandError": sendCommandError,
         "go": go,
@@ -6285,7 +6291,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
                           npcs, itemsDB, items, envDB, env, eventDB,
                           eventSchedule, id, fights, corpses, blocklist,
                           mapArea, characterClassDB, spellsDB,
-                          sentimentDB, guildsDB, clouds)
+                          sentimentDB, guildsDB, clouds, racesDB)
     except Exception as e:
         # print(str(e))
         switcher["sendCommandError"](e, mud, playersDB, players, rooms,
@@ -6293,4 +6299,4 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
                                      envDB, env, eventDB, eventSchedule,
                                      id, fights, corpses, blocklist,
                                      mapArea, characterClassDB, spellsDB,
-                                     sentimentDB, guildsDB, clouds)
+                                     sentimentDB, guildsDB, clouds, racesDB)

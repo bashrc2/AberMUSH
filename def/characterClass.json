@@ -1,11 +1,13 @@
 {
     "ghost": {
+	"hitDie": "d6",
 	"inv": [],
 	"extraLanguage": [],
 	"archetype": [],
 	"1": []
     },
     "warrior": {
+	"hitDie": "d10",
 	"inv": [ 1366, 981 ],
 	"extraLanguage": [],
 	"archetype": ["champion","archer"],
@@ -31,6 +33,7 @@
 	"20": [ "Extra Attack (3)" ]
     },
     "rogue": {
+	"hitDie": "d8",
 	"inv": [ 1393, 1398, 1074 ],
 	"extraLanguage": ["cant"],
 	"archetype": ["fast hands", "second story work", "supreme sneak", "use magic device", "thief's reflexes"],
@@ -56,6 +59,7 @@
 	"20": [ "Stroke of Luck" ]
     },
     "ranger": {
+	"hitDie": "d10",
 	"inv": [ 1394, 1397 ],
 	"extraLanguage": [],
 	"archetype": ["Colossus Slayer", "Giant Killer", "Horde Breaker", "Escape the Horde", "Multiattack Defense", "Volley", "Whirlwind Attack", "Evasion", "Stand against the Tide", "Uncanny Dodge"],
@@ -81,6 +85,7 @@
 	"20": [ "Foe Slayer", ["Spell",11,4,3,3,3,2] ]
     },
     "sorcerer": {
+	"hitDie": "d6",
 	"inv": [ 1157,702 ],
 	"extraLanguage": [],
 	"archetype": [],
@@ -106,6 +111,7 @@
 	"20": [ "Sorcerous Restoration", ["Spell",6,15,4,3,3,3,3,2,2,1,1] ]
     },
     "witch": {
+	"hitDie": "d6",
 	"inv": [ 197,702,1410 ],
 	"extraLanguage": [],
 	"archetype": [],

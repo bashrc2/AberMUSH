@@ -131,6 +131,26 @@ def getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
     return 2
 
 
+def _combatUpdateMaxHitPoints(id, players: {}, racesDB: {}) -> None:
+    """Updates the hpMax value
+    """
+    # some npcs are invincible
+    if players[id]['hpMax'] >= 999:
+        return
+
+    level = players[id]['lvl']
+    hitDie = '1d10'
+    if players[id].get('race'):
+        race = players[id]['race'].lower()
+        if racesDB.get(race):
+            if racesDB[race].get('hitDie'):
+                hitDie = racesDB[race]['hitDie']
+    hpMax = int(hitDie.split('d')[1])
+    if level > 1:
+        hpMax = hpMax + (int(hpMax/2) * (level - 1))
+    players[id]['hpMax'] = hpMax
+
+
 def healthOfPlayer(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
@@ -1560,7 +1580,7 @@ def getAttackingTarget(players: {}, id, fights: {}):
 
 
 def playerBeginsAttack(players: {}, id, target: str,
-                       npcs: {}, fights: {}, mud) -> bool:
+                       npcs: {}, fights: {}, mud, racesDB: {}) -> bool:
     """Player begins an attack on another player or npc
     """
     targetFound = False
@@ -1590,6 +1610,10 @@ def playerBeginsAttack(players: {}, id, target: str,
                 's2type': 'pc',
                 'retaliated': 0
             }
+
+            _combatUpdateMaxHitPoints(id, players, racesDB)
+            _combatUpdateMaxHitPoints(pid, players, racesDB)
+
             mud.sendMessage(
                 id, '<f214>Attacking <r><f255>' + target + '!\n')
             # addToScheduler('0|msg|<b63>You are being attacked by ' +
@@ -1634,6 +1658,10 @@ def playerBeginsAttack(players: {}, id, target: str,
                     's2type': 'npc',
                     'retaliated': 0
                 }
+
+                _combatUpdateMaxHitPoints(id, players, racesDB)
+                _combatUpdateMaxHitPoints(nid, npcs, racesDB)
+
                 mud.sendMessage(
                     id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
 
@@ -1644,7 +1672,8 @@ def playerBeginsAttack(players: {}, id, target: str,
 
 
 def npcBeginsAttack(npcs: {}, id, target: str, players: {},
-                    fights: {}, mud, items: {}, itemsDB: {}) -> bool:
+                    fights: {}, mud, items: {}, itemsDB: {},
+                    racesDB: {}) -> bool:
     """npc begins an attack on a player or another npc
     """
     targetFound = False
@@ -1681,6 +1710,9 @@ def npcBeginsAttack(npcs: {}, id, target: str, players: {},
             }
             players[pid]['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
+
+            _combatUpdateMaxHitPoints(pid, players, racesDB)
+            _combatUpdateMaxHitPoints(id, npcs, racesDB)
 
             npcUpdateLuck(id, npcs, items, itemsDB)
             npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
@@ -1732,6 +1764,10 @@ def npcBeginsAttack(npcs: {}, id, target: str, players: {},
                 }
                 npcs[nid]['isInCombat'] = 1
                 npcs[id]['isInCombat'] = 1
+
+                _combatUpdateMaxHitPoints(nid, npcs, racesDB)
+                _combatUpdateMaxHitPoints(id, npcs, racesDB)
+
                 npcUpdateLuck(id, npcs, items, itemsDB)
                 npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
 
@@ -1739,7 +1775,7 @@ def npcBeginsAttack(npcs: {}, id, target: str, players: {},
 
 
 def npcAggression(npcs: {}, players: {}, fights: {}, mud,
-                  items: {}, itemsDB: {}):
+                  items: {}, itemsDB: {}, racesDB: {}):
     """Aggressive npcs start fights
     """
     for (nid, pl) in list(npcs.items()):
@@ -1766,4 +1802,5 @@ def npcAggression(npcs: {}, players: {}, fights: {}, mud,
                 if not hasAffinity:
                     if randint(0, 1000) > 995:
                         npcBeginsAttack(npcs, nid, players[pid]['name'],
-                                        players, fights, mud, items, itemsDB)
+                                        players, fights, mud, items,
+                                        itemsDB, racesDB)
