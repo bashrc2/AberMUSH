@@ -38,6 +38,29 @@ defenseClothing = (
     'clo_gloves')
 
 
+def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
+                       mapArea: {}, clouds: {},
+                       maxTerrainDifficulty: int) -> bool:
+    """Returns True if the player is available
+    """
+    currRoom = players[id]['room']
+    weightDifficulty = \
+        int(getEncumberanceFromWeight(id, players, itemsDB) * 2)
+    temperatureDifficulty = \
+        getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
+    terrainDifficulty = \
+        int(rooms[players[id]['room']]['terrainDifficulty'] * 10 /
+            maxTerrainDifficulty)
+
+    # Agility of NPC
+    if int(time.time()) < players[id]['lastCombatAction'] + \
+       10 - players[id]['agi'] - \
+       armorAgility(id, players, itemsDB) + terrainDifficulty + \
+       temperatureDifficulty + weightDifficulty:
+        return False
+    return True
+
+
 def getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
     """Returns the light medium or heavy encumberance (0,1,2)
     """
@@ -1076,21 +1099,9 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
     if playerIsTrapped(s1id, players, rooms):
         return
 
-    currRoom = players[s1id]['room']
-    weightDifficulty = \
-        int(getEncumberanceFromWeight(s1id, players, itemsDB) * 2)
-    temperatureDifficulty = \
-        getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
-    terrainDifficulty = \
-        rooms[players[s1id]['room']]['terrainDifficulty'] * \
-        10 / maxTerrainDifficulty
-
-    # Agility of player
-    if int(time.time()) < \
-       players[s1id]['lastCombatAction'] + \
-       10 - players[s1id]['agi'] - \
-       armorAgility(s1id, players, itemsDB) + \
-       terrainDifficulty + temperatureDifficulty + weightDifficulty:
+    if not _playerIsAvailable(s1id, players, itemsDB, rooms,
+                              mapArea, clouds,
+                              maxTerrainDifficulty):
         return
 
     # if the player is dodging then miss a turn
@@ -1258,20 +1269,9 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     if playerIsTrapped(s1id, players, rooms):
         return
 
-    currRoom = players[s1id]['room']
-    weightDifficulty = \
-        int(getEncumberanceFromWeight(s1id, players, itemsDB) * 2)
-    temperatureDifficulty = \
-        getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
-    terrainDifficulty = \
-        rooms[players[s1id]['room']]['terrainDifficulty'] * 10 / \
-        maxTerrainDifficulty
-
-    # Agility of player
-    if int(time.time()) < \
-       players[s1id]['lastCombatAction'] + 10 - players[s1id]['agi'] - \
-       armorAgility(s1id, players, itemsDB) + terrainDifficulty + \
-       temperatureDifficulty + weightDifficulty:
+    if not _playerIsAvailable(s1id, players, itemsDB, rooms,
+                              mapArea, clouds,
+                              maxTerrainDifficulty):
         return
 
     # if the player is dodging then miss a turn
@@ -1399,20 +1399,9 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             "<r> tries to attack but can't move\n")
         return
 
-    currRoom = npcs[s1id]['room']
-    weightDifficulty = \
-        int(getEncumberanceFromWeight(s1id, npcs, itemsDB) * 2)
-    temperatureDifficulty = \
-        getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
-    terrainDifficulty = \
-        rooms[players[s2id]['room']]['terrainDifficulty'] * 10 / \
-        maxTerrainDifficulty
-
-    # Agility of NPC
-    if int(time.time()) < npcs[s1id]['lastCombatAction'] + \
-       10 - npcs[s1id]['agi'] - \
-       armorAgility(s1id, npcs, itemsDB) + terrainDifficulty + \
-       temperatureDifficulty + weightDifficulty:
+    if not _playerIsAvailable(s1id, npcs, itemsDB, rooms,
+                              mapArea, clouds,
+                              maxTerrainDifficulty):
         return
 
     # if the npc is dodging then miss a turn
