@@ -38,6 +38,75 @@ defenseClothing = (
     'clo_gloves')
 
 
+def getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
+    """Returns the light medium or heavy encumberance (0,1,2)
+    """
+    totalWeight = playerInventoryWeight(id, players, itemsDB)
+
+    strength = int(players[id]['str'])
+    if strength < 1:
+        strength = 1
+
+    # encumberance for light, medium and heavy loads
+    encumberance = {
+        "1": [3, 6, 10],
+        "2": [6, 13, 20],
+        "3": [10, 20, 30],
+        "4": [13, 26, 40],
+        "5": [16, 33, 50],
+        "6": [20, 40, 60],
+        "7": [23, 46, 70],
+        "8": [26, 53, 80],
+        "9": [30, 60, 90],
+        "10": [33, 66, 100],
+        "11": [38, 76, 115],
+        "12": [43, 86, 130],
+        "13": [50, 100, 150],
+        "14": [58, 116, 175],
+        "15": [66, 133, 200],
+        "16": [76, 153, 230],
+        "17": [86, 173, 260],
+        "18": [100, 200, 300],
+        "19": [116, 233, 350],
+        "20": [133, 266, 400],
+        "21": [153, 306, 460],
+        "22": [173, 346, 520],
+        "23": [200, 400, 600],
+        "24": [233, 466, 700],
+        "25": [266, 533, 800],
+        "26": [306, 613, 920],
+        "27": [346, 693, 1040],
+        "28": [400, 800, 1200],
+        "29": [466, 933, 1400]
+    }
+
+    if strength <= 29:
+        thresholds = encumberance[str(strength)]
+    else:
+        strIndex = 20 + (strength % 10)
+        multiplier = int((strength - 20) / 10)
+        thresholds = encumberance[str(strIndex)]
+        for i in range(thresholds):
+            thresholds[i] = int(thresholds[i] * (multiplier*4))
+
+    # multiplier for creature size
+    size = int(players[id]['siz'])
+    mult = 1
+    if size == 3:
+        mult = 2
+    elif size == 4:
+        mult = 4
+    elif size == 5:
+        mult = 8
+    elif size == 6:
+        mult = 16
+
+    for i in range(thresholds):
+        if totalWeight < int(thresholds[i] * mult):
+            return i
+    return 2
+
+
 def healthOfPlayer(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
@@ -1009,7 +1078,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
     currRoom = players[s1id]['room']
     weightDifficulty = \
-        int(playerInventoryWeight(s1id, players, itemsDB) / 20)
+        getEncumberanceFromWeight(s1id, players, itemsDB)
     temperatureDifficulty = \
         getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
@@ -1191,7 +1260,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
 
     currRoom = players[s1id]['room']
     weightDifficulty = \
-        int(playerInventoryWeight(s1id, players, itemsDB) / 20)
+        getEncumberanceFromWeight(s1id, players, itemsDB)
     temperatureDifficulty = \
         getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
@@ -1332,7 +1401,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
 
     currRoom = npcs[s1id]['room']
     weightDifficulty = \
-        int(playerInventoryWeight(s1id, npcs, itemsDB) / 20)
+        getEncumberanceFromWeight(s1id, npcs, itemsDB)
     temperatureDifficulty = \
         getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
