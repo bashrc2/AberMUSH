@@ -80,6 +80,8 @@ def _combatAbilityModifier(score: int) -> int:
     if score > 30:
         return 10
 
+    # min and max score and the corresponding
+    # ability modifier
     abilityTable = (
         [1, 1, -5],
         [2, 3, -4],
@@ -250,13 +252,14 @@ def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
     """
     now = int(time.time())
     for p in players:
-        if players[p]['name'] is None:
+        thisPlayer = players[p]
+        if thisPlayer['name'] is None:
             continue
-        if players[p]['frozenStart'] != 0:
-            if now >= players[p]['frozenStart'] + players[p]['frozenDuration']:
-                players[p]['frozenStart'] = 0
-                players[p]['frozenDuration'] = 0
-                players[p]['frozenDescription'] = ""
+        if thisPlayer['frozenStart'] != 0:
+            if now >= thisPlayer['frozenStart'] + thisPlayer['frozenDuration']:
+                thisPlayer['frozenStart'] = 0
+                thisPlayer['frozenDuration'] = 0
+                thisPlayer['frozenDescription'] = ""
                 if not isNPC:
                     mud.sendMessage(
                         p, "<f220>You find that you can move again.<r>\n\n")
@@ -268,19 +271,20 @@ def updateTemporaryHitPoints(mud, players: {}, isNPC: bool) -> None:
     """
     now = int(time.time())
     for p in players:
-        if players[p]['name'] is None:
+        thisPlayer = players[p]
+        if thisPlayer['name'] is None:
             continue
-        if players[p]['tempHitPoints'] == 0:
+        if thisPlayer['tempHitPoints'] == 0:
             continue
-        if players[p]['tempHitPointsStart'] == 0 and \
-           players[p]['tempHitPointsDuration'] > 0:
-            players[p]['tempHitPointsStart'] = now
+        if thisPlayer['tempHitPointsStart'] == 0 and \
+           thisPlayer['tempHitPointsDuration'] > 0:
+            thisPlayer['tempHitPointsStart'] = now
         else:
-            if now > players[p]['tempHitPointsStart'] + \
-                    players[p]['tempHitPointsDuration']:
-                players[p]['tempHitPoints'] = 0
-                players[p]['tempHitPointsStart'] = 0
-                players[p]['tempHitPointsDuration'] = 0
+            if now > thisPlayer['tempHitPointsStart'] + \
+                    thisPlayer['tempHitPointsDuration']:
+                thisPlayer['tempHitPoints'] = 0
+                thisPlayer['tempHitPointsStart'] = 0
+                thisPlayer['tempHitPointsDuration'] = 0
                 if not isNPC:
                     mud.sendMessage(
                         p, "<f220>Your magical protection expires.<r>\n\n")
@@ -292,24 +296,25 @@ def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
     """
     now = int(time.time())
     for p in players:
-        if players[p]['name'] is None:
+        thisPlayer = players[p]
+        if thisPlayer['name'] is None:
             continue
-        if players[p]['tempCharm'] == 0:
+        if thisPlayer['tempCharm'] == 0:
             continue
-        if players[p]['tempCharmStart'] == 0 and \
-           players[p]['tempCharmDuration'] > 0:
-            players[p]['tempCharmStart'] = now
+        if thisPlayer['tempCharmStart'] == 0 and \
+           thisPlayer['tempCharmDuration'] > 0:
+            thisPlayer['tempCharmStart'] = now
         else:
-            if not players[p].get('tempCharmDuration'):
+            if not thisPlayer.get('tempCharmDuration'):
                 return
-            if now > players[p]['tempCharmStart'] + \
-                    players[p]['tempCharmDuration']:
-                players[p]['tempCharmStart'] = 0
-                players[p]['tempCharmDuration'] = 0
-                if players[p]['affinity'].get(players[p]['tempCharmTarget']):
-                    players[p]['affinity'][players[p]['tempCharmTarget']] -= \
-                        players[p]['tempCharm']
-                players[p]['tempCharm'] = 0
+            if now > thisPlayer['tempCharmStart'] + \
+                    thisPlayer['tempCharmDuration']:
+                thisPlayer['tempCharmStart'] = 0
+                thisPlayer['tempCharmDuration'] = 0
+                if thisPlayer['affinity'].get(thisPlayer['tempCharmTarget']):
+                    thisPlayer['affinity'][thisPlayer['tempCharmTarget']] -= \
+                        thisPlayer['tempCharm']
+                thisPlayer['tempCharm'] = 0
                 if not isNPC:
                     mud.sendMessage(
                         p, "<f220>A charm spell wears off.<r>\n\n")
@@ -319,16 +324,17 @@ def playersRest(mud, players: {}) -> None:
     """Rest restores hit points
     """
     for p in players:
-        if players[p]['name'] is not None and \
-           players[p]['authenticated'] is not None:
-            if players[p]['hp'] < players[p]['hpMax'] + \
-                    players[p]['tempHitPoints']:
+        thisPlayer = players[p]
+        if thisPlayer['name'] is not None and \
+           thisPlayer['authenticated'] is not None:
+            if thisPlayer['hp'] < thisPlayer['hpMax'] + \
+                    thisPlayer['tempHitPoints']:
                 if randint(0, 100) > 90:
-                    players[p]['hp'] += 1
+                    thisPlayer['hp'] += 1
             else:
-                players[p]['hp'] = players[p]['hpMax'] + \
-                    players[p]['tempHitPoints']
-                players[p]['restRequired'] = 0
+                thisPlayer['hp'] = thisPlayer['hpMax'] + \
+                    thisPlayer['tempHitPoints']
+                thisPlayer['restRequired'] = 0
                 prepareSpells(mud, p, players)
 
 
