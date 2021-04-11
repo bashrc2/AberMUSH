@@ -101,7 +101,7 @@ def getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
     elif size == 6:
         mult = 16
 
-    for i in range(thresholds):
+    for i in range(len(thresholds)):
         if totalWeight < int(thresholds[i] * mult):
             return i
     return 2
