@@ -3161,6 +3161,14 @@ def checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                             '<r> (finger of right hand)')
             continue
 
+        if int(players[id]['clo_waist']) == int(i):
+            mud.sendMessage(id, ' * ' +
+                            itemsDB[int(i)]['article'] +
+                            ' <b234>' +
+                            itemsDB[int(i)]['name'] +
+                            '<r> (waist)')
+            continue
+
         if int(players[id]['clo_head']) == int(i) or \
            int(players[id]['clo_lwrist']) == int(i) or \
            int(players[id]['clo_rwrist']) == int(i) or \
@@ -3632,6 +3640,13 @@ def bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
                             itemsDB[thisPlayer['clo_rfinger']]['name'] +
                             ' on the finger of ' + playerName2 +
                             ' right hand.<r>\n')
+    if thisPlayer.get('clo_waist'):
+        if int(thisPlayer['clo_waist']) > 0:
+            mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
+                            itemsDB[thisPlayer['clo_waist']]['article'] +
+                            ' ' +
+                            itemsDB[thisPlayer['clo_waist']]['name'] +
+                            ' on waist of ' + playerName2 + '<r>\n')
     if int(thisPlayer['clo_lhand']) > 0:
         handItemID = thisPlayer['clo_lhand']
         itemName = itemsDB[handItemID]['name']
@@ -4876,6 +4891,7 @@ def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "clo_gloves": 0,
         "clo_lfinger": 0,
         "clo_rfinger": 0,
+        "clo_waist": 0,
         "clo_rwrist": 0,
         "clo_lwrist": 0,
         "clo_chest": 0,

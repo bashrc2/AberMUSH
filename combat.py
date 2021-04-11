@@ -35,6 +35,7 @@ defenseClothing = (
     'clo_rhand',
     'clo_lfinger',
     'clo_rfinger',
+    'clo_waist',
     'clo_gloves')
 
 
