@@ -152,9 +152,16 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             if racesDB[race].get('siz'):
                 player2Size = racesDB[race]['siz']
     if player2Size < player1Size or player2Size > player1Size + 1:
-        mud.sendMessage(
-            id,
-            'You can only shove opponents of similar size to yourself.\n')
+        if player2Size > player1Size:
+            mud.sendMessage(
+                id,
+                randomDescription("They're too large to shove") +
+                '.\n')
+        else:
+            mud.sendMessage(
+                id,
+                randomDescription("They're too small to shove") +
+                '.\n')
         players1[id]['shove'] = 0
         return False
 
@@ -177,18 +184,29 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
 
     mud.sendMessage(
         id,
-        'You shove ' + players2[s2id]['name'] + '.\n')
+        randomDescription('You shove ' + players2[s2id]['name']) + '.\n')
 
     if randint(1, player1Strength) > randint(1, player2Strength):
         players2[s2id]['prone'] = 1
         mud.sendMessage(
             id,
-            'They stumble and fall to the ground.\n')
+            randomDescription('They stumble and fall to the ground|' +
+                              'They come crashing to the ground|' +
+                              'They fall heavily to the ground|' +
+                              'They topple and fall to the ground|' +
+                              'They stagger and fall backwards|' +
+                              'They lose balance and fall backwards') +
+            '.\n')
         return True
     else:
         mud.sendMessage(
             id,
-            'They remain standing.\n')
+            randomDescription('They remain standing|' +
+                              'They remain in place|' +
+                              'They stand firm|' +
+                              'They push back and remain standing|' +
+                              'They remain steady') +
+            '.\n')
         return False
 
 
@@ -1205,7 +1223,12 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             setPlayerProne(s1id, players, False)
             mud.sendMessage(s2id,
                             '<f32>' + players[s1id]['name'] +
-                            ' stands up<r>.\n')
+                            ' ' +
+                            randomDescription('stands up|' +
+                                              'gets up|' +
+                                              'gets back on their feet|' +
+                                              'stands back up again') +
+                            '<r>.\n')
             return
 
         # attempt to shove
@@ -1544,7 +1567,12 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
         # stand up for the next turn
         setPlayerProne(s1id, npcs, False)
         mud.sendMessage(s2id,
-                        '<f32>' + npcs[s1id]['name'] + ' stands up<r>.\n')
+                        '<f32>' + npcs[s1id]['name'] + ' ' +
+                        randomDescription('stands up|' +
+                                          'gets up|' +
+                                          'gets back on their feet|' +
+                                          'stands back up again') +
+                        '<r>.\n')
         return
 
     npcUpdateLuck(s1id, npcs, items, itemsDB)
