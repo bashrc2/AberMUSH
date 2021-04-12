@@ -144,6 +144,20 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
                   racesDB: {}) -> bool:
     """One player attempts to shove another
     """
+    player1Size = players1[id]['siz']
+    player2Size = players2[s2id]['siz']
+    if players2[s2id].get('race'):
+        race = players2[s2id]['race'].lower()
+        if racesDB.get(race):
+            if racesDB[race].get('siz'):
+                player2Size = racesDB[race]['siz']
+    if player2Size < player1Size or player2Size > player1Size + 1:
+        mud.sendMessage(
+            id,
+            'You can only shove opponents of similar size to yourself.\n')
+        players1[id]['shove'] = 0
+        return False
+
     player1Strength = players1[id]['str']
     player2Strength = players2[s2id]['str']
     if players2[s2id].get('race'):
@@ -1190,7 +1204,8 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             # stand up for the next turn
             setPlayerProne(s1id, players, False)
             mud.sendMessage(s2id,
-                            '<f32>' + players[s1id]['name'] + ' stands up<r>.\n')
+                            '<f32>' + players[s1id]['name'] +
+                            ' stands up<r>.\n')
             return
 
         # attempt to shove
