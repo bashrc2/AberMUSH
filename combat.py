@@ -150,11 +150,12 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
         id,
         'You shove ' + players2[s2id]['name'] + '.\n')
 
+    players1[id]['shove'] = 0
     if randint(1, player1Strength) > randint(1, player2Strength):
         players2[s2id]['prone'] = 1
         mud.sendMessage(
             id,
-            'They stumble and fall to the ground.\n')
+            'They stumble and fall to the ground.\n')        
         return True
     else:
         mud.sendMessage(
