@@ -1189,6 +1189,8 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             players[s1id]['lastCombatAction'] = int(time.time())
             # stand up for the next turn
             setPlayerProne(s1id, players, False)
+            mud.sendMessage(s2id,
+                            '<f32>' + players[s1id]['name'] + ' stands up<r>.\n')
             return
 
         # attempt to shove
@@ -1526,6 +1528,8 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
         npcs[s1id]['lastCombatAction'] = int(time.time())
         # stand up for the next turn
         setPlayerProne(s1id, npcs, False)
+        mud.sendMessage(s2id,
+                        '<f32>' + npcs[s1id]['name'] + ' stands up<r>.\n')
         return
 
     npcUpdateLuck(s1id, npcs, items, itemsDB)
