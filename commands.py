@@ -1061,16 +1061,16 @@ def help(params, mud, playersDB: {}, players: {}, rooms: {},
                     "specified, e.g. 'attack knight'")
     mud.sendMessage(id,
                     '  <f220>shove<f255>' +
-                    '                              - ' +
+                    '                                   - ' +
                     'Try to knock a target over ' +
                     'during an attack')
     mud.sendMessage(id,
                     '  <f220>prone<f255>' +
-                    '                              - ' +
+                    '                                   - ' +
                     'Lie down')
     mud.sendMessage(id,
                     '  <f220>stand<f255>' +
-                    '                              - ' +
+                    '                                   - ' +
                     'Stand up')
     mud.sendMessage(id,
                     '  <f220>check inventory<f255>' +
