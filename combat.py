@@ -1189,8 +1189,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
         # attempt to shove
         if players[s1id].get('shove'):
             if players[s1id]['shove'] == 1:
-                if _playerShoves(mud, s1id, players, s2id, players, racesDB):
-                    players[s2id]['lastCombatAction'] = int(time.time())
+                _playerShoves(mud, s1id, players, s2id, players, racesDB)
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
@@ -1380,8 +1379,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         # attempt to shove
         if players[s1id].get('shove'):
             if players[s1id]['shove'] == 1:
-                if _playerShoves(mud, s1id, players, s2id, npcs, racesDB):
-                    npcs[s2id]['lastCombatAction'] = int(time.time())
+                _playerShoves(mud, s1id, players, s2id, npcs, racesDB)
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
