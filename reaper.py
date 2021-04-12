@@ -63,8 +63,11 @@ def runDeaths(mud, players: {}, npcs: {}, corpses, fights: {},
                         'owner': 1
                     }
                 # Clear player's inventory, it stays on the corpse
+                players[pid]['clo_lhand'] = 0
+                players[pid]['clo_rhand'] = 0
                 players[pid]['inv'] = []
                 players[pid]['isInCombat'] = 0
+                players[pid]['prone'] = 1
                 players[pid]['lastRoom'] = players[pid]['room']
                 players[pid]['room'] = '$rid=1262$'
                 fightsCopy = deepcopy(fights)
