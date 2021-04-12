@@ -680,3 +680,21 @@ def showTiming(previousTiming, commentStr: str):
     # timeDiff = int((currTime - previousTiming) * 1000)
     # print('TIMING: ' + commentStr + ' = ' + str(timeDiff) + 'mS')
     return currTime
+
+
+def playerIsProne(id, players: {}) -> bool:
+    """Returns true if the given player is prone
+    """
+    if players[id].get('prone'):
+        if players[id]['prone'] == 1:
+            return True
+    return False
+
+
+def setPlayerProne(id, players: {}, prone: bool) -> None:
+    """Sets the prone state for a player
+    """
+    if prone:
+        players[id]['prone'] = 1
+    else:
+        players[id]['prone'] = 0

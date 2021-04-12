@@ -7,6 +7,8 @@ __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
+from functions import playerIsProne
+from functions import setPlayerProne
 from functions import wearLocation
 from functions import isWearing
 from functions import playerIsVisible
@@ -97,6 +99,11 @@ def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
 
     if playerIsTrapped(id, players, rooms):
         describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
         return
 
     if not isPlayerFighting(id, players, fights):
@@ -2916,6 +2923,11 @@ def attack(params, mud, playersDB: {}, players: {}, rooms: {},
                     "You're trapped") + '.\n\n')
             return
 
+        if playerIsProne(id, players):
+            mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+            setPlayerProne(id, players, False)
+            return
+
         target = params  # .lower()
         if target.startswith('at '):
             target = params.replace('at ', '')
@@ -3838,6 +3850,12 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "You try to move but find that you " +
                         "lack any ability to.\n\n")
         return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
+        return
+
     failMsg = None
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
@@ -3917,6 +3935,11 @@ def heave(params, mud, playersDB: {}, players: {}, rooms: {},
                         "you lack any ability to.\n\n")
         return
 
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
+        return
+
     target = params.lower()
     if target.startswith('the '):
         target = target.replace('the ', '')
@@ -3993,6 +4016,12 @@ def jump(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "You try to move but find that you " +
                         "lack any ability to.\n\n")
         return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
+        return
+
     if not params:
         desc = \
             randomDescription("You jump, expecting something to happen. " +
@@ -4366,6 +4395,11 @@ def go(params, mud, playersDB: {}, players: {}, rooms: {},
 
     if playerIsTrapped(id, players, rooms):
         describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
         return
 
     if players[id]['canGo'] == 1:
@@ -5961,6 +5995,11 @@ def take(params, mud, playersDB: {}, players: {}, rooms: {},
 
     if itemInInventory(players, id, str(params), itemsDB):
         mud.sendMessage(id, 'You are already carring ' + str(params) + '\n\n')
+        return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
         return
 
     itemInDB = False

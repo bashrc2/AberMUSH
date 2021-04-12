@@ -13,6 +13,8 @@ from functions import prepareSpells
 from functions import randomDescription
 from functions import decreaseAffinityBetweenPlayers
 from functions import deepcopy
+from functions import playerIsProne
+from functions import setPlayerProne
 from random import randint
 # from copy import deepcopy
 from environment import getTemperatureAtCoords
@@ -1116,24 +1118,35 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
         mud.sendMessage(
             s2id,
             randomDescription(players[s1id]['frozenDescription']) + '\n')
+        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     if playerIsTrapped(s1id, players, rooms):
+        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     if not _playerIsAvailable(s1id, players, itemsDB, rooms,
                               mapArea, clouds,
                               maxTerrainDifficulty):
+        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     # if the player is dodging then miss a turn
     if players[s1id].get('dodge'):
         if players[s1id]['dodge'] == 1:
+            players[s1id]['lastCombatAction'] = int(time.time())
             return
 
     if players[s2id]['isAttackable'] == 1:
         players[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
+
+        if playerIsProne(s1id, players):
+            # on the ground, so can't attack and misses the turn
+            players[s1id]['lastCombatAction'] = int(time.time())
+            # stand up for the next turn
+            setPlayerProne(s1id, players, False)
+            return
 
         weaponID, weaponType, roundsOfFire = \
             getWeaponHeld(s1id, players, itemsDB)
@@ -1288,24 +1301,35 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         desc = players[s1id]['frozenDescription']
         mud.sendMessage(s2id,
                         randomDescription(desc) + '\n')
+        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     if playerIsTrapped(s1id, players, rooms):
+        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     if not _playerIsAvailable(s1id, players, itemsDB, rooms,
                               mapArea, clouds,
                               maxTerrainDifficulty):
+        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     # if the player is dodging then miss a turn
     if players[s1id].get('dodge'):
         if players[s1id]['dodge'] == 1:
+            players[s1id]['lastCombatAction'] = int(time.time())
             return
 
     if npcs[s2id]['isAttackable'] == 1:
         players[s1id]['isInCombat'] = 1
         npcs[s2id]['isInCombat'] = 1
+
+        if playerIsProne(s1id, players):
+            # on the ground, so can't attack and misses the turn
+            players[s1id]['lastCombatAction'] = int(time.time())
+            # stand up for the next turn
+            setPlayerProne(s1id, players, False)
+            return
 
         weaponID, weaponType, roundsOfFire = \
             getWeaponHeld(s1id, players, itemsDB)
@@ -1422,23 +1446,34 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             s2id, '<f220>' +
             npcs[s1id]['name'] +
             "<r> tries to attack but can't move\n")
+        npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
     if not _playerIsAvailable(s1id, npcs, itemsDB, rooms,
                               mapArea, clouds,
                               maxTerrainDifficulty):
+        npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
     # if the npc is dodging then miss a turn
     if npcs[s1id].get('dodge'):
         if npcs[s1id]['dodge'] == 1:
+            npcs[s1id]['lastCombatAction'] = int(time.time())
             return
 
     npcs[s1id]['isInCombat'] = 1
     players[s2id]['isInCombat'] = 1
 
+    if playerIsProne(s1id, npcs):
+        # on the ground, so can't attack and misses the turn
+        npcs[s1id]['lastCombatAction'] = int(time.time())
+        # stand up for the next turn
+        setPlayerProne(s1id, npcs, False)
+        return
+
     npcUpdateLuck(s1id, npcs, items, itemsDB)
     if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
+        npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
     weaponID, weaponType, roundsOfFire = getWeaponHeld(s1id, npcs, itemsDB)

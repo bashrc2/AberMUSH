@@ -21,7 +21,7 @@
     },
     "Basketmakers": {
 	"description": "",
-	"roles": [],
+	"roles": ["basketmaker"],
 	"affinity": {}
     },
     "Blacksmiths": {
