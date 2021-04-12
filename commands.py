@@ -135,6 +135,50 @@ def stand(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, randomDescription(msgStr))
 
 
+def shove(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
+    if players[id]['frozenStart'] != 0:
+        mud.sendMessage(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '\n\n')
+        return
+
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
+        return
+
+    if not isPlayerFighting(id, players, fights):
+        mud.sendMessage(
+            id,
+            randomDescription('You try to shove, but to your surprise ' +
+                              'discover that you are not in combat ' +
+                              'with anyone.') +
+            '\n\n')
+        return
+
+    if players[id]['canGo'] != 1:
+        mud.sendMessage(
+            id, randomDescription(
+                "You try to shove, but don't seem to be able to move") +
+            '\n\n')
+        return
+
+    mud.sendMessage(
+        id, randomDescription(
+            "You get ready to shove...") +
+        '\n\n')
+    players[id]['shove'] = 1
+
+
 def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -6401,6 +6445,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "call": callCardGame,
         "morris": morrisGame,
         "dodge": dodge,
+        "shove": shove,
         "prone": prone,
         "stand": stand
     }

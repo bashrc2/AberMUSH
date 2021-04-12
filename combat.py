@@ -134,6 +134,35 @@ def getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
     return 2
 
 
+def _playerShoves(mud, id, players1: {}, s2id, players2: {},
+                  racesDB: {}) -> bool:
+    """One player attempts to shove another
+    """
+    player1Strength = players1[id]['str']
+    player2Strength = players2[s2id]['str']
+    if players2[s2id].get('race'):
+        race = players2[s2id]['race'].lower()
+        if racesDB.get(race):
+            if racesDB[race].get('str'):
+                player2Strength = racesDB[race]['str']
+
+    mud.sendMessage(
+        id,
+        'You shove ' + players2[s2id]['name'] + '.\n')
+
+    if randint(1, player1Strength) > randint(1, player2Strength):
+        players2[s2id]['prone'] = 1
+        mud.sendMessage(
+            id,
+            'They stumble and fall to the ground.\n')
+        return True
+    else:
+        mud.sendMessage(
+            id,
+            'They remain standing.\n')
+        return False
+
+
 def _combatUpdateMaxHitPoints(id, players: {}, racesDB: {}) -> None:
     """Updates the hpMax value
     """
@@ -1148,6 +1177,14 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
             setPlayerProne(s1id, players, False)
             return
 
+        # attempt to shove
+        if players[s1id].get('shove'):
+            if players[s1id]['shove'] == 1:
+                if _playerShoves(mud, s1id, players, s2id, players, racesDB):
+                    players[s2id]['lastCombatAction'] = int(time.time())
+                players[s1id]['lastCombatAction'] = int(time.time())
+                return
+
         weaponID, weaponType, roundsOfFire = \
             getWeaponHeld(s1id, players, itemsDB)
         if not canUseWeapon(s1id, players, itemsDB, weaponID):
@@ -1330,6 +1367,14 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
             # stand up for the next turn
             setPlayerProne(s1id, players, False)
             return
+
+        # attempt to shove
+        if players[s1id].get('shove'):
+            if players[s1id]['shove'] == 1:
+                if _playerShoves(mud, s1id, players, s2id, npcs, racesDB):
+                    npcs[s2id]['lastCombatAction'] = int(time.time())
+                players[s1id]['lastCombatAction'] = int(time.time())
+                return
 
         weaponID, weaponType, roundsOfFire = \
             getWeaponHeld(s1id, players, itemsDB)

@@ -68,6 +68,8 @@ def runDeaths(mud, players: {}, npcs: {}, corpses, fights: {},
                 players[pid]['inv'] = []
                 players[pid]['isInCombat'] = 0
                 players[pid]['prone'] = 1
+                players[pid]['shove'] = 0
+                players[pid]['dodge'] = 0
                 players[pid]['lastRoom'] = players[pid]['room']
                 players[pid]['room'] = '$rid=1262$'
                 fightsCopy = deepcopy(fights)
