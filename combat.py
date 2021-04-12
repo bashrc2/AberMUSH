@@ -63,8 +63,8 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
         temperatureDifficulty + weightDifficulty
     if modifier < 6:
         modifier = 6
-    elif modifier > 15:
-        modifier = 15
+    elif modifier > 25:
+        modifier = 25
 
     if int(time.time()) < players[id]['lastCombatAction'] + modifier:
         return False
