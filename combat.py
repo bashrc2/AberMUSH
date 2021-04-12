@@ -1195,7 +1195,8 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
         # attempt to shove
         if players[s1id].get('shove'):
             if players[s1id]['shove'] == 1:
-                _playerShoves(mud, s1id, players, s2id, players, racesDB)
+                if _playerShoves(mud, s1id, players, s2id, players, racesDB):
+                    players[s2id]['lastCombatAction'] = int(time.time())
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
