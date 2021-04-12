@@ -57,10 +57,16 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
             maxTerrainDifficulty)
 
     # Agility of NPC
-    if int(time.time()) < players[id]['lastCombatAction'] + \
-       10 - players[id]['agi'] - \
-       armorAgility(id, players, itemsDB) + terrainDifficulty + \
-       temperatureDifficulty + weightDifficulty:
+    modifier = \
+        10 - players[id]['agi'] - \
+        armorAgility(id, players, itemsDB) + terrainDifficulty + \
+        temperatureDifficulty + weightDifficulty
+    if modifier < 6:
+        modifier = 6
+    elif modifier > 15:
+        modifier = 15
+
+    if int(time.time()) < players[id]['lastCombatAction'] + modifier:
         return False
     return True
 
@@ -1379,7 +1385,8 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         # attempt to shove
         if players[s1id].get('shove'):
             if players[s1id]['shove'] == 1:
-                _playerShoves(mud, s1id, players, s2id, npcs, racesDB)
+                if _playerShoves(mud, s1id, players, s2id, npcs, racesDB):
+                    npcs[s2id]['lastCombatAction'] = int(time.time())
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
