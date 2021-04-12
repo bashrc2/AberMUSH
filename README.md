@@ -69,6 +69,9 @@ climb though/onto [exit]                - Try to climb through or onto an exit
 move/roll/heave [target]                - Try to move or roll a heavy object
 jump to [exit]                          - Try to jump onto something
 attack [target]                         - Attack another player or NPC
+shove                                   - Try to knock down a target during an attack
+prone                                   - Lie down
+stand                                   - Stand up
 check inventory                         - Check the contents of your inventory
 take/get [item]                         - Pick up an item
 put [item] in/on [item]                 - Put an item into or onto another one
