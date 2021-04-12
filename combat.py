@@ -146,16 +146,24 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             if racesDB[race].get('str'):
                 player2Strength = racesDB[race]['str']
 
+    players1[id]['shove'] = 0
+
+    if playerIsProne(s2id, players2):
+        mud.sendMessage(
+            id,
+            'You attempt to shove ' + players2[s2id]['name'] +
+            ', but they are already prone.\n')
+        return False
+
     mud.sendMessage(
         id,
         'You shove ' + players2[s2id]['name'] + '.\n')
 
-    players1[id]['shove'] = 0
     if randint(1, player1Strength) > randint(1, player2Strength):
         players2[s2id]['prone'] = 1
         mud.sendMessage(
             id,
-            'They stumble and fall to the ground.\n')        
+            'They stumble and fall to the ground.\n')
         return True
     else:
         mud.sendMessage(
