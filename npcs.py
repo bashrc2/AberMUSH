@@ -615,12 +615,14 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
             thisNPC['isInCombat'] = 0
             thisNPC['lastRoom'] = thisNPC['room']
             thisNPC['whenDied'] = int(time.time())
-            # detach familiar from player
+
+            # if the NPC is a familiar detach it from player
             for pl in players:
                 if players[pl]['name'] is None:
                     continue
                 if players[pl]['familiar'] == int(nid):
                     players[pl]['familiar'] -= 1
+
             fightsCopy = deepcopy(fights)
             for (fight, pl) in fightsCopy.items():
                 if ((fightsCopy[fight]['s1type'] == 'npc' and
@@ -653,6 +655,8 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                             'TTL': thisNPC['corpseTTL'],
                             'owner': 1
                         }
+
+            # inform players about the death of an npc
             for (pid, pl) in list(players.items()):
                 if players[pid]['authenticated'] is not None:
                     if players[pid]['authenticated'] is not None and \
@@ -668,14 +672,18 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
             # Drop NPC loot on the floor
             droppedItems = []
             for i in thisNPC['inv']:
-                # print("Dropping item " + str(i[0]) +
-                # " likelihood of " + str(i[1]) + "%")
-                if randint(0, 100) < int(i[1]):
-                    addToScheduler("0|spawnItem|" + str(i[0]) + ";" +
+                if not str(i).isdigit():
+                    for (pid, pl) in list(players.items()):
+                        mud.sendMessage(
+                            pid, 'NPC drops item: ' +
+                            str(i) + ' is not an item number\n')
+                    continue
+                if randint(0, 100) < 50:
+                    addToScheduler("0|spawnItem|" + str(i) + ";" +
                                    str(thisNPC['lastRoom']) + ";0;0",
                                    -1, eventSchedule, scriptedEventsDB)
-                    # print("Dropped!" + str(itemsDB[int(i[0])]['name']))
-                    droppedItems.append(str(itemsDB[int(i[0])]['name']))
+                    print("Dropped!" + str(itemsDB[int(i)]['name']))
+                    droppedItems.append(str(itemsDB[int(i)]['name']))
 
             # Inform other players in the room what items got dropped on NPC
             # death
