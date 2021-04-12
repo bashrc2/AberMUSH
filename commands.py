@@ -175,7 +175,7 @@ def shove(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(
         id, randomDescription(
             "You get ready to shove...") +
-        '\n\n')
+        '\n')
     players[id]['shove'] = 1
 
 
