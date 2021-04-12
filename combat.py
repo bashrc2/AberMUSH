@@ -1172,7 +1172,6 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
     if not _playerIsAvailable(s1id, players, itemsDB, rooms,
                               mapArea, clouds,
                               maxTerrainDifficulty):
-        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     # if the player is dodging then miss a turn
@@ -1363,7 +1362,6 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     if not _playerIsAvailable(s1id, players, itemsDB, rooms,
                               mapArea, clouds,
                               maxTerrainDifficulty):
-        players[s1id]['lastCombatAction'] = int(time.time())
         return
 
     # if the player is dodging then miss a turn
@@ -1512,7 +1510,6 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     if not _playerIsAvailable(s1id, npcs, itemsDB, rooms,
                               mapArea, clouds,
                               maxTerrainDifficulty):
-        npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
     # if the npc is dodging then miss a turn
