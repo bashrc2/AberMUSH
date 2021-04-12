@@ -85,6 +85,56 @@ def getMaxWeight(id, players: {}) -> int:
     return strength * 15
 
 
+def prone(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
+    if players[id]['frozenStart'] != 0:
+        mud.sendMessage(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '\n\n')
+        return
+
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if not playerIsProne(id, players):
+        msgStr = 'You lie down<r>\n\n'
+        mud.sendMessage(id, randomDescription(msgStr))
+        setPlayerProne(id, players, True)
+    else:
+        msgStr = 'You are already lying down<r>\n\n'
+        mud.sendMessage(id, randomDescription(msgStr))
+
+
+def stand(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
+    if players[id]['frozenStart'] != 0:
+        mud.sendMessage(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '\n\n')
+        return
+
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if playerIsProne(id, players):
+        msgStr = 'You stand up<r>\n\n'
+        mud.sendMessage(id, randomDescription(msgStr))
+        setPlayerProne(id, players, True)
+    else:
+        msgStr = 'You are already standing up<r>\n\n'
+        mud.sendMessage(id, randomDescription(msgStr))
+
+
 def dodge(params, mud, playersDB: {}, players: {}, rooms: {},
           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -5982,6 +6032,13 @@ def take(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if params:
+        if params == 'up':
+            stand(params, mud, playersDB, players, rooms, npcsDB, npcs,
+                  itemsDB, items, envDB, env, eventDB, eventSchedule,
+                  id, fights, corpses, blocklist, mapArea, characterClassDB,
+                  spellsDB, sentimentDB, guildsDB, clouds, racesDB)
+            return
+
         # get into, get through
         if params.startswith('into') or params.startswith('through'):
             climb(params, mud, playersDB, players, rooms, npcsDB, npcs,
@@ -6343,7 +6400,9 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "shuffle": shuffle,
         "call": callCardGame,
         "morris": morrisGame,
-        "dodge": dodge
+        "dodge": dodge,
+        "prone": prone,
+        "stand": stand
     }
 
     try:
