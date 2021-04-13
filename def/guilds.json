@@ -208,5 +208,10 @@
 	"description": "Winders and packers of wool",
 	"roles": ["fabricshearer","feltmaker","carder","combmaker"],
 	"affinity": {}
+    },
+    "Merchants": {
+	"description": "Buyers and sellers",
+	"roles": ["trader","financier","exporter"],
+	"affinity": {}
     }
 }
