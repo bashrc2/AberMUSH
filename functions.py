@@ -29,8 +29,8 @@ wearLocation = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
 _dispatcher = {}
 
 
-def _copy_list(l, dispatch):
-    ret = l.copy()
+def _copy_list(listToCopy: [], dispatch):
+    ret = listToCopy.copy()
     for idx, item in enumerate(ret):
         cp = dispatch.get(type(item))
         if cp is not None:

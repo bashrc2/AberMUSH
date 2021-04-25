@@ -2472,6 +2472,19 @@ def itemIsVisible(observerId: int, players: {},
     return False
 
 
+def itemIsClimbable(climberId: int, players: {},
+                    itemId: int, itemsDB: {}) -> bool:
+    """Is the item climbable by the player?
+    """
+    itemId = int(itemId)
+    if not itemsDB[itemId].get('climbWhenWearing'):
+        return True
+    if isWearing(climberId, players,
+                 itemsDB[itemId]['climbWhenWearing']):
+        return True
+    return False
+
+
 def moonIllumination(currTime) -> int:
     """Returns additional illumination due to moonlight
     """
@@ -3990,6 +4003,15 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
                    rooms[targetRoom]['maxPlayers']:
                     mud.sendMessage(id, "It's too crowded.\n\n")
                     return
+
+            if not itemIsClimbable(id, players, itemId, itemsDB):
+                if failMsg:
+                    mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
+                else:
+                    failMsg = 'You try to climb, but totally fail'
+                    mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
+                return
+
             desc = \
                 randomDescription(players[id]['outDescription'])
             messageToPlayersInRoom(mud, players, id, '<f32>' +
@@ -5064,6 +5086,7 @@ def conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "canWield": 0,
         "canWear": 0,
         "visibleWhenWearing": [],
+        "climbWhenWearing": [],
         "frozenStart": 0,
         "frozenDuration": 0,
         "frozenDescription": "",

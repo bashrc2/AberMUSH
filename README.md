@@ -524,6 +524,18 @@ You can then use the command:
 climb through window
 ```
 
+You can also make climbing conditional upon wearing a particular item.
+
+``` text
+    "1293": {
+        "name": "ice wall",
+        "short_description": "A huge wall of ice.",
+		"climbWhenWearing": ["7358"],
+        "climbThrough": "Wearing the ice boots you climb up the wall of ice.",
+        "exit": "$rid=1294$",
+		...
+```
+
 If there are items in the room which the player might try to climb, but which aren't climbable then you can specify a failure message for that.
 
 ``` text

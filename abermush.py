@@ -254,6 +254,7 @@ for k in npcsDB:
                v == "room" or
                v == "inv" or
                v == "visibleWhenWearing" or
+               v == "climbWhenWearing" or
                v == "speakLanguage" or
                v == "language" or
                v == "race" or
@@ -361,6 +362,7 @@ for k in itemsDB:
                v == "language" or
                v == "state" or
                v == "visibleWhenWearing" or
+               v == "climbWhenWearing" or
                v == "type" or
                v == "writeWithItems" or
                v == "written" or
