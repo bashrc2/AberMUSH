@@ -13032,5 +13032,26 @@
         "region": "",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1410$": {
+        "exits": {
+	    "down": "$rid=53$"
+        },
+        "name": "Nymph fountain bowl",
+        "description": "In former days the nymph fountain was obviously a symbol of conspicuous grandieur, but now its bowl contains a shallow layer of stagnant water populated by tiny pond creatures and miniature mossy islands.",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 1,
+        "onWater": 0,
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }
