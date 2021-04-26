@@ -19257,7 +19257,7 @@
         "short_description": "'Beauty may pass with the heady days of youth, but I shall always remember you' is carved onto the bowl of the fountain.",
         "long_description": "A crystal clear fountain plays gently over a beautiful carved nymph in the centre of the courtyard. The carving is exquisite and must have taken a master many years of labour.|'Beauty may pass with the heady days of youth, but I shall always remember you' is carved onto the bowl of the fountain.",
 	"takeFail": "You can't take the fountain.",
-	"climbFail": "You try to climb up into the bowl of the fountain, but it's too slippery.",
+	"climbFail": "You try to climb up into the bowl of the fountain, but it's too slippery",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
