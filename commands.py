@@ -3980,24 +3980,34 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
     for (item, pl) in list(items.items()):
         if items[item]['room'] == players[id]['room']:
             itemId = items[item]['id']
+
+            # can the player see the item?
             if not itemIsVisible(id, players, itemId, itemsDB):
                 continue
+
+            # item fields needed for climbing
             if itemsDB[itemId].get('climbFail'):
                 failMsg = itemsDB[itemId]['climbFail']
             if not itemsDB[itemId].get('climbThrough'):
                 continue
             if not itemsDB[itemId].get('exit'):
                 continue
+
+            # if this is a door is it open?
             if itemsDB[itemId].get('state'):
                 if 'open' not in itemsDB[itemId]['state']:
                     mud.sendMessage(id, itemsDB[itemId]['name'] +
                                     " is closed.\n\n")
                     continue
+
+            # is the player too big?
             targetRoom = itemsDB[itemId]['exit']
             if rooms[targetRoom]['maxPlayerSize'] > -1:
                 if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
                     mud.sendMessage(id, "You're too big.\n\n")
                     return
+
+            # are there too many players in the room?
             if rooms[targetRoom]['maxPlayers'] > -1:
                 if playersInRoom(targetRoom, players, npcs) >= \
                    rooms[targetRoom]['maxPlayers']:
@@ -4017,6 +4027,7 @@ def climb(params, mud, playersDB: {}, players: {}, rooms: {},
             messageToPlayersInRoom(mud, players, id, '<f32>' +
                                    players[id]['name'] + '<r> ' +
                                    desc + '\n')
+
             # Trigger old room eventOnLeave for the player
             if rooms[players[id]['room']]['eventOnLeave'] != "":
                 addToScheduler(int(rooms[players[id]['room']]['eventOnLeave']),
