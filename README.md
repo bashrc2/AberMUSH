@@ -530,7 +530,7 @@ You can also make climbing conditional upon wearing a particular item.
     "1293": {
         "name": "ice wall",
         "short_description": "A huge wall of ice.",
-		"climbWhenWearing": ["7358"],
+		"climbWhenWearing": [7358, 6562],
         "climbThrough": "Wearing the ice boots you climb up the wall of ice.",
         "exit": "$rid=1294$",
 		...
