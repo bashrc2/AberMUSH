@@ -469,7 +469,7 @@ The *jump* command can be used to jump onto an item. For example, an item can be
         "long_description": "The precarious ledge is across the chasm",
         "jumpTo": "You take a running jump onto the ledge",
         "exit": "$rid=1835$",
-		...
+        ...
 ```
 
 The exit is the room to move to when jumping.
@@ -491,7 +491,7 @@ Sometimes you want to move an item in a manner which isn't the same thing as ope
         "long_description": "A giant spherical stone covers the entrance to the tomb.",
         "heave": "You roll the giant stone to one side and enter the tomb.",
         "exit": "$rid=4356$",
-		...
+        ...
 ```
 
 The exit is the room to move to when rolling.
@@ -513,7 +513,7 @@ You can add items to a room such as windows which the player can then climb thro
         "long_description": "It looks out over the snows. You could climb out of the window and down the snowbanks outside, providing of course they will take your weight. It is difficult to tell if they will though.",
         "climbThrough": "With considerable effort you scramble through the window.",
         "exit": "$rid=1294$",
-		...
+        ...
 ```
 
 The exit is the room to move to when climbing through.
@@ -530,10 +530,10 @@ You can also make climbing conditional upon wearing a particular item.
     "1293": {
         "name": "ice wall",
         "short_description": "A huge wall of ice.",
-		"climbWhenWearing": [7358, 6562],
+        "climbWhenWearing": [7358, 6562],
         "climbThrough": "Wearing the ice boots you climb up the wall of ice.",
         "exit": "$rid=1294$",
-		...
+        ...
 ```
 
 If there are items in the room which the player might try to climb, but which aren't climbable then you can specify a failure message for that.
@@ -563,9 +563,9 @@ If an item has a weight of zero then it is fixed in place. If you want to provid
 "517": {
     "name": "manacled skeleton",
     "long_description": "There is a skeleton chained to the wall.",
-	"takeFail": "You try to remove the skeleton but it's firmly chained to the wall.",
-	"weight": 0,
-	...
+    "takeFail": "You try to remove the skeleton but it's firmly chained to the wall.",
+    "weight": 0,
+    ...
 }
 ```
 
