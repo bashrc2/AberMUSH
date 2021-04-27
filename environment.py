@@ -230,9 +230,58 @@ def findRoomWithoutCoords(rooms: {}):
     return None
 
 
-def assignCoordinates(rooms: {}) -> []:
+def _createVirtualExits(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> None:
+    """If there are any doors then this Generates the
+    virtual exits dicts for each room
+    """
+    for rm in rooms:
+        rooms[rm]['virtualExits'] = {}
+
+    # get a list of door items
+    doorCtr = 0
+    for itemId in itemsDB:
+        if not itemsDB[itemId].get('exit'):
+            continue
+        if not itemsDB[itemId].get('exitName'):
+            continue
+        if '|' not in itemsDB[itemId]['exitName']:
+            continue
+        roomId = None
+        for event in scriptedEventsDB:
+            if event[2] != 'spawnItem':
+                continue
+            eventItem = event[3].split(';')
+            if eventItem[0] != str(itemId):
+                continue
+            roomId = eventItem[1]
+            break
+        if roomId:
+            exitDirection = itemsDB[itemId]['exitName'].split('|')[0]
+            collides = False
+            if rooms[roomId]['exits'].get(exitDirection):
+                print('Room ' + roomId + ' has item ' +
+                      str(itemId) + ' with colliding exit ' + exitDirection)
+                collides = True
+
+            if rooms[roomId].get('tideOutExits'):
+                if rooms[roomId]['tideOutExits'].get(exitDirection):
+                    print('Room ' + roomId + ' has item ' +
+                          str(itemId) + ' with colliding tide out exit ' +
+                          exitDirection)
+                collides = True
+
+            if not collides:
+                exitRoomId = itemsDB[itemId]['exit']
+                rooms[roomId]['virtualExits'][exitDirection] = exitRoomId
+                doorCtr += 1
+    print('Door items: ' + str(doorCtr))
+
+
+def assignCoordinates(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> []:
     """Assigns cartesian coordinates to each room and returns the limits
     """
+    _createVirtualExits(rooms, itemsDB, scriptedEventsDB)
+
     mapArea = [[9999999999, -9999999999],
                [9999999999, -9999999999],
                [9999999999, -9999999999]]

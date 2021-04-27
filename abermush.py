@@ -168,7 +168,89 @@ maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 
 log("Terrain difficulty calculated. max=" + str(maxTerrainDifficulty), "info")
 
-mapArea = assignCoordinates(rooms)
+# Loading Items
+if os.path.isfile("universe_items.json"):
+    try:
+        with open("universe_items.json", "r") as read_file:
+            itemsInWorld = json.loads(read_file.read())
+    except BaseException:
+        print('WARN: unable to load universe_items.json')
+        pass
+
+if os.path.isfile("universe_itemsdb.json"):
+    try:
+        with open("universe_itemsdb.json", "r") as read_file:
+            itemsDB = json.loads(read_file.read())
+    except BaseException:
+        print('WARN: unable to load universe_itemsdb.json')
+        pass
+
+if not itemsDB:
+    with open(str(Config.get('Items', 'Definition')), "r") as read_file:
+        itemsDB = json.loads(read_file.read())
+
+output_dict = {}
+for key, value in itemsDB.items():
+    output_dict[int(key)] = value
+
+itemsDB = output_dict
+
+for k in itemsDB:
+    for v in itemsDB[k]:
+        if not(v == "name" or
+               v == "long_description" or
+               v == "short_description" or
+               v == "open_description" or
+               v == "open_failed_description" or
+               v == "close_description" or
+               v == "room" or
+               v == "language" or
+               v == "state" or
+               v == "visibleWhenWearing" or
+               v == "climbWhenWearing" or
+               v == "type" or
+               v == "writeWithItems" or
+               v == "written" or
+               v == "written_description" or
+               v == "contains" or
+               v == "climbThrough" or
+               v == "damage" or
+               v == "cost" or
+               v == "range" or
+               v == "heave" or
+               v == "jumpTo" or
+               v == "game" or
+               v == "gameState" or
+               v == "exit" or
+               v == "exitName" or
+               v == "moveTimes" or
+               v == "takeFail" or
+               v == "climbFail" or
+               v == "cardPack" or
+               v == "chessBoardName" or
+               v == "morrisBoardName" or
+               v == "article"):
+            itemsDB[k][v] = int(itemsDB[k][v])
+
+log("Items loaded: " + str(len(itemsDB)), "info")
+
+# Load scripted event declarations from disk
+files = glob.glob(str(Config.get('Events', 'Location')) + "/*.event")
+counter = 0
+for file in files:
+    counter += 1
+    f = open(file, 'r')
+    # print(file)
+    lines = [line.rstrip() for line in f.readlines()[2:]]
+    for fileLine in lines[1:]:
+        if len(fileLine) > 0:
+            scriptedEventsDB.append([lines[0]] + fileLine.split('|'))
+            # print(lines)
+            f.close()
+
+log("Scripted Events loaded: " + str(counter), "info")
+
+mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB)
 
 # check that there are no room collisions
 findRoomCollisions(rooms)
@@ -323,72 +405,6 @@ log("Guilds loaded: " + str(len(guildsDB)), "info")
 # for y in npcsDB[x]:
 # print (y,':',npcsDB[x][y])
 
-# Loading Items
-if os.path.isfile("universe_items.json"):
-    try:
-        with open("universe_items.json", "r") as read_file:
-            itemsInWorld = json.loads(read_file.read())
-    except BaseException:
-        print('WARN: unable to load universe_items.json')
-        pass
-
-if os.path.isfile("universe_itemsdb.json"):
-    try:
-        with open("universe_itemsdb.json", "r") as read_file:
-            itemsDB = json.loads(read_file.read())
-    except BaseException:
-        print('WARN: unable to load universe_itemsdb.json')
-        pass
-
-if not itemsDB:
-    with open(str(Config.get('Items', 'Definition')), "r") as read_file:
-        itemsDB = json.loads(read_file.read())
-
-output_dict = {}
-for key, value in itemsDB.items():
-    output_dict[int(key)] = value
-
-itemsDB = output_dict
-
-for k in itemsDB:
-    for v in itemsDB[k]:
-        if not(v == "name" or
-               v == "long_description" or
-               v == "short_description" or
-               v == "open_description" or
-               v == "open_failed_description" or
-               v == "close_description" or
-               v == "room" or
-               v == "language" or
-               v == "state" or
-               v == "visibleWhenWearing" or
-               v == "climbWhenWearing" or
-               v == "type" or
-               v == "writeWithItems" or
-               v == "written" or
-               v == "written_description" or
-               v == "contains" or
-               v == "climbThrough" or
-               v == "damage" or
-               v == "cost" or
-               v == "range" or
-               v == "heave" or
-               v == "jumpTo" or
-               v == "game" or
-               v == "gameState" or
-               v == "exit" or
-               v == "exitName" or
-               v == "moveTimes" or
-               v == "takeFail" or
-               v == "climbFail" or
-               v == "cardPack" or
-               v == "chessBoardName" or
-               v == "morrisBoardName" or
-               v == "article"):
-            itemsDB[k][v] = int(itemsDB[k][v])
-
-log("Items loaded: " + str(len(itemsDB)), "info")
-
 # List items for debugging purposes
 # print("TEST:")
 # for x in itemsDB:
@@ -396,22 +412,6 @@ log("Items loaded: " + str(len(itemsDB)), "info")
 # for y in itemsDB[x]:
 # print(y,':',itemsDB[x][y])
 # print(itemsDB)
-
-# Load scripted event declarations from disk
-files = glob.glob(str(Config.get('Events', 'Location')) + "/*.event")
-counter = 0
-for file in files:
-    counter += 1
-    f = open(file, 'r')
-    # print(file)
-    lines = [line.rstrip() for line in f.readlines()[2:]]
-    for fileLine in lines[1:]:
-        if len(fileLine) > 0:
-            scriptedEventsDB.append([lines[0]] + fileLine.split('|'))
-            # print(lines)
-            f.close()
-
-log("Scripted Events loaded: " + str(counter), "info")
 
 # Load registered players DB
 playersDB = loadPlayersDB()
