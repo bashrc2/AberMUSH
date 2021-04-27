@@ -3125,7 +3125,9 @@
         "name": "Wooded Clearing",
         "description": "The trees thin out and spread around a wide grassy clearing. A narrow path winds away from the clearing northwards into the trees.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","The trees thin out and spread around a wide grassy clearing. A narrow path winds away from the clearing northwards into the trees. It is raining."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5414,9 +5416,11 @@
     },
     "$rid=650$": {
         "name": "The Great Eastern Road",
-        "description": "You stand just outside the city of Tranoch on the far western end of the great eastern road, the long caravan trail through the mountains and beyond, the trail of so many legends and songs, the road to the mysterious lands of legend. For all this it seems to be a fairly boring cobbled road leading off eastwards into the distance, and westwards through a small gate into the walled city. A narrow weed covered path runs south into a quiet, deserted graveyard.",
+        "description": "",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","You stand in the rain just outside the city of Tranoch on the far western end of the great eastern road, the long caravan trail through the mountains and beyond, the trail of so many legends and songs, the road to the mysterious lands of legend. For all this it seems to be a fairly boring cobbled road leading off eastwards into the distance, and westwards through a small gate into the walled city. A narrow undergrowth covered path runs south towards a quiet, deserted temple."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5519,7 +5523,9 @@
         "name": "Stream Bank",
         "description": "You stand on the bank of a small crystal clear stream, which burbles gently to itself as it splashes its happy way southwards, dancing across its rocky bed. Trees line the bank, pushing outwards towards the stream in search of water. A narrow stony path follows the stream both northwards and southwards.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","You stand on the bank of a small crystal clear stream, which burbles gently to itself as it splashes its happy way southwards, dancing across its rocky bed. Trees line the bank, pushing outwards towards the stream in search of water. A narrow muddy path follows the stream both northwards and southwards."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5542,13 +5548,15 @@
         "name": "Rocky Bowl",
         "description": "The path descends steeply down into a rocky bowl, surrounded by thick bushes and towering trees. The stream splashes down into the bowl, a small waterfall sending the light dancing in a million flickering rainbows. The stream runs southwards across the bowl before turning east and disappearing down a narrow shaded ravine and out of sight.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","The path descends steeply down into a rocky bowl, surrounded by thick bushes and towering trees. The stream splashes down into the bowl, a small waterfall scattering the rising spray into primary rainbow colors. The stream runs southwards across the bowl before turning east and disappearing down a narrow shaded ravine."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "roomType": "",
         "virtualExits": {},
@@ -5569,13 +5577,15 @@
         "name": "Narrow Ravine",
         "description": "You stand in a narrow shaded ravine at the foot of the mountains. A single wide trail climbs eastwards up above the trees, before disappearing into the grey rocky expanse. A narrow stream splashes and gurgles its way down the ravine from the west before turning sharply northwards.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","You stand in the rain in a narrow shaded ravine at the foot of the mountains. A single wide trail climbs eastwards up above the trees, before disappearing into the grey rocky expanse. A narrow stream splashes and gurgles its way down the ravine from the west before turning sharply northwards."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "roomType": "",
         "virtualExits": {},
@@ -5617,7 +5627,9 @@
         "name": "Mountain Road",
         "description": "'The road goes ever on..' seems to have true meaning as you trudge your way across the desolate windswept landscape. As far as you can see eastwards the mountain road winds on and on through the peaks, a single trail against a vast, soul shattering, wall of grey.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","'The road goes ever on..' seems to have true meaning as you trudge in the rain across the desolate windswept landscape. As far as you can see eastwards the mountain road winds on and on through the peaks, a single trail against a vast, soul shattering, wall of grey."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5687,7 +5699,9 @@
         "name": "Narrow Ledge",
         "description": "You are standing on a narrow windswept ledge up above the rocky shore. The distance down isn't too great and you can probably quite safely drop it. The view here is nice, although the continual squarking of seagulls around you is annoying to say the least.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","true","You are standing on a narrow windswept ledge up above the rocky shore. The distance down isn't too great and you can probably quite safely drop it. The view here is nice, although the continual rain and squarking of seagulls around you is annoying to say the least."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -5754,7 +5768,7 @@
     },
     "$rid=670$": {
         "name": "Lake Shore",
-        "description": "You stand on the shore of a large still underwater lake. The waters are dark and scarcely ripple. Many rather vicious looking fish swim through the waters hunting for lunch. Behind you the beach ends in a steep cave wall, with a huge stalagmite climbing upwards beside it.",
+        "description": "You stand on the shore of a large still underground lake. The waters are dark and scarcely ripple. Many rather vicious looking fish swim through the waters hunting for lunch. Behind you the beach ends in a steep cave wall, with a huge stalagmite climbing upwards beside it.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -5777,7 +5791,7 @@
     },
     "$rid=672$": {
         "name": "The Large Rock",
-        "description": "You are perched on a large rock, out in the middle of a deep underwater lake. The water laps gently around you. As you look down into the water you can see a causeway about 2' below the water level, which leads east to dry land. Large numbers of rather vicious looking fish swarm around in the water.",
+        "description": "You are perched on a large rock, out in the middle of a deep underground lake. The water laps gently around you. As you look down into the water you can see a causeway about 2' below the water level, which leads east to dry land. Large numbers of rather vicious looking fish swarm around in the water.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
