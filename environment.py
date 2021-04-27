@@ -219,12 +219,13 @@ def findRoomWithoutCoords(rooms: {}):
         if rooms[rm]['coords'][1] > max_east:
             max_east = rooms[rm]['coords'][1]
 
+    noOfRooms = len(rooms)
     for rm in rooms:
         # Room without coords
         if rooms[rm]['coordsAssigned']:
             continue
         rooms[rm]['coordsAssigned'] = True
-        rooms[rm]['coords'] = [0, max_east + 1000, 0]
+        rooms[rm]['coords'] = [0, max_east + noOfRooms, 0]
         return rooms[rm]
 
     return None
