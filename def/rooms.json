@@ -1430,7 +1430,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "North Road",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1455,7 +1455,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "North Road",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1535,7 +1535,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple Of Remembrance",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1561,7 +1561,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple Of Remembrance",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1635,7 +1635,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1860,7 +1860,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "East Tower",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1882,7 +1882,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "East Tower",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1906,7 +1906,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "East Tower",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1932,7 +1932,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "East Tower",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1954,7 +1954,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "East Tower",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3138,7 +3138,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pleasant Lane",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3189,7 +3189,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pleasant Lane",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3240,7 +3240,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pleasant Lane",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3285,7 +3285,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3307,7 +3307,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3332,7 +3332,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3358,7 +3358,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3383,7 +3383,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3410,7 +3410,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3436,7 +3436,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3462,7 +3462,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3511,7 +3511,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3537,7 +3537,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3561,7 +3561,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3591,7 +3591,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3618,7 +3618,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3644,7 +3644,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3669,7 +3669,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -3717,7 +3717,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5337,7 +5337,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple Of Remembrance",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5360,7 +5360,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple Of Remembrance",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5382,7 +5382,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple Of Remembrance",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5405,7 +5405,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple Of Remembrance",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5431,7 +5431,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Great Eastern Road",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5460,7 +5460,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Great Eastern Road",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5485,7 +5485,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Great Eastern Road",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5503,7 +5503,8 @@
         "description": "The track emerges from the west into a pleasant open clearing. The path forks leading northwards into thickish trees and southwards towards an open space of some sort.",
         "roomTeleport": "",
         "conditional": [
-	    ["season","winter","The track emerges from the west into a pleasant open clearing. The path forks leading northwards into thickish trees and southwards towards an open space of some sort.","653_winter"]
+	    ["season","winter","The track emerges from the west into a pleasant open clearing. The path forks leading northwards into thickish trees and southwards towards an open space of some sort.","653_winter"],
+	    ["rain","true","The track emerges from the west into a pleasant open clearing. The path forks leading northwards into thickish trees and southwards towards an open space of some sort. It is raining."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -5515,7 +5516,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Great Eastern Road",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -11882,7 +11883,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -11928,7 +11929,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -12159,7 +12160,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -12463,7 +12464,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -12488,7 +12489,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "tranoch",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
