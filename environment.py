@@ -231,6 +231,66 @@ def findRoomWithoutCoords(rooms: {}):
     return None
 
 
+def _removeCoordinateGaps(rooms: {}) -> None:
+    """Removes gaps in the east line coordinates of rooms
+    """
+    max_east = 0
+    for rm in rooms:
+        # Room without coords
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        if rooms[rm]['coords'][1] > max_east:
+            max_east = rooms[rm]['coords'][1]
+
+    eastLine = [0] * (max_east + 1)
+    for rm in rooms:
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        e = rooms[rm]['coords'][1]
+        eastLine[e] = 1
+
+    start_east = None
+    gaps = []
+    for e in range(max_east + 1):
+        if not start_east:
+            if eastLine[e] == 0:
+                start_east = e
+        else:
+            if eastLine[e] == 1:
+                if e - start_east > 5:
+                    gaps = [[start_east, e - start_east]] + gaps
+                start_east = None
+
+    for g in gaps:
+        start_east = g[0]
+        gap_width = g[1]
+        for rm in rooms:
+            if not rooms[rm]['coordsAssigned']:
+                continue
+            e = rooms[rm]['coords'][1]
+            if e >= start_east:
+                rooms[rm]['coords'][1] -= gap_width
+
+    eastLine = [0] * (max_east + 1)
+    for rm in rooms:
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        e = rooms[rm]['coords'][1]
+        eastLine[e] = 1
+
+    start_east = None
+    for e in range(max_east + 1):
+        if not start_east:
+            if eastLine[e] == 0:
+                start_east = e
+        else:
+            if eastLine[e] == 1:
+                if e - start_east > 5:
+                    print('East line gap ' +
+                          str(start_east) + ' -> ' + str(e-1))
+                start_east = None
+
+
 def _createVirtualExits(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> None:
     """If there are any doors then this Generates the
     virtual exits dicts for each room
@@ -337,6 +397,8 @@ def assignCoordinates(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> []:
             if rooms[rm]['coords'][1] >= trimCoords[i][1]:
                 adjust = (trimCoords[i][1] - trimCoords[i][0]) - 2
                 rooms[rm]['coords'][1] -= adjust
+
+    _removeCoordinateGaps(rooms)
 
     # recalculate the map area
     for rm in rooms:
