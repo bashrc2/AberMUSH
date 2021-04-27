@@ -1701,7 +1701,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1726,7 +1726,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -9067,7 +9067,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13451,7 +13451,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13472,7 +13472,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13494,7 +13494,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13516,7 +13516,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13540,7 +13540,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13566,7 +13566,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -13585,7 +13585,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13609,7 +13609,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -14221,7 +14221,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wolf's Castle",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -14244,7 +14244,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "East Tower",
         "terrainDifficulty": 0,
         "coords": []
     },
