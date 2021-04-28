@@ -13637,7 +13637,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Void",
+        "region": "Purgatory",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -13658,7 +13658,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Void",
+        "region": "Purgatory",
         "terrainDifficulty": 0,
         "coords": []
     },
