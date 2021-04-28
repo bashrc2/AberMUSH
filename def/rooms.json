@@ -6175,7 +6175,8 @@
     },
     "$rid=754$": {
         "exits": {
-            "north": "$rid=759$"
+            "north": "$rid=759$",
+            "south": "$rid=753$"
         },
         "name": "The smooth tunnel",
         "description": "You are standing in a rounded tunnel which runs from north to south. The walls and floor have been worn smooth by many years of use. A sign on the wall reads 'A rolling stone... gathers more than just moss.'",
