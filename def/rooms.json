@@ -14,7 +14,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Merchant Sewer",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -36,7 +36,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch Sewer",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -58,7 +58,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch Sewer",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -84,7 +84,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch Sewer",
         "terrainDifficulty": 0,
         "coords": []
     },
