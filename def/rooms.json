@@ -2132,7 +2132,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You are standing at the top of the small tower. The parapet is a little low, but you can see in all directions over it. To the north is the town of Tranoch. The sea appears calm to the west. Your view south is limited by the woodland, but moorland can be glimpsed beyond it. To the east, the mountains rear.",
-        "region": "",
+        "region": "Morran's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2201,7 +2201,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Morran's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2222,7 +2222,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Morran's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2244,7 +2244,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Morran's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2268,7 +2268,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Morran's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -2290,7 +2290,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Morran's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
