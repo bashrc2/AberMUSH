@@ -6146,7 +6146,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6169,7 +6169,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6191,7 +6191,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6213,7 +6213,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6241,7 +6241,8 @@
     },
     "$rid=759$": {
         "exits": {
-            "west": "$rid=760$"
+            "west": "$rid=760$",
+            "south": "$rid=754$"
         },
         "name": "The smooth tunnel corner",
         "description": "You have arrived at a corner in the tunnel. It continues to the west and to the south.",
@@ -6257,7 +6258,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6276,7 +6277,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6300,7 +6301,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6323,7 +6324,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Smooth Tunnel",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6346,7 +6347,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on a pebble beach with the receded waterline in the distance. It appears to encircle the island rock. There is more beach to the north and the south. The rock face is sheer and totally impossible to climb. High up on the cliff face there is a short ledge, outside a large hole.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6369,7 +6370,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on a pebble beach with the receded waterline in the distance. It appears to encircle the island rock. There is more beach to the east and the west. The rock face is sheer and totally impossible to climb.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6392,7 +6393,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on a pebble beach with the receded waterline in the distance. It appears to encircle the island rock. There is more beach to the east and the west. To the north is a small cavemouth. There is a large window cut into the rock, about three-quarters of the way up the cliff.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6587,7 +6588,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on a pebble beach with the tide receded. It appears to encircle the island rock. There  is more beach to the north and the south. The rock face is sheer and totally impossible to climb.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6610,7 +6611,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on a pebble beach with the tide receded. It appears to encircle the island rock. There is more beach to the east and the west. To the north, the water looks easily fordable to the beach opposite. To the south, a set of rough, stone steps  descends the side of the rock to the beach.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6635,7 +6636,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on a pebble beach with the tide receded. It appears to encircle the island rock. There is more beach to the east and the west. To the north, the water looks easily fordable to the beach opposite. To the south, and about six feet up a steep slope, you can see the mouth of a cave.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -9158,7 +9159,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You are in a sandy cove surrounded by rocky cliffs to the north and west. A wide cavemouth leads into a cave to the west. To the east is a calm shore. A shallow stream, easily fordable, lies to the south.",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -9181,7 +9182,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Echo Beach",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
