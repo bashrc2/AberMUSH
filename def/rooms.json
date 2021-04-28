@@ -6017,7 +6017,7 @@
     },
     "$rid=741$": {
         "name": "The Jagged Cliff",
-        "description": "You are hanging precariously onto a jagged cliff. Rock and rubbles bites into you as you desperately hold onto the egde. You can probably drop down onto some rocks below, and you certainly are not going anywhere else.",
+        "description": "You are hanging precariously onto a jagged cliff. Rock and rubbles bites into you as you desperately hold onto the edge. You can probably drop down onto some rocks below, and you certainly are not going anywhere else.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
