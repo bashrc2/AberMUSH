@@ -2206,7 +2206,6 @@
     },
     "$rid=277$": {
         "exits": {
-            "down": "$rid=4$"
         },
         "name": "Chart Room",
         "description": "Looking round this room you can see the resting place of a weary but satisfied seafaring merchant. Curiosities of far-reaching travels abound.",
