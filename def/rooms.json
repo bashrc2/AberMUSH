@@ -2643,7 +2643,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4594,7 +4594,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4616,7 +4616,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4666,7 +4666,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4693,7 +4693,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You are rowing past the south of the island. You can't see more than a few yards into the dense woodland. Jagged rocks protrude from the shoreline.",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4741,7 +4741,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4768,7 +4768,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4792,7 +4792,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -8732,7 +8732,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -8755,7 +8755,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -8778,7 +8778,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -9094,7 +9094,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You are floating just off the village. You can row westwards and beach upon the shore or you can travel safely northwards following the line of the breakwater to the river mouth. To the south you can hug the shoreline but to the east, the seas become rocky and dangerous.",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -9117,7 +9117,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "To your west the waves lap against a beach, to the south the sea becomes treacherous as it crashes against barnacle encrusted rocks. To the east the waves rise as the sea becomes more exposed. To the north the waters are fairly calm as they meet a high cliff.",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -9139,7 +9139,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Môr Iwerddon",
         "terrainDifficulty": 0,
         "coords": []
     },
