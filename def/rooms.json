@@ -341,7 +341,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dam",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -364,7 +364,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dam",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -387,7 +387,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dam",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -666,7 +666,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dam",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -738,7 +738,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Cottage Ruins",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -757,7 +757,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Cottage Ruins",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -786,7 +786,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Cottage Ruins",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -812,7 +812,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Cottage Ruins",
         "terrainDifficulty": 0,
         "coords": []
     },
