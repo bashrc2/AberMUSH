@@ -387,7 +387,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Dam",
+        "region": "Desolate Path",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -409,7 +409,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -432,7 +432,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -456,7 +456,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -483,7 +483,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -506,7 +506,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -527,7 +527,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -548,7 +548,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -591,7 +591,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -617,7 +617,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -642,7 +642,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "temple",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -666,7 +666,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Dam",
+        "region": "Desolate Path",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -691,7 +691,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Desolate Path",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -714,7 +714,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Temple of Pleasure",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
