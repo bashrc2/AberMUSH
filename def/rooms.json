@@ -1166,7 +1166,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "You stand on the jumbled ice and rocks at the end of the fjord, gazing westwards across the sullen moaning sea. There is an icy wind. A narrow path leads eastwards through the ice into some trees, and another dangerous-looking trail climbs southwards up the side of the fjord itself.",
-        "region": "",
+        "region": "Pine Forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1189,7 +1189,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pine Forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
