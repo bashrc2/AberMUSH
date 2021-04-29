@@ -14,7 +14,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Merchant Sewer",
+        "region": "Tranoch Sewer",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -111,7 +111,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Hidden Garden",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -130,7 +130,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -154,7 +154,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -177,7 +177,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -200,7 +200,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -223,7 +223,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -250,7 +250,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -269,7 +269,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -292,7 +292,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -316,7 +316,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Blue Lake",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -14049,7 +14049,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Hidden Garden",
         "terrainDifficulty": 0,
         "coords": []
     },
