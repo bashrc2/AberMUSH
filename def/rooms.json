@@ -956,7 +956,7 @@
         }
     },
     "$rid=101$": {
-        "name": "Outside Temple",
+        "name": "Outside Viking Hall",
         "description": "You stand outside a large well built viking temple hall. The building is solid rather than beautiful, which is fortunate as a large woodpile rests against the east wall. A narrow path leads north through the trees and south up to a stout door.",
         "roomTeleport": "",
         "conditional": [
@@ -972,7 +972,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Viking Hall",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -999,7 +999,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Viking Hall",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1072,7 +1072,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pine Forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1096,7 +1096,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Viking Hall",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1124,7 +1124,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pine Forest",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1143,7 +1143,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Pine Forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
