@@ -74,16 +74,17 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
 
     if command == 'cat':
         if ';' not in params:
-            mud.sendMessage(id, "<f220>There is a fair fort upon the sea-shore." +
-                            "\nPleasantly, each is given his desire.\n" +
-                            "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
-                            " they earned.\nOn Wednesday, I saw men in conflict" +
-                            ";\non Thursday, it was reproaches they contended " +
-                            "with.\nAnd hair was red with blood, and lamenting " +
-                            "on harps.\nWeary were the men of Gwynedd the day " +
-                            "they came,\nand atop the stone of Maelwy they " +
-                            "shelter shields.\nA host of kinsmen fell by the " +
-                            "descendant.")
+            mud.sendMessage(
+                id, "<f220>There is a fair fort upon the sea-shore." +
+                "\nPleasantly, each is given his desire.\n" +
+                "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
+                " they earned.\nOn Wednesday, I saw men in conflict" +
+                ";\non Thursday, it was reproaches they contended " +
+                "with.\nAnd hair was red with blood, and lamenting " +
+                "on harps.\nWeary were the men of Gwynedd the day " +
+                "they came,\nand atop the stone of Maelwy they " +
+                "shelter shields.\nA host of kinsmen fell by the " +
+                "descendant.")
             mud.sendMessage(id, "\n>")
             return True
         else:
