@@ -906,7 +906,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Viking Hall",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -927,7 +927,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Viking Hall",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -949,7 +949,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Viking Hall",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {

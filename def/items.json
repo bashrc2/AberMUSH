@@ -2861,7 +2861,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You scramble up the side of the woodpile",
         "armorClass": 0,
         "damage": "",
         "range": [0, 0],
@@ -2888,7 +2888,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=96$",
         "lightSource": 0,
         "article": "a"
     },
