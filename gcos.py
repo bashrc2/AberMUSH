@@ -7,6 +7,11 @@ __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
 
+def terminalMount(mud, id):
+    mud.sendMessage(id, "<f220>DSS port C mounted")
+    mud.sendMessage(id, "\n>")
+
+
 def terminalEmulator(command: str, params: str, mud, id) -> bool:
     """ easteregg
     A completely convincing Honeywell emulator
@@ -67,28 +72,42 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         mud.sendMessage(id, "\n>")
         return True
 
-    if command == 'cat' and ';' not in params:
-        mud.sendMessage(id, "<f220>There is a fair fort upon the sea-shore." +
-                        "\nPleasantly, each is given his desire.\n" +
-                        "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
-                        " they earned.\nOn Wednesday, I saw men in conflict" +
-                        ";\non Thursday, it was reproaches they contended " +
-                        "with.\nAnd hair was red with blood, and lamenting " +
-                        "on harps.\nWeary were the men of Gwynedd the day " +
-                        "they came,\nand atop the stone of Maelwy they " +
-                        "shelter shields.\nA host of kinsmen fell by the " +
-                        "descendant.")
-        mud.sendMessage(id, "\n>")
-        return True
+    if command == 'cat':
+        if ';' not in params:
+            mud.sendMessage(id, "<f220>There is a fair fort upon the sea-shore." +
+                            "\nPleasantly, each is given his desire.\n" +
+                            "Ask Gwynedd, let it be yours.\nRough, stiff spears" +
+                            " they earned.\nOn Wednesday, I saw men in conflict" +
+                            ";\non Thursday, it was reproaches they contended " +
+                            "with.\nAnd hair was red with blood, and lamenting " +
+                            "on harps.\nWeary were the men of Gwynedd the day " +
+                            "they came,\nand atop the stone of Maelwy they " +
+                            "shelter shields.\nA host of kinsmen fell by the " +
+                            "descendant.")
+            mud.sendMessage(id, "\n>")
+            return True
+        else:
+            if 'mount' in params:
+                terminalMount(mud, id)
+                mud.sendMessage(id, "portc /spc spcfs rw 0 0")
+                mud.sendMessage(id, "proc /proc proc rw 0 0")
+                mud.sendMessage(id, "\n>")
+                return True
+            if 'busybox' in params:
+                params = params.split('busybox', 1)[1]
+                command = 'busybox'
+            else:
+                mud.sendMessage(id, "cat: Invalid DSS port")
+                mud.sendMessage(id, "\n>")
+                return True
 
-    if command == 'unmount':
-        mud.sendMessage(id, "<f220>DSS port C spinup")
+    if command == 'unmount' or command == 'umount':
+        mud.sendMessage(id, "<f220>DSS port C spindown")
         mud.sendMessage(id, "\n>")
         return True
 
     if command == 'mount':
-        mud.sendMessage(id, "<f220>DSS port C mounted")
-        mud.sendMessage(id, "\n>")
+        terminalMount(mud, id)
         return True
 
     if command == 'shred ' or command == 'dd':
@@ -113,7 +132,7 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
 
     if command == 'who':
         mud.sendMessage(id, "<f220>amsys")
-        mud.sendMessage(id, "<f220>blacksmith")
+        mud.sendMessage(id, "<f220>blackbird")
         mud.sendMessage(id, "<f220>cormorant")
         mud.sendMessage(id, "<f220>greenman")
         mud.sendMessage(id, "<f220>solo")
