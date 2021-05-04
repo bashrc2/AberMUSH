@@ -4245,7 +4245,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Underground Passage",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4337,7 +4337,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Water Cave",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4363,7 +4363,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Water Cave",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4385,7 +4385,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Water Cave",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4404,7 +4404,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Underground Passage",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4427,7 +4427,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Underground Passage",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
