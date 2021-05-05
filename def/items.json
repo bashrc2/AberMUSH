@@ -15969,7 +15969,7 @@
     "547": {
         "name": "spiral staircase",
         "short_description": "The steps have been worn smooth, but it looks quite safe to use.",
-        "long_description": "To the north is an ascending spiral staircase, cut into the rock.",
+        "long_description": "To the north is an ascending spiral staircase, cut into the rock.|The steps have been worn smooth, but it looks quite safe to use.",
 	"takeFail": "Taking a spiral staircase would be quite an achievement.",
         "moveTimes": [],
         "clo_head": 0,

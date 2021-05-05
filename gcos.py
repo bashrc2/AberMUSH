@@ -175,6 +175,11 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         mud.sendMessage(id, "\n>")
         return True
 
+    if command == 'sh':
+        mud.sendMessage(id, "BusyBox v1.24 () built-in shell (ash)")
+        mud.sendMessage(id, "\n>")
+        return True
+
     if command == 'wget':
         mud.sendMessage(id, "100%[=========================================" +
                         "==================================================" +
@@ -212,7 +217,7 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         if params:
             possibleShells = {
                 "/bin/busybox": "VAR: applet not found",
-                "/bin/sh": "/bin/sh: 0: Can't open VAR",
+                "/bin/sh": "BusyBox v1.24 () built-in shell (ash)",
                 "/bin/bash": "/bin/bash: VAR: No such file or directory"
             }
             for possShell, shellResponse in possibleShells.items():

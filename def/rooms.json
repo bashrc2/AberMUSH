@@ -1821,7 +1821,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wizard's Abode",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1842,7 +1842,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Wizard's Abode",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4023,7 +4023,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dumbwaiter Shaft",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4048,7 +4048,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dumbwaiter Shaft",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4070,7 +4070,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Birfle's Quarters",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4092,7 +4092,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dungeon",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -4133,7 +4133,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dungeon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4155,7 +4155,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dungeon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4176,7 +4176,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dungeon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4200,7 +4200,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Dungeon",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -4267,7 +4267,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Birfle's Quarters",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
