@@ -7337,11 +7337,11 @@
         "description": "You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.",
         "roomTeleport": "",
         "conditional": [
-	    ["sunrise","true","As the sun rises you stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844_sun"],
-	    ["sunset","true","As the sun sets you stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844_sunset"],
-	    ["hour","<=9","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844b"],
-	    ["hour",">=19","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844b"],
-	    ["date","20/3","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844_equinox"],
+	    ["sunrise","true","As the sun rises above the horizon you stand in a deep rocky hollow, which forms a natural ampitheatre. A circle of huge moss covered bluestones stands in the centre of the hollow, each stone a raggedly carved artifact from an ancient past. A narrow worn path leads east and upwards out of the circle.","844_sun"],
+	    ["sunset","true","As the sun sets you stand in a deep rocky hollow, which forms a natural ampitheatre in the moorland terrain. A circle of huge moss covered bluestones stands in the centre of the hollow, each stone a strange forbidding artifact from a distant past. A narrow worn path leads east and upwards out of the circle.","844_sunset"],
+	    ["hour","<=9","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of giant bluestones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844b"],
+	    ["hour",">=19","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of giant bluestones stands in the centre of the hollow, each stone a strange forbidding artifact from a distant past. A narrow worn path leads east and upwards out of the circle.","844b"],
+	    ["date","20/3","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of giant bluestones stands in the centre of the hollow, each stone a strange forbidding artifact from a forgotten past. A narrow worn path leads east and upwards out of the circle.","844_equinox"],
 	    ["date","21/12","You stand in a deep rocky hollow, a natural ampitheatre shielded from the awful weather so often found upon the moorlands. A circle of huge moss covered stones stands in the centre of the hollow, each stone a strange forbidding artifact from a lost and forgotten past. A narrow worn path leads east and upwards out of the circle.","844_equinox"]
 	],
         "trap": {},
@@ -7445,7 +7445,9 @@
         "name": "The Moor",
         "description": "You stand on the northern edge of the moor, not far from south-west of the castle. All around you the vast tracts of moorland extend far into the distance.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain on the northern edge of the moor, not far from south-west of the castle. All around you the vast tracts of moorland extend far into the distance."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -7567,7 +7569,9 @@
         "name": "The Moor",
         "description": "You are completely lost in the vastness of the moor. You feel chillingly tiny amidst the endless waves of heather and gorse, a tiny spot in a larger world. Something about the moor seems theatening and almost menacing as you ponder the number of people who must have been lost forever up here.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are completely lost in the vastness of the moor as rain pours down. You feel chillingly tiny amidst the endless waves of heather and gorse, a tiny spot in a larger world. Something about the moor seems theatening and almost menacing as you ponder the number of people who must have been lost forever up here."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -7590,7 +7594,9 @@
         "name": "The Moor",
         "description": "You are totally adrift in a sea of heather and gorse. The occasional pile of rocks breaks the monotony occasionally, but not often enough to find your way by.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are totally adrift in a sea of heather and gorse. The occasional pile of rain soaked rocks breaks the monotony occasionally, but not often enough to find your way by."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -7618,7 +7624,9 @@
         "name": "Misty Moor",
         "description": "The moor runs on and on, a vast, seemingly endless plain of purple. Everywhere you look you can see no landmarks to help you on your way. A narrow worn path drops steeply down into a hollow and the way west is shrouded in a dense mist.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","The moor runs on and on, a vast, rainy, seemingly endless plain of purple. Everywhere you look you can see no landmarks to help you on your way. A narrow worn path drops steeply down into a hollow and the way west is shrouded in a dense mist."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -7640,9 +7648,11 @@
             "west": "$rid=846$"
         },
         "name": "The Misty Moor",
-        "description": "You are lost in the dips and hollows of the misty moor. Thich heather and gorse tangles around you, as if seeking to bar your progress in any direction. All around you the moor extends onwards.",
+        "description": "You are lost in the dips and hollows of the misty moor. Thick heather and gorse tangles around you, as if seeking to bar your progress in any direction. All around you the moor extends onwards.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are lost in the rain, in the dips and hollows of the misty moor. Thick heather and gorse tangles around you, as if seeking to bar your progress in any direction. All around you the moor extends onwards."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -7665,7 +7675,9 @@
         "name": "The Misty Moor",
         "description": "You stand upon the northern fringes of the moorlands. To the south and west the moorlands extend in one vast lonely expanse for mile upon mile. To the east the castle rises tall against the sky. To the north the moorland gives way to a sharp cliff, with woodlands below.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You stand in the rain upon the northern fringes of the moorlands. To the south and west the moorlands extend in one vast lonely expanse for mile upon mile. To the east the castle rises tall against the sky. To the north the moorland gives way to a sharp cliff, with woodlands below."]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
