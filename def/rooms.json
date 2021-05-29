@@ -3075,7 +3075,7 @@
         "roomTeleport": "",
         "conditional": [
 	    ["hour","<8","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."],
-	    ["rainday","yes","You stand ankle deep in water on the edge of a reed marsh in the rain. From deeper within the marsh come endless chirpings and the rustle of animals. To the west you can cross a narrow stream into woodland."]
+	    ["rainday","yes","You stand ankle deep in water on the edge of a reed marsh in the rain. From deeper within the marsh come endless chirpings and the rustle of animals. To the west you can cross a narrow stream into woodland."],
 	    ["hour",">20","You stand ankle deep in water on the edge of a reed marsh. From deeper within the marsh come occasional croaking of frogs or hooting of an owl. To the west you can cross a narrow stream into woodland."]
 	],
         "trap": {
