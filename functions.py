@@ -109,7 +109,7 @@ def getGuildSentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
     return int(guilds[guildName]['affinity'][otherPlayerName] / 2)
 
 
-def baselineAffinity(players, id):
+def _baselineAffinity(players, id):
     """Returns the average affinity value for the player
     """
     averageAffinity = 0
@@ -147,7 +147,7 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {},
             players[id]['affinity'][recipientName] += 1
     else:
         # set the affinity to an assumed average
-        players[id]['affinity'][recipientName] = baselineAffinity(players, id)
+        players[id]['affinity'][recipientName] = _baselineAffinity(players, id)
 
     # adjust guild affinity
     if players[id].get('guild') and players[id].get('guildRole'):
@@ -159,7 +159,7 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {},
                     guild['affinity'][recipientName] += 1
             else:
                 guild['affinity'][recipientName] = \
-                    baselineAffinity(players, id)
+                    _baselineAffinity(players, id)
 
 
 def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
@@ -187,7 +187,7 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
             players[id]['affinity'][recipientName] = -1
     else:
         # set the affinity to an assumed average
-        players[id]['affinity'][recipientName] = baselineAffinity(players, id)
+        players[id]['affinity'][recipientName] = _baselineAffinity(players, id)
 
     # adjust guild affinity
     if players[id].get('guild') and players[id].get('guildRole'):
@@ -202,7 +202,7 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
                     guild['affinity'][recipientName] = -1
             else:
                 guild['affinity'][recipientName] = \
-                    baselineAffinity(players, id)
+                    _baselineAffinity(players, id)
 
 
 def randomDescription(descriptionList):
@@ -344,7 +344,7 @@ def verify_password(stored_password, provided_password):
     return pwdhash == stored_password
 
 
-def silentRemove(filename: str):
+def _silentRemove(filename: str):
     """Function to silently remove file
     """
     try:
@@ -354,10 +354,11 @@ def silentRemove(filename: str):
             raise
 
 
-def loadPlayersDB(location=str(Config.get('Players', 'Location')),
-                  forceLowercase=True):
+def loadPlayersDB(forceLowercase=True):
     """Function to load all registered players from JSON files
     """
+    locn = Config.get('Players', 'Location')
+    location = str(locn)
     DB = {}
     playerFiles = \
         [i for i in os.listdir(location)
@@ -458,9 +459,8 @@ def addToScheduler(eventID, targetID, scheduler, database):
         }
 
 
-def loadPlayer(name: str,
-               location=str(Config.get('Players',
-                                       'Location'))) -> dict:
+def loadPlayer(name: str) -> dict:
+    location = str(Config.get('Players', 'Location'))
     try:
         with open(os.path.join(location, name + ".player"), "r") as read_file:
             playerDict = json.loads(read_file.read())
@@ -470,14 +470,19 @@ def loadPlayer(name: str,
     return {}
 
 
-def savePlayer(player, masterDB, savePassword,
-               path=str(Config.get('Players', 'Location')) + "/"):
+def _getPlayerPath():
+    locn = Config.get('Players', 'Location')
+    return str(locn) + "/"
+
+
+def _savePlayer(player, masterDB: {}, savePassword: str):
+    path = _getPlayerPath()
     DB = loadPlayersDB(forceLowercase=False)
     for p in DB:
         if (player['name'] + ".player").lower() == p.lower():
             with open(path + p, "r") as read_file:
                 temp = json.loads(read_file.read())
-            silentRemove(path + player['name'] + ".player")
+            _silentRemove(path + player['name'] + ".player")
             newPlayer = deepcopy(temp)
             newPlayer['pwd'] = temp['pwd']
             for key in newPlayer:
@@ -491,7 +496,7 @@ def savePlayer(player, masterDB, savePassword,
 
 
 def saveState(player, masterDB, savePassword):
-    savePlayer(player, masterDB, savePassword)
+    _savePlayer(player, masterDB, savePassword)
     # masterDB = loadPlayersDB()
 
 
@@ -541,8 +546,14 @@ def saveUniverse(rooms: {}, npcsDB: {}, npcs: {},
         fp.write(json.dumps(npcsDB))
 
 
-def str2bool(v):
-    return v.lower() in ("yes", "true", "True", "t", "1")
+def str2bool(v) -> bool:
+    """Returns true if the given value is a boolean
+    """
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    return False
 
 
 def sendToChannel(sender, channel, message, channels):

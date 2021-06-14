@@ -144,7 +144,7 @@ def highcard(hand: str):
                                  reverse=True)
 
 
-def handy(cards: str):
+def _handy(cards: str):
     hand = []
     for card in cards.split():
         f, s = card[:-1], card[-1]
@@ -160,8 +160,8 @@ def handy(cards: str):
     return hand
 
 
-def cardRank(cards: str) -> []:
-    hand = handy(cards)
+def _cardRank(cards: str) -> []:
+    hand = _handy(cards)
     if not hand:
         return None
     rank = None
@@ -177,7 +177,7 @@ def cardRank(cards: str) -> []:
     return rank
 
 
-def parseCard(cardDescription: str) -> str:
+def _parseCard(cardDescription: str) -> str:
     """Takes a card description, such as "the ace of spades"
     and turns it into "a♠"
     """
@@ -232,8 +232,8 @@ def parseCard(cardDescription: str) -> str:
     return detectedFace+detectedSuit
 
 
-def dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
-                      mud, hands, rooms: {}, items: {}, itemsDB: {}) -> bool:
+def _dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
+                       mud, hands, rooms: {}, items: {}, itemsDB: {}) -> bool:
     """Deals a number of cards to a player
     """
     cardPlayerId = None
@@ -276,7 +276,7 @@ def dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
     return False
 
 
-def cardGameInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
+def _cardGameInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
     """Returns the item ID if there is a card game in the room
     """
     rid = players[id]['room']
@@ -288,7 +288,7 @@ def cardGameInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
     return None
 
 
-def cardGamePack(players: {}, id, rooms: {}, items: {}, itemsDB: {}) -> str:
+def _cardGamePack(players: {}, id, rooms: {}, items: {}, itemsDB: {}) -> str:
     """Returns the card pack name to use
     """
     rid = players[id]['room']
@@ -301,7 +301,7 @@ def cardGamePack(players: {}, id, rooms: {}, items: {}, itemsDB: {}) -> str:
     return None
 
 
-def getNumberFromText(text: str) -> int:
+def _getNumberFromText(text: str) -> int:
     """If there is a number in the given text then return it
     """
     for i in range(10, 2, -1):
@@ -328,13 +328,13 @@ def dealToPlayers(players: {}, dealerId, description: str,
                   mud, rooms: {}, items: {}, itemsDB: {}) -> None:
     """Deal cards to players
     """
-    gameItemID = cardGameInRoom(players, dealerId, rooms, items, itemsDB)
+    gameItemID = _cardGameInRoom(players, dealerId, rooms, items, itemsDB)
     if not gameItemID:
         mud.sendMessage(dealerId,
                         '\nThere are no playing cards here.\n')
         return
 
-    noOfCards = getNumberFromText(description)
+    noOfCards = _getNumberFromText(description)
     if noOfCards is None:
         noOfCards = 5
 
@@ -370,9 +370,9 @@ def dealToPlayers(players: {}, dealerId, description: str,
             continue
         if players[p]['name'].lower() not in description:
             continue
-        if dealCardsToPlayer(players, dealerId, players[p]['name'],
-                             noOfCards, deck, mud, hands,
-                             rooms, items, itemsDB):
+        if _dealCardsToPlayer(players, dealerId, players[p]['name'],
+                              noOfCards, deck, mud, hands,
+                              rooms, items, itemsDB):
             items[gameItemID]['gameState']['hands'] = hands
             items[gameItemID]['gameState']['table'] = {}
             items[gameItemID]['gameState']['deck'] = str(deck)
@@ -384,7 +384,7 @@ def dealToPlayers(players: {}, dealerId, description: str,
     items[gameItemID]['gameState']['deck'] = str(deck)
 
 
-def getCardDescription(pack: str, rank: str, suit: str) -> str:
+def _getCardDescription(pack: str, rank: str, suit: str) -> str:
     """Given rank as a single character and suit
     returns a description of the card
     This is used for non-graphical output
@@ -451,13 +451,13 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
                     items: {}, itemsDB: {}) -> None:
     """Shows the cards for the given player
     """
-    gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
+    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
         mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
 
     # get the pack to be shown within the web interface
-    pack = cardGamePack(players, id, rooms, items, itemsDB)
+    pack = _cardGamePack(players, id, rooms, items, itemsDB)
     if not pack:
         pack = 'standard'
 
@@ -494,7 +494,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
             suit = cardStr[2]
         suitColor = "\u001b[38;5;245m"
 
-        desc = getCardDescription(pack, rank, suit)
+        desc = _getCardDescription(pack, rank, suit)
         cardDescriptions += desc.strip()
 
         # create html for the web interface
@@ -543,7 +543,7 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
         boardStr += cardDescriptions
 
     mud.send_game_board(id, boardStr)
-    rankedStr = cardRank(handStr)
+    rankedStr = _cardRank(handStr)
     if rankedStr:
         mud.sendMessage(id, 'You have ' + str(rankedStr[0]) + '.\n\n')
 
@@ -568,12 +568,12 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
 
 def swapCard(cardDescription: str, players: {}, id, mud, rooms: {},
              items: {}, itemsDB: {}) -> None:
-    gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
+    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
         mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
 
-    cardStr = parseCard(cardDescription)
+    cardStr = _parseCard(cardDescription)
     if not cardStr:
         mud.sendMessage(id, "\nThat's not a card.\n")
         return
@@ -632,7 +632,7 @@ def swapCard(cardDescription: str, players: {}, id, mud, rooms: {},
 
 def shuffleCards(players: {}, id, mud, rooms: {},
                  items: {}, itemsDB: {}) -> None:
-    gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
+    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
         mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
@@ -649,7 +649,7 @@ def shuffleCards(players: {}, id, mud, rooms: {},
 
 def callCards(players: {}, id, mud, rooms: {},
               items: {}, itemsDB: {}) -> None:
-    gameItemID = cardGameInRoom(players, id, rooms, items, itemsDB)
+    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
     if not gameItemID:
         mud.sendMessage(id, '\nThere are no playing cards here.\n')
         return
@@ -680,7 +680,7 @@ def callCards(players: {}, id, mud, rooms: {},
         if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
             handStr = \
                 items[gameItemID]['gameState']['hands'][players[p]['name']]
-            rankedStr = cardRank(handStr)
+            rankedStr = _cardRank(handStr)
             if rankedStr:
                 resultStr += '<f0><f32>' + players[p]['name'] + \
                     '<r> has ' + str(rankedStr[0]) + '.\n'

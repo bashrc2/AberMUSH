@@ -19,7 +19,7 @@ import time
 maximum_players = 128
 
 
-def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
+def _runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
     # go through any newly connected players
     for id in mud.get_new_players():
         if len(players) >= maximum_players:
@@ -169,11 +169,12 @@ def runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
                 '<f0><b220> New account registrations are currently closed')
 
             mud.sendMessage(id, "\nWhat is your username?\n\n")
-        log("Player ID " + str(id) + " has connected", "info")
+        idStr = str(id)
+        log("Player ID " + idStr + " has connected", "info")
 
 
-def runPlayerDisconnections(mud, id, players, playersDB, fights,
-                            Config, terminalMode: {}):
+def _runPlayerDisconnections(mud, id, players, playersDB, fights,
+                             Config, terminalMode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
 
@@ -182,9 +183,11 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights,
         if id not in players:
             continue
 
-        terminalMode[str(id)] = False
-        log("Player ID " + str(id) + " has disconnected (" +
-            str(players[id]['name']) + ")", "info")
+        idStr = str(id)
+        terminalMode[idStr] = False
+        nameStr = str(players[id]['name'])
+        log("Player ID " + idStr + " has disconnected [" +
+            nameStr + "]", "info")
 
         # go through all the players in the game
         for (pid, pl) in list(players.items()):
@@ -219,9 +222,9 @@ def runPlayerDisconnections(mud, id, players, playersDB, fights,
 
 def runPlayerConnections(mud, id, players, playersDB, fights,
                          Config, terminalMode: {}):
-    runNewPlayerConnections(mud, id, players, playersDB, fights, Config)
-    runPlayerDisconnections(mud, id, players, playersDB, fights,
-                            Config, terminalMode)
+    _runNewPlayerConnections(mud, id, players, playersDB, fights, Config)
+    _runPlayerDisconnections(mud, id, players, playersDB, fights,
+                             Config, terminalMode)
 
 
 def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
@@ -246,10 +249,11 @@ def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
                 mud.sendMessage(
                     p, "<f232><b11>You are being disconnected " +
                     "due to inactivity. Bye!****DISCONNECT****\n")
-            log("Character " +
-                str(players[p]['name']) +
+            nameStr = str(players[p]['name'])
+            log("Character " + nameStr +
                 " is being disconnected due to inactivity.", "warning")
-            log("Disconnecting client " + str(p), "warning")
+            pStr = str(p)
+            log("Disconnecting client " + pStr, "warning")
             del players[p]
             mud.handleDisconnect(p)
     return authenticatedPlayersDisconnected
@@ -279,8 +283,8 @@ def initialSetupAfterLogin(mud, id, players: {}, loadedJson: {}) -> None:
     players[id]['corpseTTL'] = 60
     players[id]['idleStart'] = int(time.time())
 
-    log("Player ID " +
-        str(id) +
+    idStr = str(id)
+    log("Player ID " + idStr +
         " has successfully authenticated user " +
         players[id]['name'], "info")
 

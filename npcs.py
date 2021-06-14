@@ -56,8 +56,8 @@ def npcsRest(npcs: {}) -> None:
             thisNPC['restRequired'] = 0
 
 
-def getLeaderRoomIndex(npcs: {}, players: {}, mud,
-                       now, nid: int, moveType: str) -> str:
+def _getLeaderRoomIndex(npcs: {}, players: {}, mud,
+                        now, nid: int, moveType: str) -> str:
     """An NPC follows another NPC or player
     This returns the index of the room where the leader is located
     """
@@ -85,8 +85,8 @@ def getSolar():
     return Sun(52.414, 4.081)
 
 
-def entityIsActive(id, players: {}, rooms: {},
-                   moveTimes: [], mapArea: [], clouds: {}) -> bool:
+def _entityIsActive(id, players: {}, rooms: {},
+                    moveTimes: [], mapArea: [], clouds: {}) -> bool:
     if len(moveTimes) == 0:
         return True
 
@@ -335,7 +335,7 @@ def entityIsActive(id, players: {}, rooms: {},
     return True
 
 
-def moveNPCs(npcs, players, mud, now, nid) -> None:
+def _moveNPCs(npcs, players, mud, now, nid) -> None:
     """If movement is defined for an NPC this moves it around
     """
     thisNPC = npcs[nid]
@@ -398,8 +398,8 @@ def moveNPCs(npcs, players, mud, now, nid) -> None:
                         npcRoomIndex = len(thisNPC['path']) - 1
             else:
                 npcRoomIndex = \
-                    getLeaderRoomIndex(npcs, players, mud, now,
-                                       nid, moveTypeLower)
+                    _getLeaderRoomIndex(npcs, players, mud, now,
+                                        nid, moveTypeLower)
                 if len(npcRoomIndex) == 0:
                     npcRoomIndex = randint(0, len(thisNPC['path']) - 1)
 
@@ -423,8 +423,8 @@ def moveNPCs(npcs, players, mud, now, nid) -> None:
         thisNPC['lastMoved'] = now
 
 
-def removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
-                         npcActive: bool) -> bool:
+def _removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
+                          npcActive: bool) -> bool:
     """Moves inactive NPCs to and from purgatory
     Returns true when recovering from purgatory
     """
@@ -466,8 +466,9 @@ def npcRespawns(npcs: {}) -> None:
                 thisNPC['whenDied'] = None
                 # thisNPC['room'] = npcsTemplate[nid]['room']
                 thisNPC['room'] = thisNPC['lastRoom']
+                hpStr = str(thisNPC['hp'])
                 log("respawning " + thisNPC['name'] +
-                    " with " + str(thisNPC['hp']) +
+                    " with " + hpStr +
                     " hit points", "info")
 
 
@@ -485,11 +486,11 @@ def runMobileItems(itemsDB: {}, items: {}, eventSchedule,
             continue
         # Active now?
         itemActive = \
-            entityIsActive(itemID, items, rooms,
-                           itemsDB[itemID]['moveTimes'],
-                           mapArea, clouds)
+            _entityIsActive(itemID, items, rooms,
+                            itemsDB[itemID]['moveTimes'],
+                            mapArea, clouds)
         # Remove if not active
-        removeInactiveEntity(item, items, itemID, itemsDB, itemActive)
+        _removeInactiveEntity(item, items, itemID, itemsDB, itemActive)
         if not itemActive:
             continue
 
@@ -513,10 +514,10 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
         if not npcIsFamiliar:
             # is the NPC active according to moveTimes?
             npcActive = \
-                entityIsActive(nid, npcs, rooms,
-                               thisNPC['moveTimes'],
-                               mapArea, clouds)
-            removeInactiveEntity(nid, npcs, nid, npcs, npcActive)
+                _entityIsActive(nid, npcs, rooms,
+                                thisNPC['moveTimes'],
+                                mapArea, clouds)
+            _removeInactiveEntity(nid, npcs, nid, npcs, npcActive)
             if not npcActive:
                 continue
 
@@ -606,7 +607,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
         now = int(time.time())
         if isInFight is False and \
            len(thisNPC['path']) > 0:
-            moveNPCs(npcs, players, mud, now, nid)
+            _moveNPCs(npcs, players, mud, now, nid)
 
         # Check if NPC is still alive, if not, remove from room and
         # create a corpse, set isInCombat to 0, set whenDied to now
@@ -679,8 +680,10 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                             str(i) + ' is not an item number\n')
                     continue
                 if randint(0, 100) < 50:
-                    addToScheduler("0|spawnItem|" + str(i) + ";" +
-                                   str(thisNPC['lastRoom']) + ";0;0",
+                    itemIDStr = str(i)
+                    lastRoomStr = str(thisNPC['lastRoom'])
+                    addToScheduler("0|spawnItem|" + itemIDStr + ";" +
+                                   lastRoomStr + ";0;0",
                                    -1, eventSchedule, scriptedEventsDB)
                     print("Dropped!" + str(itemsDB[int(i)]['name']))
                     droppedItems.append(str(itemsDB[int(i)]['name']))
@@ -700,9 +703,9 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                             "<f220>{}".format(', '.join(droppedItems)) + "\n")
 
 
-def conversationState(word: str, conversationStates: {},
-                      nid, npcs: {},
-                      matchCtr: int) -> (bool, bool, int):
+def _conversationState(word: str, conversationStates: {},
+                       nid, npcs: {},
+                       matchCtr: int) -> (bool, bool, int):
     """Is the conversations with this npc in the given state?
        Returns True if the conversation is in the given state
        Also returns True if subsequent words can also be matched
@@ -718,10 +721,10 @@ def conversationState(word: str, conversationStates: {},
     return False, True, matchCtr
 
 
-def conversationCondition(word: str, conversationStates: {},
-                          nid, npcs: {}, matchCtr: int,
-                          players: {}, rooms: {},
-                          id) -> (bool, bool, int):
+def _conversationCondition(word: str, conversationStates: {},
+                           nid, npcs: {}, matchCtr: int,
+                           players: {}, rooms: {},
+                           id) -> (bool, bool, int):
     conditionType = ''
     if '>' in word.lower():
         conditionType = '>'
@@ -873,9 +876,9 @@ def conversationCondition(word: str, conversationStates: {},
     return True, True, matchCtr + 1
 
 
-def conversationWordCount(message: str, wordsList: [], npcs: {},
-                          nid, conversationStates: {},
-                          players: {}, rooms: {}, id) -> int:
+def _conversationWordCount(message: str, wordsList: [], npcs: {},
+                           nid, conversationStates: {},
+                           players: {}, rooms: {}, id) -> int:
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
     """
@@ -886,9 +889,9 @@ def conversationWordCount(message: str, wordsList: [], npcs: {},
 
         # Is the conversation required to be in a certain state?
         stateMatched, continueMatching, matchCtr = \
-            conversationState(possibleWord,
-                              conversationStates,
-                              nid, npcs, matchCtr)
+            _conversationState(possibleWord,
+                               conversationStates,
+                               nid, npcs, matchCtr)
 
         if not continueMatching:
             break
@@ -896,11 +899,11 @@ def conversationWordCount(message: str, wordsList: [], npcs: {},
         if not stateMatched:
             # match conditions such as "strength < 10"
             wordMatched, continueMatching, matchCtr = \
-                conversationCondition(possibleWord,
-                                      conversationStates,
-                                      nid, npcs,
-                                      matchCtr,
-                                      players, rooms, id)
+                _conversationCondition(possibleWord,
+                                       conversationStates,
+                                       nid, npcs,
+                                       matchCtr,
+                                       players, rooms, id)
 
             if not continueMatching:
                 break
@@ -911,10 +914,10 @@ def conversationWordCount(message: str, wordsList: [], npcs: {},
     return matchCtr
 
 
-def conversationGive(bestMatch: str, bestMatchAction: str,
-                     thingGivenIDstr: str, players: {}, id,
-                     mud, npcs: {}, nid: int, itemsDB: {},
-                     puzzledStr: str, guildsDB: {}) -> bool:
+def _conversationGive(bestMatch: str, bestMatchAction: str,
+                      thingGivenIDstr: str, players: {}, id,
+                      mud, npcs: {}, nid: int, itemsDB: {},
+                      puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC gives something to you
     """
     if bestMatchAction == 'give' or \
@@ -950,11 +953,11 @@ def conversationGive(bestMatch: str, bestMatchAction: str,
     return False
 
 
-def conversationSkill(bestMatch, bestMatchAction,
-                      bestMatchActionParam0,
-                      bestMatchActionParam1,
-                      players, id, mud, npcs, nid, itemsDB,
-                      puzzledStr, guildsDB) -> bool:
+def _conversationSkill(bestMatch, bestMatchAction,
+                       bestMatchActionParam0,
+                       bestMatchActionParam1,
+                       players, id, mud, npcs, nid, itemsDB,
+                       puzzledStr, guildsDB) -> bool:
     """Conversation in which an NPC gives or alters a skill
     """
     if bestMatchAction == 'skill' or \
@@ -1000,7 +1003,7 @@ def conversationSkill(bestMatch, bestMatchAction,
     return False
 
 
-def conversationExperience(
+def _conversationExperience(
         bestMatch, bestMatchAction,
         bestMatchActionParam0,
         bestMatchActionParam1,
@@ -1024,7 +1027,7 @@ def conversationExperience(
     return False
 
 
-def conversationJoinGuild(
+def _conversationJoinGuild(
         bestMatch, bestMatchAction,
         bestMatchActionParam0,
         bestMatchActionParam1,
@@ -1051,7 +1054,7 @@ def conversationJoinGuild(
     return False
 
 
-def conversationFamiliarMode(
+def _conversationFamiliarMode(
         bestMatch, bestMatchAction,
         bestMatchActionParam0,
         bestMatchActionParam1,
@@ -1092,7 +1095,7 @@ def conversationFamiliarMode(
     return False
 
 
-def conversationTransport(
+def _conversationTransport(
         bestMatchAction, bestMatchActionParam0,
         mud, id, players: {}, bestMatch, npcs: {}, nid,
         puzzledStr, guildsDB: {}, rooms: {}) -> bool:
@@ -1125,7 +1128,7 @@ def conversationTransport(
     return False
 
 
-def conversationTaxi(
+def _conversationTaxi(
         bestMatchAction, bestMatchActionParam0,
         bestMatchActionParam1, players,
         id, mud, bestMatch, npcs, nid, itemsDB,
@@ -1171,7 +1174,7 @@ def conversationTaxi(
     return False
 
 
-def conversationGiveOnDate(
+def _conversationGiveOnDate(
         bestMatchAction, bestMatchActionParam0,
         bestMatchActionParam1, players,
         id, mud, npcs, nid, itemsDB, bestMatch,
@@ -1223,7 +1226,7 @@ def conversationGiveOnDate(
     return False
 
 
-def conversationBuyOrExchange(
+def _conversationBuyOrExchange(
         bestMatch, bestMatchAction,
         bestMatchActionParam0,
         bestMatchActionParam1,
@@ -1353,9 +1356,9 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
         if len(conv) >= 2:
             # count the number of matches for this line
             matchCtr = \
-                conversationWordCount(message, conv[0], npcs,
-                                      nid, conversationStates,
-                                      players, rooms, id)
+                _conversationWordCount(message, conv[0], npcs,
+                                       nid, conversationStates,
+                                       players, rooms, id)
             # store the best match
             if matchCtr > maxMatchCtr:
                 maxMatchCtr = matchCtr
@@ -1387,9 +1390,6 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                 conv[idx].lower().split(':')[1].strip()
                         idx += 1
 
-    # sentimentScore = \
-    #     getSentiment(message, sentimentDB) + \
-    #     getGuildSentiment(players, id, npcs, nid, guildsDB)
     if getSentiment(message, sentimentDB) >= 0:
         increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
         increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
@@ -1411,75 +1411,75 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
 
         if len(bestMatchAction) > 0:
             # give
-            if conversationGive(bestMatch, bestMatchAction,
-                                bestMatchActionParam0, players,
-                                id, mud, npcs, nid, itemsDB, puzzledStr,
-                                guildsDB):
-                return
-
-            # teach skill
-            if conversationSkill(bestMatch, bestMatchAction,
-                                 bestMatchActionParam0,
-                                 bestMatchActionParam1, players,
+            if _conversationGive(bestMatch, bestMatchAction,
+                                 bestMatchActionParam0, players,
                                  id, mud, npcs, nid, itemsDB, puzzledStr,
                                  guildsDB):
                 return
 
+            # teach skill
+            if _conversationSkill(bestMatch, bestMatchAction,
+                                  bestMatchActionParam0,
+                                  bestMatchActionParam1, players,
+                                  id, mud, npcs, nid, itemsDB, puzzledStr,
+                                  guildsDB):
+                return
+
             # increase experience
-            if conversationExperience(bestMatch, bestMatchAction,
+            if _conversationExperience(bestMatch, bestMatchAction,
+                                       bestMatchActionParam0,
+                                       bestMatchActionParam1, players,
+                                       id, mud, npcs, nid, itemsDB, puzzledStr,
+                                       guildsDB):
+                return
+
+            # Join a guild
+            if _conversationJoinGuild(bestMatch, bestMatchAction,
                                       bestMatchActionParam0,
                                       bestMatchActionParam1, players,
                                       id, mud, npcs, nid, itemsDB, puzzledStr,
                                       guildsDB):
                 return
 
-            # Join a guild
-            if conversationJoinGuild(bestMatch, bestMatchAction,
-                                     bestMatchActionParam0,
-                                     bestMatchActionParam1, players,
-                                     id, mud, npcs, nid, itemsDB, puzzledStr,
-                                     guildsDB):
-                return
-
             # Switch familiar into different modes
-            if conversationFamiliarMode(bestMatch, bestMatchAction,
-                                        bestMatchActionParam0,
-                                        bestMatchActionParam1,
-                                        players,
-                                        id, mud, npcs, npcsDB, rooms,
-                                        nid, items, itemsDB, puzzledStr):
+            if _conversationFamiliarMode(bestMatch, bestMatchAction,
+                                         bestMatchActionParam0,
+                                         bestMatchActionParam1,
+                                         players,
+                                         id, mud, npcs, npcsDB, rooms,
+                                         nid, items, itemsDB, puzzledStr):
                 return
 
             # transport (free taxi)
-            if conversationTransport(bestMatchAction,
-                                     bestMatchActionParam0, mud,
-                                     id, players, bestMatch, npcs,
-                                     nid, puzzledStr, guildsDB, rooms):
+            if _conversationTransport(bestMatchAction,
+                                      bestMatchActionParam0, mud,
+                                      id, players, bestMatch, npcs,
+                                      nid, puzzledStr, guildsDB, rooms):
                 return
 
             # taxi (exchange for an item)
-            if conversationTaxi(bestMatchAction,
-                                bestMatchActionParam0,
-                                bestMatchActionParam1, players,
-                                id, mud, bestMatch, npcs, nid,
-                                itemsDB, puzzledStr, guildsDB, rooms):
+            if _conversationTaxi(bestMatchAction,
+                                 bestMatchActionParam0,
+                                 bestMatchActionParam1, players,
+                                 id, mud, bestMatch, npcs, nid,
+                                 itemsDB, puzzledStr, guildsDB, rooms):
                 return
 
             # give on a date
-            if conversationGiveOnDate(bestMatchAction,
-                                      bestMatchActionParam0,
-                                      bestMatchActionParam1,
-                                      players, id, mud, npcs, nid,
-                                      itemsDB, bestMatch, puzzledStr,
-                                      guildsDB):
+            if _conversationGiveOnDate(bestMatchAction,
+                                       bestMatchActionParam0,
+                                       bestMatchActionParam1,
+                                       players, id, mud, npcs, nid,
+                                       itemsDB, bestMatch, puzzledStr,
+                                       guildsDB):
                 return
 
             # buy or exchange
-            if conversationBuyOrExchange(bestMatch, bestMatchAction,
-                                         bestMatchActionParam0,
-                                         bestMatchActionParam1,
-                                         npcs, nid, mud, id, players,
-                                         itemsDB, puzzledStr, guildsDB):
+            if _conversationBuyOrExchange(bestMatch, bestMatchAction,
+                                          bestMatchActionParam0,
+                                          bestMatchActionParam1,
+                                          npcs, nid, mud, id, players,
+                                          itemsDB, puzzledStr, guildsDB):
                 return
 
         if thisNPC['familiarOf'] == players[id]['name'] or \

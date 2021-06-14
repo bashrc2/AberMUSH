@@ -33,24 +33,6 @@ class Sun:
         self._lat = lat
         self._lon = lon
 
-    def get_sunrise_time(self, date=None):
-        """
-        Calculate the sunrise time for given date.
-        :param lat: Latitude
-        :param lon: Longitude
-        :param date: Reference date. Today if not provided.
-        :return: UTC sunrise datetime
-        :raises: SunTimeException when there is no sunrise and sunset
-        on given location and date
-        """
-        date = datetime.date.today() if date is None else date
-        sr = self._calc_sun_time(date, True)
-        if sr is None:
-            raise SunTimeException('The sun never rises on this location ' +
-                                   '(on the specified date)')
-        else:
-            return sr
-
     def get_local_sunrise_time(self, date=None, local_time_zone=tz.tzlocal()):
         """
         Get sunrise time for local or custom time zone.
@@ -65,24 +47,6 @@ class Sun:
                                    '(on the specified date)')
         else:
             return sr.astimezone(local_time_zone)
-
-    def get_sunset_time(self, date=None):
-        """
-        Calculate the sunset time for given date.
-        :param lat: Latitude
-        :param lon: Longitude
-        :param date: Reference date. Today if not provided.
-        :return: UTC sunset datetime
-        :raises: SunTimeException when there is no sunrise and sunset
-        on given location and date.
-        """
-        date = datetime.date.today() if date is None else date
-        ss = self._calc_sun_time(date, False)
-        if ss is None:
-            raise SunTimeException('The sun never sets on this location ' +
-                                   '(on the specified date)')
-        else:
-            return ss
 
     def get_local_sunset_time(self, date=None, local_time_zone=tz.tzlocal()):
         """
@@ -189,8 +153,9 @@ class Sun:
         UT = self._force_range(UT, 24)
 
         # 10. Return
-        hr = self._force_range(int(UT), 24)
-        min = round((UT - int(UT)) * 60, 0)
+        UTint = int(UT)
+        hr = self._force_range(UTint, 24)
+        min = round((UT - UTint) * 60, 0)
         if min == 60:
             hr += 1
             min = 0

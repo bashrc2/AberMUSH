@@ -7,7 +7,7 @@ __email__ = "bob@freedombone.net"
 __status__ = "Production"
 
 
-def terminalMount(mud, id):
+def _terminalMount(mud, id):
     mud.sendMessage(id, "<f220>DSS port C mounted")
     mud.sendMessage(id, "\n>")
 
@@ -89,7 +89,7 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
             return True
         else:
             if 'mount' in params:
-                terminalMount(mud, id)
+                _terminalMount(mud, id)
                 mud.sendMessage(id, "portc /spc spcfs rw 0 0")
                 mud.sendMessage(id, "proc /proc proc rw 0 0")
                 mud.sendMessage(id, "\n>")
@@ -108,7 +108,7 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         return True
 
     if command == 'mount':
-        terminalMount(mud, id)
+        _terminalMount(mud, id)
         return True
 
     if command == 'shred ' or command == 'dd':

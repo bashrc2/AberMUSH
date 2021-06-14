@@ -88,13 +88,6 @@ def assignTerrainDifficulty(rooms: {}) -> int:
     return maxTerrainDifficulty
 
 
-def assignInitialCoordinates(rooms: {}, rm: str) -> None:
-    """Sets initial zero room coordinates
-    """
-    if len(rooms[rm]['coords']) == 0:
-        rooms[rm]['coords'] = [0, 0, 0]
-
-
 def findRoomCollisions(rooms: {}) -> None:
     """Marks rooms whose geolocations collide
     """
@@ -139,7 +132,7 @@ def findRoomCollisions(rooms: {}) -> None:
         print(str(ctr) + ' room collisions out of ' + str(totalCtr))
 
 
-def findRoomWithoutCoords(rooms: {}):
+def _findRoomWithoutCoords(rooms: {}):
     """Finds the next room without assigned coordinates
     """
     for rm in rooms:
@@ -350,7 +343,7 @@ def assignCoordinates(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> []:
     for rm in rooms:
         rooms[rm]['coordsAssigned'] = False
     while roomFound:
-        newRoom = findRoomWithoutCoords(rooms)
+        newRoom = _findRoomWithoutCoords(rooms)
         if newRoom is None:
             roomFound = False
             break
@@ -422,7 +415,7 @@ def assignCoordinates(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> []:
     return mapArea
 
 
-def highestPointAtCoord(rooms: {}, mapArea: [], x: int, y: int) -> float:
+def _highestPointAtCoord(rooms: {}, mapArea: [], x: int, y: int) -> float:
     """Returns the highest elevation at the given location
     """
     highest = 0
@@ -562,21 +555,21 @@ def generateCloud(
     return windDirection
 
 
-def getCloudThreshold(temperature: float) -> float:
+def _getCloudThreshold(temperature: float) -> float:
     """Temperature threshold at which cloud is formed
     """
     return (10 + temperature) * 7
 
 
-def altitudeTemperatureAdjustment(rooms: {}, mapArea: [],
-                                  x: int, y: int) -> float:
+def _altitudeTemperatureAdjustment(rooms: {}, mapArea: [],
+                                   x: int, y: int) -> float:
     """Temperature decreases with altitude
     """
-    return highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
+    return _highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
 
 
-def terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
-                                 x: int, y: int) -> float:
+def _terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
+                                  x: int, y: int) -> float:
     """Temperature is adjusted for different types of terrain
     """
     terrainFreezingWords = ('snow', 'ice')
@@ -617,7 +610,7 @@ def terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
 def plotClouds(rooms: {}, mapArea: [], clouds: {}, temperature: float) -> None:
     """Show clouds as ASCII diagram for debugging purposes
     """
-    cloudThreshold = getCloudThreshold(temperature)
+    cloudThreshold = _getCloudThreshold(temperature)
     mapWidth = mapArea[1][1] - mapArea[1][0]
     mapHeight = mapArea[0][1] - mapArea[0][0]
 
@@ -625,8 +618,8 @@ def plotClouds(rooms: {}, mapArea: [], clouds: {}, temperature: float) -> None:
         lineStr = ''
         for x in range(0, mapWidth - 1):
             mapTemp = clouds[x][y] - \
-                (altitudeTemperatureAdjustment(rooms, mapArea, x, y) * 7)
-            mapTemp = terrainTemperatureAdjustment(
+                (_altitudeTemperatureAdjustment(rooms, mapArea, x, y) * 7)
+            mapTemp = _terrainTemperatureAdjustment(
                 mapTemp, rooms, mapArea, x, y)
             lineChar = '.'
             if mapTemp > cloudThreshold:
@@ -638,7 +631,7 @@ def plotClouds(rooms: {}, mapArea: [], clouds: {}, temperature: float) -> None:
     print('\n')
 
 
-def getTemperatureSeasonal() -> float:
+def _getTemperatureSeasonal() -> float:
     """Average temperature for the time of year
     """
     dayOfYear = int(datetime.datetime.today().strftime("%j"))
@@ -650,7 +643,7 @@ def getTemperatureSeasonal() -> float:
 def getTemperature() -> float:
     """Average daily seasonal temperature for the universe
     """
-    avTemp = getTemperatureSeasonal()
+    avTemp = _getTemperatureSeasonal()
 
     daysSinceEpoch = (
         datetime.datetime.today() -
@@ -691,16 +684,16 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
     currTemp = getTemperature()
 
     # Adjust for altitude
-    currTemp = currTemp - altitudeTemperatureAdjustment(rooms, mapArea, x, y)
+    currTemp = currTemp - _altitudeTemperatureAdjustment(rooms, mapArea, x, y)
 
     # Adjust for terrain
-    currTemp = terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
+    currTemp = _terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
 
     # Adjust for rain
     if getRainAtCoords([coords[0], coords[1]], mapArea, clouds):
         currTemp = currTemp * 0.8
 
-    if clouds[x][y] < getCloudThreshold(currTemp):
+    if clouds[x][y] < _getCloudThreshold(currTemp):
         # without cloud
         return currTemp
 

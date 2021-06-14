@@ -9,21 +9,21 @@ __status__ = "Production"
 from random import randint
 
 
-def proficiencyName(prof):
+def _proficiencyName(prof):
     if '(' not in prof:
         return prof
 
     return prof.split('(')[0].strip()
 
 
-def proficiencyParam(prof):
+def _proficiencyParam(prof):
     if '(' not in prof:
         return 0
 
     return int(prof.split('(')[1].replace(')', '').strip())
 
 
-def profFightingStyleDamage(id, players, weaponType, value):
+def _profFightingStyleDamage(id, players, weaponType, value):
     if not players[id].get('fightingStyle'):
         return 0
     fightStyle = players[id]['fightingStyle'].lower()
@@ -38,29 +38,29 @@ def profFightingStyleDamage(id, players, weaponType, value):
                     return 2
 
 
-def damageProficiencyItem(prof, id, players, weaponType):
+def _damageProficiencyItem(prof, id, players, weaponType):
     if isinstance(prof, list):
         return 0
 
-    profName = proficiencyName(prof)
-    profValue = proficiencyParam(prof)
+    profName = _proficiencyName(prof)
+    profValue = _proficiencyParam(prof)
 
     switcher = {
-        # "Second Wind": profSecondWind,
-        # "Action Surge": profActionSurge,
-        # "Martial Archetype": profMartialArchetype,
-        # "Ability Score Improvement": profAbilityScore,
-        # "Extra Attack": profExtraAttack,
-        # "Martial Archetype feature": profMartialArchetypeFeature,
-        # "Indomitable": profIndomitable,
-        # "Spellcasting": profSpellcasting,
-        # "Arcane Recovery": profArcaneRecovery,
-        # "Arcane Tradition": profArcaneTradition,
-        # "Arcane Tradition feature": profArcaneTraditionFeature,
-        # "Spell Mastery": profSpellMastery,
-        # "Signature Spell": profSignatureSpell,
-        # "Cantrips": profCantrips,
-        "Fighting Style": profFightingStyleDamage
+        "Second Wind": _profSecondWind,
+        # "Action Surge": _profActionSurge,
+        # "Martial Archetype": _profMartialArchetype,
+        # "Ability Score Improvement": _profAbilityScore,
+        # "Extra Attack": _profExtraAttack,
+        # "Martial Archetype feature": _profMartialArchetypeFeature,
+        "Indomitable": _profIndomitable,
+        # "Spellcasting": _profSpellcasting,
+        # "Arcane Recovery": _profArcaneRecovery,
+        # "Arcane Tradition": _profArcaneTradition,
+        # "Arcane Tradition feature": _profArcaneTraditionFeature,
+        # "Spell Mastery": _profSpellMastery,
+        # "Signature Spell": _profSignatureSpell,
+        # "Cantrips": _profCantrips,
+        "Fighting Style": _profFightingStyleDamage
     }
 
     if not switcher.get(profName):
@@ -69,7 +69,7 @@ def damageProficiencyItem(prof, id, players, weaponType):
     try:
         return switcher[profName](id, players, weaponType, profValue)
     except Exception as e:
-        print("damageProficiencyItem error " + prof + ' ' + str(e))
+        print("_damageProficiencyItem error " + prof + ' ' + str(e))
 
     return 0
 
@@ -89,35 +89,37 @@ def damageProficiency(id, players, weaponType, characterClassDB):
             profList = characterClassDB[playerRace][str(lvl)]
             for p in profList:
                 damage = damage + \
-                    damageProficiencyItem(p, id, players, weaponType)
+                    _damageProficiencyItem(p, id, players, weaponType)
     return damage
 
 
-def profSecondWind(id, players, profValue):
+def _profSecondWind(id, players, profValue):
     if players[id]['restRequired'] != 0:
         return 0
     players[id]['restRequired'] = 1
     return randint(1, 10)
 
 
-def profIndomitable(id, players, profValue):
+def _profIndomitable(id, players, profValue):
     if players[id]['restRequired'] != 0:
         return 0
     players[id]['restRequired'] = 1
     return randint(1, 10)
 
 
-def defenseProficiencyItem(prof, id, players):
+def _defenseProficiencyItem(prof, id, players):
+    """TODO: currently unused
+    """
     if isinstance(prof, list):
         return 0
 
-    profName = proficiencyName(prof)
-    profValue = proficiencyParam(prof)
+    profName = _proficiencyName(prof)
+    profValue = _proficiencyParam(prof)
 
     switcher = {
-        "Second Wind": profSecondWind,
-        # "Arcane Recovery": profArcaneRecovery,
-        "Indomitable": profIndomitable
+        "Second Wind": _profSecondWind,
+        # "Arcane Recovery": _profArcaneRecovery,
+        "Indomitable": _profIndomitable
     }
 
     if not switcher.get(profName):
@@ -126,39 +128,20 @@ def defenseProficiencyItem(prof, id, players):
     try:
         return switcher[profName](id, players, profValue)
     except Exception as e:
-        print("defenseProficiencyItem error " + prof + ' ' + str(e))
+        print("_defenseProficiencyItem error " + prof + ' ' + str(e))
 
     return 0
 
 
-def defenseProficiency(id, players, characterClassDB):
-    if not players[id].get('race'):
-        return 0
-
-    playerRace = players[id]['race']
-
-    if not characterClassDB.get(playerRace):
-        return 0
-
-    defense = 0
-    for lvl in range(1, players[id]['lvl']):
-        if characterClassDB[playerRace].get(str(lvl)):
-            profList = characterClassDB[playerRace][str(lvl)]
-            for p in profList:
-                defense = defense + \
-                    defenseProficiencyItem(p, id, players)
-    return defense
-
-
-def weaponProficiencyItem(prof, id, players, weaponType):
+def _weaponProficiencyItem(prof, id, players, weaponType):
     if isinstance(prof, list):
         return 0
 
-    profName = proficiencyName(prof)
-    profValue = proficiencyParam(prof)
+    profName = _proficiencyName(prof)
+    profValue = _proficiencyParam(prof)
 
     switcher = {
-        # "Second Wind": profSecondWind
+        # "Second Wind": _profSecondWind
     }
 
     if not switcher.get(profName):
@@ -167,12 +150,14 @@ def weaponProficiencyItem(prof, id, players, weaponType):
     try:
         return switcher[profName](id, players, profValue)
     except Exception as e:
-        print("defenseProficiencyItem error " + prof + ' ' + str(e))
+        print("_weaponProficiencyItem error " + prof + ' ' + str(e))
 
     return 0
 
 
 def weaponProficiency(id, players, weaponType, characterClassDB):
+    """TODO: currently unused
+    """
     if not players[id].get('race'):
         return 0
 
@@ -187,7 +172,7 @@ def weaponProficiency(id, players, weaponType, characterClassDB):
             profList = characterClassDB[playerRace][str(lvl)]
             for p in profList:
                 competence = competence + \
-                    weaponProficiencyItem(p, id, players, weaponType)
+                    _weaponProficiencyItem(p, id, players, weaponType)
 
     if competence > 4:
         competence = 4
@@ -195,7 +180,7 @@ def weaponProficiency(id, players, weaponType, characterClassDB):
     return competence
 
 
-def thievesCantCountChars(txt):
+def _thievesCantCountChars(txt: str):
     result = 0
     for char in txt.lower():
         if char == 'a' or \
@@ -236,6 +221,6 @@ def thievesCant(spokenText):
         "No, I am otherwise engaged",
         "Give my regards to your Granny",
         "…and have your pets spayed")
-    index = (thievesCantCountChars(spokenText) +
+    index = (_thievesCantCountChars(spokenText) +
              len(spokenText.split(' '))) % len(cantCode)
     return cantCode[index]

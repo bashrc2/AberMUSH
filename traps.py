@@ -74,7 +74,7 @@ def playerIsTrapped(id, players: {}, rooms: {}):
     return False
 
 
-def describeTrapDeactivation(mud, roomID, trap, players: {}):
+def _describeTrapDeactivation(mud, roomID, trap, players: {}):
     """Describes when a trap gets reset
     """
     for id in players:
@@ -99,7 +99,7 @@ def describeTrapDeactivation(mud, roomID, trap, players: {}):
             mud.sendMessage(id, randomDescription(desc)+'.\n\n')
 
 
-def holdingCuttingWeapon(id, players: {}, itemsDB: {}):
+def _holdingCuttingWeapon(id, players: {}, itemsDB: {}):
     """If the player is holding a cutting weapon return its itemID
     """
     itemID = players[id]['clo_rhand']
@@ -113,10 +113,10 @@ def holdingCuttingWeapon(id, players: {}, itemsDB: {}):
     return -1
 
 
-def escapeWithCuttingTool(mud, id, players: {}, rooms: {}, itemsDB: {}):
+def _escapeWithCuttingTool(mud, id, players: {}, rooms: {}, itemsDB: {}):
     """Escape from a trap using a cutting tool
     """
-    itemID = holdingCuttingWeapon(id, players, itemsDB)
+    itemID = _holdingCuttingWeapon(id, players, itemsDB)
     if itemID == -1:
         desc = "You attempt to escape with your bare hands, " + \
             "but remain trapped|You tug and wrestle but can't escape|" + \
@@ -162,14 +162,14 @@ def escapeFromTrap(mud, id, players: {}, rooms: {}, itemsDB: {}):
         return
     escapeMethod = rooms[roomID]['trap']['trapEscapeMethod']
     if 'slash' in escapeMethod:
-        escapeWithCuttingTool(mud, id, players, rooms, itemsDB)
+        _escapeWithCuttingTool(mud, id, players, rooms, itemsDB)
     else:
         mud.sendMessage(
             id, randomDescription("Nothing happens") + '.\n\n')
 
 
-def trapActivationDescribe(mud, id, players, roomID, rooms,
-                           penaltyValue, trapTag):
+def _trapActivationDescribe(mud, id, players, roomID, rooms,
+                            penaltyValue, trapTag):
     trapType = rooms[roomID]['trap']['trapType']
     if trapType == 'net' or \
        trapType == 'chain net':
@@ -253,8 +253,8 @@ def trapActivation(mud, id, players: {}, rooms: {}, exitDirection):
         mud.sendMessage(id, trapTag +
                         randomDescription(desc) + '.<r>\n\n')
     else:
-        trapActivationDescribe(mud, id, players, roomID, rooms,
-                               penaltyValue, trapTag)
+        _trapActivationDescribe(mud, id, players, roomID, rooms,
+                                penaltyValue, trapTag)
     return True
 
 
@@ -274,7 +274,7 @@ def runTraps(mud, rooms: {}, players: {}, npcs: {}):
         if now >= \
            rooms[rm]['trap']['trapActivationTime'] + \
            TimeStringToSec(rooms[rm]['trap']['trapDuration']):
-            describeTrapDeactivation(mud, rm, rooms[rm]['trap'], players)
+            _describeTrapDeactivation(mud, rm, rooms[rm]['trap'], players)
             rooms[rm]['trap']['trappedPlayers'].clear()
             rooms[rm]['trap']['trapActivationTime'] = 0
             rooms[rm]['trap']['trapDamaged'] = 0

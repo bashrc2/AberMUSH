@@ -49,9 +49,9 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
     """
     currRoom = players[id]['room']
     weightDifficulty = \
-        int(getEncumberanceFromWeight(id, players, itemsDB) * 2)
+        int(_getEncumberanceFromWeight(id, players, itemsDB) * 2)
     temperatureDifficulty = \
-        getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
+        _getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
     terrainDifficulty = \
         int(rooms[players[id]['room']]['terrainDifficulty'] * 10 /
             maxTerrainDifficulty)
@@ -59,7 +59,7 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
     # Agility of NPC
     modifier = \
         10 - players[id]['agi'] - \
-        armorAgility(id, players, itemsDB) + terrainDifficulty + \
+        _armorAgility(id, players, itemsDB) + terrainDifficulty + \
         temperatureDifficulty + weightDifficulty
     if modifier < 6:
         modifier = 6
@@ -71,7 +71,7 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
     return True
 
 
-def getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
+def _getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
     """Returns the light medium or heavy encumberance (0,1,2)
     """
     totalWeight = playerInventoryWeight(id, players, itemsDB)
@@ -530,7 +530,7 @@ def playersRest(mud, players: {}) -> None:
                 prepareSpells(mud, p, players)
 
 
-def itemInNPCInventory(npcs, id: int, itemName: str, itemsDB: {}) -> bool:
+def _itemInNPCInventory(npcs, id: int, itemName: str, itemsDB: {}) -> bool:
     if len(list(npcs[id]['inv'])) > 0:
         itemNameLower = itemName.lower()
         for i in list(npcs[id]['inv']):
@@ -539,7 +539,7 @@ def itemInNPCInventory(npcs, id: int, itemName: str, itemsDB: {}) -> bool:
     return False
 
 
-def npcUpdateLuck(nid, npcs: {}, items: {}, itemsDB: {}) -> None:
+def _npcUpdateLuck(nid, npcs: {}, items: {}, itemsDB: {}) -> None:
     """Calculate the luck of an NPC based on what items they are carrying
     """
     luck = 0
@@ -548,8 +548,8 @@ def npcUpdateLuck(nid, npcs: {}, items: {}, itemsDB: {}) -> None:
     npcs[nid]['luc'] = luck
 
 
-def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
-                    itemsDB: {}) -> bool:
+def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
+                     itemsDB: {}) -> bool:
     """what is the best weapon which the NPC is carrying?
     """
     itemID = 0
@@ -586,7 +586,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
                     if itemsDB[items[iid]['id']]['clo_rhand'] > 0:
                         if itemsDB[items[iid]['id']]['mod_str'] > max_damage:
                             itemName = itemsDB[items[iid]['id']]['name']
-                            if not itemInNPCInventory(
+                            if not _itemInNPCInventory(
                                     npcs, nid, itemName, itemsDB):
                                 max_damage = itemsDB[items[iid]
                                                      ['id']]['mod_str']
@@ -605,8 +605,8 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
                         if itemsDB[items[iid]['id']]['mod_endu'] > \
                            max_protection:
                             itemName = itemsDB[items[iid]['id']]['name']
-                            if not itemInNPCInventory(npcs, nid, itemName,
-                                                      itemsDB):
+                            if not _itemInNPCInventory(npcs, nid, itemName,
+                                                       itemsDB):
                                 max_protection = \
                                     itemsDB[items[iid]['id']]['mod_endu']
                                 itemID = int(items[iid]['id'])
@@ -675,7 +675,7 @@ def npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
     return False
 
 
-def npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
+def _npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
     """An NPC puts on armor
     """
     if len(npcs[id]['inv']) == 0:
@@ -696,7 +696,7 @@ def npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
             npcs[id][c] = itemID
 
 
-def twoHandedWeapon(id: int, players: {}, itemsDB: {}) -> None:
+def _twoHandedWeapon(id: int, players: {}, itemsDB: {}) -> None:
     """ If carrying a two handed weapon then make sure
     that the other hand is empty
     """
@@ -715,56 +715,7 @@ def twoHandedWeapon(id: int, players: {}, itemsDB: {}) -> None:
         players[id]['clo_rhand'] = 0
 
 
-def weaponDamage(id: int, players: {}, itemsDB: {},
-                 weaponType: str, characterClassDB: {}) -> int:
-    """Calculates the amount of damage which a player can do
-       with weapons held
-    """
-    damage = 0
-
-    twoHandedWeapon(id, players, itemsDB)
-
-    itemID = players[id]['clo_lhand']
-    if itemID > 0:
-        damage = damage + itemsDB[itemID]['mod_str']
-
-    itemID = players[id]['clo_rhand']
-    if itemID > 0:
-        damage = damage + itemsDB[itemID]['mod_str']
-
-    # Extra damage based on proficiencies
-    if damage > 0:
-        damageProficiency(id, players, weaponType, characterClassDB)
-
-    # Total damage inflicted by weapons
-    return damage
-
-
-def raceResistance(id: int, players: {}, racesDB: {}, weaponType: str) -> int:
-    """How much resistance does the player have to the weapon type
-       based upon their race
-    """
-    resistance = 0
-    resistParam = 'resist_' + weaponType.lower()
-
-    if weaponType.endswith('bow'):
-        resistParam = 'resist_piercing'
-
-    if weaponType.endswith('sling') or \
-       'flail' in weaponType or \
-       'whip' in weaponType:
-        resistParam = 'resist_bludgeoning'
-
-    if players[id].get('race'):
-        race = players[id]['race'].lower()
-        if racesDB.get(race):
-            if racesDB[race].get(resistParam):
-                resistance = racesDB[race][resistParam]
-
-    return resistance
-
-
-def armorAgility(id: int, players: {}, itemsDB: {}) -> int:
+def _armorAgility(id: int, players: {}, itemsDB: {}) -> int:
     """Modify agility based on armor worn
     """
     agility = 0
@@ -778,7 +729,7 @@ def armorAgility(id: int, players: {}, itemsDB: {}) -> int:
     return agility
 
 
-def canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
+def _canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
     if itemID == 0:
         return True
     lockItemID = itemsDB[itemID]['lockedWithItem']
@@ -792,7 +743,7 @@ def canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
     return True
 
 
-def getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
+def _getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
     """Returns the type of weapon held, or fists if none
     is held and the rounds of fire
     """
@@ -834,7 +785,7 @@ def getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
     return 0, "fists", 1
 
 
-def getAttackDescription(animalType: str, weaponType: str) -> (str, str):
+def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -1142,8 +1093,8 @@ def getAttackDescription(animalType: str, weaponType: str) -> (str, str):
     return attackDescriptionFirst, attackDescriptionSecond
 
 
-def getTemperatureDifficulty(rm: str, rooms: {}, mapArea: [],
-                             clouds: {}) -> int:
+def _getTemperatureDifficulty(rm: str, rooms: {}, mapArea: [],
+                              clouds: {}) -> int:
     """Returns a difficulty factor based on the ambient
        temperature
     """
@@ -1157,29 +1108,11 @@ def getTemperatureDifficulty(rm: str, rooms: {}, mapArea: [],
     return -(temperature - 5)
 
 
-def attackRoll(luck: int) -> bool:
-    """Did an attack succeed?
-    """
-    if luck > 6:
-        luck = 6
-    if randint(1 + luck, 10) > 5:
-        return True
-    return False
-
-
-def criticalHit() -> bool:
-    """Is this a critical hit (extra damage)?
-    """
-    if randint(1, 20) == 20:
-        return True
-    return False
-
-
-def runFightsBetweenPlayers(mud, players: {}, npcs: {},
-                            fights, fid, itemsDB: {},
-                            rooms: {}, maxTerrainDifficulty, mapArea: [],
-                            clouds: {}, racesDB: {}, characterClassDB: {},
-                            guilds: {}):
+def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
+                             fights, fid, itemsDB: {},
+                             rooms: {}, maxTerrainDifficulty, mapArea: [],
+                             clouds: {}, racesDB: {}, characterClassDB: {},
+                             guilds: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -1239,9 +1172,10 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
+        _twoHandedWeapon(s1id, players, itemsDB)
         weaponID, weaponType, roundsOfFire = \
-            getWeaponHeld(s1id, players, itemsDB)
-        if not canUseWeapon(s1id, players, itemsDB, weaponID):
+            _getWeaponHeld(s1id, players, itemsDB)
+        if not _canUseWeapon(s1id, players, itemsDB, weaponID):
             lockItemID = itemsDB[weaponID]['lockedWithItem']
             mud.sendMessage(
                 s1id, 'You take aim, but find you have no ' +
@@ -1291,7 +1225,7 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                              targetArmorClass, characterClassDB,
                              dodgeModifier):
             attackDescriptionFirst, attackDescriptionSecond = \
-                getAttackDescription("", weaponType)
+                _getAttackDescription("", weaponType)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1373,10 +1307,10 @@ def runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 players[s2id]['isInCombat'] = 0
 
 
-def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
-                                 itemsDB: {}, rooms: {}, maxTerrainDifficulty,
-                                 mapArea: [], clouds: {}, racesDB: {},
-                                 characterClassDB: {}, guilds: {}):
+def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
+                                  itemsDB: {}, rooms: {}, maxTerrainDifficulty,
+                                  mapArea: [], clouds: {}, racesDB: {},
+                                  characterClassDB: {}, guilds: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -1429,9 +1363,10 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
+        _twoHandedWeapon(s1id, players, itemsDB)
         weaponID, weaponType, roundsOfFire = \
-            getWeaponHeld(s1id, players, itemsDB)
-        if not canUseWeapon(s1id, players, itemsDB, weaponID):
+            _getWeaponHeld(s1id, players, itemsDB)
+        if not _canUseWeapon(s1id, players, itemsDB, weaponID):
             lockItemID = itemsDB[weaponID]['lockedWithItem']
             mud.sendMessage(
                 s1id,
@@ -1463,7 +1398,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                              targetArmorClass, characterClassDB,
                              dodgeModifier):
             attackDescriptionFirst, attackDescriptionSecond = \
-                getAttackDescription("", weaponType)
+                _getAttackDescription("", weaponType)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1479,7 +1414,7 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
-                npcWearsArmor(s2id, npcs, itemsDB)
+                _npcWearsArmor(s2id, npcs, itemsDB)
 
                 if int(npcs[s2id]['hpMax']) < 999:
                     npcs[s2id]['hp'] = int(npcs[s2id]['hp']) - damageValue
@@ -1524,11 +1459,11 @@ def runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 npcs[s2id]['isInCombat'] = 0
 
 
-def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
-                                 items: {}, itemsDB: {}, rooms: {},
-                                 maxTerrainDifficulty, mapArea, clouds: {},
-                                 racesDB: {}, characterClassDB: {},
-                                 guilds: {}):
+def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
+                                  items: {}, itemsDB: {}, rooms: {},
+                                  maxTerrainDifficulty, mapArea, clouds: {},
+                                  racesDB: {}, characterClassDB: {},
+                                  guilds: {}):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -1575,12 +1510,13 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                         '<r>.\n')
         return
 
-    npcUpdateLuck(s1id, npcs, items, itemsDB)
-    if npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
+    _npcUpdateLuck(s1id, npcs, items, itemsDB)
+    if _npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
         npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    weaponID, weaponType, roundsOfFire = getWeaponHeld(s1id, npcs, itemsDB)
+    _twoHandedWeapon(s1id, npcs, itemsDB)
+    weaponID, weaponType, roundsOfFire = _getWeaponHeld(s1id, npcs, itemsDB)
 
     # A dodge value used to adjust agility of the target player
     # This is proportional to their luck, which can be modified by
@@ -1607,7 +1543,7 @@ def runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                          targetArmorClass, characterClassDB,
                          dodgeModifier):
         attackDescriptionFirst, attackDescriptionSecond = \
-            getAttackDescription(npcs[s1id]['animalType'], weaponType)
+            _getAttackDescription(npcs[s1id]['animalType'], weaponType)
 
         if roundsOfFire < 1:
             roundsOfFire = 1
@@ -1682,23 +1618,23 @@ def runFights(mud, players: {}, npcs: {}, fights: {}, items: {}, itemsDB: {},
     for (fid, pl) in list(fights.items()):
         # PC -> PC
         if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-            runFightsBetweenPlayers(mud, players, npcs, fights, fid, itemsDB,
-                                    rooms, maxTerrainDifficulty, mapArea,
-                                    clouds, racesDB, characterClassDB, guilds)
+            _runFightsBetweenPlayers(mud, players, npcs, fights, fid, itemsDB,
+                                     rooms, maxTerrainDifficulty, mapArea,
+                                     clouds, racesDB, characterClassDB, guilds)
         # PC -> NPC
         elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-            runFightsBetweenPlayerAndNPC(mud, players, npcs, fights,
-                                         fid, itemsDB, rooms,
-                                         maxTerrainDifficulty, mapArea,
-                                         clouds, racesDB, characterClassDB,
-                                         guilds)
+            _runFightsBetweenPlayerAndNPC(mud, players, npcs, fights,
+                                          fid, itemsDB, rooms,
+                                          maxTerrainDifficulty, mapArea,
+                                          clouds, racesDB, characterClassDB,
+                                          guilds)
         # NPC -> PC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-            runFightsBetweenNPCAndPlayer(mud, players, npcs, fights,
-                                         fid, items,
-                                         itemsDB, rooms, maxTerrainDifficulty,
-                                         mapArea, clouds, racesDB,
-                                         characterClassDB, guilds)
+            _runFightsBetweenNPCAndPlayer(mud, players, npcs, fights,
+                                          fid, items,
+                                          itemsDB, rooms, maxTerrainDifficulty,
+                                          mapArea, clouds, racesDB,
+                                          characterClassDB, guilds)
         # NPC -> NPC
         # elif fights[fid]['s1type'] == 'npc' and \
         #    fights[fid]['s2type'] == 'npc':
@@ -1760,8 +1696,6 @@ def playerBeginsAttack(players: {}, id, target: str,
 
             mud.sendMessage(
                 id, '<f214>Attacking <r><f255>' + target + '!\n')
-            # addToScheduler('0|msg|<b63>You are being attacked by ' +
-            # players[id]['name'] + "!", pid, eventSchedule, eventDB)
 
     if not targetFound:
         for (nid, pl) in list(npcs.items()):
@@ -1815,9 +1749,9 @@ def playerBeginsAttack(players: {}, id, target: str,
     return targetFound
 
 
-def npcBeginsAttack(npcs: {}, id, target: str, players: {},
-                    fights: {}, mud, items: {}, itemsDB: {},
-                    racesDB: {}) -> bool:
+def _npcBeginsAttack(npcs: {}, id, target: str, players: {},
+                     fights: {}, mud, items: {}, itemsDB: {},
+                     racesDB: {}) -> bool:
     """npc begins an attack on a player or another npc
     """
     targetFound = False
@@ -1858,14 +1792,11 @@ def npcBeginsAttack(npcs: {}, id, target: str, players: {},
             _combatUpdateMaxHitPoints(pid, players, racesDB)
             _combatUpdateMaxHitPoints(id, npcs, racesDB)
 
-            npcUpdateLuck(id, npcs, items, itemsDB)
-            npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
+            _npcUpdateLuck(id, npcs, items, itemsDB)
+            _npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
 
             mud.sendMessage(
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
-
-            # addToScheduler('0|msg|<b63>You are being attacked by ' +
-            # players[id]['name'] + "!", pid, eventSchedule, eventDB)
 
     if not targetFound:
         for (nid, pl) in list(npcs.items()):
@@ -1912,8 +1843,8 @@ def npcBeginsAttack(npcs: {}, id, target: str, players: {},
                 _combatUpdateMaxHitPoints(nid, npcs, racesDB)
                 _combatUpdateMaxHitPoints(id, npcs, racesDB)
 
-                npcUpdateLuck(id, npcs, items, itemsDB)
-                npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
+                _npcUpdateLuck(id, npcs, items, itemsDB)
+                _npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
 
     return targetFound
 
@@ -1945,6 +1876,6 @@ def npcAggression(npcs: {}, players: {}, fights: {}, mud,
                             hasAffinity = True
                 if not hasAffinity:
                     if randint(0, 1000) > 995:
-                        npcBeginsAttack(npcs, nid, players[pid]['name'],
-                                        players, fights, mud, items,
-                                        itemsDB, racesDB)
+                        _npcBeginsAttack(npcs, nid, players[pid]['name'],
+                                         players, fights, mud, items,
+                                         itemsDB, racesDB)

@@ -14,7 +14,7 @@ from functools import partial
 from hashlib import sha1
 
 
-def noOfAccounts(baseDir: str) -> bool:
+def _noOfAccounts(baseDir: str) -> bool:
     """Returns the number of player accounts on the system
     """
     accountCtr = 0
@@ -26,7 +26,7 @@ def noOfAccounts(baseDir: str) -> bool:
     return accountCtr
 
 
-def htmlHeader(cssFilename: str, css=None, refreshSec=0, lang='en') -> str:
+def _htmlHeader(cssFilename: str, css=None, refreshSec=0, lang='en') -> str:
     if refreshSec == 0:
         meta = '  <meta charset="utf-8">\n'
     else:
@@ -54,20 +54,20 @@ def htmlHeader(cssFilename: str, css=None, refreshSec=0, lang='en') -> str:
     return htmlStr
 
 
-def htmlFooter() -> str:
+def _htmlFooter() -> str:
     htmlStr = '  </body>\n'
     htmlStr += '</html>\n'
     return htmlStr
 
 
-def htmlLogin(baseDir: str, registrationsOpen: bool,
+def _htmlLogin(baseDir: str, registrationsOpen: bool,
               registrationsRemaining: int,
               autocomplete=True) -> str:
     """Shows the login screen
     """
     # loginImageFilename = baseDir + '/webserver/login.png'
 
-    accounts = noOfAccounts(baseDir)
+    accounts = _noOfAccounts(baseDir)
     if accounts > 0:
         loginText = \
             '<p class="login-text">' + \
@@ -118,7 +118,7 @@ def htmlLogin(baseDir: str, registrationsOpen: bool,
     if not autocomplete:
         autocompleteStr = 'autocomplete="off" value=""'
 
-    loginForm = htmlHeader(cssFilename, loginCSS)
+    loginForm = _htmlHeader(cssFilename, loginCSS)
     loginForm += '<form method="POST" action="/login">'
     loginForm += '  <div class="imgcontainer">'
     loginForm += \
@@ -148,11 +148,11 @@ def htmlLogin(baseDir: str, registrationsOpen: bool,
         '<img loading="lazy" class="license" title="' + \
         'Get the source code' + '" alt="' + \
         'Get the source code' + '" src="/icons/agpl.png" /></a>'
-    loginForm += htmlFooter()
+    loginForm += _htmlFooter()
     return loginForm
 
 
-def createSession(onionRoute: bool):
+def _createSession(onionRoute: bool):
     session = requests.session()
     if onionRoute:
         session.proxies = {}
@@ -161,7 +161,7 @@ def createSession(onionRoute: bool):
     return session
 
 
-def loadBrowserTokens(baseDir: str, tokensDict: {}, tokensLookup: {}) -> None:
+def _loadBrowserTokens(baseDir: str, tokensDict: {}, tokensLookup: {}) -> None:
     for subdir, dirs, files in os.walk(baseDir + '/players'):
         for playerFilename in files:
             tokenFilename = baseDir + '/players/' + playerFilename + '.token'
@@ -186,6 +186,8 @@ class PubServer(BaseHTTPRequestHandler):
 
     def _login_headers(self, fileFormat: str, length: int,
                        callingDomain: str) -> None:
+        """TODO currently unused
+        """
         self.send_response(200)
         self.send_header('Content-type', fileFormat)
         self.send_header('Content-Length', str(length))
@@ -227,6 +229,8 @@ class PubServer(BaseHTTPRequestHandler):
 
     def _set_headers_head(self, fileFormat: str, length: int, etag: str,
                           callingDomain: str) -> None:
+        """TODO currently unused
+        """
         self._set_headers_base(fileFormat, length, None, callingDomain)
         if etag:
             self.send_header('ETag', etag)
@@ -234,7 +238,10 @@ class PubServer(BaseHTTPRequestHandler):
 
     def _set_headers_etag(self, mediaFilename: str, fileFormat: str,
                           data, cookie: str, callingDomain: str) -> None:
-        self._set_headers_base(fileFormat, len(data), cookie, callingDomain)
+        """TODO currently unused
+        """
+        dataLen = len(data)
+        self._set_headers_base(fileFormat, dataLen, cookie, callingDomain)
         self.send_header('Cache-Control', 'public, max-age=86400')
         etag = None
         if os.path.isfile(mediaFilename + '.etag'):
@@ -256,6 +263,7 @@ class PubServer(BaseHTTPRequestHandler):
 
     def _etag_exists(self, mediaFilename: str) -> bool:
         """Does an etag header exist for the given file?
+        TODO: currently unused
         """
         etagHeader = 'If-None-Match'
         if not self.headers.get(etagHeader):
@@ -280,6 +288,8 @@ class PubServer(BaseHTTPRequestHandler):
 
     def _redirect_headers(self, redirect: str, cookie: str,
                           callingDomain: str) -> None:
+        """TODO: currently unused
+        """
         self.send_response(303)
         if cookie:
             self.send_header('Cookie', cookie)
@@ -311,15 +321,21 @@ class PubServer(BaseHTTPRequestHandler):
         self._httpReturnCode(200, 'Ok')
 
     def _404(self) -> None:
+        """TODO: currently unused
+        """
         self._httpReturnCode(404, 'Not Found')
 
     def _304(self) -> None:
+        """TODO: currently unused
+        """
         self._httpReturnCode(304, 'Resource has not changed')
 
     def _400(self) -> None:
         self._httpReturnCode(400, 'Bad Request')
 
     def _503(self) -> None:
+        """TODO: currently unused
+        """
         self._httpReturnCode(503, 'Service Unavailable')
 
     def _write(self, msg) -> None:
@@ -334,17 +350,21 @@ class PubServer(BaseHTTPRequestHandler):
                 tries += 1
 
     def _robotsTxt(self) -> bool:
+        """TODO: currently unused
+        """
         if not self.path.lower().startswith('/robot'):
             return False
         msg = 'User-agent: *\nDisallow: /'
         msg = msg.encode('utf-8')
-        self._set_headers('text/plain; charset=utf-8', len(msg),
+        msgLen = len(msg)
+        self._set_headers('text/plain; charset=utf-8', msgLen,
                           None, self.server.domainFull)
         self._write(msg)
         return True
 
     def _clearLoginDetails(self, nickname: str):
         """Clears login details for the given account
+        TODO: currently unused
         """
         # remove any token
         if self.server.tokens.get(nickname):
@@ -432,8 +452,11 @@ class PubServer(BaseHTTPRequestHandler):
 
         if self.path == '/logout':
             msg = \
-                htmlLogin(self.server.baseDir, False).encode('utf-8')
-            self._logout_headers('text/html', len(msg), callingDomain)
+                _htmlLogin(self.server.baseDir,
+                           self.server.registrationsOpen,
+                           False).encode('utf-8')
+            msgLen = len(msg)
+            self._logout_headers('text/html', msgLen, callingDomain)
             self._write(msg)
             return
 
@@ -459,7 +482,7 @@ class PubServer(BaseHTTPRequestHandler):
 
         if not self.server.session:
             print('Starting new session')
-            self.server.session = createSession(self.server.useTor)
+            self.server.session = _createSession(self.server.useTor)
 
         # is this a html request?
         # htmlGET = False
@@ -487,6 +510,8 @@ class PubServer(BaseHTTPRequestHandler):
 def runWebServer(baseDir: str, domain: str, onionDomain: str,
                  debug: bool, port=80, proxyPort=80,
                  httpPrefix='https', useTor=False) -> None:
+    """TODO: currently unused
+    """
     if len(domain) == 0:
         domain = 'localhost'
     if '.' not in domain:
@@ -530,8 +555,10 @@ def runWebServer(baseDir: str, domain: str, onionDomain: str,
     httpd.tokens = {}
     httpd.tokensLookup = {}
     httpd.iconsCache = {}
+    httpd.registrationsOpen = True
+    httpd.registrationsRemaining = 999
 
-    loadBrowserTokens(baseDir, httpd.tokens, httpd.tokensLookup)
+    _loadBrowserTokens(baseDir, httpd.tokens, httpd.tokensLookup)
 
     print('Running AberMUSH web server on ' +
           domain + ' port ' + str(proxyPort))

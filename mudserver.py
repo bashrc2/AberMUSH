@@ -49,11 +49,12 @@ class MudServerWS(WebSocket):
         for client in ws_clients:
             client.sendMessage(self.address[0] +
                                u' - websocket connected')
-        if self.server.parent:
-            self._id = self.server.parent.getNextId()
+        parent = self.server.parent
+        if parent:
+            self._id = parent.getNextId()
             print('Connect websocket client ' + str(self._id))
-            self.server.parent.add_new_player(self._CLIENT_WEBSOCKET, self,
-                                              self.address[0])
+            parent.add_new_player(self._CLIENT_WEBSOCKET,
+                                  self, self.address[0])
         ws_clients.append(self)
         print(self.address, 'websocket connected')
 
@@ -290,13 +291,13 @@ class MudServer(object):
             return True
         return False
 
-    def removeWebSocketCommands(self, id: int, message: str) -> str:
+    def _removeWebSocketCommands(self, id: int, message: str) -> str:
         """Removes special commands used by the web interface
         """
         try:
             cl = self._clients[id]
         except BaseException:
-            print('removeWebSocketCommands: client index ' +
+            print('_removeWebSocketCommands: client index ' +
                   str(id) + ' was not found')
             return message
         if cl.client_type != self._CLIENT_WEBSOCKET:
@@ -325,7 +326,7 @@ class MudServer(object):
             self.sendMessage(to, message)
             return
 
-        message = self.removeWebSocketCommands(to, message)
+        message = self._removeWebSocketCommands(to, message)
 
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
@@ -353,10 +354,10 @@ class MudServer(object):
         """
         previousTiming = time.time()
 
-        message = self.removeWebSocketCommands(to, message)
+        message = self._removeWebSocketCommands(to, message)
 
         previousTiming = \
-            showTiming(previousTiming, "removeWebSocketCommands")
+            showTiming(previousTiming, "_removeWebSocketCommands")
 
         # we make sure to put a newline on the end so the client receives
         # the message on its own line

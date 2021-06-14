@@ -197,8 +197,9 @@ def familiarHide(nid, npcs, npcsDB):
     npcsDB[nid]['familiarMode'] = "hide"
 
 
-def familiarIsHidden(players, id, npcs):
+def familiarIsHidden(players: {}, id, npcs: {}):
     """Returns true if the familiar of the player is hidden
+    TODO: currently unused
     """
     if players[id]['familiar'] != -1:
         for (nid, pl) in list(npcs.items()):
@@ -208,7 +209,8 @@ def familiarIsHidden(players, id, npcs):
     return False
 
 
-def familiarScoutAnyDirection(familiarSize, startRoomID, roomExits, rooms):
+def _familiarScoutAnyDirection(familiarSize, startRoomID,
+                               roomExits, rooms: {}):
     """Scout in any direction
     """
     newPath = [startRoomID]
@@ -223,8 +225,8 @@ def familiarScoutAnyDirection(familiarSize, startRoomID, roomExits, rooms):
     return newPath
 
 
-def familiarScoutInDirection(mud, players, id, startRoomID, roomExits,
-                             direction, rooms):
+def _familiarScoutInDirection(mud, players, id, startRoomID, roomExits,
+                              direction, rooms):
     """Scout in the given direction
     """
     newPath = []
@@ -252,11 +254,11 @@ def familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, direction):
 
     if direction == 'any' or direction == 'all' or len(direction) == 0:
         newPath = \
-            familiarScoutAnyDirection(npcs[nid]['siz'], startRoomID,
-                                      roomExits, rooms)
+            _familiarScoutAnyDirection(npcs[nid]['siz'], startRoomID,
+                                       roomExits, rooms)
     else:
-        newPath = familiarScoutInDirection(mud, players, id, startRoomID,
-                                           roomExits, direction, rooms)
+        newPath = _familiarScoutInDirection(mud, players, id, startRoomID,
+                                            roomExits, direction, rooms)
 
     if len(newPath) > 0:
         npcs[nid]['familiarMode'] = "scout"

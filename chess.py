@@ -37,7 +37,7 @@ def showChessBoard(boardName: str, gameState: [],
     """Shows the chess board
     """
     if mud.playerUsingWebInterface(id):
-        showChessBoardAsHtml(boardName, gameState, id, mud, turn)
+        _showChessBoardAsHtml(boardName, gameState, id, mud, turn)
         return
     mud.sendMessage(id, '\n')
     boardStr = ''
@@ -61,8 +61,8 @@ def showChessBoard(boardName: str, gameState: [],
     mud.send_game_board(id, boardStr)
 
 
-def showChessBoardAsHtml(boardName: str, gameState: [], id: int,
-                         mud, turn: str) -> None:
+def _showChessBoardAsHtml(boardName: str, gameState: [], id: int,
+                          mud, turn: str) -> None:
     """Shows the chess board as html for the web interface
     """
     if not boardName:
@@ -162,7 +162,7 @@ def initialChessBoard() -> []:
     return initial.copy()
 
 
-def chessPieceAt(gameState: [], coord: str) -> str:
+def _chessPieceAt(gameState: [], coord: str) -> str:
     if len(coord) != 2:
         return '.'
     if ord(coord[0]) < ord('a') or ord(coord[0]) > ord('h'):
@@ -172,7 +172,7 @@ def chessPieceAt(gameState: [], coord: str) -> str:
     return gameState[ord('8') - ord(coord[1])][ord(coord[0]) - ord('a')]
 
 
-def chessPieceSet(gameState: [], coord: str, piece: str) -> None:
+def _chessPieceSet(gameState: [], coord: str, piece: str) -> None:
     if len(coord) != 2:
         return
     if ord(coord[0]) < ord('a') or ord(coord[0]) > ord('h'):
@@ -192,7 +192,7 @@ def moveChessPiece(moveStr: str, gameState: [],
         return False
     moveFrom = match.group(1)
     moveTo = match.group(2)
-    fromPiece = chessPieceAt(gameState, moveFrom)
+    fromPiece = _chessPieceAt(gameState, moveFrom)
     if fromPiece == '.':
         return False
     if turn == 'white':
@@ -201,6 +201,6 @@ def moveChessPiece(moveStr: str, gameState: [],
     else:
         if fromPiece.lower() != fromPiece:
             return False
-    chessPieceSet(gameState, moveFrom, '.')
-    chessPieceSet(gameState, moveTo, fromPiece)
+    _chessPieceSet(gameState, moveFrom, '.')
+    _chessPieceSet(gameState, moveTo, fromPiece)
     return True

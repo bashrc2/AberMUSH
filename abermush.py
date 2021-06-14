@@ -10,6 +10,8 @@ __status__ = "Production"
 import os
 import json
 import ssl
+import argparse
+import sys
 
 from functions import deepcopy
 from functions import showTiming
@@ -24,6 +26,7 @@ from functions import hash_password
 from functions import verify_password
 from functions import loadBlocklist
 from functions import setRace
+from functions import str2bool
 
 from commands import runCommand
 from combat import npcAggression
@@ -52,6 +55,7 @@ from environment import generateCloud
 from environment import getTemperature
 from environment import findRoomCollisions
 from traps import runTraps
+from tests import runAllTests
 
 from gcos import terminalEmulator
 
@@ -72,6 +76,16 @@ import configparser
 
 # import glob module
 import glob
+
+
+parser = argparse.ArgumentParser(description='AberMUSH Server')
+parser.add_argument("--tests", type=str2bool, nargs='?',
+                    const=True, default=False,
+                    help="Run unit tests")
+args = parser.parse_args()
+if args.tests:
+    runAllTests()
+    sys.exit()
 
 log("", "Server Boot")
 
@@ -141,7 +155,8 @@ log("Loading sentiment...", "info")
 with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
     sentimentDB = json.loads(read_file.read())
 
-log("Sentiment loaded: " + str(len(sentimentDB)), "info")
+countStr = str(len(sentimentDB))
+log("Sentiment loaded: " + countStr, "info")
 
 log("Loading rooms...", "info")
 
@@ -162,11 +177,13 @@ for roomID, rm in rooms.items():
                           str(roomID)):
         print('Missing room image: ' + str(roomID))
 
-log("Rooms loaded: " + str(len(rooms)), "info")
+countStr = str(len(rooms))
+log("Rooms loaded: " + countStr, "info")
 
 maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 
-log("Terrain difficulty calculated. max=" + str(maxTerrainDifficulty), "info")
+maxTerrainDifficultyStr = str(maxTerrainDifficulty)
+log("Terrain difficulty calculated. max=" + maxTerrainDifficultyStr, "info")
 
 # Loading Items
 if os.path.isfile("universe_items.json"):
@@ -232,7 +249,8 @@ for k in itemsDB:
                v == "article"):
             itemsDB[k][v] = int(itemsDB[k][v])
 
-log("Items loaded: " + str(len(itemsDB)), "info")
+countStr = str(len(itemsDB))
+log("Items loaded: " + countStr, "info")
 
 # Load scripted event declarations from disk
 files = glob.glob(str(Config.get('Events', 'Location')) + "/*.event")
@@ -248,14 +266,16 @@ for file in files:
             # print(lines)
             f.close()
 
-log("Scripted Events loaded: " + str(counter), "info")
+countStr = str(counter)
+log("Scripted Events loaded: " + countStr, "info")
 
 mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB)
 
 # check that there are no room collisions
 findRoomCollisions(rooms)
 
-log("Map coordinates:" + str(mapArea), "info")
+mapAreaStr = str(mapArea)
+log("Map coordinates:" + mapAreaStr, "info")
 
 # Loading environment actors
 if os.path.isfile("universe_actors.json"):
@@ -293,7 +313,8 @@ for k in envDB:
                v == "vocabulary"):
             envDB[k][v] = int(envDB[k][v])
 
-log("Environment Actors loaded: " + str(len(envDB)), "info")
+countStr = str(len(envDB))
+log("Environment Actors loaded: " + countStr, "info")
 
 # List ENV dictionary for debugging purposes
 # print(env)
@@ -373,27 +394,32 @@ for k in npcsDB:
                v == "whenDied"):
             npcsDB[k][v] = int(npcsDB[k][v])
 
-log("NPCs loaded: " + str(len(npcsDB)), "info")
+countStr = str(len(npcsDB))
+log("NPCs loaded: " + countStr, "info")
 
 with open(str(Config.get('Races', 'Definition')), "r") as read_file:
     racesDB = json.loads(read_file.read())
 
-log("Races loaded: " + str(len(racesDB)), "info")
+countStr = str(len(racesDB))
+log("Races loaded: " + countStr, "info")
 
 with open(str(Config.get('CharacterClass', 'Definition')), "r") as read_file:
     characterClassDB = json.loads(read_file.read())
 
-log("Character Classes loaded: " + str(len(characterClassDB)), "info")
+countStr = str(len(characterClassDB))
+log("Character Classes loaded: " + countStr, "info")
 
 with open(str(Config.get('Spells', 'Definition')), "r") as read_file:
     spellsDB = json.loads(read_file.read())
 
-log("Spells loaded: " + str(len(spellsDB)), "info")
+countStr = str(len(spellsDB))
+log("Spells loaded: " + countStr, "info")
 
 with open(str(Config.get('Guilds', 'Definition')), "r") as read_file:
     guildsDB = json.loads(read_file.read())
 
-log("Guilds loaded: " + str(len(guildsDB)), "info")
+countStr = str(len(guildsDB))
+log("Guilds loaded: " + countStr, "info")
 
 # List NPC dictionary for debugging purposes
 # print(" ")
@@ -415,7 +441,8 @@ log("Guilds loaded: " + str(len(guildsDB)), "info")
 
 # Load registered players DB
 playersDB = loadPlayersDB()
-log("Registered players: " + str(len(playersDB)), "info")
+countStr = str(len(playersDB))
+log("Registered players: " + countStr, "info")
 
 # Execute Reserved Event 1 and 2
 # Using -1 for target since no players can be targeted with an event at
@@ -429,7 +456,8 @@ addToScheduler(3, -1, eventSchedule, scriptedEventsDB)
 # A State Save takes values held in memory and updates the database
 # at set intervals to achieve player state persistence
 stateSaveInterval = int(Config.get('World', 'StateSaveInterval'))
-log("State Save interval: " + str(stateSaveInterval) + " seconds", "info")
+stateSaveInterStr = str(stateSaveInterval)
+log("State Save interval: " + stateSaveInterStr + " seconds", "info")
 
 # Set last state save to 'now' on server boot
 lastStateSave = int(time.time())
@@ -470,7 +498,8 @@ windDirection = int(r1.random() * 359)
 windDirection = \
     generateCloud(r1, rooms, mapArea, clouds,
                   cloudGrid, tileSize, windDirection)
-log("Clouds generated. Wind direction " + str(windDirection), "info")
+windDirectionStr = str(windDirection)
+log("Clouds generated. Wind direction " + windDirectionStr, "info")
 
 lastTempHitPointsUpdate = int(time.time())
 tempHitPointsUpdateInterval = 60
@@ -713,7 +742,8 @@ while True:
                 id,
                 "<f15>What is your username?<r>\n<f246>Type " +
                 "'<f253>new<r><f246>' to create a character.\n\n")
-            log("Player ID " + str(id) +
+            idStr = str(id)
+            log("Player ID " + idStr +
                 " has aborted character creation.", "info")
             break
 
@@ -735,8 +765,8 @@ while True:
                 taken = True
                 if terminalEmulator(command, params, mud, id):
                     terminalMode[str(id)] = True
-                    log("Player ID " +
-                        str(id) +
+                    idStr = str(id)
+                    log("Player ID " + idStr +
                         " logged into GCOS-3/TSS with command - " +
                         command + ' ' + params, "info")
                 else:
@@ -746,8 +776,8 @@ while True:
                         mud.sendMessage(id, "\nBYE\n\n")
                     else:
                         mud.sendMessage(id, ">")
-                        log("Player ID " +
-                            str(id) +
+                        idStr = str(id)
+                        log("Player ID " + idStr +
                             " logged into GCOS-3/TSS with command - " +
                             command + ' ' + params, "info")
 
@@ -780,15 +810,15 @@ while True:
                 if terminalEmulator(command, params, mud, id):
                     terminalMode[str(id)] = True
                     taken = True
-                    log("Player ID " +
-                        str(id) +
+                    strId = str(id)
+                    log("Player ID " + strId +
                         " logged into GCOS-3/TSS with command - " +
                         command + ' ' + params, "info")
                 else:
                     if terminalMode.get(str(id)) is True:
                         mud.sendMessage(id, ">")
-                        log("Player ID " +
-                            str(id) +
+                        strId = str(id)
+                        log("Player ID " + strId +
                             " logged into GCOS-3/TSS with command - " +
                             command + ' ' + params, "info")
 
@@ -945,11 +975,10 @@ while True:
                 id,
                 "<f15>What is your username?<r>\n<f246>Type " +
                 "'<f253>new<r><f246>' to create a character.\n\n")
-            log("Player ID " +
-                str(id) +
-                " has completed character creation (" +
-                template['name'] +
-                ").", "info")
+            strId = str(id)
+            log("Player ID " + strId +
+                " has completed character creation [" +
+                template['name'] + "].", "info")
             break
 
         # if the player hasn't given their name yet, use this first command as
@@ -1017,15 +1046,15 @@ while True:
                                             "Press ENTER to continue...\n\n")
                             command = ''
 
+                    strId = str(id)
                     if terminalEmulator(command, params, mud, id):
-                        terminalMode[str(id)] = True
-                        log("Player ID " +
-                            str(id) +
+                        terminalMode[strId] = True
+                        log("Player ID " + strId +
                             " logged into GCOS-3/TSS with command - " +
                             command + ' ' + params, "info")
                         command = ''
                     else:
-                        if terminalMode.get(str(id)) is True:
+                        if terminalMode.get(strId) is True:
                             mud.sendMessage(id, ">")
 
                 if command:
@@ -1036,10 +1065,10 @@ while True:
                 if pl is not None and not connectCommand:
                     if pl.get('name'):
                         players[id]['name'] = pl['name']
-
-                        log("Player ID " + str(id) +
-                            " has requested existing user (" + command +
-                            ")", "info")
+                        strId = str(id)
+                        log("Player ID " + strId +
+                            " has requested existing user [" + command + "]",
+                            "info")
                         mud.sendMessage(id, 'Hi <u><f32>' + command + '<r>!')
                         mud.sendMessage(id,
                                         '<f15>What is your password?<r>\n\n')
@@ -1055,11 +1084,10 @@ while True:
                                 '<r> was not found!\n')
                             mud.sendMessage(id,
                                             '<f15>What is your username?\n\n')
-                            log("Player ID " +
-                                str(id) +
-                                " has requested non existent user (" +
-                                command +
-                                ")", "info")
+                            strId = str(id)
+                            log("Player ID " + strId +
+                                " has requested non existent user [" +
+                                command + "]", "info")
                     else:
                         mud.sendMessage(id, 'Hi <u><f32>' +
                                         players[id]['name'] + '<r>!\n\n')
@@ -1067,7 +1095,8 @@ while True:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
                     players[id]['idleStart'] = int(time.time())
-                    log("Player ID " + str(id) +
+                    strId =str(id)
+                    log("Player ID " + strId +
                         " has initiated character creation.", "info")
                     mud.sendMessage(
                         id,
@@ -1109,16 +1138,16 @@ while True:
                         mud.sendMessage(id, "\nBYE\n\n")
                     else:
                         mud.sendMessage(id, ">")
-                        log("Player ID " +
-                            str(id) +
+                        strId = str(id)
+                        log("Player ID " + strId +
                             " logged into GCOS-3/TSS with command - " +
                             players[id]['name'], "info")
             else:
                 if terminalEmulator(players[id]['name'], '', mud, id):
                     terminalMode[str(id)] = True
                     taken = True
-                    log("Player ID " +
-                        str(id) +
+                    strId = str(id)
+                    log("Player ID " + strId +
                         " logged into GCOS-3/TSS with command - " +
                         players[id]['name'], "info")
 
@@ -1130,14 +1159,16 @@ while True:
                 else:
                     mud.sendMessage(
                         id, '<f202>This character is already in the world!')
-                    log("Player ID " + str(id) +
+                    strId = str(id)
+                    log("Player ID " + strId +
                         " has requested a character which is already in " +
                         "the world!", "info")
                     players[id]['name'] = None
                     mud.sendMessage(id, '<f15>What is your username? ')
             else:
                 mud.sendMessage(id, '<f202>Password incorrect!\n')
-                log("Player ID " + str(id) + " has failed authentication",
+                strId = str(id)
+                log("Player ID " + strId + " has failed authentication",
                     "info")
                 players[id]['name'] = None
                 mud.sendMessage(id, '<f15>What is your username? ')
@@ -1146,7 +1177,8 @@ while True:
             players[id]['idleStart'] = int(time.time())
             if players[id]['exAttribute0'] < 1000:
                 if len(command) > 0:
-                    runCommand(command.lower(), params, mud, playersDB,
+                    commandLower = command.lower()
+                    runCommand(commandLower, params, mud, playersDB,
                                players, rooms, npcsDB, npcs, itemsDB,
                                itemsInWorld, envDB, env, scriptedEventsDB,
                                eventSchedule, id, fights, corpses, blocklist,
