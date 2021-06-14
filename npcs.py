@@ -911,10 +911,10 @@ def conversationWordCount(message: str, wordsList: [], npcs: {},
     return matchCtr
 
 
-def conversationGive(bestMatch, bestMatchAction,
-                     thingGivenIDstr, players, id,
-                     mud, npcs, nid, itemsDB, puzzledStr,
-                     guildsDB) -> bool:
+def conversationGive(bestMatch: str, bestMatchAction: str,
+                     thingGivenIDstr: str, players: {}, id,
+                     mud, npcs: {}, nid: int, itemsDB: {},
+                     puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC gives something to you
     """
     if bestMatchAction == 'give' or \
