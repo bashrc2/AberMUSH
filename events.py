@@ -19,7 +19,8 @@ def _setPlayerCanGo(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         players[etarget]['canGo'] = int(ebody)
 
 
-def _setPlayerCanLook(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerCanLook(etarget, ebody, players, npcs, items,
+                      env, npcsDB, envDB):
     if etarget in players:
         players[etarget]['canLook'] = int(ebody)
 
@@ -226,7 +227,8 @@ def _setPlayerInv(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
     players[etarget]['inv'] = str(ebody)
 
 
-def _setAuthenticated(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setAuthenticated(etarget, ebody, players, npcs, items,
+                      env, npcsDB, envDB):
     players[etarget]['authenticated'] = str2bool(ebody)
 
 

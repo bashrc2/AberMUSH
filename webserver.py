@@ -61,8 +61,8 @@ def _htmlFooter() -> str:
 
 
 def _htmlLogin(baseDir: str, registrationsOpen: bool,
-              registrationsRemaining: int,
-              autocomplete=True) -> str:
+               registrationsRemaining: int,
+               autocomplete=True) -> str:
     """Shows the login screen
     """
     # loginImageFilename = baseDir + '/webserver/login.png'

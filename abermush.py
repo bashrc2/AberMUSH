@@ -1095,7 +1095,7 @@ while True:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
                     players[id]['idleStart'] = int(time.time())
-                    strId =str(id)
+                    strId = str(id)
                     log("Player ID " + strId +
                         " has initiated character creation.", "info")
                     mud.sendMessage(

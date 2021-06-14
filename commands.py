@@ -617,7 +617,8 @@ def _unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
 
     if len(params) == 0:
         _showBlocklist(params, mud, playersDB, players, rooms, npcsDB,
-                       npcs, itemsDB, items, envDB, env, eventDB, eventSchedule,
+                       npcs, itemsDB, items, envDB, env, eventDB,
+                       eventSchedule,
                        id, fights, corpses, blocklist, mapArea,
                        characterClassDB, spellsDB, sentimentDB, guildsDB,
                        clouds, racesDB)
@@ -2898,7 +2899,8 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 message += \
                                     randomDescription(desc)
                                 message += \
-                                    _describeContainerContents(mud, id, itemsDB,
+                                    _describeContainerContents(mud, id,
+                                                               itemsDB,
                                                                items[i]['id'],
                                                                True)
                             else:
@@ -2929,18 +2931,19 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                     invItemFound = False
                     for i in playerinv:
                         thisItemID = int(i)
-                        if param == itemsDB[thisItemID]['name'].lower():
-                            itemLanguage = itemsDB[thisItemID]['language']
+                        itemsDBEntry = itemsDB[thisItemID]
+                        if param == itemsDBEntry['name'].lower():
+                            itemLanguage = itemsDBEntry['language']
                             _showItemImage(mud, id, thisItemID, players)
                             if len(itemLanguage) == 0:
-                                desc = itemsDB[thisItemID]['long_description']
+                                desc = itemsDBEntry['long_description']
                                 message += randomDescription(desc)
                                 message += \
                                     _describeContainerContents(
                                         mud, id, itemsDB, thisItemID, True)
                             else:
                                 if itemLanguage in players[id]['language']:
-                                    desc = itemsDB[thisItemID]['long_description']
+                                    desc = itemsDBEntry['long_description']
                                     message += randomDescription(desc)
                                     message += \
                                         _describeContainerContents(
@@ -2949,19 +2952,20 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                     message += \
                                         "It's written in " + itemLanguage
                             itemName = \
-                                itemsDB[thisItemID]['article'] + " " + \
-                                itemsDB[thisItemID]['name']
+                                itemsDBEntry['article'] + " " + \
+                                itemsDBEntry['name']
                             invItemFound = True
                             break
                     if not invItemFound:
                         # check for partial match of item name
                         for i in playerinv:
                             thisItemID = int(i)
-                            if param in itemsDB[thisItemID]['name'].lower():
-                                itemLanguage = itemsDB[thisItemID]['language']
+                            itemsDBEntry = itemsDB[thisItemID]
+                            if param in itemsDBEntry['name'].lower():
+                                itemLanguage = itemsDBEntry['language']
                                 _showItemImage(mud, id, thisItemID, players)
                                 if len(itemLanguage) == 0:
-                                    desc = itemsDB[thisItemID]['long_description']
+                                    desc = itemsDBEntry['long_description']
                                     message += randomDescription(desc)
                                     message += \
                                         _describeContainerContents(
@@ -2969,18 +2973,19 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 else:
                                     if itemLanguage in players[id]['language']:
                                         desc = \
-                                            itemsDB[thisItemID]['long_description']
+                                            itemsDBEntry['long_description']
                                         message += randomDescription(desc)
                                         message += \
                                             _describeContainerContents(
-                                                mud, id, itemsDB, thisItemID, True)
+                                                mud, id, itemsDB,
+                                                thisItemID, True)
                                     else:
                                         message += \
                                             "It's written in " + itemLanguage
 
                                 itemName = \
-                                    itemsDB[thisItemID]['article'] + " " + \
-                                    itemsDB[thisItemID]['name']
+                                    itemsDBEntry['article'] + " " + \
+                                    itemsDBEntry['name']
                                 break
 
             if len(message) > 0:
