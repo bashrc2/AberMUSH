@@ -912,7 +912,7 @@ def conversationWordCount(message: str, wordsList: [], npcs: {},
 
 
 def conversationGive(bestMatch, bestMatchAction,
-                     bestMatchActionParam0, players, id,
+                     thingGivenIDstr, players, id,
                      mud, npcs, nid, itemsDB, puzzledStr,
                      guildsDB) -> bool:
     """Conversation in which an NPC gives something to you
@@ -920,8 +920,8 @@ def conversationGive(bestMatch, bestMatchAction,
     if bestMatchAction == 'give' or \
        bestMatchAction == 'gift':
         thisNPC = npcs[nid]
-        if len(bestMatchActionParam0) > 0:
-            itemID = int(bestMatchActionParam0)
+        if len(thingGivenIDstr) > 0:
+            itemID = int(thingGivenIDstr)
             if itemID not in list(players[id]['inv']):
                 players[id]['inv'].append(str(itemID))
                 updatePlayerAttributes(id, players, itemsDB, itemID, 1)
