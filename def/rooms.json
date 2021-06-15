@@ -6088,7 +6088,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "ruins",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6110,7 +6110,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "ruins",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -11451,7 +11451,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "ruins",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -11475,7 +11475,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "ruins",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -14297,6 +14297,29 @@
         "virtualExits": {},
         "tideOutDescription" : "",
         "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1411$": {
+        "exits": {
+	    "down": "$rid=1176$"
+        },
+        "name": "The smooth rock",
+        "description": "You are standing on a massive slab of sandstone, adjacent to ruined walls and piles of rubble. The rock has been worn smooth by centuries of weathering.",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 2,
+        "weather": 1,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "ruins",
         "terrainDifficulty": 0,
         "coords": []
     }

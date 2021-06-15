@@ -44893,6 +44893,8 @@
         "short_description": "The sandstone is massive and smoothed by the weathering of countless salty winds over many years.",
         "long_description": "The sandstone is massive and smoothed by the weathering of countless salty winds over the centuries.|The sandstone is massive and worn smooth by the weathering of numerous salty winds over the centuries. Faint markings etched into its surface read: NULLA REGES",
 	"takeFail": "That would just be silly. It's far too big and heavy.",
+	"climbThrough": "You clamber up onto the massive rock.",
+        "exit": "$rid=1411$",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
@@ -44963,7 +44965,6 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
         "lightSource": 0,
         "article": "a"
     }
