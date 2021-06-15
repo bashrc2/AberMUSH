@@ -9535,7 +9535,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "up": "$rid=1241$"
+            "up": "$rid=1041$"
         }
     },
     "$rid=1046$": {
