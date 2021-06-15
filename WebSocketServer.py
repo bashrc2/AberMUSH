@@ -6,6 +6,7 @@ __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
+__module_group__ = "Web Interface"
 
 '''
 Based on https://github.com/dpallot/simple-websocket-server

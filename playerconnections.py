@@ -6,6 +6,7 @@ __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
+__module_group__ = "Core"
 
 import os
 from functions import log

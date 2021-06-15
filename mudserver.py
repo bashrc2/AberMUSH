@@ -7,6 +7,8 @@ __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
+__module_group__ = "Core"
+
 
 """Basic MUD server module for creating text-based Multi-User Dungeon
 (MUD) games.

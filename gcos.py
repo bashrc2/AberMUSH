@@ -5,7 +5,7 @@ __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
-
+__module_group__ = "Mainframe Emulator"
 
 def _terminalMount(mud, id):
     mud.sendMessage(id, "<f220>DSS port C mounted")

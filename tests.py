@@ -5,6 +5,7 @@ __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
 __email__ = "bob@freedombone.net"
 __status__ = "Production"
+__module_group__ = "Unit Testing"
 
 
 import os
@@ -77,6 +78,7 @@ def testFunctions():
     function = {}
     functionProperties = {}
     modules = {}
+    modGroups = {}
 
     for subdir, dirs, files in os.walk('.'):
         for sourceFile in files:
@@ -94,6 +96,17 @@ def testFunctions():
                 lines = f.readlines()
                 modules[modName]['lines'] = lines
                 for line in lines:
+                    if '__module_group__' in line:
+                        if '=' in line:
+                            groupName = line.split('=')[1].strip()
+                            groupName = groupName.replace('"', '')
+                            groupName = groupName.replace("'", '')
+                            modules[modName]['group'] = groupName
+                            if not modGroups.get(groupName):
+                                modGroups[groupName] = [modName]
+                            else:
+                                if modName not in modGroups[groupName]:
+                                    modGroups[groupName].append(modName)
                     if not line.strip().startswith('def '):
                         continue
                     methodName = line.split('def ', 1)[1].split('(')[0]
@@ -508,7 +521,7 @@ def testFunctions():
                         else:
                             modules[modName]['calls'] = [modCall]
             lineCtr += 1
-    callGraphStr = 'digraph EpicyonModules {\n\n'
+    callGraphStr = 'digraph AberMUSHModules {\n\n'
     callGraphStr += '  graph [fontsize=10 fontname="Verdana" compound=true];\n'
     callGraphStr += '  node [shape=record fontsize=10 fontname="Verdana"];\n\n'
     # colors of modules nodes
@@ -533,6 +546,19 @@ def testFunctions():
             continue
         for modCall in modProperties['calls']:
             callGraphStr += '  "' + modName + '" -> "' + modCall + '";\n'
+    # module groups/clusters
+    clusterCtr = 1
+    for groupName, groupModules in modGroups.items():
+        callGraphStr += '\n'
+        callGraphStr += \
+            '  subgraph cluster_' + str(clusterCtr) + ' {\n'
+        callGraphStr += '    node [style=filled];\n'
+        for modName in groupModules:
+            callGraphStr += '    ' + modName + ';\n'
+        callGraphStr += '    label = "' + groupName + '";\n'
+        callGraphStr += '    color = blue;\n'
+        callGraphStr += '  }\n'
+        clusterCtr += 1
     callGraphStr += '\n}\n'
     with open('abermush_modules.dot', 'w+') as fp:
         fp.write(callGraphStr)
@@ -541,7 +567,7 @@ def testFunctions():
               'sfdp -x -Goverlap=false -Goverlap_scaling=2 ' +
               '-Gsep=+100 -Tx11 abermush_modules.dot')
 
-    callGraphStr = 'digraph Epicyon {\n\n'
+    callGraphStr = 'digraph AberMUSH {\n\n'
     callGraphStr += '  size="8,6"; ratio=fill;\n'
     callGraphStr += '  graph [fontsize=10 fontname="Verdana" compound=true];\n'
     callGraphStr += '  node [shape=record fontsize=10 fontname="Verdana"];\n\n'
