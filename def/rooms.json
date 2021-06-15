@@ -2392,7 +2392,7 @@
     },
     "$rid=299$": {
         "name": "Dark Chamber",
-        "description": "Darkness surrounds you.",
+        "description": "Darkness surrounds you.|Darkness is all around.|It's completely dark here.",
         "roomTeleport": "",
         "conditional": [
 	    ["hold","lightsource","You stand in a dark gloomy chamber, just east of the misty lake. A single, large stone slab is set into the floor.","299_light"]
