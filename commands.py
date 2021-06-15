@@ -6520,9 +6520,9 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
                           sentimentDB, guildsDB, clouds, racesDB)
     except Exception as e:
         # print(str(e))
-        switcher["_sendCommandError"](e, mud, playersDB, players, rooms,
-                                      npcsDB, npcs, itemsDB, items,
-                                      envDB, env, eventDB, eventSchedule,
-                                      id, fights, corpses, blocklist,
-                                      mapArea, characterClassDB, spellsDB,
-                                      sentimentDB, guildsDB, clouds, racesDB)
+        switcher["sendCommandError"](e, mud, playersDB, players, rooms,
+                                     npcsDB, npcs, itemsDB, items,
+                                     envDB, env, eventDB, eventSchedule,
+                                     id, fights, corpses, blocklist,
+                                     mapArea, characterClassDB, spellsDB,
+                                     sentimentDB, guildsDB, clouds, racesDB)
