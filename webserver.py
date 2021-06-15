@@ -23,6 +23,7 @@ def _noOfAccounts(baseDir: str) -> bool:
             if account != 'Guest.player' and \
                not account.endswith('.template'):
                 accountCtr += 1
+        break
     return accountCtr
 
 
@@ -179,6 +180,7 @@ def _loadBrowserTokens(baseDir: str, tokensDict: {}, tokensLookup: {}) -> None:
                 continue
             tokensDict[nickname] = token
             tokensLookup[token] = nickname
+        break
 
 
 class PubServer(BaseHTTPRequestHandler):
