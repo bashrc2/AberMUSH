@@ -1737,7 +1737,7 @@
     },
     "$rid=178$": {
         "name": "Priest Hole",
-        "description": "You are crouched in a small hole which is dark and cold. You cannot imagine that anyone would ever spend time in here unless they had no alternative. Hidden under the construction of the house as it is, this would however be an excellent hiding place.",
+        "description": "You are crouched in a small hole which is dark and cold. You cannot imagine that anyone would ever spend time in here unless they had no other alternative. Hidden under the construction of the house as it is, this would however be an excellent hiding place.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -2374,7 +2374,7 @@
         "description": "It's very dark here. You move around blindly by sense of touch.",
         "roomTeleport": "",
         "conditional": [
-	    ["hold","lightsource","You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.","298_light"]
+	    ["hold","lightsource","You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop as you move around.|You stand in a dark and gloomy crypt. The roof is low and arched, and you are forced to stoop, and as you move around the shadows shift and ominously change shape.","298_light"]
 	],
         "trap": {},
         "eventOnEnter": "",
