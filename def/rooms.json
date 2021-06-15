@@ -8345,7 +8345,8 @@
     },
     "$rid=923$": {
         "exits": {
-            "west": "$rid=1055$"
+            "west": "$rid=1055$",
+	    "down": "$rid=920$"
         },
         "name": "The Damp Cave",
         "description": "You stand in a large cave. Water drips incessantly down from the roof. The floor is slippery with thick layers of algae and strange pale mosses. A narrow crack leads west. To the east a narrow passage angles sharply upwards out of sight.",
