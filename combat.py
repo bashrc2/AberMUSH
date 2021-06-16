@@ -820,6 +820,7 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely chew"
             ]
         elif 'cow' in animalType or \
+             'pig' in animalType or \
              'goat' in animalType or \
              'sheep' in animalType:
             attackStrings = [
@@ -874,6 +875,7 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely chewed"
             ]
         elif 'cow' in animalType or \
+             'pig' in animalType or \
              'goat' in animalType or \
              'sheep' in animalType:
             attackStrings = [
