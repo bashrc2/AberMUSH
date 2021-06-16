@@ -4608,6 +4608,9 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                                            players[id]['name'] + '<r> ' +
                                            desc + " via exit " + ex + '\n')
 
+                # stop any fights
+                stopAttack(players, id, npcs, fights)
+
                 # Trigger old room eventOnLeave for the player
                 if rooms[players[id]['room']]['eventOnLeave'] != "":
                     idx = int(rooms[players[id]['room']]['eventOnLeave'])
