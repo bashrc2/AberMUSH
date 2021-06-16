@@ -809,6 +809,8 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely peck"
             ]
         elif 'cat' in animalType or \
+             'weasel' in animalType or \
+             'otter' in animalType or \
              'dog' in animalType or \
              'hare' in animalType or \
              'rat' in animalType:
@@ -864,6 +866,8 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely pecked"
             ]
         elif 'cat' in animalType or \
+             'weasel' in animalType or \
+             'otter' in animalType or \
              'dog' in animalType or \
              'hare' in animalType or \
              'rat' in animalType:
