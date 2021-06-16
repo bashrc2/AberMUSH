@@ -24,7 +24,7 @@ def _proficiencyParam(prof):
     return int(prof.split('(')[1].replace(')', '').strip())
 
 
-def _profFightingStyleDamage(id, players, weaponType, value):
+def _profFightingStyleDamage(id, players, weaponType, value) -> int:
     if not players[id].get('fightingStyle'):
         return 0
     fightStyle = players[id]['fightingStyle'].lower()
@@ -37,6 +37,7 @@ def _profFightingStyleDamage(id, players, weaponType, value):
                 if players[id]['clo_lhand'] == 0 or \
                    players[id]['clo_rhand'] == 0:
                     return 2
+    return 0
 
 
 def _damageProficiencyItem(prof, id, players, weaponType):
