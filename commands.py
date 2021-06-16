@@ -41,6 +41,7 @@ from traps import teleportFromTrap
 from traps import escapeFromTrap
 from combat import healthOfPlayer
 from combat import isAttacking
+from combat import stopAttack
 from combat import getAttackingTarget
 from combat import playerBeginsAttack
 from combat import isPlayerFighting
@@ -312,6 +313,8 @@ def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                 return
             for rm in rooms:
                 if rooms[rm]['name'].strip().lower() == targetLocation:
+                    if isAttacking(players, id, fights):
+                        stopAttack(players, id, npcs, fights)
                     mud.sendMessage(
                         id, "You teleport to " + rooms[rm]['name'] + "\n\n")
                     pName = players[id]['name']
@@ -319,6 +322,7 @@ def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcsDB: {},
                     messageToPlayersInRoom(mud, players, id, desc + "\n\n")
                     players[id]['room'] = rm
                     desc = '<f32>{}<r> suddenly appears.'.format(pName)
+
                     messageToPlayersInRoom(mud, players, id, desc + "\n\n")
                     _look('', mud, playersDB, players, rooms, npcsDB, npcs,
                           itemsDB, items, envDB, env, eventDB, eventSchedule,

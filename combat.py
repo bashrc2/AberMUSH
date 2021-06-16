@@ -1432,6 +1432,31 @@ def getAttackingTarget(players: {}, id, fights: {}):
     return None
 
 
+def stopAttack(players: {}, id, npcs: {}, fights: {}):
+    """Stops any fights for the given player
+    """
+    fightsCopy = deepcopy(fights)
+    for (fight, pl) in fightsCopy.items():
+        s1type = fightsCopy[fight]['s1type']
+        s1id = fightsCopy[fight]['s1id']
+        s2type = fightsCopy[fight]['s2type']
+        s2id = fightsCopy[fight]['s2id']
+        if s1type == 'pc' and s1id == id:
+            del fights[fight]
+            players[id]['isInCombat'] = 0
+            if fightsCopy[fight]['s2type'] == 'pc':
+                players[s2id]['isInCombat'] = 0
+            else:
+                npcs[s2id]['isInCombat'] = 0
+        elif s2type == 'pc' and s2id == id:
+            del fights[fight]
+            players[id]['isInCombat'] = 0
+            if fightsCopy[fight]['s1type'] == 'pc':
+                players[s1id]['isInCombat'] = 0
+            else:
+                npcs[s1id]['isInCombat'] = 0
+
+
 def playerBeginsAttack(players: {}, id, target: str,
                        npcs: {}, fights: {}, mud, racesDB: {}) -> bool:
     """Player begins an attack on another player or npc
