@@ -1067,7 +1067,9 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
         fightsCopy = deepcopy(fights)
         for (fight, pl) in fightsCopy.items():
             if fightsCopy[fight]['s1id'] == s1id and \
-               fightsCopy[fight]['s2id'] == s2id:
+               fightsCopy[fight]['s1type'] == 'pc' and \
+               fightsCopy[fight]['s2id'] == s2id and \
+               fightsCopy[fight]['s2type'] == 'pc':
                 del fights[fight]
                 players[s1id]['isInCombat'] = 0
                 players[s2id]['isInCombat'] = 0
@@ -1220,7 +1222,9 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         fightsCopy = deepcopy(fights)
         for (fight, pl) in fightsCopy.items():
             if fightsCopy[fight]['s1id'] == s1id and \
-               fightsCopy[fight]['s2id'] == s2id:
+               fightsCopy[fight]['s1type'] == 'pc' and \
+               fightsCopy[fight]['s2id'] == s2id and \
+               fightsCopy[fight]['s2type'] == 'npc':
                 del fights[fight]
                 players[s1id]['isInCombat'] = 0
                 npcs[s2id]['isInCombat'] = 0
