@@ -10,21 +10,22 @@ __module_group__ = "DnD Mechanics"
 from random import randint
 
 
-def _proficiencyName(prof):
+def _proficiencyName(prof: str) -> str:
     if '(' not in prof:
         return prof
 
     return prof.split('(')[0].strip()
 
 
-def _proficiencyParam(prof):
+def _proficiencyParam(prof: str) -> int:
     if '(' not in prof:
         return 0
 
     return int(prof.split('(')[1].replace(')', '').strip())
 
 
-def _profFightingStyleDamage(id, players, weaponType, value) -> int:
+def _profFightingStyleDamage(id, players: {},
+                             weaponType: str, value: int) -> int:
     if not players[id].get('fightingStyle'):
         return 0
     fightStyle = players[id]['fightingStyle'].lower()
@@ -40,7 +41,8 @@ def _profFightingStyleDamage(id, players, weaponType, value) -> int:
     return 0
 
 
-def _damageProficiencyItem(prof, id, players, weaponType):
+def _damageProficiencyItem(prof: str, id, players: int,
+                           weaponType: str) -> int:
     if isinstance(prof, list):
         return 0
 
@@ -76,7 +78,8 @@ def _damageProficiencyItem(prof, id, players, weaponType):
     return 0
 
 
-def damageProficiency(id, players, weaponType, characterClassDB):
+def damageProficiency(id, players: {}, weaponType: str,
+                      characterClassDB: {}) -> int:
     if not players[id].get('race'):
         return 0
 
@@ -95,21 +98,21 @@ def damageProficiency(id, players, weaponType, characterClassDB):
     return damage
 
 
-def _profSecondWind(id, players, profValue):
+def _profSecondWind(id, players: {}, profValue: int) -> int:
     if players[id]['restRequired'] != 0:
         return 0
     players[id]['restRequired'] = 1
     return randint(1, 10)
 
 
-def _profIndomitable(id, players, profValue):
+def _profIndomitable(id, players: {}, profValue: int) -> int:
     if players[id]['restRequired'] != 0:
         return 0
     players[id]['restRequired'] = 1
     return randint(1, 10)
 
 
-def _defenseProficiencyItem(prof, id, players):
+def _defenseProficiencyItem(prof: str, id, players: {}) -> int:
     """TODO: currently unused
     """
     if isinstance(prof, list):
@@ -135,7 +138,7 @@ def _defenseProficiencyItem(prof, id, players):
     return 0
 
 
-def _weaponProficiencyItem(prof, id, players, weaponType):
+def _weaponProficiencyItem(prof: str, id, players: {}, weaponType: str) -> int:
     if isinstance(prof, list):
         return 0
 
@@ -157,7 +160,8 @@ def _weaponProficiencyItem(prof, id, players, weaponType):
     return 0
 
 
-def weaponProficiency(id, players, weaponType, characterClassDB):
+def weaponProficiency(id, players: {}, weaponType: str,
+                      characterClassDB: {}) -> int:
     """TODO: currently unused
     """
     if not players[id].get('race'):
@@ -182,7 +186,7 @@ def weaponProficiency(id, players, weaponType, characterClassDB):
     return competence
 
 
-def _thievesCantCountChars(txt: str):
+def _thievesCantCountChars(txt: str) -> int:
     result = 0
     for char in txt.lower():
         if char == 'a' or \
@@ -194,7 +198,7 @@ def _thievesCantCountChars(txt: str):
     return result
 
 
-def thievesCant(spokenText):
+def thievesCant(spokenText: str) -> str:
     cantCode = (
         "Hey, girl, hey!",
         "Look what the cat dragged in",
