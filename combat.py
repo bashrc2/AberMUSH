@@ -1444,14 +1444,14 @@ def stopAttack(players: {}, id, npcs: {}, fights: {}):
         if s1type == 'pc' and s1id == id:
             del fights[fight]
             players[id]['isInCombat'] = 0
-            if fightsCopy[fight]['s2type'] == 'pc':
+            if s2type == 'pc':
                 players[s2id]['isInCombat'] = 0
             else:
                 npcs[s2id]['isInCombat'] = 0
         elif s2type == 'pc' and s2id == id:
             del fights[fight]
             players[id]['isInCombat'] = 0
-            if fightsCopy[fight]['s1type'] == 'pc':
+            if s1type == 'pc':
                 players[s1id]['isInCombat'] = 0
             else:
                 npcs[s1id]['isInCombat'] = 0
