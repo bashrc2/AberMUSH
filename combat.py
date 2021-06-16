@@ -801,125 +801,58 @@ def _getAttackDescription(animalType: str, weaponType: str,
             "crudely swing a fist at",
             "ineptly punch"
         ]
-    else:
-        if 'bird' in animalType:
-            attackStrings = [
-                "claw",
-                "peck",
-                "viciously peck",
-                "savagely peck"
-            ]
-        elif 'cat' in animalType or \
-             'weasel' in animalType or \
-             'otter' in animalType or \
-             'dog' in animalType or \
-             'hare' in animalType or \
-             'rat' in animalType:
-            attackStrings = [
-                "claw",
-                "scratch",
-                "bite",
-                "viciously bite",
-                "savagely chew"
-            ]
-        elif 'cow' in animalType or \
-             'pig' in animalType or \
-             'goat' in animalType or \
-             'sheep' in animalType:
-            attackStrings = [
-                "headbutt",
-                "trample"
-            ]
-        elif 'dragon' in animalType:
-            attackStrings = [
-                "breathe fire on"
-            ]
-        elif 'snake' in animalType or \
-             'insect' in animalType:
-            attackStrings = [
-                "bite",
-                "viciously bite"
-            ]
-        else:
-            attackStrings = [
-                "savage",
-                "maul",
-                "bite",
-                "viciously bite",
-                "savagely gnaw"
-            ]
-
-    attackDescriptionFirst = randomDescription(attackStrings)
-
-    if not animalType:
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "swung a fist at",
             "punched",
             "crudely swung a fist at",
             "ineptly punched"
         ]
+        attackDescriptionSecond = randomDescription(attackStrings)
+        for attackType, attackDesc in attackDB.items():
+            if animalType.startswith('animal '):
+                continue
+            attackTypeList = attackType.split('|')
+            for attackTypeStr in attackTypeList:
+                if weaponType.startswith(attackTypeStr):
+                    # first person -  you attack a player or npc
+                    attackDescriptionFirst = \
+                        randomDescription(attackDesc['first'])
+                    # second person -  you were attacked by a player or npc
+                    attackDescriptionSecond = \
+                        randomDescription(attackDesc['second'])
+                    break
     else:
-        if 'bird' in animalType:
-            attackStrings = [
-                "clawed",
-                "pecked",
-                "viciously pecked",
-                "savagely pecked"
-            ]
-        elif 'cat' in animalType or \
-             'weasel' in animalType or \
-             'otter' in animalType or \
-             'dog' in animalType or \
-             'hare' in animalType or \
-             'rat' in animalType:
-            attackStrings = [
-                "clawed",
-                "scratched",
-                "bit",
-                "viciously bit",
-                "savagely chewed"
-            ]
-        elif 'cow' in animalType or \
-             'pig' in animalType or \
-             'goat' in animalType or \
-             'sheep' in animalType:
-            attackStrings = [
-                "headbutted",
-                "trampled"
-            ]
-        elif 'dragon' in animalType:
-            attackStrings = [
-                "breathed fire on"
-            ]
-        elif 'snake' in animalType or \
-             'insect' in animalType:
-            attackStrings = [
-                "took a bite at",
-                "viciously bit into"
-            ]
-        else:
-            attackStrings = [
-                "savaged",
-                "mauled",
-                "took a bite at",
-                "viciously bit into",
-                "savagely gnawed into"
-            ]
-
-    attackDescriptionSecond = randomDescription(attackStrings)
-
-    assert attackDB
-    for attackType, attackDesc in attackDB.items():
-        attackTypeList = attackType.split('|')
-        for attackTypeStr in attackTypeList:
-            if weaponType.startswith(attackTypeStr):
-                # first person -  you attack a player or npc
-                attackDescriptionFirst = \
-                    randomDescription(attackDesc['first'])
-                # second person -  you were attacked by a player or npc
-                attackDescriptionSecond = \
-                    randomDescription(attackDesc['second'])
-                break
+        attackStrings = [
+            "savage",
+            "maul",
+            "bite",
+            "viciously bite",
+            "savagely gnaw"
+        ]
+        attackDescriptionFirst = randomDescription(attackStrings)
+        attackStrings = [
+            "savaged",
+            "mauled",
+            "took a bite at",
+            "viciously bit into",
+            "savagely gnawed into"
+        ]
+        attackDescriptionSecond = randomDescription(attackStrings)
+        for anType, attackDesc in attackDB.items():
+            if not anType.startswith('animal '):
+                continue
+            anType = anType.replace('animal ', '')
+            animalTypeList = anType.split('|')
+            for animalTypeStr in animalTypeList:
+                if animalType.startswith(animalTypeStr):
+                    # first person -  you attack a player or npc
+                    attackDescriptionFirst = \
+                        randomDescription(attackDesc['first'])
+                    # second person -  you were attacked by a player or npc
+                    attackDescriptionSecond = \
+                        randomDescription(attackDesc['second'])
+                    break
 
     return attackDescriptionFirst, attackDescriptionSecond
 

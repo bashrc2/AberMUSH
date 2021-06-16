@@ -1,4 +1,62 @@
 {
+    "animal bird": {
+	"first": [
+            "claw",
+            "peck",
+            "viciously peck",
+            "savagely peck"
+	],
+	"second": [
+            "clawed",
+            "pecked",
+            "viciously pecked",
+            "savagely pecked"
+	]
+    },
+    "animal cat|weasel|otter|dog|hare|rat": {
+	"first": [
+            "claw",
+            "scratch",
+            "bite",
+            "viciously bite",
+            "savagely chew"
+	],
+	"second": [
+            "clawed",
+            "scratched",
+            "bit",
+            "viciously bit",
+            "savagely chewed"
+	]
+    },
+    "animal cow|pig|goat|sheep": {
+	"first": [
+            "headbutt",
+            "trample"
+	],
+	"second": [
+            "headbutted",
+            "trampled"
+	]
+    },
+    "animal dragon": {
+	"first": [
+	    "breathe fire on"
+	],
+	"second": [
+	    "breathed fire on"
+	]
+    },
+    "animal snake|insect": {
+	"first": [
+            "bite",
+            "viciously bite"
+	],
+	"second": [
+            "took a bite at",
+            "viciously bit into"
+	]
+    },
     "acid": {
 	"first": [
 	    "corrode",
