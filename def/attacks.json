@@ -1,0 +1,216 @@
+{
+    "acid": {
+	"first": [
+	    "corrode",
+	    "spray",
+	    "splash"
+	],
+	"second": [
+	    "corroded",
+	    "sprayed",
+	    "splashed"
+	]
+    },
+    "bludg": {
+	"first": [
+            "deliver a crushing blow on",
+            "strike at",
+            "swing at",
+            "smashes",
+            "swing clumsily at",
+            "strike a blow on"
+	],
+	"second": [
+            "delivered a crushing blow on",
+            "struck at",
+            "swung at",
+            "smashed",
+            "swung clumsily at",
+            "struck a blow on"
+	]
+    },
+    "cold": {
+	"first": [
+	    "freeze",
+	    "chill"
+	],
+	"second": [
+	    "froze",
+	    "chilled"
+	]
+    },
+    "fire": {
+	"first": [
+            "cast a ball a of flame at",
+            "cast a fireball at",
+            "cast a burning sphere at"
+	],
+	"second": [
+            "casted a ball a of flame at",
+            "casted a fireball at",
+            "casted a burning sphere at"
+	]
+    },
+    "force": {
+	"first": [
+	    "point at",
+	    "wave at"
+	],
+	"second": [
+	    "pointed at",
+	    "waved at"
+	]
+    },
+    "lightning": {
+	"first": [
+            "cast a bolt of lightning at",
+            "cast a lightning bolt at"
+	],
+	"second": [
+            "casted a bolt of lightning at",
+            "casted a lightning bolt at"
+	]
+    },
+    "necro": {
+	"first": [
+	    "whither",
+	    "chill"
+	],
+	"second": [
+	    "whithered",
+	    "chilled"
+	]
+    },
+    "pierc": {
+	"first": [
+	    "stab at",
+	    "hack at"
+	],
+	"second": [
+	    "stabbed at",
+	    "hacked at"
+	]
+    },
+    "impale": {
+	"first": [
+	    "stab at",
+	    "jab at",
+	    "lunge at"
+	],
+	"second": [
+	    "stabbed at",
+	    "jabbed at",
+	    "lunged at"
+	]
+    },
+    "pole": {
+	"first": [
+	    "stab at",
+	    "jab at",
+	    "lunge at",
+	    "hook",
+            "chop at",
+	    "hammer",
+	    "smash"
+	],
+	"second": [
+            "stabbed at",
+            "jabbed at",
+            "lunged at",
+            "hooked",
+            "chopped at",
+            "hammered",
+            "smashed"
+	]
+    },
+    "poison": {
+	"first": [
+	    "poison"
+	],
+	"second": [
+	    "poisoned"
+	]
+    },
+    "psy": {
+	"first": [
+	    "psychically blast",
+	    "psychically deplete"
+	],
+	"second": [
+	    "psychically blasted",
+	    "psychically depleted"
+	]
+    },
+    "radiant": {
+	"first": [
+	    "sear",
+	    "scorch"
+	],
+	"second": [
+	    "seared",
+	    "scorched"
+	]
+    },
+    "slash": {
+	"first": [
+            "cut at",
+            "cut savagely into",
+            "slash at",
+            "swing at",
+            "swing clumsily at"	    
+	],
+	"second": [
+            "cut at",
+            "cut savagely into",
+            "slashed at",
+            "swung at",
+            "swung clumsily at"
+	]
+    },
+    "thunder": {
+	"first": [
+	    "cast a thunderbolt at",
+	    "cast a bolt of thunder at"
+	],
+	"second": [
+            "casted a thunderbolt at",
+            "casted a bolt of thunder at"
+	]
+    },
+    "ranged bow|ranged shortbow|ranged longbow": {
+	"first": [
+	    "fire an arrow at",
+	    "release an arrow at"
+	],
+	"second": [
+	    "fired an arrow at",
+	    "released an arrow at"
+	]
+    },
+    "ranged crossbow": {
+	"first": [
+	    "fire a bolt at",
+	    "release a bolt at"
+	],
+	"second": [
+	    "fired a bolt at",
+	    "released a bolt at"
+	]
+    },
+    "ranged sling": {
+	"first": [
+	    "sling a rock at"
+	],
+	"second": [
+	    "slung a rock at"
+	]
+    },
+    "ranged dart": {
+	"first": [
+	    "blow a dart at"
+	],
+	"second": [
+	    "blew a dart at"
+	]
+    }
+}

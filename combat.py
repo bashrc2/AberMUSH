@@ -786,7 +786,8 @@ def _getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
     return 0, "fists", 1
 
 
-def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
+def _getAttackDescription(animalType: str, weaponType: str,
+                          attackDB: {}) -> (str, str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -907,169 +908,18 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
 
     attackDescriptionSecond = randomDescription(attackStrings)
 
-    if weaponType.startswith("acid"):
-        attackStrings = ["corrode", "spray", "splash"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["corroded", "sprayed", "splashed"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("bludg"):
-        attackStrings = [
-            "deliver a crushing blow on",
-            "strike at",
-            "swing at",
-            "smashes",
-            "swing clumsily at",
-            "strike a blow on"
-        ]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = [
-            "delivered a crushing blow on",
-            "struck at",
-            "swung at",
-            "smashed",
-            "swung clumsily at",
-            "struck a blow on"
-        ]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("cold"):
-        attackStrings = ["freeze", "chill"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["froze", "chilled"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("fire"):
-        attackStrings = [
-            "cast a ball a of flame at",
-            "cast a fireball at",
-            "cast a burning sphere at"
-        ]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = [
-            "casted a ball a of flame at",
-            "casted a fireball at",
-            "casted a burning sphere at"
-        ]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("force"):
-        attackStrings = ["point at", "wave at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["pointed at", "waved at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("lightning"):
-        attackStrings = [
-            "cast a bolt of lightning at",
-            "cast a lightning bolt at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = [
-            "casted a bolt of lightning at",
-            "casted a lightning bolt at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("necro"):
-        attackStrings = ["whither", "chill"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["whithered", "chilled"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("pierc"):
-        attackStrings = ["stab at", "hack at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["stabbed at", "hacked at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("impale"):
-        attackStrings = ["stab at", "jab at", "lunge at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["stabbed at", "jabbed at", "lunged at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("pole"):
-        attackStrings = ["stab at", "jab at", "lunge at", "hook",
-                         "chop at", "hammer", "smash"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = [
-            "stabbed at",
-            "jabbed at",
-            "lunged at",
-            "hooked",
-            "chopped at",
-            "hammered",
-            "smashed"
-        ]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("poison"):
-        attackStrings = ["poison"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["poisoned"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("psy"):
-        attackStrings = ["psychically blast", "psychically deplete"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["psychically blasted", "psychically depleted"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("radiant"):
-        attackStrings = ["sear", "scorch"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["seared", "scorched"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("slash"):
-        attackStrings = [
-            "cut at",
-            "cut savagely into",
-            "slash at",
-            "swing at",
-            "swing clumsily at"
-        ]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = [
-            "cut at",
-            "cut savagely into",
-            "slashed at",
-            "swung at",
-            "swung clumsily at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("thunder"):
-        attackStrings = ["cast a thunderbolt at", "cast a bolt of thunder at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = [
-            "casted a thunderbolt at",
-            "casted a bolt of thunder at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("ranged bow") or \
-       weaponType.startswith("ranged shortbow") or \
-       weaponType.startswith("ranged longbow"):
-        attackStrings = ["fire an arrow at", "release an arrow at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["fired an arrow at", "released an arrow at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("ranged crossbow"):
-        attackStrings = ["fire a bolt at", "release a bolt at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["fired a bolt at", "released a bolt at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("ranged sling"):
-        attackStrings = ["sling a rock at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["slung a rock at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
-
-    if weaponType.startswith("ranged dart"):
-        attackStrings = ["blow a dart at"]
-        attackDescriptionFirst = randomDescription(attackStrings)
-        attackStrings = ["blew a dart at"]
-        attackDescriptionSecond = randomDescription(attackStrings)
+    assert attackDB
+    for attackType, attackDesc in attackDB.items():
+        attackTypeList = attackType.split('|')
+        for attackTypeStr in attackTypeList:
+            if weaponType.startswith(attackTypeStr):
+                # first person -  you attack a player or npc
+                attackDescriptionFirst = \
+                    randomDescription(attackDesc['first'])
+                # second person -  you were attacked by a player or npc
+                attackDescriptionSecond = \
+                    randomDescription(attackDesc['second'])
+                break
 
     return attackDescriptionFirst, attackDescriptionSecond
 
@@ -1093,7 +943,7 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                              fights, fid, itemsDB: {},
                              rooms: {}, maxTerrainDifficulty, mapArea: [],
                              clouds: {}, racesDB: {}, characterClassDB: {},
-                             guilds: {}):
+                             guilds: {}, attackDB: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -1184,11 +1034,13 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
         if players[s2id].get('dodge'):
             if players[s2id]['dodge'] == 1:
                 dodgeModifier = randint(0, players[s2id]['luc'])
-                dodgeDescription = \
-                    randomDescription('You dodge|' +
-                                      'You swerve to avoid being hit|' +
-                                      'You pivot|' +
-                                      'You duck')
+                desc = (
+                    'You dodge',
+                    'You swerve to avoid being hit',
+                    'You pivot',
+                    'You duck'
+                )
+                dodgeDescription = randomDescription(desc)
                 mud.sendMessage(s2id,
                                 '<f32>' + dodgeDescription + '<r>.\n')
                 mud.sendMessage(
@@ -1206,7 +1058,7 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                              targetArmorClass, characterClassDB,
                              dodgeModifier):
             attackDescriptionFirst, attackDescriptionSecond = \
-                _getAttackDescription("", weaponType)
+                _getAttackDescription("", weaponType, attackDB)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1291,7 +1143,8 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
 def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                                   itemsDB: {}, rooms: {}, maxTerrainDifficulty,
                                   mapArea: [], clouds: {}, racesDB: {},
-                                  characterClassDB: {}, guilds: {}):
+                                  characterClassDB: {}, guilds: {},
+                                  attackDB: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -1379,7 +1232,7 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                              targetArmorClass, characterClassDB,
                              dodgeModifier):
             attackDescriptionFirst, attackDescriptionSecond = \
-                _getAttackDescription("", weaponType)
+                _getAttackDescription("", weaponType, attackDB)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1444,7 +1297,7 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                                   items: {}, itemsDB: {}, rooms: {},
                                   maxTerrainDifficulty, mapArea, clouds: {},
                                   racesDB: {}, characterClassDB: {},
-                                  guilds: {}):
+                                  guilds: {}, attackDB: {}):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -1482,13 +1335,15 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
         npcs[s1id]['lastCombatAction'] = int(time.time())
         # stand up for the next turn
         setPlayerProne(s1id, npcs, False)
+        desc = (
+            'stands up',
+            'gets up',
+            'gets back on their feet',
+            'stands back up again'
+        )
         mud.sendMessage(s2id,
                         '<f32>' + npcs[s1id]['name'] + ' ' +
-                        randomDescription('stands up|' +
-                                          'gets up|' +
-                                          'gets back on their feet|' +
-                                          'stands back up again') +
-                        '<r>.\n')
+                        randomDescription(desc) + '<r>.\n')
         return
 
     _npcUpdateLuck(s1id, npcs, items, itemsDB)
@@ -1526,7 +1381,8 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                          targetArmorClass, characterClassDB,
                          dodgeModifier):
         attackDescriptionFirst, attackDescriptionSecond = \
-            _getAttackDescription(npcs[s1id]['animalType'], weaponType)
+            _getAttackDescription(npcs[s1id]['animalType'],
+                                  weaponType, attackDB)
 
         if roundsOfFire < 1:
             roundsOfFire = 1
@@ -1595,7 +1451,7 @@ def isPlayerFighting(id, players: {}, fights: {}) -> bool:
 
 def runFights(mud, players: {}, npcs: {}, fights: {}, items: {}, itemsDB: {},
               rooms: {}, maxTerrainDifficulty, mapArea: [], clouds: {},
-              racesDB: {}, characterClassDB: {}, guilds: {}):
+              racesDB: {}, characterClassDB: {}, guilds: {}, attackDB: {}):
     """Handles fights
     """
     for (fid, pl) in list(fights.items()):
@@ -1603,21 +1459,22 @@ def runFights(mud, players: {}, npcs: {}, fights: {}, items: {}, itemsDB: {},
         if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
             _runFightsBetweenPlayers(mud, players, npcs, fights, fid, itemsDB,
                                      rooms, maxTerrainDifficulty, mapArea,
-                                     clouds, racesDB, characterClassDB, guilds)
+                                     clouds, racesDB, characterClassDB, guilds,
+                                     attackDB)
         # PC -> NPC
         elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
             _runFightsBetweenPlayerAndNPC(mud, players, npcs, fights,
                                           fid, itemsDB, rooms,
                                           maxTerrainDifficulty, mapArea,
                                           clouds, racesDB, characterClassDB,
-                                          guilds)
+                                          guilds, attackDB)
         # NPC -> PC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
             _runFightsBetweenNPCAndPlayer(mud, players, npcs, fights,
                                           fid, items,
                                           itemsDB, rooms, maxTerrainDifficulty,
                                           mapArea, clouds, racesDB,
-                                          characterClassDB, guilds)
+                                          characterClassDB, guilds, attackDB)
         # NPC -> NPC
         # elif fights[fid]['s1type'] == 'npc' and \
         #    fights[fid]['s2type'] == 'npc':
@@ -1697,13 +1554,15 @@ def playerBeginsAttack(players: {}, id, target: str,
 
                 # check for familiar
                 if npcs[nid]['familiarOf'] == players[id]['name']:
+                    desc = (
+                        "You can't attack your own familiar",
+                        "You consider attacking " +
+                        "your own familiar, but decide against it",
+                        "Your familiar looks at you disapprovingly"
+                    )
                     mud.sendMessage(
                         id,
-                        randomDescription("You can't attack your own " +
-                                          "familiar|You consider attacking " +
-                                          "your own familiar, but decide " +
-                                          "against it|Your familiar looks " +
-                                          "at you disapprovingly")+"\n\n")
+                        randomDescription(desc)+"\n\n")
                     return False
 
                 if npcs[nid]['isAttackable'] == 0:

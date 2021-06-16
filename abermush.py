@@ -422,6 +422,12 @@ with open(str(Config.get('Guilds', 'Definition')), "r") as read_file:
 countStr = str(len(guildsDB))
 log("Guilds loaded: " + countStr, "info")
 
+with open(str(Config.get('Attacks', 'Definition')), "r") as read_file:
+    attackDB = json.loads(read_file.read())
+
+countStr = str(len(attackDB))
+log("Attacks loaded: " + countStr, "info")
+
 # List NPC dictionary for debugging purposes
 # print(" ")
 # print("LIVE:")
@@ -647,7 +653,7 @@ while True:
     # Handle Fights
     runFights(mud, players, npcs, fights, itemsInWorld, itemsDB, rooms,
               maxTerrainDifficulty, mapArea, clouds, racesDB, characterClassDB,
-              guildsDB)
+              guildsDB, attackDB)
 
     previousTiming = \
         showTiming(previousTiming, "update fights")
