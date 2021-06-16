@@ -189,25 +189,25 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
 
     if randint(1, player1Strength) > randint(1, player2Strength):
         players2[s2id]['prone'] = 1
-        mud.sendMessage(
-            id,
-            randomDescription('They stumble and fall to the ground|' +
-                              'They come crashing to the ground|' +
-                              'They fall heavily to the ground|' +
-                              'They topple and fall to the ground|' +
-                              'They stagger and fall backwards|' +
-                              'They lose balance and fall backwards') +
-            '.\n')
+        desc = (
+            'They stumble and fall to the ground',
+            'They come crashing to the ground',
+            'They fall heavily to the ground',
+            'They topple and fall to the ground',
+            'They stagger and fall backwards',
+            'They lose balance and fall backwards'
+        )
+        mud.sendMessage(id, randomDescription(desc) + '.\n')
         return True
     else:
-        mud.sendMessage(
-            id,
-            randomDescription('They remain standing|' +
-                              'They remain in place|' +
-                              'They stand firm|' +
-                              'They push back and remain standing|' +
-                              'They remain steady') +
-            '.\n')
+        desc = (
+            'They remain standing',
+            'They remain in place',
+            'They stand firm',
+            'They push back and remain standing',
+            'They remain steady'
+        )
+        mud.sendMessage(id, randomDescription(desc) + '.\n')
         return False
 
 
@@ -809,6 +809,7 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely peck"
             ]
         elif 'cat' in animalType or \
+             'dog' in animalType or \
              'hare' in animalType or \
              'rat' in animalType:
             attackStrings = [
@@ -829,6 +830,12 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             attackStrings = [
                 "breathe fire on"
             ]
+        elif 'snake' in animalType or \
+             'insect' in animalType:
+            attackStrings = [
+                "bite",
+                "viciously bite"
+            ]
         else:
             attackStrings = [
                 "savage",
@@ -838,8 +845,7 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely gnaw"
             ]
 
-    attackDescriptionFirst = \
-        attackStrings[randint(0, len(attackStrings) - 1)]
+    attackDescriptionFirst = randomDescription(attackStrings)
 
     if not animalType:
         attackStrings = [
@@ -857,6 +863,7 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely pecked"
             ]
         elif 'cat' in animalType or \
+             'dog' in animalType or \
              'hare' in animalType or \
              'rat' in animalType:
             attackStrings = [
@@ -877,6 +884,12 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             attackStrings = [
                 "breathed fire on"
             ]
+        elif 'snake' in animalType or \
+             'insect' in animalType:
+            attackStrings = [
+                "took a bite at",
+                "viciously bit into"
+            ]
         else:
             attackStrings = [
                 "savaged",
@@ -886,16 +899,13 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
                 "savagely gnawed into"
             ]
 
-    attackDescriptionSecond = \
-        attackStrings[randint(0, len(attackStrings) - 1)]
+    attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("acid"):
         attackStrings = ["corrode", "spray", "splash"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["corroded", "sprayed", "splashed"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("bludg"):
         attackStrings = [
@@ -906,8 +916,7 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             "swing clumsily at",
             "strike a blow on"
         ]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "delivered a crushing blow on",
             "struck at",
@@ -916,16 +925,13 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             "swung clumsily at",
             "struck a blow on"
         ]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("cold"):
         attackStrings = ["freeze", "chill"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["froze", "chilled"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("fire"):
         attackStrings = [
@@ -933,65 +939,52 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             "cast a fireball at",
             "cast a burning sphere at"
         ]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "casted a ball a of flame at",
             "casted a fireball at",
             "casted a burning sphere at"
         ]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("force"):
         attackStrings = ["point at", "wave at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["pointed at", "waved at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("lightning"):
         attackStrings = [
             "cast a bolt of lightning at",
             "cast a lightning bolt at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "casted a bolt of lightning at",
             "casted a lightning bolt at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("necro"):
         attackStrings = ["whither", "chill"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["whithered", "chilled"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("pierc"):
         attackStrings = ["stab at", "hack at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["stabbed at", "hacked at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("impale"):
         attackStrings = ["stab at", "jab at", "lunge at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["stabbed at", "jabbed at", "lunged at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("pole"):
         attackStrings = ["stab at", "jab at", "lunge at", "hook",
                          "chop at", "hammer", "smash"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "stabbed at",
             "jabbed at",
@@ -1001,32 +994,25 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             "hammered",
             "smashed"
         ]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("poison"):
         attackStrings = ["poison"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["poisoned"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("psy"):
         attackStrings = ["psychically blast", "psychically deplete"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["psychically blasted", "psychically depleted"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("radiant"):
         attackStrings = ["sear", "scorch"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["seared", "scorched"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("slash"):
         attackStrings = [
@@ -1036,60 +1022,48 @@ def _getAttackDescription(animalType: str, weaponType: str) -> (str, str):
             "swing at",
             "swing clumsily at"
         ]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "cut at",
             "cut savagely into",
             "slashed at",
             "swung at",
             "swung clumsily at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("thunder"):
         attackStrings = ["cast a thunderbolt at", "cast a bolt of thunder at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = [
             "casted a thunderbolt at",
             "casted a bolt of thunder at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("ranged bow") or \
        weaponType.startswith("ranged shortbow") or \
        weaponType.startswith("ranged longbow"):
         attackStrings = ["fire an arrow at", "release an arrow at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["fired an arrow at", "released an arrow at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("ranged crossbow"):
         attackStrings = ["fire a bolt at", "release a bolt at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["fired a bolt at", "released a bolt at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("ranged sling"):
         attackStrings = ["sling a rock at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["slung a rock at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     if weaponType.startswith("ranged dart"):
         attackStrings = ["blow a dart at"]
-        attackDescriptionFirst = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionFirst = randomDescription(attackStrings)
         attackStrings = ["blew a dart at"]
-        attackDescriptionSecond = \
-            attackStrings[randint(0, len(attackStrings) - 1)]
+        attackDescriptionSecond = randomDescription(attackStrings)
 
     return attackDescriptionFirst, attackDescriptionSecond
 
@@ -1526,11 +1500,13 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     if players[s2id].get('dodge'):
         if players[s2id]['dodge'] == 1:
             dodgeModifier = randint(0, players[s2id]['luc'])
-            dodgeDescription = \
-                randomDescription('You dodge|' +
-                                  'You swerve to avoid being hit|' +
-                                  'You pivot|' +
-                                  'You duck')
+            desc = (
+                'You dodge',
+                'You swerve to avoid being hit',
+                'You pivot',
+                'You duck'
+            )
+            dodgeDescription = randomDescription(desc)
             mud.sendMessage(s2id,
                             '<f32>' + dodgeDescription + '<r>.\n')
             players[s2id]['dodge'] = 0

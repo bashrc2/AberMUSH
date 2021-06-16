@@ -207,10 +207,14 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
 
 
 def randomDescription(descriptionList):
-    if '|' in descriptionList:
-        descList = descriptionList.split('|')
-        return descList[randint(0, len(descList) - 1)]
-    return descriptionList
+    if isinstance(descriptionList, list):
+        descList = descriptionList
+    else:
+        if '|' in descriptionList:
+            descList = descriptionList.split('|')
+        else:
+            return descriptionList
+    return descList[randint(0, len(descList) - 1)]
 
 
 def levelUp(id, players, characterClassDB, increment):
