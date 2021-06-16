@@ -18,6 +18,7 @@
             "swing at",
             "smashes",
             "swing clumsily at",
+            "swing wildly at",
             "strike a blow on"
 	],
 	"second": [
@@ -26,6 +27,7 @@
             "swung at",
             "smashed",
             "swung clumsily at",
+            "swung wildly at",
             "struck a blow on"
 	]
     },
@@ -156,15 +158,23 @@
             "cut at",
             "cut savagely into",
             "slash at",
-            "swing at",
-            "swing clumsily at"	    
+            "swipe at",
+            "swipe wildly at",
+            "slash wildly at",
+            "slash savagely at",
+            "swipe clumsily at",
+            "slash clumsily at"
 	],
 	"second": [
             "cut at",
             "cut savagely into",
             "slashed at",
-            "swung at",
-            "swung clumsily at"
+            "swiped at",
+            "swiped wildly at",
+            "slashed wildly at",
+            "slashed savagely at",
+            "swiped clumsily at",
+            "slashed clumsily at"
 	]
     },
     "thunder": {
