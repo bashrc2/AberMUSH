@@ -333,7 +333,7 @@ class MudServer(object):
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
-        # self._attempt_send(to, cmsg(message)+"\n\r")
+        # self._attempt_send(to, cmsg(message) + "\n\r")
         wrapped = textwrap.wrap(message, width=65)
         prependChar = '<f15><b0>'
         if prefix:
@@ -364,7 +364,7 @@ class MudServer(object):
         # we make sure to put a newline on the end so the client receives
         # the message on its own line
         # print("sending...")
-        # self._attempt_send(to, cmsg(message)+"\n\r")
+        # self._attempt_send(to, cmsg(message) + "\n\r")
         sendCtr = 0
         while not self._attempt_send(to,
                                      cmsg('<f15><b0>' + message) +

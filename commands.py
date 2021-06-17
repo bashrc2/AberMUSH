@@ -228,8 +228,8 @@ def _removeItemFromClothing(players: {}, id: int, itemID: int) -> None:
     """If worn an item is removed
     """
     for c in wearLocation:
-        if int(players[id]['clo_'+c]) == itemID:
-            players[id]['clo_'+c] = 0
+        if int(players[id]['clo_' + c]) == itemID:
+            players[id]['clo_' + c] = 0
 
 
 def _sendCommandError(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2368,7 +2368,7 @@ def _conditionalRoom(condType: str, cond: str, description: str, id,
 
     if condType.startswith('wear'):
         for c in wearLocation:
-            if players[id]['clo_'+c] == int(cond):
+            if players[id]['clo_' + c] == int(cond):
                 return True
 
     return False
@@ -3644,7 +3644,7 @@ def _wearClothing(itemID, players: {}, id, clothingType,
 
 
 def _removeClothing(players: {}, id, clothingType, mud, itemsDB: {}):
-    if int(players[id]['clo_'+clothingType]) > 0:
+    if int(players[id]['clo_' + clothingType]) > 0:
         itemID = int(players[id]['clo_' + clothingType])
         clothingClosed = False
         if len(itemsDB[itemID]['close_description']) > 0:
@@ -3671,7 +3671,7 @@ def _removeClothing(players: {}, id, clothingType, mud, itemsDB: {}):
                 players[id]['clo_lhand'] = 0
                 players[id]['clo_rhand'] = 0
 
-        players[id]['clo_'+clothingType] = 0
+        players[id]['clo_' + clothingType] = 0
 
 
 def _unwear(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -3756,7 +3756,7 @@ def _bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
     # count items of clothing
     wearingCtr = 0
     for c in wearLocation:
-        if int(thisPlayer['clo_'+c]) > 0:
+        if int(thisPlayer['clo_' + c]) > 0:
             wearingCtr += 1
 
     playerName = 'You'
@@ -3808,7 +3808,7 @@ def _bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
         if int(thisPlayer['clo_lfinger']) > 0:
             mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
                             itemsDB[thisPlayer['clo_lfinger']]['article'] +
-                            ' '+itemsDB[thisPlayer['clo_lfinger']]['name'] +
+                            ' ' + itemsDB[thisPlayer['clo_lfinger']]['name'] +
                             ' on the finger of ' + playerName2 +
                             ' left hand.<r>\n')
 
@@ -3816,9 +3816,9 @@ def _bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
         wearingMsg = playerName + ' are wearing'
         wearingCtr2 = 0
         for cl in wearLocation:
-            if not thisPlayer.get('clo_'+cl):
+            if not thisPlayer.get('clo_' + cl):
                 continue
-            clothingItemID = thisPlayer['clo_'+cl]
+            clothingItemID = thisPlayer['clo_' + cl]
             if int(clothingItemID) > 0:
                 if wearingCtr2 > 0:
                     if wearingCtr2 == wearingCtr - 1:

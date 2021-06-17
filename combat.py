@@ -1522,9 +1522,7 @@ def playerBeginsAttack(players: {}, id, target: str,
                         "your own familiar, but decide against it",
                         "Your familiar looks at you disapprovingly"
                     )
-                    mud.sendMessage(
-                        id,
-                        randomDescription(desc)+"\n\n")
+                    mud.sendMessage(id, randomDescription(desc) + "\n\n")
                     return False
 
                 if npcs[nid]['isAttackable'] == 0:

@@ -655,7 +655,7 @@ def isWearing(id, players: {}, itemList: []) -> bool:
             continue
         itemID = int(itemID)
         for locn in wearLocation:
-            if int(players[id]['clo_'+locn]) == itemID:
+            if int(players[id]['clo_' + locn]) == itemID:
                 return True
         if int(players[id]['clo_lhand']) == itemID or \
            int(players[id]['clo_rhand']) == itemID:

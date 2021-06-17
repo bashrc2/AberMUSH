@@ -945,11 +945,11 @@ def _conversationGive(bestMatch: str, bestMatchAction: str,
                 mud.sendMessage(
                     id, "<f220>" + thisNPC['name'] +
                     "<r> gives you " + itemsDB[itemID]['article'] +
-                    ' '+itemsDB[itemID]['name'] + ".\n\n")
+                    ' ' + itemsDB[itemID]['name'] + ".\n\n")
                 return True
         mud.sendMessage(
             id, "<f220>" + thisNPC['name'] +
-            "<r> looks " + puzzledStr+".\n\n")
+            "<r> looks " + puzzledStr + ".\n\n")
         return True
     return False
 
@@ -1050,7 +1050,7 @@ def _conversationJoinGuild(
         else:
             mud.sendMessage(
                 id, "<f220>" + npcs[nid]['name'] +
-                "<r> looks " + puzzledStr+".\n\n")
+                "<r> looks " + puzzledStr + ".\n\n")
             return False
     return False
 
@@ -1120,11 +1120,11 @@ def _conversationTransport(
                 mud, players, id,
                 '<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
             mud.sendMessage(
-                id, "You are in " + rooms[roomID]['name']+"\n\n")
+                id, "You are in " + rooms[roomID]['name'] + "\n\n")
             return True
         mud.sendMessage(
             id, "<f220>" + thisNPC['name'] + "<r> looks " +
-            puzzledStr+".\n\n")
+            puzzledStr + ".\n\n")
         return True
     return False
 
