@@ -1209,9 +1209,20 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                     healthOfPlayer(s2id, npcs) + '\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
-            mud.sendMessage(
-                s1id, 'You miss <f220>' +
-                npcs[s2id]['name'] + '<r> completely!\n')
+            desc = [
+                'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!',
+                'You hopelessly fail to hit <f220>' +
+                npcs[s2id]['name'] + '<r>',
+                'You fail to hit <f220>' + npcs[s2id]['name'] + '<r>',
+                'You utterly fail to hit <f220>' + npcs[s2id]['name'] + '<r>',
+                'You completely fail to hit <f220>' +
+                npcs[s2id]['name'] + '<r>',
+                'You widely miss <f220>' + npcs[s2id]['name'] + '<r>',
+                'You miss <f220>' + npcs[s2id]['name'] + '<r> by miles!',
+                'You miss <f220>' + npcs[s2id]['name'] +
+                '<r> by a wide margin'
+            ]
+            mud.sendMessage(s1id, randomDescription(desc) + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
         mud.sendMessage(
@@ -1367,9 +1378,17 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 healthDescription + '\n')
     else:
         npcs[s1id]['lastCombatAction'] = int(time.time())
-        mud.sendMessage(
-            s2id, '<f220>' + npcs[s1id]['name'] +
-            '<r> has missed you completely!\n')
+        desc = [
+            '<f220>' + npcs[s1id]['name'] + '<r> missed you completely!',
+            '<f220>' + npcs[s1id]['name'] + '<r> hopelessly fails to hit you',
+            '<f220>' + npcs[s1id]['name'] + '<r> failed to hit you',
+            '<f220>' + npcs[s1id]['name'] + '<r> utterly failed to hit you',
+            '<f220>' + npcs[s1id]['name'] + '<r> completely failed to hit you',
+            '<f220>' + npcs[s1id]['name'] + '<r> misses you widely',
+            '<f220>' + npcs[s1id]['name'] + '<r> missed you by miles!',
+            '<f220>' + npcs[s1id]['name'] + '<r> missed you by a wide margin'
+        ]
+        mud.sendMessage(s2id, randomDescription(desc) + '\n')
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
