@@ -3196,7 +3196,7 @@
         "description": "You are following a pleasant woodland path, winding through the trees. Thick bushes are mixed with wild flowers, and the air is heavy with the scent of nature. Paths diverge in all directions through the trees.",
         "roomTeleport": "",
         "conditional": [
-	    ["season","autumn","You are following a pleasant woodland path, winding through the trees. Bushes are mixed with dense grasses, and the air is heavy with the scent of fallen leaves. Paths diverge in all directions through the trees."],
+	    ["season","autumn","You are following a pleasant woodland path, winding through the trees. Bushes are mixed with dense grasses, and the air is heavy with the scent of fallen leaves. Paths diverge in all directions through the trees.","384_autumn"],
 	    ["season","winter","You are following a pleasant woodland path, winding through the trees. Bushes are mixed with sparse patches of grass, and the air is cold and still. Paths diverge in all directions through the trees.","384_winter"]
 	],
         "trap": {},
