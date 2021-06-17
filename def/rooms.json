@@ -2963,6 +2963,8 @@
         "description": "You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves blocking the sun, and hiding the ground in shadow. There are no visible paths to guide you, and you cannot see far into the trees.",
         "roomTeleport": "",
         "conditional": [
+	    ["sunrise","true","You stand deep within the dark woods. There are no visible paths to guide you, and you cannot see far into the trees. The rising of the sun, hardly visible on the horizon, casts narrow shards of light on the undergrowth.","347_sunrise"],
+	    ["sunset","true","You stand deep within the dark woods. There are no visible paths to guide you, and you cannot see far into the trees. The setting of the sun, hardly visible in the distance, casts an errie orange light upon the undergrowth.","347_sunset"],
 	    ["season","spring","You stand deep within the dark woods. Trees twist and writhe around you, their thick branches, and tangled leaves. There are no visible paths to guide you, and you cannot see far into the trees."],
 	    ["season","autumn","You stand deep within the dark woods. A thick layer of golden brown leaves covers the ground. There are no visible paths to guide you, and you cannot see far into the trees."],
 	    ["season","winter","You stand deep within the dark woods. The trees bare branches create a dense entangled. There are no visible paths to guide you, and you cannot see far into the trees."]
