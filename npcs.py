@@ -1328,9 +1328,14 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                 "<r> ignores you.\n\n")
             return
 
+    randValue = randint(0, 100)
     puzzledStr = 'puzzled'
-    if randint(0, 1) == 1:
+    if randValue > 25:
         puzzledStr = 'confused'
+    if randValue > 50:
+        puzzledStr = 'baffled'
+    if randValue > 75:
+        puzzledStr = 'perplexed'
 
     if thisNPC.get('language'):
         if players[id]['speakLanguage'] not in thisNPC['language']:
