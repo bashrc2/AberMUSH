@@ -2550,7 +2550,7 @@ def _roomIllumination(roomImage, outdoors: bool):
     firstValue = True
     for p in pixels:
         if firstValue:
-            newRoomImage += p+'['
+            newRoomImage += p + '['
             firstValue = False
             continue
         values = p.split(';')
@@ -2576,14 +2576,14 @@ def _roomIllumination(roomImage, outdoors: bool):
                     v = 255
             values[ctr] = int(v)
             ctr += 1
-        darkStr = trailing+'['
+        darkStr = trailing + '['
         darkStr = ''
         ctr = 0
         for v in values:
             if ctr < 4:
-                darkStr += str(v)+';'
+                darkStr += str(v) + ';'
             else:
-                darkStr += str(v)+'m'
+                darkStr += str(v) + 'm'
             ctr += 1
         newRoomImage += darkStr+trailing + '['
     return newRoomImage[:len(newRoomImage) - 1]
@@ -4177,14 +4177,15 @@ def _jump(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if not params:
-        desc = \
-            randomDescription("You jump, expecting something to happen. " +
-                              "But it doesn't.|Jumping doesn't help.|" +
-                              "You jump. Nothing happens.|In this " +
-                              "situation jumping only adds to the " +
-                              "confusion.|You jump up and down on the " +
-                              "spot.|You jump, and then feel vaguely silly.")
-        mud.sendMessage(id, desc + "\n\n")
+        desc = (
+            "You jump, expecting something to happen. But it doesn't.",
+            "Jumping doesn't help.",
+            "You jump. Nothing happens.",
+            "In this situation jumping only adds to the confusion.",
+            "You jump up and down on the spot.",
+            "You jump, and then feel vaguely silly."
+        )
+        mud.sendMessage(id, randomDescription(desc) + "\n\n")
         return
     words = params.lower().replace('.', '').split(' ')
     for (item, pl) in list(items.items()):
@@ -4250,16 +4251,15 @@ def _jump(params, mud, playersDB: {}, players: {}, rooms: {},
                   mapArea, characterClassDB, spellsDB,
                   sentimentDB, guildsDB, clouds, racesDB)
             return
-    desc = \
-        randomDescription("You jump, expecting something to happen. " +
-                          "But it doesn't.|" +
-                          "Jumping doesn't help.|" +
-                          "You jump. Nothing happens.|" +
-                          "In this situation jumping only adds to " +
-                          "the confusion.|" +
-                          "You jump up and down on the spot.|" +
-                          "You jump, and then feel vaguely silly.")
-    mud.sendMessage(id, desc + "\n\n")
+    desc = (
+        "You jump, expecting something to happen. But it doesn't.",
+        "Jumping doesn't help.",
+        "You jump. Nothing happens.",
+        "In this situation jumping only adds to the confusion.",
+        "You jump up and down on the spot.",
+        "You jump, and then feel vaguely silly."
+    )
+    mud.sendMessage(id, randomDescription(desc) + "\n\n")
 
 
 def _chessBoardInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
@@ -4408,11 +4408,12 @@ def _chess(params, mud, playersDB: {}, players: {}, rooms: {},
         return
     if players[id]['canGo'] != 1 or \
        players[id]['frozenStart'] > 0:
-        desc = \
-            randomDescription("\nYou try to make a chess move but find " +
-                              "that you lack any ability to|" +
-                              "You suddenly lose all enthusiasm for chess")
-        mud.sendMessage(id, desc + ".\n\n")
+        desc = (
+            "You try to make a chess move but find " +
+            "that you lack any ability to",
+            "You suddenly lose all enthusiasm for chess"
+        )
+        mud.sendMessage(id, '\n' + randomDescription(desc) + ".\n\n")
         return
     params = params.lower().strip()
     if 'undo' in params:
@@ -5422,11 +5423,12 @@ def _drop(params, mud, playersDB: {}, players: {}, rooms: {},
 
     if itemInDB and itemInInventory:
         if playerIsTrapped(id, players, rooms):
-            mud.sendMessage(
-                id, randomDescription(
-                    "You're trapped|" +
-                    "The trap restricts your ability to drop anything|" +
-                    "The trap restricts your movement") + '.\n\n')
+            desc = (
+                "You're trapped",
+                "The trap restricts your ability to drop anything",
+                "The trap restricts your movement"
+            )
+            mud.sendMessage(id, randomDescription(desc) + '.\n\n')
             return
 
         inventoryCopy = deepcopy(players[id]['inv'])
@@ -6250,12 +6252,12 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
 
                 # is the player restricted by a trap
                 if playerIsTrapped(id, players, rooms):
-                    mud.sendMessage(
-                        id, randomDescription("You're trapped|" +
-                                              "The trap restricts your " +
-                                              "ability to take anything|" +
-                                              "The trap restricts your " +
-                                              "movement") + '.\n\n')
+                    desc = (
+                        "You're trapped",
+                        "The trap restricts your ability to take anything",
+                        "The trap restricts your movement"
+                    )
+                    mud.sendMessage(id, randomDescription(desc) + '.\n\n')
                     return
 
                 # add the item to the player's inventory
