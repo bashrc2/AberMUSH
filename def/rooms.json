@@ -1039,7 +1039,10 @@
         "name": "Lumberjack Country",
         "description": "You are crouched on a narrow wooden platform, hidden about 15 feet up the pine tree. The wind whips through the tree dislodging piles of snow in your direction. From where you stand you can look out down each of the paths radiating around the crossroads, although you can see little save for buildings to the east and west. Elsewhere all you can see is the mottled white and green of snow laden trees.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["sunrise","true","You are crouched on a narrow wooden platform, hidden about 15 feet up the pine tree. The wind whips through the tree dislodging piles of snow in your direction. From where you stand you can look out down each of the paths radiating around the crossroads, although you can see little save for buildings to the east and west. Elsewhere all you can see is the mottled white and green of snow laden trees.","108_sunrise"],
+	    ["sunset","true","You are crouched on a narrow wooden platform, hidden about 15 feet up the pine tree. The wind whips through the tree dislodging piles of snow in your direction. From where you stand you can look out down each of the paths radiating around the crossroads, although you can see little save for buildings to the east and west. Elsewhere all you can see is the mottled white and green of snow laden trees.","108_sunset"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
