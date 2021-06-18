@@ -3213,7 +3213,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=396$",
 	    "south": "$rid=382$",
             "east": "$rid=383$",
             "west": "$rid=357$"
