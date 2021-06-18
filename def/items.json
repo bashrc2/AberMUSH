@@ -45123,8 +45123,8 @@
     },
     "1469": {
         "name": "huge pine tree",
-        "short_description": "A huge pine tree stands at the crossroads.",
-        "long_description": "A huge pine tree stands at the crossroads.",
+        "short_description": "A huge pine tree stands at the crossroads.|A huge pine tree stands at the crossroads. High up in its branches you can see some sort of observation platform.",
+        "long_description": "A huge pine tree stands at the crossroads.|A huge pine tree stands at the crossroads. High up in its branches you can see some sort of observation platform.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
