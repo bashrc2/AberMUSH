@@ -4026,7 +4026,10 @@ def _climbBase(params, mud, playersDB: {}, players: {}, rooms: {},
             if rooms[targetRoom]['maxPlayers'] > -1:
                 if _playersInRoom(targetRoom, players, npcs) >= \
                    rooms[targetRoom]['maxPlayers']:
-                    mud.sendMessage(id, "It's too crowded.\n\n")
+                    if not sit:
+                        mud.sendMessage(id, "It's too crowded.\n\n")
+                    else:
+                        mud.sendMessage(id, "It's already fully occupied.\n\n")
                     return
 
             if not _itemIsClimbable(id, players, itemId, itemsDB):
