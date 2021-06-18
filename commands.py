@@ -3972,12 +3972,13 @@ def _stepOver(params, mud, playersDB: {}, players: {}, rooms: {},
             break
 
 
-def _climb(params, mud, playersDB: {}, players: {}, rooms: {},
-           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
-           envDB: {}, env: {}, eventDB: {}, eventSchedule,
-           id: int, fights: {}, corpses: {}, blocklist,
-           mapArea: [], characterClassDB: {}, spellsDB: {},
-           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
+def _climbBase(params, mud, playersDB: {}, players: {}, rooms: {},
+               npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+               envDB: {}, env: {}, eventDB: {}, eventSchedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               mapArea: [], characterClassDB: {}, spellsDB: {},
+               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+               sit: bool):
     """Climbing through or into an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -4032,7 +4033,10 @@ def _climb(params, mud, playersDB: {}, players: {}, rooms: {},
                 if failMsg:
                     mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
                 else:
-                    failMsg = 'You try to climb, but totally fail'
+                    if not sit:
+                        failMsg = 'You try to climb, but totally fail'
+                    else:
+                        failMsg = 'You try to sit, but totally fail'
                     mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
                 return
 
@@ -4074,6 +4078,36 @@ def _climb(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
     else:
         mud.sendMessage(id, "Nothing happens.\n\n")
+
+
+def _climb(params, mud, playersDB: {}, players: {}, rooms: {},
+           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+           envDB: {}, env: {}, eventDB: {}, eventSchedule,
+           id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
+    _climbBase(params, mud, playersDB, players, rooms,
+               npcsDB, npcs, itemsDB, items,
+               envDB, env, eventDB, eventSchedule,
+               id, fights, corpses, blocklist,
+               mapArea, characterClassDB, spellsDB,
+               sentimentDB, guildsDB, clouds, racesDB,
+               False)
+
+
+def _sit(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {}):
+    _climbBase(params, mud, playersDB, players, rooms,
+               npcsDB, npcs, itemsDB, items,
+               envDB, env, eventDB, eventSchedule,
+               id, fights, corpses, blocklist,
+               mapArea, characterClassDB, spellsDB,
+               sentimentDB, guildsDB, clouds, racesDB,
+               True)
 
 
 def _heave(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -6500,6 +6534,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "displace": _heave,
         "disembark": _climb,
         "climb": _climb,
+        "sit": _sit,
         "cross": _climb,
         "traverse": _climb,
         "jump": _jump,

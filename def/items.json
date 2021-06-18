@@ -8476,7 +8476,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You recline on the couch|You sit on the couch",
         "armorClass": 0,
         "damage": "",
         "range": [0, 0],
@@ -8503,7 +8503,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1412$",
         "lightSource": 0,
         "article": "a"
     },
