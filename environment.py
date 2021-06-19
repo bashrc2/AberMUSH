@@ -89,7 +89,7 @@ def assignTerrainDifficulty(rooms: {}) -> int:
     return maxTerrainDifficulty
 
 
-def _atZero(rooms: {}, rm) -> bool:
+def _roomAtZeroCoord(rooms: {}, rm) -> bool:
     """Room is at coord 0,0,0
     """
     if rooms[rm]['coords'][0] == 0 and \
@@ -114,7 +114,7 @@ def findRoomCollisions(rooms: {}) -> None:
         # Room with coords
         if len(rooms[rm]['coords']) <= 2:
             continue
-        if _atZero(rooms, rm):
+        if _roomAtZeroCoord(rooms, rm):
             continue
         totalCtr += 1
         for index2 in range(index1, len(rooms)):
@@ -125,7 +125,7 @@ def findRoomCollisions(rooms: {}) -> None:
             # not the same room
             if rm2 == rm:
                 continue
-            if _atZero(rooms, rm2):
+            if _roomAtZeroCoord(rooms, rm2):
                 continue
             if rooms[rm]['coords'][0] != rooms[rm2]['coords'][0]:
                 continue
