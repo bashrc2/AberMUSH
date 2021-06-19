@@ -89,6 +89,16 @@ def assignTerrainDifficulty(rooms: {}) -> int:
     return maxTerrainDifficulty
 
 
+def _atZero(rooms: {}, rm) -> bool:
+    """Room is at coord 0,0,0
+    """
+    if rooms[rm]['coords'][0] == 0 and \
+       rooms[rm]['coords'][1] == 0 and \
+       rooms[rm]['coords'][2] == 0:
+        return True
+    return False
+
+
 def findRoomCollisions(rooms: {}) -> None:
     """Marks rooms whose geolocations collide
     """
@@ -104,20 +114,18 @@ def findRoomCollisions(rooms: {}) -> None:
         # Room with coords
         if len(rooms[rm]['coords']) <= 2:
             continue
-        if rooms[rm]['coords'][0] == 0 and \
-           rooms[rm]['coords'][1] == 0 and \
-           rooms[rm]['coords'][2] == 0:
+        if _atZero(rooms, rm):
             continue
         totalCtr += 1
         for index2 in range(index1, len(rooms)):
             rm2 = roomDict[index2]
+            # Other room with coords
             if len(rooms[rm2]['coords']) <= 2:
                 continue
+            # not the same room
             if rm2 == rm:
-               continue
-            if rooms[rm2]['coords'][0] == 0 and \
-               rooms[rm2]['coords'][1] == 0 and \
-               rooms[rm2]['coords'][2] == 0:
+                continue
+            if _atZero(rooms, rm2):
                 continue
             if rooms[rm]['coords'][0] != rooms[rm2]['coords'][0]:
                 continue

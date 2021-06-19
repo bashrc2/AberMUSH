@@ -205,6 +205,7 @@ def testFunctions():
         '_affinity',
         '_clearSpells',
         '_spells',
+        '_sit',
         '_prepareSpell',
         '_speak',
         '_laugh',
