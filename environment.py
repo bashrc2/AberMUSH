@@ -237,6 +237,87 @@ def _findRoomWithoutCoords(rooms: {}):
     return None
 
 
+def mapLevelAsCsv(rooms: {}, level: int):
+    """Print a vertical level of the map as a CSV
+    """
+    minX = 999999
+    maxX = -999999
+    minY = 999999
+    maxY = -999999
+
+    for rm in rooms:
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        if len(rooms[rm]['coords']) <= 2:
+            continue
+        if rooms[rm]['coords'][2] != level:
+            continue
+        x = rooms[rm]['coords'][1]
+        y = rooms[rm]['coords'][0]
+        if y < minY:
+            minY = y
+        if y > maxY:
+            maxY = y
+        if x < minX:
+            minX = x
+        if x > maxX:
+            maxX = x
+
+    w = maxX - minX + 1
+    h = maxY - minY + 1
+    grid = [[' ' for y in range(h)] for x in range(w)]
+
+    mapStr = ''
+    for rm in rooms:
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        if len(rooms[rm]['coords']) <= 2:
+            continue
+        if rooms[rm]['coords'][2] != level:
+            continue
+        x = rooms[rm]['coords'][1] - minX
+        y = rooms[rm]['coords'][0] - minY
+        rid = int(rm.replace('$', '').replace('rid=', ''))
+        grid[x][y] = str(rid) + ' ' + rooms[rm]['name']
+        if rooms[rm]['exits'].get('north'):
+            if rooms[rm]['exits'].get('west'):
+                grid[x][y] = '          ▲\n⮜ ' + grid[x][y]
+            else:
+                grid[x][y] = '          ▲\n  ' + grid[x][y]
+        else:
+            if rooms[rm]['exits'].get('west'):
+                grid[x][y] = '⮜ ' + grid[x][y]
+            else:
+                grid[x][y] = '\n   ' + grid[x][y]
+        if rooms[rm]['exits'].get('east'):
+            grid[x][y] = grid[x][y] + ' ⮞'
+        else:
+            grid[x][y] = grid[x][y] + '   '
+        if rooms[rm]['exits'].get('south'):
+            grid[x][y] = grid[x][y] + '\n          ▼'
+        else:
+            grid[x][y] = grid[x][y] + '\n'
+        grid[x][y] = '"\n' + grid[x][y] + '\n"'
+
+    for y1 in range(h):
+        y = h - y1 - 1
+        lineStr = ''
+        for x1 in range(w):
+            x = w - x1 - 1
+            if grid[x][y] == ' ':
+                lineStr += ','
+                continue
+            lineStr += grid[x][y] + ','
+        mapStr += lineStr.strip() + '\n'
+
+    filename = 'map_level_' + str(level) + '.csv'
+    csvFile = open(filename, 'w+')
+    if csvFile:
+        csvFile.write(mapStr)
+        csvFile.close()
+        print('Map level ' + str(level) + ' saved')
+
+
 def _removeCoordinateGaps(rooms: {}) -> None:
     """Removes gaps in the east line coordinates of rooms
     """

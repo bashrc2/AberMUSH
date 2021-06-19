@@ -55,6 +55,7 @@ from environment import assignCoordinates
 from environment import generateCloud
 from environment import getTemperature
 from environment import findRoomCollisions
+from environment import mapLevelAsCsv
 from traps import runTraps
 from tests import runAllTests
 
@@ -83,6 +84,9 @@ parser = argparse.ArgumentParser(description='AberMUSH Server')
 parser.add_argument("--tests", type=str2bool, nargs='?',
                     const=True, default=False,
                     help="Run unit tests")
+parser.add_argument('--mapLevel', dest='mapLevel', type=int,
+                    default=None,
+                    help='Shows a vertical map level as a CSV')
 args = parser.parse_args()
 if args.tests:
     runAllTests()
@@ -176,7 +180,8 @@ for roomID, rm in rooms.items():
     roomID = roomID.replace('$rid=', '').replace('$', '')
     if not os.path.isfile('/home/bashrc/develop/AberMUSH/images/rooms/' +
                           str(roomID)):
-        print('Missing room image: ' + str(roomID))
+        if not args.mapLevel:
+            print('Missing room image: ' + str(roomID))
 
 countStr = str(len(rooms))
 log("Rooms loaded: " + countStr, "info")
@@ -271,6 +276,10 @@ countStr = str(counter)
 log("Scripted Events loaded: " + countStr, "info")
 
 mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB)
+
+if args.mapLevel is not None:
+    mapLevelAsCsv(rooms, args.mapLevel)
+    sys.exit()
 
 # check that there are no room collisions
 findRoomCollisions(rooms)
