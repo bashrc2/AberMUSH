@@ -5741,7 +5741,7 @@ def _openItemDoor(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     itemID = items[iid]['id']
-    linkedItemID = int(itemsDB[itemID]['linkedItem'])
+    linkedItemID = int(itemsDB[itemID]['linkedItem'])        
     roomID = itemsDB[itemID]['exit']
     if '|' in itemsDB[itemID]['exitName']:
         exitName = itemsDB[itemID]['exitName'].split('|')
