@@ -1822,7 +1822,9 @@
         "weather": 0,
         "onWater": 0,
         "roomType": "",
-        "virtualExits": {},
+        "virtualExits": {
+	    "west": "$rid=204$"
+	},
         "tideOutDescription" : "",
         "region": "Wizard's Abode",
         "terrainDifficulty": 0,
@@ -1843,7 +1845,9 @@
         "weather": 0,
         "onWater": 0,
         "roomType": "",
-        "virtualExits": {},
+        "virtualExits": {
+	    "east": "$rid=195$"
+	},
         "tideOutDescription" : "",
         "region": "Wizard's Abode",
         "terrainDifficulty": 0,

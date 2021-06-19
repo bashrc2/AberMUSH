@@ -297,21 +297,28 @@ def mapLevelAsCsv(rooms: {}, level: int):
         y = rooms[rm]['coords'][0] - minY
         rid = int(rm.replace('$', '').replace('rid=', ''))
         grid[x][y] = str(rid) + ' ' + rooms[rm]['name']
-        if rooms[rm]['exits'].get('north'):
-            if rooms[rm]['exits'].get('west'):
+
+        exitDict = rooms[rm]['exits'].copy()
+        if rooms[rm].get('virtualExits'):
+            exitDict.update(rooms[rm]['virtualExits'])
+        if rooms[rm].get('tideOutExits'):
+            exitDict.update(rooms[rm]['tideOutExits'])
+
+        if exitDict.get('north'):
+            if exitDict.get('west'):
                 grid[x][y] = '          ▲\n⮜ ' + grid[x][y]
             else:
                 grid[x][y] = '          ▲\n  ' + grid[x][y]
         else:
-            if rooms[rm]['exits'].get('west'):
+            if exitDict.get('west'):
                 grid[x][y] = '⮜ ' + grid[x][y]
             else:
                 grid[x][y] = '\n   ' + grid[x][y]
-        if rooms[rm]['exits'].get('east'):
+        if exitDict.get('east'):
             grid[x][y] = grid[x][y] + ' ⮞'
         else:
             grid[x][y] = grid[x][y] + '   '
-        if rooms[rm]['exits'].get('south'):
+        if exitDict.get('south'):
             grid[x][y] = grid[x][y] + '\n          ▼'
         else:
             grid[x][y] = grid[x][y] + '\n'
