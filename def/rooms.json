@@ -13707,6 +13707,7 @@
             "north": "$rid=1388$",
             "east": "$rid=1389$",
             "west": "$rid=1390$",
+	    "south": "$rid=1393$",
             "out": "$rid=844$"
         },
         "name": "Large Roundhouse",
