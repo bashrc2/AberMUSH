@@ -153,61 +153,62 @@ def _findRoomWithoutCoords(rooms: {}):
         for ex, roomId in exitDict.items():
             # room which is exited to
             rm2 = rooms[str(roomId)]
-            if not rm2['coordsAssigned']:
-                if ex == 'north':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][0] += 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'northeast':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][0] += 1
-                    rm2['coords'][1] -= 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'northwest':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][0] += 1
-                    rm2['coords'][1] += 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'south':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][0] -= 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'southeast':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][0] -= 1
-                    rm2['coords'][1] -= 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'southwest':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][0] -= 1
-                    rm2['coords'][1] += 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'east':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][1] -= 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'west':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][1] += 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'up':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][2] += 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
-                elif ex == 'down':
-                    rm2['coords'] = rooms[rm]['coords'].copy()
-                    rm2['coords'][2] -= 1
-                    rm2['coordsAssigned'] = True
-                    return rm2
+            if rm2['coordsAssigned']:
+                continue
+            if ex == 'north':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][0] += 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'northeast':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][0] += 1
+                rm2['coords'][1] -= 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'northwest':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][0] += 1
+                rm2['coords'][1] += 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'south':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][0] -= 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'southeast':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][0] -= 1
+                rm2['coords'][1] -= 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'southwest':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][0] -= 1
+                rm2['coords'][1] += 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'east':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][1] -= 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'west':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][1] += 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'up':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][2] += 1
+                rm2['coordsAssigned'] = True
+                return rm2
+            elif ex == 'down':
+                rm2['coords'] = rooms[rm]['coords'].copy()
+                rm2['coords'][2] -= 1
+                rm2['coordsAssigned'] = True
+                return rm2
     max_east = 0
     for rm in rooms:
         # Room without coords
