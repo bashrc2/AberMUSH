@@ -91,7 +91,7 @@
     },
     "$rid=15$": {
         "exits": {
-	    "east": "$rid=1401$"
+	    "west": "$rid=1401$"
         },
         "name": "The Hidden Garden",
         "description": "Small and completely hemmed in by hedges and a wall the garden is peaceful and quiet. The trees rustle gently to each other in the shelter, and the twittering of birds rises from the hedgerows.",
@@ -3143,7 +3143,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "out": "$rid=382$"
+            "north": "$rid=382$"
         }
     },
     "$rid=382$": {
@@ -3151,6 +3151,7 @@
         "description": "The trees thin out and spread around a wide grassy clearing. A narrow path winds away from the clearing northwards into the trees.",
         "roomTeleport": "",
         "conditional": [
+	    ["sunrise","true","The trees thin out and spread around a wide grassy clearing. A narrow path winds away from the clearing northwards into the trees. Rain falls gently.","382_sunrise"],
 	    ["rain","true","The trees thin out and spread around a wide grassy clearing. A narrow path winds away from the clearing northwards into the trees. Rain falls gently."]
 	],
         "trap": {},
@@ -3167,7 +3168,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-	    "in": "$rid=381$",
+	    "south": "$rid=381$",
             "north": "$rid=384$"
         }
     },
@@ -6131,7 +6132,7 @@
     },
     "$rid=751$": {
         "exits": {
-            "north": "$rid=752$",
+            "west": "$rid=752$",
             "east": "$rid=731$"
         },
         "name": "The throne room",
@@ -6155,10 +6156,10 @@
     "$rid=752$": {
         "exits": {
             "north": "$rid=753$",
-            "south": "$rid=751$"
+            "east": "$rid=751$"
         },
         "name": "The smooth tunnel",
-        "description": "You are standing in a dry, rounded, smooth tunnel which runs from north to south. Northwards, the tunnel stretches off into the darkness, while to the south, you see a flickering light.",
+        "description": "You are standing in a dry, rounded, smooth tunnel which runs from north to south. Northwards, the tunnel stretches off into the darkness, while to the east, you see a flickering light.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -6595,8 +6596,8 @@
         "exits": {
             "north": "$rid=777$",
             "east": "$rid=770$",
-            "south": "$rid=772$",
-            "west": "$rid=771$"
+            "south": "$rid=771$",
+            "west": "$rid=772$"
         }
     },
     "$rid=774$": {
@@ -10398,7 +10399,7 @@
     "$rid=1108$": {
         "exits": {
             "north": "$rid=966$",
-            "south": "$rid=1310$"
+            "up": "$rid=1310$"
         },
         "name": "The Ancient Tunnel",
         "description": "You are walking down the ancient mountain tunnel, a wide passageway carved with great skill through the mountains. Whoever built this mighty arched way is forgotten, although some of the more ancient legends speak of an army of dwarves carving it from the mountain so that some ancient artifact could be brought out of the valley beyond. Whatever the truth the ancient mountain road is a place of legend and wonder.",
@@ -10927,14 +10928,13 @@
     "$rid=1136$": {
         "exits": {
             "north": "$rid=1135$",
-            "south": "$rid=1137$",
             "down": "$rid=1137$"
         },
         "name": "The Path",
-        "description": "You stand on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley.",
+        "description": "You stand on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back south down into the valley.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the rain on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down into the valley"]
+	    ["rain","yes","You stand in the rain on a path which leads down into the valley, and northwards into a churchyard of some sort, with a ruined church standing beside it. The path also leads back down south into the valley"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -10952,13 +10952,12 @@
     },
     "$rid=1137$": {
         "exits": {
-            "north": "$rid=1136$",
             "east": "$rid=1116$",
             "south": "$rid=1138$",
             "up": "$rid=1136$"
         },
         "name": "The Forest Edge",
-        "description": "You stand on the edge of the forest, which extends south, east and west as far as you can see. To the north the trees give way to a grassy hill. A narrow worn path ascends the hill. To the south the path is blocked by thick bushes, but a few gaps allow you to squeeze through.",
+        "description": "You stand on the edge of the forest, which extends south, east and west as far as you can see. Upwards to the north the trees give way to a grassy hill. A narrow worn path ascends the hill. To the south the path is blocked by thick bushes, but a few gaps allow you to squeeze through.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -12745,7 +12744,7 @@
     },
     "$rid=1310$": {
         "name": "The Sorcerors Gate",
-        "description": "You stand before a huge pillared gate set into the cliffs at the base of the mountains. A dark dimly lit passage vanishes northwards through the gate. Elsewhere around you, little can be made out in the blowing snows.",
+        "description": "You stand before a huge pillared gate set into the cliffs at the base of the mountains. A dark dimly lit passage vanishes northwards down through the gate. Elsewhere around you, little can be made out in the blowing snows.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -12762,7 +12761,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=1108$",
+            "down": "$rid=1108$",
             "east": "$rid=1311$",
             "south": "$rid=1311$",
             "west": "$rid=127$"
@@ -14069,14 +14068,14 @@
     },
     "$rid=1401$": {
         "exits": {
-	    "west": "$rid=15$"
+	    "east": "$rid=15$"
         },
         "name": "The Fruit Wall",
-        "description": "A large south facing clay wall looms ahead of you. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. Vibrant insects buzz amongst the foliage. To the west is the main part of the garden.",
+        "description": "A large south facing clay wall looms ahead of you. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. Vibrant insects buzz amongst the foliage. To the east is the main part of the garden.",
         "roomTeleport": "",
         "conditional": [
-	    ["hour","<10","A large south facing clay wall looms ahead of you. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. Their leaves move gently in the morning breeze. To the west is the main part of the garden."],
-	    ["hour",">17","A large south facing clay wall casts a long shadow onto the garden. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. To the west is the main part of the garden."]
+	    ["hour","<10","A large south facing clay wall looms ahead of you. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. Their leaves move gently in the morning breeze. To the east is the main part of the garden."],
+	    ["hour",">17","A large south facing clay wall casts a long shadow onto the garden. An assortment of trees and climbing plants have been tied onto it with twine wrapped around metallic hooks. To the east is the main part of the garden."]
 	],
         "trap": {},
         "eventOnEnter": "",
