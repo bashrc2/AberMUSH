@@ -102,33 +102,35 @@ def findRoomCollisions(rooms: {}) -> None:
     for index1 in range(len(rooms)):
         rm = roomDict[index1]
         # Room with coords
-        if len(rooms[rm]['coords']) > 2:
-            if rooms[rm]['coords'][0] == 0 and \
-               rooms[rm]['coords'][1] == 0 and \
-               rooms[rm]['coords'][2] == 0:
+        if len(rooms[rm]['coords']) <= 2:
+            continue
+        if rooms[rm]['coords'][0] == 0 and \
+           rooms[rm]['coords'][1] == 0 and \
+           rooms[rm]['coords'][2] == 0:
+            continue
+        totalCtr += 1
+        for index2 in range(index1, len(rooms)):
+            rm2 = roomDict[index2]
+            if len(rooms[rm2]['coords']) <= 2:
                 continue
-            totalCtr += 1
-            for index2 in range(index1, len(rooms)):
-                rm2 = roomDict[index2]
-                if len(rooms[rm2]['coords']) > 2:
-                    if rm2 == rm:
-                        continue
-                    if rooms[rm2]['coords'][0] == 0 and \
-                       rooms[rm2]['coords'][1] == 0 and \
-                       rooms[rm2]['coords'][2] == 0:
-                        continue
-                    if rooms[rm]['coords'][0] != rooms[rm2]['coords'][0]:
-                        continue
-                    if rooms[rm]['coords'][1] != rooms[rm2]['coords'][1]:
-                        continue
-                    if rooms[rm]['coords'][2] != rooms[rm2]['coords'][2]:
-                        continue
-                    print('Collision between rooms ' +
-                          str(rm) + ' and ' + str(rm2))
-                    print(rooms[rm]['name'] + ' ' + str(rooms[rm]['coords']))
-                    print(rooms[rm2]['name'] + ' ' + str(rooms[rm2]['coords']))
-                    rooms[rm]['collides'] = rm2
-                    ctr += 1
+            if rm2 == rm:
+               continue
+            if rooms[rm2]['coords'][0] == 0 and \
+               rooms[rm2]['coords'][1] == 0 and \
+               rooms[rm2]['coords'][2] == 0:
+                continue
+            if rooms[rm]['coords'][0] != rooms[rm2]['coords'][0]:
+                continue
+            if rooms[rm]['coords'][1] != rooms[rm2]['coords'][1]:
+                continue
+            if rooms[rm]['coords'][2] != rooms[rm2]['coords'][2]:
+                continue
+            print('Collision between rooms ' +
+                  str(rm) + ' and ' + str(rm2))
+            print(rooms[rm]['name'] + ' ' + str(rooms[rm]['coords']))
+            print(rooms[rm2]['name'] + ' ' + str(rooms[rm2]['coords']))
+            rooms[rm]['collides'] = rm2
+            ctr += 1
     if ctr > 0:
         print(str(ctr) + ' room collisions out of ' + str(totalCtr))
 
