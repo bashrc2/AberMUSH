@@ -162,6 +162,24 @@ def _findRoomWithoutCoords(rooms: {}):
             # room which is exited to
             rm2 = rooms[str(roomId)]
             if rm2['coordsAssigned']:
+                if ex == 'north':
+                    rooms[rm]['coords'] = rm2['coords'].copy()
+                    rooms[rm]['coords'][0] -= 1
+                elif ex == 'south':
+                    rooms[rm]['coords'] = rm2['coords'].copy()
+                    rooms[rm]['coords'][0] += 1
+                elif ex == 'east':
+                    rooms[rm]['coords'] = rm2['coords'].copy()
+                    rooms[rm]['coords'][1] += 1
+                elif ex == 'west':
+                    rooms[rm]['coords'] = rm2['coords'].copy()
+                    rooms[rm]['coords'][1] -= 1
+                elif ex == 'up':
+                    rooms[rm]['coords'] = rm2['coords'].copy()
+                    rooms[rm]['coords'][2] -= 1
+                elif ex == 'down':
+                    rooms[rm]['coords'] = rm2['coords'].copy()
+                    rooms[rm]['coords'][2] += 1
                 continue
             if ex == 'north':
                 rm2['coords'] = rooms[rm]['coords'].copy()
