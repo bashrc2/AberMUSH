@@ -12280,7 +12280,7 @@
         "exits": {
             "north": "$rid=1263$",
             "east": "$rid=1167$",
-            "south": "$rid=1290$",
+            "out": "$rid=1290$",
             "west": "$rid=1297$"
         },
         "name": "Walking The Planes",
@@ -13707,7 +13707,7 @@
             "north": "$rid=1388$",
             "east": "$rid=1389$",
             "west": "$rid=1390$",
-            "south": "$rid=844$"
+            "out": "$rid=844$"
         },
         "name": "Large Roundhouse",
         "description": "The roundhouse has a large conical thatched roof which undulates upwards over an entrance to the north. Near to the entrance is a circular marking with a vertical line through it, painted in red. There are two other similar looking roundhouses to the east and west.",
