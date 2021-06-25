@@ -108,11 +108,11 @@
     "acid": {
 	"first": [
 	    "corrode",
-	    "spray",
+	    "spray"
 	],
 	"second": [
 	    "corroded",
-	    "sprayed",
+	    "sprayed"
 	],
 	"critical first": [
 	    "splash"
@@ -420,7 +420,7 @@
 	],
 	"critical first": [
 	    ["cast a thunderbolt at", "It explodes on impact"],
-	    ["cast a bolt of thunder at". "It explodes on impact"]
+	    ["cast a bolt of thunder at", "It explodes on impact"]
 	],
 	"critical second": [
             ["casted a thunderbolt at", "It explodes on impact"],
