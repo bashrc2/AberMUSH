@@ -396,16 +396,16 @@ def _combatProficiencyBonus(id, players: {}, weaponType: str,
 def _combatAttackRoll(id, players: {}, weaponType: str,
                       targetArmorClass: int,
                       characterClassDB: {},
-                      dodgeModifier: int) -> bool:
+                      dodgeModifier: int) -> (bool, bool):
     """Returns true if an attack against a target succeeds
     """
     d20 = randint(1, 20)
     if d20 == 1:
         # miss
-        return False
+        return False, False
     if d20 == 20:
         # critical hit
-        return True
+        return True, True
 
     abilityModifier = 0
     if 'ranged' in weaponType:
@@ -419,8 +419,8 @@ def _combatAttackRoll(id, players: {}, weaponType: str,
 
     if d20 + abilityModifier + proficiencyBonus >= \
        targetArmorClass + dodgeModifier:
-        return True
-    return False
+        return True, False
+    return False, False
 
 
 def _sendCombatImage(mud, id, players: {}, race: str,
@@ -787,7 +787,7 @@ def _getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
 
 
 def _getAttackDescription(animalType: str, weaponType: str,
-                          attackDB: {}) -> (str, str):
+                          attackDB: {}, isCritical: bool) -> (str, str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -815,12 +815,20 @@ def _getAttackDescription(animalType: str, weaponType: str,
             attackTypeList = attackType.split('|')
             for attackTypeStr in attackTypeList:
                 if weaponType.startswith(attackTypeStr):
-                    # first person -  you attack a player or npc
-                    attackDescriptionFirst = \
-                        randomDescription(attackDesc['first'])
-                    # second person -  you were attacked by a player or npc
-                    attackDescriptionSecond = \
-                        randomDescription(attackDesc['second'])
+                    if not isCritical:
+                        # first person - you attack a player or npc
+                        attackDescriptionFirst = \
+                            randomDescription(attackDesc['first'])
+                        # second person - you were attacked by a player or npc
+                        attackDescriptionSecond = \
+                            randomDescription(attackDesc['second'])
+                    else:
+                        # first person critical hit
+                        attackDescriptionFirst = \
+                            randomDescription(attackDesc['critical first'])
+                        # second person critical hit
+                        attackDescriptionSecond = \
+                            randomDescription(attackDesc['critical second'])
                     break
     else:
         attackStrings = [
@@ -846,12 +854,20 @@ def _getAttackDescription(animalType: str, weaponType: str,
             animalTypeList = anType.split('|')
             for animalTypeStr in animalTypeList:
                 if animalType.startswith(animalTypeStr):
-                    # first person -  you attack a player or npc
-                    attackDescriptionFirst = \
-                        randomDescription(attackDesc['first'])
-                    # second person -  you were attacked by a player or npc
-                    attackDescriptionSecond = \
-                        randomDescription(attackDesc['second'])
+                    if not isCritical:
+                        # first person -  you attack a player or npc
+                        attackDescriptionFirst = \
+                            randomDescription(attackDesc['first'])
+                        # second person -  you were attacked by a player or npc
+                        attackDescriptionSecond = \
+                            randomDescription(attackDesc['second'])
+                    else:
+                        # first person critical hit
+                        attackDescriptionFirst = \
+                            randomDescription(attackDesc['critical first'])
+                        # second person critical hit
+                        attackDescriptionSecond = \
+                            randomDescription(attackDesc['critical second'])
                     break
 
     return attackDescriptionFirst, attackDescriptionSecond
@@ -987,11 +1003,12 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                               racesDB, weaponType, itemsDB)
 
         # Do damage to the PC here
-        if _combatAttackRoll(s1id, players, weaponType,
-                             targetArmorClass, characterClassDB,
-                             dodgeModifier):
+        hit, isCritical = _combatAttackRoll(s1id, players, weaponType,
+                                            targetArmorClass, characterClassDB,
+                                            dodgeModifier)
+        if hit:
             attackDescriptionFirst, attackDescriptionSecond = \
-                _getAttackDescription("", weaponType, attackDB)
+                _getAttackDescription("", weaponType, attackDB, isCritical)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1018,14 +1035,23 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     players, s1id, players, s2id, guilds)
                 _sendCombatImage(mud, s1id, players,
                                  players[s1id]['race'], weaponType)
+
+                attackText = 'attack'
+                finalText = ''
+                if isinstance(attackDescriptionFirst, str):
+                    attackText = attackDescriptionFirst
+                elif isinstance(attackDescriptionFirst, list):
+                    attackText = attackDescriptionFirst[0]
+                    if len(attackDescriptionFirst) > 1:
+                        finalText = ' ' + \
+                            randomDescription(attackDescriptionFirst[1]) + '\n'
                 mud.sendMessage(
-                    s1id, 'You ' +
-                    attackDescriptionFirst +
-                    ' <f32><u>' +
+                    s1id, 'You ' + attackText + ' <f32><u>' +
                     players[s2id]['name'] +
                     '<r> for <f15><b2> * ' +
                     damageValueDesc +
                     ' *<r> points of damage.\n' +
+                    finalText +
                     players[s2id]['name'] + ' is ' +
                     healthOfPlayer(s2id, players) + '\n')
 
@@ -1039,14 +1065,22 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     healthDescription = \
                         'Your health status is ' + healthDescription
 
+                attackText = 'attacked'
+                finalText = ''
+                if isinstance(attackDescriptionSecond, str):
+                    attackText = attackDescriptionSecond
+                elif isinstance(attackDescriptionSecond, list):
+                    attackText = attackDescriptionSecond[0]
+                    if len(attackDescriptionSecond) > 1:
+                        finalText = ' ' + \
+                            randomDescription(attackDescriptionSecond[1]) + \
+                            '\n'
                 mud.sendMessage(
                     s2id, '<f32>' +
                     players[s1id]['name'] +
-                    '<r> has ' +
-                    attackDescriptionSecond +
-                    ' you for <f15><b88> * ' +
+                    '<r> has ' + attackText + ' you for <f15><b88> * ' +
                     damageValueDesc +
-                    ' *<r> points of damage.\n' +
+                    ' *<r> points of damage.\n' + finalText +
                     healthDescription + '\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
@@ -1163,11 +1197,12 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                               racesDB, weaponType, itemsDB)
 
         # Do damage to the PC here
-        if _combatAttackRoll(s1id, players, weaponType,
-                             targetArmorClass, characterClassDB,
-                             dodgeModifier):
+        hit, isCritical = _combatAttackRoll(s1id, players, weaponType,
+                                            targetArmorClass, characterClassDB,
+                                            dodgeModifier)
+        if hit:
             attackDescriptionFirst, attackDescriptionSecond = \
-                _getAttackDescription("", weaponType, attackDB)
+                _getAttackDescription("", weaponType, attackDB, isCritical)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1196,15 +1231,22 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                                                s2id, guilds)
                 _sendCombatImage(mud, s1id, players,
                                  players[s1id]['race'], weaponType)
+                attackText = 'attack'
+                finalText = ''
+                if isinstance(attackDescriptionFirst, str):
+                    attackText = attackDescriptionFirst
+                elif isinstance(attackDescriptionFirst, list):
+                    attackText = attackDescriptionFirst[0]
+                    if len(attackDescriptionFirst) > 1:
+                        finalText = ' ' + \
+                            randomDescription(attackDescriptionFirst[1]) + '\n'
                 mud.sendMessage(
                     s1id,
-                    'You ' +
-                    attackDescriptionFirst +
-                    ' <f220>' +
+                    'You ' + attackText + ' <f220>' +
                     npcs[s2id]['name'] +
                     '<r> for <b2><f15> * ' +
                     damageValueDesc +
-                    ' * <r> points of damage\n' +
+                    ' * <r> points of damage\n' + finalText +
                     npcs[s2id]['name'] + ' is ' +
                     healthOfPlayer(s2id, npcs) + '\n')
         else:
@@ -1325,12 +1367,13 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                           racesDB, weaponType, itemsDB)
 
     # Do damage to the PC here
-    if _combatAttackRoll(s1id, npcs, weaponType,
-                         targetArmorClass, characterClassDB,
-                         dodgeModifier):
+    hit, isCritical = _combatAttackRoll(s1id, npcs, weaponType,
+                                        targetArmorClass, characterClassDB,
+                                        dodgeModifier)
+    if hit:
         attackDescriptionFirst, attackDescriptionSecond = \
             _getAttackDescription(npcs[s1id]['animalType'],
-                                  weaponType, attackDB)
+                                  weaponType, attackDB, isCritical)
 
         if roundsOfFire < 1:
             roundsOfFire = 1
@@ -1368,13 +1411,23 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 healthDescription = \
                     'Your health status is ' + healthDescription
 
+            attackText = 'attacked'
+            finalText = ''
+            if isinstance(attackDescriptionSecond, str):
+                attackText = attackDescriptionSecond
+            elif isinstance(attackDescriptionSecond, list):
+                attackText = attackDescriptionSecond[0]
+                if len(attackDescriptionSecond) > 1:
+                    finalText = ' ' + \
+                        randomDescription(attackDescriptionSecond[1]) + \
+                        '\n'
             mud.sendMessage(
                 s2id, '<f220>' +
                 npcs[s1id]['name'] + '<r> has ' +
-                attackDescriptionSecond +
+                attackText +
                 ' you for <f15><b88> * ' +
                 damageValueDesc + ' * <r> points of ' +
-                'damage.\n' +
+                'damage.\n' + finalText +
                 healthDescription + '\n')
     else:
         npcs[s1id]['lastCombatAction'] = int(time.time())
