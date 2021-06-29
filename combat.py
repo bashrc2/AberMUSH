@@ -328,7 +328,8 @@ def _combatRaceResistance(id: int, players: {},
 
 def _combatDamageFromWeapon(id, players: {},
                             itemsDB: {}, weaponType: str,
-                            characterClassDB: {}) -> (int, str):
+                            characterClassDB: {},
+                            isCritical: bool) -> (int, str):
     """find the weapon being used and return its damage value
     """
     weaponLocations = (
@@ -352,6 +353,9 @@ def _combatDamageFromWeapon(id, players: {},
             continue
         die = int(damageRoll.split('d')[1])
         noOfRolls = int(damageRoll.split('d')[0])
+        if isCritical:
+            # double the damage for a critical hit
+            noOfRolls *= 2
         score = 0
         for roll in range(noOfRolls):
             score += randint(1, die)
@@ -1019,7 +1023,8 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 damageValue, damageRoll = \
                     _combatDamageFromWeapon(s1id, players,
                                             itemsDB, weaponType,
-                                            characterClassDB)
+                                            characterClassDB,
+                                            isCritical)
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
@@ -1214,7 +1219,8 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 damageValue, damageRoll = \
                     _combatDamageFromWeapon(s1id, players,
                                             itemsDB, weaponType,
-                                            characterClassDB)
+                                            characterClassDB,
+                                            isCritical)
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
@@ -1384,7 +1390,8 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             damageValue, damageRoll = \
                 _combatDamageFromWeapon(s1id, npcs,
                                         itemsDB, weaponType,
-                                        characterClassDB)
+                                        characterClassDB,
+                                        isCritical)
             # eg "1d8 = 5"
             damageValueDesc = damageRoll + ' = ' + str(damageValue)
 
