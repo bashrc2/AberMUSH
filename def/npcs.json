@@ -9072,11 +9072,11 @@
         "conv" : [
             [["e","a","i"],"# ignores you|# moves creepily|# is motionless|# moves silently"]
         ],
-        "path" : ["$rid=357$","$rid=384$","$rid=301$","$rid=346$","$rid=347$","$rid=348$","$rid=349$"],
+        "path" : ["$rid=357$","$rid=384$","$rid=301$","$rid=346$","$rid=347$","$rid=348$","$rid=349$","$rid=651$","$rid=652$","$rid=1032$","$rid=1315$"],
         "bodyType": "",
         "moveDelay" : "40000",
-        "moveType" : "random",
-	"moveTimes": [["hour",21,9],["inactive",1386]],
+        "moveType" : "patrol",
+	"moveTimes": [["hour",22,8],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "1200",
         "randomFactor" : "50",
