@@ -1027,6 +1027,8 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                                             isCritical)
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
+                if isCritical:
+                    damageValueDesc = '2 x ' + damageValueDesc
 
                 if int(players[s2id]['hpMax']) < 999:
                     players[s2id]['hp'] = \
@@ -1223,6 +1225,8 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                                             isCritical)
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
+                if isCritical:
+                    damageValueDesc = '2 x ' + damageValueDesc
 
                 _npcWearsArmor(s2id, npcs, itemsDB)
 
@@ -1394,6 +1398,8 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                                         isCritical)
             # eg "1d8 = 5"
             damageValueDesc = damageRoll + ' = ' + str(damageValue)
+            if isCritical:
+                damageValueDesc = '2 x ' + damageValueDesc
 
             if int(players[s2id]['hpMax']) < 999:
                 players[s2id]['hp'] = int(players[s2id]['hp']) - damageValue
