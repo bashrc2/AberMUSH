@@ -56,6 +56,7 @@ from environment import generateCloud
 from environment import getTemperature
 from environment import findRoomCollisions
 from environment import mapLevelAsCsv
+from mmp import exportMMP
 from traps import runTraps
 from tests import runAllTests
 
@@ -87,6 +88,9 @@ parser.add_argument("--tests", type=str2bool, nargs='?',
 parser.add_argument('--mapLevel', dest='mapLevel', type=int,
                     default=None,
                     help='Shows a vertical map level as a CSV')
+parser.add_argument("--mmp", type=str2bool, nargs='?',
+                    const=True, default=False,
+                    help="Map in MMP XML format")
 args = parser.parse_args()
 if args.tests:
     runAllTests()
@@ -276,6 +280,11 @@ countStr = str(counter)
 log("Scripted Events loaded: " + countStr, "info")
 
 mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB)
+
+if args.mmp:
+    exportMMP(rooms, 'mmp.xml')
+    print('Map exported to mmp.xml')
+    sys.exit()
 
 if args.mapLevel is not None:
     mapLevelAsCsv(rooms, args.mapLevel)
