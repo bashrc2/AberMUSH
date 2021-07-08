@@ -1,0 +1,397 @@
+{
+    "1": {
+        "name": "Dark Forest",
+        "color": 2,
+        "htmlcolor": "#00B300"
+    },
+    "2": {
+        "name": "Constructed underground",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "3": {
+        "name": "Natural underground",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "4": {
+        "name": "Forest",
+        "color": 2,
+        "htmlcolor": "#00B300",
+    },
+    "5": {
+        "name": "Beach",
+        "color": 11,
+        "htmlcolor": "#FFFF00"
+    },
+    "6": {
+        "name": "Desert",
+        "color": 11,
+        "htmlcolor": "#FFFF00"
+    },
+    "7": {
+        "name": "Grasslands",
+        "color": 2,
+        "htmlcolor": "#00B300"
+    },
+    "8": {
+        "name": "Urban",
+        "color": "7",
+        "htmlcolor": "#C0C0C0"
+    },
+    "9": {
+        "name": "Hills",
+        "color": 6,
+        "htmlcolor": "#00A0A0"
+    },
+    "10": {
+        "name": "River",
+        "color": 12,
+        "htmlcolor": "#0000FF"
+    },
+    "11": {
+        "name": "Path",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "12": {
+        "name": "Road",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "13": {
+        "name": "Valley",
+        "color": 2,
+        "htmlcolor": "#00B300"
+    },
+    "14": {
+        "name": "Mountains",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "15": {
+        "name": "Swamp",
+        "color": 5,
+        "htmlcolor": "#A000A0"
+    },
+    "16": {
+        "name": "Tundra",
+        "color": 15,
+        "htmlcolor": "#FFFFFF"
+    },
+    "17": {
+        "name": "Jungle",
+        "color": 10,
+        "htmlcolor": "#00FF00"
+    },
+    "18": {
+        "name": "Dwarven city",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "19": {
+        "name": "Human city",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "20": {
+        "name": "Sea",
+        "color": 4,
+        "htmlcolor": "#0000A0"
+    },
+    "21": {
+        "name": "Garden",
+        "color": 10,
+        "htmlcolor": "#00FF00"
+    },
+    "22": {
+        "name": "Freshwater",
+        "color": 4,
+        "htmlcolor": "#0000A0"
+    },
+    "23": {
+        "name": "Sewer",
+        "color": 1,
+        "htmlcolor": "#A00000"
+    },
+    "24": {
+        "name": "Deep Ocean",
+        "color": 4,
+        "htmlcolor": "#0000A0"
+    },
+    "25": {
+        "name": "Reef",
+        "color": 4,
+        "htmlcolor": "#0000A0"
+    },
+    "26": {
+        "name": "Vast Ocean",
+        "color": 4,
+        "htmlcolor": "#0000A0"
+    },
+    "27": {
+        "name": "Polar",
+        "color": 15,
+        "htmlcolor": "#FFFFFF"
+    },
+    "28": {
+        "name": "Underworld",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "30": {
+        "name": "Docks",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "31": {
+        "name": "Warrens",
+        "color": 1,
+        "htmlcolor": "#A00000"
+    },
+    "32": {
+        "name": "Crags",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "33": {
+        "name": "Acropolis",
+        "color": 9,
+        "htmlcolor": "#FF0000"
+    },
+    "35": {
+        "name": "Tainted Underground",
+        "color": 1,
+        "htmlcolor": "#A00000"
+    },
+    "36": {
+        "name": "Underground Lake",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "37": {
+        "name": "Ruins",
+        "color": 1,
+        "htmlcolor": "#A00000"
+    },
+    "38": {
+        "name": "Desert Ruins",
+        "color": 11,
+        "htmlcolor": "#FFFF00"
+    },
+    "39": {
+        "name": "Tainted Water",
+        "color": 1,
+        "htmlcolor": "#A00000"
+    },
+    "41": {
+        "name": "Farmland",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "42": {
+        "name": "Academia",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "44": {
+        "name": "Forestal Council",
+        "color": 10,
+        "htmlcolor": "#00FF00"
+    },
+    "45": {
+        "name": "Fortress",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "46": {
+        "name": "Graveyard",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "47": {
+        "name": "Village",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "48": {
+        "name": "Transportation",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "49": {
+        "name": "Pond",
+        "color": 4,
+        "htmlcolor": "#0000A0"
+    },
+    "50": {
+        "name": "Living Mountain",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "51": {
+        "name": "Boats",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "52": {
+        "name": "Rashirmir",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "53": {
+        "name": "Dark Forest Council",
+        "color": 2,
+        "htmlcolor": "#00B300"
+    },
+    "54": {
+        "name": "Church",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "56": {
+        "name": "Lake of Fire",
+        "color": 9,
+        "htmlcolor": "#FF0000"
+    },
+    "57": {
+        "name": "Temple",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "58": {
+        "name": "Blackened Lands",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "59": {
+        "name": "Volcano",
+        "color": 9,
+        "htmlcolor": "#FF0000"
+    },
+    "60": {
+        "name": "Twisted Forest",
+        "color": 5,
+        "htmlcolor": "#A000A0"
+    },
+    "61": {
+        "name": "Plane of Tempests",
+        "color": 9,
+        "htmlcolor": "#FF0000"
+    },
+    "62": {
+        "name": "Blackstone Keep",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "63": {
+        "name": "Catacombs",
+        "color": 8,
+        "htmlcolor": "#808080"
+    },
+    "64": {
+        "name": "Wetlands Village",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "65": {
+        "name": "Blackstone Dungeon",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "67": {
+        "name": "Cliffs",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "68": {
+        "name": "Sheltered dell",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "69": {
+        "name": "Within a tent",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "70": {
+        "name": "Quarry",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "71": {
+        "name": "Garrison",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "72": {
+        "name": "Pyramid",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "73": {
+        "name": "Bog",
+        "color": 5,
+        "htmlcolor": "#A000A0"
+    },
+    "74": {
+        "name": "Blighted",
+        "color": 5,
+        "htmlcolor": "#A000A0"
+    },
+    "75": {
+        "name": "Villa",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "76": {
+        "name": "Frozen Bog",
+        "color": 5,
+        "htmlcolor": "#A000A0"
+    },
+    "77": {
+        "name": "Rocky Shore",
+        "color": 3,
+        "htmlcolor": "#A0A000"
+    },
+    "78": {
+        "name": "Scrublands",
+        "color": 2,
+        "htmlcolor": "#00B300"
+    },
+    "79": {
+        "name": "Tower",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "81": {
+        "name": "Twisted Forest Council",
+        "color": 5,
+        "htmlcolor": "#A000A0"
+    },
+    "82": {
+        "name": "Arctic",
+        "color": 15,
+        "htmlcolor": "#FFFFFF"
+    },
+    "83": {
+        "name": "Orc stronghold",
+        "color": 9,
+        "htmlcolor": "#FF0000"
+    },
+    "84": {
+        "name": "Goblin Village",
+        "color": 9,
+        "htmlcolor": "#FF0000"
+    },
+    "85": {
+        "name": "Tavern",
+        "color": 7,
+        "htmlcolor": "#C0C0C0"
+    },
+    "86": {
+        "name": "Ocean Dome",
+        "color": 11,
+        "htmlcolor": "#FFFF00"
+    }
+}
