@@ -56,6 +56,7 @@ from environment import generateCloud
 from environment import getTemperature
 from environment import findRoomCollisions
 from environment import mapLevelAsCsv
+from environment import assignEnvironmentToRooms
 from mmp import exportMMP
 from traps import runTraps
 from tests import runAllTests
@@ -108,6 +109,9 @@ Config.read('config.ini')
 
 # Declare rooms dictionary
 rooms = {}
+
+# Environments for rooms
+environments = {}
 
 # Declare NPC database dict
 npcsDB = {}
@@ -189,6 +193,12 @@ for roomID, rm in rooms.items():
 
 countStr = str(len(rooms))
 log("Rooms loaded: " + countStr, "info")
+
+log("Loading environments...", "info")
+with open(str(Config.get('Environments', 'Definition')), "r") as read_file:
+    environments = json.loads(read_file.read())
+percentAssigned = assignEnvironmentToRooms(environments, rooms)
+log(str(percentAssigned) + '% of rooms have environments assigned', "info")
 
 maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 

@@ -828,3 +828,36 @@ def getRainAtCoords(coords: [], mapArea: [], clouds: {}) -> bool:
     if clouds[x][y] > rainThreshold:
         return True
     return False
+
+
+def assignEnvironmentToRooms(environments: {}, rooms: {}) -> int:
+    """Assigns environment numbers to rooms based upon their descriptions
+    Returns the percentage of rooms assigned to environments
+    """
+    assignedRooms = 0
+    noOfRooms = 0
+    for roomId, item in rooms.items():
+        noOfRooms += 1
+        roomName = item['name'].lower()
+        roomWords = roomName.split(' ')
+        maxScore = 0
+        env = 0
+        for environmentId, envItem in environments.items():
+            score  = 0
+            for word in roomWords:
+                if word in envItem['name'].lower():
+                    score += 10
+            if envItem.get('keywords'):
+                for word in envItem['keywords']:
+                    if word in roomName:
+                        score += 10                
+            if score > maxScore:
+                maxScore = score
+                env = int(environmentId)
+        if env > 0:
+            assignedRooms += 1
+        rooms[roomId]['environmentId'] = env
+    percentAssigned = 0
+    if noOfRooms > 0:
+        percentAssigned = int(assignedRooms * 100 / noOfRooms)
+    return percentAssigned

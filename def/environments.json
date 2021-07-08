@@ -17,7 +17,7 @@
     "4": {
         "name": "Forest",
         "color": 2,
-        "htmlcolor": "#00B300",
+        "htmlcolor": "#00B300"
     },
     "5": {
         "name": "Beach",
@@ -32,11 +32,13 @@
     "7": {
         "name": "Grasslands",
         "color": 2,
+	"keywords": ["grass"],
         "htmlcolor": "#00B300"
     },
     "8": {
         "name": "Urban",
         "color": "7",
+	"keywords": ["town", "shop", "street", "bedroom", "kitchen", "hallway"],
         "htmlcolor": "#C0C0C0"
     },
     "9": {
@@ -65,7 +67,7 @@
         "htmlcolor": "#00B300"
     },
     "14": {
-        "name": "Mountains",
+        "name": "Mountain",
         "color": 3,
         "htmlcolor": "#A0A000"
     },
@@ -142,15 +144,16 @@
     "30": {
         "name": "Docks",
         "color": 7,
+	"keywords": ["harbor", "harbour"],
         "htmlcolor": "#C0C0C0"
     },
     "31": {
-        "name": "Warrens",
+        "name": "Warren",
         "color": 1,
         "htmlcolor": "#A00000"
     },
     "32": {
-        "name": "Crags",
+        "name": "Crag",
         "color": 3,
         "htmlcolor": "#A0A000"
     },
@@ -185,13 +188,14 @@
         "htmlcolor": "#A00000"
     },
     "41": {
-        "name": "Farmland",
+        "name": "Farm",
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "42": {
         "name": "Academia",
         "color": 7,
+	"keywords": ["library", "study"],
         "htmlcolor": "#C0C0C0"
     },
     "44": {
@@ -202,6 +206,7 @@
     "45": {
         "name": "Fortress",
         "color": 7,
+	"keywords": ["castle"],
         "htmlcolor": "#C0C0C0"
     },
     "46": {
@@ -230,7 +235,7 @@
         "htmlcolor": "#A0A000"
     },
     "51": {
-        "name": "Boats",
+        "name": "Boat",
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
@@ -300,7 +305,7 @@
         "htmlcolor": "#C0C0C0"
     },
     "67": {
-        "name": "Cliffs",
+        "name": "Cliff",
         "color": 3,
         "htmlcolor": "#A0A000"
     },
@@ -310,8 +315,9 @@
         "htmlcolor": "#C0C0C0"
     },
     "69": {
-        "name": "Within a tent",
+        "name": "Tent",
         "color": 7,
+	"keywords": ["pavillion"],
         "htmlcolor": "#C0C0C0"
     },
     "70": {
@@ -322,6 +328,7 @@
     "71": {
         "name": "Garrison",
         "color": 7,
+	"keywords": ["barracks"],
         "htmlcolor": "#C0C0C0"
     },
     "72": {
@@ -355,7 +362,7 @@
         "htmlcolor": "#A0A000"
     },
     "78": {
-        "name": "Scrublands",
+        "name": "Scrubland",
         "color": 2,
         "htmlcolor": "#00B300"
     },
