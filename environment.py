@@ -856,6 +856,8 @@ def assignEnvironmentToRooms(environments: {}, rooms: {}) -> int:
                 env = int(environmentId)
         if env > 0:
             assignedRooms += 1
+        else:
+            print('Environment not assigned to ' + item['name'])
         rooms[roomId]['environmentId'] = env
     percentAssigned = 0
     if noOfRooms > 0:

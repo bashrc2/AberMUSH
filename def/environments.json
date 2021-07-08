@@ -7,21 +7,25 @@
     "2": {
         "name": "Constructed underground",
         "color": 8,
+	"keywords": ["shaft", "mine", "tunnel", "passage"],
         "htmlcolor": "#808080"
     },
     "3": {
         "name": "Natural underground",
         "color": 8,
+	"keywords": ["cave", "rockfall", "fissure", "stalag", "grotto", "crack", "tight"],
         "htmlcolor": "#808080"
     },
     "4": {
         "name": "Forest",
         "color": 2,
+	"keywords": ["copse", "wooded", "woodland", "woods", "bushes", "trees", "pine", "pining", "woodpile", "lumberjack"],
         "htmlcolor": "#00B300"
     },
     "5": {
         "name": "Beach",
         "color": 11,
+	"keywords": ["seal", "shipwreck", "coast", "sandbank"],
         "htmlcolor": "#FFFF00"
     },
     "6": {
@@ -38,22 +42,25 @@
     "8": {
         "name": "Urban",
         "color": "7",
-	"keywords": ["town", "shop", "street", "bedroom", "kitchen", "hallway"],
+	"keywords": ["town", "shop", "street", "bedroom", "kitchen", "hallway", "stair", "room", "hall", "building", "house", "gate", "yard", "attic", "gallery", "bath", "maiden", "lab", "couch", "bucket", "bed", "wall", "plinth", "corridor", "market", "smithy", "clock", "ladder", "corner", "soler", "window", "arched", "place", "landing", "pit"],
         "htmlcolor": "#C0C0C0"
     },
     "9": {
         "name": "Hills",
         "color": 6,
+	"keywords": ["mound"],
         "htmlcolor": "#00A0A0"
     },
     "10": {
         "name": "River",
         "color": 12,
+	"keywords": ["banks", "stream", "waterfall", "falls", "spring", "riverbank"],
         "htmlcolor": "#0000FF"
     },
     "11": {
         "name": "Path",
         "color": 7,
+	"keywords": ["track", "clearing"],
         "htmlcolor": "#C0C0C0"
     },
     "12": {
@@ -69,11 +76,13 @@
     "14": {
         "name": "Mountain",
         "color": 3,
+	"keywords": ["mountains", "climb", "canyon", "steep", "slope", "descent"],
         "htmlcolor": "#A0A000"
     },
     "15": {
         "name": "Swamp",
         "color": 5,
+	"keywords": ["marsh"],
         "htmlcolor": "#A000A0"
     },
     "16": {
@@ -99,11 +108,13 @@
     "20": {
         "name": "Sea",
         "color": 4,
+	"keywords": ["straits"],
         "htmlcolor": "#0000A0"
     },
     "21": {
         "name": "Garden",
         "color": 10,
+	"keywords": ["fruit", "apple", "pear", "lawn", "hut", "shed", "fountain"],
         "htmlcolor": "#00FF00"
     },
     "22": {
@@ -144,7 +155,7 @@
     "30": {
         "name": "Docks",
         "color": 7,
-	"keywords": ["harbor", "harbour"],
+	"keywords": ["harbor", "harbour", "cove", "quay", "fjord"],
         "htmlcolor": "#C0C0C0"
     },
     "31": {
@@ -155,6 +166,7 @@
     "32": {
         "name": "Crag",
         "color": 3,
+	"keywords": ["crevasse", "pass", "ridge", "ravine", "ledge", "narrow", "leap"],
         "htmlcolor": "#A0A000"
     },
     "33": {
@@ -175,11 +187,13 @@
     "37": {
         "name": "Ruins",
         "color": 1,
+	"keywords": ["monolith", "circle"],
         "htmlcolor": "#A00000"
     },
     "38": {
-        "name": "Desert Ruins",
+        "name": "Bridge",
         "color": 11,
+	"keywords": ["causeway"],
         "htmlcolor": "#FFFF00"
     },
     "39": {
@@ -190,6 +204,7 @@
     "41": {
         "name": "Farm",
         "color": 7,
+	"keywords": ["sheep", "cow", "pigsty", "field", "pasture"],
         "htmlcolor": "#C0C0C0"
     },
     "42": {
@@ -252,6 +267,7 @@
     "54": {
         "name": "Church",
         "color": 7,
+	"keywords": ["altar", "church", "chapel", "bells"],
         "htmlcolor": "#C0C0C0"
     },
     "56": {
@@ -262,6 +278,7 @@
     "57": {
         "name": "Temple",
         "color": 7,
+	"keywords": ["monk", "monastry", "priest"],
         "htmlcolor": "#C0C0C0"
     },
     "58": {
@@ -272,6 +289,7 @@
     "59": {
         "name": "Volcano",
         "color": 9,
+	"keywords": ["lava", "magma"],
         "htmlcolor": "#FF0000"
     },
     "60": {
@@ -282,6 +300,7 @@
     "61": {
         "name": "Plane of Tempests",
         "color": 9,
+	"keywords": ["neverland", "void", "purgatory", "planes", "hidden"],
         "htmlcolor": "#FF0000"
     },
     "62": {
@@ -292,11 +311,13 @@
     "63": {
         "name": "Catacombs",
         "color": 8,
+	"keywords": ["chamber", "crypt", "sarcophagus", "cell"],
         "htmlcolor": "#808080"
     },
     "64": {
         "name": "Wetlands Village",
         "color": 7,
+	"keywords": [],
         "htmlcolor": "#C0C0C0"
     },
     "65": {
@@ -328,7 +349,7 @@
     "71": {
         "name": "Garrison",
         "color": 7,
-	"keywords": ["barracks"],
+	"keywords": ["barracks", "guard"],
         "htmlcolor": "#C0C0C0"
     },
     "72": {
@@ -359,16 +380,19 @@
     "77": {
         "name": "Rocky Shore",
         "color": 3,
+	"keywords": ["rocks", "jagged"],
         "htmlcolor": "#A0A000"
     },
     "78": {
         "name": "Scrubland",
         "color": 2,
+	"keywords": ["moor", "wasteland"],
         "htmlcolor": "#00B300"
     },
     "79": {
         "name": "Tower",
         "color": 7,
+	"keywords": ["watchtower"],
         "htmlcolor": "#C0C0C0"
     },
     "81": {
@@ -379,6 +403,7 @@
     "82": {
         "name": "Arctic",
         "color": 15,
+	"keywords": ["ice", "icy", "snow", "blizzard"],
         "htmlcolor": "#FFFFFF"
     },
     "83": {
@@ -394,6 +419,7 @@
     "85": {
         "name": "Tavern",
         "color": 7,
+	"keywords": ["inn", "cellars", "cellar"],
         "htmlcolor": "#C0C0C0"
     },
     "86": {
