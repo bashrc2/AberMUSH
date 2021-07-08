@@ -197,8 +197,8 @@ log("Rooms loaded: " + countStr, "info")
 log("Loading environments...", "info")
 with open(str(Config.get('Environments', 'Definition')), "r") as read_file:
     environments = json.loads(read_file.read())
-percentAssigned = assignEnvironmentToRooms(environments, rooms)
-log(str(percentAssigned) + '% of rooms have environments assigned', "info")
+percentAssigned = str(assignEnvironmentToRooms(environments, rooms))
+log(percentAssigned + '% of rooms have environments assigned', "info")
 
 maxTerrainDifficulty = assignTerrainDifficulty(rooms)
 
@@ -292,7 +292,7 @@ log("Scripted Events loaded: " + countStr, "info")
 mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB)
 
 if args.mmp:
-    exportMMP(rooms, 'mmp.xml')
+    exportMMP(rooms, environments, 'mmp.xml')
     print('Map exported to mmp.xml')
     sys.exit()
 

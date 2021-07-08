@@ -843,14 +843,14 @@ def assignEnvironmentToRooms(environments: {}, rooms: {}) -> int:
         maxScore = 0
         env = 0
         for environmentId, envItem in environments.items():
-            score  = 0
+            score = 0
             for word in roomWords:
                 if word in envItem['name'].lower():
                     score += 10
             if envItem.get('keywords'):
                 for word in envItem['keywords']:
                     if word in roomName:
-                        score += 10                
+                        score += 10
             if score > maxScore:
                 maxScore = score
                 env = int(environmentId)

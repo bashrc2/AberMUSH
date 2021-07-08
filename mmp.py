@@ -23,7 +23,7 @@ def _getRegions(rooms: {}) -> {}:
     return regions
 
 
-def _getMMP(rooms: {}) -> str:
+def _getMMP(rooms: {}, environments: {}) -> str:
     """Exports rooms in MMP format for use by MUD client mapping systems
     See https://wiki.mudlet.org/w/Standards:MMP
     """
@@ -39,7 +39,10 @@ def _getMMP(rooms: {}) -> str:
     xmlStr += "  <rooms>\n"
     for roomId, item in rooms.items():
         roomId = roomId.split('=')[1].replace('$', '')
-        environment = 1
+        environmentStr = ''
+        if item.get('environmentId'):
+            environmentId = item['environmentId']
+            environmentStr = "environment=\"" + str(environmentId) + "\""
         x = y = z = 999999
         if item.get('coords'):
             if len(item['coords']) >= 3:
@@ -58,7 +61,7 @@ def _getMMP(rooms: {}) -> str:
         xmlStr += \
             "    <room id=\"" + roomId + "\" " + areaStr + \
             "title=\"" + item['name'].replace('"', "'") + "\" " + \
-            "environment=\"" + str(environment) + "\">\n"
+            environmentStr + ">\n"
         if x != 999999:
             xmlStr += \
                 "      <coord x=\"" + str(x) + "\" " + \
@@ -72,16 +75,20 @@ def _getMMP(rooms: {}) -> str:
             "    </room>\n"
     xmlStr += "  </rooms>\n"
     xmlStr += "  <environments>\n"
-    xmlStr += "    <environment id=\"1\" name=\"AberMUSH\" color=\"1\" />\n"
+    for environmentId, item in environments.items():
+        xmlStr += \
+            "    <environment id=\"" + str(environmentId) + "\" " + \
+            "name=\"" + item['name'] + "\" " + \
+            "color=\"" + str(item['color']) + "\" />\n"
     xmlStr += "  </environments>\n"
     xmlStr += "</map>\n"
     return xmlStr
 
 
-def exportMMP(rooms: {}, filename: str) -> None:
+def exportMMP(rooms: {}, environments: {}, filename: str) -> None:
     """Exports rooms in MMP format for use by MUD clients
     See https://wiki.mudlet.org/w/Standards:MMP
     """
-    xmlStr = _getMMP(rooms)
+    xmlStr = _getMMP(rooms, environments)
     with open(filename, "w+") as fp:
         fp.write(xmlStr)
