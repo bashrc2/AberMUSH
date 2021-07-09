@@ -120,6 +120,7 @@
     "22": {
         "name": "Freshwater",
         "color": 4,
+	"keywords": ["crannog", "lake"],
         "htmlcolor": "#0000A0"
     },
     "23": {
@@ -271,8 +272,9 @@
         "htmlcolor": "#C0C0C0"
     },
     "56": {
-        "name": "Lake of Fire",
+        "name": "Magma flow",
         "color": 9,
+	"keywords": ["magma", "lava"],
         "htmlcolor": "#FF0000"
     },
     "57": {
@@ -289,7 +291,7 @@
     "59": {
         "name": "Volcano",
         "color": 9,
-	"keywords": ["lava", "magma"],
+	"keywords": ["crater", "vent", "volcanic"],
         "htmlcolor": "#FF0000"
     },
     "60": {
