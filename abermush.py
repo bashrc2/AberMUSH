@@ -57,7 +57,7 @@ from environment import getTemperature
 from environment import findRoomCollisions
 from environment import mapLevelAsCsv
 from environment import assignEnvironmentToRooms
-from mmp import exportMMP
+from worldmap import exportMMP
 from traps import runTraps
 from tests import runAllTests
 
