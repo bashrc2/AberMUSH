@@ -60,12 +60,13 @@
     "11": {
         "name": "Path",
         "color": 7,
-	"keywords": ["track", "clearing"],
+	"keywords": ["track", "trail", "clearing"],
         "htmlcolor": "#C0C0C0"
     },
     "12": {
         "name": "Road",
         "color": 7,
+	"keywords": ["street"],
         "htmlcolor": "#C0C0C0"
     },
     "13": {
