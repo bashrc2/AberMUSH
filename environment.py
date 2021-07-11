@@ -335,7 +335,7 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
 
     # get the maximum east coordinate
     max_east = 0
-    for rm in rooms:
+    for rm in roomsOnMap:
         # Room should have coords
         if not rooms[rm]['coordsAssigned']:
             continue
@@ -344,7 +344,7 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
 
     # initial assignment of room coordinates
     noOfRooms = len(rooms)
-    for rm in rooms:
+    for rm in roomsOnMap:
         # Room should not yet have coords
         if rooms[rm]['coordsAssigned']:
             continue
