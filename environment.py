@@ -150,15 +150,28 @@ def _distanceBetweenRooms(rooms: {}, roomId: str, environments: {}) -> int:
     if rooms[roomId].get('environmentId'):
         environmentId = rooms[roomId]['environmentId']
         env = environments[str(environmentId)]
+        if 'collisions' in env:
+            if env['collisions'] is False:
+                return 0
         if env.get('travelDistance'):
             return env['travelDistance']
     return 1
+
+
+def _isOnMap(rooms: {}, roomId: str, environments: {}) -> bool:
+    """Returns true if the room should not be assigned map coordinates
+    """
+    if _distanceBetweenRooms(rooms, roomId, environments) == 0:
+        return False
+    return True
 
 
 def _findRoomWithoutCoords(rooms: {}, environments: {}):
     """Finds the next room without assigned coordinates
     """
     for rm in rooms:
+        if not _isOnMap(rooms, rm, environments):
+            continue
         # Room with coords
         if not rooms[rm]['coordsAssigned']:
             continue
@@ -173,6 +186,8 @@ def _findRoomWithoutCoords(rooms: {}, environments: {}):
         for ex, roomId in exitDict.items():
             # room which is exited to
             rm2 = rooms[roomId]
+            if not _isOnMap(rooms, roomId, environments):
+                continue
             distance = _distanceBetweenRooms(rooms, roomId, environments)
             if rm2['coordsAssigned']:
                 if ex == 'north':
@@ -240,12 +255,12 @@ def _findRoomWithoutCoords(rooms: {}, environments: {}):
                 return rm2
             elif ex == 'up':
                 rm2['coords'] = rooms[rm]['coords'].copy()
-                rm2['coords'][2] += distance
+                rm2['coords'][2] += 1
                 rm2['coordsAssigned'] = True
                 return rm2
             elif ex == 'down':
                 rm2['coords'] = rooms[rm]['coords'].copy()
-                rm2['coords'][2] -= distance
+                rm2['coords'][2] -= 1
                 rm2['coordsAssigned'] = True
                 return rm2
     max_east = 0
@@ -529,6 +544,8 @@ def assignCoordinates(rooms: {}, itemsDB: {},
     # recalculate the map area
     for rm in rooms:
         coords = rooms[rm]['coords']
+        if len(rooms[rm]['coords']) < 3:
+            continue
         # north/south extent
         if coords[0] > mapArea[0][1]:
             mapArea[0][1] = coords[0]

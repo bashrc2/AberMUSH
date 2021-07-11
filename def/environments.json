@@ -360,6 +360,7 @@
         "name": "Plane of Tempests",
         "color": 9,
 	"travelDistance": 1,
+	"collisions": false,
 	"keywords": ["neverland", "void", "purgatory", "planes", "hidden"],
         "htmlcolor": "#FF0000"
     },
