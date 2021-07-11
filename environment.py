@@ -183,10 +183,12 @@ def _getAllRoomExits(rooms: {}, roomId: str) -> {}:
 
 def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
                                     roomsOnMap: [], environments: {},
-                                    otherRoomsFound: []) -> None:
+                                    otherRoomsFound: []) -> bool:
     """Assigns coordinates to rooms surrounding one which has coordinates
     """
-    exitDict = _getAllRoomExits(rooms, thisRoom)
+    exitDict = rooms[thisRoom]['allExits']
+    # distance moved between rooms
+    distance = _distanceBetweenRooms(rooms, thisRoom, environments)
     for ex, roomId in exitDict.items():
         if roomId == thisRoom:
             continue
@@ -196,8 +198,6 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
         otherRoom = rooms[roomId]
         if otherRoom['coordsAssigned']:
             continue
-        # distance moved between rooms
-        distance = _distanceBetweenRooms(rooms, roomId, environments)
         # the other room does not have coordinates assigned
         if ex == 'north':
             otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
@@ -229,16 +229,19 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
             otherRoom['coords'][2] -= 1
             otherRoom['coordsAssigned'] = True
             otherRoomsFound.append(otherRoom)
+    if otherRoomsFound:
+        return True
+    return False
 
 
 def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
-                                     roomsOnMap: [], environments: {}) -> bool:
+                                     roomsOnMap: [], environments: {},
+                                     roomsFound: []) -> bool:
     """Infers the coordinates for the given room from the
     coordinates of the surrounding rooms
     """
-    exitDict = _getAllRoomExits(rooms, thisRoom)
+    exitDict = rooms[thisRoom]['allExits']
     # Search the exits for rooms which have coords
-    found = False
     for ex, roomId in exitDict.items():
         if roomId == thisRoom:
             continue
@@ -256,33 +259,33 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][0] -= distance
             rooms[thisRoom]['coordsAssigned'] = True
-            found = True
+            return True
         elif ex == 'south':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][0] += distance
             rooms[thisRoom]['coordsAssigned'] = True
-            found = True
+            return True
         elif ex == 'east':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][1] += distance
             rooms[thisRoom]['coordsAssigned'] = True
-            found = True
+            return True
         elif ex == 'west':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][1] -= distance
             rooms[thisRoom]['coordsAssigned'] = True
-            found = True
+            return True
         elif ex == 'up':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][2] -= distance
             rooms[thisRoom]['coordsAssigned'] = True
-            found = True
+            return True
         elif ex == 'down':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][2] += distance
             rooms[thisRoom]['coordsAssigned'] = True
-            found = True
-    return found
+            return True
+    return False
 
 
 def _assignRelativeRoomCoords(rooms: {}, roomsOnMap: [],
@@ -291,32 +294,26 @@ def _assignRelativeRoomCoords(rooms: {}, roomsOnMap: [],
     """
     otherRoomsFound = []
 
-    assignedRoomCoords = True
-    while assignedRoomCoords:
-        assignedRoomCoords = False
-        for rm in roomsOnMap:
-            roomsFound = []
-            if rooms[rm]['coordsAssigned']:
-                _assignCoordsToSurroundingRooms(rm, rooms,
-                                                roomsOnMap, environments,
-                                                roomsFound)
+    for rm in roomsOnMap:
+        if not rooms[rm]['coordsAssigned']:
+            continue
+        roomsFound = []
+        if _assignCoordsToSurroundingRooms(rm, rooms,
+                                           roomsOnMap, environments,
+                                           roomsFound):
+            if roomsFound:
                 otherRoomsFound += roomsFound
-                if roomsFound:
-                    assignedRoomCoords = True
+                break
 
-    inferences = True
-    while inferences:
-        inferences = False
-        for rm in roomsOnMap:
-            if not rooms[rm]['coordsAssigned']:
-                if _inferCoordsFromSurroundingRooms(rm, rooms,
-                                                    roomsOnMap, environments):
-                    inferences = True
-                    otherRoomsFound += [rooms[rm]]
+    for rm in roomsOnMap:
+        if not rooms[rm]['coordsAssigned']:
+            if _inferCoordsFromSurroundingRooms(rm, rooms,
+                                                roomsOnMap, environments,
+                                                otherRoomsFound):
+                otherRoomsFound += [rooms[rm]]
+                break
 
-    if otherRoomsFound:
-        return otherRoomsFound
-    return []
+    return otherRoomsFound
 
 
 def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
@@ -561,6 +558,7 @@ def assignCoordinates(rooms: {}, itemsDB: {},
         rooms[rm]['coordsAssigned'] = False
         if _isOnMap(rooms, rm, environments):
             roomsOnMap.append(rm)
+        rooms[rm]['allExits'] = _getAllRoomExits(rooms, rm)
 
     # assign coordinates
     while roomFound:
@@ -635,6 +633,9 @@ def assignCoordinates(rooms: {}, itemsDB: {},
             mapArea[2][1] = coords[2]
         if coords[2] < mapArea[2][0]:
             mapArea[2][0] = coords[2]
+
+    for rm in rooms:
+        del rooms[rm]['allExits']
 
     return mapArea
 
