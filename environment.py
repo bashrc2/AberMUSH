@@ -144,6 +144,9 @@ def findRoomCollisions(rooms: {}) -> None:
 
 
 def _distanceBetweenRooms(rooms: {}, roomId: str, environments: {}) -> int:
+    """Returns the travel distance between rooms, which depends upon
+    the type of environment
+    """
     if rooms[roomId].get('environmentId'):
         environmentId = rooms[roomId]['environmentId']
         env = environments[str(environmentId)]
