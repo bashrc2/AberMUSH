@@ -35,14 +35,14 @@
     },
     "6": {
         "name": "Desert",
-	"travelDistance": 3,
+	"travelDistance": 1,
         "color": 11,
         "htmlcolor": "#FFFF00"
     },
     "7": {
         "name": "Grasslands",
         "color": 2,
-	"travelDistance": 3,
+	"travelDistance": 1,
 	"keywords": ["grass"],
         "htmlcolor": "#00B300"
     },
@@ -56,41 +56,41 @@
     "9": {
         "name": "Hills",
         "color": 6,
-	"travelDistance": 2,
+	"travelDistance": 1,
 	"keywords": ["mound"],
         "htmlcolor": "#00A0A0"
     },
     "10": {
         "name": "River",
         "color": 12,
-	"travelDistance": 2,
+	"travelDistance": 1,
 	"keywords": ["banks", "stream", "waterfall", "falls", "spring", "riverbank"],
         "htmlcolor": "#0000FF"
     },
     "11": {
         "name": "Path",
         "color": 7,
-	"travelDistance": 2,
+	"travelDistance": 1,
 	"keywords": ["track", "trail", "clearing"],
         "htmlcolor": "#C0C0C0"
     },
     "12": {
         "name": "Road",
         "color": 7,
-	"travelDistance": 3,
+	"travelDistance": 1,
 	"keywords": ["street"],
         "htmlcolor": "#C0C0C0"
     },
     "13": {
         "name": "Valley",
         "color": 2,
-	"travelDistance": 4,
+	"travelDistance": 1,
         "htmlcolor": "#00B300"
     },
     "14": {
         "name": "Mountain",
         "color": 3,
-	"travelDistance": 4,
+	"travelDistance": 1,
 	"keywords": ["mountains", "climb", "canyon", "steep", "slope", "descent"],
         "htmlcolor": "#A0A000"
     },
@@ -103,7 +103,7 @@
     },
     "16": {
         "name": "Tundra",
-	"travelDistance": 3,
+	"travelDistance": 1,
         "color": 15,
         "htmlcolor": "#FFFFFF"
     },
@@ -127,7 +127,7 @@
     },
     "20": {
         "name": "Sea",
-	"travelDistance": 3,
+	"travelDistance": 1,
         "color": 4,
 	"keywords": ["straits"],
         "htmlcolor": "#0000A0"
@@ -142,7 +142,7 @@
     "22": {
         "name": "Freshwater",
         "color": 4,
-	"travelDistance": 2,
+	"travelDistance": 1,
 	"keywords": ["crannog", "lake"],
         "htmlcolor": "#0000A0"
     },
@@ -154,25 +154,25 @@
     },
     "24": {
         "name": "Deep Ocean",
-	"travelDistance": 4,
+	"travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "25": {
         "name": "Reef",
-	"travelDistance": 4,
+	"travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "26": {
         "name": "Vast Ocean",
-	"travelDistance": 5,
+	"travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "27": {
         "name": "Polar",
-	"travelDistance": 3,
+	"travelDistance": 1,
         "color": 15,
         "htmlcolor": "#FFFFFF"
     },
@@ -216,7 +216,7 @@
     },
     "36": {
         "name": "Underground Lake",
-	"travelDistance": 2,
+	"travelDistance": 1,
         "color": 8,
         "htmlcolor": "#808080"
     },
@@ -229,7 +229,7 @@
     },
     "38": {
         "name": "Bridge",
-	"travelDistance": 2,
+	"travelDistance": 1,
         "color": 11,
 	"keywords": ["causeway"],
         "htmlcolor": "#FFFF00"
@@ -340,7 +340,7 @@
     "58": {
         "name": "Blackened Lands",
         "color": 8,
-	"travelDistance": 2,
+	"travelDistance": 1,
         "htmlcolor": "#808080"
     },
     "59": {
@@ -353,7 +353,7 @@
     "60": {
         "name": "Twisted Forest",
         "color": 5,
-	"travelDistance": 2,
+	"travelDistance": 1,
         "htmlcolor": "#A000A0"
     },
     "61": {
@@ -461,7 +461,7 @@
     },
     "78": {
         "name": "Scrubland",
-	"travelDistance": 2,
+	"travelDistance": 1,
         "color": 2,
 	"keywords": ["moor", "wasteland"],
         "htmlcolor": "#00B300"
@@ -481,7 +481,7 @@
     },
     "82": {
         "name": "Arctic",
-	"travelDistance": 2,
+	"travelDistance": 1,
         "color": 15,
 	"keywords": ["ice", "icy", "snow", "blizzard"],
         "htmlcolor": "#FFFFFF"
