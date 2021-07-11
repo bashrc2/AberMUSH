@@ -204,33 +204,9 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
             otherRoom['coords'][0] += distance
             otherRoom['coordsAssigned'] = True
             otherRoomsFound.append(otherRoom)
-        elif ex == 'northeast':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
-            otherRoom['coords'][0] += distance
-            otherRoom['coords'][1] -= distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
-        elif ex == 'northwest':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
-            otherRoom['coords'][0] += distance
-            otherRoom['coords'][1] += distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
         elif ex == 'south':
             otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][0] -= distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
-        elif ex == 'southeast':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
-            otherRoom['coords'][0] -= distance
-            otherRoom['coords'][1] -= distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
-        elif ex == 'southwest':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
-            otherRoom['coords'][0] -= distance
-            otherRoom['coords'][1] += distance
             otherRoom['coordsAssigned'] = True
             otherRoomsFound.append(otherRoom)
         elif ex == 'east':
