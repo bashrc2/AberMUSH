@@ -289,7 +289,7 @@ for file in files:
 countStr = str(counter)
 log("Scripted Events loaded: " + countStr, "info")
 
-mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB)
+mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB, environments)
 
 if args.mmp:
     exportMMP(rooms, environments, 'mmp.xml')

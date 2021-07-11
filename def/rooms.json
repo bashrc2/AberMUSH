@@ -1591,7 +1591,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1615,7 +1615,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": []
     },
