@@ -470,7 +470,7 @@
         "name": "Tower",
 	"travelDistance": 1,
         "color": 7,
-	"keywords": ["watchtower"],
+	"keywords": ["watchtower", "tower"],
         "htmlcolor": "#C0C0C0"
     },
     "81": {
