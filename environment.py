@@ -366,7 +366,7 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
             continue
         # assign some initial coordinates
         rooms[rm]['coordsAssigned'] = True
-        rooms[rm]['coords'] = [randint(0, 255), max_east + noOfRooms, 0]
+        rooms[rm]['coords'] = [0, max_east + noOfRooms, 0]
         return [rooms[rm]]
 
     return []
@@ -920,11 +920,14 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
                            clouds: {}) -> float:
     """Returns the temperature at the given coordinates
     """
-    x = coords[1] - mapArea[1][0]
-    y = coords[0] - mapArea[0][0]
-
     # Average temperature of the universe
     currTemp = getTemperature()
+
+    if not coords:
+        return currTemp
+
+    x = coords[1] - mapArea[1][0]
+    y = coords[0] - mapArea[0][0]
 
     # Adjust for altitude
     currTemp = currTemp - _altitudeTemperatureAdjustment(rooms, mapArea, x, y)
@@ -947,6 +950,8 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
 def getRainAtCoords(coords: [], mapArea: [], clouds: {}) -> bool:
     """Returns whether it is raining at the civen coordinates
     """
+    if not coords:
+        return False
     x = coords[1] - mapArea[1][0]
     y = coords[0] - mapArea[0][0]
     if clouds[x][y] > rainThreshold:

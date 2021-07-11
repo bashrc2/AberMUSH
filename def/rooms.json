@@ -1174,7 +1174,7 @@
         "coords": [],
         "exits": {
             "east": "$rid=122$",
-            "up": "$rid=126$"
+            "south": "$rid=126$"
         }
     },
     "$rid=126$": {
@@ -1197,7 +1197,7 @@
         "coords": [],
         "exits": {
             "south": "$rid=129$",
-            "down": "$rid=125$"
+            "north": "$rid=125$"
         }
     },
     "$rid=127$": {

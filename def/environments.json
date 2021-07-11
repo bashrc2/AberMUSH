@@ -71,7 +71,7 @@
         "name": "Path",
         "color": 7,
 	"travelDistance": 1,
-	"keywords": ["track", "trail", "clearing"],
+	"keywords": ["track", "trail", "clearing", "lane"],
         "htmlcolor": "#C0C0C0"
     },
     "12": {
@@ -301,7 +301,7 @@
         "name": "Boat",
 	"travelDistance": 1,
         "color": 7,
-	"keywords": ["ship"],
+	"keywords": ["ship", "deck"],
         "htmlcolor": "#C0C0C0"
     },
     "52": {
