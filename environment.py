@@ -188,6 +188,8 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
     """
     exitDict = _getAllRoomExits(rooms, thisRoom)
     for ex, roomId in exitDict.items():
+        if roomId == thisRoom:
+            continue
         if roomId not in roomsOnMap:
             continue
         # room which is exited to
@@ -261,6 +263,8 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
     exitDict = _getAllRoomExits(rooms, thisRoom)
     # Search the exits for rooms which have coords
     for ex, roomId in exitDict.items():
+        if roomId == thisRoom:
+            continue
         if roomId not in roomsOnMap:
             continue
         # room which is exited to
