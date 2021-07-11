@@ -189,8 +189,11 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
     exitDict = rooms[thisRoom]['allExits']
     # distance moved between rooms
     distance = _distanceBetweenRooms(rooms, thisRoom, environments)
+    directions = ('north', 'south', 'east', 'west', 'up', 'down')
     for ex, roomId in exitDict.items():
         if roomId == thisRoom:
+            continue
+        if ex not in directions:
             continue
         if roomId not in roomsOnMap:
             continue
@@ -198,37 +201,22 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
         otherRoom = rooms[roomId]
         if otherRoom['coordsAssigned']:
             continue
+        otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
         # the other room does not have coordinates assigned
         if ex == 'north':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][0] += distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
         elif ex == 'south':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][0] -= distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
         elif ex == 'east':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][1] -= distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
         elif ex == 'west':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][1] += distance
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
         elif ex == 'up':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][2] += 1
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
         elif ex == 'down':
-            otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
             otherRoom['coords'][2] -= 1
-            otherRoom['coordsAssigned'] = True
-            otherRoomsFound.append(otherRoom)
+        otherRoom['coordsAssigned'] = True
+        otherRoomsFound.append(otherRoom)
     if otherRoomsFound:
         return True
     return False
@@ -241,9 +229,12 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
     coordinates of the surrounding rooms
     """
     exitDict = rooms[thisRoom]['allExits']
+    directions = ('north', 'south', 'east', 'west', 'up', 'down')
     # Search the exits for rooms which have coords
     for ex, roomId in exitDict.items():
         if roomId == thisRoom:
+            continue
+        if ex not in directions:
             continue
         if roomId not in roomsOnMap:
             continue
@@ -255,36 +246,21 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
         # distance moved between rooms
         distance = _distanceBetweenRooms(rooms, roomId, environments)
         # make this room relative to the other
+        rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
         if ex == 'north':
-            rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][0] -= distance
-            rooms[thisRoom]['coordsAssigned'] = True
-            return True
         elif ex == 'south':
-            rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][0] += distance
-            rooms[thisRoom]['coordsAssigned'] = True
-            return True
         elif ex == 'east':
-            rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][1] += distance
-            rooms[thisRoom]['coordsAssigned'] = True
-            return True
         elif ex == 'west':
-            rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][1] -= distance
-            rooms[thisRoom]['coordsAssigned'] = True
-            return True
         elif ex == 'up':
-            rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][2] -= distance
-            rooms[thisRoom]['coordsAssigned'] = True
-            return True
         elif ex == 'down':
-            rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][2] += distance
-            rooms[thisRoom]['coordsAssigned'] = True
-            return True
+        rooms[thisRoom]['coordsAssigned'] = True
+        return True
     return False
 
 
