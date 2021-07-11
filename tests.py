@@ -645,7 +645,7 @@ def _testDuplicateExits():
                 print('Duplicate exit ' +
                       roomId + ' ' + item['name'] + ' ' + direction)
             else:
-                ids.append(exitRoomId)    
+                ids.append(exitRoomId)
 
 
 def runAllTests():

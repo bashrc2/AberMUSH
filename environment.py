@@ -550,7 +550,6 @@ def assignCoordinates(rooms: {}, itemsDB: {},
     mapArea = [[9999999999, -9999999999],
                [9999999999, -9999999999],
                [9999999999, -9999999999]]
-    roomFound = True
 
     # create a list of rooms which are on the map
     roomsOnMap = []
@@ -561,10 +560,9 @@ def assignCoordinates(rooms: {}, itemsDB: {},
         rooms[rm]['allExits'] = _getAllRoomExits(rooms, rm)
 
     # assign coordinates
-    while roomFound:
+    while True:
         newRooms = _findRoomsWithoutCoords(rooms, roomsOnMap, environments)
         if not newRooms:
-            roomFound = False
             break
         for newRm in newRooms:
             coords = newRm['coords']
