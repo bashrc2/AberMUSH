@@ -336,7 +336,6 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
     # get the maximum east coordinate
     max_east = 0
     for rm in roomsOnMap:
-        # Room should have coords
         if not rooms[rm]['coordsAssigned']:
             continue
         if rooms[rm]['coords'][1] > max_east:

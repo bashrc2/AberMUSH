@@ -6912,7 +6912,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -6937,7 +6937,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "library",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -6960,7 +6960,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "library",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7001,7 +7001,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7027,7 +7027,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7046,7 +7046,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7068,7 +7068,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7090,7 +7090,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7114,7 +7114,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7139,7 +7139,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "monastery",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7380,7 +7380,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -7410,7 +7410,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7432,7 +7432,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7457,7 +7457,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7484,7 +7484,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7507,7 +7507,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7532,7 +7532,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7556,7 +7556,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7581,7 +7581,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7608,7 +7608,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7633,7 +7633,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7663,7 +7663,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7689,7 +7689,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -7714,7 +7714,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "moors",
         "terrainDifficulty": 0,
         "coords": []
     },
