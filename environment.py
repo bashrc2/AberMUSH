@@ -183,7 +183,7 @@ def _getAllRoomExits(rooms: {}, roomId: str) -> {}:
 
 def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
                                     roomsOnMap: [], environments: {},
-                                    otherRoomsFound: []) -> []:
+                                    otherRoomsFound: []) -> None:
     """Assigns coordinates to rooms surrounding one which has coordinates
     """
     exitDict = _getAllRoomExits(rooms, thisRoom)
@@ -256,7 +256,7 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
 
 
 def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
-                                     roomsOnMap: [], environments: {}):
+                                     roomsOnMap: [], environments: {}) -> bool:
     """Infers the coordinates for the given room from the
     coordinates of the surrounding rooms
     """
@@ -278,27 +278,34 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
         if ex == 'north':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][0] -= distance
-            return
+            rooms[thisRoom]['coordsAssigned'] = True
+            return True
         elif ex == 'south':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][0] += distance
-            return
+            rooms[thisRoom]['coordsAssigned'] = True
+            return True
         elif ex == 'east':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][1] += distance
-            return
+            rooms[thisRoom]['coordsAssigned'] = True
+            return True
         elif ex == 'west':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][1] -= distance
-            return
+            rooms[thisRoom]['coordsAssigned'] = True
+            return True
         elif ex == 'up':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][2] -= distance
-            return
+            rooms[thisRoom]['coordsAssigned'] = True
+            return True
         elif ex == 'down':
             rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
             rooms[thisRoom]['coords'][2] += distance
-            return
+            rooms[thisRoom]['coordsAssigned'] = True
+            return True
+    return False
 
 
 def _assignRelativeRoomCoords(rooms: {}, roomsOnMap: [],
@@ -307,18 +314,28 @@ def _assignRelativeRoomCoords(rooms: {}, roomsOnMap: [],
     """
     otherRoomsFound = []
 
-    for rm in roomsOnMap:
-        roomsFound = []
-        if rooms[rm]['coordsAssigned']:
-            _assignCoordsToSurroundingRooms(rm, rooms,
-                                            roomsOnMap, environments,
-                                            roomsFound)
-            otherRoomsFound += roomsFound
+    assignedRoomCoords = True
+    while assignedRoomCoords:
+        assignedRoomCoords = False
+        for rm in roomsOnMap:
+            roomsFound = []
+            if rooms[rm]['coordsAssigned']:
+                _assignCoordsToSurroundingRooms(rm, rooms,
+                                                roomsOnMap, environments,
+                                                roomsFound)
+                otherRoomsFound += roomsFound
+                if roomsFound:
+                    assignedRoomCoords = True
 
-    for rm in roomsOnMap:
-        if not rooms[rm]['coordsAssigned']:
-            _inferCoordsFromSurroundingRooms(rm, rooms,
-                                             roomsOnMap, environments)
+    inferences = True
+    while inferences:
+        inferences = False
+        for rm in roomsOnMap:
+            if not rooms[rm]['coordsAssigned']:
+                if _inferCoordsFromSurroundingRooms(rm, rooms,
+                                                    roomsOnMap, environments):
+                    inferences = True
+                    otherRoomsFound += [rooms[rm]]
 
     if otherRoomsFound:
         return otherRoomsFound

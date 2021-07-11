@@ -1240,7 +1240,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "pine forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1271,7 +1271,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "pine forest",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1290,7 +1290,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "pine forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1315,7 +1315,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "pine forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1386,7 +1386,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "pine forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1410,7 +1410,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "pine forest",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -1493,8 +1493,7 @@
             "north": "$rid=142$",
             "east": "$rid=148$",
             "south": "$rid=154$",
-            "west": "$rid=146$",
-            "down": "$rid=154$"
+            "west": "$rid=146$"
         }
     },
     "$rid=148$": {
@@ -7150,8 +7149,7 @@
     "$rid=828$": {
         "exits": {
             "north": "$rid=827$",
-            "south": "$rid=829$",
-            "up": "$rid=829$"
+            "south": "$rid=829$"
         },
         "name": "Grassy Pasture",
         "description": "You stand in a large, and rich grassy pasture. The pasture extends north and south along a narrow mountain valley. Away to the east it gives way to a few cottages. To the north the pasture ends abruptly at the bast of a high cliff. The cliff is carved and hollowed in amazing ways forming a huge decorated building. To the south the pasture gives way to a huge expanse of fallen rock.",
@@ -7177,7 +7175,6 @@
     "$rid=829$": {
         "exits": {
             "north": "$rid=828$",
-            "south": "$rid=830$",
             "up": "$rid=830$"
         },
         "name": "The Giant Rockfall",
@@ -7217,7 +7214,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=829$",
             "west": "$rid=833$",
             "down": "$rid=829$"
         }
@@ -7384,8 +7380,7 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "east": "$rid=856$",
-            "up": "$rid=856$"
+            "east": "$rid=856$"
         }
     },
     "$rid=846$": {
@@ -7644,8 +7639,7 @@
 	],
         "exits": {
             "north": "$rid=853$",
-            "east": "$rid=854$",
-            "down": "$rid=844$"
+            "east": "$rid=854$"
         },
         "name": "Misty Moor",
         "description": "The moor runs on and on, a vast, seemingly endless plain of purple. Everywhere you look you can see no landmarks to help you on your way. A narrow worn path drops steeply down into a hollow and the way west is shrouded in a dense mist.",
@@ -8312,8 +8306,7 @@
     },
     "$rid=920$": {
         "exits": {
-            "up": "$rid=923$",
-            "out": "$rid=923$"
+            "up": "$rid=923$"
         },
         "name": "The Smelly Pit",
         "description": "You are in a smelly pit, which once was full of slime. The horrible rotting smell is so strong that you can hardly keep your stomach under control.",
@@ -8928,7 +8921,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "treehouse",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -8951,7 +8944,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "treehouse",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -8976,7 +8969,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "treehouse",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -9000,7 +8993,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "treehouse",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -10271,9 +10264,7 @@
         "exits": {
             "north": "$rid=1314$",
             "east": "$rid=1306$",
-            "south": "$rid=1102$",
-            "west": "$rid=1102$",
-            "down": "$rid=1306$"
+            "west": "$rid=1102$"
         }
     },
     "$rid=1102$": {
@@ -10421,7 +10412,6 @@
     },
     "$rid=1109$": {
         "exits": {
-            "north": "$rid=1110$",
             "south": "$rid=1385$",
             "down": "$rid=1110$"
         },
@@ -10447,8 +10437,7 @@
         "exits": {
             "north": "$rid=1111$",
             "south": "$rid=1030$",
-            "up": "$rid=1109$",
-            "down": "$rid=1111$"
+            "up": "$rid=1109$"
         },
         "name": "The Narrow Path",
         "description": "You are following a narrow difficult path, which twists its way along a crack in the cliff, rising up from the forest to the top of the cliff high above. To the south a narrow slanting cavemouth leads into darkness.",
@@ -10474,8 +10463,7 @@
         "exits": {
             "north": "$rid=1113$",
             "east": "$rid=1112$",
-            "south": "$rid=1110$",
-            "up": "$rid=1110$"
+            "south": "$rid=1110$"
         },
         "name": "The Rock Wall",
         "description": "You are standing amidst a few trees on the edge of the forest, hedged in by a sheer rock wall to the south, and a steep but climbable rocky bank to the east. Elsewhere the thick forest continues. A narrow path climbs along a twisty ledge, rising up the rocky cliff to the south.",
@@ -10498,8 +10486,7 @@
     "$rid=1112$": {
         "exits": {
             "east": "$rid=1186$",
-            "west": "$rid=1115$",
-            "down": "$rid=1186$"
+            "west": "$rid=1115$"
         },
         "name": "Rocky Bank",
         "description": "You stand on sloping rocky bank looking out eastwards across the sea. The wind sighs off the cliffs and waves crash mournfully on the rocks far far below. A path leads in a crazy zig-zag down the bank to the rocks below. Turning away from the waves you can gaze across the tops of the trees as they run off into the distance.",
@@ -11537,7 +11524,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=1177$",
             "down": "$rid=1177$"
         }
     },
@@ -11653,8 +11639,7 @@
         "coords": [],
         "exits": {
             "north": "$rid=1189$",
-            "west": "$rid=1112$",
-            "up": "$rid=1112$"
+            "west": "$rid=1112$"
         }
     },
     "$rid=1189$": {
@@ -11858,7 +11843,6 @@
         "coords": [],
         "exits": {
             "east": "$rid=1208$",
-            "west": "$rid=1265$",
             "up": "$rid=1265$"
         }
     },
@@ -12207,7 +12191,6 @@
             "east": "$rid=1247$",
             "south": "$rid=710$",
             "west": "$rid=1307$",
-            "up": "$rid=1307$",
             "down": "$rid=1041$"
         }
     },
@@ -12509,8 +12492,7 @@
         "exits": {
             "north": "$rid=1226$",
             "south": "$rid=1248$",
-            "in": "$rid=1290$",
-            "out": "$rid=1248$"
+            "in": "$rid=1290$"
         }
     },
     "$rid=1290$": {
@@ -12641,8 +12623,7 @@
         "coords": [],
         "exits": {
             "east": "$rid=1184$",
-            "west": "$rid=1306$",
-            "up": "$rid=1306$"
+            "west": "$rid=1306$"
         }
     },
     "$rid=1306$": {
@@ -12666,9 +12647,7 @@
         "exits": {
             "north": "$rid=1307$",
             "east": "$rid=1305$",
-            "west": "$rid=1101$",
-            "up": "$rid=1101$",
-            "down": "$rid=1305$"
+            "west": "$rid=1101$"
         }
     },
     "$rid=1307$": {
@@ -12692,8 +12671,7 @@
         "exits": {
             "east": "$rid=1248$",
             "south": "$rid=1306$",
-            "west": "$rid=1314$",
-            "down": "$rid=1248$"
+            "west": "$rid=1314$"
         }
     },
     "$rid=1308$": {
@@ -12763,7 +12741,6 @@
         "exits": {
             "down": "$rid=1108$",
             "east": "$rid=1311$",
-            "south": "$rid=1311$",
             "west": "$rid=127$"
         }
     },
@@ -13195,8 +13172,7 @@
     },
     "$rid=1350$": {
         "exits": {
-            "east": "$rid=1352$",
-            "out": "$rid=1352$"
+            "east": "$rid=1352$"
         },
         "name": "The Mountain Cave",
         "description": "You are standing in a long narrow cave, walled with huge piles of ice and snow. The floor too is knee deep.",
@@ -13220,8 +13196,7 @@
         "exits": {
             "north": "$rid=1313$",
             "south": "$rid=1354$",
-            "west": "$rid=1350$",
-            "in": "$rid=1350$"
+            "west": "$rid=1350$"
         },
         "name": "The Icy Pass",
         "description": "You are struggling along a cold icy pass, following a narrow snowy trail. Even on the trail the snow is almost knee deep, making progress slow and exhausting. As far as you can see in either direction, the path just winds on and on. To your west through the snow you can see a narrow opening in the side of the pass. From the east comes the gurgle of the mountain river which has cut the pass over time.",
@@ -13422,7 +13397,6 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "north": "$rid=1364$",
             "east": "$rid=1362$",
             "south": "$rid=1096$",
             "up": "$rid=1364$"

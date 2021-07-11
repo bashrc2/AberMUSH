@@ -9,6 +9,8 @@ __module_group__ = "Unit Testing"
 
 
 import os
+import json
+import configparser
 
 
 def getFunctionCallArgs(name: str, lines: [], startLineCtr: int) -> []:
@@ -73,7 +75,7 @@ def functionArgsMatch(callArgs: [], funcArgs: []):
     return callArgsCtr >= funcArgsCtr
 
 
-def testFunctions():
+def _testFunctions():
     print('testFunctions')
     function = {}
     functionProperties = {}
@@ -625,7 +627,29 @@ def testFunctions():
               '-Gsep=+120 -Tx11 abermush.dot')
 
 
+def _testDuplicateExits():
+    print('testDuplicateExits')
+
+    Config = configparser.ConfigParser()
+    Config.read('config.ini')
+    rooms = {}
+    with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
+        rooms = json.loads(read_file.read())
+
+    for roomId, item in rooms.items():
+        if not item.get('exits'):
+            continue
+        ids = []
+        for direction, exitRoomId in item['exits'].items():
+            if exitRoomId in ids:
+                print('Duplicate exit ' +
+                      roomId + ' ' + item['name'] + ' ' + direction)
+            else:
+                ids.append(exitRoomId)    
+
+
 def runAllTests():
     print('Running tests...')
-    testFunctions()
+    _testFunctions()
+    _testDuplicateExits()
     print('Tests succeeded\n')
