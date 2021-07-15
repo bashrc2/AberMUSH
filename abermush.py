@@ -57,6 +57,7 @@ from environment import getTemperature
 from environment import findRoomCollisions
 from environment import mapLevelAsCsv
 from environment import assignEnvironmentToRooms
+from history import assignItemsHistory
 from worldmap import exportMMP
 from traps import runTraps
 from tests import runAllTests
@@ -232,6 +233,13 @@ for key, value in itemsDB.items():
 
 itemsDB = output_dict
 
+itemHistory = {}
+with open(str(Config.get('ItemHistory', 'Definition')), "r") as read_file:
+    itemHistory = json.loads(read_file.read())
+itemCtr = assignItemsHistory(itemsDB, itemHistory)
+itemCtrStr  =str(itemCtr)
+log('Assigned history to ' + itemCtrStr + ' items', "info")
+
 for k in itemsDB:
     for v in itemsDB[k]:
         if not(v == "name" or
@@ -264,6 +272,7 @@ for k in itemsDB:
                v == "takeFail" or
                v == "climbFail" or
                v == "cardPack" or
+               v == "itemName" or
                v == "chessBoardName" or
                v == "morrisBoardName" or
                v == "article"):
@@ -1218,6 +1227,7 @@ while True:
                                itemsInWorld, envDB, env, scriptedEventsDB,
                                eventSchedule, id, fights, corpses, blocklist,
                                mapArea, characterClassDB, spellsDB,
-                               sentimentDB, guildsDB, clouds, racesDB)
+                               sentimentDB, guildsDB, clouds, racesDB,
+                               itemHistory)
     previousTiming = \
         showTiming(previousTiming, "player commands")
