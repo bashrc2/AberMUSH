@@ -27,7 +27,10 @@ def assignItemHistory(key: int, item: {}, itemHistory: {}) -> bool:
     itemNameLower = item['name'].lower()
     keyStr = str(key)
 
-    for matchStr, hist in itemHistory.items():
+    for name, hist in itemHistory.items():
+        if not hist.get('match'):
+            continue
+        matchStr = hist['match']
         if matchStr in itemNameLower:
             item['itemName'] = \
                 _getSwordName(keyStr + item['long_description'], hist['names'])
