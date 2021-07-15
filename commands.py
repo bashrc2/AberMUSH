@@ -2966,7 +2966,8 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             thisItemID = int(items[i]['id'])
                             idx = items[i]['id']
                             if itemsDB[idx].get('itemName'):
-                                message += 'Name: ' + itemsDB[idx]['itemName']
+                                message += \
+                                    'Name: ' + itemsDB[idx]['itemName'] + '\n'
                             desc = itemsDB[idx]['long_description']
                             message += randomDescription(desc)
                             message += \
