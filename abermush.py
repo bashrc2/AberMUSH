@@ -237,7 +237,7 @@ itemHistory = {}
 with open(str(Config.get('ItemHistory', 'Definition')), "r") as read_file:
     itemHistory = json.loads(read_file.read())
 itemCtr = assignItemsHistory(itemsDB, itemHistory)
-itemCtrStr  =str(itemCtr)
+itemCtrStr = str(itemCtr)
 log('Assigned history to ' + itemCtrStr + ' items', "info")
 
 for k in itemsDB:
