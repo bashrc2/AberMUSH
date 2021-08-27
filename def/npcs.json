@@ -891,7 +891,7 @@
     },
     "137": {
         "name": "the fire demon",
-        "inv" : [],
+        "inv" : ["1472"],
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
@@ -970,7 +970,7 @@
         "clo_rfinger": "0",
         "clo_waist": "0",
         "clo_rear": "0",
-        "clo_lear": "0",
+        "clo_lear": "1472",
         "clo_rwrist" : "0",
         "clo_lwrist" : "0",
         "clo_chest" : "0",
