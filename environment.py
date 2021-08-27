@@ -624,10 +624,16 @@ def _highestPointAtCoord(rooms: {}, mapArea: [], x: int, y: int) -> float:
         vertical_range = 1
 
     for rm in rooms:
-        if rooms[rm]['coords'][0] - mapArea[0][0] == y:
-            if rooms[rm]['coords'][1] - mapArea[1][0] == x:
-                if rooms[rm]['coords'][2] > highest:
-                    highest = rooms[rm]['coords'][2]
+        if not rooms[rm].get('coords'):
+            continue
+        if len(rooms[rm]['coords']) < 3:
+            continue
+        if rooms[rm]['coords'][0] - mapArea[0][0] != y:
+            continue
+        if rooms[rm]['coords'][1] - mapArea[1][0] != x:
+            continue
+        if rooms[rm]['coords'][2] > highest:
+            highest = rooms[rm]['coords'][2]
 
     return (highest - mapArea[2][0]) * 255 / vertical_range
 
