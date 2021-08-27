@@ -1547,7 +1547,8 @@ def stopAttack(players: {}, id, npcs: {}, fights: {}):
 
 
 def playerBeginsAttack(players: {}, id, target: str,
-                       npcs: {}, fights: {}, mud, racesDB: {}) -> bool:
+                       npcs: {}, fights: {}, mud, racesDB: {},
+                       itemHistory: {}) -> bool:
     """Player begins an attack on another player or npc
     """
     targetFound = False
