@@ -3379,6 +3379,22 @@ def _checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                             '<r> (waist)')
             continue
 
+        if int(players[id]['clo_lear']) == int(i):
+            mud.sendMessage(id, ' * ' +
+                            itemsDB[int(i)]['article'] +
+                            ' <b234>' +
+                            itemsDB[int(i)]['name'] +
+                            '<r> (left ear)')
+            continue
+
+        if int(players[id]['clo_rear']) == int(i):
+            mud.sendMessage(id, ' * ' +
+                            itemsDB[int(i)]['article'] +
+                            ' <b234>' +
+                            itemsDB[int(i)]['name'] +
+                            '<r> (right ear)')
+            continue
+
         if int(players[id]['clo_head']) == int(i) or \
            int(players[id]['clo_lwrist']) == int(i) or \
            int(players[id]['clo_rwrist']) == int(i) or \
@@ -3877,6 +3893,20 @@ def _bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
                         itemsDB[thisPlayer['clo_lhand']]['article'] +
                         ' ' + itemName +
                         ' in ' + playerName2 + ' left hand.<r>\n')
+    if int(thisPlayer['clo_lear']) > 0:
+        handItemID = thisPlayer['clo_lear']
+        itemName = itemsDB[handItemID]['name']
+        mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
+                        itemsDB[thisPlayer['clo_lear']]['article'] +
+                        ' ' + itemName +
+                        ' in ' + playerName2 + ' left ear.<r>\n')
+    if int(thisPlayer['clo_rear']) > 0:
+        handItemID = thisPlayer['clo_rear']
+        itemName = itemsDB[handItemID]['name']
+        mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
+                        itemsDB[thisPlayer['clo_rear']]['article'] +
+                        ' ' + itemName +
+                        ' in ' + playerName2 + ' right ear.<r>\n')
     if thisPlayer.get('clo_lfinger'):
         if int(thisPlayer['clo_lfinger']) > 0:
             mud.sendMessage(id, playerName + ' ' + playerName3 + ' ' +
@@ -5232,6 +5262,8 @@ def _conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "clo_lfinger": 0,
         "clo_rfinger": 0,
         "clo_waist": 0,
+        "clo_lear": 0,
+        "clo_rear": 0,
         "clo_rwrist": 0,
         "clo_lwrist": 0,
         "clo_chest": 0,
@@ -5245,6 +5277,14 @@ def _conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "imp_rarm": 0,
         "imp_lhand": 0,
         "imp_rhand": 0,
+        "imp_gloves": 0,
+        "imp_lfinger": 0,
+        "imp_rfinger": 0,
+        "imp_waist": 0,
+        "imp_lear": 0,
+        "imp_rear": 0,
+        "imp_rwrist": 0,
+        "imp_lwrist": 0,
         "imp_chest": 0,
         "imp_back": 0,
         "imp_lleg": 0,
