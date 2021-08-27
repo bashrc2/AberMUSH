@@ -92,6 +92,10 @@ def assignTerrainDifficulty(rooms: {}) -> int:
 def _roomAtZeroCoord(rooms: {}, rm) -> bool:
     """Room is at coord 0,0,0
     """
+    if not rooms[rm].get('coords'):
+        return False
+    if len(rooms[rm]['coords']) < 3:
+        return False
     if rooms[rm]['coords'][0] == 0 and \
        rooms[rm]['coords'][1] == 0 and \
        rooms[rm]['coords'][2] == 0:
@@ -111,6 +115,8 @@ def findRoomCollisions(rooms: {}) -> None:
     ctr = 0
     for index1 in range(len(rooms)):
         rm = roomDict[index1]
+        if not rooms[rm].get('coords'):
+            continue
         # Room with coords
         if len(rooms[rm]['coords']) <= 2:
             continue
@@ -119,6 +125,8 @@ def findRoomCollisions(rooms: {}) -> None:
         totalCtr += 1
         for index2 in range(index1, len(rooms)):
             rm2 = roomDict[index2]
+            if not rooms[rm2].get('coords'):
+                continue
             # Other room with coords
             if len(rooms[rm2]['coords']) <= 2:
                 continue
@@ -201,6 +209,8 @@ def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
         otherRoom = rooms[roomId]
         if otherRoom['coordsAssigned']:
             continue
+        if not rooms[thisRoom].get('coords'):
+            continue
         otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
         # the other room does not have coordinates assigned
         if ex == 'north':
@@ -246,6 +256,8 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
         # distance moved between rooms
         distance = _distanceBetweenRooms(rooms, roomId, environments)
         # make this room relative to the other
+        if not otherRoom.get('coords'):
+            continue
         rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
         if ex == 'north':
             rooms[thisRoom]['coords'][0] -= distance
@@ -305,6 +317,8 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
     for rm in roomsOnMap:
         if not rooms[rm]['coordsAssigned']:
             continue
+        if not rooms[rm].get('coords'):
+            continue
         if rooms[rm]['coords'][1] > max_east:
             max_east = rooms[rm]['coords'][1]
 
@@ -331,6 +345,8 @@ def mapLevelAsCsv(rooms: {}, level: int):
     maxY = -999999
 
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue
         if not rooms[rm]['coordsAssigned']:
             continue
         if len(rooms[rm]['coords']) <= 2:
@@ -354,6 +370,8 @@ def mapLevelAsCsv(rooms: {}, level: int):
 
     mapStr = ''
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue
         if not rooms[rm]['coordsAssigned']:
             continue
         if len(rooms[rm]['coords']) <= 2:
@@ -416,6 +434,8 @@ def _removeCoordinateGaps(rooms: {}) -> None:
     max_east = 0
     for rm in rooms:
         # Room without coords
+        if not rooms[rm].get('coords'):
+            continue
         if not rooms[rm]['coordsAssigned']:
             continue
         if rooms[rm]['coords'][1] > max_east:
@@ -423,6 +443,8 @@ def _removeCoordinateGaps(rooms: {}) -> None:
 
     eastLine = [0] * (max_east + 1)
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue
         if not rooms[rm]['coordsAssigned']:
             continue
         e = rooms[rm]['coords'][1]
@@ -444,6 +466,8 @@ def _removeCoordinateGaps(rooms: {}) -> None:
         start_east = g[0]
         gap_width = g[1]
         for rm in rooms:
+            if not rooms[rm].get('coords'):
+                continue
             if not rooms[rm]['coordsAssigned']:
                 continue
             e = rooms[rm]['coords'][1]
@@ -452,6 +476,8 @@ def _removeCoordinateGaps(rooms: {}) -> None:
 
     eastLine = [0] * (max_east + 1)
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue
         if not rooms[rm]['coordsAssigned']:
             continue
         e = rooms[rm]['coords'][1]
@@ -541,6 +567,8 @@ def assignCoordinates(rooms: {}, itemsDB: {},
         if not newRooms:
             break
         for newRm in newRooms:
+            if not newRm.get('coords'):
+                continue
             coords = newRm['coords']
             # east/west extent
             if coords[1] > mapArea[1][1]:
@@ -553,6 +581,8 @@ def assignCoordinates(rooms: {}, itemsDB: {},
     max_east = mapArea[1][1]
     occupied = [False] * ((max_east - min_east) + 1)
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue
         if len(rooms[rm]['coords']) > 1:
             occupied[rooms[rm]['coords'][1] - min_east] = True
 
@@ -579,6 +609,8 @@ def assignCoordinates(rooms: {}, itemsDB: {},
                [9999999999, -9999999999]]
     for i in range(maxRange - 1, 0, -1):
         for rm in rooms:
+            if not rooms[rm].get('coords'):
+                continue
             if len(rooms[rm]['coords']) < 3:
                 continue
             if rooms[rm]['coords'][1] >= trimCoords[i][1]:
@@ -589,6 +621,8 @@ def assignCoordinates(rooms: {}, itemsDB: {},
 
     # recalculate the map area
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue
         coords = rooms[rm]['coords']
         if len(rooms[rm]['coords']) < 3:
             continue
