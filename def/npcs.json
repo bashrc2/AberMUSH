@@ -4320,7 +4320,7 @@
         "speakLanguage": "elvish",
         "language": ["elvish"],
         "conv" : [
-	    [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate"]
+	    [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate|# Roars, and the walls tremble"]
 	],
         "path" : ["$rid=1062$","$rid=1061$","$rid=1060$","$rid=1059$"],
         "bodyType": "",
