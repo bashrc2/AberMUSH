@@ -796,19 +796,25 @@ def _terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
     terrainHeatingWords = ('sun', 'lava', 'volcan', 'molten', 'desert', 'dry')
 
     for rm in rooms:
+        if not rooms[rm].get('coords'):
+            continue        
         coords = rooms[rm]['coords']
-        if coords[0] - mapArea[0][0] == y:
-            if coords[1] - mapArea[1][0] == x:
-                roomDescription = rooms[rm]['description'].lower()
-                for w in terrainFreezingWords:
-                    if w in roomDescription:
-                        temperature = temperature * 0.1
-                for w in terrainCoolingWords:
-                    if w in roomDescription:
-                        temperature = temperature * 0.98
-                for w in terrainHeatingWords:
-                    if w in roomDescription:
-                        temperature = temperature * 1.05
+        if len(coords) < 2:
+            continue
+        if coords[0] - mapArea[0][0] != y:
+            continue
+        if coords[1] - mapArea[1][0] != x:
+            continue
+        roomDescription = rooms[rm]['description'].lower()
+        for w in terrainFreezingWords:
+            if w in roomDescription:
+                temperature = temperature * 0.1
+        for w in terrainCoolingWords:
+            if w in roomDescription:
+                temperature = temperature * 0.98
+        for w in terrainHeatingWords:
+            if w in roomDescription:
+                temperature = temperature * 1.05
     return temperature
 
 
