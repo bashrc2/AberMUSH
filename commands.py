@@ -2036,8 +2036,7 @@ def _laugh(params, mud, playersDB: {}, players: {}, rooms: {},
            mapArea: [], characterClassDB: {}, spellsDB: {},
            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
            itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'laughs')
+    _emote(params, mud, playersDB, players, rooms, id, 'laughs')
 
 
 def _thinking(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2069,8 +2068,17 @@ def _applaud(params, mud, playersDB: {}, players: {}, rooms: {},
              mapArea: [], characterClassDB: {}, spellsDB: {},
              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
              itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'applauds')
+    _emote(params, mud, playersDB, players, rooms, id, 'applauds')
+
+
+def _nod(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+         env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+         itemHistory: {}):
+    _emote(params, mud, playersDB, players, rooms, id, 'nods')
 
 
 def _wave(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2080,8 +2088,7 @@ def _wave(params, mud, playersDB: {}, players: {}, rooms: {},
           mapArea: [], characterClassDB: {}, spellsDB: {},
           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
           itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'waves')
+    _emote(params, mud, playersDB, players, rooms, id, 'waves')
 
 
 def _astonished(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2157,8 +2164,7 @@ def _curtsey(params, mud, playersDB: {}, players: {}, rooms: {},
              mapArea: [], characterClassDB: {}, spellsDB: {},
              sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
              itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'curtseys')
+    _emote(params, mud, playersDB, players, rooms, id, 'curtseys')
 
 
 def _frown(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2168,8 +2174,7 @@ def _frown(params, mud, playersDB: {}, players: {}, rooms: {},
            mapArea: [], characterClassDB: {}, spellsDB: {},
            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
            itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'frowns')
+    _emote(params, mud, playersDB, players, rooms, id, 'frowns')
 
 
 def _eyebrow(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2190,8 +2195,7 @@ def _giggle(params, mud, playersDB: {}, players: {}, rooms: {},
             mapArea: [], characterClassDB: {}, spellsDB: {},
             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
             itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'giggles')
+    _emote(params, mud, playersDB, players, rooms, id, 'giggles')
 
 
 def _grin(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2201,8 +2205,7 @@ def _grin(params, mud, playersDB: {}, players: {}, rooms: {},
           mapArea: [], characterClassDB: {}, spellsDB: {},
           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
           itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'grins')
+    _emote(params, mud, playersDB, players, rooms, id, 'grins')
 
 
 def _yawn(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2212,8 +2215,7 @@ def _yawn(params, mud, playersDB: {}, players: {}, rooms: {},
           mapArea: [], characterClassDB: {}, spellsDB: {},
           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
           itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'yawns')
+    _emote(params, mud, playersDB, players, rooms, id, 'yawns')
 
 
 def _smug(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2223,8 +2225,7 @@ def _smug(params, mud, playersDB: {}, players: {}, rooms: {},
           mapArea: [], characterClassDB: {}, spellsDB: {},
           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
           itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'looks smug')
+    _emote(params, mud, playersDB, players, rooms, id, 'looks smug')
 
 
 def _relieved(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -2234,8 +2235,7 @@ def _relieved(params, mud, playersDB: {}, players: {}, rooms: {},
               mapArea: [], characterClassDB: {}, spellsDB: {},
               sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
               itemHistory: {}):
-    _emote(params, mud, playersDB, players, rooms,
-           id, 'looks relieved')
+    _emote(params, mud, playersDB, players, rooms, id, 'looks relieved')
 
 
 def _stick(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -6611,6 +6611,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "grin": _grin,
         "yawn": _yawn,
         "wave": _wave,
+        "nod": _nod,
         "smug": _smug,
         "relieved": _relieved,
         "relief": _relieved,

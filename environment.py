@@ -831,7 +831,7 @@ def _terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
 
     for rm in rooms:
         if not rooms[rm].get('coords'):
-            continue        
+            continue
         coords = rooms[rm]['coords']
         if len(coords) < 2:
             continue
