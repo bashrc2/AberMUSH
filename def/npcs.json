@@ -783,7 +783,7 @@
         "outDescription": "goes",
         "lookDescription": "Njalmir kneels before the bonfire rubbing their hands.",
         "name": "njalmir",
-        "inv" : [],
+        "inv" : ["1476"],
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
@@ -862,7 +862,7 @@
         "clo_rhand" : "0",
         "clo_rfinger": "0",
         "clo_waist": "0",
-        "clo_rear": "0",
+        "clo_rear": "1476",
         "clo_lear": "0",
         "clo_rwrist" : "0",
         "clo_lwrist" : "0",
@@ -2750,7 +2750,7 @@
     },
     "405": {
         "name": "the old inn-keeper",
-        "inv" : ["1367"],
+        "inv" : ["1367","1475"],
         "speakLanguage": "common",
         "language": ["common"],
         "conv" : [
@@ -2841,7 +2841,7 @@
         "clo_rfinger": "0",
         "clo_waist": "0",
         "clo_rear": "0",
-        "clo_lear": "0",
+        "clo_lear": "1475",
         "clo_rwrist" : "0",
         "clo_lwrist" : "0",
         "clo_chest" : "0",
