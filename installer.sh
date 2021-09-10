@@ -16,7 +16,7 @@ $INSTALL_PACKAGE $PYTHON_PACKAGE-websocket
 $INSTALL_PACKAGE git-core
 if [ ! -d /opt/abermush ]; then
     sudo useradd -d /opt/abermush/ abermush
-    sudo git clone https://code.freedombone.net/bashrc/AberMUSH /opt/abermush
+    sudo git clone https://gitlab.com/bashrc2/AberMUSH /opt/abermush
     chown -R abermush:abermush abermush
 fi
 if [ -d /etc/systemd/system ]; then

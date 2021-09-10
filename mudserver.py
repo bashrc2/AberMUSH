@@ -5,7 +5,7 @@ __credits__ = ["Bartek Radwanski", "Mark Frimston",
 __license__ = "AGPL3+"
 __version__ = "1.0.0"
 __maintainer__ = "Bob Mottram"
-__email__ = "bob@freedombone.net"
+__email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Core"
 

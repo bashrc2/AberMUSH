@@ -27,7 +27,7 @@ Use UTF-8 terminal encoding.
 - IMPORTANT - Python >= 3.6.7 is required (Ubuntu >= 18.04 LTS)!
 ```
 1. Update your system `sudo apt update && sudo apt upgrade`
-2. Get the repo `git clone https://code.freedombone.net/bashrc/AberMUSH`
+2. Get the repo `git clone https://gitlab.com/bashrc2/AberMUSH`
 3. CD into 'AberMUSH' and install the server `sudo ./installer.sh`
 
 If you want to add a firewall which only allows logins via ssh or telnet:
