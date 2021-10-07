@@ -188,11 +188,11 @@ def _chessPieceSet(gameState: [], coord: str, piece: str) -> None:
 
 def moveChessPiece(moveStr: str, gameState: [],
                    turn: str, id: int, mud) -> bool:
-    match = re.match('([a-h][1-8])'*2, moveStr.lower())
-    if not match:
+    movematch = re.match('([a-h][1-8])'*2, moveStr.lower())
+    if not movematch:
         return False
-    moveFrom = match.group(1)
-    moveTo = match.group(2)
+    moveFrom = movematch.group(1)
+    moveTo = movematch.group(2)
     fromPiece = _chessPieceAt(gameState, moveFrom)
     if fromPiece == '.':
         return False
