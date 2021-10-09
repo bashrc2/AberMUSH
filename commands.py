@@ -1941,10 +1941,17 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
            mapArea: [], characterClassDB: {}, spellsDB: {},
            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
            itemHistory: {}):
+    if not params:
+        mud.sendMessageWrap(id, '<f230>', "Who shall be your victim?\n")
+        return
+
     if players[id]['canSay'] == 1:
         if params.startswith('at '):
             params = params.replace('at ', '', 1)
         target = params.partition(' ')[0]
+        if not target:
+            mud.sendMessageWrap(id, '<f230>', "Who shall be your victim?\n")
+            return
 
         # replace "familiar" with their NPC name
         # as in: "taunt familiar"
@@ -1952,6 +1959,18 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
             newTarget = getFamiliarName(players, id, npcs)
             if len(newTarget) > 0:
                 target = newTarget
+
+        fullTarget = target
+        if target.startswith('the '):
+            target = target.replace('the ', '', 1)
+
+        tauntTypeFirstPerson = \
+            randomDescription('taunt|insult|besmirch|' +
+                              'gibe|ridicule')
+        if tauntTypeFirstPerson != 'besmirch':
+            tauntTypeSecondPerson = tauntTypeFirstPerson + 's'
+        else:
+            tauntTypeSecondPerson = tauntTypeFirstPerson + 'es'
 
         isDone = False
         for p in players:
@@ -1966,7 +1985,8 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                     if players[id]['speakLanguage'] in langList:
                         mud.sendMessageWrap(
                             p, '<f230>',
-                            players[id]['name'] + " taunts you\n")
+                            players[id]['name'] + " " +
+                            tauntTypeSecondPerson + " you\n")
                         decreaseAffinityBetweenPlayers(
                             players, p, players, id, guildsDB)
                     else:
@@ -1985,7 +2005,8 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                     if target.lower() in players[id]['name'].lower():
                         mud.sendMessageWrap(
                             id, '<f230>',
-                            "It'd be pointless to taunt yourself!\n")
+                            "It'd be pointless to " + tauntTypeFirstPerson +
+                            " yourself!\n")
                     else:
                         langList = npcs[p]['language']
                         if players[id]['speakLanguage'] in langList:
@@ -1997,16 +2018,23 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                     break
 
         if isDone:
+            tauntTypeFirstPerson
             for p in players:
                 if p == id:
-                    descr = randomDescription("You mercilessly taunt " + target)
+                    tauntSeverity = \
+                        randomDescription('mercilessly|severely|harshly|' +
+                                          'loudly|blatantly|coarsely|' +
+                                          'crudely|unremittingly|' +
+                                          'witheringly|pitilessly')
+                    descr = "You " + tauntSeverity + ' ' + \
+                        tauntTypeFirstPerson + fullTarget
                     mud.sendMessageWrap(id, '<f230>', descr + ".\n")
                     continue
                 if players[p]['room'] == players[id]['room']:
                     mud.sendMessageWrap(
                         id, '<f230>',
-                        players[id]['name'] + " taunts " + target + "\n")
-                    
+                        players[id]['name'] + " " + tauntTypeSecondPerson +
+                        " " + fullTarget + "\n")
         else:
             mud.sendMessageWrap(
                 id, '<f230>', target + ' is not here.\n')
