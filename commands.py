@@ -1956,9 +1956,9 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
         isDone = False
         for p in players:
             if players[p]['authenticated'] is not None and \
-               players[p]['name'].lower() == target.lower() and \
+               target.lower() in players[p]['name'].lower() and \
                players[p]['room'] == players[id]['room']:
-                if players[id]['name'].lower() == target.lower():
+                if target.lower() in players[id]['name'].lower():
                     mud.sendMessageWrap(
                         id, '<f230>', "It'd be pointless to taunt yourself!\n")
                 else:
@@ -1980,9 +1980,9 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                 break
         if not isDone:
             for p in npcs:
-                if npcs[p]['name'].lower() == target.lower() and \
+                if target.lower() in npcs[p]['name'].lower() and \
                    npcs[p]['room'] == players[id]['room']:
-                    if players[id]['name'].lower() == target.lower():
+                    if target.lower() in players[id]['name'].lower():
                         mud.sendMessageWrap(
                             id, '<f230>',
                             "It'd be pointless to taunt yourself!\n")
@@ -2000,8 +2000,7 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
             for p in players:
                 if p == id:
                     continue
-                if players[p]['name'].lower() != target.lower() and \
-                   players[p]['room'] == players[id]['room']:
+                if players[p]['room'] == players[id]['room']:
                     mud.sendMessageWrap(
                         id, '<f230>',
                         players[id]['name'] + " taunts " + target + "\n")
