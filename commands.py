@@ -1997,7 +1997,16 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                     isDone = True
                     break
 
-        if not isDone:
+        if isDone:
+            for p in players:
+                if p == id:
+                    continue
+                if players[p]['name'].lower() != target.lower() and \
+                   players[p]['room'] == players[id]['room']:
+                    mud.sendMessageWrap(
+                        id, '<f230>',
+                        players[id]['name'] + " taunts " + target + "\n")
+        else:
             mud.sendMessageWrap(
                 id, '<f230>', target + ' is not here.\n')
     else:
