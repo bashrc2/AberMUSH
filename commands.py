@@ -1934,6 +1934,74 @@ def _speak(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(id, "You switch to speaking in " + lang + "\n\n")
 
 
+def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
+           npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
+           env: {}, eventDB: {}, eventSchedule,
+           id: int, fights: {}, corpses: {}, blocklist,
+           mapArea: [], characterClassDB: {}, spellsDB: {},
+           sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+           itemHistory: {}):
+    if players[id]['canSay'] == 1:
+        if params.startswith('at '):
+            params = params.replace('at ', '', 1)
+        target = params.partition(' ')[0]
+
+        # replace "familiar" with their NPC name
+        # as in: "taunt familiar"
+        if target.lower() == 'familiar':
+            newTarget = getFamiliarName(players, id, npcs)
+            if len(newTarget) > 0:
+                target = newTarget
+
+        isDone = False
+        for p in players:
+            if players[p]['authenticated'] is not None and \
+               players[p]['name'].lower() == target.lower() and \
+               players[p]['room'] == players[id]['room']:
+                if players[id]['name'].lower() == target.lower():
+                    mud.sendMessageWrap(
+                        id, '<f230>', "It'd be pointless to taunt yourself!\n")
+                else:
+                    langList = players[p]['language']
+                    if players[id]['speakLanguage'] in langList:
+                        mud.sendMessageWrap(
+                            p, '<f230>',
+                            players[id]['name'] + " taunts you\n")
+                        decreaseAffinityBetweenPlayers(
+                            players, id, players, p, guildsDB)
+                    else:
+                        mud.sendMessageWrap(
+                            p, '<f230>',
+                            players[id]['name'] + " says something in " +
+                            players[id]['speakLanguage'] + '\n')
+                isDone = True
+                break
+        if not isDone:
+            for p in npcs:
+                if npcs[p]['authenticated'] is not None and \
+                   npcs[p]['name'].lower() == target.lower() and \
+                   npcs[p]['room'] == players[id]['room']:
+                    if players[id]['name'].lower() == target.lower():
+                        mud.sendMessageWrap(
+                            id, '<f230>',
+                            "It'd be pointless to taunt yourself!\n")
+                    else:
+                        langList = npcs[p]['language']
+                        if players[id]['speakLanguage'] in langList:
+                            decreaseAffinityBetweenPlayers(
+                                players, id, npcs, p, guildsDB)
+                    isDone = True
+                    break
+
+        if not isDone:
+            mud.sendMessageWrap(
+                id, '<f230>', target + ' is not here.\n')
+    else:
+        mud.sendMessageWrap(
+            id, '<f230>',
+            'To find yourself unable to taunt at this time.\n')
+
+
 def _say(params, mud, playersDB: {}, players: {}, rooms: {},
          npcsDB: {}, npcs: {}, itemsDB: {}, items: {}, envDB,
          env: {}, eventDB: {}, eventSchedule,
@@ -6646,6 +6714,18 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "freeze": _freeze,
         "unfreeze": _unfreeze,
         "tell": _tell,
+        "taunt": _taunt,
+        "jeer": _taunt,
+        "jibe": _taunt,
+        "gibe": _taunt,
+        "deride": _taunt,
+        "insult": _taunt,
+        "barb": _taunt,
+        "curse": _taunt,
+        "swear": _taunt,
+        "ridicule": _taunt,
+        "scorn": _taunt,
+        "besmirch": _taunt,
         "command": _tell,
         "instruct": _tell,
         "order": _tell,

@@ -273,6 +273,7 @@ def _testFunctions():
         '_unwindLever',
         '_putItem',
         '_take',
+        '_taunt',
         '_setPlayerCanGo',
         '_setPlayerCanLook',
         '_setPlayerCanSay',
