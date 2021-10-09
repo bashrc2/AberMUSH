@@ -1948,7 +1948,7 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
     if players[id]['canSay'] == 1:
         if params.startswith('at '):
             params = params.replace('at ', '', 1)
-        target = params.partition(' ')[0]
+        target = params
         if not target:
             mud.sendMessageWrap(id, '<f230>', "Who shall be your victim?\n")
             return
@@ -2027,14 +2027,14 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                                           'crudely|unremittingly|' +
                                           'witheringly|pitilessly')
                     descr = "You " + tauntSeverity + ' ' + \
-                        tauntTypeFirstPerson + fullTarget
+                        tauntTypeFirstPerson + ' ' + fullTarget
                     mud.sendMessageWrap(id, '<f230>', descr + ".\n")
                     continue
                 if players[p]['room'] == players[id]['room']:
                     mud.sendMessageWrap(
                         id, '<f230>',
-                        players[id]['name'] + " " + tauntTypeSecondPerson +
-                        " " + fullTarget + "\n")
+                        players[id]['name'] + ' ' + tauntTypeSecondPerson +
+                        ' ' + fullTarget + "\n")
         else:
             mud.sendMessageWrap(
                 id, '<f230>', target + ' is not here.\n')
