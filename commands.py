@@ -1980,8 +1980,7 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                 break
         if not isDone:
             for p in npcs:
-                if npcs[p]['authenticated'] is not None and \
-                   npcs[p]['name'].lower() == target.lower() and \
+                if npcs[p]['name'].lower() == target.lower() and \
                    npcs[p]['room'] == players[id]['room']:
                     if players[id]['name'].lower() == target.lower():
                         mud.sendMessageWrap(
