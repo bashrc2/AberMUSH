@@ -1968,12 +1968,14 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                             p, '<f230>',
                             players[id]['name'] + " taunts you\n")
                         decreaseAffinityBetweenPlayers(
-                            players, id, players, p, guildsDB)
+                            players, p, players, id, guildsDB)
                     else:
                         mud.sendMessageWrap(
                             p, '<f230>',
                             players[id]['name'] + " says something in " +
                             players[id]['speakLanguage'] + '\n')
+                    decreaseAffinityBetweenPlayers(
+                        players, id, players, p, guildsDB)
                 isDone = True
                 break
         if not isDone:
@@ -1989,7 +1991,9 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
                         langList = npcs[p]['language']
                         if players[id]['speakLanguage'] in langList:
                             decreaseAffinityBetweenPlayers(
-                                players, id, npcs, p, guildsDB)
+                                npcs, p, players, id, guildsDB)
+                    decreaseAffinityBetweenPlayers(
+                        players, id, npcs, p, guildsDB)
                     isDone = True
                     break
 
