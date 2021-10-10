@@ -1,11 +1,11 @@
 {
-    "armourer": {
+    "armourer|armoury|weapons store|arms store": {
 	"guild": "Armourers and Brasiers",
 	"trades": [
 	    "sword", "shield", "spear", "dagger"
 	]
     },
-    "bakery": {
+    "bakery|baker's shop": {
 	"guild": "Bakers",
 	"sells": [
 	    "bread"

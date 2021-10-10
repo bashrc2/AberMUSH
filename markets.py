@@ -12,8 +12,14 @@ def _getMarketType(roomName: str, markets: {}) -> str:
     """Returns the market type for the room name
     """
     for marketType, item in markets.items():
-        if marketType.lower() in roomName:
-            return marketType
+        if '|' not in marketType:
+            if marketType.lower() in roomName:
+                return marketType
+        else:
+            marketTypeList = marketType.lower().split('|')
+            for marketType in marketTypeList:
+                if marketType in roomName:
+                    return marketType
     return None
 
 
