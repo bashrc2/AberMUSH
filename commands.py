@@ -4829,8 +4829,11 @@ def _showItemsForSale(mud, rooms: {}, roomID, players: {}, id, itemsDB: {}):
         while len(itemLine) < 20:
             itemLine += '.'
         itemCost = item['cost']
-        itemLine += itemCost
-        mud.sendMessage(id, itemLine + '\n')
+        if itemCost == '0':
+            itemLine += 'Free'
+        else:
+            itemLine += itemCost
+        mud.sendMessage(id, itemLine)
         ctr += 1
     mud.sendMessage(id, '\n')
     if ctr == 0:
