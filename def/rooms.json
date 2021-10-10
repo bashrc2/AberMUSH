@@ -3393,10 +3393,10 @@
     },
     "$rid=419$": {
         "name": "Market Square",
-        "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west.",
+        "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a baker's shop",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west"]
+	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3413,6 +3413,7 @@
         "coords": [],
         "exits": {
             "east": "$rid=420$",
+            "north": "$rid=1413$",
             "west": "$rid=417$"
         }
     },
@@ -14322,6 +14323,29 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1413$": {
+        "exits": {
+	    "south": "$rid=419$"
+        },
+        "name": "The Bakery",
+        "description": "You are in a bakery. The smell of cooked bread pervades the entire space. A large oven is set into the back wall and there is a fireplace beneath it. A door leads out southwards into the market square",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 3,
+        "maxPlayers": 10,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
