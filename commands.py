@@ -4823,7 +4823,7 @@ def _showItemsForSale(mud, rooms: {}, roomID, players: {}, id, itemsDB: {}):
     mud.sendMessage(id, '\nFor Sale\n')
     ctr = 0
     for itemID, item in rooms[roomID]['marketInventory'].items():
-        if item['stock'] <= 1:
+        if item['stock'] < 1:
             continue
         itemLine = itemsDB[itemID]['name']
         while len(itemLine) < 20:
@@ -4877,7 +4877,7 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
     else:
         # buy some particular item
         for itemID, item in rooms[roomID]['marketInventory'].items():
-            if item['stock'] <= 1:
+            if item['stock'] < 1:
                 continue
             itemName = itemsDB[itemID]['name'].lower()
             if itemName not in paramsLower:
