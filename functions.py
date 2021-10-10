@@ -265,7 +265,7 @@ def sizeFromDescription(description: str):
     smallEntity = ('small', 'dog', 'cat', 'weasel', 'otter', 'owl', 'hawk',
                    'crow', 'rook', 'robin', 'penguin', 'bird', 'pidgeon',
                    'wolf', 'badger', 'fox', 'rat', 'dwarf', 'mini', 'fish',
-                   'lobster', 'koala', 'goblin', 'hare')
+                   'lobster', 'koala', 'gremlin', 'goblin', 'hare')
     largeEntity = ('large', 'tiger', 'lion', 'tiger', 'wolf', 'leopard',
                    'bear', 'elk', 'deer', 'horse', 'bison', 'moose',
                    'kanga', 'zebra', 'oxe', 'beest', 'troll', 'taur')
