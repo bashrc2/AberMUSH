@@ -4803,6 +4803,28 @@ def _graphics(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "Graphics have been activated.\n\n")
 
 
+def _showItemsForSale(mud, rooms: {}, roomID, players: {}, id, itemsDB: {}):
+    """Shows items for sale within a market
+    """
+    if not rooms[roomID].get('marketInventory'):
+        return
+    mud.sendMessage(id, '\nFor Sale\n')
+    ctr = 0
+    for itemID, item in rooms[roomID]['marketInventory'].items():
+        if item['stock'] <= 1:
+            continue
+        itemLine = itemsDB[itemID]['name']
+        while len(itemLine) < 20:
+            itemLine += '.'
+        itemCost = item['cost']
+        itemLine += itemCost
+        mud.sendMessage(id, itemLine + '\n')
+        ctr += 1
+    mud.sendMessage(id, '\n')
+    if ctr == 0:
+        mud.sendMessage(id, 'Nothing\n\n')
+
+
 def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -4839,18 +4861,7 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
 
     paramsLower = params.lower()
     if not paramsLower:
-        # show things for sale
-        mud.sendMessage(id, '\nFor Sale\n')
-        for itemID, item in rooms[roomID]['marketInventory'].items():
-            if item['stock'] <= 1:
-                continue
-            itemLine = itemsDB[itemID]['name']
-            while len(itemLine) < 20:
-                itemLine += '.'
-            itemCost = item['cost']
-            itemLine += itemCost
-            mud.sendMessage(id, itemLine + '\n')
-        mud.sendMessage(id, '\n')
+        _showItemsForSale(mud, rooms, roomID, players, id, itemsDB)
     else:
         # buy some particular item
         for itemID, item in rooms[roomID]['marketInventory'].items():
