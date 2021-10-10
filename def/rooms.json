@@ -3393,7 +3393,7 @@
     },
     "$rid=419$": {
         "name": "Market Square",
-        "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a baker's shop",
+        "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery",
         "roomTeleport": "",
         "conditional": [
 	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery"]
