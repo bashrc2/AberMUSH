@@ -3420,6 +3420,10 @@ def _checkInventory(params, mud, playersDB: {}, players: {}, rooms: {},
                     sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
                     itemHistory: {}):
     mud.sendMessage(id, '****CLEAR****You check your inventory.')
+
+    roomID = players[id]['room']
+    _showItemsForSale(mud, rooms, roomID, players, id, itemsDB)
+
     if len(list(players[id]['inv'])) == 0:
         mud.sendMessage(id, 'You haven`t got any items on you.<r>\n\n')
         return
