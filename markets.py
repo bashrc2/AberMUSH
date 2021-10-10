@@ -70,11 +70,15 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
         if not marketSells:
             continue
         inventoryCtr = 0
+        itemNamesList = []
         for itemID, item in itemsDB.items():
             for itemType in marketSells:
                 itemName = item['name'].lower()
                 if itemType not in itemName:
                     continue
+                if itemName in itemNamesList:
+                    continue
+                itemNamesList.append(itemName)
                 itemCost = item['cost']
                 # TODO cost and stock level could vary with
                 # region, coords, season, etc
