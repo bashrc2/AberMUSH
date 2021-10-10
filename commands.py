@@ -4883,7 +4883,7 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
             if itemName not in paramsLower:
                 continue
             if _itemInInventory(players, id, itemsDB[itemID]['name'], itemsDB):
-                mud.sendMessage(id, 'You already have that\n')
+                mud.sendMessage(id, 'You already have that\n\n')
                 break
             itemCost = item['cost']
             if buyItem(players, id, itemID, itemsDB, itemCost):
@@ -4903,27 +4903,30 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
                     playerInventoryWeight(id, players, itemsDB)
                 updatePlayerAttributes(id, players, itemsDB, itemID, 1)
 
-                mud.sendMessage(id, 'You buy ' +
-                                itemsDB[itemID]['name'] + '\n')
+                mud.sendMessage(id, 'You buy ' + itemsDB[itemID]['article'] +
+                                ' ' + itemsDB[itemID]['name'] + '\n\n')
             else:
                 if itemCost.endswith('gp'):
-                    mud.sendMessage(id, 'You do not have enough gold pieces\n')
+                    mud.sendMessage(id,
+                                    'You do not have enough gold pieces\n\n')
                 elif itemCost.endswith('sp'):
                     mud.sendMessage(id,
-                                    'You do not have enough silver pieces\n')
+                                    'You do not have enough silver pieces\n\n')
                 elif itemCost.endswith('cp'):
                     mud.sendMessage(id,
-                                    'You do not have enough copper pieces\n')
+                                    'You do not have enough copper pieces\n\n')
                 elif itemCost.endswith('ep'):
                     mud.sendMessage(id,
-                                    'You do not have enough electrum pieces\n')
+                                    'You do not have enough ' +
+                                    'electrum pieces\n\n')
                 elif itemCost.endswith('pp'):
                     mud.sendMessage(id,
-                                    'You do not have enough platinum pieces\n')
+                                    'You do not have enough ' +
+                                    'platinum pieces\n\n')
                 else:
-                    mud.sendMessage(id, 'You do not have enough money\n')
+                    mud.sendMessage(id, 'You do not have enough money\n\n')
             break
-        mud.sendMessage(id, "That's not sold here\n")
+        mud.sendMessage(id, "That's not sold here\n\n")
 
 
 def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
@@ -4976,7 +4979,7 @@ def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
                 ableToSell = True
                 break
         if not ableToSell:
-            mud.sendMessage(id, "You can't sell that here\n")
+            mud.sendMessage(id, "You can't sell that here\n\n")
             return
         itemID = -1
         for (item, pl) in list(items.items()):
@@ -4984,7 +4987,7 @@ def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
                 itemID = items[item]['id']
                 break
         if itemID == -1:
-            mud.sendMessage(id, 'Error: item not found ' + params + ' \n')
+            mud.sendMessage(id, 'Error: item not found ' + params + ' \n\n')
             return
         # remove from item to the player's inventory
         if str(itemID) in players[id]['inv']:
@@ -5008,7 +5011,7 @@ def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
                 players[id][denomination] += qty
         mud.sendMessage(id, 'You have sold ' + itemsDB[itemID]['article'] +
                         ' ' + itemsDB[itemID]['name'] + ' for ' +
-                        itemCost + '\n')
+                        itemCost + '\n\n')
 
 
 def _go(params, mud, playersDB: {}, players: {}, rooms: {},
