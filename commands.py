@@ -4887,7 +4887,7 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
                 continue
             if _itemInInventory(players, id, itemsDB[itemID]['name'], itemsDB):
                 mud.sendMessage(id, 'You already have that\n\n')
-                break
+                return
             itemCost = item['cost']
             if buyItem(players, id, itemID, itemsDB, itemCost):
                 # is the item too heavy?
