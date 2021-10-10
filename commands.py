@@ -6947,7 +6947,8 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "shove": _shove,
         "prone": _prone,
         "stand": _stand,
-        "buy": _buy
+        "buy": _buy,
+        "purchase": _buy
     }
 
     try:
