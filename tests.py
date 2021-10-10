@@ -275,6 +275,7 @@ def _testFunctions():
         '_take',
         '_taunt',
         '_buy',
+        '_sell',
         '_setPlayerCanGo',
         '_setPlayerCanLook',
         '_setPlayerCanSay',

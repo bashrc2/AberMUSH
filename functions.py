@@ -304,7 +304,8 @@ def sizeFromDescription(description: str):
     return size
 
 
-def updatePlayerAttributes(id, players, itemsDB, itemID, mult):
+def updatePlayerAttributes(id, players: {},
+                           itemsDB: {}, itemID: str, mult: int):
     playerAttributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
     for attr in playerAttributes:
         players[id][attr] = \

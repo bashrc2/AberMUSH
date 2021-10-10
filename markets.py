@@ -8,7 +8,7 @@ __status__ = "Production"
 __module_group__ = ""
 
 
-def _getMarketType(roomName: str, markets: {}) -> str:
+def getMarketType(roomName: str, markets: {}) -> str:
     """Returns the market type for the room name
     """
     for marketType, item in markets.items():
@@ -23,6 +23,38 @@ def _getMarketType(roomName: str, markets: {}) -> str:
     return None
 
 
+def _marketSellsItemTypes(marketType: str, markets: {}) -> []:
+    """Returns a list of item types which a market sells
+    """
+    marketSells = []
+    if markets[marketType].get('trades'):
+        marketSells = markets[marketType]['trades']
+    if markets[marketType].get('sells'):
+        if not marketSells:
+            marketSells = markets[marketType]['sells']
+        else:
+            for itemType in markets[marketType]['sells']:
+                if itemType not in marketSells:
+                    marketSells.append(itemType)
+    return marketSells
+
+
+def marketBuysItemTypes(marketType: str, markets: {}) -> []:
+    """Returns a list of item types which a market buys
+    """
+    marketBuys = []
+    if markets[marketType].get('buys'):
+        marketBuys = markets[marketType]['buys']
+    if markets[marketType].get('trades'):
+        if not marketBuys:
+            marketBuys = markets[marketType]['trades']
+        else:
+            for itemType in markets[marketType]['trades']:
+                if itemType not in marketBuys:
+                    marketBuys.append(itemType)
+    return marketBuys
+
+
 def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
     """Assigns market types to rooms
     """
@@ -30,20 +62,11 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
     for roomID, rm in rooms.items():
         rooms[roomID]['marketInventory'] = None
         roomName = rm['name'].lower()
-        marketType = _getMarketType(roomName, markets)
+        marketType = getMarketType(roomName, markets)
         if not marketType:
             continue
         rooms[roomID]['marketInventory'] = {}
-        marketSells = []
-        if markets[marketType].get('trades'):
-            marketSells = markets[marketType]['trades']
-        if markets[marketType].get('sells'):
-            if not marketSells:
-                marketSells = markets[marketType]['sells']
-            else:
-                for itemType in markets[marketType]['sells']:
-                    if itemType not in marketSells:
-                        marketSells.append(itemType)
+        marketSells = _marketSellsItemTypes(marketType, markets)
         if not marketSells:
             continue
         inventoryCtr = 0

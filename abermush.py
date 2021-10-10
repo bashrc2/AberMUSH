@@ -1234,6 +1234,6 @@ while True:
                                eventSchedule, id, fights, corpses, blocklist,
                                mapArea, characterClassDB, spellsDB,
                                sentimentDB, guildsDB, clouds, racesDB,
-                               itemHistory)
+                               itemHistory, markets)
     previousTiming = \
         showTiming(previousTiming, "player commands")
