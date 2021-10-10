@@ -56,7 +56,7 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
                 # TODO cost and stock level could vary with
                 # region, coords, season, etc
                 # which could then lead to merchanting
-                rooms[roomID]['marketInventory'][itemName] = {
+                rooms[roomID]['marketInventory'][itemID] = {
                     "stock": 1,
                     "cost": itemCost
                 }
@@ -65,3 +65,28 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
         if inventoryCtr > 0:
             noOfMarkets += 1
     return noOfMarkets
+
+
+def buyItem(players: {}, id, itemID, itemsDB: {}, cost: str) -> bool:
+    """Returns true if the given item was bought
+    """
+    if cost == '0':
+        cost = '0gp'
+
+    denomination = 'gp'
+    if cost.endswith('sp'):
+        denomination = 'sp'
+    elif cost.endswith('cp'):
+        denomination = 'cp'
+    elif cost.endswith('ep'):
+        denomination = 'ep'
+    elif cost.endswith('pp'):
+        denomination = 'pp'
+
+    qty = int(cost.replace(denomination, ''))
+    if denomination not in players[id]:
+        return False
+    if int(players[id][denomination]) >= qty:
+        players[id][denomination] = int(players[id][denomination]) - qty
+        return True
+    return False

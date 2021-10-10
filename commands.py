@@ -65,6 +65,8 @@ from proficiencies import thievesCant
 from npcs import npcConversation
 from npcs import getSolar
 
+from markets import buyItem
+
 from familiar import getFamiliarName
 
 import os
@@ -4801,6 +4803,90 @@ def _graphics(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "Graphics have been activated.\n\n")
 
 
+def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
+         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+         envDB: {}, env: {}, eventDB: {}, eventSchedule,
+         id: int, fights: {}, corpses: {}, blocklist,
+         mapArea: [], characterClassDB: {}, spellsDB: {},
+         sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+         itemHistory: {}):
+    """Buy from a market
+    """
+    if players[id]['frozenStart'] != 0:
+        mud.sendMessage(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '<r>\n\n')
+        return
+
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    if playerIsProne(id, players):
+        mud.sendMessage(id, randomDescription('You stand up<r>\n\n'))
+        setPlayerProne(id, players, False)
+        return
+
+    if players[id]['canGo'] != 1:
+        mud.sendMessage(id,
+                        'Somehow, your body refuses to move.<r>\n')
+        return
+
+    roomID = players[id]['room']
+    if not rooms[roomID].get('marketInventory'):
+        mud.sendMessage(id, 'There is nothing to buy here.<r>\n')
+        return
+
+    paramsLower = params.lower()
+    if not paramsLower:
+        # show things for sale
+        mud.sendMessage(id, '\nFor Sale\n')
+        for itemID, item in rooms[roomID]['marketInventory'].items():
+            if item['stock'] <= 1:
+                continue
+            itemLine = itemsDB[itemID]['name']
+            while len(itemLine) < 20:
+                itemLine += '.'
+            itemCost = item['cost']
+            itemLine += itemCost
+            mud.sendMessage(id, itemLine + '\n')
+        mud.sendMessage(id, '\n')
+    else:
+        # buy some particular item
+        for itemID, item in rooms[roomID]['marketInventory'].items():
+            if item['stock'] <= 1:
+                continue
+            itemName = itemsDB[itemID]['name'].lower()
+            if itemName not in paramsLower:
+                continue
+            if _itemInInventory(players, id, itemsDB[itemID]['name'], itemsDB):
+                mud.sendMessage(id, 'You already have that\n')
+                break
+            itemCost = item['cost']
+            if buyItem(players, id, itemID, itemsDB, itemCost):
+                mud.sendMessage(id, 'You buy ' +
+                                itemsDB[itemID]['name'] + '\n')
+            else:
+                if itemCost.endswith('gp'):
+                    mud.sendMessage(id, 'You do not have enough gold pieces\n')
+                elif itemCost.endswith('sp'):
+                    mud.sendMessage(id,
+                                    'You do not have enough silver pieces\n')
+                elif itemCost.endswith('cp'):
+                    mud.sendMessage(id,
+                                    'You do not have enough copper pieces\n')
+                elif itemCost.endswith('ep'):
+                    mud.sendMessage(id,
+                                    'You do not have enough electrum pieces\n')
+                elif itemCost.endswith('pp'):
+                    mud.sendMessage(id,
+                                    'You do not have enough platinum pieces\n')
+                else:
+                    mud.sendMessage(id, 'You do not have enough money\n')
+            break
+        mud.sendMessage(id, "That's not sold here\n")
+
+
 def _go(params, mud, playersDB: {}, players: {}, rooms: {},
         npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
         envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -6845,7 +6931,8 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "dodge": _dodge,
         "shove": _shove,
         "prone": _prone,
-        "stand": _stand
+        "stand": _stand,
+        "buy": _buy
     }
 
     try:
