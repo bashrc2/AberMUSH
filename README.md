@@ -800,7 +800,7 @@ Within `rooms.json` the parameters `maxPlayers` and `maxPlayerSize` can be used 
 
 ``` text
 0 - Tiny (raven, cat, imp)
-1 - Small (dwarf, halfling, goblin)
+1 - Small (dwarf, halfling, goblin, gremlin)
 2 - medium (human, elf, witch)
 3 - Large (giant)
 4 - Huge (ogre, dragon)
