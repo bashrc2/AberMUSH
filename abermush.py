@@ -187,8 +187,7 @@ else:
 
 for roomID, rm in rooms.items():
     roomID = roomID.replace('$rid=', '').replace('$', '')
-    if not os.path.isfile('/home/bashrc/develop/AberMUSH/images/rooms/' +
-                          str(roomID)):
+    if not os.path.isfile('images/rooms/' + str(roomID)):
         if not args.mapLevel:
             print('Missing room image: ' + str(roomID))
 
