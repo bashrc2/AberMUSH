@@ -4896,7 +4896,8 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
                     mud.sendMessage(id, "You can't carry any more.\n\n")
                     return
                 # add the item to the player's inventory
-                players[id]['inv'].append(str(itemID))
+                if str(itemID) not in players[id]['inv']:
+                    players[id]['inv'].append(str(itemID))
                 # update the weight of the player
                 players[id]['wei'] = \
                     playerInventoryWeight(id, players, itemsDB)
