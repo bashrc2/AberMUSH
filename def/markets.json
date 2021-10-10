@@ -1,0 +1,14 @@
+{
+    "armourer": {
+	"guild": "Armourers and Brasiers",
+	"trades": [
+	    "sword", "shield", "spear", "dagger"
+	]
+    },
+    "bakery": {
+	"guild": "Bakers",
+	"sells": [
+	    "bread"
+	]
+    }
+}

@@ -59,6 +59,7 @@ from environment import mapLevelAsCsv
 from environment import assignEnvironmentToRooms
 from history import assignItemsHistory
 from worldmap import exportMMP
+from markets import assignMarkets
 from traps import runTraps
 from tests import runAllTests
 
@@ -557,6 +558,12 @@ if loadBlocklist("blocked.txt", blocklist):
     log("Blocklist loaded", "info")
 
 terminalMode = {}
+
+with open(str(Config.get('Markets', 'Definition')), "r") as read_file:
+    markets = json.loads(read_file.read())
+    noOfMarkets = str(assignMarkets(markets, rooms, itemsDB))
+    marketsStr = str(noOfMarkets)
+    log(marketsStr + ' markets were created', "info")
 
 previousTiming = time.time()
 
