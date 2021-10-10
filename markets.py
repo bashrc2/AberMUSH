@@ -46,6 +46,7 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
                         marketSells.append(itemType)
         if not marketSells:
             continue
+        inventoryCtr = 0
         for itemID, item in itemsDB.items():
             for itemType in marketSells:
                 itemName = item['name'].lower()
@@ -59,6 +60,8 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
                     "stock": 1,
                     "cost": itemCost
                 }
+                inventoryCtr += 1
                 break
-        noOfMarkets += 1
+        if inventoryCtr > 0:
+            noOfMarkets += 1
     return noOfMarkets
