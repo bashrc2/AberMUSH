@@ -4928,7 +4928,7 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
                                     'platinum pieces\n\n')
                 else:
                     mud.sendMessage(id, 'You do not have enough money\n\n')
-            break
+            return
         mud.sendMessage(id, "That's not sold here\n\n")
 
 
