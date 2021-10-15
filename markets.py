@@ -78,6 +78,8 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
                     continue
                 if itemName in itemNamesList:
                     continue
+                if item['weight'] <= 0:
+                    continue
                 itemNamesList.append(itemName)
                 itemCost = item['cost']
                 # TODO cost and stock level could vary with
