@@ -2,7 +2,7 @@
     "armourer|armoury|weapons store|arms store": {
 	"guild": "Armourers and Brasiers",
 	"trades": [
-	    "sword", "shield", "spear", "dagger", "halberd", "poleaxe", "flail", "mace", "spear"
+	    "sword", "shield", "spear", "dagger", "halberd", "poleaxe", "flail", "mace", "spear", "quarterstaff"
 	]
     },
     "archery store": {
