@@ -3393,10 +3393,10 @@
     },
     "$rid=419$": {
         "name": "Market Square",
-        "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery",
+        "description": "You stand in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery and to the south is an arms store",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery"]
+	    ["rain","yes","You stand in the rain in a wide, rather empty square used for the occasional market, and for state occasions and military parades. Narrow streets exit the square both east and west. To the north is a bakery and to the south is an arms store"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -3414,6 +3414,7 @@
         "exits": {
             "east": "$rid=420$",
             "north": "$rid=1413$",
+            "south": "$rid=1414$",
             "west": "$rid=417$"
         }
     },
@@ -14338,6 +14339,53 @@
         },
         "name": "The Bakery",
         "description": "You are in a bakery. The smell of cooked bread pervades the entire space. A large oven is set into the back wall and there is a fireplace beneath it. A door leads out southwards into the market square",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 3,
+        "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1414$": {
+        "exits": {
+	    "north": "$rid=419$",
+	    "up": "$rid=1415$"
+        },
+        "name": "The Arms Store",
+        "description": "The arms store is full of all sorts of dangeous items. Narrow wooden stairs lead up to the second floor",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 3,
+        "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1415$": {
+        "exits": {
+	    "down": "$rid=1414$"
+        },
+        "name": "Archery Store",
+        "description": "You are in the arms store on the second floor. This floor is dedicated to archery. Bows small and large hang from the walls. Narrow wooden stairs lead down to the ground floor",
         "roomTeleport": "",
         "conditional": [
 	],
