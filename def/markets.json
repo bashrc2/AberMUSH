@@ -8,7 +8,7 @@
     "archery store": {
 	"guild": "Armourers and Brasiers",
 	"trades": [
-	    "bow", "arrow", "bolt"
+	    "shortbow", "longbow", "crossbow", "arrow", "bolt"
 	]
     },
     "bakery|baker's shop": {
