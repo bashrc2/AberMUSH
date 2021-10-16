@@ -4826,7 +4826,7 @@ def _showItemsForSale(mud, rooms: {}, roomID, players: {}, id, itemsDB: {}):
         if item['stock'] < 1:
             continue
         itemLine = itemsDB[itemID]['name']
-        while len(itemLine) < 25:
+        while len(itemLine) < 30:
             itemLine += '.'
         itemCost = item['cost']
         if itemCost == '0':
