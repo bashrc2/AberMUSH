@@ -3420,12 +3420,12 @@
     },
     "$rid=420$": {
         "name": "High Corner",
-        "description": "The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean, and the birds still sing and twitter in the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire.",
+        "description": "The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean, and the birds still sing and twitter in the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire. A tailor's shop is to the south",
         "roomTeleport": "",
         "conditional": [
-	    ["rainday","yes","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. The air is humid with rain, and water drips from the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire."],
-	    ["hour","<8","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."],
-	    ["hour",">20","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire."]
+	    ["rainday","yes","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. The air is humid with rain, and water drips from the bushes. To the east a small charred building lies open, and appears to have suffered a recent fire. A tailor's shop is to the south"],
+	    ["hour","<8","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire. A tailor's shop is to the south"],
+	    ["hour",">20","The narrow street opens up a little into a pleasant nook in the south-eastern corner of town. Large oak beamed houses stand around a small pleasant garden. Unlike the majority of the city, the air is fresh and clean. To the east a small charred building lies open, and appears to have suffered a recent fire. A tailor's shop is to the south"]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -14409,7 +14409,7 @@
 	    "north": "$rid=420$"
         },
         "name": "Tailor's Shop",
-        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments",
+        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments. To the north heads out into the narrow street corner",
         "roomTeleport": "",
         "conditional": [
 	],
