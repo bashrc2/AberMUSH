@@ -71,7 +71,7 @@
     },
     "Cordwainers": {
 	"description": "Workers in fine leather",
-	"roles": ["broderer","glover","cardmaker"],
+	"roles": ["broderer","glover","cardmaker","cobbler"],
 	"affinity": {}
     },
     "Curriers": {
@@ -85,7 +85,7 @@
 	"affinity": {}
     },
     "Dyers": {
-	"description": "",
+	"description": "Dying and bleaching",
 	"roles": ["silk-dyer","dyer","bleacher"],
 	"affinity": {}
     },

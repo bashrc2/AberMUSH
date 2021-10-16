@@ -2,19 +2,44 @@
     "armourer|armoury|weapons store|arms store": {
 	"guild": "Armourers and Brasiers",
 	"trades": [
-	    "sword", "shield", "spear", "dagger", "halberd", "poleaxe", "flail", "mace", "spear", "quarterstaff"
+	    "sword", "shield", "spear", "dagger", "halberd", "poleaxe",
+	    "flail", "mace", "spear", "quarterstaff", "pike", "trident",
+	    "shirt", "helmet", "plate", "splint", "hide armor", "gorget"
 	]
     },
     "archery store": {
-	"guild": "Armourers and Brasiers",
+	"guild": "Bowyers",
 	"trades": [
 	    "shortbow", "longbow", "crossbow", "arrows", "bolts"
+	]
+    },
+    "tailor's shop|clothier": {
+	"guild": "Clothworkers",
+	"trades": [
+	    "jacket", "dress", "skirt", "gloves", "kilt", "cloak", "robe"
+	]
+    },
+    "shoe shop|cobbler's": {
+	"guild": "Cordwainers",
+	"trades": [
+	    "shoe"
+	]
+    },
+    "jeweler's|jewelry": {
+	"guild": "Goldsmiths",
+	"trades": [
+	    "earring", "necklace", "ring"
 	]
     },
     "bakery|baker's shop": {
 	"guild": "Bakers",
 	"sells": [
 	    "bread"
+	]
+    },
+    "barbers": {
+	"guild": "Barbers",
+	"sells": [
 	]
     }
 }
