@@ -3363,7 +3363,8 @@
         "exits": {
             "north": "$rid=424$",
             "east": "$rid=419$",
-            "south": "$rid=418$"
+            "south": "$rid=418$",
+	    "in": "$rid=1418$"
         }
     },
     "$rid=418$": {
@@ -14434,6 +14435,29 @@
         },
         "name": "Hatmaker's store",
         "description": "You are in the hatmaker's store. Extravagant hats of all varieties and colours hang at evenly spaced intervals on the walls. A flight of stairs leads downwards to the tailor's shop",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 3,
+        "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1418$": {
+        "exits": {
+	    "out": "$rid=417$"
+        },
+        "name": "Jeweler's Shop",
+        "description": "You are in the jeweler's shop. Cases and trunks are filled with an abundance of dazzling trinkets. A door leads out to the high street",
         "roomTeleport": "",
         "conditional": [
 	],

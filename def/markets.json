@@ -23,7 +23,7 @@
     "shoe shop|cobbler's": {
 	"guild": "Cordwainers",
 	"trades": [
-	    "shoe"
+	    "shoes", "boots"
 	]
     },
     "hatmaker": {
@@ -35,7 +35,7 @@
     "jeweler's|jewelry": {
 	"guild": "Goldsmiths",
 	"trades": [
-	    "earring", "necklace", "ring"
+	    "earring", "necklace", "red ring", "pendant", "amulet", "bracelet"
 	]
     },
     "bakery|baker's shop": {
