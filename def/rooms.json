@@ -14410,7 +14410,7 @@
 	    "up": "$rid=1417$"
         },
         "name": "Tailor's Shop",
-        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments. A flight of stairs leads upwards to the next floor, and to the north heads out into the narrow street corner",
+        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments. A flight of stairs leads upwards to the next floor, and a door to the north leads out into the narrow street corner",
         "roomTeleport": "",
         "conditional": [
 	],
