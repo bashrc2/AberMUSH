@@ -3443,7 +3443,8 @@
         "exits": {
             "north": "$rid=421$",
             "east": "$rid=416$",
-            "west": "$rid=419$"
+            "west": "$rid=419$",
+            "south": "$rid=1416$",
         }
     },
     "$rid=421$": {
@@ -14386,6 +14387,29 @@
         },
         "name": "Archery Store",
         "description": "You are in the arms store on the second floor. This floor is dedicated to archery. Bows small and large hang from the walls. Narrow wooden stairs lead down to the ground floor",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 3,
+        "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1416$": {
+        "exits": {
+	    "north": "$rid=420$"
+        },
+        "name": "Tailor's Shop",
+        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments",
         "roomTeleport": "",
         "conditional": [
 	],
