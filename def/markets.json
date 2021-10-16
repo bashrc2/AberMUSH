@@ -4,7 +4,8 @@
 	"trades": [
 	    "sword", "shield", "spear", "dagger", "halberd", "poleaxe",
 	    "flail", "mace", "spear", "quarterstaff", "pike", "trident",
-	    "shirt", "helmet", "plate", "splint", "hide armor", "gorget"
+	    "shirt", "helmet", "plate", "splint", "hide armor", "gorget",
+	    "padded armor", "leather armor", "scale mail", "chainmail"
 	]
     },
     "archery store": {
