@@ -5578,7 +5578,7 @@
         "description": "The path descends steeply down into a rocky bowl, surrounded by thick bushes and towering trees. The stream splashes down into the bowl, a small waterfall sending the light dancing in a million flickering rainbows. The stream runs southwards across the bowl before turning east and disappearing down a narrow shaded ravine and out of sight.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","true","The path descends steeply down into a rocky bowl, surrounded by thick bushes and towering trees. The stream splashes down into the bowl, a small waterfall scattering the rising spray into primary rainbow colors. The stream runs southwards across the bowl before turning east and disappearing down a narrow shaded ravine."]
+	    ["rain","true","The path descends steeply down into a rocky bowl, surrounded by thick bushes and towering trees. The stream splashes down into the bowl, a small waterfall scattering the rising spray into primary rainbow colours. The stream runs southwards across the bowl before turning east and disappearing down a narrow shaded ravine."]
 	],
         "trap": {},
         "eventOnEnter": "",
@@ -14406,10 +14406,34 @@
     },
     "$rid=1416$": {
         "exits": {
-	    "north": "$rid=420$"
+	    "north": "$rid=420$",
+	    "up": "$rid=1417$"
         },
         "name": "Tailor's Shop",
-        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments. To the north heads out into the narrow street corner",
+        "description": "You are in the tailor's shop. Fine cloth is stacked up in piles beside the walls, ready to be cut and sewn into garments. A flight of stairs leads upwards to the next floor, and to the north heads out into the narrow street corner",
+        "roomTeleport": "",
+        "conditional": [
+	],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 3,
+        "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1417$": {
+        "exits": {
+	    "down": "$rid=1416$"
+        },
+        "name": "Hatmaker's store",
+        "description": "You are in the hatmaker's store. Extravagant hats of all varieties and colours hang at evenly spaced intervals on the walls. A flight of stairs leads downwards to the tailor's shop",
         "roomTeleport": "",
         "conditional": [
 	],

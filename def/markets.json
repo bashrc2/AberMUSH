@@ -25,6 +25,12 @@
 	    "shoe"
 	]
     },
+    "hatmaker": {
+	"guild": "Curriers",
+	"trades": [
+	    "hat"
+	]
+    },
     "jeweler's|jewelry": {
 	"guild": "Goldsmiths",
 	"trades": [
