@@ -2,7 +2,7 @@
 
 <blockquote>"It is said that the First Age of the world was the age of dwarves and dragons, when the black sword was forged, the Second Age was the age of war, where magicians and warriors fought for power. The Third Age will be the age of power for the magic is strong again."</blockquote>
 
-Once upon a time. Somewhere in Wales. There was a wizard named Anarchy. The wizard ruled the realm anarchically - as anarcho-wizards have a tendency to. But when the dwarven miners of the northern mountains broke through into the underworld they inadvertently released an arcane demon who had been shackled there since the First Age of the world. The demon laid waste to the land, reanimating its minions to sieze the mighty city of Tranoch.
+Somewhere in the forgotten past of Wales there was a wizard named Anarchy. The wizard ruled the realm anarchically - as anarcho-wizards have a tendency to. But when the dwarven miners of the northern mountains broke through into the underworld they inadvertently released an arcane demon who had been shackled there since the First Age of the world. The demon laid waste to the land, reanimating its minions to sieze the mighty city of Tranoch.
 
 The wizards and witches were once rival druidic sects of the Second Age. But now they must form a new alliance to banish the demon and restore the embattled city to its former glory.
 
