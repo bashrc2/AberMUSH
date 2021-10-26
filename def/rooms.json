@@ -14340,7 +14340,7 @@
 	    "south": "$rid=419$"
         },
         "name": "The Bakery",
-        "description": "You are in a bakery. The smell of baked bread pervades the entire space. A large oven is set into the back wall and there is a fireplace beneath it. A door leads out southwards into the market square",
+        "description": "You are in a bakery. The smell of baked bread pervades the entire space. A large oven is set into the back wall with elaborate metallic steam pipes emerging above it and there is a fireplace beneath. A door leads out southwards into the market square",
         "roomTeleport": "",
         "conditional": [
 	],
