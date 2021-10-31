@@ -3548,7 +3548,7 @@
     },
     "723": {
         "name": "the elf",
-        "inv" : [],
+        "inv" : ["1480"],
         "speakLanguage": "elvish",
         "language": ["elvish"],
         "conv" : [
@@ -3617,7 +3617,7 @@
         "sp": "0",
         "gp": "0",
         "clo_head" : "0",
-        "clo_neck" : "0",
+        "clo_neck" : "1480",
         "clo_larm" : "0",
         "clo_rarm" : "0",
         "clo_lhand" : "0",
@@ -7836,7 +7836,7 @@
     },
     "1126": {
         "name": "the druid",
-        "inv" : ["677","1238"],
+        "inv" : ["677","1238","1479"],
         "speakLanguage": "druidic",
         "language": ["druidic","draconic","common"],
 	"conv" : [
@@ -7905,7 +7905,7 @@
         "sp": "0",
         "gp": "0",
         "clo_head" : "0",
-        "clo_neck" : "0",
+        "clo_neck" : "1479",
         "clo_larm" : "0",
         "clo_rarm" : "0",
         "clo_lhand" : "0",
