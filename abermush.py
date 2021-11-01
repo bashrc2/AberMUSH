@@ -173,6 +173,14 @@ with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
 countStr = str(len(sentimentDB))
 log("Sentiment loaded: " + countStr, "info")
 
+log("Loading cultures...", "info")
+
+with open(str(Config.get('Cultures', 'Definition')), "r") as read_file:
+    culturesDB = json.loads(read_file.read())
+
+countStr = str(len(culturesDB))
+log("Cultures loaded: " + countStr, "info")
+
 log("Loading rooms...", "info")
 
 # Loading rooms
