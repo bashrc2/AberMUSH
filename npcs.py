@@ -1327,7 +1327,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                     id: int, nid: int, message,
                     characterClassDB: {}, sentimentDB: {},
                     guildsDB: {}, clouds: {}, racesDB: {},
-                    culturesDB: {}) -> None:
+                    itemHistory: {}, culturesDB: {}) -> None:
     """Conversation with an NPC
     This typically works by matching some words and then
     producing a corresponding response and/or action
