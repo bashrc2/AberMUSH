@@ -10596,8 +10596,8 @@
     },
     "323": {
         "name": "library book",
-        "short_description": "A battered book has been dropped here.",
-        "long_description": "A battered book has been dropped here.",
+        "short_description": "A battered book.",
+        "long_description": "A battered book.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12394,8 +12394,8 @@
     },
     "425": {
         "name": "large book",
-        "short_description": "A large book has been left here.",
-        "long_description": "A large book has been left here. It is open.",
+        "short_description": "A large book.",
+        "long_description": "A large book. It is open.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -14893,7 +14893,7 @@
     },
     "494": {
         "name": "bloodstained bible",
-        "short_description": "A bloodstained bible has been dropped here.",
+        "short_description": "A bloodstained bible.",
         "long_description": "It is a standard bible, containing both testaments and the Book of Mormon.",
         "clo_head": 0,
         "clo_neck": 0,
