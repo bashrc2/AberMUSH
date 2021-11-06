@@ -994,3 +994,17 @@ def assignEnvironmentToRooms(environments: {}, rooms: {}) -> int:
     if noOfRooms > 0:
         percentAssigned = int(assignedRooms * 100 / noOfRooms)
     return percentAssigned
+
+
+def getRoomCulture(culturesDB: {}, rooms: {}, roomId) -> str:
+    """Returns the culture for a room
+    """
+    if not rooms[roomId].get('region'):
+        return None
+    region = rooms[roomId]['region']
+    if not region:
+        return None
+    for cultureName, item in culturesDB.items():
+        if region in item['regions']:
+            return cultureName
+    return None

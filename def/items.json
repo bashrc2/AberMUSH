@@ -5782,7 +5782,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "mod_cool": 0,
-        "weight": 2,
+        "weight": 0,
         "edible": 0,
         "climbThrough": "",
         "armorClass": 0,

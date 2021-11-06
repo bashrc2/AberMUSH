@@ -875,7 +875,8 @@ def _tell(params, mud, playersDB: {}, players: {}, rooms: {},
                                         nid, messageLower,
                                         characterClassDB,
                                         sentimentDB, guildsDB,
-                                        clouds, racesDB, itemHistory)
+                                        clouds, racesDB, itemHistory,
+                                        culturesDB)
                         told = True
                         break
 

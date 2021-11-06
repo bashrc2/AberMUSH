@@ -29,6 +29,7 @@ from familiar import familiarScout
 from familiar import familiarHide
 from familiar import familiarSight
 from environment import getRainAtCoords
+from environment import getRoomCulture
 
 import time
 
@@ -725,7 +726,7 @@ def _conversationState(word: str, conversationStates: {},
 def _conversationCondition(word: str, conversationStates: {},
                            nid, npcs: {}, matchCtr: int,
                            players: {}, rooms: {},
-                           id) -> (bool, bool, int):
+                           id, culturesDB: {}) -> (bool, bool, int):
     conditionType = ''
     if '>' in word.lower():
         conditionType = '>'
@@ -745,6 +746,14 @@ def _conversationCondition(word: str, conversationStates: {},
         currValue = players[id]['hp']
     if varStr == 'hpPercent' or varStr == 'hitpointspercent':
         currValue = int(players[id]['hp'] * 100 / players[id]['hp'])
+    if varStr == 'cul' or \
+       varStr == 'culture':
+        if players[id].get('culture'):
+            currValue = players[id]['culture']
+    if varStr == 'roomcul' or \
+       varStr == 'roomculture':
+        if getRoomCulture(culturesDB, rooms, players[id]['room']):
+            currValue = players[id]['culture']
     if varStr == 'str' or \
        varStr == 'strength':
         currValue = players[id]['str']
@@ -879,7 +888,8 @@ def _conversationCondition(word: str, conversationStates: {},
 
 def _conversationWordCount(message: str, wordsList: [], npcs: {},
                            nid, conversationStates: {},
-                           players: {}, rooms: {}, id) -> int:
+                           players: {}, rooms: {}, id,
+                           culturesDB: {}) -> int:
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
     """
@@ -904,7 +914,8 @@ def _conversationWordCount(message: str, wordsList: [], npcs: {},
                                        conversationStates,
                                        nid, npcs,
                                        matchCtr,
-                                       players, rooms, id)
+                                       players, rooms, id,
+                                       culturesDB)
 
             if not continueMatching:
                 break
@@ -1313,7 +1324,8 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                     items: {}, itemsDB: {}, rooms: {},
                     id: int, nid: int, message,
                     characterClassDB: {}, sentimentDB: {},
-                    guildsDB: {}, clouds: {}, racesDB: {}) -> None:
+                    guildsDB: {}, clouds: {}, racesDB: {},
+                    culturesDB: {}) -> None:
     """Conversation with an NPC
     This typically works by matching some words and then
     producing a corresponding response and/or action
@@ -1364,7 +1376,8 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
             matchCtr = \
                 _conversationWordCount(message, conv[0], npcs,
                                        nid, conversationStates,
-                                       players, rooms, id)
+                                       players, rooms, id,
+                                       culturesDB)
             # store the best match
             if matchCtr > maxMatchCtr:
                 maxMatchCtr = matchCtr
