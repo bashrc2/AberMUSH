@@ -750,10 +750,11 @@ def _conversationCondition(word: str, conversationStates: {},
        varStr == 'culture':
         if players[id].get('culture'):
             currValue = players[id]['culture']
+            targetValue = word.lower().split(conditionType)[1].strip()
     if varStr == 'roomcul' or \
        varStr == 'roomculture':
-        if getRoomCulture(culturesDB, rooms, players[id]['room']):
-            currValue = players[id]['culture']
+        currValue = getRoomCulture(culturesDB, rooms, players[id]['room'])
+        targetValue = word.lower().split(conditionType)[1].strip()
     if varStr == 'str' or \
        varStr == 'strength':
         currValue = players[id]['str']
@@ -856,16 +857,25 @@ def _conversationCondition(word: str, conversationStates: {},
     if targetValue is None:
         targetValue = int(word.lower().split(conditionType)[1].strip())
 
-    if currValue == -99999:
-        return False, True, matchCtr
+    if currValue.isdigit():
+        if currValue == -99999:
+            return False, True, matchCtr
 
-    if conditionType == '>':
-        if currValue <= targetValue:
-            return False, False, matchCtr
+        if conditionType == '>':
+            if currValue <= targetValue:
+                return False, False, matchCtr
 
-    if conditionType == '<':
-        if currValue >= targetValue:
-            return False, False, matchCtr
+        if conditionType == '<':
+            if currValue >= targetValue:
+                return False, False, matchCtr
+
+        if conditionType == '>=':
+            if currValue < targetValue:
+                return False, False, matchCtr
+
+        if conditionType == '<=':
+            if currValue > targetValue:
+                return False, False, matchCtr
 
     if conditionType == '=':
         if currValue != targetValue:
@@ -873,14 +883,6 @@ def _conversationCondition(word: str, conversationStates: {},
 
     if conditionType == '!=':
         if currValue == targetValue:
-            return False, False, matchCtr
-
-    if conditionType == '>=':
-        if currValue < targetValue:
-            return False, False, matchCtr
-
-    if conditionType == '<=':
-        if currValue > targetValue:
             return False, False, matchCtr
 
     return True, True, matchCtr + 1
