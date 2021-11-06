@@ -857,7 +857,7 @@ def _conversationCondition(word: str, conversationStates: {},
     if targetValue is None:
         targetValue = int(word.lower().split(conditionType)[1].strip())
 
-    if currValue.isdigit():
+    if not isinstance(currValue, str):
         if currValue == -99999:
             return False, True, matchCtr
 
