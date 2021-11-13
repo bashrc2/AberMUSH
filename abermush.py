@@ -258,6 +258,7 @@ for k in itemsDB:
                v == "close_description" or
                v == "room" or
                v == "language" or
+               v == "culture" or
                v == "state" or
                v == "visibleWhenWearing" or
                v == "climbWhenWearing" or
@@ -406,6 +407,7 @@ for k in npcsDB:
                v == "climbWhenWearing" or
                v == "speakLanguage" or
                v == "language" or
+               v == "culture" or
                v == "race" or
                v == "familiarOf" or
                v == "familiarTarget" or

@@ -32,6 +32,7 @@ from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import getGuildSentiment
+from environment import getRoomCulture
 from environment import runTide
 from environment import getRainAtCoords
 from history import assignItemHistory
@@ -5531,12 +5532,20 @@ def _conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
                                 " is already here.\n\n")
                 return False
 
+    # NPC has the culture assigned to the room
+    roomCulture = getRoomCulture(culturesDB, rooms, players[id]['room'])
+    if roomCulture is None:
+        roomCulture = ''
+
     # default medium size
     newNPC = {
         "name": npcName,
         "whenDied": None,
         "isAggressive": 0,
         "inv": [],
+        "speakLanguage": "common",
+        "language": ["common"],
+        "culture": roomCulture,
         "conv": npcConv,
         "room": players[id]['room'],
         "path": [],
