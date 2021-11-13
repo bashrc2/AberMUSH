@@ -175,6 +175,7 @@ log("Sentiment loaded: " + countStr, "info")
 
 log("Loading cultures...", "info")
 
+culturesDB = None
 with open(str(Config.get('Cultures', 'Definition')), "r") as read_file:
     culturesDB = json.loads(read_file.read())
 
@@ -571,7 +572,7 @@ terminalMode = {}
 
 with open(str(Config.get('Markets', 'Definition')), "r") as read_file:
     markets = json.loads(read_file.read())
-    noOfMarkets = str(assignMarkets(markets, rooms, itemsDB))
+    noOfMarkets = str(assignMarkets(markets, rooms, itemsDB, culturesDB))
     marketsStr = str(noOfMarkets)
     log(marketsStr + ' markets were created', "info")
 

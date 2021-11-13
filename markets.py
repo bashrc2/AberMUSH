@@ -7,6 +7,8 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = ""
 
+from environment import getRoomCulture
+
 
 def getMarketType(roomName: str, markets: {}) -> str:
     """Returns the market type for the room name
@@ -55,20 +57,29 @@ def marketBuysItemTypes(marketType: str, markets: {}) -> []:
     return marketBuys
 
 
-def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
+def assignMarkets(markets: {}, rooms: {}, itemsDB: {},
+                  culturesDB: {}) -> int:
     """Assigns market types to rooms
     """
     noOfMarkets = 0
     for roomID, rm in rooms.items():
+        # whether or not there is a market here depends on the room name
         rooms[roomID]['marketInventory'] = None
         roomName = rm['name'].lower()
         marketType = getMarketType(roomName, markets)
         if not marketType:
             continue
+
+        # get the types of items sold
         rooms[roomID]['marketInventory'] = {}
         marketSells = _marketSellsItemTypes(marketType, markets)
         if not marketSells:
             continue
+
+        # the market can have a culture, which then
+        # determines the types of items within it
+        roomCulture = getRoomCulture(culturesDB, rooms, roomID)
+
         inventoryCtr = 0
         itemNamesList = []
         for itemID, item in itemsDB.items():
@@ -80,6 +91,10 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {}) -> int:
                     continue
                 if item['weight'] <= 0:
                     continue
+                if roomCulture:
+                    if item.get('culture'):
+                        if item['culture'] != roomCulture:
+                            continue
                 itemNamesList.append(itemName)
                 itemCost = item['cost']
                 # TODO cost and stock level could vary with
