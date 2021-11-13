@@ -373,6 +373,10 @@ def loadPlayersDB(forceLowercase=True):
         with open(os.path.join(location, f)) as file_object:
             DB[f] = json.loads(file_object.read())
 
+            # add any missing fields
+            if not DB[f].get('culture'):
+                DB[f]['culture'] = ""
+
     if forceLowercase is True:
         out = {}
         for key, value in DB.items():
