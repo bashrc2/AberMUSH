@@ -15,6 +15,12 @@ from functions import sizeFromDescription
 import time
 
 
+def _setPlayerCulture(etarget, ebody, players, npcs, items,
+                      env, npcsDB, envDB):
+    if etarget in players:
+        players[etarget]['culture'] = str(ebody)
+
+
 def _setPlayerCanGo(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
     if etarget in players:
         players[etarget]['canGo'] = int(ebody)
@@ -464,6 +470,7 @@ def _spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         'inv': npcsDB[int(body[0])]['inv'],
         'speakLanguage': npcsDB[int(body[0])]['speakLanguage'],
         'language': npcsDB[int(body[0])]['language'],
+        'culture': npcsDB[int(body[0])]['culture'],
         'conv': npcsDB[int(body[0])]['conv'],
         'path': npcsDB[int(body[0])]['path'],
         'moveDelay': npcsDB[int(body[0])]['moveDelay'],
@@ -596,6 +603,7 @@ def evaluateEvent(
         npcsDB,
         envDB):
     switcher = {
+        "setPlayerCulture": _setPlayerCulture,
         "setPlayerCanGo": _setPlayerCanGo,
         "setPlayerCanLook": _setPlayerCanLook,
         "setPlayerCanSay": _setPlayerCanSay,
