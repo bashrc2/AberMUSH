@@ -967,3 +967,13 @@ destroy ogre
 ```
 
 If you make any blunders then you can reset the universe back to its original state with the `resetuniverse` command, then restart the server.
+
+### Markets
+
+Different types of markets are defined within *def/markets.json*. If a room name matches a market type then it is possible to buy or sell within that room, using the *inventory* command to see what is on offer. The *sells* parameter indicates that certain items may only be sold within the market. The *trades* parameter indicates items which can be bought or sold.
+
+### Culture and Regions
+
+Each room can be assigned a region, and within *def/cultures.json* the regions for each culture can be defined.
+
+Items can be assigned a culture so that if they are being sold within a market then the types of items can be culturally specific to the region.
