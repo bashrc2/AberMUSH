@@ -570,11 +570,12 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
     putOnArmor = False
     if int(npcs[nid]['canWear']) != 0:
         for i in npcs[nid]['inv']:
-            if itemsDB[int(i)]['clo_chest'] > 0:
-                if itemsDB[int(i)]['mod_endu'] > max_protection:
-                    max_protection = itemsDB[int(i)]['mod_endu']
-                    itemID = int(i)
-                    putOnArmor = True
+            if itemsDB[int(i)]['clo_chest'] < 1:
+                continue
+            if itemsDB[int(i)]['mod_endu'] > max_protection:
+                max_protection = itemsDB[int(i)]['mod_endu']
+                itemID = int(i)
+                putOnArmor = True
 
     # search for any weapons on the floor
     pickedUpWeapon = False
@@ -582,37 +583,43 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
     if int(npcs[nid]['canWield']) != 0:
         itemsInWorldCopy = deepcopy(items)
         for (iid, pl) in list(itemsInWorldCopy.items()):
-            if itemsInWorldCopy[iid]['room'] == npcs[nid]['room']:
-                if itemsDB[items[iid]['id']]['weight'] > 0:
-                    if itemsDB[items[iid]['id']]['clo_rhand'] > 0:
-                        if itemsDB[items[iid]['id']]['mod_str'] > max_damage:
-                            itemName = itemsDB[items[iid]['id']]['name']
-                            if not _itemInNPCInventory(
-                                    npcs, nid, itemName, itemsDB):
-                                max_damage = itemsDB[items[iid]
-                                                     ['id']]['mod_str']
-                                itemID = int(items[iid]['id'])
-                                itemWeaponIndex = iid
-                                pickedUpWeapon = True
+            if itemsInWorldCopy[iid]['room'] != npcs[nid]['room']:
+                continue
+            if itemsDB[items[iid]['id']]['weight'] == 0:
+                continue
+            if itemsDB[items[iid]['id']]['clo_rhand'] == 0:
+                continue
+            if itemsDB[items[iid]['id']]['mod_str'] <= max_damage:
+                continue
+            itemName = itemsDB[items[iid]['id']]['name']
+            if _itemInNPCInventory(npcs, nid, itemName, itemsDB):
+                continue
+            max_damage = itemsDB[items[iid]['id']]['mod_str']
+            itemID = int(items[iid]['id'])
+            itemWeaponIndex = iid
+            pickedUpWeapon = True
 
     # Search for any armor on the floor
     pickedUpArmor = False
     itemArmorIndex = 0
     if int(npcs[nid]['canWear']) != 0:
         for (iid, pl) in list(itemsInWorldCopy.items()):
-            if itemsInWorldCopy[iid]['room'] == npcs[nid]['room']:
-                if itemsDB[items[iid]['id']]['weight'] > 0:
-                    if itemsDB[items[iid]['id']]['clo_chest'] > 0:
-                        if itemsDB[items[iid]['id']]['mod_endu'] > \
-                           max_protection:
-                            itemName = itemsDB[items[iid]['id']]['name']
-                            if not _itemInNPCInventory(npcs, nid, itemName,
-                                                       itemsDB):
-                                max_protection = \
-                                    itemsDB[items[iid]['id']]['mod_endu']
-                                itemID = int(items[iid]['id'])
-                                itemArmorIndex = iid
-                                pickedUpArmor = True
+            if itemsInWorldCopy[iid]['room'] != npcs[nid]['room']:
+                continue
+            if itemsDB[items[iid]['id']]['weight'] == 0:
+                continue
+            if itemsDB[items[iid]['id']]['clo_chest'] == 0:
+                continue
+            if itemsDB[items[iid]['id']]['mod_endu'] <= max_protection:
+                continue
+            itemName = itemsDB[items[iid]['id']]['name']
+            if _itemInNPCInventory(npcs, nid, itemName, itemsDB):
+                continue
+            max_protection = \
+                itemsDB[items[iid]['id']]['mod_endu']
+            itemID = int(items[iid]['id'])
+            itemArmorIndex = iid
+            pickedUpArmor = True
 
     if itemID > 0:
         if putOnArmor:
