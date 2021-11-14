@@ -820,22 +820,23 @@ def _getAttackDescription(animalType: str, weaponType: str,
                 continue
             attackTypeList = attackType.split('|')
             for attackTypeStr in attackTypeList:
-                if weaponType.startswith(attackTypeStr):
-                    if not isCritical:
-                        # first person - you attack a player or npc
-                        attackDescriptionFirst = \
-                            randomDescription(attackDesc['first'])
-                        # second person - you were attacked by a player or npc
-                        attackDescriptionSecond = \
-                            randomDescription(attackDesc['second'])
-                    else:
-                        # first person critical hit
-                        attackDescriptionFirst = \
-                            randomDescription(attackDesc['critical first'])
-                        # second person critical hit
-                        attackDescriptionSecond = \
-                            randomDescription(attackDesc['critical second'])
-                    break
+                if not weaponType.startswith(attackTypeStr):
+                    continue
+                if not isCritical:
+                    # first person - you attack a player or npc
+                    attackDescriptionFirst = \
+                        randomDescription(attackDesc['first'])
+                    # second person - you were attacked by a player or npc
+                    attackDescriptionSecond = \
+                        randomDescription(attackDesc['second'])
+                else:
+                    # first person critical hit
+                    attackDescriptionFirst = \
+                        randomDescription(attackDesc['critical first'])
+                    # second person critical hit
+                    attackDescriptionSecond = \
+                        randomDescription(attackDesc['critical second'])
+                break
     else:
         attackStrings = [
             "savage",
@@ -859,22 +860,23 @@ def _getAttackDescription(animalType: str, weaponType: str,
             anType = anType.replace('animal ', '')
             animalTypeList = anType.split('|')
             for animalTypeStr in animalTypeList:
-                if animalType.startswith(animalTypeStr):
-                    if not isCritical:
-                        # first person -  you attack a player or npc
-                        attackDescriptionFirst = \
-                            randomDescription(attackDesc['first'])
-                        # second person -  you were attacked by a player or npc
-                        attackDescriptionSecond = \
-                            randomDescription(attackDesc['second'])
-                    else:
-                        # first person critical hit
-                        attackDescriptionFirst = \
-                            randomDescription(attackDesc['critical first'])
-                        # second person critical hit
-                        attackDescriptionSecond = \
-                            randomDescription(attackDesc['critical second'])
-                    break
+                if not animalType.startswith(animalTypeStr):
+                    continue
+                if not isCritical:
+                    # first person -  you attack a player or npc
+                    attackDescriptionFirst = \
+                        randomDescription(attackDesc['first'])
+                    # second person -  you were attacked by a player or npc
+                    attackDescriptionSecond = \
+                        randomDescription(attackDesc['second'])
+                else:
+                    # first person critical hit
+                    attackDescriptionFirst = \
+                        randomDescription(attackDesc['critical first'])
+                    # second person critical hit
+                    attackDescriptionSecond = \
+                        randomDescription(attackDesc['critical second'])
+                break
 
     return attackDescriptionFirst, attackDescriptionSecond
 
