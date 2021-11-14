@@ -691,11 +691,13 @@ def _npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
         # what is the best defense which the NPC is carrying?
         max_defense = 0
         for i in npcs[id]['inv']:
-            if itemsDB[int(i)][c] > 0:
-                if itemsDB[int(i)]['mod_str'] == 0:
-                    if itemsDB[int(i)]['mod_endu'] > max_defense:
-                        max_defense = itemsDB[int(i)]['mod_endu']
-                        itemID = int(i)
+            if itemsDB[int(i)][c] < 1:
+                continue
+            if itemsDB[int(i)]['mod_str'] != 0:
+                continue
+            if itemsDB[int(i)]['mod_endu'] > max_defense:
+                max_defense = itemsDB[int(i)]['mod_endu']
+                itemID = int(i)
         if itemID > 0:
             # Wear the armor
             npcs[id][c] = itemID
