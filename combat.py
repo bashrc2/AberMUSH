@@ -155,10 +155,9 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
     if player2Size < player1Size or player2Size > player1Size + 1:
         if player2Size > player1Size:
             descr = randomDescription("They're too large to shove")
-            mud.sendMessage(id, descr + '.\n')
         else:
             descr = randomDescription("They're too small to shove")
-            mud.sendMessage(id, descr + '.\n')
+        mud.sendMessage(id, descr + '.\n')
         players1[id]['shove'] = 0
         return False
 
@@ -179,9 +178,8 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             ', but they are already prone.\n')
         return False
 
-    mud.sendMessage(
-        id,
-        randomDescription('You shove ' + players2[s2id]['name']) + '.\n')
+    descr = randomDescription('You shove ' + players2[s2id]['name'])
+    mud.sendMessage(id, descr + '.\n')
 
     if randint(1, player1Strength) > randint(1, player2Strength):
         players2[s2id]['prone'] = 1
@@ -193,7 +191,8 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             'They stagger and fall backwards',
             'They lose balance and fall backwards'
         )
-        mud.sendMessage(id, randomDescription(desc) + '.\n')
+        descr = randomDescription(desc)
+        mud.sendMessage(id, descr + '.\n')
         return True
     else:
         desc = (
@@ -203,7 +202,8 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             'They push back and remain standing',
             'They remain steady'
         )
-        mud.sendMessage(id, randomDescription(desc) + '.\n')
+        descr = randomDescription(desc)
+        mud.sendMessage(id, descr + '.\n')
         return False
 
 
@@ -915,9 +915,8 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
     # is the player frozen?
     if players[s1id]['frozenStart'] > 0 or players[s1id]['canAttack'] == 0:
-        mud.sendMessage(
-            s2id,
-            randomDescription(players[s1id]['frozenDescription']) + '\n')
+        descr = randomDescription(players[s1id]['frozenDescription'])
+        mud.sendMessage(s2id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -945,14 +944,14 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
             players[s1id]['lastCombatAction'] = int(time.time())
             # stand up for the next turn
             setPlayerProne(s1id, players, False)
-            mud.sendMessage(s2id,
-                            '<f32>' + players[s1id]['name'] +
-                            ' ' +
-                            randomDescription('stands up|' +
-                                              'gets up|' +
-                                              'gets back on their feet|' +
-                                              'stands back up again') +
-                            '<r>.\n')
+            descr = randomDescription(
+                'stands up|' +
+                'gets up|' +
+                'gets back on their feet|' +
+                'stands back up again'
+            )
+            mud.sendMessage(s2id, '<f32>' + players[s1id]['name'] + ' ' +
+                            descr + '<r>.\n')
             return
 
         # attempt to shove
@@ -1140,9 +1139,8 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     # is the player frozen?
     if players[s1id]['frozenStart'] > 0 or \
        players[s1id]['canAttack'] == 0:
-        desc = players[s1id]['frozenDescription']
-        mud.sendMessage(s2id,
-                        randomDescription(desc) + '\n')
+        descr = randomDescription(players[s1id]['frozenDescription'])
+        mud.sendMessage(s2id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -1281,7 +1279,8 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 'You miss <f220>' + npcs[s2id]['name'] +
                 '<r> by a wide margin'
             ]
-            mud.sendMessage(s1id, randomDescription(desc) + '\n')
+            descr = randomDescription(desc)
+            mud.sendMessage(s1id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
         mud.sendMessage(
@@ -1348,9 +1347,9 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             'gets back on their feet',
             'stands back up again'
         )
-        mud.sendMessage(s2id,
-                        '<f32>' + npcs[s1id]['name'] + ' ' +
-                        randomDescription(desc) + '<r>.\n')
+        descr = randomDescription(desc)
+        mud.sendMessage(s2id, '<f32>' + npcs[s1id]['name'] + ' ' +
+                        descr + '<r>.\n')
         return
 
     _npcUpdateLuck(s1id, npcs, items, itemsDB)
@@ -1461,7 +1460,8 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             '<f220>' + npcs[s1id]['name'] + '<r> missed you by miles!',
             '<f220>' + npcs[s1id]['name'] + '<r> missed you by a wide margin'
         ]
-        mud.sendMessage(s2id, randomDescription(desc) + '\n')
+        descr = randomDescription(desc)
+        mud.sendMessage(s2id, descr + '\n')
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
@@ -1610,7 +1610,8 @@ def playerBeginsAttack(players: {}, id, target: str,
                     "your own familiar, but decide against it",
                     "Your familiar looks at you disapprovingly"
                 )
-                mud.sendMessage(id, randomDescription(desc) + "\n\n")
+                descr = randomDescription(desc)
+                mud.sendMessage(id, descr + "\n\n")
                 return False
 
             if npcs[nid]['isAttackable'] == 0:
