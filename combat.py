@@ -1593,47 +1593,44 @@ def playerBeginsAttack(players: {}, id, target: str,
         for (nid, pl) in list(npcs.items()):
             if target.lower() not in npcs[nid]['name'].lower():
                 continue
-
             victimId = nid
             attackerId = id
             # found target npc
-            if npcs[nid]['room'] == players[id]['room'] and \
-               targetFound is False:
-                targetFound = True
-                # target found!
-                if players[id]['room'] != npcs[nid]['room']:
-                    continue
+            if npcs[nid]['room'] != players[id]['room']:
+                continue
 
-                # check for familiar
-                if npcs[nid]['familiarOf'] == players[id]['name']:
-                    desc = (
-                        "You can't attack your own familiar",
-                        "You consider attacking " +
-                        "your own familiar, but decide against it",
-                        "Your familiar looks at you disapprovingly"
-                    )
-                    mud.sendMessage(id, randomDescription(desc) + "\n\n")
-                    return False
+            # check for familiar
+            if npcs[nid]['familiarOf'] == players[id]['name']:
+                desc = (
+                    "You can't attack your own familiar",
+                    "You consider attacking " +
+                    "your own familiar, but decide against it",
+                    "Your familiar looks at you disapprovingly"
+                )
+                mud.sendMessage(id, randomDescription(desc) + "\n\n")
+                return False
 
-                if npcs[nid]['isAttackable'] == 0:
-                    mud.sendMessage(id, "You can't attack them\n\n")
-                    return False
+            if npcs[nid]['isAttackable'] == 0:
+                mud.sendMessage(id, "You can't attack them\n\n")
+                return False
 
-                fights[len(fights)] = {
-                    's1': players[id]['name'],
-                    's2': nid,
-                    's1id': attackerId,
-                    's2id': victimId,
-                    's1type': 'pc',
-                    's2type': 'npc',
-                    'retaliated': 0
-                }
+            targetFound = True
+            fights[len(fights)] = {
+                's1': players[id]['name'],
+                's2': nid,
+                's1id': attackerId,
+                's2id': victimId,
+                's1type': 'pc',
+                's2type': 'npc',
+                'retaliated': 0
+            }
 
-                _combatUpdateMaxHitPoints(id, players, racesDB)
-                _combatUpdateMaxHitPoints(nid, npcs, racesDB)
+            _combatUpdateMaxHitPoints(id, players, racesDB)
+            _combatUpdateMaxHitPoints(nid, npcs, racesDB)
 
-                mud.sendMessage(
-                    id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+            mud.sendMessage(
+                id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+            break
 
     if not targetFound:
         mud.sendMessage(
@@ -1696,21 +1693,17 @@ def _npcBeginsAttack(npcs: {}, id, target: str, players: {},
                 continue
             if npcs[nid]['isAttackable'] == 0:
                 continue
-            if targetFound:
-                continue
             victimId = nid
             attackerId = id
             # found target npc
             if npcs[nid]['room'] != npcs[id]['room']:
-                continue
-            targetFound = True
-            if npcs[id]['room'] != npcs[nid]['room']:
                 continue
             # target found!
             # check for familiar
             if npcs[nid]['familiarOf'] == npcs[id]['name']:
                 return False
 
+            targetFound = True
             fights[len(fights)] = {
                 's1': npcs[id]['name'],
                 's2': nid,
