@@ -1696,47 +1696,48 @@ def _npcBeginsAttack(npcs: {}, id, target: str, players: {},
                 continue
             if npcs[nid]['isAttackable'] == 0:
                 continue
-
+            if targetFound:
+                continue
             victimId = nid
             attackerId = id
             # found target npc
-            if npcs[nid]['room'] == npcs[id]['room'] and \
-               targetFound is False:
-                targetFound = True
-                # target found!
-                if npcs[id]['room'] != npcs[nid]['room']:
-                    continue
+            if npcs[nid]['room'] != npcs[id]['room']:
+                continue
+            targetFound = True
+            if npcs[id]['room'] != npcs[nid]['room']:
+                continue
+            # target found!
+            # check for familiar
+            if npcs[nid]['familiarOf'] == npcs[id]['name']:
+                return False
 
-                # check for familiar
-                if npcs[nid]['familiarOf'] == npcs[id]['name']:
-                    return False
+            fights[len(fights)] = {
+                's1': npcs[id]['name'],
+                's2': nid,
+                's1id': attackerId,
+                's2id': victimId,
+                's1type': 'npc',
+                's2type': 'npc',
+                'retaliated': 0
+            }
+            fights[len(fights)] = {
+                's1': nid,
+                's2': npcs[id]['name'],
+                's1id': victimId,
+                's2id': attackerId,
+                's1type': 'npc',
+                's2type': 'npc',
+                'retaliated': 0
+            }
+            npcs[nid]['isInCombat'] = 1
+            npcs[id]['isInCombat'] = 1
 
-                fights[len(fights)] = {
-                    's1': npcs[id]['name'],
-                    's2': nid,
-                    's1id': attackerId,
-                    's2id': victimId,
-                    's1type': 'npc',
-                    's2type': 'npc',
-                    'retaliated': 0
-                }
-                fights[len(fights)] = {
-                    's1': nid,
-                    's2': npcs[id]['name'],
-                    's1id': victimId,
-                    's2id': attackerId,
-                    's1type': 'npc',
-                    's2type': 'npc',
-                    'retaliated': 0
-                }
-                npcs[nid]['isInCombat'] = 1
-                npcs[id]['isInCombat'] = 1
+            _combatUpdateMaxHitPoints(nid, npcs, racesDB)
+            _combatUpdateMaxHitPoints(id, npcs, racesDB)
 
-                _combatUpdateMaxHitPoints(nid, npcs, racesDB)
-                _combatUpdateMaxHitPoints(id, npcs, racesDB)
-
-                _npcUpdateLuck(id, npcs, items, itemsDB)
-                _npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
+            _npcUpdateLuck(id, npcs, items, itemsDB)
+            _npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
+            break
 
     return targetFound
 
@@ -1760,14 +1761,15 @@ def npcAggression(npcs: {}, players: {}, fights: {}, mud,
             continue
         # are there players in the same room?
         for (pid, pl) in players.items():
-            if players[pid]['room'] == npcs[nid]['room']:
-                hasAffinity = False
-                if npcs[nid].get('affinity'):
-                    if npcs[nid]['affinity'].get(players[pid]['name']):
-                        if npcs[nid]['affinity'][players[pid]['name']] > 0:
-                            hasAffinity = True
-                if not hasAffinity:
-                    if randint(0, 1000) > 995:
-                        _npcBeginsAttack(npcs, nid, players[pid]['name'],
-                                         players, fights, mud, items,
-                                         itemsDB, racesDB)
+            if players[pid]['room'] != npcs[nid]['room']:
+                continue
+            hasAffinity = False
+            if npcs[nid].get('affinity'):
+                if npcs[nid]['affinity'].get(players[pid]['name']):
+                    if npcs[nid]['affinity'][players[pid]['name']] > 0:
+                        hasAffinity = True
+            if not hasAffinity:
+                if randint(0, 1000) > 995:
+                    _npcBeginsAttack(npcs, nid, players[pid]['name'],
+                                     players, fights, mud, items,
+                                     itemsDB, racesDB)
