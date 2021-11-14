@@ -154,15 +154,11 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
                 player2Size = racesDB[race]['siz']
     if player2Size < player1Size or player2Size > player1Size + 1:
         if player2Size > player1Size:
-            mud.sendMessage(
-                id,
-                randomDescription("They're too large to shove") +
-                '.\n')
+            descr = randomDescription("They're too large to shove")
+            mud.sendMessage(id, descr + '.\n')
         else:
-            mud.sendMessage(
-                id,
-                randomDescription("They're too small to shove") +
-                '.\n')
+            descr = randomDescription("They're too small to shove")
+            mud.sendMessage(id, descr + '.\n')
         players1[id]['shove'] = 0
         return False
 
