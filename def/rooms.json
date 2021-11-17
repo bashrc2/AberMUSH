@@ -26,7 +26,7 @@
         "description": "The stench is overpowering as you splash your echoing way down the sewer. Unmentionable things squelch and slurp underfoot as you walk. Up ahead to the east the sewer ends in several tiny little pipes. Slots are set into the wall to allow you to climb up towards a hatch of some kind.",
         "roomTeleport": "",
         "conditional": [
-            ["rain","yes","You wade through the slow moving stream of sewer effluent. Miscellaneous repulsive objects emerge and then slowly sink back into the stinking goop. You can see a few small pipes to the east and on the wall are a few footholds forming a rudimentary sort of ladder allowing you to climb up towards a hatch overhead"]
+            ["rain","yes","You wade through the slow moving stream of sewer effluent. Miscellaneous repulsive objects emerge and then slowly sink back into the stinking ooze. You can see a few small pipes to the east and on the wall are a few footholds forming a rudimentary sort of ladder allowing you to climb up towards a hatch overhead"]
         ],
         "trap": {},
         "eventOnEnter": "",
