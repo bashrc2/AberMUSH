@@ -2494,7 +2494,9 @@
         "name": "Misty Lake",
         "description": "You are deep underground, rowing through thick white mists, without a clue as to your direction and movements. The water laps around the edge of the boat, but beyond that all is silent and spookily quiet.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are deep underground, rowing in silence through a dense white mist. You have little idea as to your direction. The water laps around the edge of the boat, and beneath your paddle the undulating shapes of serpents are faintly perceivable|You are rowing across an underground lake, surrounded by thick white mists in all directions, which make it difficult to navigate|You are rowing through the mists of an underground lake. Apart from the periodic splash of your paddle all is eerily silent"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2519,7 +2521,9 @@
         "name": "Misty Lake",
         "description": "You are deep underground, rowing through thick white mists, without a clue as to your direction and movements. The water laps around the edge of the boat, but beyond that all is silent and spookily quiet.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are deep underground, rowing in silence through a dense white mist. You have little idea as to your direction. The water laps around the edge of the boat, and beneath your paddle the undulating shapes of serpents are faintly perceivable|You are rowing across an underground lake, surrounded by thick white mists in all directions, which make it difficult to navigate|You are rowing through the mists of an underground lake. Apart from the periodic splash of your paddle all is eerily silent"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -2544,7 +2548,9 @@
         "name": "Misty Lake",
         "description": "You are deep underground, rowing through thick white mists, without a clue as to your direction and movements. The water laps around the edge of the boat, but beyond that all is silent and spookily quiet.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are deep underground, rowing in silence through a dense white mist. You have little idea as to your direction. The water laps around the edge of the boat, and beneath your paddle the undulating shapes of serpents are faintly perceivable|You are rowing across an underground lake, surrounded by thick white mists in all directions, which make it difficult to navigate|You are rowing through the mists of an underground lake. Apart from the periodic splash of your paddle all is eerily silent"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
