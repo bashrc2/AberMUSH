@@ -1578,10 +1578,11 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
         # defense spells
         if spellName.endswith('shield') and spellDetails.get('armor'):
             if not players[id]["magicShield"]:
-                players[id]["magicShieldStart"] = spellDetails['armor']
+                removePreparedSpell(players, id, spellName)
+                players[id]['magicShield'] = spellDetails['armor']
+                players[id]['magicShieldStart'] = now
                 players[id]["magicShieldDuration"] = \
                     TimeStringToSec(spellDetails['duration'])
-                removePreparedSpell(players, id, spellName)
                 mud.sendMessage(id, "Magic shield active.\n\n")
             else:
                 mud.sendMessage(id, "Magic shield is already active.\n\n")
