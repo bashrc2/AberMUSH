@@ -75,7 +75,7 @@
         "charm person": {
     	    "description": "You charm {}",
 	    "description_second": "",
-	    "prepareTime": "1 hour",
+	    "prepareTime": "2 hour",
 	    "duration": "1 hour",
 	    "classes": ["druid","sorcerer","witch"],
 	    "range": 30,
@@ -89,7 +89,7 @@
         "cure wounds": {
     	    "description": "You cure {}",
 	    "description_second": "{} cured {}",
-	    "prepareTime": "1 min",
+	    "prepareTime": "5 min",
 	    "duration": "",
 	    "classes": ["druid","sorcerer","witch"],
 	    "range": 1,
@@ -145,7 +145,7 @@
         "hideous laughter": {
     	    "description": "{} giggles|{} laughs hysterically|{} rolls on the floor laughing|{} finds everything funny|{} bursts into laughter",
 	    "description_second": "{} casts a laughter spell on {}",
-	    "prepareTime": "1 min",
+	    "prepareTime": "5 min",
 	    "duration": "1 min",
 	    "classes": ["witch"],
 	    "range": 30,
@@ -159,7 +159,7 @@
         "frozen asset": {
     	    "description": "{} is surrounded by an icy haze|{} is surrounded by an icy mist",
 	    "description_second": "{} casts a freeze spell on {}",
-	    "prepareTime": "1 min",
+	    "prepareTime": "5 min",
 	    "duration": "2 min",
 	    "classes": ["sorcerer","witch"],
 	    "range": 30,
@@ -173,7 +173,7 @@
         "magic missile": {
     	    "description": "You create three glowing darts of magical force which simultaneously strike {}",
 	    "description_second": "{} created three glowing darts of magical force which simultaneously strike {}",
-	    "prepareTime": "1 min",
+	    "prepareTime": "10 min",
 	    "duration": "1 min",
 	    "classes": ["sorcerer","witch"],
 	    "range": 120,
@@ -201,7 +201,7 @@
         "magic shield": {
     	    "description": "An invisible barrier of magical force appears and protects you.",
 	    "description_second": "",
-	    "prepareTime": "1 min",
+	    "prepareTime": "10 min",
 	    "duration": "1 min",
 	    "classes": ["sorcerer","witch"],
 	    "range": 1,
