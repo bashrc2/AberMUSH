@@ -376,6 +376,10 @@ def loadPlayersDB(forceLowercase=True):
             # add any missing fields
             if not DB[f].get('culture'):
                 DB[f]['culture'] = ""
+            if 'magicShield' not in DB[f]:
+                DB[f]['magicShield'] = None
+                DB[f]['magicShieldStart'] = 0
+                DB[f]['magicShieldDuration'] = 0
 
     if forceLowercase is True:
         out = {}
