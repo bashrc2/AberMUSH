@@ -378,7 +378,7 @@ def loadPlayersDB(forceLowercase=True):
             if not DB[f].get('culture'):
                 DB[f]['culture'] = ""
             if 'magicShield' not in DB[f]:
-                DB[f]['magicShield'] = None
+                DB[f]['magicShield'] = 0
                 DB[f]['magicShieldStart'] = 0
                 DB[f]['magicShieldDuration'] = 0
 
