@@ -370,6 +370,7 @@ def loadPlayersDB(forceLowercase=True):
         [i for i in os.listdir(location)
          if os.path.splitext(i)[1] == ".player"]
     for f in playerFiles:
+        print('Player: ' + f)
         with open(os.path.join(location, f)) as file_object:
             DB[f] = json.loads(file_object.read())
 
