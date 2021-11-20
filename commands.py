@@ -4084,6 +4084,18 @@ def _bioOfPlayer(mud, id, pid, players: {}, itemsDB: {}) -> None:
     mud.sendMessage(id, '<r>\n')
 
 
+def _health(params, mud, playersDB: {}, players: {}, rooms: {},
+            npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+            envDB: {}, env: {}, eventDB: {}, eventSchedule,
+            id: int, fights: {}, corpses: {}, blocklist,
+            mapArea: [], characterClassDB: {}, spellsDB: {},
+            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+            itemHistory: {}, markets: {}, culturesDB: {}):
+    mud.sendMessage(id, '<f15>Health status:<r> ' +
+                    healthOfPlayer(id, players) + '.<r>\n')
+    mud.sendMessage(id, '<r>\n')
+
+
 def _bio(params, mud, playersDB: {}, players: {}, rooms: {},
          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
          envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -6932,6 +6944,7 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "out": _goOut,
         "o": _goOut,
         "bio": _bio,
+        "health": _health,
         "who": _who,
         "quit": _quit,
         "exit": _quit,

@@ -361,6 +361,7 @@ def _testFunctions():
         '_spawnItem',
         '_spawnNPC',
         '_spawnActor',
+        '_health',
         '__run',
         'globaltrace',
         'localtrace',
