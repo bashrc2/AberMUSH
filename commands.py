@@ -1580,7 +1580,7 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
             if not players[id]["magicShield"]:
                 removePreparedSpell(players, id, spellName)
                 players[id]['magicShield'] = spellDetails['armor']
-                players[id]['magicShieldStart'] = now
+                players[id]['magicShieldStart'] = int(time.time())
                 players[id]["magicShieldDuration"] = \
                     TimeStringToSec(spellDetails['duration'])
                 mud.sendMessage(id, "Magic shield active.\n\n")
