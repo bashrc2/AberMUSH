@@ -85,7 +85,7 @@
     "fightingStyle": "",
     "restRequired": 0,
     "enemy": "",
-    "magicShield": None,
+    "magicShield": 0,
     "magicShieldDuration": 0,
     "magicShieldStart": 0,
     "tempCharm": 0,
