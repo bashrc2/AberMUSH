@@ -204,7 +204,7 @@
 	    "prepareTime": "1 min",
 	    "duration": "1 min",
 	    "classes": ["sorcerer","witch"],
-	    "range": 120,
+	    "range": 1,
 	    "items": [702],
 	    "damage": 0,
 	    "damageType": "",
