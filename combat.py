@@ -513,6 +513,33 @@ def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
                         p, "<f220>A charm spell wears off.<r>\n\n")
 
 
+def updateMagicShield(mud, players: {}, isNPC: bool) -> None:
+    """Updates any magic shield for a temporary period
+       as the result of a spell
+    """
+    now = int(time.time())
+    for p in players:
+        thisPlayer = players[p]
+        if thisPlayer['name'] is None:
+            continue
+        if not thisPlayer.get('magicShield'):
+            continue
+        if thisPlayer['magicShieldStart'] == 0 and \
+           thisPlayer['magicShieldDuration'] > 0:
+            thisPlayer['magicShieldStart'] = now
+        else:
+            if not thisPlayer.get('magicShieldDuration'):
+                return
+            if now > thisPlayer['magicShieldStart'] + \
+                    thisPlayer['magicShieldDuration']:
+                thisPlayer['magicShieldStart'] = 0
+                thisPlayer['magicShieldDuration'] = 0
+                thisPlayer['magicShield'] = None
+                if not isNPC:
+                    mud.sendMessage(
+                        p, "<f220>Your magic shield wears off.<r>\n\n")
+
+
 def playersRest(mud, players: {}) -> None:
     """Rest restores hit points
     """

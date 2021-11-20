@@ -208,7 +208,7 @@
 	    "items": [702],
 	    "damage": 0,
 	    "damageType": "",
-	    "armor": 0,
+	    "armor": 5,
 	    "hp": 0,
 	    "action": "defense",
 	    "actionDescription": ""

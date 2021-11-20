@@ -36,6 +36,7 @@ from combat import playersRest
 from combat import updateTemporaryHitPoints
 from combat import updateTemporaryIncapacitation
 from combat import updateTemporaryCharm
+from combat import updateMagicShield
 from playerconnections import initialSetupAfterLogin
 from playerconnections import runPlayerConnections
 from playerconnections import disconnectIdlePlayers
@@ -614,6 +615,9 @@ while True:
 
         updateTemporaryCharm(mud, players, False)
         updateTemporaryCharm(mud, npcs, True)
+
+        updateMagicShield(mud, players, False)
+        updateMagicShield(mud, npcs, True)
 
         previousTiming = \
             showTiming(previousTiming, "update charm")

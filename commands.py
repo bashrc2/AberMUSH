@@ -1568,7 +1568,8 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
                          sentimentDB: {}, spellName: {}, spellDetails: {},
                          clouds: {}, racesDB: {}, guildsDB: {},
                          itemHistory: {}, markets: {}, culturesDB: {}):
-    if spellDetails['action'].startswith('familiar'):
+    spellAction = spellDetails['action']
+    if spellAction.startswith('familiar'):
         _showSpellImage(mud, id, spellName.replace(' ', '_'), players)
         _conjureNPC(spellDetails['action'], mud, playersDB, players,
                     rooms, npcsDB, npcs, itemsDB, items, envDB, env,
@@ -1577,6 +1578,17 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
                     sentimentDB, guildsDB, clouds, racesDB,
                     itemHistory, markets, culturesDB)
         return
+    elif spellAction.startswith('defen'):
+        # defense spells
+        if spellName.endswith('shield') and spellDetails.get('armor'):
+            if not players[id]["magicShield"]:
+                players[id]["magicShieldStart"] = spellDetails['armor']
+                players[id]["magicShieldDuration"] = \
+                    TimeStringToSec(spellDetails['duration'])
+                mud.sendMessage(id, "Magic shield active.\n\n")
+            else:
+                mud.sendMessage(id, "Magic shield is already active.\n\n")
+            return
     mud.sendMessage(id, "Nothing happens.\n\n")
 
 
@@ -5586,6 +5598,9 @@ def _conjureNPC(params, mud, playersDB: {}, players: {}, rooms: {},
         "tempCharmStart": 0,
         "tempCharmDuration": 0,
         "tempCharm": 0,
+        "magicShieldStart": 0,
+        "magicShieldDuration": 0,
+        "magicShield": None,
         "tempCharmTarget": "",
         "guild": "",
         "guildRole": "",
