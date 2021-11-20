@@ -101,7 +101,7 @@
 	    "actionDescription": "Your wounds are magically cured"
 	},
         "witch bolt": {
-    	    "description": "You fire a bolt of lighning at {}",
+    	    "description": "You fire a bolt of lightning at {}",
 	    "description_second": "{} fires a bolt of lightning at {}",
 	    "prepareTime": "5 min",
 	    "duration": "",
