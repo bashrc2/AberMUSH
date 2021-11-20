@@ -382,6 +382,9 @@ def _combatArmorClass(id, players: {},
     if armorClass < raceArmor:
         armorClass = raceArmor
 
+    if players[id].get('magicShield'):
+        armorClass += players[id]['magicShield']
+
     return armorClass
 
 
