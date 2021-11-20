@@ -543,7 +543,6 @@ def updateMagicShield(mud, players: {}, isNPC: bool) -> None:
                 thisPlayer['magicShieldStart'] = 0
                 thisPlayer['magicShieldDuration'] = 0
                 thisPlayer['magicShield'] = 0
-                removePreparedSpell(players, p, 'magic shield')
                 if not isNPC:
                     mud.sendMessage(
                         p, "<f220>Your magic shield wears off.<r>\n\n")
