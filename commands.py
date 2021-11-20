@@ -4091,9 +4091,9 @@ def _health(params, mud, playersDB: {}, players: {}, rooms: {},
             mapArea: [], characterClassDB: {}, spellsDB: {},
             sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
             itemHistory: {}, markets: {}, culturesDB: {}):
+    mud.sendMessage(id, '<r>\n')
     mud.sendMessage(id, '<f15>Health status:<r> ' +
                     healthOfPlayer(id, players) + '.<r>\n')
-    mud.sendMessage(id, '<r>\n')
 
 
 def _bio(params, mud, playersDB: {}, players: {}, rooms: {},
