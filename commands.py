@@ -41,6 +41,7 @@ from traps import describeTrappedPlayer
 from traps import trapActivation
 from traps import teleportFromTrap
 from traps import escapeFromTrap
+from combat import removePreparedSpell
 from combat import healthOfPlayer
 from combat import isAttacking
 from combat import stopAttack
@@ -1478,11 +1479,6 @@ def _helpCards(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(id, '\n\n')
 
 
-def _removePreparedSpell(players, id, spellName):
-    del players[id]['preparedSpells'][spellName]
-    del players[id]['spellSlots'][spellName]
-
-
 def _castSpellOnPlayer(mud, spellName: str, players: {}, id, npcs: {},
                        p, spellDetails):
     if npcs[p]['room'] != players[id]['room']:
@@ -1516,7 +1512,7 @@ def _castSpellOnPlayer(mud, spellName: str, players: {}, id, npcs: {},
 
     if spellDetails['action'].startswith('friend'):
         if players[id]['cha'] < npcs[p]['cha']:
-            _removePreparedSpell(players, id, spellName)
+            removePreparedSpell(players, id, spellName)
             mud.sendMessage(id, "You don't have enough charisma.\n\n")
             return
         playerName = players[id]['name']
@@ -1557,7 +1553,7 @@ def _castSpellOnPlayer(mud, spellName: str, players: {}, id, npcs: {},
             secondDesc.format(players[id]['name'],
                               'you') + '\n\n')
 
-    _removePreparedSpell(players, id, spellName)
+    removePreparedSpell(players, id, spellName)
 
 
 def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
