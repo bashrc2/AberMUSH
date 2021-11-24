@@ -4,7 +4,7 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "culture": "",
+        "culture": "ratfolk",
         "conv" : [
             [["e"],"Eeeek!"]
         ],
@@ -3342,7 +3342,7 @@
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
-        "culture": "",
+        "culture": "ratfolk",
         "conv" : [
             [["e","i","u","o"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously|# Lets forth a bloodcurdling shriek|# Cleans its whiskers|# Glares at you"]
         ],
