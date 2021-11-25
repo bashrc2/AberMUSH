@@ -12987,7 +12987,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Barrow",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13012,7 +13012,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Barrow",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -13035,7 +13035,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Barrow",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -13057,7 +13057,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Barrow",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -14119,7 +14119,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Shipwreck",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -14148,7 +14148,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Seal Island",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -14171,7 +14171,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Shipwreck",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -14197,7 +14197,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Seal Island",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -14221,7 +14221,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Seal Island",
         "terrainDifficulty": 0,
         "coords": []
     },
