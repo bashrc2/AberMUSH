@@ -1584,6 +1584,17 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
                 players[id]["magicShieldDuration"] = \
                     TimeStringToSec(spellDetails['duration'])
                 mud.sendMessage(id, "Magic shield active.\n\n")
+
+                # inform other players in the room
+                for pid in players:
+                    if pid == id:
+                        continue
+                    if players[pid]['room'] == players[id]['room']:
+                        _showSpellImage(mud, pid, "magic_shield", players)
+                        msgStr = \
+                            '<f32>' + players[id]['name'] + \
+                            '<r> activates a magic shield'
+                        mud.sendMessage(pid, msgStr + ".\n\n")
             else:
                 mud.sendMessage(id, "Magic shield is already active.\n\n")
             _showSpellImage(mud, id, "magic_shield", players)
