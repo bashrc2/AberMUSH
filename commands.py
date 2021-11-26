@@ -1078,8 +1078,10 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.sendMessage(id,
                     '  <f220>look/examine<f255>' +
                     '                            - ' +
-                    'Examines the ' +
-                    "surroundings, items in the room, NPCs or other " +
+                    'Examines the surroundings,\n' +
+                    '                            ' +
+                    '                            ' +
+                    "items in the room, NPCs or other " +
                     "players e.g. 'examine inn-keeper'")
     mud.sendMessage(id,
                     '  <f220>go [exit]<f255>' +
