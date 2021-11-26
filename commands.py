@@ -1579,6 +1579,7 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
     elif spellAction.startswith('defen'):
         # defense spells
         if spellName.endswith('shield') and spellDetails.get('armor'):
+            _showSpellImage(mud, id, "magic_shield", players)
             if not players[id]["magicShield"]:
                 removePreparedSpell(players, id, spellName)
                 players[id]['magicShield'] = spellDetails['armor']
@@ -1599,7 +1600,6 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
                         mud.sendMessage(pid, msgStr + ".\n\n")
             else:
                 mud.sendMessage(id, "Magic shield is already active.\n\n")
-            _showSpellImage(mud, id, "magic_shield", players)
             return
     mud.sendMessage(id, "Nothing happens.\n\n")
 
