@@ -1586,6 +1586,7 @@ def _castSpellUndirected(params, mud, playersDB: {}, players: {}, rooms: {},
                 mud.sendMessage(id, "Magic shield active.\n\n")
             else:
                 mud.sendMessage(id, "Magic shield is already active.\n\n")
+            _showSpellImage(mud, id, "magic_shield", players)
             return
     mud.sendMessage(id, "Nothing happens.\n\n")
 
