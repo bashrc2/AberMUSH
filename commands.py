@@ -1079,7 +1079,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
                     '  <f220>look/examine<f255>' +
                     '                            - ' +
                     'Examines the surroundings,\n' +
-                    '                            ' +
+                    '                ' +
                     '                            ' +
                     "items in the room, NPCs or other " +
                     "players e.g. 'examine inn-keeper'")
