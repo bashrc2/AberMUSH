@@ -5021,7 +5021,8 @@ def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
     if not hasRod:
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
-        descStr = 'You need a rod|You need something to fish with'
+        descStr = 'You need to be holding a rod|' + \
+            'You need to be holding something to fish with'
         mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
         return
     rid = players[id]['room']

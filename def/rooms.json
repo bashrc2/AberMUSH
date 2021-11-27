@@ -2029,7 +2029,7 @@
         "eventOnLeave": "",
         "maxPlayerSize": -1,
         "maxPlayers": -1,
-        "weather": 0,
+        "weather": 1,
         "onWater": 0,
         "roomType": "",
         "virtualExits": {},
