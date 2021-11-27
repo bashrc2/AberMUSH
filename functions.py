@@ -381,6 +381,8 @@ def loadPlayersDB(forceLowercase=True):
                 DB[f]['magicShield'] = 0
                 DB[f]['magicShieldStart'] = 0
                 DB[f]['magicShieldDuration'] = 0
+            if 'isFishing' in DB[f]:
+                del DB[f]['isFishing']
 
     if forceLowercase is True:
         out = {}

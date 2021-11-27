@@ -111,6 +111,9 @@ def _prone(params, mud, playersDB: {}, players: {}, rooms: {},
         describeTrappedPlayer(mud, id, players, rooms)
         return
 
+    if 'isFishing' in players[id]:
+        del players[id]['isFishing']
+
     if not playerIsProne(id, players):
         msgStr = 'You lie down<r>\n\n'
         mud.sendMessage(id, randomDescription(msgStr))
@@ -3793,6 +3796,9 @@ def _wield(params, mud, playersDB: {}, players: {}, rooms: {},
     if int(players[id]['clo_rleg']) == itemID:
         players[id]['clo_rleg'] = 0
 
+    if 'isFishing' in players[id]:
+        del players[id]['isFishing']
+
     if itemHand == 0:
         if int(players[id]['clo_rhand']) == itemID:
             players[id]['clo_rhand'] = 0
@@ -3846,6 +3852,9 @@ def _stow(params, mud, playersDB: {}, players: {}, rooms: {},
                     players[id][stowLocation] = 0
 
     stowHands(id, players, itemsDB, mud)
+
+    if 'isFishing' in players[id]:
+        del players[id]['isFishing']
 
 
 def _wearClothing(itemID, players: {}, id, clothingType,
@@ -4315,6 +4324,9 @@ def _climbBase(params, mud, playersDB: {}, players: {}, rooms: {},
                         failMsg = 'You try to sit, but totally fail'
                     mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
                 return
+
+            if 'isFishing' in players[id]:
+                del players[id]['isFishing']
 
             desc = \
                 randomDescription(players[id]['outDescription'])
@@ -4978,6 +4990,82 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "That's not sold here\n\n")
 
 
+def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+          itemHistory: {}, markets: {}, culturesDB: {}):
+    """Go fishing
+    """
+    if players[id]['frozenStart'] != 0:
+        mud.sendMessage(
+            id, randomDescription(
+                players[id]['frozenDescription']) + '<r>\n\n')
+        return
+
+    if playerIsTrapped(id, players, rooms):
+        describeTrappedPlayer(mud, id, players, rooms)
+        return
+
+    hasRod = False
+    itemID = int(players[id]['clo_lhand'])
+    if itemID > 0:
+        if 'fishing' in itemsDB[itemID]['name']:
+            hasRod = True
+    itemID = int(players[id]['clo_rhand'])
+    if itemID > 0:
+        if 'fishing' in itemsDB[itemID]['name']:
+            hasRod = True
+    if not hasRod:
+        if 'isFishing' in players[id]:
+            del players[id]['isFishing']
+        descStr = 'You need a rod|You need something to fish with'
+        mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
+        return
+    rid = players[id]['room']
+    fishingSites = ('river', 'lake', 'sea', 'ocean')
+    isFishingSite = False
+    roomNameLower = rooms[rid]['name'].lower()
+    for site in fishingSites:
+        if site in roomNameLower:
+            isFishingSite = True
+            break
+    if not isFishingSite:
+        if 'isFishing' in players[id]:
+            del players[id]['isFishing']
+        descStr = "This isn't a fishing site|" + \
+            "You can't fish here|" + \
+            "This does not appear to be a fishing location"
+        mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
+        return
+    if rooms[rid]['weather'] != 1:
+        if 'isFishing' in players[id]:
+            del players[id]['isFishing']
+        descStr = "You can only fish outdoors"
+        mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
+        return
+    if 'lava' in roomNameLower:
+        if 'isFishing' in players[id]:
+            del players[id]['isFishing']
+        descStr = "You won't find any fish here"
+        mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
+        return
+    if playerIsProne(id, players):
+        if 'isFishing' in players[id]:
+            del players[id]['isFishing']
+        descStr = "You can't fish while lying down"
+        mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
+        return
+    if 'isFishing' not in players[id]:
+        players[id]['isFishing'] = True
+        descStr = "You begin fishing"
+    else:
+        descStr = "You continue fishing"
+    mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
+
+
 def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -5205,6 +5293,9 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                                          culturesDB)
                 players[id]['room'] = rm['exits'][ex]
                 rm = rooms[players[id]['room']]
+
+                if 'isFishing' in players[id]:
+                    del players[id]['isFishing']
 
                 # trigger new room eventOnEnter for the player
                 if rooms[players[id]['room']]['eventOnEnter'] != "":
@@ -7138,7 +7229,8 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "buy": _buy,
         "purchase": _buy,
         "sell": _sell,
-        "trade": _sell
+        "trade": _sell,
+        "fish": _fish
     }
 
     try:

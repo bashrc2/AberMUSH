@@ -373,6 +373,7 @@ def _testFunctions():
         '_set_headers_etag',
         '_etag_exists',
         '_redirect_headers',
+        '_fish',
         '_404',
         '_304',
         '_503',
