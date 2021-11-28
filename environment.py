@@ -1035,15 +1035,15 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
     fishNames = []
     if 'lake' in roomNameLower:
         fishNames = (
-            'carp', 'pike', 'minnow'
+            'carp', 'pike fish', 'minnow'
         )
     elif 'river' in roomNameLower:
         fishNames = (
-            'trout', 'salmon'
+            'trout', 'carp'
         )
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
         fishNames = (
-            'cod', 'haddock', 'turbot', 'sturgeon', 'dogfish', 'pollack'
+            'cod fish', 'haddock', 'turbot', 'sturgeon', 'dogfish', 'pollack'
         )
     elif 'pond' in roomNameLower:
         fishNames = (
