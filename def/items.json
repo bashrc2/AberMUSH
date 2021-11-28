@@ -49164,8 +49164,8 @@
     },
     "1483": {
         "name": "pond weed",
-        "short_description": "A repulsive mass of pond weed which is green and slimy|A decaying globule of pond weed dredged up from the bottom of a pond",
-        "long_description": "A repulsive mass of pond weed which is green and slimy|A decaying globule of pond weed dredged up from the bottom of a pond",
+        "short_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
+        "long_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
