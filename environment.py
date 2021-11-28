@@ -1014,6 +1014,8 @@ def isFishingSite(rooms: {}, rid) -> bool:
     """Is the given location a fishing site?
     """
     fishingSites = ('river', 'lake', 'sea', 'ocean')
+    if rooms[rid]['weather'] != 1:
+        return False
     roomNameLower = rooms[rid]['name'].lower()
     for site in fishingSites:
         if site in roomNameLower:

@@ -5036,12 +5036,6 @@ def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
             "This does not appear to be a fishing location"
         mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
         return
-    if rooms[rid]['weather'] != 1:
-        if 'isFishing' in players[id]:
-            del players[id]['isFishing']
-        descStr = "You can only fish outdoors"
-        mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
-        return
     if 'lava' in roomNameLower:
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
