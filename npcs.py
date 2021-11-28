@@ -21,6 +21,7 @@ from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import randomDescription
 from functions import deepcopy
+from functions import parseCost
 from random import randint
 # from copy import deepcopy
 from familiar import getFamiliarModes
@@ -1254,18 +1255,12 @@ def _conversationSell(
                 sellIDStr = sellIDStr.strip()
                 itemSellID = int(sellIDStr)
                 cost = itemsDB[sellIDStr]['cost']
-                if sellIDStr in players[id]['inv'] and cost:
-                    # increase the player's money
-                    denomination = 'gp'
-                    if cost.endswith('sp'):
-                        denomination = 'sp'
-                    elif cost.endswith('cp'):
-                        denomination = 'cp'
-                    elif cost.endswith('ep'):
-                        denomination = 'ep'
-                    elif cost.endswith('pp'):
-                        denomination = 'pp'
-                    qty = int(cost.replace(denomination, ''))
+                qty = 0
+                denomination = None
+                if cost:
+                    qty, denomination = parseCost(cost)
+                if sellIDStr in players[id]['inv'] and \
+                   cost and qty and denomination:
                     players[id][denomination] += qty
 
                     # decrease the players inventory

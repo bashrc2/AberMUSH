@@ -726,3 +726,23 @@ def setPlayerProne(id, players: {}, prone: bool) -> None:
         players[id]['prone'] = 1
     else:
         players[id]['prone'] = 0
+
+
+def parseCost(costStr: str) -> (int, str):
+    """Parses a cost string and returns quantity and denomination
+    """
+    denomination = None
+    if costStr.endswith('gp'):
+        denomination = 'gp'
+    elif costStr.endswith('sp'):
+        denomination = 'sp'
+    elif costStr.endswith('cp'):
+        denomination = 'cp'
+    elif costStr.endswith('ep'):
+        denomination = 'ep'
+    elif costStr.endswith('pp'):
+        denomination = 'pp'
+    if not denomination:
+        return None, None
+    qty = int(costStr.replace(denomination, ''))
+    return qty, denomination

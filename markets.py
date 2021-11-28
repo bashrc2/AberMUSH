@@ -7,6 +7,7 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = ""
 
+from functions import parseCost
 from environment import getRoomCulture
 
 
@@ -117,17 +118,9 @@ def buyItem(players: {}, id, itemID, itemsDB: {}, cost: str) -> bool:
     if cost == '0':
         cost = '0gp'
 
-    denomination = 'gp'
-    if cost.endswith('sp'):
-        denomination = 'sp'
-    elif cost.endswith('cp'):
-        denomination = 'cp'
-    elif cost.endswith('ep'):
-        denomination = 'ep'
-    elif cost.endswith('pp'):
-        denomination = 'pp'
-
-    qty = int(cost.replace(denomination, ''))
+    qty, denomination = parseCost(cost)
+    if not qty or not denomination:
+        return False
     if denomination not in players[id]:
         return False
     if int(players[id][denomination]) >= qty:
