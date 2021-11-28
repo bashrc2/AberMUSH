@@ -1809,7 +1809,7 @@
         "description": "You are crouched in a small, narrow and smelly recess. It is barely big enough for you to stand up in, and completely dark.",
         "roomTeleport": "",
         "conditional": [
-            ["hold","lightsource","You are crouched in a small, narrow and smelly recess. It is barely big enough for you to stand up in. In the dim light to see narrow stone stairs set into the wall of the house, which lead downwards.","183"]
+            ["hold","lightsource","You are crouched in a small, narrow and smelly recess. It is barely big enough for you to stand up in. In the dim light to see narrow stone stairs set into the wall of the house, which lead downwards.","183_light"]
         ],
         "trap": {},
         "eventOnEnter": "",
