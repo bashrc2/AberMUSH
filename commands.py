@@ -32,6 +32,7 @@ from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import getGuildSentiment
+from environment import isFishingSite
 from environment import getRoomCulture
 from environment import runTide
 from environment import getRainAtCoords
@@ -5026,14 +5027,8 @@ def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
         return
     rid = players[id]['room']
-    fishingSites = ('river', 'lake', 'sea', 'ocean')
-    isFishingSite = False
     roomNameLower = rooms[rid]['name'].lower()
-    for site in fishingSites:
-        if site in roomNameLower:
-            isFishingSite = True
-            break
-    if not isFishingSite:
+    if not isFishingSite(rooms, rid):
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
         descStr = "This isn't a fishing site|" + \

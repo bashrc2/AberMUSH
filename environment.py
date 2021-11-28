@@ -11,8 +11,8 @@ __module_group__ = "Environment Simulation"
 from random import randint
 import random
 from math import sin
-
 import datetime
+from functions import randomDescription
 
 rainThreshold = 230
 
@@ -1008,3 +1008,69 @@ def getRoomCulture(culturesDB: {}, rooms: {}, roomId) -> str:
         if region in item['regions']:
             return cultureName
     return None
+
+
+def isFishingSite(rooms: {}, rid) -> bool:
+    """Is the given location a fishing site?
+    """
+    fishingSites = ('river', 'lake', 'sea', 'ocean')
+    roomNameLower = rooms[rid]['name'].lower()
+    for site in fishingSites:
+        if site in roomNameLower:
+            return True
+    return False
+
+
+def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
+    """The player catches a fish
+    """
+    if randint(1, 100) < 80:
+        return
+    rid = players[id]['room']
+    if not isFishingSite(rooms, rid):
+        return
+    roomNameLower = rooms[rid]['name'].lower()
+    fishNames = []
+    if 'river' in roomNameLower or 'lake' in roomNameLower:
+        fishNames = (
+            'carp', 'pike', 'trout', 'minnow', 'salmon'
+        )
+    elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
+        fishNames = (
+            'cod', 'haddock', 'turbot', 'sturgeon', 'dogfish', 'pollack'
+        )
+    if not fishNames:
+        return
+    fishIds = []
+    noOfFish = 0
+    for iid, item in itemsDB.items():
+        if item['edible'] <= 0:
+            continue
+        if item['weight'] <= 0:
+            continue
+        itemNameLower = item['name'].lower()
+        for fish in fishNames:
+            if fish in itemNameLower:
+                if iid in players[id]['inv']:
+                    noOfFish += 1
+                fishIds.append(iid)
+    if noOfFish > 1:
+        return
+    if not fishIds:
+        return
+    caughtId = random.choice(fishIds)
+    if caughtId in players[id]['inv']:
+        return
+    caughtStr = itemsDB[caughtId]['article'] + ' ' + itemsDB[caughtId]['name']
+    msgStr = randomDescription('You catch ' + caughtStr)
+    players[id]['inv'].append(caughtId)
+    del players[id]['isFishing']
+    mud.sendMessage(id, msgStr + '\n\n')
+
+
+def playersFishing(players: {}, rooms: {}, itemsDB: {}, mud) -> None:
+    """Updates players that are fishing
+    """
+    for p in players:
+        if players[p].get('isFishing'):
+            _catchFish(players, p, rooms, itemsDB, mud)

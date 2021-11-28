@@ -51,6 +51,7 @@ from reaper import runDeaths
 from scheduler import runSchedule
 from scheduler import runEnvironment
 from scheduler import runMessages
+from environment import playersFishing
 from environment import assignTerrainDifficulty
 from environment import assignCoordinates
 from environment import generateCloud
@@ -545,6 +546,8 @@ dayMins = (currHour * 60) + currMin
 random.seed((daysSinceEpoch * 1440) + dayMins)
 lastWeatherUpdate = int(time.time())
 weatherUpdateInterval = 120
+fishingUpdateInterval = 120
+lastFishingUpdate = int(time.time())
 clouds = {}
 cloudGrid = {}
 tileSize = 2
@@ -642,6 +645,10 @@ while True:
         previousTiming = \
             showTiming(previousTiming, "calc wind directions")
         # plotClouds(rooms, mapArea, clouds, temperature)
+
+    if now >= lastFishingUpdate + fishingUpdateInterval:
+        playersFishing(players, rooms, itemsDB, mud)
+        lastFishingUpdate = now
 
     # update player list
     playerList = []
