@@ -62,7 +62,8 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
         mud.sendMessage(id, "\n>")
         return True
 
-    if command == 'telnet':
+    if command == 'telnet' or command == "telnetadmin" or \
+       command == "admin" or command == "linuxshell" or command == "root":
         mud.sendMessage(id, "<f220>Connected to DSS port C")
         mud.sendMessage(id, "\n<f220>Datanet 1200 open")
         mud.sendMessage(id, "\n>")
@@ -208,7 +209,8 @@ def terminalEmulator(command: str, params: str, mud, id) -> bool:
                     "seq", "sleep", "stat", "stdbuf", "stty", "tee", "test",
                     "timeout", "true", "tty", "uname", "unlink", "uptime",
                     "users", "useradd", "adduser", "yes", "/bin/busybox",
-                    "busybox", "/bin/bash", "bash", "/bin/sh")
+                    "busybox", "/bin/bash", "bash", "/bin/sh", "bin",
+                    "root")
     if command in invalidNames:
         mud.sendMessage(id, "<f220>System GCOS3 MOD400 - S104 -0714/1417")
         mud.sendMessage(id, "<f220>Aberystwyth Computing " +
