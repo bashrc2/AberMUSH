@@ -967,11 +967,11 @@ def _conversationGive(bestMatch: str, bestMatchAction: str,
     return False
 
 
-def _conversationSkill(bestMatch, bestMatchAction,
-                       bestMatchActionParam0,
-                       bestMatchActionParam1,
-                       players, id, mud, npcs, nid, itemsDB,
-                       puzzledStr, guildsDB) -> bool:
+def _conversationSkill(bestMatch: str, bestMatchAction: str,
+                       bestMatchActionParam0: str,
+                       bestMatchActionParam1: str,
+                       players: {}, id, mud, npcs: {}, nid, itemsDB: {},
+                       puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC gives or alters a skill
     """
     if bestMatchAction == 'skill' or \
@@ -1018,11 +1018,11 @@ def _conversationSkill(bestMatch, bestMatchAction,
 
 
 def _conversationExperience(
-        bestMatch, bestMatchAction,
-        bestMatchActionParam0,
-        bestMatchActionParam1,
-        players, id, mud, npcs, nid, itemsDB,
-        puzzledStr, guildsDB) -> bool:
+        bestMatch: str, bestMatchAction: str,
+        bestMatchActionParam0: str,
+        bestMatchActionParam1: str,
+        players: {}, id, mud, npcs: {}, nid, itemsDB: {},
+        puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC increases your experience
     """
     if bestMatchAction == 'exp' or \
@@ -1042,11 +1042,11 @@ def _conversationExperience(
 
 
 def _conversationJoinGuild(
-        bestMatch, bestMatchAction,
-        bestMatchActionParam0,
-        bestMatchActionParam1,
-        players, id, mud, npcs, nid, itemsDB,
-        puzzledStr, guildsDB) -> bool:
+        bestMatch: str, bestMatchAction: str,
+        bestMatchActionParam0: str,
+        bestMatchActionParam1: str,
+        players: {}, id, mud, npcs: {}, nid, itemsDB: {},
+        puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC adds you to a guild
     """
     if bestMatchAction == 'clan' or \
@@ -1069,11 +1069,11 @@ def _conversationJoinGuild(
 
 
 def _conversationFamiliarMode(
-        bestMatch, bestMatchAction,
-        bestMatchActionParam0,
-        bestMatchActionParam1,
-        players, id, mud, npcs, npcsDB, rooms,
-        nid, items, itemsDB, puzzledStr) -> bool:
+        bestMatch: str, bestMatchAction: str,
+        bestMatchActionParam0: str,
+        bestMatchActionParam1: str,
+        players: {}, id, mud, npcs: {}, npcsDB: {}, rooms: {},
+        nid, items: {}, itemsDB: {}, puzzledStr: str) -> bool:
     """Switches the mode of a familiar
     """
     thisNPC = npcs[nid]
@@ -1110,7 +1110,7 @@ def _conversationFamiliarMode(
 
 
 def _conversationTransport(
-        bestMatchAction, bestMatchActionParam0,
+        bestMatchAction: str, bestMatchActionParam0: str,
         mud, id, players: {}, bestMatch, npcs: {}, nid,
         puzzledStr, guildsDB: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some location
@@ -1143,10 +1143,10 @@ def _conversationTransport(
 
 
 def _conversationTaxi(
-        bestMatchAction, bestMatchActionParam0,
-        bestMatchActionParam1, players,
-        id, mud, bestMatch, npcs, nid, itemsDB,
-        puzzledStr, guildsDB, rooms) -> bool:
+        bestMatchAction: str, bestMatchActionParam0: str,
+        bestMatchActionParam1: str, players: {},
+        id, mud, bestMatch, npcs: {}, nid, itemsDB: {},
+        puzzledStr: str, guildsDB: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some
     location in exchange for payment/barter
     """
@@ -1189,10 +1189,10 @@ def _conversationTaxi(
 
 
 def _conversationGiveOnDate(
-        bestMatchAction, bestMatchActionParam0,
-        bestMatchActionParam1, players,
-        id, mud, npcs, nid, itemsDB, bestMatch,
-        puzzledStr, guildsDB) -> bool:
+        bestMatchAction: str, bestMatchActionParam0: str,
+        bestMatchActionParam1: str, players: {},
+        id, mud, npcs: {}, nid, itemsDB: {}, bestMatch,
+        puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC gives something to you on
     a particular date of the year eg. Some festival or holiday
     """
@@ -1240,12 +1240,60 @@ def _conversationGiveOnDate(
     return False
 
 
+def _conversationSell(
+        bestMatch: str, bestMatchAction: str,
+        bestMatchActionParam0: str,
+        npcs: {}, nid, mud, id, players: {}, itemsDB: {},
+        puzzledStr: str, guildsDB: {}) -> bool:
+    """Conversation in which a player sells to an NPC
+    """
+    if bestMatchAction == 'sell':
+        sellItemIds = bestMatchActionParam0.split('|')
+        if len(bestMatchActionParam0) > 0 and sellItemIds:
+            for sellIDStr in sellItemIds:
+                sellIDStr = sellIDStr.strip()
+                itemSellID = int(sellIDStr)
+                cost = itemsDB[sellIDStr]['cost']
+                if sellIDStr in players[id]['inv'] and cost:
+                    # increase the player's money
+                    denomination = 'gp'
+                    if cost.endswith('sp'):
+                        denomination = 'sp'
+                    elif cost.endswith('cp'):
+                        denomination = 'cp'
+                    elif cost.endswith('ep'):
+                        denomination = 'ep'
+                    elif cost.endswith('pp'):
+                        denomination = 'pp'
+                    qty = int(cost.replace(denomination, ''))
+                    players[id][denomination] += qty
+
+                    # decrease the players inventory
+                    players[id]['inv'].remove(sellIDStr)
+                    updatePlayerAttributes(
+                        id, players, itemsDB, itemSellID, -1)
+                    players[id]['wei'] = \
+                        playerInventoryWeight(id, players, itemsDB)
+                    increaseAffinityBetweenPlayers(players, id, npcs,
+                                                   nid, guildsDB)
+                    increaseAffinityBetweenPlayers(npcs, nid, players,
+                                                   id, guildsDB)
+
+                    itemName = \
+                        itemsDB[sellIDStr]['article'] + ' ' + \
+                        itemsDB[sellIDStr]['name']
+                    mud.sendMessage(
+                        id, "You sell " + itemName + ".\n\n")
+                    return True
+    return False
+
+
 def _conversationBuyOrExchange(
-        bestMatch, bestMatchAction,
-        bestMatchActionParam0,
-        bestMatchActionParam1,
-        npcs, nid, mud, id, players, itemsDB,
-        puzzledStr, guildsDB) -> bool:
+        bestMatch: str, bestMatchAction: str,
+        bestMatchActionParam0: str,
+        bestMatchActionParam1: str,
+        npcs: {}, nid, mud, id, players: {}, itemsDB: {},
+        puzzledStr: str, guildsDB: {}) -> bool:
     """Conversation in which an NPC exchanges/swaps some item
     with you or in which you buy some item from them
     """
@@ -1493,6 +1541,13 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                        players, id, mud, npcs, nid,
                                        itemsDB, bestMatch, puzzledStr,
                                        guildsDB):
+                return
+
+            # sell
+            if _conversationSell(bestMatch, bestMatchAction,
+                                 bestMatchActionParam0,
+                                 npcs, nid, mud, id, players,
+                                 itemsDB, puzzledStr, guildsDB):
                 return
 
             # buy or exchange
