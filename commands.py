@@ -4199,11 +4199,20 @@ def _eat(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.sendMessage(id, "Your don't have " + params + ".\n\n")
         return
 
-    mud.sendMessage(id, "You consume " + itemsDB[foodItemID]['article'] +
-                    " " + itemsDB[foodItemID]['name'] + ".\n\n")
+    edibility = itemsDB[foodItemID]['edible']
+
+    foodStr = \
+        itemsDB[foodItemID]['article'] + " " + itemsDB[foodItemID]['name']
+    if edibility > 1:
+        eatStr = "You consume " + foodStr
+    else:
+        eatStr = "With extreme reluctance, you eat " + foodStr + '|' + \
+            "You eat " + foodStr + ", but now you wish that you hadn't|" + \
+            "Revoltingly, you eat " + foodStr
+    mud.sendMessage(id, eatStr + ".\n\n")
 
     # Alter hp
-    players[id]['hp'] = players[id]['hp'] + itemsDB[foodItemID]['edible']
+    players[id]['hp'] = players[id]['hp'] + edibility
     if players[id]['hp'] > 100:
         players[id]['hp'] = 100
 

@@ -1013,7 +1013,7 @@ def getRoomCulture(culturesDB: {}, rooms: {}, roomId) -> str:
 def isFishingSite(rooms: {}, rid) -> bool:
     """Is the given location a fishing site?
     """
-    fishingSites = ('river', 'lake', 'sea', 'ocean')
+    fishingSites = ('river', 'lake', 'sea', 'ocean', 'pond')
     if rooms[rid]['weather'] != 1:
         return False
     roomNameLower = rooms[rid]['name'].lower()
@@ -1040,6 +1040,10 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
         fishNames = (
             'cod', 'haddock', 'turbot', 'sturgeon', 'dogfish', 'pollack'
+        )
+    elif 'pond' in roomNameLower:
+        fishNames = (
+            'pond weed'
         )
     if not fishNames:
         return
