@@ -1060,13 +1060,29 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
         return
     roomNameLower = rooms[rid]['name'].lower()
     fishNames = []
+    fishingSeason = {
+        "carp": [4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "pike fish": [1, 2, 3, 9, 10, 11, 12],
+        "minnow": [],
+        "tench": [],
+        "chub": [1, 2, 3, 6, 7, 8, 9, 10, 11, 12],
+        "trout": [1, 2, 3, 4, 5, 6, 9, 10, 11, 12],
+        "cod fish": [1, 2, 10, 11, 12],
+        "haddock": [1, 9, 10, 11, 12],
+        "turbot": [1, 9, 10, 11, 12],
+        "sturgeon": [],
+        "dogfish": [4, 5, 6, 7, 8, 9, 10],
+        "pollack": [4, 5, 6, 7, 8, 9, 10],
+        "sea bass": [5, 6, 7, 8, 9, 10, 11, 12],
+        "mullet": [5, 6, 7, 8, 9, 10, 11, 12]
+    }
     if 'lake' in roomNameLower:
         fishNames = (
-            'carp', 'pike fish', 'minnow'
+            'carp', 'pike fish', 'minnow', 'tench'
         )
     elif 'river' in roomNameLower:
         fishNames = (
-            'trout', 'carp'
+            'trout', 'chub'
         )
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
         if not _holdingFlyFishingRod(players, id, itemsDB):
@@ -1086,6 +1102,7 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
     if not fishNames:
         return
     fishIds = []
+    currMonthNumber = int(datetime.datetime.today().strftime("%m"))
     noOfFish = 0
     for iid, item in itemsDB.items():
         if item['edible'] <= 0:
@@ -1097,7 +1114,12 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
             if fish in itemNameLower:
                 if iid in players[id]['inv']:
                     noOfFish += 1
-                fishIds.append(iid)
+                # is this fishable at this time of year?
+                if fishingSeason.get(fish):
+                    if currMonthNumber in fishingSeason[fish]:
+                        fishIds.append(iid)
+                else:
+                    fishIds.append(iid)
     if noOfFish > 1:
         return
     if not fishIds:
