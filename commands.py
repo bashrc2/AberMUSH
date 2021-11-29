@@ -32,6 +32,7 @@ from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import getGuildSentiment
+from environment import holdingFishingRod
 from environment import isFishingSite
 from environment import getRoomCulture
 from environment import runTide
@@ -5041,16 +5042,7 @@ def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
         describeTrappedPlayer(mud, id, players, rooms)
         return
 
-    hasRod = False
-    itemID = int(players[id]['clo_lhand'])
-    if itemID > 0:
-        if 'fishing' in itemsDB[itemID]['name']:
-            hasRod = True
-    itemID = int(players[id]['clo_rhand'])
-    if itemID > 0:
-        if 'fishing' in itemsDB[itemID]['name']:
-            hasRod = True
-    if not hasRod:
+    if not holdingFishingRod(players, id, itemsDB):
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
         descStr = 'You need to be holding a rod|' + \

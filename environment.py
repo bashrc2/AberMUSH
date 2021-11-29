@@ -1023,12 +1023,39 @@ def isFishingSite(rooms: {}, rid) -> bool:
     return False
 
 
+def holdingFishingRod(players: {}, id, itemsDB: {}) -> bool:
+    """Is the given player holding a fishing rod?
+    """
+    handLocations = ('clo_lhand', 'clo_rhand')
+    for hand in handLocations:
+        itemID = int(players[id][hand])
+        if itemID > 0:
+            if 'fishing' in itemsDB[itemID]['name']:
+                return True
+    return False
+
+
+def _holdingFlyFishingRod(players: {}, id, itemsDB: {}) -> bool:
+    """Is the given player holding a fly fishing rod?
+    """
+    handLocations = ('clo_lhand', 'clo_rhand')
+    for hand in handLocations:
+        itemID = int(players[id][hand])
+        if itemID > 0:
+            if 'fishing' in itemsDB[itemID]['name']:
+                if 'fly' in itemsDB[itemID]['name']:
+                    return True
+    return False
+
+
 def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
     """The player catches a fish
     """
     if randint(1, 100) < 80:
         return
     rid = players[id]['room']
+    if not holdingFishingRod(players, id, itemsDB):
+        return
     if not isFishingSite(rooms, rid):
         return
     roomNameLower = rooms[rid]['name'].lower()
@@ -1042,13 +1069,20 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
             'trout', 'carp'
         )
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
-        fishNames = (
-            'cod fish', 'haddock', 'turbot', 'sturgeon', 'dogfish', 'pollack'
-        )
+        if not _holdingFlyFishingRod(players, id, itemsDB):
+            fishNames = (
+                'cod fish', 'haddock', 'turbot', 'sturgeon',
+                'dogfish', 'pollack', 'sea bass', 'mullet'
+            )
+        else:
+            fishNames = (
+                'sea bass', 'mullet'
+            )
     elif 'pond' in roomNameLower:
-        fishNames = (
-            'pond weed'
-        )
+        if not _holdingFlyFishingRod(players, id, itemsDB):
+            fishNames = (
+                'pond weed'
+            )
     if not fishNames:
         return
     fishIds = []
