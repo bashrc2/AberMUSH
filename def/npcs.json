@@ -7008,7 +7008,7 @@
         "language": ["common","dwarvish"],
         "culture": "",
         "conv" : [
-            [["buy","sell","purchase","fish"],"A fair trade","sell","1484|1485|1486|1487|1488|1489|1490|1491|1492|1493|1494|1495"],
+            [["buy","sell","purchase","fish"],"A fair trade","sell","1484|1485|1486|1487|1488|1489|1490|1491|1492|1493|1494|1495|1497|1498"],
 	    [["a","e","i"],"Fair day to ye|Greetings"]
 	],
         "path" : ["$rid=417$","$rid=419$"],
