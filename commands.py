@@ -3719,17 +3719,6 @@ def _wield(params, mud, playersDB: {}, players: {}, rooms: {},
            mapArea: [], characterClassDB: {}, spellsDB: {},
            sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
            itemHistory: {}, markets: {}, culturesDB: {}):
-    # wield fishing rod
-    if 'fishing' in params or params == 'rod' or params == 'fish':
-        _fish(params, mud, playersDB, players, rooms,
-              npcsDB, npcs, itemsDB, items,
-              envDB, env, eventDB, eventSchedule,
-              id, fights, corpses, blocklist,
-              mapArea, characterClassDB, spellsDB,
-              sentimentDB, guildsDB, clouds, racesDB,
-              itemHistory, markets, culturesDB)
-        return
-
     if players[id]['frozenStart'] != 0:
         mud.sendMessage(
             id, randomDescription(

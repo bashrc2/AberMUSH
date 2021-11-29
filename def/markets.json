@@ -39,6 +39,18 @@
 	    "earring", "necklace", "red ring", "pendant", "amulet", "bracelet"
 	]
     },
+    "costermonger|fishmonger": {
+	"guild": "Fishmongers",
+	"trades": [
+	    "carp", "pike fish", "minnow", "tench", "trout", "chub", "cod fish", "haddock", "turbot", "sturgeon", "dogfish", "pollack", "sea bass", "mullet"
+	]
+    },
+    "fisher|fishing": {
+	"guild": "Fishmongers",
+	"trades": [
+	    "fishing rod", "fly fishing rod"
+	]
+    },
     "bakery|baker's shop": {
 	"guild": "Bakers",
 	"sells": [
