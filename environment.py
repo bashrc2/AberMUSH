@@ -1035,7 +1035,7 @@ def holdingFishingRod(players: {}, id, itemsDB: {}) -> bool:
     return False
 
 
-def _holdingFlyFishingRod(players: {}, id, itemsDB: {}) -> bool:
+def holdingFlyFishingRod(players: {}, id, itemsDB: {}) -> bool:
     """Is the given player holding a fly fishing rod?
     """
     handLocations = ('clo_lhand', 'clo_rhand')
@@ -1085,7 +1085,7 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
             'trout', 'chub'
         )
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
-        if not _holdingFlyFishingRod(players, id, itemsDB):
+        if not holdingFlyFishingRod(players, id, itemsDB):
             fishNames = (
                 'cod fish', 'haddock', 'turbot', 'sturgeon',
                 'dogfish', 'pollack', 'sea bass', 'mullet'
@@ -1095,7 +1095,7 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
                 'sea bass', 'mullet'
             )
     elif 'pond' in roomNameLower:
-        if not _holdingFlyFishingRod(players, id, itemsDB):
+        if not holdingFlyFishingRod(players, id, itemsDB):
             fishNames = (
                 'pond weed'
             )

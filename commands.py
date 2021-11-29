@@ -32,6 +32,7 @@ from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import getGuildSentiment
+from environment import holdingFlyFishingRod
 from environment import holdingFishingRod
 from environment import isFishingSite
 from environment import getRoomCulture
@@ -5062,7 +5063,15 @@ def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
         return
     if 'isFishing' not in players[id]:
         players[id]['isFishing'] = True
-        descStr = "You begin fishing"
+        if holdingFlyFishingRod(players, id, itemsDB):
+            descStr = "You prepare the fly and then cast it out|" + \
+                "You wave the rod back and forth and cast out the fly|" + \
+                "Casting out the fly, you begin fishing"
+        else:
+            descStr = \
+                "With a forwards flick of the rod you cast out the line|" + \
+                "Casting out the line with a forward flick of the rod, " + \
+                "you begin fishing"
     else:
         descStr = "You continue fishing"
     mud.sendMessage(id, randomDescription(descStr) + '<r>\n\n')
