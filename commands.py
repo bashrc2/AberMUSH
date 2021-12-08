@@ -84,6 +84,7 @@ from functions import deepcopy
 import time
 import datetime
 import os.path
+import random
 from random import randint
 
 import decimal
@@ -6828,6 +6829,19 @@ def _putItem(params, mud, playersDB: {}, players: {}, rooms: {},
                         return
 
     mud.sendMessage(id, "You don't see " + containerName + ".\n\n")
+
+
+def _getRandomRoomInRegions(rooms: {}, regionsList: []) -> str:
+    """Returns a random room within the given regions
+    """
+    possibleRooms = []
+    for roomId, item in rooms.items():
+        if item.get('region'):
+            if item['region'] in regionsList:
+                possibleRooms.append(roomId)
+    if not possibleRooms:
+        return None
+    return random.choice(possibleRooms)
 
 
 def _take(params, mud, playersDB: {}, players: {}, rooms: {},
