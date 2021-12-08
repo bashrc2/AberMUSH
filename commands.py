@@ -8,6 +8,7 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Command Interface"
 
+from functions import parseCost
 from functions import playerIsProne
 from functions import setPlayerProne
 from functions import wearLocation
@@ -5147,14 +5148,9 @@ def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
 
         # Increase your money
         itemCost = itemsDB[itemID]['cost']
-        denomination = 'gp'
-        if itemCost.endswith('cp'):
-            denomination = 'cp'
-        elif itemCost.endswith('ep'):
-            denomination = 'ep'
-        elif itemCost.endswith('pp'):
-            denomination = 'pp'
-        if denomination in itemCost:
+        # TODO the cost may vary depending upon room/region/time
+        qty, denomination = parseCost(itemCost)
+        if denomination:
             if denomination in players[id]:
                 qty = int(itemCost.replace(denomination, ''))
                 players[id][denomination] += qty
