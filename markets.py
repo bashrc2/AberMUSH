@@ -11,6 +11,70 @@ from functions import parseCost
 from environment import getRoomCulture
 
 
+exchangeRate = {
+    "cp": {
+        "cp": 1,
+        "sp": 10,
+        "ep": 50,
+        "gp": 100,
+        "pp": 1000
+    },
+    "sp": {
+        "cp": 0.1,
+        "sp": 1,
+        "ep": 5,
+        "gp": 10,
+        "pp": 100
+    },
+    "ep": {
+        "cp": 0.02,
+        "sp": 0.2,
+        "ep": 1,
+        "gp": 2,
+        "pp": 20
+    },
+    "gp": {
+        "cp": 0.01,
+        "sp": 0.1,
+        "ep": 0.5,
+        "gp": 1,
+        "pp": 10
+    },
+    "pp": {
+        "cp": 0.001,
+        "sp": 0.01,
+        "ep": 0.05,
+        "gp": 0.1,
+        "pp": 1
+    }
+}
+
+
+def moneyPurchase(id, players: {}, cost: str) -> bool:
+    """Does the player have enough money to buy something at the given cost?
+    """
+    costDenom = None
+    costValue = 0
+    for denom, ex in exchangeRate.items():
+        if not cost.endswith(denom):
+            continue
+        costStr = cost.replace(denom, '')
+        if not costStr.isdigit():
+            return False
+        costValue = int(costStr)
+        costDenom = denom
+
+    if not costDenom:
+        return False
+
+    for denom, qty in exchangeRate[costDenom].items():
+        minQty = int((1.0 / qty) * costValue)
+        if players[id][denom] >= minQty:
+            players[id][denom] -= minQty
+            return True
+    return False
+
+
 def getMarketType(roomName: str, markets: {}) -> str:
     """Returns the market type for the room name
     """

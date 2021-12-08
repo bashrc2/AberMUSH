@@ -265,6 +265,7 @@ for k in itemsDB:
                v == "state" or
                v == "visibleWhenWearing" or
                v == "climbWhenWearing" or
+               v == "respawnInRegion" or
                v == "type" or
                v == "writeWithItems" or
                v == "written" or

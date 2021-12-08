@@ -6967,7 +6967,15 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
                     playerInventoryWeight(id, players, itemsDB)
                 updatePlayerAttributes(id, players, itemsDB, itemIndex, 1)
                 # remove the item from the dict
-                del items[iid]
+                if not itemsDB[itemIndex].get('respawnInRegion'):
+                    del items[iid]
+                else:
+                    regionsList = itemsDB[itemIndex]['respawnInRegion']
+                    newRoomId = _getRandomRoomInRegions(rooms, regionsList)
+                    if not newRoomId:
+                        del items[iid]
+                    else:
+                        items[iid]['room'] = newRoomId
                 itemPickedUp = True
                 break
             else:

@@ -11,6 +11,7 @@ __module_group__ = "Unit Testing"
 import os
 import json
 import configparser
+from markets import moneyPurchase
 
 
 def getFunctionCallArgs(name: str, lines: [], startLineCtr: int) -> []:
@@ -655,8 +656,42 @@ def _testDuplicateExits():
                 ids.append(exitRoomId)
 
 
+def _testMoneyPurchase() -> None:
+    print("testMoneyPurchase")
+    id = "me"
+    players = {
+        id: {
+            "cp": 0,
+            "sp": 0,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0
+        }
+    }
+    assert moneyPurchase(id, players, "0gp")
+    players[id]["gp"] = 100
+    assert moneyPurchase(id, players, "0gp")
+    assert not moneyPurchase(id, players, "101gp")
+    assert moneyPurchase(id, players, "40gp")
+    if players[id]["gp"] != 60:
+        print('gp ' + str(players[id]["gp"]))
+    assert players[id]["gp"] == 60
+    players = {
+        id: {
+            "cp": 0,
+            "sp": 30,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0
+        }
+    }
+    assert moneyPurchase(id, players, "2gp")
+    assert players[id]["sp"] == 10
+
+
 def runAllTests():
     print('Running tests...')
     _testFunctions()
     _testDuplicateExits()
+    _testMoneyPurchase()
     print('Tests succeeded\n')
