@@ -187,7 +187,6 @@ def buyItem(players: {}, id, itemID, itemsDB: {}, cost: str) -> bool:
         return False
     if denomination not in players[id]:
         return False
-    if int(players[id][denomination]) >= qty:
-        players[id][denomination] = int(players[id][denomination]) - qty
+    if moneyPurchase(id, players, cost):
         return True
     return False
