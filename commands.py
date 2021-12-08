@@ -74,6 +74,7 @@ from npcs import getSolar
 from markets import buyItem
 from markets import marketBuysItemTypes
 from markets import getMarketType
+from markets import moneyPurchase
 
 from familiar import getFamiliarName
 
@@ -6065,6 +6066,119 @@ def _destroy(params, mud, playersDB: {}, players: {}, rooms: {},
                          itemHistory, markets, culturesDB)
 
 
+def _give(params, mud, playersDB: {}, players: {}, rooms: {},
+          npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
+          envDB: {}, env: {}, eventDB: {}, eventSchedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          mapArea: [], characterClassDB: {}, spellsDB: {},
+          sentimentDB: {}, guildsDB: {}, clouds: {}, racesDB: {},
+          itemHistory: {}, markets: {}, culturesDB: {}):
+    if ' to ' not in params:
+        desc = (
+            "Give to who?"
+        )
+        mud.sendMessage(id, randomDescription(desc) + '.\n\n')
+        return
+    recipientName = params.split(' to ')[1].lower()
+    recipientId = None
+    for pid, playerItem in players.items():
+        if pid == id:
+            continue
+        if recipientName not in playerItem['name'].lower():
+            continue
+        if playerItem['room'] != players[id]['room']:
+            continue
+        recipientId = pid
+    if not recipientId:
+        desc = (
+            "You don't see them here"
+        )
+        mud.sendMessage(id, randomDescription(desc) + '.\n\n')
+        return
+    giveStr = params.split(' to ')[0].lower()
+    moneyStr = None
+    denomination = None
+    if ' copper piece' in giveStr:
+        moneyStr = giveStr.split(' copper piece')[0]
+        denomination = 'cp'
+    elif ' silver piece' in giveStr:
+        moneyStr = giveStr.split(' silver piece')[0]
+        denomination = 'sp'
+    elif ' electrum piece' in giveStr:
+        moneyStr = giveStr.split(' electrum piece')[0]
+        denomination = 'ep'
+    elif ' gold piece' in giveStr:
+        moneyStr = giveStr.split(' gold piece')[0]
+        denomination = 'gp'
+    elif ' platium piece' in giveStr:
+        moneyStr = giveStr.split(' platinum piece')[0]
+        denomination = 'pp'
+    elif giveStr.endswith('cp'):
+        moneyStr = giveStr.split('cp')[0]
+        denomination = 'cp'
+    elif giveStr.endswith('sp'):
+        moneyStr = giveStr.split('sp')[0]
+        denomination = 'sp'
+    elif giveStr.endswith('ep'):
+        moneyStr = giveStr.split('ep')[0]
+        denomination = 'ep'
+    elif giveStr.endswith('gp'):
+        moneyStr = giveStr.split('gp')[0]
+        denomination = 'gp'
+    elif giveStr.endswith('pp'):
+        moneyStr = giveStr.split('pp')[0]
+        denomination = 'pp'
+
+    if denomination:
+        moneyStr = moneyStr.strip()
+        qty = 0
+        if moneyStr.isdigit():
+            qty = int(moneyStr)
+        else:
+            qtyDict = {
+                'a': 1,
+                'one': 1,
+                'two': 2,
+                'three': 3,
+                'four': 4,
+                'five': 5,
+                'six': 6,
+                'seven': 7,
+                'eight': 8,
+                'nine': 9,
+                'ten': 10,
+                'twenty': 20
+            }
+            for qtyStr, value in qtyDict.items():
+                if qtyStr in moneyStr:
+                    qty = value
+                    break
+        if qty > 0:
+            cost = str(qty) + denomination
+            if moneyPurchase(id, players, cost):
+                players[recipientId][denomination] += qty
+                desc = (
+                    "You give " + cost + " to " + players[recipientId]['name']
+                )
+                mud.sendMessage(id, randomDescription(desc) + '.\n\n')
+                desc = (
+                    players[id]['name'] + " gives you " + cost
+                )
+                mud.sendMessage(recipientId, randomDescription(desc) + '.\n\n')
+                return
+            else:
+                desc = (
+                    "You don't have " + cost
+                )
+                mud.sendMessage(id, randomDescription(desc) + '.\n\n')
+                return
+    desc = (
+        "You don't have that"
+    )
+    mud.sendMessage(id, randomDescription(desc) + '.\n\n')
+    return
+
+
 def _drop(params, mud, playersDB: {}, players: {}, rooms: {},
           npcsDB: {}, npcs: {}, itemsDB: {}, items: {},
           envDB: {}, env: {}, eventDB: {}, eventSchedule,
@@ -7139,6 +7253,8 @@ def runCommand(command, params, mud, playersDB: {}, players: {}, rooms: {},
         "take": _take,
         "get": _take,
         "put": _putItem,
+        "give": _give,
+        "gift": _give,
         "drop": _drop,
         "check": _check,
         "wear": _wear,

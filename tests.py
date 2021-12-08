@@ -265,6 +265,7 @@ def _testFunctions():
         '_dismiss',
         '_conjure',
         '_destroy',
+        '_give',
         '_drop',
         '_openItem',
         '_closeItem',
