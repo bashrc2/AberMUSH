@@ -358,8 +358,19 @@ def _combatDamageFromWeapon(id, players: {},
             # double the damage for a critical hit
             noOfRolls *= 2
         score = 0
-        for roll in range(noOfRolls):
-            score += randint(1, die)
+        if not itemsDB[itemID].get('damageChart'):
+            # linear damage
+            for roll in range(noOfRolls):
+                score += randint(1, die)
+        else:
+            # see https://andregarzia.com/
+            # 2021/12/in-defense-of-the-damage-chart.html
+            for roll in range(noOfRolls):
+                chartIndex = randint(1, die)
+                if chartIndex < len(itemsDB[itemID]['damageChart']):
+                    score += itemsDB[itemID]['damageChart'][chartIndex]
+                else:
+                    score += itemsDB[itemID]['damageChart'][-1]
         if score > maxDamage:
             maxDamage = score
             damageRollBest = damageRoll
