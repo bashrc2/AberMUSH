@@ -29096,7 +29096,7 @@
         "mod_luc": 0,
         "mod_cool": 0,
         "weight": 2,
-        "edible": 0,
+        "edible": 1,
         "climbThrough": "",
         "armorClass": 0,
         "damage": "",
