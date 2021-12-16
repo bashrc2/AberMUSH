@@ -361,12 +361,12 @@ def _combatDamageFromWeapon(id, players: {},
         if not itemsDB[itemID].get('damageChart'):
             # linear damage
             for roll in range(noOfRolls):
-                score += randint(1, die)
+                score += randint(1, die + 1)
         else:
             # see https://andregarzia.com/
             # 2021/12/in-defense-of-the-damage-chart.html
             for roll in range(noOfRolls):
-                chartIndex = randint(1, die)
+                chartIndex = randint(0, die)
                 if chartIndex < len(itemsDB[itemID]['damageChart']):
                     score += itemsDB[itemID]['damageChart'][chartIndex]
                 else:

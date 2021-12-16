@@ -75,6 +75,7 @@ from mudserver import MudServer
 
 # import random generator library
 import random
+from random import randint
 
 # import the deepcopy library
 # from copy import deepcopy
@@ -1001,6 +1002,16 @@ while True:
             template['pwd'] = hash_password(players[id]['exAttribute2'])
 
             template['characterClass'] = selectedCharacterClass
+
+            # initial money
+            startingMoneyRoll = \
+                characterClassDB[selectedCharacterClass]['startingMoney']
+            die = int(startingMoneyRoll.split('d')[1])
+            noOfRolls = int(startingMoneyRoll.split('d')[0])
+            startingGP = 0
+            for roll in range(noOfRolls):
+                startingGP += int(randint(1, die + 1) * 10)
+            template['gp'] = startingGP
 
             # First player becomes a witch
             if not os.path.isfile("witches"):
