@@ -4222,9 +4222,12 @@ def _eat(params, mud, playersDB: {}, players: {}, rooms: {},
     if edibility > 1:
         eatStr = "You consume " + foodStr
     else:
-        eatStr = "With extreme reluctance, you eat " + foodStr + '|' + \
-            "You eat " + foodStr + ", but now you wish that you hadn't|" + \
-            "Revoltingly, you eat " + foodStr
+        eatStr = \
+            randomDescription(
+                "With extreme reluctance, you eat " + foodStr + '|' + \
+                "You eat " + foodStr + \
+                ", but now you wish that you hadn't|" + \
+                "Revoltingly, you eat " + foodStr)
     mud.sendMessage(id, eatStr + ".\n\n")
 
     # Alter hp
