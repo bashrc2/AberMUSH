@@ -33213,6 +33213,7 @@
         "short_description": "Good strong rope",
         "long_description": "Good strong rope",
         "takeFail": "The rope is securely fastened somewhere high above.",
+	"climbFail": "You try to climb up the rope, but it's too thin and slides through your hands",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
