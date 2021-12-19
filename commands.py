@@ -4394,7 +4394,8 @@ def _climbBase(params, mud, playersDB: {}, players: {}, rooms: {},
                   itemHistory, markets, culturesDB)
             return
     if failMsg:
-        mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
+        failMsgStr = randomDescription(failMsg)
+        mud.sendMessageWrap(id, '<f220>', failMsgStr + ".\n\n")
     else:
         mud.sendMessage(id, "Nothing happens.\n\n")
 
