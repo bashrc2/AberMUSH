@@ -4345,7 +4345,8 @@ def _climbBase(params, mud, playersDB: {}, players: {}, rooms: {},
 
             if not _itemIsClimbable(id, players, itemId, itemsDB):
                 if failMsg:
-                    mud.sendMessage(id, randomDescription(failMsg) + ".\n\n")
+                    mud.sendMessageWrap(id, '<f220>',
+                                        randomDescription(failMsg) + ".\n\n")
                 else:
                     if not sit:
                         failMsg = 'You try to climb, but totally fail'
