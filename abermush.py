@@ -284,6 +284,7 @@ for k in itemsDB:
                v == "exit" or
                v == "exitName" or
                v == "moveTimes" or
+               v == "conditional" or
                v == "takeFail" or
                v == "climbFail" or
                v == "cardPack" or

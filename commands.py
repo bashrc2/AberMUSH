@@ -3071,6 +3071,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
 
             mud.sendMessage(id, "<r>\n")
         else:
+            # look at something or someone
             # If argument is given, then evaluate it
             param = params.lower()
 
@@ -4224,9 +4225,9 @@ def _eat(params, mud, playersDB: {}, players: {}, rooms: {},
     else:
         eatStr = \
             randomDescription(
-                "With extreme reluctance, you eat " + foodStr + '|' + \
-                "You eat " + foodStr + \
-                ", but now you wish that you hadn't|" + \
+                "With extreme reluctance, you eat " + foodStr + '|' +
+                "You eat " + foodStr +
+                ", but now you wish that you hadn't|" +
                 "Revoltingly, you eat " + foodStr)
     mud.sendMessage(id, eatStr + ".\n\n")
 
