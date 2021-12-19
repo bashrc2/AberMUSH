@@ -55,7 +55,7 @@
             ["savagely chewed", "It leaves gnaw marks on your arm|It leaves gnaw marks on your leg|It leaves gnaw marks on your shoulder|It leaves gnaw marks on your neck"]
 	]
     },
-    "animal cow|pig|goat|sheep": {
+    "animal cow|pig|goat|sheep|stag": {
 	"first": [
             "headbutt",
             "trample"
