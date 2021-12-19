@@ -10220,7 +10220,7 @@
         "bodyType": "",
         "moveDelay" : "50000",
         "moveType" : "random",
-        "moveTimes": [["hour",23,6],["day","tuesday","thursday","sunday"],["inactive",1386]],
+        "moveTimes": [["dayofmonth",11,1],["dayofmonth",12,20],["dayofmonth",1,1],["dayofmonth",3,19],["dayofmonth",5,1],["dayofmonth",6,19],["dayofmonth",8,1],["dayofmonth",9,21],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "1200",
         "randomFactor" : "80",
