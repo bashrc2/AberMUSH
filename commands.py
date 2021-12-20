@@ -3297,14 +3297,14 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                            True)
                             if len(itemLanguage) == 0:
                                 roomId = players[id]['room']
-                                _showItemImage(mud, id, thisItemID,
+                                _showItemImage(mud, id, idx,
                                                roomId, rooms, players,
                                                items, itemsDB,
                                                clouds, mapArea)
                             else:
                                 if itemLanguage in players[id]['language']:
                                     roomId = players[id]['room']
-                                    _showItemImage(mud, id, thisItemID,
+                                    _showItemImage(mud, id, idx,
                                                    roomId, rooms, players,
                                                    items, itemsDB,
                                                    clouds, mapArea)
