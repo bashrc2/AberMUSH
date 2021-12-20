@@ -2631,13 +2631,13 @@ def _conditionalRoomDescription(description: str, tideOutDescription: str,
     return roomDescription
 
 
-def _conditionalItemDescription(description: str,
-                                conditional: [], id, players: {}, items: {},
+def _conditionalItemDescription(itemId, conditional: [],
+                                id, players: {}, items: {},
                                 itemsDB: {}, clouds: {}, mapArea: [],
                                 rooms: {}):
     """Returns an item description which can vary depending on conditions
     """
-    itemDescription = description
+    itemDescription = itemsDB[itemId]['long_description']
 
     # Alternative descriptions triggered by conditions
     for possibleDescription in conditional:
@@ -3163,13 +3163,11 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             if itemsDB[idx].get('itemName'):
                                 message += \
                                     'Name: ' + itemsDB[idx]['itemName'] + '\n'
-                            defaultDesc = itemsDB[idx]['long_description']
                             condDesc = []
                             if itemsDB[idx].get('conditional'):
                                 condDesc = itemsDB[idx]['conditional']
                             desc = \
-                                _conditionalItemDescription(defaultDesc,
-                                                            condDesc,
+                                _conditionalItemDescription(idx, condDesc,
                                                             id, players,
                                                             items, itemsDB,
                                                             clouds, mapArea,
