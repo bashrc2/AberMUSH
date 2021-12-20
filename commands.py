@@ -2641,20 +2641,22 @@ def _conditionalItemDesc(itemId, conditional: [],
 
     # Alternative descriptions triggered by conditions
     for possibleDescription in conditional:
-        if len(possibleDescription) >= 3:
+        if len(possibleDescription) >= 2:
             condType = possibleDescription[0]
-            if condType.startswith('wear'):
+            cond = None
+            if condType.startswith('wear') or condType.startswith('hold'):
                 cond = str(itemId)
                 alternativeDescription = possibleDescription[1]
-            else:
+            elif len(possibleDescription) >= 3:
                 cond = possibleDescription[1]
                 alternativeDescription = possibleDescription[2]
-            if _conditionalLogic(condType, cond,
-                                 alternativeDescription,
-                                 id, players, items, itemsDB,
-                                 clouds, mapArea, rooms):
-                itemDescription = alternativeDescription
-                break
+            if cond:
+                if _conditionalLogic(condType, cond,
+                                     alternativeDescription,
+                                     id, players, items, itemsDB,
+                                     clouds, mapArea, rooms):
+                    itemDescription = alternativeDescription
+                    break
 
     return itemDescription
 
