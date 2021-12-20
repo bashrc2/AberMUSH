@@ -2684,6 +2684,40 @@ def _conditionalRoomImage(conditional: [], id, players: {}, items: {},
     return None
 
 
+def _conditionalItemImage(itemId,
+                          conditional: [], id, players: {}, items: {},
+                          itemsDB: {}, clouds: {}, mapArea: [],
+                          rooms: {}) -> str:
+    """If there is an image associated with a conditional
+    item description then return its name
+    """
+    for possibleDescription in conditional:
+        condType = possibleDescription[0]
+        if condType.startswith('worn') or condType.startswith('held'):
+            thresholdIndex = 3
+            if len(possibleDescription) < thresholdIndex:
+                continue
+            cond = str(itemId)
+            alternativeDescription = possibleDescription[1]
+        else:
+            thresholdIndex = 4
+            if len(possibleDescription) < thresholdIndex:
+                continue
+            cond = possibleDescription[1]
+            alternativeDescription = possibleDescription[2]
+        if len(possibleDescription) >= thresholdIndex:
+            if _conditionalLogic(condType, cond,
+                                 alternativeDescription,
+                                 id, players, items, itemsDB, clouds,
+                                 mapArea, rooms):
+                roomImageFilename = \
+                    'images/items/' + possibleDescription[thresholdIndex - 1]
+                if os.path.isfile(roomImageFilename):
+                    return possibleDescription[thresholdIndex - 1]
+                break
+    return str(itemId)
+
+
 def _playersInRoom(targetRoom, players, npcs):
     """Returns the number of players in the given room.
        This includes NPCs.
@@ -2899,17 +2933,42 @@ def _showSpellImage(mud, id, spellId, players: {}) -> None:
         mud.sendImage(id, '\n' + spellFile.read())
 
 
-def _showItemImage(mud, id, itemId, players: {}) -> None:
+def _showItemImage(mud, id, itemId, roomId, rooms: {}, players: {},
+                   items: {}, itemsDB: {},
+                   clouds: {}, mapArea: []) -> None:
     """Shows an image for the item if it exists
     """
     if players[id].get('graphics'):
         if players[id]['graphics'] == 'off':
             return
-    itemImageFilename = 'images/items/' + str(itemId)
+    itemIdStr = \
+        _conditionalItemImage(itemId,
+                              rooms[roomId]['conditional'],
+                              id, players, items,
+                              itemsDB, clouds,
+                              mapArea, rooms)
+
+    # fixed items can have their illumination changed if they are outdoors
+    outdoors = False
+    if itemsDB[itemId]['weight'] == 0:
+        if rooms[roomId]['weather'] == 1:
+            outdoors = True
+
+    itemImageFilename = 'images/items/' + itemIdStr
+    if os.path.isfile(itemImageFilename + '_night'):
+        currTime = datetime.datetime.today()
+        sun = getSolar()
+        sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+        sunSetTime = sun.get_local_sunset_time(currTime).hour
+        if currTime.hour < sunRiseTime or \
+           currTime.hour > sunSetTime:
+            itemImageFilename = itemImageFilename + '_night'
+            outdoors = False
     if not os.path.isfile(itemImageFilename):
         return
     with open(itemImageFilename, 'r') as itemFile:
-        mud.sendImage(id, '\n' + itemFile.read())
+        itemImageStr = itemFile.read()
+        mud.sendImage(id, '\n' + _roomIllumination(itemImageStr, outdoors))
 
 
 def _showNPCImage(mud, id, npcName, players: {}) -> None:
@@ -3185,11 +3244,18 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                            items[i]['id'],
                                                            True)
                             if len(itemLanguage) == 0:
-                                _showItemImage(mud, id, thisItemID, players)
+                                roomId = players[id]['room']
+                                _showItemImage(mud, id, thisItemID,
+                                               roomId, rooms, players,
+                                               items, itemsDB,
+                                               clouds, mapArea)
                             else:
                                 if itemLanguage in players[id]['language']:
+                                    roomId = players[id]['room']
                                     _showItemImage(mud, id, thisItemID,
-                                                   players)
+                                                   roomId, rooms, players,
+                                                   items, itemsDB,
+                                                   clouds, mapArea)
                                 else:
                                     message += \
                                         "It's written in " + itemLanguage
@@ -3209,7 +3275,11 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                         itemsDBEntry = itemsDB[thisItemID]
                         if param == itemsDBEntry['name'].lower():
                             itemLanguage = itemsDBEntry['language']
-                            _showItemImage(mud, id, thisItemID, players)
+                            roomId = players[id]['room']
+                            _showItemImage(mud, id, thisItemID,
+                                           roomId, rooms, players,
+                                           items, itemsDB,
+                                           clouds, mapArea)
                             if len(itemLanguage) == 0:
                                 condDesc = []
                                 if itemsDBEntry.get('conditional'):
@@ -3260,7 +3330,11 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             itemsDBEntry = itemsDB[thisItemID]
                             if param in itemsDBEntry['name'].lower():
                                 itemLanguage = itemsDBEntry['language']
-                                _showItemImage(mud, id, thisItemID, players)
+                                roomId = players[id]['room']
+                                _showItemImage(mud, id, thisItemID,
+                                               roomId, rooms, players,
+                                               items, itemsDB,
+                                               clouds, mapArea)
                                 if len(itemLanguage) == 0:
                                     condDesc = []
                                     if itemsDBEntry.get('conditional'):
