@@ -2604,10 +2604,10 @@ def _conditionalLogic(condType: str, cond: str, description: str, id,
     return False
 
 
-def _conditionalRoomDescription(description: str, tideOutDescription: str,
-                                conditional: [], id, players: {}, items: {},
-                                itemsDB: {}, clouds: {}, mapArea: [],
-                                rooms: {}):
+def _conditionalRoomDesc(description: str, tideOutDescription: str,
+                         conditional: [], id, players: {}, items: {},
+                         itemsDB: {}, clouds: {}, mapArea: [],
+                         rooms: {}):
     """Returns a room description which can vary depending on conditions
     """
     roomDescription = description
@@ -2989,11 +2989,11 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                            rooms, players, items,
                            itemsDB, clouds, mapArea)
             roomDescription = \
-                _conditionalRoomDescription(rm['description'],
-                                            rm['tideOutDescription'],
-                                            rm['conditional'],
-                                            id, players, items, itemsDB,
-                                            clouds, mapArea, rooms)
+                _conditionalRoomDesc(rm['description'],
+                                     rm['tideOutDescription'],
+                                     rm['conditional'],
+                                     id, players, items, itemsDB,
+                                     clouds, mapArea, rooms)
 
             if rm['trap'].get('trapActivation') and \
                rm['trap'].get('trapPerception'):
