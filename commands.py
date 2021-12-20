@@ -2497,6 +2497,47 @@ def _conditionalLogic(condType: str, cond: str, description: str, id,
             if not getRainAtCoords(coords, mapArea, clouds):
                 return True
 
+    if condType == 'morning':
+        currHour = datetime.datetime.today().hour
+        if currHour < 12:
+            if 'true' in cond.lower() or \
+               'y' in cond.lower():
+                return True
+        else:
+            if 'false' in cond.lower() or \
+               'n' in cond.lower():
+                return True
+    if condType == 'noon':
+        currHour = datetime.datetime.today().hour
+        if currHour == 12:
+            if 'true' in cond.lower() or \
+               'y' in cond.lower():
+                return True
+        else:
+            if 'false' in cond.lower() or \
+               'n' in cond.lower():
+                return True
+    if condType == 'afternoon':
+        currHour = datetime.datetime.today().hour
+        if currHour >= 12 and currHour < 17:
+            if 'true' in cond.lower() or \
+               'y' in cond.lower():
+                return True
+        else:
+            if 'false' in cond.lower() or \
+               'n' in cond.lower():
+                return True
+    if condType == 'evening':
+        currHour = datetime.datetime.today().hour
+        if currHour >= 17:
+            if 'true' in cond.lower() or \
+               'y' in cond.lower():
+                return True
+        else:
+            if 'false' in cond.lower() or \
+               'n' in cond.lower():
+                return True
+
     if condType == 'hour':
         currHour = datetime.datetime.today().hour
         condHour = \
