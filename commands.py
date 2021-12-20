@@ -2644,7 +2644,7 @@ def _conditionalItemDesc(itemId, conditional: [],
         if len(possibleDescription) >= 3:
             condType = possibleDescription[0]
             if condType.startswith('wear'):
-                cond = itemId
+                cond = str(itemId)
                 alternativeDescription = possibleDescription[1]
             else:
                 cond = possibleDescription[1]
