@@ -2539,7 +2539,7 @@ def _conditionalLogic(condType: str, cond: str, description: str, id,
                 return True
     if condType == 'night':
         currHour = datetime.datetime.today().hour
-        if currHour >= 10 or currHour < 6:
+        if currHour >= 22 or currHour < 6:
             if 'true' in cond.lower() or \
                'y' in cond.lower():
                 return True
