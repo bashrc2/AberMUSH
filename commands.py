@@ -2745,13 +2745,13 @@ def _conditionalItemImage(itemId,
     for possibleDescription in conditional:
         condType = possibleDescription[0]
         if condType.startswith('worn') or condType.startswith('held'):
-            thresholdIndex = 3
+            thresholdIndex = 2
             if len(possibleDescription) < thresholdIndex:
                 continue
             cond = str(itemId)
             alternativeDescription = possibleDescription[1]
         else:
-            thresholdIndex = 4
+            thresholdIndex = 3
             if len(possibleDescription) < thresholdIndex:
                 continue
             cond = possibleDescription[1]
@@ -2761,10 +2761,11 @@ def _conditionalItemImage(itemId,
                                  alternativeDescription,
                                  id, players, items, itemsDB, clouds,
                                  mapArea, rooms):
-                roomImageFilename = \
-                    'images/items/' + possibleDescription[thresholdIndex - 1]
-                if os.path.isfile(roomImageFilename):
-                    return possibleDescription[thresholdIndex - 1]
+                if len(possibleDescription) > thresholdIndex:
+                    roomImageFilename = \
+                        'images/items/' + possibleDescription[thresholdIndex]
+                    if os.path.isfile(roomImageFilename):
+                        return possibleDescription[thresholdIndex]
                 break
     return str(itemId)
 
