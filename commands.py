@@ -2750,7 +2750,7 @@ def _conditionalItemImage(itemId,
         cond = None
         itemIdStr = None
         if condType.startswith('wear') or condType.startswith('hold'):
-             cond = str(itemId)
+            cond = str(itemId)
             alternativeDescription = possibleDescription[1]
             itemIdStr = possibleDescription[2]
         elif len(possibleDescription) >= 4:
