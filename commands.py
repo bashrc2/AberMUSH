@@ -2992,7 +2992,7 @@ def _showItemImage(mud, id, itemId, roomId, rooms: {}, players: {},
             return
     itemIdStr = \
         _conditionalItemImage(itemId,
-                              rooms[roomId]['conditional'],
+                              itemsDB[itemId]['conditional'],
                               id, players, items,
                               itemsDB, clouds,
                               mapArea, rooms)
