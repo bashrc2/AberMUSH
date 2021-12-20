@@ -432,7 +432,9 @@
         "name": "ugly gargoyle",
         "short_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones.",
         "long_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones.",
-        "conditional": [],
+        "conditional": [
+            ["rain","yes","A paticularly gross and ugly-looking gargoyle, dripping with rain, leers at you from a pedestal surrounded by flagstones"]
+        ],
         "takeFail": "The pedestal is too tall for you to reach the gargoyle.",
         "moveTimes": [],
         "heave": "",
@@ -4569,8 +4571,10 @@
         "name": "clear pond",
         "short_description": "A shallow and pleasant pool.",
         "long_description": "A shallow and pleasant pool.",
-        "conditional": [],
-        "takeFail": "You can't take a pond.",
+        "conditional": [
+            ["rain","yes","A shallow and pleasant pool. Randrops make radiating ripples upon its surface"]
+        ],
+        "takeFail": "Trying to take the pond would be silly.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
@@ -38734,7 +38738,9 @@
         "name": "wooden sign",
         "short_description": "It is battered and has seen too many years exposure to the driving salt soaked winds that howl in from the sea.",
         "long_description": "It is battered and has seen too many years exposure to the driving salt soaked winds that howl in from the sea.",
-        "conditional": [],
+        "conditional": [
+            ["rain","yes","The battered wooden sign, dripping with the rain, has seen too many years exposure to the driving salt soaked winds that howl in from the sea"]
+        ],
         "takeFail": "It's fixed in place.",
         "moveTimes": [],
         "clo_head": 0,
@@ -47485,7 +47491,9 @@
         "name": "fallen statue",
         "short_description": "A fallen marble statue lies fractured into several pieces on the ground, surrounded by tough windswept grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards",
         "long_description": "A fallen marble statue lies fractured into several pieces on the ground, surrounded by tough windswept grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards",
-        "conditional": [],
+        "conditional": [
+            ["rain","yes","A fallen marble statue lies fractured into several pieces on the rain soaked ground, surrounded by tough grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards"]
+        ],
         "takeFail": "The giant marble pieces are much too heavy to move",
         "climbFail": "Since the statue is already fallen, climbing onto it would not make much difference",
         "moveTimes": [],
@@ -52784,7 +52792,9 @@
         "name": "angel statue",
         "short_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones",
         "long_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones",
-        "conditional": [],
+        "conditional": [
+            ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings"]
+        ],
         "takeFail": "You try to take the angel statue, but it's far too big and heavy",
         "clo_head": 0,
         "clo_neck": 0,

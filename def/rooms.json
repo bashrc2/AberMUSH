@@ -10880,7 +10880,9 @@
         "name": "The Graveyard",
         "description": "You are standing within the walled graveyard. To the south a path leads out of the graveyard down towards the church. To the north, over the churchyard wall is a deep rocky gorge. Looking futher north across the gorge, you can see a wide tract of forest, and far to the northwest, a small village by the coast.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing within the walled graveyard. To the south a path leads out of the graveyard down towards the church. To the north, over the churchyard wall is a deep rocky gorge. Looking futher north across the gorge through the rain, you can see a wide tract of forest, and far to the northwest, a small village by the coast"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -10903,7 +10905,9 @@
         "name": "The Graveyard",
         "description": "You are standing at the southern end of the graveyard, following a path which leads north, beside a stone wall. To the south is the churchyard, and the old church itself.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+	    ["rain","yes","You are standing in the rain at the southern end of the graveyard, following a path which leads north, beside a stone wall. To the south is the churchyard, and the old church itself"]
+	],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -10923,6 +10927,7 @@
         "description": "You stand in what is apparently an old and disused churchyard. Weeds and moss cover the worn gravestones and ancient statues. To the east is a huge ancient church, now decaying and surrounded by bits of fallen stonework. To the north the graveyard continues.",
         "roomTeleport": "",
         "conditional": [
+            ["rain","yes","You stand in the rain in what is apparently an old and disused churchyard. Weeds and moss cover the crumbling gravestones and pathway. To the east is a huge ancient church, now decaying and surrounded by bits of fallen stonework. To the north the graveyard continues.","1135b"],
             ["hour",">12","You stand in what is apparently an old and disused churchyard. Weeds and moss cover the crumbling gravestones and pathway. To the east is a huge ancient church, now decaying and surrounded by bits of fallen stonework. To the north the graveyard continues.","1135b"]
         ],
         "trap": {},
