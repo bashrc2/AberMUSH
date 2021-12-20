@@ -2744,24 +2744,25 @@ def _conditionalItemImage(itemId,
     """
     # Alternative descriptions triggered by conditions
     for possibleDescription in conditional:
-        if len(possibleDescription) >= 3:
-            condType = possibleDescription[0]
-            cond = None
-            itemIdStr = None
-            if condType.startswith('wear') or condType.startswith('hold'):
-                cond = str(itemId)
-                alternativeDescription = possibleDescription[1]
-                itemIdStr = possibleDescription[2]
-            elif len(possibleDescription) >= 4:
-                cond = possibleDescription[1]
-                alternativeDescription = possibleDescription[2]
-                itemIdStr = possibleDescription[3]
-            if cond and itemIdStr:
-                if _conditionalLogic(condType, cond,
-                                     alternativeDescription,
-                                     id, players, items, itemsDB,
-                                     clouds, mapArea, rooms):
-                    return str(itemIdStr)
+        if len(possibleDescription) < 3:
+            continue
+        condType = possibleDescription[0]
+        cond = None
+        itemIdStr = None
+        if condType.startswith('wear') or condType.startswith('hold'):
+             cond = str(itemId)
+            alternativeDescription = possibleDescription[1]
+            itemIdStr = possibleDescription[2]
+        elif len(possibleDescription) >= 4:
+            cond = possibleDescription[1]
+            alternativeDescription = possibleDescription[2]
+            itemIdStr = possibleDescription[3]
+        if cond and itemIdStr:
+            if _conditionalLogic(condType, cond,
+                                 alternativeDescription,
+                                 id, players, items, itemsDB,
+                                 clouds, mapArea, rooms):
+                return str(itemIdStr)
     return str(itemId)
 
 
