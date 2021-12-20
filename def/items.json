@@ -11838,16 +11838,18 @@
     "371": {
         "name": "crystal goblet",
         "short_description": "It sparkles in the light.",
-        "long_description": "A large crystal goblet full of wine has been left here.",
-        "conditional": [],
+        "long_description": "A large crystal goblet full of wine.",
+        "conditional": [
+	    ["hold","You are holding a large crystal goblet full of wine"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -11924,15 +11926,17 @@
         "name": "leather leash",
         "short_description": "A name tag on the collar reads 'Tiddles'.",
         "long_description": "An enormous leather leash.|A name tag on the collar reads 'Tiddles'.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding an enormous leather leash|You are holding an enormous leather leash. A name tag on the collar reads 'Tiddles'"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -11969,7 +11973,7 @@
         "mod_agi": 0,
         "mod_luc": 0,
         "mod_cool": 0,
-        "weight": 2,
+        "weight": 5,
         "edible": 0,
         "climbThrough": "",
         "armorClass": 0,
@@ -12095,8 +12099,10 @@
     "374": {
         "name": "lump of meat",
         "short_description": "It seems to still be fresh, somehow.",
-        "long_description": "A large lump of meat has been dropped here.",
-        "conditional": [],
+        "long_description": "A large lump of meat.",
+        "conditional": [
+	    ["hold","You are holding a large lump of meat"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12440,16 +12446,18 @@
     "389": {
         "name": "crystal decanter",
         "short_description": "A large crystal decanter has been placed here.",
-        "long_description": "A large, heavy, carved crystal decanter, with gold fittings.|A large crystal decanter has been placed here.",
-        "conditional": [],
+        "long_description": "A large, heavy, carved crystal decanter, with gold fittings.|A large crystal decanter.",
+        "conditional": [
+	    ["hold","You are holding a large crystal decanter with gold fittings"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -12525,8 +12533,10 @@
     "390": {
         "name": "bottle of wine",
         "short_description": "It is a bottle of fine vintage claret.",
-        "long_description": "A large bottle of wine has been left here.|It is a bottle of fine vintage claret.",
-        "conditional": [],
+        "long_description": "A large bottle of wine.|It is a bottle of fine vintage claret.",
+        "conditional": [
+	    ["hold","You are holding a large bottle of wine|You are holding a large bottle of vintage claret"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12610,8 +12620,10 @@
     "404": {
         "name": "iron poker",
         "short_description": "A long iron poker lies here.",
-        "long_description": "Bent from several heavy blows.|A long iron poker lies here.",
-        "conditional": [],
+        "long_description": "Bent from several heavy blows.|A long iron poker.",
+        "conditional": [
+	    ["hold","You are holding an iron poker. Careful with that"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12696,7 +12708,9 @@
         "name": "sharp axe",
         "short_description": "A sharp axe is embedded in the wall.",
         "long_description": "Short handled, but extremely sharp and heavy. The manufacture is of noteworthy quality.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding a sharp short handled axe of noteworthy quality"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12781,7 +12795,9 @@
         "name": "brass lantern",
         "short_description": "Battered and much used.",
         "long_description": "A brass lantern. Its flame throwing a flickering pattern on the ground.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding a brass lantern. Its flame throws a flickering pattern on the ground"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -12952,8 +12968,10 @@
     "414": {
         "name": "dusty book",
         "short_description": "A large, dusty book has been left here.",
-        "long_description": "The sands of Time have been flowing around this book for many years.|A large, dusty book has been left here.",
-        "conditional": [],
+        "long_description": "The sands of Time have been flowing around this book for many years.|A large, dusty book.",
+        "conditional": [
+	    ["hold","You are holding a large dusty book"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -13038,7 +13056,9 @@
         "name": "large book",
         "short_description": "A large book.",
         "long_description": "A large book. It is open.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding a large book"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -13502,16 +13522,18 @@
         "exit": "",
         "lightSource": 0,
         "short_description": "It is a large, iron weight.",
-        "long_description": "A large weight has been dropped here.",
-        "conditional": [],
+        "long_description": "A large iron weight.",
+        "conditional": [
+	    ["hold","You are holding a large iron weight"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -13847,15 +13869,17 @@
         "name": "wooden box",
         "short_description": "It is a dilapidated old wooden tea chest.",
         "long_description": "A small, closed wooden box has been placed on a shelf.|It is a dilapidated old wooden tea chest. It's closed.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding a small wooden box|You are holding a dilapidated old wooden tea chest"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -14454,7 +14478,9 @@
         "name": "heavy mace",
         "short_description": "An old mace has been left here.",
         "long_description": "A long, heavy, iron mace, studded at the business end, so as to inflict even more damage.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding a heavy mace. An inscription on the handle reads, informatively, 'We are the Mace Men'"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
