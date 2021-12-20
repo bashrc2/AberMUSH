@@ -20968,7 +20968,9 @@
         "name": "intricate amulet",
         "short_description": "A small, carved amulet lies here.",
         "long_description": "It is small, with a carved design incorporating a flash of lightning. On the other side is a carving of a castle.",
-        "conditional": [],
+        "conditional": [
+            ["wear","The small amulet around your neck has a carved design incorporating a flash of lightning. On the other side is a carving of a castle"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -23889,16 +23891,18 @@
         "name": "red ring",
         "short_description": "A plain red ring lies here.",
         "long_description": "A fairly plain looking red ring.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a fairly plain looking red ring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
         "clo_lhand": 0,
         "clo_gloves": 0,
-        "clo_lfinger": 0,
+        "clo_lfinger": 1,
         "clo_rhand": 0,
-        "clo_rfinger": 0,
+        "clo_rfinger": 1,
         "clo_waist": 0,
         "clo_rear": 0,
         "clo_lear": 0,
@@ -33604,7 +33608,7 @@
         "long_description": "Good strong rope",
         "conditional": [],
         "takeFail": "The rope is securely fastened somewhere high above.",
-	"climbFail": "You try to climb up the rope, but it's too thin and slides through your hands",
+        "climbFail": "You try to climb up the rope, but it's too thin and slides through your hands",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
@@ -42668,7 +42672,9 @@
         "name": "leather bracelet",
         "short_description": "A leather bracelet.",
         "long_description": "The leather bracelet has a cross hatch pattern on it.",
-        "conditional": [],
+        "conditional": [
+            ["wear","The leather bracelet on your wrist has a cross hatch pattern on it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -42753,7 +42759,9 @@
         "name": "leather arm guard",
         "short_description": "A leather arm guard.",
         "long_description": "The leather arm guard is ornately patterned and laced together.",
-        "conditional": [],
+        "conditional": [
+            ["wear","The leather guard on your arm is ornately patterned and laced together"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 1,
@@ -42838,7 +42846,9 @@
         "name": "falconry glove",
         "short_description": "A falconry glove.",
         "long_description": "A large falconry glove made from dark brown leather.",
-        "conditional": [],
+        "conditional": [
+            ["wear","The falconry glove on your arm is made from dark brown leather"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 1,
@@ -44714,9 +44724,11 @@
     },
     "1410": {
         "name": "arcane ring",
-        "short_description": "The ring is made of brightly polished copper and has a celtic knot pattern around the outside.",
-        "long_description": "The ring is made of brightly polished copper and has a celtic knot pattern around the outside.",
-        "conditional": [],
+        "short_description": "The ring is made from brightly polished copper and has a celtic knot pattern around the outside.",
+        "long_description": "The ring is made from brightly polished copper and has a celtic knot pattern around the outside.",
+        "conditional": [
+            ["wear","You are wearing an arcane ring made from brightly polished copper.  It has a celtic knot pattern around the outside"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -44973,7 +44985,9 @@
         "name": "leather tabard",
         "short_description": "The sleaveless leather tabard is fastened with a ribbon around the waist. Standard attire for a guild artisan.",
         "long_description": "The sleaveless leather tabard is fastened with a ribbon around the waist. Standard attire for a guild artisan.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a sleaveless leather tabard. It is fastened with a ribbon around your waist. Standard attire for a guild artisan"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -45058,7 +45072,9 @@
         "name": "pearl",
         "short_description": "A shiny pearl.",
         "long_description": "A shiny pearl.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a shiny pearl"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -45318,7 +45334,9 @@
         "name": "pentangle pendant",
         "short_description": "A silver pentangle on a leather neck strap",
         "long_description": "A silver pentangle on a leather neck strap",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a silver pentangle on a leather neck strap"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -45492,7 +45510,9 @@
         "name": "pear",
         "short_description": "Looks quite edible.",
         "long_description": "A fresh looking pear.|Looks quite edible.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a fresh looking pear|You are holding a fresh looking pear. It looks quite edible"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -45577,15 +45597,17 @@
         "name": "blue bathroom towel",
         "short_description": "Slightly fluffy",
         "long_description": "Blue, and slightly fluffy",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are clutching a blue, slightly fluffy bathroom towel"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 0,
+        "clo_lhand": 1,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 0,
+        "clo_rhand": 1,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -45662,7 +45684,9 @@
         "name": "white bathroom towel",
         "short_description": "Slightly fluffy",
         "long_description": "An ordinary white bathroom towel. Slightly fluffy",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are clutching an ordinary white bathroom towel, which is slightly fluffy"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -45921,7 +45945,9 @@
         "name": "bowl of soup",
         "short_description": "A modest wooden bowl of broth",
         "long_description": "A modest wooden bowl of broth",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a modest wooden bowl of broth"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46093,7 +46119,9 @@
         "name": "poleaxe",
         "short_description": "A long pole with a small axe blade, hammer and spike fixed to the end of it",
         "long_description": "A long pole with a small axe blade, hammer and spike fixed to the end of it",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a long poleaxe. It has a small blade with a hammer and spike fixed to the end of it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46178,7 +46206,9 @@
         "name": "halberd",
         "short_description": "A long pole with a vicious-looking metal spike and straight edged chopper on the end of it",
         "long_description": "A long pole with a vicious-looking metal spike and straight edged chopper on the end of it",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a halberd. It has a vicious-looking metal spike and straight edged chopper on the end of it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46263,7 +46293,9 @@
         "name": "ringmail shirt",
         "short_description": "The ringmail shirt made from small iron rings is heavy but will protect against cutting weapons",
         "long_description": "The ringmail shirt made from small iron rings is heavy but will protect against cutting weapons",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a ringmail shirt. It is made from small iron rings and is quite heavy but will protect against cutting weapons"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46348,7 +46380,9 @@
         "name": "chainmail vest",
         "short_description": "The chainmail vest made from small steel rings is heavy but will protect against cutting weapons",
         "long_description": "The chainmail vest made from small steel rings is heavy but will protect against cutting weapons",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a chainmail vest. It is made from small steel rings and is quite heavy but will protect against cutting weapons"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46433,7 +46467,9 @@
         "name": "leather greaves",
         "short_description": "Leather armor for your legs. They're light, and may help to avoid having your legs cut from under you in a fight",
         "long_description": "Leather armor for your legs. They're light, and may help to avoid having your legs cut from under you in a fight",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing leather greaves"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46518,7 +46554,9 @@
         "name": "splinted greaves",
         "short_description": "The splinted greaves are crudely constructed from a metallic strips bound together and fastened with buckles. They're not exactly a fashion statement, but may prevent your legs from being cut out from underneath you in combat",
         "long_description": "The splinted greaves are crudely constructed from a metallic strips bound together and fastened with buckles. They're not exactly a fashion statement, but may prevent your legs from being cut out from underneath you in combat",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing splinted greaves made from metallic strips and fastened with buckles at the back"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -46603,7 +46641,9 @@
         "name": "steel gorget",
         "short_description": "Worn as light armour, the steel gorget is fastened over the shoulders with buckles",
         "long_description": "Worn as light armour, the steel gorget is fastened over the shoulders with buckles",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a steel gorget around your neck, fastened over your shoulders with buckles"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -46688,7 +46728,9 @@
         "name": "leather gorget",
         "short_description": "The brown leather gorget is fastened over the shoulders with buckles",
         "long_description": "The brown leather gorget is fastened over the shoulders with buckles",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a leather gorget around your neck, fastened over your shoulders with buckles"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -46773,7 +46815,9 @@
         "name": "green liripipe",
         "short_description": "The green liripipe hood has a long tail which hangs down",
         "long_description": "The green liripipe hood has a long tail which hangs down",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a green liripipe hood with a long tail which hangs down"]
+        ],
         "clo_head": 1,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -46857,7 +46901,9 @@
         "name": "red liripipe",
         "short_description": "The red liripipe hood has a long tail which hangs down",
         "long_description": "The red liripipe hood has a long tail which hangs down",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a red liripipe hood with a long tail which hangs down"]
+        ],
         "clo_head": 1,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -46941,7 +46987,9 @@
         "name": "black liripipe",
         "short_description": "The black liripipe hood has a long tail which hangs down",
         "long_description": "The black liripipe hood has a long tail which hangs down",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a black liripipe hood with a long tail which hangs down"]
+        ],
         "clo_head": 1,
         "clo_larm": 0,
         "clo_rarm": 0,
@@ -47539,7 +47587,9 @@
         "name": "three pronged trident",
         "short_description": "The trident has three vicious-looking spikes on the end of a long pole",
         "long_description": "The trident has three vicious-looking spikes on the end of a long pole",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a three pronged trident"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -47624,7 +47674,9 @@
         "name": "steel pike",
         "short_description": "A very long pike, made from smooth polished steel",
         "long_description": "A very long pike, made from smooth polished steel",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a long steel pike"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -47709,7 +47761,9 @@
         "name": "brass knuckles",
         "short_description": "One-piece metal bars with finger loops. Packs a more powerful punch",
         "long_description": "One-piece metal bars with finger loops. Packs a more powerful punch",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing brass knuckles. They are a one-piece metal bar with finger loops"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -47794,7 +47848,9 @@
         "name": "studded brass knuckles",
         "short_description": "Metal bars with finger loops for the right hand and small pyramid studs.",
         "long_description": "Metal bars with finger loops for the right hand and small pyramid studs.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing studded brass knuckles. They are a metal bar with finger loops and small pyramid studs"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -47879,7 +47935,9 @@
         "name": "clay brick",
         "short_description": "A heavy clay brick, used for construction work",
         "long_description": "A heavy clay brick, used for construction work",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a heavy clay brick"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -47964,7 +48022,9 @@
         "name": "stone brick",
         "short_description": "A heavy stone brick, used for construction work",
         "long_description": "A heavy stone brick, used for construction work",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a heavy stone brick"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48049,7 +48109,9 @@
         "name": "steel knuckle dusters",
         "short_description": "Curved blocks of steel with loops for each finger to go through",
         "long_description": "Curved blocks of steel with loops for each finger to go through",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing steel knuckle dusters"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48134,7 +48196,9 @@
         "name": "brass knuckle dusters",
         "short_description": "Curved blocks of brass with loops for each finger to go through",
         "long_description": "Curved blocks of brass with loops for each finger to go through",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing brass knuckle dusters"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48219,7 +48283,9 @@
         "name": "brown studded leather gloves",
         "short_description": "Thick brown leather gloves with iron studs on the knuckles",
         "long_description": "Thick brown leather gloves with iron studs on the knuckles",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing brown studded leather gloves"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48304,7 +48370,9 @@
         "name": "black spiked leather gloves",
         "short_description": "Thick black leather gloves with sharp steel spikes on the knuckles",
         "long_description": "Thick black leather gloves with sharp steel spikes on the knuckles",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing black leather gloves with steel spikes on the knuckles"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48561,7 +48629,9 @@
         "name": "black velvet gloves",
         "short_description": "A pair of black velvet gloves.",
         "long_description": "A pair of black velvet gloves.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing black velvet gloves"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48646,7 +48716,9 @@
         "name": "padded armor",
         "short_description": "A lightweight sleeveless coat which will protect you from bludgeoning",
         "long_description": "A lightweight sleeveless coat which will protect you from bludgeoning",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing padded armor"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48731,7 +48803,9 @@
         "name": "studded leather armor",
         "short_description": "A studded leather coat",
         "long_description": "A studded leather coat",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing studded leather armor"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48814,9 +48888,11 @@
     },
     "1458": {
         "name": "hide armor",
-        "short_description": "Made from irregularly shaped pieces of animal hide stitched together",
-        "long_description": "Made from irregularly shaped pieces of animal hide stitched together",
-        "conditional": [],
+        "short_description": "Made from irregularly shaped pieces of animal hide laced together with sinew",
+        "long_description": "Made from irregularly shaped pieces of animal hide laced together with sinew",
+        "conditional": [
+            ["wear","You are wearing animal hide armor, crudely laced together with sinew"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48901,7 +48977,9 @@
         "name": "scale mail",
         "short_description": "Armor made from overlapping oval scales of bronze",
         "long_description": "Armor made from overlapping oval scales of bronze",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing scale mail armor, made from overlapping oval scales of bronze"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -48986,7 +49064,9 @@
         "name": "steel breastplate",
         "short_description": "Breastplate made from steel",
         "long_description": "Breastplate made from steel",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a steel breastplate"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49071,7 +49151,9 @@
         "name": "half plate armor",
         "short_description": "Combined armor with chain mail and steel plates",
         "long_description": "Combined armor with chain mail and steel plates",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing half plate armor. A combination of chain mail and steel plates"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49156,7 +49238,9 @@
         "name": "splint armor",
         "short_description": "Metal strips sewn onto leather",
         "long_description": "Metal strips sewn onto leather",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing splint armor, made from metal strips sewn onto leather"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49241,7 +49325,9 @@
         "name": "tartan kilt",
         "short_description": "Thick cloth skirt with tartan pattern",
         "long_description": "Thick cloth skirt with tartan pattern",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a tartan kilt"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49326,7 +49412,9 @@
         "name": "silver mazer",
         "short_description": "An elaborate drinking bowl with silver metalwork",
         "long_description": "An elaborate drinking bowl with silver metalwork",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a silver mazer. It looks very elaborate"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49411,7 +49499,9 @@
         "name": "maplewood mazer",
         "short_description": "Drinking bowl made from maplewood with a metallic rim",
         "long_description": "Drinking bowl made from maplewood with a metallic rim",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a maplewood mazer. It has a metallic rim around the edges"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49838,7 +49928,9 @@
         "name": "gold earring",
         "short_description": "A plain gold earring",
         "long_description": "A plain gold earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a plain golden earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -49923,7 +50015,9 @@
         "name": "silver earring",
         "short_description": "A plain silver earring",
         "long_description": "A plain silver earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a plain silver earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50008,7 +50102,9 @@
         "name": "diamond earring",
         "short_description": "A sparkling diamond earring",
         "long_description": "A sparkling diamond earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a sparkling diamond earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50093,7 +50189,9 @@
         "name": "copper earring",
         "short_description": "A shiny copper earring",
         "long_description": "A shiny copper earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a shiny copper earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50178,7 +50276,9 @@
         "name": "ruby earring",
         "short_description": "A ruby earring",
         "long_description": "A ruby earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a ruby earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50263,7 +50363,9 @@
         "name": "jet earring",
         "short_description": "A spherical black earring",
         "long_description": "A spherical black earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a spherical jet earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50348,7 +50450,9 @@
         "name": "jade earring",
         "short_description": "A spherical green earring",
         "long_description": "A spherical green earring",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a spherical jade earring"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50433,7 +50537,9 @@
         "name": "adder stone",
         "short_description": "The smooth grey Adder stone is about the size of an apple, but much heavier. It has a perfectly round hole carved, or perhaps burrowed, through its center",
         "long_description": "The smooth grey Adder stone is about the size of an apple, but much heavier. It has a perfectly round hole carved, or perhaps burrowed, through its center",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding an adder stone. It is smooth and grey and about the size of an apple, but much heavier. There is a perfectly round carved, or perhaps burrowed, hole through its center"]
+        ],
         "takeFail": "",
         "moveTimes": [],
         "clo_head": 0,
@@ -50520,7 +50626,9 @@
         "name": "grey hagstone pendant",
         "short_description": "A small smooth grey stone with a hole through it hangs on a leather neck strap.",
         "long_description": "A small smooth grey stone with a hole through it hangs on a leather neck strap.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a grey hagstone pendant around your neck"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -50605,7 +50713,9 @@
         "name": "black hagstone pendant",
         "short_description": "A small smooth piece of jet stone with a hole through it hangs on a leather neck strap.",
         "long_description": "A small smooth piece of jet stone with a hole through it hangs on a leather neck strap.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a black hagstone pendant around your neck"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -50690,7 +50800,9 @@
         "name": "bluestone pendant",
         "short_description": "A small jagged piece of bluestone with a hole through it hangs on a leather neck strap.",
         "long_description": "A small jagged piece of bluestone with a hole through it hangs on a leather neck strap.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a jagged bluestone pendant around your neck"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -50775,7 +50887,9 @@
         "name": "serpents glass pendant",
         "short_description": "A small rounded piece of clear glassy stone with a hole through it hangs on a leather neck strap.",
         "long_description": "A small rounded piece of clear glassy stone with a hole through it hangs on a leather neck strap.",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are wearing a small serpents glass pendant around your neck"]
+        ],
         "clo_head": 0,
         "clo_neck": 1,
         "clo_larm": 0,
@@ -50860,7 +50974,9 @@
         "name": "fishing rod",
         "short_description": "Wooden fishing rod with a horse hair line",
         "long_description": "Wooden fishing rod with a horse hair line",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a wooden fishing rod, which has a horse hair line"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -50945,7 +51061,9 @@
         "name": "pond weed",
         "short_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
         "long_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding some sludgy pond weed|You are holding some repulsive pond weed"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51030,7 +51148,9 @@
         "name": "carp",
         "short_description": "A large fish",
         "long_description": "A large fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a large carp, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51115,7 +51235,9 @@
         "name": "pike fish",
         "short_description": "A long green fish",
         "long_description": "A long green fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a long green pike fish, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51200,7 +51322,9 @@
         "name": "rainbow trout",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a rainbow trout, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51285,7 +51409,9 @@
         "name": "minnow",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a minnow, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51370,7 +51496,9 @@
         "name": "cod fish",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a cod fish, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51455,7 +51583,9 @@
         "name": "haddock",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a haddock, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51540,7 +51670,9 @@
         "name": "turbot",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a turbot, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51625,7 +51757,9 @@
         "name": "sturgeon",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a sturgeon, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51710,7 +51844,9 @@
         "name": "dogfish",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a slippery dogfish, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51795,7 +51931,9 @@
         "name": "pollack",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a pollack, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51880,7 +52018,9 @@
         "name": "sea bass",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a sea bass, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -51965,7 +52105,9 @@
         "name": "mullet",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a mullet, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -52050,7 +52192,9 @@
         "name": "fly fishing rod",
         "short_description": "Wooden fly fishing rod",
         "long_description": "Wooden fly fishing rod",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are holding a wooden fly fishing rod"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -52135,7 +52279,9 @@
         "name": "chub fish",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a chub fish, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -52220,7 +52366,9 @@
         "name": "tench",
         "short_description": "A type of fish",
         "long_description": "A type of fish",
-        "conditional": [],
+        "conditional": [
+            ["wear","You are proudly holding a tench, as if you just caught it"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,

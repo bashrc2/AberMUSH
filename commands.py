@@ -2643,8 +2643,12 @@ def _conditionalItemDesc(itemId, conditional: [],
     for possibleDescription in conditional:
         if len(possibleDescription) >= 3:
             condType = possibleDescription[0]
-            cond = possibleDescription[1]
-            alternativeDescription = possibleDescription[2]
+            if condType.startswith('wear'):
+                cond = itemId
+                alternativeDescription = possibleDescription[1]
+            else:
+                cond = possibleDescription[1]
+                alternativeDescription = possibleDescription[2]
             if _conditionalLogic(condType, cond,
                                  alternativeDescription,
                                  id, players, items, itemsDB,
