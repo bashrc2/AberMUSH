@@ -2756,17 +2756,15 @@ def _conditionalItemImage(itemId,
                 continue
             cond = possibleDescription[1]
             alternativeDescription = possibleDescription[2]
-        if len(possibleDescription) >= thresholdIndex:
+        if len(possibleDescription) > thresholdIndex:
             if _conditionalLogic(condType, cond,
                                  alternativeDescription,
                                  id, players, items, itemsDB, clouds,
                                  mapArea, rooms):
-                if len(possibleDescription) > thresholdIndex:
-                    roomImageFilename = \
-                        'images/items/' + possibleDescription[thresholdIndex]
-                    if os.path.isfile(roomImageFilename):
-                        return possibleDescription[thresholdIndex]
-                break
+                itemImageFilename = \
+                    'images/items/' + possibleDescription[thresholdIndex]
+                if os.path.isfile(itemImageFilename):
+                    return possibleDescription[thresholdIndex]
     return str(itemId)
 
 
