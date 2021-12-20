@@ -3005,6 +3005,8 @@ def _showItemImage(mud, id, itemId, roomId, rooms: {}, players: {},
 
     itemImageFilename = 'images/items/' + itemIdStr
     print('itemIdStr: ' + itemImageFilename)
+    with open('testresult.txt', w+) as fp:
+        fp.write('itemIdStr: ' + itemImageFilename)
     if os.path.isfile(itemImageFilename + '_night'):
         currTime = datetime.datetime.today()
         sun = getSolar()
