@@ -52797,7 +52797,7 @@
         "conditional": [
             ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings"],
             ["morning","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones","1500a"],
-            ["night","yes","The eyes of the large statue of an angel watch over the gravestones. Its plinth partially concealed by moss and ivy","1500b"]
+            ["night","yes","The eyes of the large statue of an angel watch over the gravestones. Its plinth is partially concealed by moss and ivy","1500b"]
         ],
         "takeFail": "You try to take the angel statue, but it's far too big and heavy",
         "clo_head": 0,
