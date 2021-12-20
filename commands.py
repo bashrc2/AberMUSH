@@ -2742,29 +2742,26 @@ def _conditionalItemImage(itemId,
     """If there is an image associated with a conditional
     item description then return its name
     """
+    # Alternative descriptions triggered by conditions
     for possibleDescription in conditional:
-        condType = possibleDescription[0]
-        if condType.startswith('worn') or condType.startswith('held'):
-            thresholdIndex = 2
-            if len(possibleDescription) < thresholdIndex:
-                continue
-            cond = str(itemId)
-            alternativeDescription = possibleDescription[1]
-        else:
-            thresholdIndex = 3
-            if len(possibleDescription) < thresholdIndex:
-                continue
-            cond = possibleDescription[1]
-            alternativeDescription = possibleDescription[2]
-        if len(possibleDescription) > thresholdIndex:
-            if _conditionalLogic(condType, cond,
-                                 alternativeDescription,
-                                 id, players, items, itemsDB, clouds,
-                                 mapArea, rooms):
-                itemImageFilename = \
-                    'images/items/' + possibleDescription[thresholdIndex]
-                if os.path.isfile(itemImageFilename):
-                    return possibleDescription[thresholdIndex]
+        if len(possibleDescription) >= 3:
+            condType = possibleDescription[0]
+            cond = None
+            imageStr = None
+            if condType.startswith('wear') or condType.startswith('hold'):
+                cond = str(itemId)
+                alternativeDescription = possibleDescription[1]
+                imageStr = possibleDescription[2]
+            elif len(possibleDescription) >= 4:
+                cond = possibleDescription[1]
+                alternativeDescription = possibleDescription[2]
+                imageStr = possibleDescription[3]
+            if cond and imageStr:
+                if _conditionalLogic(condType, cond,
+                                     alternativeDescription,
+                                     id, players, items, itemsDB,
+                                     clouds, mapArea, rooms):
+                    return str(imageStr)
     return str(itemId)
 
 
