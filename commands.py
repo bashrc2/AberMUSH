@@ -2631,10 +2631,10 @@ def _conditionalRoomDescription(description: str, tideOutDescription: str,
     return roomDescription
 
 
-def _conditionalItemDescription(itemId, conditional: [],
-                                id, players: {}, items: {},
-                                itemsDB: {}, clouds: {}, mapArea: [],
-                                rooms: {}):
+def _conditionalItemDesc(itemId, conditional: [],
+                         id, players: {}, items: {},
+                         itemsDB: {}, clouds: {}, mapArea: [],
+                         rooms: {}):
     """Returns an item description which can vary depending on conditions
     """
     itemDescription = itemsDB[itemId]['long_description']
@@ -3167,11 +3167,11 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             if itemsDB[idx].get('conditional'):
                                 condDesc = itemsDB[idx]['conditional']
                             desc = \
-                                _conditionalItemDescription(idx, condDesc,
-                                                            id, players,
-                                                            items, itemsDB,
-                                                            clouds, mapArea,
-                                                            rooms)
+                                _conditionalItemDesc(idx, condDesc,
+                                                     id, players,
+                                                     items, itemsDB,
+                                                     clouds, mapArea,
+                                                     rooms)
                             message += randomDescription(desc)
                             message += \
                                 _describeContainerContents(mud, id,
@@ -3205,14 +3205,36 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             itemLanguage = itemsDBEntry['language']
                             _showItemImage(mud, id, thisItemID, players)
                             if len(itemLanguage) == 0:
-                                desc = itemsDBEntry['long_description']
+                                condDesc = []
+                                if itemsDBEntry.get('conditional'):
+                                    condDesc = itemsDBEntry['conditional']
+                                desc = \
+                                    _conditionalItemDesc(thisItemID,
+                                                         condDesc,
+                                                         id, players,
+                                                         items, itemsDB,
+                                                         clouds,
+                                                         mapArea,
+                                                         rooms)
                                 message += randomDescription(desc)
                                 message += \
                                     _describeContainerContents(
                                         mud, id, itemsDB, thisItemID, True)
                             else:
                                 if itemLanguage in players[id]['language']:
-                                    desc = itemsDBEntry['long_description']
+                                    condDesc = []
+                                    if itemsDBEntry.get('conditional'):
+                                        condDesc = itemsDBEntry['conditional']
+                                    desc = \
+                                        _conditionalItemDesc(thisItemID,
+                                                             condDesc,
+                                                             id,
+                                                             players,
+                                                             items,
+                                                             itemsDB,
+                                                             clouds,
+                                                             mapArea,
+                                                             rooms)
                                     message += randomDescription(desc)
                                     message += \
                                         _describeContainerContents(
@@ -3234,15 +3256,39 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 itemLanguage = itemsDBEntry['language']
                                 _showItemImage(mud, id, thisItemID, players)
                                 if len(itemLanguage) == 0:
-                                    desc = itemsDBEntry['long_description']
+                                    condDesc = []
+                                    if itemsDBEntry.get('conditional'):
+                                        condDesc = itemsDBEntry['conditional']
+                                    desc = \
+                                        _conditionalItemDesc(thisItemID,
+                                                             condDesc,
+                                                             id,
+                                                             players,
+                                                             items,
+                                                             itemsDB,
+                                                             clouds,
+                                                             mapArea,
+                                                             rooms)
                                     message += randomDescription(desc)
                                     message += \
                                         _describeContainerContents(
                                             mud, id, itemsDB, thisItemID, True)
                                 else:
                                     if itemLanguage in players[id]['language']:
+                                        condDesc = []
+                                        if itemsDBEntry.get('conditional'):
+                                            condDesc = \
+                                                itemsDBEntry['conditional']
                                         desc = \
-                                            itemsDBEntry['long_description']
+                                            _conditionalItemDesc(thisItemID,
+                                                                 condDesc,
+                                                                 id,
+                                                                 players,
+                                                                 items,
+                                                                 itemsDB,
+                                                                 clouds,
+                                                                 mapArea,
+                                                                 rooms)
                                         message += randomDescription(desc)
                                         message += \
                                             _describeContainerContents(
