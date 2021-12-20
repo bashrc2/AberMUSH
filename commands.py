@@ -2747,21 +2747,21 @@ def _conditionalItemImage(itemId,
         if len(possibleDescription) >= 3:
             condType = possibleDescription[0]
             cond = None
-            imageStr = None
+            itemIdStr = None
             if condType.startswith('wear') or condType.startswith('hold'):
                 cond = str(itemId)
                 alternativeDescription = possibleDescription[1]
-                imageStr = possibleDescription[2]
+                itemIdStr = possibleDescription[2]
             elif len(possibleDescription) >= 4:
                 cond = possibleDescription[1]
                 alternativeDescription = possibleDescription[2]
-                imageStr = possibleDescription[3]
-            if cond and imageStr:
+                itemIdStr = possibleDescription[3]
+            if cond and itemIdStr:
                 if _conditionalLogic(condType, cond,
                                      alternativeDescription,
                                      id, players, items, itemsDB,
                                      clouds, mapArea, rooms):
-                    return str(imageStr)
+                    return str(itemIdStr)
     return str(itemId)
 
 
