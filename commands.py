@@ -2719,19 +2719,20 @@ def _conditionalRoomImage(conditional: [], id, players: {}, items: {},
     room description then return its name
     """
     for possibleDescription in conditional:
-        if len(possibleDescription) >= 4:
-            condType = possibleDescription[0]
-            cond = possibleDescription[1]
-            alternativeDescription = possibleDescription[2]
-            if _conditionalLogic(condType, cond,
-                                 alternativeDescription,
-                                 id, players, items, itemsDB, clouds,
-                                 mapArea, rooms):
-                roomImageFilename = \
-                    'images/rooms/' + possibleDescription[3]
-                if os.path.isfile(roomImageFilename):
-                    return possibleDescription[3]
-                break
+        if len(possibleDescription) < 4:
+            continue
+        condType = possibleDescription[0]
+        cond = possibleDescription[1]
+        alternativeDescription = possibleDescription[2]
+        if _conditionalLogic(condType, cond,
+                             alternativeDescription,
+                             id, players, items, itemsDB, clouds,
+                             mapArea, rooms):
+            roomImageFilename = \
+                'images/rooms/' + possibleDescription[3]
+            if os.path.isfile(roomImageFilename):
+                return possibleDescription[3]
+            break
     return None
 
 
@@ -3003,6 +3004,7 @@ def _showItemImage(mud, id, itemId, roomId, rooms: {}, players: {},
             outdoors = True
 
     itemImageFilename = 'images/items/' + itemIdStr
+    print('itemIdStr: ' + itemImageFilename)
     if os.path.isfile(itemImageFilename + '_night'):
         currTime = datetime.datetime.today()
         sun = getSolar()
