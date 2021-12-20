@@ -505,7 +505,6 @@
 0|spawnItem|1009;$rid=586$;0;0
 0|spawnItem|1010;$rid=1247$;0;0
 0|spawnItem|1412;$rid=630$;0;0
-0|spawnItem|1412;$rid=1501$;0;0
 0|spawnItem|1413;$rid=865$;0;0
 0|spawnItem|1415;$rid=821$;0;0
 0|spawnItem|1418;$rid=432$;0;0
@@ -534,3 +533,4 @@
 0|spawnItem|1471;$rid=278$;0;0
 0|spawnItem|1473;$rid=913$;0;0
 0|spawnItem|1500;$rid=1135$;0;0
+0|spawnItem|1501;$rid=1412$;0;0
