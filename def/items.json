@@ -5782,7 +5782,7 @@
         "short_description": "Umm oww! very sharp.",
         "long_description": "The athame blade is razor sharp and has a black handle inscribed with arcane markings.",
         "conditional": [
-            ["wear","You are holding an athame. It is razor sharp and has a black handle inscribed with arcane markings"]
+            ["hold","You are holding an athame. It is razor sharp and has a black handle inscribed with arcane markings"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -5869,7 +5869,7 @@
         "short_description": "A very fine looking golden goblet, with various gods and dragons carved around its exterior",
         "long_description": "A very fine looking golden goblet, with various gods and dragons carved around its exterior",
         "conditional": [
-            ["wear","You are holding a fine golden goblet. It has various gods and dragons carved around its exterior"]
+            ["hold","You are holding a fine golden goblet. It has various gods and dragons carved around its exterior"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -21538,7 +21538,9 @@
         "name": "gruel",
         "short_description": "A bowl of gruel has been left here.",
         "long_description": "Hardly appetising but no doubt very filling.",
-        "conditional": [],
+        "conditional": [
+	    ["hold","You are holding a bowl of gruel"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -45321,7 +45323,7 @@
         "short_description": "A shiny pearl.",
         "long_description": "A shiny pearl.",
         "conditional": [
-            ["wear","You are holding a shiny pearl"]
+            ["hold","You are holding a shiny pearl"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45759,7 +45761,7 @@
         "short_description": "Looks quite edible.",
         "long_description": "A fresh looking pear.|Looks quite edible.",
         "conditional": [
-            ["wear","You are holding a fresh looking pear|You are holding a fresh looking pear. It looks quite edible"]
+            ["hold","You are holding a fresh looking pear|You are holding a fresh looking pear. It looks quite edible"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45846,7 +45848,7 @@
         "short_description": "Slightly fluffy",
         "long_description": "Blue, and slightly fluffy",
         "conditional": [
-            ["wear","You are clutching a blue, slightly fluffy bathroom towel"]
+            ["hold","You are clutching a blue, slightly fluffy bathroom towel"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45933,7 +45935,7 @@
         "short_description": "Slightly fluffy",
         "long_description": "An ordinary white bathroom towel. Slightly fluffy",
         "conditional": [
-            ["wear","You are clutching an ordinary white bathroom towel, which is slightly fluffy"]
+            ["hold","You are clutching an ordinary white bathroom towel, which is slightly fluffy"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46194,7 +46196,7 @@
         "short_description": "A modest wooden bowl of broth",
         "long_description": "A modest wooden bowl of broth",
         "conditional": [
-            ["wear","You are holding a modest wooden bowl of broth"]
+            ["hold","You are holding a modest wooden bowl of broth"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46368,7 +46370,7 @@
         "short_description": "A long pole with a small axe blade, hammer and spike fixed to the end of it",
         "long_description": "A long pole with a small axe blade, hammer and spike fixed to the end of it",
         "conditional": [
-            ["wear","You are holding a long poleaxe. It has a small blade with a hammer and spike fixed to the end of it"]
+            ["hold","You are holding a long poleaxe. It has a small blade with a hammer and spike fixed to the end of it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46455,7 +46457,7 @@
         "short_description": "A long pole with a vicious-looking metal spike and straight edged chopper on the end of it",
         "long_description": "A long pole with a vicious-looking metal spike and straight edged chopper on the end of it",
         "conditional": [
-            ["wear","You are holding a halberd. It has a vicious-looking metal spike and straight edged chopper on the end of it"]
+            ["hold","You are holding a halberd. It has a vicious-looking metal spike and straight edged chopper on the end of it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47840,7 +47842,7 @@
         "short_description": "The trident has three vicious-looking spikes on the end of a long pole",
         "long_description": "The trident has three vicious-looking spikes on the end of a long pole",
         "conditional": [
-            ["wear","You are holding a three pronged trident"]
+            ["hold","You are holding a three pronged trident"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47927,7 +47929,7 @@
         "short_description": "A very long pike, made from smooth polished steel",
         "long_description": "A very long pike, made from smooth polished steel",
         "conditional": [
-            ["wear","You are holding a long steel pike"]
+            ["hold","You are holding a long steel pike"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48188,7 +48190,7 @@
         "short_description": "A heavy clay brick, used for construction work",
         "long_description": "A heavy clay brick, used for construction work",
         "conditional": [
-            ["wear","You are holding a heavy clay brick"]
+            ["hold","You are holding a heavy clay brick"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48275,7 +48277,7 @@
         "short_description": "A heavy stone brick, used for construction work",
         "long_description": "A heavy stone brick, used for construction work",
         "conditional": [
-            ["wear","You are holding a heavy stone brick"]
+            ["hold","You are holding a heavy stone brick"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49665,7 +49667,7 @@
         "short_description": "An elaborate drinking bowl with silver metalwork",
         "long_description": "An elaborate drinking bowl with silver metalwork",
         "conditional": [
-            ["wear","You are holding a silver mazer. It looks very elaborate"]
+            ["hold","You are holding a silver mazer. It looks very elaborate"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49752,7 +49754,7 @@
         "short_description": "Drinking bowl made from maplewood with a metallic rim",
         "long_description": "Drinking bowl made from maplewood with a metallic rim",
         "conditional": [
-            ["wear","You are holding a maplewood mazer. It has a metallic rim around the edges"]
+            ["hold","You are holding a maplewood mazer. It has a metallic rim around the edges"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50790,7 +50792,7 @@
         "short_description": "The smooth grey Adder stone is about the size of an apple, but much heavier. It has a perfectly round hole carved, or perhaps burrowed, through its center",
         "long_description": "The smooth grey Adder stone is about the size of an apple, but much heavier. It has a perfectly round hole carved, or perhaps burrowed, through its center",
         "conditional": [
-            ["wear","You are holding an adder stone. It is smooth and grey and about the size of an apple, but much heavier. There is a perfectly round carved, or perhaps burrowed, hole through its center"]
+            ["hold","You are holding an adder stone. It is smooth and grey and about the size of an apple, but much heavier. There is a perfectly round carved, or perhaps burrowed, hole through its center"]
         ],
         "takeFail": "",
         "moveTimes": [],
@@ -51227,7 +51229,7 @@
         "short_description": "Wooden fishing rod with a horse hair line",
         "long_description": "Wooden fishing rod with a horse hair line",
         "conditional": [
-            ["wear","You are holding a wooden fishing rod, which has a horse hair line"]
+            ["hold","You are holding a wooden fishing rod, which has a horse hair line"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51314,7 +51316,7 @@
         "short_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
         "long_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
         "conditional": [
-            ["wear","You are holding some sludgy pond weed|You are holding some repulsive pond weed"]
+            ["hold","You are holding some sludgy pond weed|You are holding some repulsive pond weed"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51401,7 +51403,7 @@
         "short_description": "A large fish",
         "long_description": "A large fish",
         "conditional": [
-            ["wear","You are proudly holding a large carp, as if you just caught it"]
+            ["hold","You are proudly holding a large carp, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51488,7 +51490,7 @@
         "short_description": "A long green fish",
         "long_description": "A long green fish",
         "conditional": [
-            ["wear","You are proudly holding a long green pike fish, as if you just caught it"]
+            ["hold","You are proudly holding a long green pike fish, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51575,7 +51577,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a rainbow trout, as if you just caught it"]
+            ["hold","You are proudly holding a rainbow trout, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51662,7 +51664,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a minnow, as if you just caught it"]
+            ["hold","You are proudly holding a minnow, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51749,7 +51751,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a cod fish, as if you just caught it"]
+            ["hold","You are proudly holding a cod fish, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51836,7 +51838,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a haddock, as if you just caught it"]
+            ["hold","You are proudly holding a haddock, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51923,7 +51925,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a turbot, as if you just caught it"]
+            ["hold","You are proudly holding a turbot, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52010,7 +52012,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a sturgeon, as if you just caught it"]
+            ["hold","You are proudly holding a sturgeon, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52097,7 +52099,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a slippery dogfish, as if you just caught it"]
+            ["hold","You are proudly holding a slippery dogfish, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52184,7 +52186,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a pollack, as if you just caught it"]
+            ["hold","You are proudly holding a pollack, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52271,7 +52273,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a sea bass, as if you just caught it"]
+            ["hold","You are proudly holding a sea bass, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52358,7 +52360,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a mullet, as if you just caught it"]
+            ["hold","You are proudly holding a mullet, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52445,7 +52447,7 @@
         "short_description": "Wooden fly fishing rod",
         "long_description": "Wooden fly fishing rod",
         "conditional": [
-            ["wear","You are holding a wooden fly fishing rod"]
+            ["hold","You are holding a wooden fly fishing rod"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52532,7 +52534,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a chub fish, as if you just caught it"]
+            ["hold","You are proudly holding a chub fish, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52619,7 +52621,7 @@
         "short_description": "A type of fish",
         "long_description": "A type of fish",
         "conditional": [
-            ["wear","You are proudly holding a tench, as if you just caught it"]
+            ["hold","You are proudly holding a tench, as if you just caught it"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
