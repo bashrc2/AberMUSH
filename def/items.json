@@ -2420,7 +2420,9 @@
         "name": "crystal wand",
         "short_description": "Delicate and very fine.",
         "long_description": "A delicate crystal wand.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a delicate crystal wand"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -2675,7 +2677,9 @@
         "name": "lump of chalk",
         "short_description": "Its a very small piece.",
         "long_description": "A small lump of chalk has been left here.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a lump of chalk"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -3192,7 +3196,9 @@
         "name": "large axe",
         "short_description": "Crude but vicious.",
         "long_description": "A very sharp axe.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a large, crude-looking axe. Careful with that"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -3361,8 +3367,10 @@
     "113": {
         "name": "old spear",
         "short_description": "Good stout spear",
-        "long_description": "An old spear protrudes from amongst the junk.",
-        "conditional": [],
+        "long_description": "An old spear.",
+        "conditional": [
+            ["hold","You are holding an old spear"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -3447,7 +3455,9 @@
         "name": "yard of ale",
         "short_description": "Strong stuff.",
         "long_description": "A yard of ale has been left here by some foolish person.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a yard of ale|You are nursing a yard of ale"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -4646,7 +4656,9 @@
         "name": "small candle",
         "short_description": "Dusty.",
         "long_description": "There is a small candle here.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a small candle"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -5252,10 +5264,10 @@
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 1,
+        "clo_lhand": 0,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 1,
+        "clo_rhand": 0,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -5678,7 +5690,9 @@
         "name": "brass candelabrum",
         "short_description": "The elaborate brass candelabrum holds many candles.",
         "long_description": "The elaborate brass candelabrum holds many candles.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding an elaborate brass candelabrum"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -14659,10 +14673,10 @@
         "clo_neck": 0,
         "clo_larm": 0,
         "clo_rarm": 0,
-        "clo_lhand": 1,
+        "clo_lhand": 0,
         "clo_gloves": 0,
         "clo_lfinger": 0,
-        "clo_rhand": 1,
+        "clo_rhand": 0,
         "clo_rfinger": 0,
         "clo_waist": 0,
         "clo_rear": 0,
@@ -21605,7 +21619,9 @@
         "name": "gruel",
         "short_description": "A bowl of gruel has been left here.",
         "long_description": "Hardly appetising but no doubt very filling.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a bowl of gruel|You are holding a meagre bowl of gruel"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -21690,7 +21706,9 @@
         "name": "gruel",
         "short_description": "A bowl of gruel has been left here.",
         "long_description": "Hardly appetising but no doubt very filling.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding an unappetising bowl of gruel"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -21775,7 +21793,9 @@
         "name": "gruel",
         "short_description": "A bowl of gruel has been left here.",
         "long_description": "Hardly appetising but no doubt very filling.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a bowl of gruel"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -21860,7 +21880,9 @@
         "name": "white staff",
         "short_description": "A long white staff lies here, glowing gently.",
         "long_description": "The head of the staff has two large diamonds inset like eyes: glowing ceaselessly, never blinking, seeing everything....",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a white staff which has two large diamonds inset like eyes: glowing ceaselessly, never blinking, seeing everything...."]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -22542,7 +22564,9 @@
         "name": "old grimoire",
         "short_description": "An old grimoire is firmly fastened to a corner post of the bookcase.",
         "long_description": "It contains much on magic, packed with esoteric symbols and unfamiliar legends from centuries past|And the kinsman of the fire swallowed the ship of the heart of Tranoch when the defenders of the seat incited the harmful thief of the forest against their father. And the roaring dog embers bit the sovereign within the hearth-ship|We fought with swords, before mount Aftig. We held bloody shields: we stained our spears. Showers of arrows broke the shield in three pieces. The bow sent forth the glittering steel. Gwyneth fell in the conflict, than whom there was not a greater warrior. Wide on the shores lay the scattered dead, and the wolves rejoiced over their prey",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding an old grimoire. It contains much on magic, packed with esoteric symbols and unfamiliar legends from centuries past|And the kinsman of the fire swallowed the ship of the heart of Tranoch when the defenders of the seat incited the harmful thief of the forest against their father. And the roaring dog embers bit the sovereign within the hearth-ship|We fought with swords, before mount Aftig. We held bloody shields: we stained our spears. Showers of arrows broke the shield in three pieces. The bow sent forth the glittering steel. Gwyneth fell in the conflict, than whom there was not a greater warrior. Wide on the shores lay the scattered dead, and the wolves rejoiced over their prey"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -23921,8 +23945,10 @@
     "737": {
         "name": "silver goblet",
         "short_description": "A silver goblet lies here.",
-        "long_description": "A silver goblet full of water lies here.",
-        "conditional": [],
+        "long_description": "A silver goblet full of water.",
+        "conditional": [
+            ["hold","You are holding a silver goblet containing water"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -24094,7 +24120,9 @@
         "name": "red rock",
         "short_description": "A small red rock lies here.",
         "long_description": "A blood red rock, smooth as ice and just as chilling...",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a smooth blood red rock"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -24179,7 +24207,9 @@
         "name": "infinite torch",
         "short_description": "Torches burn brightly on all walls.",
         "long_description": "There are extinguished torches on all walls, some of them still smoking gently.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding an infinite torch, burning brightly"]
+        ],
         "takeFail": "The torches are too high up to reach.",
         "moveTimes": [],
         "clo_head": 0,
@@ -24266,7 +24296,9 @@
         "name": "large greatsword",
         "short_description": "A huge, mean looking, skullcrusher of a sword.",
         "long_description": "A huge, mean looking, skullcrusher of a sword.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a greatsword. It's a huge, mean looking, skullcrusher of a sword"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -24957,7 +24989,9 @@
         "name": "black scythe",
         "short_description": "A jet black scythe, which you could easily imagine helping poor souls to the afterlife...",
         "long_description": "A jet black scythe, which you could easily imagine helping poor souls to the afterlife...",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a black scythe, which you could easily imagine helping poor souls to the afterlife..."]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -25041,8 +25075,10 @@
     "796": {
         "name": "ice pick",
         "short_description": "A rather old and rusty looking ice pick.",
-        "long_description": "A rather rusty ice pick has been left here.",
-        "conditional": [],
+        "long_description": "A rather rusty ice pick.",
+        "conditional": [
+            ["hold","You are holding a rusty ice pick"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27024,7 +27060,9 @@
         "name": "bag",
         "short_description": "The bag is small and leather bound.",
         "long_description": "A small leather bag. it is closed.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a small leather bag|You are left holding the small leather bag, as it were"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27195,7 +27233,9 @@
         "name": "apple",
         "short_description": "Looks quite edible.",
         "long_description": "A fresh looking apple.|Looks quite edible.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding an apple|You are holding an apple, which looks quite edible"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27279,8 +27319,10 @@
     "908": {
         "name": "brass telescope",
         "short_description": "The telescope is tarnished and dirty.",
-        "long_description": "An old brass telescope has been left here.",
-        "conditional": [],
+        "long_description": "An old tarnished brass telescope.",
+        "conditional": [
+            ["hold","You are holding an old tarnished brass telescope"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27365,7 +27407,9 @@
         "name": "oak staff",
         "short_description": "A massive oaken staff has been put here by someone.",
         "long_description": "It bears the runes of High Lord Anarchy... I wouldn't touch it.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding an oak staff which bears the runes of High Lord Anarchy"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -27405,7 +27449,7 @@
         "mod_exp": 0,
         "mod_per": 0,
         "mod_endu": 0,
-        "mod_cha": 0,
+        "mod_cha": 10,
         "mod_int": 0,
         "mod_agi": 0,
         "mod_luc": 0,
@@ -27535,8 +27579,10 @@
     "914": {
         "name": "sandwiches",
         "short_description": "Yummy!",
-        "long_description": "A set of fairly fresh looking sandwiches have been dumped here.",
-        "conditional": [],
+        "long_description": "A set of fairly fresh looking sandwiches.",
+        "conditional": [
+            ["hold","You are holding some freshly made sandwiches"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28054,7 +28100,9 @@
         "name": "glowing orb",
         "short_description": "It bathes you in a strange white light.",
         "long_description": "A glowing white orb pulsates before you.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a pulsating orb"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28139,7 +28187,9 @@
         "name": "black rod",
         "short_description": "The rod is engraved with a red pentacle.",
         "long_description": "A large heavy black rod has been placed here.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a black rod, engraved with a red pentangle"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28912,7 +28962,9 @@
         "name": "sturdy axe",
         "short_description": "A sturdy axe lies discarded here.",
         "long_description": "Short handled, but extremely sharp and heavy. The manufacture is of noteworthy quality.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a sturdy, short handled axe"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -28997,7 +29049,9 @@
         "name": "heavy axe",
         "short_description": "A heavy axe is stacked here.",
         "long_description": "Short handled, but extremely sharp and heavy. The manufacture is of noteworthy quality.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a heavy, short handled axe"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -29681,8 +29735,10 @@
     "981": {
         "name": "small shield",
         "short_description": "A small but strong shield.",
-        "long_description": "A small shield has been dropped here.",
-        "conditional": [],
+        "long_description": "A small but strong shield.",
+        "conditional": [
+            ["hold","You are holding a small shield"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -29767,7 +29823,9 @@
         "name": "dusty tome",
         "short_description": "An ancient dusty tome lies here.",
         "long_description": "This ancient book contains the living record of those who have died. By ancient magics the book adds names itself.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a dusty tome containing the living record of those who have died. By ancient magics the book adds names itself"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -29851,8 +29909,10 @@
     "989": {
         "name": "pie",
         "short_description": "A small hobbit pie.",
-        "long_description": "A small, appetising hobbit pie has been left here.",
-        "conditional": [],
+        "long_description": "A small, appetising hobbit pie.",
+        "conditional": [
+            ["hold","You are holding a small, appetising hobbit pie"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -29936,8 +29996,10 @@
     "990": {
         "name": "loaf",
         "short_description": "Crusty and fairly fresh.",
-        "long_description": "A fresh loaf has been left here.",
-        "conditional": [],
+        "long_description": "A fresh crusty loaf.",
+        "conditional": [
+            ["hold","You are holding a fresh crusty loaf"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -30716,7 +30778,9 @@
         "name": "gold scimitar",
         "short_description": "A golden scimitar has been left here.",
         "long_description": "The hilt is carved with runes, and markings which you recognise as nature symbols.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a golden scimitar. Its hilt is carved with runes, and markings which you recognise as nature symbols"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -30971,8 +31035,10 @@
     "1016": {
         "name": "stick",
         "short_description": "A piece of broken wood.",
-        "long_description": "A long broken branch has been left here.",
-        "conditional": [],
+        "long_description": "A long broken branch.",
+        "conditional": [
+            ["hold","You are holding a long broken branch|You are holding a piece of broken wood"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -31057,7 +31123,9 @@
         "name": "branch",
         "short_description": "A longish piece of broken wood.",
         "long_description": "An old broken branch has been dropped here.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a long broken branch|You are holding a piece of broken wood"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -32608,7 +32676,9 @@
         "name": "sharp knife",
         "short_description": "A sharp knife has been left here.",
         "long_description": "It has a toothed edge, designed to inflict pain rather than injury.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a sharp knife with toothed edge"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -32693,7 +32763,9 @@
         "name": "red wand",
         "short_description": "A bright red wand lies before you.",
         "long_description": "A bright red wand marked with a picture of a bridge over flames.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a bright red wand marked with a picture of a bridge over flames"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -33297,7 +33369,9 @@
         "name": "chip of rock",
         "short_description": "A small piece of phosphorescent rock.",
         "long_description": "A small chip of phosphorescent rock.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a small chip of phosphorescent rock"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -33382,7 +33456,9 @@
         "name": "branch",
         "short_description": "A longish piece of broken wood.",
         "long_description": "A long broken tree branch.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a broken twig"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -33467,7 +33543,9 @@
         "name": "rose",
         "short_description": "Beautiful.",
         "long_description": "A small but beautiful rose has been left here, slowly wilting away.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a beautiful rose"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -33809,8 +33887,10 @@
     "1124": {
         "name": "gold cross",
         "short_description": "It glitters and shines beautifully.",
-        "long_description": "A hefty gold cross lies sparkling before you.",
-        "conditional": [],
+        "long_description": "A hefty sparkling gold cross.",
+        "conditional": [
+            ["hold","You are holding a sparkling golden cross"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -34323,7 +34403,9 @@
         "name": "runic staff",
         "short_description": "Someone has left a long runic staff here.",
         "long_description": "The staff is carved with many runes, and its end is a hideous sharpened hooked claw.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a carved runic staff. Its end is a hideous sharpened hooked claw"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -35186,7 +35268,9 @@
         "name": "soap",
         "short_description": "Very grubby-looking, it wouldn't help clean anything now.",
         "long_description": "Very grubby-looking, it wouldn't help clean anything now.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a some soap. It looks a bit grubby"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -35880,7 +35964,9 @@
         "name": "piece of pumice",
         "short_description": "The pumice rock is light in weight and colour, and filled with hundreds of tiny bubble holes.",
         "long_description": "The pumice rock is light in weight and colour, and filled with hundreds of tiny bubble holes.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a piece of pumice rock. It is filled with hundreds of tiny bubble holes"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -35965,7 +36051,9 @@
         "name": "fragment of obsidian",
         "short_description": "A jagged fragment of obsidian, which is razor sharp.",
         "long_description": "A jagged fragment of obsidian, which is razor sharp.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a jagged fragment of obsidian, which is quite sharp"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -36050,7 +36138,9 @@
         "name": "glowing crystal",
         "short_description": "A large crystal has been left here.",
         "long_description": "The crystal is obviously magical, but you are astounded to see the symbol of Haze, probably the greatest (and most evil) sorceror ever to walk the world, engraved upon its surface.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a glowing crystal. It is obviously magical, but you are astounded to see the symbol of Haze, probably the greatest (and most evil) sorceror ever to walk the world, engraved upon its surface"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -36482,7 +36572,9 @@
         "name": "pitchfork",
         "short_description": "A long and rather sharp pitchfork glints in the light.",
         "long_description": "A long and rather sharp pitchfork glints in the light. It could also be a formidable weapon.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a pitchfork. Could be a useful weapon if you have nothing better"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -37601,7 +37693,9 @@
         "name": "mining lantern",
         "short_description": "A beautiful, old fashioned lamp.",
         "long_description": "A brass lantern, typical of the style used in mines. Its light flickering gently.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a brass mining lantern"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -39512,7 +39606,9 @@
         "name": "stone tablet",
         "short_description": "An ancient stone tablet has been left here.",
         "long_description": "The tablet is an ancient piece from the philosopher-mage Theosynimus. It bears the words 'Thrice at the lich-owl's screech, cast fire into the images of the moon, listen well lest bitter experience teach, none make the path of the shadow alone.'",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a stone tablet. The tablet is an ancient piece from the philosopher-mage Theosynimus. It bears the words 'Thrice at the lich-owl's screech, cast fire into the images of the moon, listen well lest bitter experience teach, none make the path of the shadow alone"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -39596,8 +39692,10 @@
     "1299": {
         "name": "small rock",
         "short_description": "A small piece of rock lies here.",
-        "long_description": "A small piece of rock has been left on a stone slab.",
-        "conditional": [],
+        "long_description": "A small piece of rock.",
+        "conditional": [
+            ["hold","You are holding a small piece of rock"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -39682,7 +39780,9 @@
         "name": "hammer",
         "short_description": "A heavy mining hammer has been left here.",
         "long_description": "Very heavy, not the sort of hammer to hit your fingers with, more for hitting other peoples.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a heavy hammer"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -39767,7 +39867,9 @@
         "name": "pick",
         "short_description": "A good strong mining tool.",
         "long_description": "A heavy pick has been put here. The pick is battered and worn, and obviously much used.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a heavy mining pick, battered and worn"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -41414,7 +41516,9 @@
         "name": "shortsword",
         "short_description": "A strong stabbing weapon.",
         "long_description": "A sharp shortsword.|A strong stabbing weapon.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a sharp shortsword|You are holding a shortsword. Useful for stabbing"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -41499,7 +41603,9 @@
         "name": "small dagger",
         "short_description": "Although small it is very sharp.",
         "long_description": "A small dagger has been dropped here.|Although small it is very sharp.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a small dagger|You are holding a sharp dagger"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -41757,8 +41863,10 @@
     "1371": {
         "name": "old horseshoe",
         "short_description": "Well it didnt bring the horse any luck.",
-        "long_description": "An old horseshoe has been discarded here.|Well it didnt bring the horse any luck.",
-        "conditional": [],
+        "long_description": "An old horseshoe.|Well it didnt bring the horse any luck.",
+        "conditional": [
+            ["hold","You are holding an old horseshoe|You are holding an old horseshoe. Perhaps it's lucky"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -41843,7 +41951,9 @@
         "name": "runesword",
         "short_description": "A huge black runesword lies at your feet, glowing with arcane power.",
         "long_description": "A huge black runesword stands upright before you, embedded in the solid stone altar.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a huge black runesword, glowing with arcane power"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -43049,7 +43159,9 @@
         "name": "shortbow",
         "short_description": "Shortbow.",
         "long_description": "Shortbow.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a shortbow"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -43559,7 +43671,9 @@
         "name": "quarterstaff",
         "short_description": "A quarterstaff",
         "long_description": "A long wooden staff",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a long wooden staff"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -43644,7 +43758,9 @@
         "name": "heralds staff",
         "short_description": "A long bronze staff.",
         "long_description": "The staff is made from bronze, with curved prongs at the top reminiscent of a bull's horns.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding the heralds staff. Made from bronze, with curved prongs at the top reminiscent of a bull's horns"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -44160,7 +44276,9 @@
         "name": "bronze sword",
         "short_description": "A bronze stabbing weapon.",
         "long_description": "The bronze sword is polished and shines brightly. Its has a convex cutting blade.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a bronze sword. The polished blade shines brightly"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -44245,7 +44363,9 @@
         "name": "bronze dagger",
         "short_description": "A small polished bronze dagger.",
         "long_description": "The small polished bronze dagger has an elaborately patterned grip with three sets of concentric circles either side.|The bronze dagger is carefully polished and looks like it may be primarily a status symbol for its owner. It has elaborate circular markings on the handle.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a bronze dagger. It has an elaborately patterned grip with three sets of concentric circles either side"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -44330,7 +44450,9 @@
         "name": "small wooden shield",
         "short_description": "A small round wooden shield.",
         "long_description": "The small wooden shield is round and made from a few joined planks with a metallic button in the middle.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a small wooden shield made from a few joined planks with a metallic button in the middle"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -44415,7 +44537,9 @@
         "name": "woad shield",
         "short_description": "A small shield painted with a blue waod pattern.",
         "long_description": "The small shield is round and made from a interlocking wooden pieces. It is painted with blue woad spots which make it strikingly visible from a distance.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a round woad shield made from a interlocking wooden pieces. It is painted with blue woad spots which make it strikingly visible from a distance"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -44929,7 +45053,9 @@
         "name": "crystal dagger",
         "short_description": "The crystal dagger is carved from quartz.",
         "long_description": "The carved quartz crystal dagger dazzles brightly.",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a dazzling quartz crystal dagger"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -47447,7 +47573,9 @@
         "name": "flail",
         "short_description": "A spiked iron ball connected to the handle by a chain. This vicious-looking weapon could puncture most armor at close range, and deliver crushing blows",
         "long_description": "A spiked iron ball connected to the handle by a chain. This vicious-looking weapon could puncture most armor at close range, and deliver crushing blows",
-        "conditional": [],
+        "conditional": [
+            ["hold","You are holding a flail. It is a spiked iron ball connected to the handle by a chain. This vicious-looking weapon could puncture most armor at close range, and deliver crushing blows"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
