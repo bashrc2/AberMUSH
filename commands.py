@@ -2454,10 +2454,10 @@ def _holdingLightSource(players: {}, id, items: {}, itemsDB: {}) -> bool:
     return _lightSourceInRoom(players, id, items, itemsDB)
 
 
-def _conditionalRoom(condType: str, cond: str, description: str, id,
-                     players: {}, items: {},
-                     itemsDB: {}, clouds: {}, mapArea: [],
-                     rooms: {}) -> bool:
+def _conditionalLogic(condType: str, cond: str, description: str, id,
+                      players: {}, items: {},
+                      itemsDB: {}, clouds: {}, mapArea: [],
+                      rooms: {}) -> bool:
     if condType == 'sunrise' or \
        condType == 'dawn':
         currTime = datetime.datetime.today()
@@ -2608,7 +2608,7 @@ def _conditionalRoomDescription(description: str, tideOutDescription: str,
                                 conditional: [], id, players: {}, items: {},
                                 itemsDB: {}, clouds: {}, mapArea: [],
                                 rooms: {}):
-    """Returns a description which can vary depending on conditions
+    """Returns a room description which can vary depending on conditions
     """
     roomDescription = description
     if len(tideOutDescription) > 0:
@@ -2621,14 +2621,38 @@ def _conditionalRoomDescription(description: str, tideOutDescription: str,
             condType = possibleDescription[0]
             cond = possibleDescription[1]
             alternativeDescription = possibleDescription[2]
-            if _conditionalRoom(condType, cond,
-                                alternativeDescription,
-                                id, players, items, itemsDB,
-                                clouds, mapArea, rooms):
+            if _conditionalLogic(condType, cond,
+                                 alternativeDescription,
+                                 id, players, items, itemsDB,
+                                 clouds, mapArea, rooms):
                 roomDescription = alternativeDescription
                 break
 
     return roomDescription
+
+
+def _conditionalItemDescription(description: str,
+                                conditional: [], id, players: {}, items: {},
+                                itemsDB: {}, clouds: {}, mapArea: [],
+                                rooms: {}):
+    """Returns an item description which can vary depending on conditions
+    """
+    itemDescription = description
+
+    # Alternative descriptions triggered by conditions
+    for possibleDescription in conditional:
+        if len(possibleDescription) >= 3:
+            condType = possibleDescription[0]
+            cond = possibleDescription[1]
+            alternativeDescription = possibleDescription[2]
+            if _conditionalLogic(condType, cond,
+                                 alternativeDescription,
+                                 id, players, items, itemsDB,
+                                 clouds, mapArea, rooms):
+                itemDescription = alternativeDescription
+                break
+
+    return itemDescription
 
 
 def _conditionalRoomImage(conditional: [], id, players: {}, items: {},
@@ -2642,10 +2666,10 @@ def _conditionalRoomImage(conditional: [], id, players: {}, items: {},
             condType = possibleDescription[0]
             cond = possibleDescription[1]
             alternativeDescription = possibleDescription[2]
-            if _conditionalRoom(condType, cond,
-                                alternativeDescription,
-                                id, players, items, itemsDB, clouds,
-                                mapArea, rooms):
+            if _conditionalLogic(condType, cond,
+                                 alternativeDescription,
+                                 id, players, items, itemsDB, clouds,
+                                 mapArea, rooms):
                 roomImageFilename = \
                     'images/rooms/' + possibleDescription[3]
                 if os.path.isfile(roomImageFilename):
@@ -3139,7 +3163,17 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             if itemsDB[idx].get('itemName'):
                                 message += \
                                     'Name: ' + itemsDB[idx]['itemName'] + '\n'
-                            desc = itemsDB[idx]['long_description']
+                            defaultDesc = itemsDB[idx]['long_description']
+                            condDesc = []
+                            if itemsDB[idx].get('conditional'):
+                                condDesc = itemsDB[idx]['conditional']
+                            desc = \
+                                _conditionalItemDescription(defaultDesc,
+                                                            condDesc,
+                                                            id, players,
+                                                            items, itemsDB,
+                                                            clouds, mapArea,
+                                                            rooms)
                             message += randomDescription(desc)
                             message += \
                                 _describeContainerContents(mud, id,
