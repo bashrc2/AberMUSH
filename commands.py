@@ -2457,7 +2457,12 @@ def _holdingLightSource(players: {}, id, items: {}, itemsDB: {}) -> bool:
 def _conditionalLogic(condType: str, cond: str, description: str, id,
                       players: {}, items: {},
                       itemsDB: {}, clouds: {}, mapArea: [],
-                      rooms: {}) -> bool:
+                      rooms: {}, lookModifier: str) -> bool:
+    if lookModifier:
+        # look under/above/behind
+        if condType == lookModifier:
+            return True
+
     if condType == 'sunrise' or \
        condType == 'dawn':
         currTime = datetime.datetime.today()
@@ -2675,7 +2680,7 @@ def _conditionalRoomDesc(description: str, tideOutDescription: str,
             if _conditionalLogic(condType, cond,
                                  alternativeDescription,
                                  id, players, items, itemsDB,
-                                 clouds, mapArea, rooms):
+                                 clouds, mapArea, rooms, None):
                 roomDescription = alternativeDescription
                 break
 
@@ -2685,7 +2690,7 @@ def _conditionalRoomDesc(description: str, tideOutDescription: str,
 def _conditionalItemDesc(itemId, conditional: [],
                          id, players: {}, items: {},
                          itemsDB: {}, clouds: {}, mapArea: [],
-                         rooms: {}):
+                         rooms: {}, lookModifier: str):
     """Returns an item description which can vary depending on conditions
     """
     itemDescription = itemsDB[itemId]['long_description']
@@ -2705,7 +2710,8 @@ def _conditionalItemDesc(itemId, conditional: [],
                 if _conditionalLogic(condType, cond,
                                      alternativeDescription,
                                      id, players, items, itemsDB,
-                                     clouds, mapArea, rooms):
+                                     clouds, mapArea, rooms,
+                                     lookModifier):
                     itemDescription = alternativeDescription
                     break
 
@@ -2727,7 +2733,7 @@ def _conditionalRoomImage(conditional: [], id, players: {}, items: {},
         if _conditionalLogic(condType, cond,
                              alternativeDescription,
                              id, players, items, itemsDB, clouds,
-                             mapArea, rooms):
+                             mapArea, rooms, None):
             roomImageFilename = \
                 'images/rooms/' + possibleDescription[3]
             if os.path.isfile(roomImageFilename):
@@ -2739,7 +2745,7 @@ def _conditionalRoomImage(conditional: [], id, players: {}, items: {},
 def _conditionalItemImage(itemId,
                           conditional: [], id, players: {}, items: {},
                           itemsDB: {}, clouds: {}, mapArea: [],
-                          rooms: {}) -> str:
+                          rooms: {}, lookModifier: str) -> str:
     """If there is an image associated with a conditional
     item description then return its name
     """
@@ -2762,7 +2768,8 @@ def _conditionalItemImage(itemId,
             if _conditionalLogic(condType, cond,
                                  alternativeDescription,
                                  id, players, items, itemsDB,
-                                 clouds, mapArea, rooms):
+                                 clouds, mapArea, rooms,
+                                 lookModifier):
                 return str(itemIdStr)
     return str(itemId)
 
@@ -2984,7 +2991,7 @@ def _showSpellImage(mud, id, spellId, players: {}) -> None:
 
 def _showItemImage(mud, id, itemId, roomId, rooms: {}, players: {},
                    items: {}, itemsDB: {},
-                   clouds: {}, mapArea: []) -> None:
+                   clouds: {}, mapArea: [], lookModifier: str) -> None:
     """Shows an image for the item if it exists
     """
     if players[id].get('graphics'):
@@ -2995,7 +3002,7 @@ def _showItemImage(mud, id, itemId, roomId, rooms: {}, players: {},
                               itemsDB[itemId]['conditional'],
                               id, players, items,
                               itemsDB, clouds,
-                              mapArea, rooms)
+                              mapArea, rooms, lookModifier)
 
     # fixed items can have their illumination changed if they are outdoors
     outdoors = False
@@ -3216,6 +3223,24 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
             if param.startswith('my '):
                 param = params.replace('my ', '', 1)
 
+            # "look under the ..."
+            lookModifier = None
+            if param.startswith('under '):
+                param = params.replace('under ', '', 1)
+                lookModifier = 'under'
+            elif param.startswith('below '):
+                param = params.replace('below ', '', 1)
+                lookModifier = 'under'
+            elif param.startswith('behind '):
+                param = params.replace('behind ', '', 1)
+                lookModifier = 'behind'
+            elif param.startswith('above '):
+                param = params.replace('above ', '', 1)
+                lookModifier = 'above'
+            elif param.startswith('on top of '):
+                param = params.replace('on top of ', '', 1)
+                lookModifier = 'above'
+
             # replace "familiar" with the name of the familiar
             if param.startswith('familiar'):
                 familiarName = getFamiliarName(players, id, npcs)
@@ -3285,7 +3310,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                      id, players,
                                                      items, itemsDB,
                                                      clouds, mapArea,
-                                                     rooms)
+                                                     rooms, lookModifier)
                             message += randomDescription(desc)
                             message += \
                                 _describeContainerContents(mud, id,
@@ -3297,14 +3322,16 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 _showItemImage(mud, id, idx,
                                                roomId, rooms, players,
                                                items, itemsDB,
-                                               clouds, mapArea)
+                                               clouds, mapArea,
+                                               lookModifier)
                             else:
                                 if itemLanguage in players[id]['language']:
                                     roomId = players[id]['room']
                                     _showItemImage(mud, id, idx,
                                                    roomId, rooms, players,
                                                    items, itemsDB,
-                                                   clouds, mapArea)
+                                                   clouds, mapArea,
+                                                   lookModifier)
                                 else:
                                     message += \
                                         "It's written in " + itemLanguage
@@ -3328,7 +3355,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             _showItemImage(mud, id, thisItemID,
                                            roomId, rooms, players,
                                            items, itemsDB,
-                                           clouds, mapArea)
+                                           clouds, mapArea, None)
                             if len(itemLanguage) == 0:
                                 condDesc = []
                                 if itemsDBEntry.get('conditional'):
@@ -3340,7 +3367,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                          items, itemsDB,
                                                          clouds,
                                                          mapArea,
-                                                         rooms)
+                                                         rooms, None)
                                 message += randomDescription(desc)
                                 message += \
                                     _describeContainerContents(
@@ -3359,7 +3386,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                              itemsDB,
                                                              clouds,
                                                              mapArea,
-                                                             rooms)
+                                                             rooms, None)
                                     message += randomDescription(desc)
                                     message += \
                                         _describeContainerContents(
@@ -3383,7 +3410,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 _showItemImage(mud, id, thisItemID,
                                                roomId, rooms, players,
                                                items, itemsDB,
-                                               clouds, mapArea)
+                                               clouds, mapArea, None)
                                 if len(itemLanguage) == 0:
                                     condDesc = []
                                     if itemsDBEntry.get('conditional'):
@@ -3397,7 +3424,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                              itemsDB,
                                                              clouds,
                                                              mapArea,
-                                                             rooms)
+                                                             rooms, None)
                                     message += randomDescription(desc)
                                     message += \
                                         _describeContainerContents(
@@ -3417,7 +3444,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                                                  itemsDB,
                                                                  clouds,
                                                                  mapArea,
-                                                                 rooms)
+                                                                 rooms, None)
                                         message += randomDescription(desc)
                                         message += \
                                             _describeContainerContents(
