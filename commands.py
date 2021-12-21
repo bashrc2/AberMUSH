@@ -3184,7 +3184,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
             for (item, pl) in list(items.items()):
                 if _itemInPlayerRoom(players, id, items, item):
                     if _itemIsVisible(id, players, items[item]['id'], itemsDB):
-                        if items[item]['hidden'] == 0:
+                        if itemsDB[items[item]['id']]['hidden'] == 0:
                             itemshere.append(
                                 itemsDB[items[item]['id']]['article'] + ' ' +
                                 itemsDB[items[item]['id']]['name'])
