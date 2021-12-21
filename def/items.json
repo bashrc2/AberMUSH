@@ -4312,7 +4312,9 @@
         "name": "hobbit painting",
         "short_description": "Painting of a hobbit in a small wooden frame.",
         "long_description": "This painting looks like a portrait of a once legendary adventurer.",
-        "conditional": [],
+        "conditional": [
+	    ["behind","yes","Behind the painting you find a small paper note, which reads 'Not For Sale'"]
+	],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -4399,7 +4401,9 @@
         "name": "footstool",
         "short_description": "a footstool",
         "long_description": "A modest footstool. Useful in all manner of situations",
-        "conditional": [],
+        "conditional": [
+	    ["under","true","There's nothing under the footstool which would interest you"]
+	],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -6215,7 +6219,9 @@
         "name": "stone altar",
         "short_description": "A sense of deep power and awareness seems to flow from the altar.",
         "long_description": "A stone altar stands in the centre of the room, surrounded by a magic circle woven into the carpets.",
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","There's nothing very interesting behind the stone altar"]
+	],
         "takeFail": "It's much too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6389,7 +6395,9 @@
         "name": "clothes chest",
         "short_description": "Good solid wood.",
         "long_description": "A clothes chest sits here. The chest is closed.",
-        "conditional": [],
+        "conditional": [
+	    ["under","true","There isn't anything under the clothes chest, except for some dust"]
+	],
         "takeFail": "The chest is far too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6567,7 +6575,9 @@
         "name": "full-height mirror",
         "short_description": "A very high quality mirror, with a beautiful frame of carved wood.",
         "long_description": "A very high quality mirror, with a beautiful frame of carved wood.",
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","There isn't anything behind the mirror"]
+	],
         "takeFail": "It's fixed to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6654,7 +6664,9 @@
         "name": "four poster bed",
         "short_description": "The four poster bed is made from beautiful oak with silk bedding and regal red drapes.",
         "long_description": "The four poster bed is made from beautiful oak with silk bedding and regal red drapes.",
-        "conditional": [],
+        "conditional": [
+	    ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+	],
         "takeFail": "Even with considerable effort, you fail to move the bed. It's exceptionally heavy.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -7176,7 +7188,8 @@
         "short_description": "A sturdy bucket, with a metal handle.",
         "long_description": "The sturdy bucket is made from wood, with a metal handle.",
         "conditional": [
-            ["hold","You are holding a strong wooden bucket with a metal handle"]
+            ["hold","You are holding a strong wooden bucket with a metal handle"],
+	    ["under","true","You examine the base of the bucket, and find no holes"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8737,7 +8750,10 @@
         "name": "Morran's desk",
         "short_description": "An old desk stands under the window.",
         "long_description": "The desk is strewn with papers and junk.",
-        "conditional": [],
+        "conditional": [
+	    ["behind","yes","You don't find anything behind the desk"],
+	    ["under","yes","You don't find anything under the desk"]
+	],
         "takeFail": "It's too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -8911,7 +8927,9 @@
         "name": "clavichord",
         "short_description": "An early keyboard instrument.",
         "long_description": "An early keyboard instrument.",
-        "conditional": [],
+        "conditional": [
+	    ["under","true","You don't find anything under the clavichord"]
+	],
         "takeFail": "It's too large and heavy.",
         "moveTimes": [],
         "clo_head": 0,
@@ -9172,7 +9190,9 @@
         "name": "glass cabinet",
         "short_description": "A cabinet made from glass stands here.",
         "long_description": "A cabinet made from glass stands here, the door is open.",
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","There isn't anything behind the cabinet. If there was it would show through the glass"]
+	],
         "takeFail": "It's too heavy.",
         "moveTimes": [],
         "clo_head": 0,
@@ -9346,7 +9366,10 @@
         "name": "couch",
         "short_description": "Most refreshing for visitors to sink into.",
         "long_description": "Most refreshing for visitors to sink into.",
-        "conditional": [],
+        "conditional": [
+	    ["under","true","There's nothing under the couch"],
+	    ["behind","true","If there was anything behind the couch, it's gone now"]
+	],
         "takeFail": "It's too large to carry.",
         "moveTimes": [],
         "clo_head": 0,
@@ -16157,7 +16180,7 @@
         "long_description": "A rough wooden coffin has been left lying underneath the table. It is open.|It is a rough wooden box, 6 feet long and 3 feet wide. It is open.",
         "conditional": [
 	    ["behind","true","You don't see anything behind the coffin"],
-	    ["under","true","You don't see anything under the coffin"]
+	    ["under","true","Expecting to discover some deviously concealed object you peer under the coffin. But, alas, there is nothing here to be found"]
 	],
         "takeFail": "It's too big to carry around.",
         "moveTimes": [],
