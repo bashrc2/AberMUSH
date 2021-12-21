@@ -3184,9 +3184,10 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
             for (item, pl) in list(items.items()):
                 if _itemInPlayerRoom(players, id, items, item):
                     if _itemIsVisible(id, players, items[item]['id'], itemsDB):
-                        itemshere.append(
-                            itemsDB[items[item]['id']]['article'] + ' ' +
-                            itemsDB[items[item]['id']]['name'])
+                        if items[item]['hidden'] == 0:
+                            itemshere.append(
+                                itemsDB[items[item]['id']]['article'] + ' ' +
+                                itemsDB[items[item]['id']]['name'])
 
             # send player a message containing the list of players in the room
             if len(playershere) > 0:
