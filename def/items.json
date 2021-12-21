@@ -4485,8 +4485,8 @@
         "short_description": "A large comfortable rocking chair.",
         "long_description": "A rocking chair creaks sadly to itself in the corner.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the chair"],
-	    ["under","true","You don't seen anything under the chair"]
+	    ["behind","true","You don't see anything behind the chair"],
+	    ["under","true","You don't see anything under the chair"]
 	],
         "takeFail": "It would be too big to carry.",
         "moveTimes": [],
@@ -6477,8 +6477,8 @@
         "short_description": "A stout oak table.",
         "long_description": "A stout oak table stands next to the bed. It has an ornate chess board on it, with pieces representing opposing tribes from earlier centuries.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the table"],
-	    ["under","true","You don't seen anything under the table"]
+	    ["behind","true","You don't see anything behind the table"],
+	    ["under","true","You don't see anything under the table"]
 	],
         "takeFail": "The oak table is too heavy to be moved by you alone.",
         "moveTimes": [],
@@ -16156,8 +16156,8 @@
         "short_description": "It is a rough wooden box, 6 feet long and 3 feet wide.",
         "long_description": "A rough wooden coffin has been left lying underneath the table. It is open.|It is a rough wooden box, 6 feet long and 3 feet wide. It is open.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the coffin"],
-	    ["under","true","You don't seen anything under the coffin"]
+	    ["behind","true","You don't see anything behind the coffin"],
+	    ["under","true","You don't see anything under the coffin"]
 	],
         "takeFail": "It's too big to carry around.",
         "moveTimes": [],
@@ -16333,8 +16333,8 @@
         "short_description": "It is a very solid, old wooden table.",
         "long_description": "There is a large table in the middle of the room.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the table"],
-	    ["under","true","You don't seen anything under the table"]
+	    ["behind","true","You don't see anything behind the table"],
+	    ["under","true","You don't see anything under the table"]
 	],
         "takeFail": "It's too big and unwieldy to take.",
         "moveTimes": [],
@@ -35809,8 +35809,8 @@
         "short_description": "A small oak table stands here.",
         "long_description": "Mystic symbols are inlaid into its top, along with a chess board.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the table"],
-	    ["under","true","You don't seen anything under the table"]
+	    ["behind","true","You don't see anything behind the table"],
+	    ["under","true","You don't see anything under the table"]
 	],
         "clo_head": 0,
         "clo_neck": 0,
@@ -39193,8 +39193,8 @@
         "short_description": "Solid, but a little uncomfortable.",
         "long_description": "Solid, but a little uncomfortable.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the bench"],
-	    ["under","true","You don't seen anything under the bench"]
+	    ["behind","true","You don't see anything behind the bench"],
+	    ["under","true","You don't see anything under the bench"]
 	],
         "takeFail": "It's much too big and heavy.",
         "moveTimes": [],
@@ -39283,7 +39283,7 @@
         "short_description": "Good solid tables.",
         "long_description": "Good solid tables. Only slight evidence of ale spillage. There is a pack of cards and a Morris board here.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the table"],
+	    ["behind","true","You don't see anything behind the table"],
 	    ["under","true","Against your better judgement you rummage around under the table. There are ale stains on the floor, but otherwise you find nothing of interest"]
 	],
         "takeFail": "You try to take the table, but only look foolish because it's too large to carry.",
@@ -40419,8 +40419,8 @@
         "short_description": "There is a large hole here.",
         "long_description": "It is a strange hole. It seems almost well, unattached.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the hole"],
-	    ["under","true","You don't seen anything under the hole"]
+	    ["behind","true","You don't see anything noteworthy behind the hole"],
+	    ["under","true","You don't see anything worthy of comment under the hole"]
 	],
         "takeFail": "You can't get a hold of it.",
         "moveTimes": [],
@@ -45696,7 +45696,7 @@
         "short_description": "A wooden tavern table built from solid planks. There is a pack of cards here.",
         "long_description": "A wooden tavern table built from solid planks. There is a pack of cards and a Nine Men's Morris board here.",
         "conditional": [
-	    ["behind","true","You don't seen anything behind the table"],
+	    ["behind","true","You don't see anything interesting behind the table"],
 	    ["under","true","You eagerly rummage around under the table, then realize that this is a rather silly thing to be doing"]
 	],
         "takeFail": "Stealing the table from this seedy locale would not be a wise move.",
