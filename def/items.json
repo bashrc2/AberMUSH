@@ -53275,8 +53275,8 @@
     },
     "1498": {
         "name": "tench",
-        "short_description": "A type of fish",
-        "long_description": "A type of fish",
+        "short_description": "A type of fish.",
+        "long_description": "A type of fish.",
         "hidden": 0,
         "conditional": [
             ["hold","You are proudly holding a tench, as if you just caught it"]
@@ -53363,8 +53363,8 @@
     },
     "1499": {
         "name": "wall painting",
-        "short_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat",
-        "long_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat",
+        "short_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat.",
+        "long_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "It's securely fastened to the wall.",
@@ -53451,8 +53451,8 @@
     },
     "1500": {
         "name": "angel statue",
-        "short_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones",
-        "long_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones",
+        "short_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones.",
+        "long_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones.",
         "hidden": 0,
         "conditional": [
             ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings"],
@@ -53543,8 +53543,8 @@
     },
     "1501": {
         "name": "wall plaque",
-        "short_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures",
-        "long_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures",
+        "short_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures.",
+        "long_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "It's securely fastened to the wall.",
@@ -53631,8 +53631,8 @@
     },
     "1502": {
         "name": "floor mosaic",
-        "short_description": "",
-        "long_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear",
+        "short_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear.",
+        "long_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "You'd need to dig up the floor to do that",
@@ -53718,8 +53718,8 @@
     },
     "1503": {
         "name": "prayer bench",
-        "short_description": "A humble wooden bench has been placed here to allow the faithful to pray",
-        "long_description": "A humble wooden bench has been placed here to allow the faithful to pray",
+        "short_description": "A humble wooden bench has been placed here to allow the faithful to pray.",
+        "long_description": "A humble wooden bench has been placed here to allow the faithful to pray.",
         "hidden": 0,
         "conditional": [
 	    ["behind","true","In the narrow gap behind the prayer bench you see a small iron lever"],
@@ -53809,8 +53809,8 @@
     },
     "1504": {
         "name": "incense stand",
-        "short_description": "An ornate iron incense stand, having three legs supporting a tray into which burners can be placed",
-        "long_description": "An ornate iron incense stand, having three legs supporting a tray into which burners can be placed",
+        "short_description": "An ornate iron incense stand, having three legs supporting a tray into which burners can be placed.",
+        "long_description": "An ornate iron incense stand, having three legs supporting a tray into which burners can be placed.",
         "hidden": 0,
 	"takeFail": "You try to take the incense stand, but its feet are embedded into the floor",
         "conditional": [
@@ -53900,8 +53900,8 @@
     },
     "1505": {
         "name": "small iron lever",
-        "short_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position",
-        "long_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position",
+        "short_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position.",
+        "long_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position.",
         "hidden": 1,
         "conditional": [],
         "takeFail": "The lever is somehow attached to the floor",
