@@ -14520,7 +14520,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": 2,
-        "maxPlayers": 1,
+        "maxPlayers": 2,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
