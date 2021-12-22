@@ -14510,6 +14510,7 @@
     },
     "$rid=1419$": {
         "exits": {
+	    "north": "$rid=1420$"
         },
         "name": "Creepy Corridor",
         "description": "You are in a cold narrow corridor. The stone floor is damp and the walls are stained with streaks of dripping water. The only light source is a small arched window at the eastern end",
@@ -14521,6 +14522,29 @@
         "eventOnLeave": "",
         "maxPlayerSize": 2,
         "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1420$": {
+        "exits": {
+	    "south": "$rid=1419$"
+        },
+        "name": "The Sanctuary",
+        "description": "The sanctuary is a small, austere-looking room with minimal furnishings. Illuminated by candles mounted on the walls, this is a place for the persecuted seeking refuge or for quiet contemplation. There is a narrow corridor to the south",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 10,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
