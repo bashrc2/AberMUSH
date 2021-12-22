@@ -54076,8 +54076,8 @@
     },
     "1507": {
         "name": "narrow door",
-        "short_description": "A narrow sliding door leads out of the corridor",
-        "long_description": "A narrow sliding door leads out of the corridor",
+        "short_description": "A narrow sliding door leads into the crypt",
+        "long_description": "A narrow sliding door leads into the crypt",
         "hidden": 0,
         "conditional": [],
         "takeFail": "You can't take the door.",
