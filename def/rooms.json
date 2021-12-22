@@ -14512,7 +14512,7 @@
         "exits": {
         },
         "name": "Creepy Corridor",
-        "description": "You are in a cold narrow corridor. The stone floor is damp and the walls are stained with streaks of dripping water. The only light source is a window at the eastern end",
+        "description": "You are in a cold narrow corridor. The stone floor is damp and the walls are stained with streaks of dripping water. The only light source is a small arched window at the eastern end",
         "roomTeleport": "",
         "conditional": [
         ],
