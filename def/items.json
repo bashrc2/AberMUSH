@@ -54344,8 +54344,8 @@
     },
     "1510": {
         "name": "wooden chest",
-        "short_description": "A large wooden chest",
-        "long_description": "A large wooden chest",
+        "short_description": "A large wooden chest.",
+        "long_description": "A large wooden chest.",
         "hidden": 0,
         "conditional": [
 	    ["under","true","There isn't anything under the wooden chest"]
