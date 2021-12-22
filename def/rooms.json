@@ -5960,7 +5960,7 @@
     },
     "$rid=703$": {
         "name": "The Crypt",
-        "description": "The crypt is dark and musty. The air is filled with ancient odours and the smell of candles and incense. The mosaic stone floor is slick with moisture. A narrow staircase leads upwards.",
+        "description": "The crypt is dark and musty. The air is filled with ancient odours and the smell of candles and incense. Many niches set into the walls each hold the shrouded remains of long-dead worshippers. There is a large mosaic on the floor, and a narrow stone staircase leads upwards.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -14499,6 +14499,28 @@
         "eventOnLeave": "",
         "maxPlayerSize": 3,
         "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1419$": {
+        "exits": {
+        },
+        "name": "Creepy Corridor",
+        "description": "You are in a cold narrow corridor. The stone floor is damp and the walls are stained with streaks of dripping water",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
