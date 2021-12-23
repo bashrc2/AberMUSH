@@ -10,9 +10,12 @@ __module_group__ = "Environment Simulation"
 
 from random import randint
 import random
+import math
 from math import sin
 import datetime
 from functions import randomDescription
+import decimal
+dec = decimal.Decimal
 
 rainThreshold = 230
 
@@ -1140,3 +1143,29 @@ def playersFishing(players: {}, rooms: {}, itemsDB: {}, mud) -> None:
     for p in players:
         if players[p].get('isFishing'):
             _catchFish(players, p, rooms, itemsDB, mud)
+
+
+def _moonPosition(currTime) -> int:
+    """Returns a number representing the position of the moon
+    """
+    diff = currTime - datetime.datetime(2001, 1, 1)
+    days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
+    lunations = dec("0.20439731") + (days * dec("0.03386319269"))
+    return lunations % dec(1)
+
+
+def moonPhase(currTime) -> int:
+    """Returns a number representing the phase of the moon
+    """
+    position = _moonPosition(currTime)
+    index = (position * dec(8)) + dec("0.5")
+    index = math.floor(index)
+    return int(index) & 7
+
+
+def moonIllumination(currTime) -> int:
+    """Returns additional illumination due to moonlight
+    """
+    position = _moonPosition(currTime)
+    pos = int(position) & 7
+    return int((5 - abs(4 - pos)) * 2)

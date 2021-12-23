@@ -33,6 +33,8 @@ from functions import increaseAffinityBetweenPlayers
 from functions import decreaseAffinityBetweenPlayers
 from functions import getSentiment
 from functions import getGuildSentiment
+from environment import moonPhase
+from environment import moonIllumination
 from environment import holdingFlyFishingRod
 from environment import holdingFishingRod
 from environment import isFishingSite
@@ -88,9 +90,6 @@ import datetime
 import os.path
 import random
 from random import randint
-
-import decimal
-dec = decimal.Decimal
 
 
 def _getMaxWeight(id, players: {}) -> int:
@@ -2553,6 +2552,31 @@ def _conditionalLogic(condType: str, cond: str, description: str, id,
                'n' in cond.lower():
                 return True
 
+    if condType.endswith('moon'):
+        currTime = datetime.datetime.today()
+        currHour = currTime.hour
+        phase = moonPhase(currTime)
+        if currHour >= 22 or currHour < 6:
+            moonPhaseNames = {
+                0: "newmoon",
+                1: "waxingcrescentmoon",
+                2: "firstquartermoon",
+                3: "waxinggibbousmoon",
+                4: "fullmoon",
+                5: "waninggibbousmoon",
+                6: "lastquartermoon",
+                7: "waningcrescentmoon"
+            }
+            for moonIndex, phaseName in moonPhaseNames.items():
+                if condType == phaseName and phase == moonIndex:
+                    if 'true' in cond.lower() or \
+                       'y' in cond.lower():
+                        return True
+        else:
+            if 'false' in cond.lower() or \
+               'n' in cond.lower():
+                return True
+
     if condType == 'hour':
         currHour = datetime.datetime.today().hour
         condHour = \
@@ -2842,16 +2866,6 @@ def _itemIsClimbable(climberId: int, players: {},
     return False
 
 
-def _moonIllumination(currTime) -> int:
-    """Returns additional illumination due to moonlight
-    """
-    diff = currTime - datetime.datetime(2001, 1, 1)
-    days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
-    lunations = dec("0.20439731") + (days * dec("0.03386319269"))
-    index = int(lunations % dec(1)) & 7
-    return int((5-abs(4-index))*2)
-
-
 def _roomIllumination(roomImage, outdoors: bool):
     """Alters the brightness and contrast of the image to simulate
     evening and night conditions
@@ -2873,7 +2887,7 @@ def _roomIllumination(roomImage, outdoors: bool):
     if currHour < (sunRiseTime-2) or currHour > (sunSetTime+2):
         colorVariance = 50
 
-    brightness += _moonIllumination(currTime)
+    brightness += moonIllumination(currTime)
     pixels = roomImage.split('[')
 
     averageIntensity = 0
