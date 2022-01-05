@@ -15,57 +15,57 @@ import argparse
 import sys
 
 from functions import deepcopy
-from functions import showTiming
+from functions import show_timing
 from functions import log
-from functions import saveState
-from functions import saveUniverse
-from functions import addToScheduler
-from functions import loadPlayer
-from functions import loadPlayersDB
-from functions import sendToChannel
+from functions import save_state
+from functions import save_universe
+from functions import add_to_scheduler
+from functions import load_player
+from functions import load_players_db
+from functions import send_to_channel
 from functions import hash_password
 from functions import verify_password
-from functions import loadBlocklist
-from functions import setRace
+from functions import load_blocklist
+from functions import set_race
 from functions import str2bool
 
-from commands import runCommand
-from combat import npcAggression
-from combat import runFights
-from combat import playersRest
-from combat import updateTemporaryHitPoints
-from combat import updateTemporaryIncapacitation
-from combat import updateTemporaryCharm
-from combat import updateMagicShield
-from playerconnections import initialSetupAfterLogin
-from playerconnections import runPlayerConnections
-from playerconnections import disconnectIdlePlayers
-from playerconnections import playerInGame
-from npcs import npcRespawns
-from npcs import runNPCs
-from npcs import runMobileItems
-from npcs import npcsRest
-from familiar import familiarRecall
-from reaper import removeCorpses
-from reaper import runDeaths
-from scheduler import runSchedule
-from scheduler import runEnvironment
-from scheduler import runMessages
-from environment import playersFishing
-from environment import assignTerrainDifficulty
-from environment import assignCoordinates
-from environment import generateCloud
-from environment import getTemperature
-from environment import findRoomCollisions
-from environment import mapLevelAsCsv
-from environment import assignEnvironmentToRooms
-from history import assignItemsHistory
-from worldmap import exportMMP
-from markets import assignMarkets
-from traps import runTraps
-from tests import runAllTests
+from commands import run_command
+from combat import npc_aggression
+from combat import run_fights
+from combat import players_rest
+from combat import update_temporary_hit_points
+from combat import update_temporary_incapacitation
+from combat import update_temporary_charm
+from combat import update_magic_shield
+from playerconnections import initial_setup_after_login
+from playerconnections import run_player_connections
+from playerconnections import disconnect_idle_players
+from playerconnections import player_in_game
+from npcs import npc_respawns
+from npcs import run_npcs
+from npcs import run_mobile_items
+from npcs import npcs_rest
+from familiar import familiar_recall
+from reaper import remove_corpses
+from reaper import run_deaths
+from scheduler import run_schedule
+from scheduler import run_environment
+from scheduler import run_messages
+from environment import players_fishing
+from environment import assign_terrain_difficulty
+from environment import assign_coordinates
+from environment import generate_cloud
+from environment import get_temperature
+from environment import find_room_collisions
+from environment import map_level_as_csv
+from environment import assign_environment_to_rooms
+from history import assign_items_history
+from worldmap import export_mmp
+from markets import assign_markets
+from traps import run_traps
+from tests import run_all_tests
 
-from gcos import terminalEmulator
+from gcos import terminal_emulator
 
 import datetime
 import time
@@ -99,7 +99,7 @@ parser.add_argument("--mmp", type=str2bool, nargs='?',
                     help="Map in MMP XML format")
 args = parser.parse_args()
 if args.tests:
-    runAllTests()
+    run_all_tests()
     sys.exit()
 
 log("", "Server Boot")
@@ -119,19 +119,19 @@ rooms = {}
 environments = {}
 
 # Declare NPC database dict
-npcsDB = {}
+npcs_db = {}
 
 # Declare NPCs dictionary
 npcs = {}
 
 # Declare NPCs master (template) dict
-npcsTemplate = {}
+npcs_template = {}
 
 # Declare env dict
 env = {}
 
 # Declare env database dict
-envDB = {}
+env_db = {}
 
 # Declare fights dict
 fights = {}
@@ -140,22 +140,22 @@ fights = {}
 corpses = {}
 
 # Declare items dict
-itemsDB = {}
+items_db = {}
 
-# Declare itemsInWorld dict
-itemsInWorld = {}
+# Declare items_in_world dict
+items_in_world = {}
 
-# Declare scriptedEventsDB list
-scriptedEventsDB = []
+# Declare scripted_events_db list
+scripted_events_db = []
 
-# Declare eventSchedule dict
-eventSchedule = {}
+# Declare event_schedule dict
+event_schedule = {}
 
 # Declare channels message queue dictionary
 channels = {}
 
 # Specify allowed player idle time
-allowedPlayerIdle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
+allowed_player_idle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
 
 # websocket settings
 websocket_tls = False
@@ -171,19 +171,19 @@ if 'true' in Config.get('Web', 'tlsEnabled').lower():
 log("Loading sentiment...", "info")
 
 with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
-    sentimentDB = json.loads(read_file.read())
+    sentiment_db = json.loads(read_file.read())
 
-countStr = str(len(sentimentDB))
-log("Sentiment loaded: " + countStr, "info")
+count_str = str(len(sentiment_db))
+log("Sentiment loaded: " + count_str, "info")
 
 log("Loading cultures...", "info")
 
-culturesDB = None
+cultures_db = None
 with open(str(Config.get('Cultures', 'Definition')), "r") as read_file:
-    culturesDB = json.loads(read_file.read())
+    cultures_db = json.loads(read_file.read())
 
-countStr = str(len(culturesDB))
-log("Cultures loaded: " + countStr, "info")
+count_str = str(len(cultures_db))
+log("Cultures loaded: " + count_str, "info")
 
 log("Loading rooms...", "info")
 
@@ -198,31 +198,31 @@ else:
     with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
         rooms = json.loads(read_file.read())
 
-for roomID, rm in rooms.items():
-    roomID = roomID.replace('$rid=', '').replace('$', '')
-    if not os.path.isfile('images/rooms/' + str(roomID)):
+for room_id, rm in rooms.items():
+    room_id = room_id.replace('$rid=', '').replace('$', '')
+    if not os.path.isfile('images/rooms/' + str(room_id)):
         if not args.mapLevel:
-            print('Missing room image: ' + str(roomID))
+            print('Missing room image: ' + str(room_id))
 
-countStr = str(len(rooms))
-log("Rooms loaded: " + countStr, "info")
+count_str = str(len(rooms))
+log("Rooms loaded: " + count_str, "info")
 
 log("Loading environments...", "info")
 with open(str(Config.get('Environments', 'Definition')), "r") as read_file:
     environments = json.loads(read_file.read())
-percentAssigned = str(assignEnvironmentToRooms(environments, rooms))
-log(percentAssigned + '% of rooms have environments assigned', "info")
+percent_assigned = str(assign_environment_to_rooms(environments, rooms))
+log(percent_assigned + '% of rooms have environments assigned', "info")
 
-maxTerrainDifficulty = assignTerrainDifficulty(rooms)
+max_terrain_difficulty = assign_terrain_difficulty(rooms)
 
-maxTerrainDifficultyStr = str(maxTerrainDifficulty)
-log("Terrain difficulty calculated. max=" + maxTerrainDifficultyStr, "info")
+max_terrain_difficulty_str = str(max_terrain_difficulty)
+log("Terrain difficulty calculated. max=" + max_terrain_difficulty_str, "info")
 
 # Loading Items
 if os.path.isfile("universe_items.json"):
     try:
         with open("universe_items.json", "r") as read_file:
-            itemsInWorld = json.loads(read_file.read())
+            items_in_world = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_items.json')
         pass
@@ -230,30 +230,30 @@ if os.path.isfile("universe_items.json"):
 if os.path.isfile("universe_itemsdb.json"):
     try:
         with open("universe_itemsdb.json", "r") as read_file:
-            itemsDB = json.loads(read_file.read())
+            items_db = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_itemsdb.json')
         pass
 
-if not itemsDB:
+if not items_db:
     with open(str(Config.get('Items', 'Definition')), "r") as read_file:
-        itemsDB = json.loads(read_file.read())
+        items_db = json.loads(read_file.read())
 
 output_dict = {}
-for key, value in itemsDB.items():
+for key, value in items_db.items():
     output_dict[int(key)] = value
 
-itemsDB = output_dict
+items_db = output_dict
 
-itemHistory = {}
+item_history = {}
 with open(str(Config.get('ItemHistory', 'Definition')), "r") as read_file:
-    itemHistory = json.loads(read_file.read())
-itemCtr = assignItemsHistory(itemsDB, itemHistory)
-itemCtrStr = str(itemCtr)
-log('Assigned history to ' + itemCtrStr + ' items', "info")
+    item_history = json.loads(read_file.read())
+item_ctr = assign_items_history(items_db, item_history)
+item_ctr_str = str(item_ctr)
+log('Assigned history to ' + item_ctr_str + ' items', "info")
 
-for k in itemsDB:
-    for v in itemsDB[k]:
+for k in items_db:
+    for v in items_db[k]:
         if not(v == "name" or
                v == "long_description" or
                v == "short_description" or
@@ -292,10 +292,10 @@ for k in itemsDB:
                v == "chessBoardName" or
                v == "morrisBoardName" or
                v == "article"):
-            itemsDB[k][v] = int(itemsDB[k][v])
+            items_db[k][v] = int(items_db[k][v])
 
-countStr = str(len(itemsDB))
-log("Items loaded: " + countStr, "info")
+count_str = str(len(items_db))
+log("Items loaded: " + count_str, "info")
 
 # Load scripted event declarations from disk
 files = glob.glob(str(Config.get('Events', 'Location')) + "/*.event")
@@ -307,29 +307,30 @@ for file in files:
     lines = [line.rstrip() for line in f.readlines()[2:]]
     for fileLine in lines[1:]:
         if len(fileLine) > 0:
-            scriptedEventsDB.append([lines[0]] + fileLine.split('|'))
+            scripted_events_db.append([lines[0]] + fileLine.split('|'))
             # print(lines)
             f.close()
 
-countStr = str(counter)
-log("Scripted Events loaded: " + countStr, "info")
+count_str = str(counter)
+log("Scripted Events loaded: " + count_str, "info")
 
-mapArea = assignCoordinates(rooms, itemsDB, scriptedEventsDB, environments)
+map_area = \
+    assign_coordinates(rooms, items_db, scripted_events_db, environments)
 
 if args.mmp:
-    exportMMP(rooms, environments, 'mmp.xml')
+    export_mmp(rooms, environments, 'mmp.xml')
     print('Map exported to mmp.xml')
     sys.exit()
 
 if args.mapLevel is not None:
-    mapLevelAsCsv(rooms, args.mapLevel)
+    map_level_as_csv(rooms, args.mapLevel)
     sys.exit()
 
 # check that there are no room collisions
-findRoomCollisions(rooms)
+find_room_collisions(rooms)
 
-mapAreaStr = str(mapArea)
-log("Map coordinates:" + mapAreaStr, "info")
+map_area_str = str(map_area)
+log("Map coordinates:" + map_area_str, "info")
 
 # Loading environment actors
 if os.path.isfile("universe_actors.json"):
@@ -338,37 +339,35 @@ if os.path.isfile("universe_actors.json"):
             env = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_actors.json')
-        pass
 
 if os.path.isfile("universe_actorsdb.json"):
     try:
         with open("universe_actorsdb.json", "r") as read_file:
-            envDB = json.loads(read_file.read())
+            env_db = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_actorsdb.json')
-        pass
 
-if not envDB:
+if not env_db:
     with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
-        envDB = json.loads(read_file.read())
+        env_db = json.loads(read_file.read())
 
 output_dict = {}
-for key, value in envDB.items():
+for key, value in env_db.items():
     output_dict[int(key)] = value
 
-envDB = output_dict
+env_db = output_dict
 
-for k in envDB:
+for k in env_db:
     if not os.path.isfile("universe_actors.json"):
-        envDB[k]['vocabulary'] = envDB[k]['vocabulary'].split('|')
-    for v in envDB[k]:
-        if not(v == "name" or
-               v == "room" or
-               v == "vocabulary"):
-            envDB[k][v] = int(envDB[k][v])
+        env_db[k]['vocabulary'] = env_db[k]['vocabulary'].split('|')
+    for v in env_db[k]:
+        if not (v == "name" or
+                v == "room" or
+                v == "vocabulary"):
+            env_db[k][v] = int(env_db[k][v])
 
-countStr = str(len(envDB))
-log("Environment Actors loaded: " + countStr, "info")
+count_str = str(len(env_db))
+log("Environment Actors loaded: " + count_str, "info")
 
 # List ENV dictionary for debugging purposes
 # print(env)
@@ -386,27 +385,27 @@ log("Loading NPCs...", "info")
 if os.path.isfile("universe_npcsdb.json"):
     try:
         with open("universe_npcsdb.json", "r") as read_file:
-            npcsDB = json.loads(read_file.read())
+            npcs_db = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_npcsdb.json')
         pass
 
-if not npcsDB:
+if not npcs_db:
     with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
-        npcsDB = json.loads(read_file.read())
+        npcs_db = json.loads(read_file.read())
 
 output_dict = {}
-for key, value in npcsDB.items():
+for key, value in npcs_db.items():
     output_dict[int(key)] = value
 
-npcsDB = output_dict
+npcs_db = output_dict
 
-for k in npcsDB:
-    npcsDB[k]['lastRoom'] = None
-    npcsDB[k]['whenDied'] = None
+for k in npcs_db:
+    npcs_db[k]['lastRoom'] = None
+    npcs_db[k]['whenDied'] = None
     if not os.path.isfile("universe_npcs.json"):
-        npcsDB[k]['vocabulary'] = npcsDB[k]['vocabulary'].split('|')
-    for v in npcsDB[k]:
+        npcs_db[k]['vocabulary'] = npcs_db[k]['vocabulary'].split('|')
+    for v in npcs_db[k]:
         if not(v == "name" or
                v == "room" or
                v == "inv" or
@@ -447,90 +446,90 @@ for k in npcsDB:
                v == "frozenDescription" or
                v == "bodyType" or
                v == "whenDied"):
-            npcsDB[k][v] = int(npcsDB[k][v])
+            npcs_db[k][v] = int(npcs_db[k][v])
 
-countStr = str(len(npcsDB))
-log("NPCs loaded: " + countStr, "info")
+count_str = str(len(npcs_db))
+log("NPCs loaded: " + count_str, "info")
 
 with open(str(Config.get('Races', 'Definition')), "r") as read_file:
-    racesDB = json.loads(read_file.read())
+    races_db = json.loads(read_file.read())
 
-countStr = str(len(racesDB))
-log("Races loaded: " + countStr, "info")
+count_str = str(len(races_db))
+log("Races loaded: " + count_str, "info")
 
 with open(str(Config.get('CharacterClass', 'Definition')), "r") as read_file:
-    characterClassDB = json.loads(read_file.read())
+    character_class_db = json.loads(read_file.read())
 
-countStr = str(len(characterClassDB))
-log("Character Classes loaded: " + countStr, "info")
+count_str = str(len(character_class_db))
+log("Character Classes loaded: " + count_str, "info")
 
 with open(str(Config.get('Spells', 'Definition')), "r") as read_file:
-    spellsDB = json.loads(read_file.read())
+    spells_db = json.loads(read_file.read())
 
-countStr = str(len(spellsDB))
-log("Spells loaded: " + countStr, "info")
+count_str = str(len(spells_db))
+log("Spells loaded: " + count_str, "info")
 
 with open(str(Config.get('Guilds', 'Definition')), "r") as read_file:
-    guildsDB = json.loads(read_file.read())
+    guilds_db = json.loads(read_file.read())
 
-countStr = str(len(guildsDB))
-log("Guilds loaded: " + countStr, "info")
+count_str = str(len(guilds_db))
+log("Guilds loaded: " + count_str, "info")
 
 with open(str(Config.get('Attacks', 'Definition')), "r") as read_file:
-    attackDB = json.loads(read_file.read())
+    attack_db = json.loads(read_file.read())
 
-countStr = str(len(attackDB))
-log("Attacks loaded: " + countStr, "info")
+count_str = str(len(attack_db))
+log("Attacks loaded: " + count_str, "info")
 
 # List NPC dictionary for debugging purposes
 # print(" ")
 # print("LIVE:")
-# print(npcsDB)
+# print(npcs_db)
 # print(" ")
-# for x in npcsDB:
+# for x in npcs_db:
 # print (x)
-# for y in npcsDB[x]:
-# print (y,':',npcsDB[x][y])
+# for y in npcs_db[x]:
+# print (y,':',npcs_db[x][y])
 
 # List items for debugging purposes
 # print("TEST:")
-# for x in itemsDB:
+# for x in items_db:
 # print (x)
-# for y in itemsDB[x]:
-# print(y,':',itemsDB[x][y])
-# print(itemsDB)
+# for y in items_db[x]:
+# print(y,':',items_db[x][y])
+# print(items_db)
 
 # Load registered players DB
-playersDB = loadPlayersDB()
-countStr = str(len(playersDB))
-log("Registered players: " + countStr, "info")
+players_db = load_players_db()
+count_str = str(len(players_db))
+log("Registered players: " + count_str, "info")
 
 # Execute Reserved Event 1 and 2
 # Using -1 for target since no players can be targeted with an event at
 # this time
 log("Executing boot time events", "info")
-addToScheduler(1, -1, eventSchedule, scriptedEventsDB)
-addToScheduler(2, -1, eventSchedule, scriptedEventsDB)
-addToScheduler(3, -1, eventSchedule, scriptedEventsDB)
+add_to_scheduler(1, -1, event_schedule, scripted_events_db)
+add_to_scheduler(2, -1, event_schedule, scripted_events_db)
+add_to_scheduler(3, -1, event_schedule, scripted_events_db)
 
 # Declare number of seconds to elapse between State Saves
 # A State Save takes values held in memory and updates the database
 # at set intervals to achieve player state persistence
-stateSaveInterval = int(Config.get('World', 'StateSaveInterval'))
-stateSaveInterStr = str(stateSaveInterval)
+state_save_interval = int(Config.get('World', 'StateSaveInterval'))
+stateSaveInterStr = str(state_save_interval)
 log("State Save interval: " + stateSaveInterStr + " seconds", "info")
 
 # Set last state save to 'now' on server boot
-lastStateSave = int(time.time())
+last_state_save = int(time.time())
 
 # Deepcopy npcs fetched from a database into a master template
-npcsTemplate = deepcopy(npcs)
+npcs_template = deepcopy(npcs)
 
 # List items in world for debugging purposes
-# for x in itemsInWorld:
+# for x in items_in_world:
 # print (x)
-# for y in itemsInWorld[x]:
-# print(y,':',itemsInWorld[x][y])
+# for y in items_in_world[x]:
+# print(y,':',items_in_world[x][y])
 
 # stores the players in the game
 players = {}
@@ -548,43 +547,43 @@ daysSinceEpoch = (datetime.datetime.today() -
                   datetime.datetime(1970, 1, 1)).days
 dayMins = (currHour * 60) + currMin
 random.seed((daysSinceEpoch * 1440) + dayMins)
-lastWeatherUpdate = int(time.time())
-weatherUpdateInterval = 120
-fishingUpdateInterval = 120
-lastFishingUpdate = int(time.time())
+last_weather_update = int(time.time())
+weather_update_interval = 120
+fishing_update_interval = 120
+last_fishing_update = int(time.time())
 clouds = {}
-cloudGrid = {}
+cloud_grid = {}
 tileSize = 2
-temperature = getTemperature()
+temperature = get_temperature()
 r1 = random.Random((daysSinceEpoch * 1440) + dayMins)
-windDirection = int(r1.random() * 359)
-windDirection = \
-    generateCloud(r1, rooms, mapArea, clouds,
-                  cloudGrid, tileSize, windDirection)
-windDirectionStr = str(windDirection)
-log("Clouds generated. Wind direction " + windDirectionStr, "info")
+wind_direction = int(r1.random() * 359)
+wind_direction = \
+    generate_cloud(r1, rooms, map_area, clouds,
+                   cloud_grid, tileSize, wind_direction)
+wind_directionStr = str(wind_direction)
+log("Clouds generated. Wind direction " + wind_directionStr, "info")
 
-lastTempHitPointsUpdate = int(time.time())
-tempHitPointsUpdateInterval = 60
+last_temp_hit_points_update = int(time.time())
+temp_hit_points_update_interval = 60
 
-lastRoomTeleport = int(time.time())
-roomTeleportInterval = 60
+last_room_teleport = int(time.time())
+room_teleport_interval = 60
 
-lastRestUpdate = int(time.time())
+last_rest_update = int(time.time())
 
 blocklist = []
-if loadBlocklist("blocked.txt", blocklist):
+if load_blocklist("blocked.txt", blocklist):
     log("Blocklist loaded", "info")
 
-terminalMode = {}
+terminal_mode = {}
 
 with open(str(Config.get('Markets', 'Definition')), "r") as read_file:
     markets = json.loads(read_file.read())
-    noOfMarkets = str(assignMarkets(markets, rooms, itemsDB, culturesDB))
-    marketsStr = str(noOfMarkets)
-    log(marketsStr + ' markets were created', "info")
+    no_of_markets = str(assign_markets(markets, rooms, items_db, cultures_db))
+    markets_str = str(no_of_markets)
+    log(markets_str + ' markets were created', "info")
 
-previousTiming = time.time()
+previous_timing = time.time()
 
 # main game loop. We loop forever (i.e. until the program is terminated)
 while True:
@@ -592,67 +591,68 @@ while True:
 
     # automatic teleport from one room to another every N seconds
     now = int(time.time())
-    if now >= lastRoomTeleport + roomTeleportInterval:
-        lastRoomTeleport = now
-        for p in players:
-            rm = players[p]['room']
+    if now >= last_room_teleport + room_teleport_interval:
+        last_room_teleport = now
+        for plyr in players:
+            rm = players[plyr]['room']
             if rm:
                 if rooms[rm].get('roomTeleport'):
-                    players[p]['room'] = rooms[rm]['roomTeleport']
+                    players[plyr]['room'] = rooms[rm]['roomTeleport']
 
-    previousTiming = \
-        showTiming(previousTiming, "teleport every N seconds")
+    previous_timing = \
+        show_timing(previous_timing, "teleport every N seconds")
 
-    previousTiming2 = time.time()
-
-    now = int(time.time())
-    if now >= lastTempHitPointsUpdate + tempHitPointsUpdateInterval:
-        lastTempHitPointsUpdate = now
-        updateTemporaryHitPoints(mud, players, False)
-        updateTemporaryHitPoints(mud, npcs, True)
-
-        previousTiming = \
-            showTiming(previousTiming, "update hit points")
-
-        updateTemporaryIncapacitation(mud, players, False)
-        updateTemporaryIncapacitation(mud, npcs, True)
-
-        previousTiming = \
-            showTiming(previousTiming, "update incapacitation")
-
-        updateTemporaryCharm(mud, players, False)
-        updateTemporaryCharm(mud, npcs, True)
-
-        updateMagicShield(mud, players, False)
-        updateMagicShield(mud, npcs, True)
-
-        previousTiming = \
-            showTiming(previousTiming, "update charm")
-
-        runTraps(mud, rooms, players, npcs)
-
-        previousTiming = \
-            showTiming(previousTiming, "update traps")
-
-    previousTiming = \
-        showTiming(previousTiming2, "various updates")
+    previous_timing2 = time.time()
 
     now = int(time.time())
-    if now >= lastWeatherUpdate + weatherUpdateInterval:
-        lastWeatherUpdate = now
-        temperature = getTemperature()
-        previousTiming = \
-            showTiming(previousTiming, "get temperature")
+    if now >= last_temp_hit_points_update + temp_hit_points_update_interval:
+        last_temp_hit_points_update = now
+        update_temporary_hit_points(mud, players, False)
+        update_temporary_hit_points(mud, npcs, True)
+
+        previous_timing = \
+            show_timing(previous_timing, "update hit points")
+
+        update_temporary_incapacitation(mud, players, False)
+        update_temporary_incapacitation(mud, npcs, True)
+
+        previous_timing = \
+            show_timing(previous_timing, "update incapacitation")
+
+        update_temporary_charm(mud, players, False)
+        update_temporary_charm(mud, npcs, True)
+
+        update_magic_shield(mud, players, False)
+        update_magic_shield(mud, npcs, True)
+
+        previous_timing = \
+            show_timing(previous_timing, "update charm")
+
+        run_traps(mud, rooms, players, npcs)
+
+        previous_timing = \
+            show_timing(previous_timing, "update traps")
+
+    previous_timing = \
+        show_timing(previous_timing2, "various updates")
+
+    now = int(time.time())
+    if now >= last_weather_update + weather_update_interval:
+        last_weather_update = now
+        temperature = get_temperature()
+        previous_timing = \
+            show_timing(previous_timing, "get temperature")
         # print("Temperature " + str(temperature))
-        windDirection = generateCloud(r1, rooms, mapArea, clouds, cloudGrid,
-                                      tileSize, windDirection)
-        previousTiming = \
-            showTiming(previousTiming, "calc wind directions")
-        # plotClouds(rooms, mapArea, clouds, temperature)
+        wind_direction = \
+            generate_cloud(r1, rooms, map_area, clouds, cloud_grid,
+                           tileSize, wind_direction)
+        previous_timing = \
+            show_timing(previous_timing, "calc wind directions")
+        # plotClouds(rooms, map_area, clouds, temperature)
 
-    if now >= lastFishingUpdate + fishingUpdateInterval:
-        playersFishing(players, rooms, itemsDB, mud)
-        lastFishingUpdate = now
+    if now >= last_fishing_update + fishing_update_interval:
+        players_fishing(players, rooms, items_db, mud)
+        last_fishing_update = now
 
     # update player list
     playerList = []
@@ -662,134 +662,135 @@ while True:
             if players[p]['name'] not in playerList:
                 playerList.append(players[p]['name'])
 
-    previousTiming = \
-        showTiming(previousTiming, "update player list")
+    previous_timing = \
+        show_timing(previous_timing, "update player list")
 
     # Aggressive NPCs may attack players
-    npcAggression(npcs, players, fights, mud, itemsInWorld, itemsDB, racesDB)
+    npc_aggression(npcs, players, fights, mud, items_in_world,
+                   items_db, races_db)
 
-    previousTiming = \
-        showTiming(previousTiming, "update npc attacks")
+    previous_timing = \
+        show_timing(previous_timing, "update npc attacks")
 
     # pause for 1/5 of a second on each loop, so that we don't constantly
     # use 100% CPU time
     time.sleep(0.1)
-    # print(eventSchedule)
+    # print(event_schedule)
 
-    previousTiming = \
-        showTiming(previousTiming, "sleep")
+    previous_timing = \
+        show_timing(previous_timing, "sleep")
 
     # 'update' must be called in the loop to keep the game running and give
     # us up-to-date information
     mud.update()
 
-    previousTiming = \
-        showTiming(previousTiming, "update mud")
+    previous_timing = \
+        show_timing(previous_timing, "update mud")
 
-    if disconnectIdlePlayers(mud, players, allowedPlayerIdle, playersDB):
-        playersDB = loadPlayersDB()
+    if disconnect_idle_players(mud, players, allowed_player_idle, players_db):
+        players_db = load_players_db()
 
-    previousTiming = \
-        showTiming(previousTiming, "disconnect idle platers")
+    previous_timing = \
+        show_timing(previous_timing, "disconnect idle platers")
 
     # Check if State Save is due and execute it if required
     now = int(time.time())
-    if int(now >= lastStateSave + stateSaveInterval):
-        sendToChannel("Server", "system", "Saving server state...", channels)
+    if int(now >= last_state_save + state_save_interval):
+        send_to_channel("Server", "system", "Saving server state...", channels)
         # State Save logic Start
-        playersWereSaved = False
+        players_were_saved = False
         for (pid, pl) in list(players.items()):
             if players[pid]['authenticated'] is not None:
-                saveState(players[pid], playersDB, False)
-                playersWereSaved = True
-        if playersWereSaved:
-            playersDB = loadPlayersDB()
-            saveUniverse(rooms, npcsDB, npcs,
-                         itemsDB, itemsInWorld,
-                         envDB, env, guildsDB)
-        lastStateSave = now
+                save_state(players[pid], players_db, False)
+                players_were_saved = True
+        if players_were_saved:
+            players_db = load_players_db()
+            save_universe(rooms, npcs_db, npcs,
+                          items_db, items_in_world,
+                          env_db, env, guilds_db)
+        last_state_save = now
 
-    previousTiming = \
-        showTiming(previousTiming, "save game")
+    previous_timing = \
+        show_timing(previous_timing, "save game")
 
     # Handle Player Deaths
-    runDeaths(mud, players, npcs, corpses, fights,
-              eventSchedule, scriptedEventsDB)
+    run_deaths(mud, players, npcs, corpses, fights,
+               event_schedule, scripted_events_db)
 
-    previousTiming = \
-        showTiming(previousTiming, "handle deaths")
+    previous_timing = \
+        show_timing(previous_timing, "handle deaths")
 
     # Handle Fights
-    runFights(mud, players, npcs, fights, itemsInWorld, itemsDB, rooms,
-              maxTerrainDifficulty, mapArea, clouds, racesDB, characterClassDB,
-              guildsDB, attackDB)
+    run_fights(mud, players, npcs, fights, items_in_world, items_db, rooms,
+               max_terrain_difficulty, map_area, clouds, races_db,
+               character_class_db, guilds_db, attack_db)
 
-    previousTiming = \
-        showTiming(previousTiming, "update fights")
+    previous_timing = \
+        show_timing(previous_timing, "update fights")
 
     # Some items can appear only at certain times
-    runMobileItems(itemsDB, itemsInWorld, eventSchedule,
-                   scriptedEventsDB, rooms, mapArea, clouds)
+    run_mobile_items(items_db, items_in_world, event_schedule,
+                     scripted_events_db, rooms, map_area, clouds)
 
-    previousTiming = \
-        showTiming(previousTiming, "update mobile items")
+    previous_timing = \
+        show_timing(previous_timing, "update mobile items")
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
-    runNPCs(mud, npcs, players, fights, corpses, scriptedEventsDB, itemsDB,
-            npcsTemplate, rooms, mapArea, clouds, eventSchedule)
+    run_npcs(mud, npcs, players, fights, corpses, scripted_events_db, items_db,
+             npcs_template, rooms, map_area, clouds, event_schedule)
 
-    previousTiming = \
-        showTiming(previousTiming, "update npcs")
+    previous_timing = \
+        show_timing(previous_timing, "update npcs")
 
-    runEnvironment(mud, players, env)
+    run_environment(mud, players, env)
 
-    previousTiming = \
-        showTiming(previousTiming, "update environment")
+    previous_timing = \
+        show_timing(previous_timing, "update environment")
 
-    removeCorpses(corpses)
+    remove_corpses(corpses)
 
-    previousTiming = \
-        showTiming(previousTiming, "remove dead")
+    previous_timing = \
+        show_timing(previous_timing, "remove dead")
 
-    npcRespawns(npcs)
+    npc_respawns(npcs)
 
-    previousTiming = \
-        showTiming(previousTiming, "respawns")
+    previous_timing = \
+        show_timing(previous_timing, "respawns")
 
-    runSchedule(mud, eventSchedule, players, npcs, itemsInWorld, env,
-                npcsDB, envDB)
+    run_schedule(mud, event_schedule, players, npcs, items_in_world, env,
+                 npcs_db, env_db)
 
-    previousTiming = \
-        showTiming(previousTiming, "schedule")
+    previous_timing = \
+        show_timing(previous_timing, "schedule")
 
-    npcsTemplate = deepcopy(npcs)
+    npcs_template = deepcopy(npcs)
 
-    previousTiming = \
-        showTiming(previousTiming, "copy npcs")
+    previous_timing = \
+        show_timing(previous_timing, "copy npcs")
 
-    runMessages(mud, channels, players)
+    run_messages(mud, channels, players)
 
-    previousTiming = \
-        showTiming(previousTiming, "messages")
+    previous_timing = \
+        show_timing(previous_timing, "messages")
 
     channels.clear()
 
-    runPlayerConnections(mud, id, players, playersDB, fights,
-                         Config, terminalMode)
+    run_player_connections(mud, id, players, players_db, fights,
+                           Config, terminal_mode)
 
-    previousTiming = \
-        showTiming(previousTiming, "player connections")
+    previous_timing = \
+        show_timing(previous_timing, "player connections")
 
     # rest restores hp and allows spell learning
     now = int(time.time())
-    if now >= lastRestUpdate + 1:
-        lastRestUpdate = now
-        playersRest(mud, players)
-        npcsRest(npcs)
+    if now >= last_rest_update + 1:
+        last_rest_update = now
+        players_rest(mud, players)
+        npcs_rest(npcs)
 
-    previousTiming = \
-        showTiming(previousTiming, "resting")
+    previous_timing = \
+        show_timing(previous_timing, "resting")
 
     # go through any new commands sent from players
     for (id, command, params) in mud.get_commands():
@@ -803,7 +804,7 @@ while True:
            players[id]['authenticated'] is None:
             if not os.path.isfile(".disableRegistrations"):
                 players[id]['idleStart'] = int(time.time())
-                mud.sendMessage(
+                mud.send_message(
                     id, "<f220>Ok, Starting character creation " +
                     "from the beginning!\n")
                 players[id]['exAttribute0'] = 1000
@@ -812,21 +813,21 @@ while True:
            players[id]['exAttribute0'] is not None and \
            players[id]['authenticated'] is None:
             players[id]['idleStart'] = int(time.time())
-            mud.sendMessage(id, "<f220>Ok, leaving the character creation.\n")
+            mud.send_message(id, "<f220>Ok, leaving the character creation.\n")
             players[id]['exAttribute0'] = None
-            mud.sendMessage(
+            mud.send_message(
                 id,
                 "<f15>What is your username?<r>\n<f246>Type " +
                 "'<f253>new<r><f246>' to create a character.\n\n")
-            idStr = str(id)
-            log("Player ID " + idStr +
+            id_str = str(id)
+            log("Player ID " + id_str +
                 " has aborted character creation.", "info")
             break
 
         if players[id]['exAttribute0'] == 1000:
             players[id]['idleStart'] = int(time.time())
             # First step of char creation
-            mud.sendMessage(id, "<f220>\nWhat is going to be your name?\n\n")
+            mud.send_message(id, "<f220>\nWhat is going to be your name?\n\n")
             for c in mud._clients:
                 # print(str(mud._clients[c].address))
                 pass
@@ -837,70 +838,70 @@ while True:
             players[id]['idleStart'] = int(time.time())
             taken = False
 
-            if not taken and terminalMode.get(str(id)) is True:
+            if not taken and terminal_mode.get(str(id)) is True:
                 taken = True
-                if terminalEmulator(command, params, mud, id):
-                    terminalMode[str(id)] = True
-                    idStr = str(id)
-                    log("Player ID " + idStr +
+                if terminal_emulator(command, params, mud, id):
+                    terminal_mode[str(id)] = True
+                    id_str = str(id)
+                    log("Player ID " + id_str +
                         " logged into GCOS-3/TSS with command - " +
                         command + ' ' + params, "info")
                 else:
                     if command.startswith('restart') or \
                        command.startswith('shutdown'):
-                        terminalMode[str(id)] = False
-                        mud.sendMessage(id, "\nBYE\n\n")
+                        terminal_mode[str(id)] = False
+                        mud.send_message(id, "\nBYE\n\n")
                     else:
-                        mud.sendMessage(id, ">")
-                        idStr = str(id)
-                        log("Player ID " + idStr +
+                        mud.send_message(id, ">")
+                        id_str = str(id)
+                        log("Player ID " + id_str +
                             " logged into GCOS-3/TSS with command - " +
                             command + ' ' + params, "info")
 
-            if not taken and not terminalMode.get(str(id)):
+            if not taken and not terminal_mode.get(str(id)):
                 if command.strip().isdigit():
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "\n<f220>Name cannot be a digit")
-                    mud.sendMessage(id, "Press ENTER to continue...\n\n")
+                    mud.send_message(id, "Press ENTER to continue...\n\n")
                     taken = True
 
                 if not taken:
                     if len(command.strip()) < 2:
-                        mud.sendMessage(
+                        mud.send_message(
                             id, "\n<f220>Name must be at least two characters")
-                        mud.sendMessage(id, "Press ENTER to continue...\n\n")
+                        mud.send_message(id, "Press ENTER to continue...\n\n")
                         taken = True
 
                 if not taken:
-                    for p in playersDB:
-                        if playersDB[p]['name'].lower() == command.lower():
-                            mud.sendMessage(
+                    for p in players_db:
+                        if players_db[p]['name'].lower() == command.lower():
+                            mud.send_message(
                                 id, "\n<f220>This character name is " +
                                 "already taken!")
-                            mud.sendMessage(id,
-                                            "Press ENTER to continue...\n\n")
+                            mud.send_message(id,
+                                             "Press ENTER to continue...\n\n")
                             taken = True
                             break
 
             if not taken:
-                if terminalEmulator(command, params, mud, id):
-                    terminalMode[str(id)] = True
+                if terminal_emulator(command, params, mud, id):
+                    terminal_mode[str(id)] = True
                     taken = True
-                    strId = str(id)
-                    log("Player ID " + strId +
+                    str_id = str(id)
+                    log("Player ID " + str_id +
                         " logged into GCOS-3/TSS with command - " +
                         command + ' ' + params, "info")
                 else:
-                    if terminalMode.get(str(id)) is True:
-                        mud.sendMessage(id, ">")
-                        strId = str(id)
-                        log("Player ID " + strId +
+                    if terminal_mode.get(str(id)) is True:
+                        mud.send_message(id, ">")
+                        str_id = str(id)
+                        log("Player ID " + str_id +
                             " logged into GCOS-3/TSS with command - " +
                             command + ' ' + params, "info")
 
             if not taken:
                 players[id]['exAttribute1'] = command.strip()
-                mud.sendMessage(
+                mud.send_message(
                     id, "<f220>Now what would you like your " +
                     "password to be?\n\n")
                 players[id]['exAttribute0'] = 1002
@@ -912,34 +913,34 @@ while True:
 
         if players[id]['exAttribute0'] == 1002:
             # store the password
-            mud.sendMessage(id, "<f220>\nOk, got that.\n")
+            mud.send_message(id, "<f220>\nOk, got that.\n")
             players[id]['exAttribute2'] = command.strip()
 
             players[id]['idleStart'] = int(time.time())
-            mud.sendMessage(id, "<f220>\nSelect your character race:\n\n")
+            mud.send_message(id, "<f220>\nSelect your character race:\n\n")
             ctr = 0
-            typesStr = '  '
-            for (name, p) in list(racesDB.items()):
+            types_str = '  '
+            for (name, p) in list(races_db.items()):
                 if ctr > 0:
-                    typesStr = typesStr + ', <f220>' + name + '<r>'
+                    types_str = types_str + ', <f220>' + name + '<r>'
                 else:
-                    typesStr = typesStr + '<f220>' + name + '<r>'
+                    types_str = types_str + '<f220>' + name + '<r>'
                 ctr += 1
                 if ctr > 7:
-                    typesStr = typesStr + '\n  '
+                    types_str = types_str + '\n  '
                     ctr = 0
-            mud.sendMessage(id, typesStr + '\n\n')
+            mud.send_message(id, types_str + '\n\n')
             players[id]['exAttribute0'] = 1003
             break
 
         if players[id]['exAttribute0'] == 1003:
             players[id]['idleStart'] = int(time.time())
-            selectedRace = command.lower().strip()
-            if not racesDB.get(selectedRace):
-                mud.sendMessage(
+            selected_race = command.lower().strip()
+            if not races_db.get(selected_race):
+                mud.send_message(
                     id, "<f220>\nUnrecognized character race.<r>\n\n")
                 players[id]['exAttribute0'] = 1000
-                mud.sendMessage(
+                mud.send_message(
                     id,
                     "<f15>What is your username?<r>\n<f246>Type " +
                     "'<f253>new<r><f246>' to create a character.\n\n")
@@ -949,42 +950,42 @@ while True:
                 command = 'witch'
                 players[id]['exAttribute0'] = 1004
             else:
-                mud.sendMessage(
+                mud.send_message(
                     id, "<f220>\nSelect your character class:\n\n")
                 ctr = 0
-                classStr = '  '
-                for (name, p) in list(characterClassDB.items()):
+                class_str = '  '
+                for (name, p) in list(character_class_db.items()):
                     if name == 'witch' or name == 'ghost':
                         continue
                     if ctr > 0:
-                        classStr = classStr + ', <f220>' + name + '<r>'
+                        class_str = class_str + ', <f220>' + name + '<r>'
                     else:
-                        classStr = classStr + '<f220>' + name + '<r>'
+                        class_str = class_str + '<f220>' + name + '<r>'
                     ctr += 1
                     if ctr > 7:
-                        classStr = classStr + '\n  '
+                        class_str = class_str + '\n  '
                         ctr = 0
-                mud.sendMessage(id, classStr + '\n\n')
+                mud.send_message(id, class_str + '\n\n')
                 players[id]['exAttribute0'] = 1004
                 break
 
         if players[id]['exAttribute0'] == 1004:
             players[id]['idleStart'] = int(time.time())
-            selectedCharacterClass = command.lower().strip()
+            selected_character_class = command.lower().strip()
             unrecognized = False
-            if selectedCharacterClass == 'witch':
+            if selected_character_class == 'witch':
                 if os.path.isfile("witches"):
                     unrecognized = True
 
-            if not characterClassDB.get(selectedCharacterClass) or \
-               selectedCharacterClass == 'ghost':
+            if not character_class_db.get(selected_character_class) or \
+               selected_character_class == 'ghost':
                 unrecognized = True
 
             if unrecognized:
-                mud.sendMessage(
+                mud.send_message(
                     id, "<f220>\nUnrecognized character class.<r>\n\n")
                 players[id]['exAttribute0'] = 1000
-                mud.sendMessage(
+                mud.send_message(
                     id,
                     "<f15>What is your username?<r>\n<f246>Type " +
                     "'<f253>new<r><f246>' to create a character.\n\n")
@@ -995,32 +996,32 @@ while True:
                       "/player.template", "r") as read_file:
                 template = json.loads(read_file.read())
 
-            setRace(template, racesDB, selectedRace)
+            set_race(template, races_db, selected_race)
 
             # Make required changes to template before saving again into
             # <Name>.player
             template['name'] = players[id]['exAttribute1']
             template['pwd'] = hash_password(players[id]['exAttribute2'])
 
-            template['characterClass'] = selectedCharacterClass
+            template['characterClass'] = selected_character_class
 
             # initial money
-            startingMoneyRoll = \
-                characterClassDB[selectedCharacterClass]['startingMoney']
-            die = int(startingMoneyRoll.split('d')[1])
-            noOfRolls = int(startingMoneyRoll.split('d')[0])
-            startingGP = 0
-            for roll in range(noOfRolls):
-                startingGP += int(randint(1, die + 1) * 10)
-            template['gp'] = startingGP
+            starting_money_roll = \
+                character_class_db[selected_character_class]['startingMoney']
+            die = int(starting_money_roll.split('d')[1])
+            no_of_rolls = int(starting_money_roll.split('d')[0])
+            starting_gp = 0
+            for roll in range(no_of_rolls):
+                starting_gp += int(randint(1, die + 1) * 10)
+            template['gp'] = starting_gp
 
             # First player becomes a witch
             if not os.path.isfile("witches"):
                 template['characterClass'] = 'witch'
                 # admin speaks all languages
                 template['language'] = []
-                for race, raceStats in racesDB.items():
-                    for lang in raceStats['language']:
+                for race, race_stats in races_db.items():
+                    for lang in race_stats['language']:
                         if lang not in template['language']:
                             template['language'].append(lang)
                 template['language'].append('cant')
@@ -1029,17 +1030,18 @@ while True:
 
             # populate initial inventory from character class
             template['inv'] = []
-            for invItem in characterClassDB[template['characterClass']]['inv']:
-                template['inv'].append(invItem)
+            ch_class = template['characterClass']
+            for inv_item in character_class_db[ch_class]['inv']:
+                template['inv'].append(inv_item)
 
             # populate proficencies from character class
             template['proficiencies'] = []
             idx = template['characterClass']
-            for prof in characterClassDB[idx][str(template['lvl'])]:
+            for prof in character_class_db[idx][str(template['lvl'])]:
                 template['proficiencies'].append(prof)
 
             # additional languages for the character class
-            for lang in characterClassDB[idx]['extraLanguage']:
+            for lang in character_class_db[idx]['extraLanguage']:
                 template['language'].append(lang)
 
             # Save template into a new player file
@@ -1049,20 +1051,20 @@ while True:
                 fp.write(json.dumps(template))
 
             # Reload PlayersDB to include this newly created player
-            playersDB = loadPlayersDB()
+            players_db = load_players_db()
 
             players[id]['exAttribute0'] = None
-            mud.sendMessage(
+            mud.send_message(
                 id,
                 '<f220>Your character has now been created, ' +
                 'you can log in using credentials you have provided.\n')
-            # mud.sendMessage(id, '<f15>What is your username?')
-            mud.sendMessage(
+            # mud.send_message(id, '<f15>What is your username?')
+            mud.send_message(
                 id,
                 "<f15>What is your username?<r>\n<f246>Type " +
                 "'<f253>new<r><f246>' to create a character.\n\n")
-            strId = str(id)
-            log("Player ID " + strId +
+            str_id = str(id)
+            log("Player ID " + str_id +
                 " has completed character creation [" +
                 template['name'] + "].", "info")
             break
@@ -1076,200 +1078,201 @@ while True:
                 pl = None
 
                 # check for logins with CONNECT username password
-                connectStr = command.strip().lower()
-                connectCommand = False
-                if connectStr.lower() == 'connect':
-                    mud.sendMessage(id, "Login via CONNECT\n\n")
+                connect_str = command.strip().lower()
+                connect_command = False
+                if connect_str.lower() == 'connect':
+                    mud.send_message(id, "Login via CONNECT\n\n")
                     if ' ' in params:
-                        connectUsername = params.split(' ', 1)[0]
-                        players[id]['name'] = connectUsername
-                        connectPassword = params.split(' ', 1)[1].strip()
-                        pl = loadPlayer(connectUsername)
+                        connect_username = params.split(' ', 1)[0]
+                        players[id]['name'] = connect_username
+                        connect_password = params.split(' ', 1)[1].strip()
+                        pl = load_player(connect_username)
                         if pl is not None:
-                            dbPass = pl['pwd']
-                            if connectUsername == 'Guest':
-                                dbPass = hash_password(pl['pwd'])
-                            if verify_password(dbPass, connectPassword):
-                                if not playerInGame(id, connectUsername,
-                                                    players):
+                            db_pass = pl['pwd']
+                            if connect_username == 'Guest':
+                                db_pass = hash_password(pl['pwd'])
+                            if verify_password(db_pass, connect_password):
+                                if not player_in_game(id, connect_username,
+                                                      players):
                                     players[id]['exAttribute1'] = \
-                                        connectUsername
+                                        connect_username
                                     players[id]['exAttribute2'] = \
-                                        connectPassword
+                                        connect_password
                                     players[id]['exAttribute0'] = None
-                                    initialSetupAfterLogin(mud, id,
-                                                           players, pl)
-                                    familiarRecall(mud, players, id,
-                                                   npcs, npcsDB)
-                                    mud.sendMessage(id,
-                                                    "CONNECT login " +
-                                                    "success\n\n")
-                                    connectCommand = True
+                                    initial_setup_after_login(mud, id,
+                                                              players, pl)
+                                    familiar_recall(mud, players, id,
+                                                    npcs, npcs_db)
+                                    mud.send_message(id,
+                                                     "CONNECT login " +
+                                                     "success\n\n")
+                                    connect_command = True
                                 else:
-                                    mud.sendMessage(id,
-                                                    "CONNECT login failed: " +
-                                                    "player already in " +
-                                                    "game\n\n")
+                                    mud.send_message(id,
+                                                     "CONNECT login failed: " +
+                                                     "player already in " +
+                                                     "game\n\n")
                             else:
-                                mud.sendMessage(id,
-                                                "CONNECT login failed\n\n")
+                                mud.send_message(id,
+                                                 "CONNECT login failed\n\n")
                     command = ''
 
-                if not connectCommand:
-                    if not terminalMode.get(str(id)):
+                if not connect_command:
+                    if not terminal_mode.get(str(id)):
                         if command.strip().isdigit():
-                            mud.sendMessage(
+                            mud.send_message(
                                 id, "\n<f220>Name cannot be a digit")
-                            mud.sendMessage(id,
-                                            "Press ENTER to continue...\n\n")
+                            mud.send_message(id,
+                                             "Press ENTER to continue...\n\n")
                             command = ''
 
                         if len(command.strip()) < 2:
-                            mud.sendMessage(
+                            mud.send_message(
                                 id,
                                 "\n<f220>Name must be at least two characters")
-                            mud.sendMessage(id,
-                                            "Press ENTER to continue...\n\n")
+                            mud.send_message(id,
+                                             "Press ENTER to continue...\n\n")
                             command = ''
 
-                    strId = str(id)
-                    if terminalEmulator(command, params, mud, id):
-                        terminalMode[strId] = True
-                        log("Player ID " + strId +
+                    str_id = str(id)
+                    if terminal_emulator(command, params, mud, id):
+                        terminal_mode[str_id] = True
+                        log("Player ID " + str_id +
                             " logged into GCOS-3/TSS with command - " +
                             command + ' ' + params, "info")
                         command = ''
                     else:
-                        if terminalMode.get(strId) is True:
-                            mud.sendMessage(id, ">")
+                        if terminal_mode.get(str_id) is True:
+                            mud.send_message(id, ">")
 
                 if command:
-                    pl = loadPlayer(command)
+                    pl = load_player(command)
 
                 # print(dbResponse)
-                askForPassword = False
-                if pl is not None and not connectCommand:
+                ask_for_password = False
+                if pl is not None and not connect_command:
                     if pl.get('name'):
                         players[id]['name'] = pl['name']
-                        strId = str(id)
-                        log("Player ID " + strId +
+                        str_id = str(id)
+                        log("Player ID " + str_id +
                             " has requested existing user [" + command + "]",
                             "info")
-                        mud.sendMessage(id, 'Hi <u><f32>' + command + '<r>!')
-                        mud.sendMessage(id,
-                                        '<f15>What is your password?<r>\n\n')
-                        askForPassword = True
+                        mud.send_message(id, 'Hi <u><f32>' + command + '<r>!')
+                        mud.send_message(id,
+                                         '<f15>What is your password?<r>\n\n')
+                        ask_for_password = True
 
-                if not askForPassword:
-                    if not connectCommand:
-                        if not terminalMode.get(str(id)):
-                            mud.sendMessage(
+                if not ask_for_password:
+                    if not connect_command:
+                        if not terminal_mode.get(str(id)):
+                            mud.send_message(
                                 id,
                                 '<f202>User <f32>' +
                                 command +
                                 '<r> was not found!\n')
-                            mud.sendMessage(id,
-                                            '<f15>What is your username?\n\n')
-                            strId = str(id)
-                            log("Player ID " + strId +
+                            mud.send_message(id,
+                                             '<f15>What is your username?\n\n')
+                            str_id = str(id)
+                            log("Player ID " + str_id +
                                 " has requested non existent user [" +
                                 command + "]", "info")
                     else:
-                        mud.sendMessage(id, 'Hi <u><f32>' +
-                                        players[id]['name'] + '<r>!\n\n')
+                        mud.send_message(id, 'Hi <u><f32>' +
+                                         players[id]['name'] + '<r>!\n\n')
             else:
                 # New player creation here
                 if not os.path.isfile(".disableRegistrations"):
                     players[id]['idleStart'] = int(time.time())
-                    strId = str(id)
-                    log("Player ID " + strId +
+                    str_id = str(id)
+                    log("Player ID " + str_id +
                         " has initiated character creation.", "info")
-                    mud.sendMessage(
+                    mud.send_message(
                         id,
                         "<f220>Welcome Traveller! So you have decided " +
                         "to create an account, that's awesome! Thank " +
                         "you for your interest in AberMUSH, hope you " +
                         "enjoy yourself while you're here.")
-                    mud.sendMessage(
+                    mud.send_message(
                         id,
                         "Note: You can type 'startover' at any time to " +
                         "restart the character creation process.\n")
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "<f230>Press ENTER to continue...\n\n")
-                    # mud.sendMessage(id,
+                    # mud.send_message(id,
                     #                  "<f220>What is going to be your name?")
                     # Set eAttribute0 to 1000, signifying this client has
                     # initialised a player creation process.
                     players[id]['exAttribute0'] = 1000
                 else:
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "<f220>New registrations are closed at this time.")
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "<f230>Press ENTER to continue...\n\n")
         elif (players[id]['name'] is not None and
               players[id]['authenticated'] is None):
-            pl = loadPlayer(players[id]['name'])
+            pl = load_player(players[id]['name'])
             # print(pl)
-            dbPass = pl['pwd']
+            db_pass = pl['pwd']
 
             if players[id]['name'] == 'Guest':
-                dbPass = hash_password(pl['pwd'])
+                db_pass = hash_password(pl['pwd'])
 
-            if terminalMode.get(str(id)) is True:
+            if terminal_mode.get(str(id)) is True:
                 taken = True
-                if not terminalEmulator(players[id]['name'], '', mud, id):
+                if not terminal_emulator(players[id]['name'], '', mud, id):
                     if players[id]['name'].startswith('restart') or \
                        players[id]['name'].startswith('shutdown'):
-                        terminalMode[str(id)] = False
-                        mud.sendMessage(id, "\nBYE\n\n")
+                        terminal_mode[str(id)] = False
+                        mud.send_message(id, "\nBYE\n\n")
                     else:
-                        mud.sendMessage(id, ">")
-                        strId = str(id)
-                        log("Player ID " + strId +
+                        mud.send_message(id, ">")
+                        str_id = str(id)
+                        log("Player ID " + str_id +
                             " logged into GCOS-3/TSS with command - " +
                             players[id]['name'], "info")
             else:
-                if terminalEmulator(players[id]['name'], '', mud, id):
-                    terminalMode[str(id)] = True
+                if terminal_emulator(players[id]['name'], '', mud, id):
+                    terminal_mode[str(id)] = True
                     taken = True
-                    strId = str(id)
-                    log("Player ID " + strId +
+                    str_id = str(id)
+                    log("Player ID " + str_id +
                         " logged into GCOS-3/TSS with command - " +
                         players[id]['name'], "info")
 
-            playerFound = playerInGame(id, players[id]['name'], players)
-            if verify_password(dbPass, command):
-                if not playerFound:
-                    initialSetupAfterLogin(mud, id, players, pl)
-                    familiarRecall(mud, players, id, npcs, npcsDB)
+            player_found = player_in_game(id, players[id]['name'], players)
+            if verify_password(db_pass, command):
+                if not player_found:
+                    initial_setup_after_login(mud, id, players, pl)
+                    familiar_recall(mud, players, id, npcs, npcs_db)
                 else:
-                    mud.sendMessage(
+                    mud.send_message(
                         id, '<f202>This character is already in the world!')
-                    strId = str(id)
-                    log("Player ID " + strId +
+                    str_id = str(id)
+                    log("Player ID " + str_id +
                         " has requested a character which is already in " +
                         "the world!", "info")
                     players[id]['name'] = None
-                    mud.sendMessage(id, '<f15>What is your username? ')
+                    mud.send_message(id, '<f15>What is your username? ')
             else:
-                mud.sendMessage(id, '<f202>Password incorrect!\n')
-                strId = str(id)
-                log("Player ID " + strId + " has failed authentication",
+                mud.send_message(id, '<f202>Password incorrect!\n')
+                str_id = str(id)
+                log("Player ID " + str_id + " has failed authentication",
                     "info")
                 players[id]['name'] = None
-                mud.sendMessage(id, '<f15>What is your username? ')
+                mud.send_message(id, '<f15>What is your username? ')
 
         else:
             players[id]['idleStart'] = int(time.time())
             if players[id]['exAttribute0'] < 1000:
                 if len(command) > 0:
-                    commandLower = command.lower()
-                    runCommand(commandLower, params, mud, playersDB,
-                               players, rooms, npcsDB, npcs, itemsDB,
-                               itemsInWorld, envDB, env, scriptedEventsDB,
-                               eventSchedule, id, fights, corpses, blocklist,
-                               mapArea, characterClassDB, spellsDB,
-                               sentimentDB, guildsDB, clouds, racesDB,
-                               itemHistory, markets, culturesDB)
-    previousTiming = \
-        showTiming(previousTiming, "player commands")
+                    command_lower = command.lower()
+                    run_command(command_lower, params, mud, players_db,
+                                players, rooms, npcs_db, npcs, items_db,
+                                items_in_world, env_db, env,
+                                scripted_events_db,
+                                event_schedule, id, fights, corpses, blocklist,
+                                map_area, character_class_db, spells_db,
+                                sentiment_db, guilds_db, clouds, races_db,
+                                item_history, markets, cultures_db)
+    previous_timing = \
+        show_timing(previous_timing, "player commands")

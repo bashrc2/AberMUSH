@@ -30,7 +30,7 @@ __module_group__ = "Core"
 #      `:::::`::::::::;' /  / `:#
 #       ::::::`:::::;'  /  /   `#
 
-from functions import addToScheduler
+from functions import add_to_scheduler
 from functions import deepcopy
 from npcs import corpseExists
 # from copy import deepcopy
@@ -38,7 +38,7 @@ from npcs import corpseExists
 import time
 
 
-def removeCorpses(corpses: {}):
+def remove_corpses(corpses: {}):
     # Iterate through corpses and remove ones older than their TTL
     corpsesCopy = deepcopy(corpses)
     for (c, pl) in corpsesCopy.items():
@@ -46,8 +46,8 @@ def removeCorpses(corpses: {}):
             del corpses[c]
 
 
-def runDeaths(mud, players: {}, npcs: {}, corpses, fights: {},
-              eventSchedule, scriptedEventsDB):
+def run_deaths(mud, players: {}, npcs: {}, corpses, fights: {},
+               event_schedule, scripted_events_db):
     # Handle Player Deaths
     for (pid, pl) in list(players.items()):
         if players[pid]['authenticated']:
@@ -98,14 +98,14 @@ def runDeaths(mud, players: {}, npcs: {}, corpses, fights: {},
                     if players[pid2]['authenticated'] is not None \
                        and players[pid2]['room'] == players[pid]['lastRoom'] \
                        and players[pid2]['name'] != players[pid]['name']:
-                        mud.sendMessage(
+                        mud.send_message(
                             pid2, '<u><f32>{}'.format(players[pid]['name']) +
                             '<r> <f124>has been killed.\n')
                         players[pid]['lastRoom'] = None
-                        mud.sendMessage(
+                        mud.send_message(
                             pid, '<b88><f158>Oh dear! You have died!\n')
 
-                # Add Player Death event (ID:666) to eventSchedule
-                addToScheduler(666, pid, eventSchedule, scriptedEventsDB)
+                # Add Player Death event (ID:666) to event_schedule
+                add_to_scheduler(666, pid, event_schedule, scripted_events_db)
 
                 players[pid]['hp'] = 4

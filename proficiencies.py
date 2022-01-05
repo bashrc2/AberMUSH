@@ -79,19 +79,19 @@ def _damageProficiencyItem(prof: str, id, players: int,
 
 
 def damageProficiency(id, players: {}, weaponType: str,
-                      characterClassDB: {}) -> int:
+                      character_class_db: {}) -> int:
     if not players[id].get('race'):
         return 0
 
     playerRace = players[id]['race']
 
-    if not characterClassDB.get(playerRace):
+    if not character_class_db.get(playerRace):
         return 0
 
     damage = 0
     for lvl in range(1, players[id]['lvl']):
-        if characterClassDB[playerRace].get(str(lvl)):
-            profList = characterClassDB[playerRace][str(lvl)]
+        if character_class_db[playerRace].get(str(lvl)):
+            profList = character_class_db[playerRace][str(lvl)]
             for p in profList:
                 damage = damage + \
                     _damageProficiencyItem(p, id, players, weaponType)
@@ -161,7 +161,7 @@ def _weaponProficiencyItem(prof: str, id, players: {}, weaponType: str) -> int:
 
 
 def weaponProficiency(id, players: {}, weaponType: str,
-                      characterClassDB: {}) -> int:
+                      character_class_db: {}) -> int:
     """TODO: currently unused
     """
     if not players[id].get('race'):
@@ -169,13 +169,13 @@ def weaponProficiency(id, players: {}, weaponType: str,
 
     playerRace = players[id]['race']
 
-    if not characterClassDB.get(playerRace):
+    if not character_class_db.get(playerRace):
         return 0
 
     competence = int(players[id]['lvl']) - 1
     for lvl in range(1, players[id]['lvl']):
-        if characterClassDB[playerRace].get(str(lvl)):
-            profList = characterClassDB[playerRace][str(lvl)]
+        if character_class_db[playerRace].get(str(lvl)):
+            profList = character_class_db[playerRace][str(lvl)]
             for p in profList:
                 competence = competence + \
                     _weaponProficiencyItem(p, id, players, weaponType)

@@ -79,13 +79,13 @@ def TimeStringToSec(durationStr: str) -> int:
     return 1
 
 
-def getSentiment(text: str, sentimentDB: {}) -> int:
+def getSentiment(text: str, sentiment_db: {}) -> int:
     """Returns a sentiment score for the given text
        which can be positive or negative
     """
     textLower = text.lower()
     sentiment = 0
-    for word, value in sentimentDB.items():
+    for word, value in sentiment_db.items():
         if word in textLower:
             sentiment = sentiment + value
     return sentiment
@@ -217,7 +217,7 @@ def randomDescription(descriptionList):
     return descList[randint(0, len(descList) - 1)]
 
 
-def levelUp(id, players, characterClassDB, increment):
+def levelUp(id, players, character_class_db, increment):
     level = players[id]['lvl']
     if level < 20:
         players[id]['exp'] = players[id]['exp'] + increment
@@ -230,29 +230,29 @@ def levelUp(id, players, characterClassDB, increment):
                     players[id]['proficiencies'].remove(prof)
             # update proficiencies
             idx = players[id]['characterClass']
-            for prof in characterClassDB[idx][str(players[id]['lvl'])]:
+            for prof in character_class_db[idx][str(players[id]['lvl'])]:
                 if prof not in players[id]['proficiencies']:
                     players[id]['proficiencies'].append(prof)
 
 
-def stowHands(id, players: {}, itemsDB: {}, mud):
+def stowHands(id, players: {}, items_db: {}, mud):
     if int(players[id]['clo_rhand']) > 0:
         itemID = int(players[id]['clo_rhand'])
-        mud.sendMessage(
+        mud.send_message(
             id, 'You stow <b234>' +
-            itemsDB[itemID]['article'] +
+            items_db[itemID]['article'] +
             ' ' +
-            itemsDB[itemID]['name'] +
+            items_db[itemID]['name'] +
             '<r>\n\n')
         players[id]['clo_rhand'] = 0
 
     if int(players[id]['clo_lhand']) > 0:
         itemID = int(players[id]['clo_lhand'])
-        mud.sendMessage(
+        mud.send_message(
             id, 'You stow <b234>' +
-            itemsDB[itemID]['article'] +
+            items_db[itemID]['article'] +
             ' ' +
-            itemsDB[itemID]['name'] +
+            items_db[itemID]['name'] +
             '<r>\n\n')
         players[id]['clo_lhand'] = 0
 
@@ -305,17 +305,17 @@ def sizeFromDescription(description: str):
 
 
 def updatePlayerAttributes(id, players: {},
-                           itemsDB: {}, itemID: str, mult: int):
+                           items_db: {}, itemID: str, mult: int):
     playerAttributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
     for attr in playerAttributes:
         players[id][attr] = \
             players[id][attr] + \
-            (mult * itemsDB[itemID]['mod_' + attr])
+            (mult * items_db[itemID]['mod_' + attr])
     # experience returns to zero
-    itemsDB[itemID]['mod_exp'] = 0
+    items_db[itemID]['mod_exp'] = 0
 
 
-def playerInventoryWeight(id, players, itemsDB):
+def playerInventoryWeight(id, players, items_db):
     """Returns the total weight of a player's inventory
     """
     if len(list(players[id]['inv'])) == 0:
@@ -323,7 +323,7 @@ def playerInventoryWeight(id, players, itemsDB):
 
     weight = 0
     for i in list(players[id]['inv']):
-        weight = weight + itemsDB[int(i)]['weight']
+        weight = weight + items_db[int(i)]['weight']
 
     return weight
 
@@ -360,7 +360,7 @@ def _silentRemove(filename: str):
             raise
 
 
-def loadPlayersDB(forceLowercase=True):
+def load_players_db(forceLowercase=True):
     """Function to load all registered players from JSON files
     """
     locn = Config.get('Players', 'Location')
@@ -441,20 +441,20 @@ def getFreeRoomKey(rooms):
     """
     maxRoomID = -1
     for rmkey in rooms.keys():
-        roomIDStr = rmkey.replace('$', '').replace('rid=', '')
-        if len(roomIDStr) == 0:
+        room_idStr = rmkey.replace('$', '').replace('rid=', '')
+        if len(room_idStr) == 0:
             continue
 
-        roomID = int(roomIDStr)
-        if roomID > maxRoomID:
-            maxRoomID = roomID
+        room_id = int(room_idStr)
+        if room_id > maxRoomID:
+            maxRoomID = room_id
 
     if maxRoomID > -1:
         return '$rid=' + str(maxRoomID + 1) + '$'
     return ''
 
 
-def addToScheduler(eventID, targetID, scheduler, database):
+def add_to_scheduler(eventID, targetID, scheduler, database):
     """Function for adding events to event scheduler
     """
     if isinstance(eventID, int):
@@ -476,7 +476,7 @@ def addToScheduler(eventID, targetID, scheduler, database):
         }
 
 
-def loadPlayer(name: str) -> dict:
+def load_player(name: str) -> dict:
     location = str(Config.get('Players', 'Location'))
     try:
         with open(os.path.join(location, name + ".player"), "r") as read_file:
@@ -494,7 +494,7 @@ def _getPlayerPath():
 
 def _savePlayer(player, masterDB: {}, savePassword: str):
     path = _getPlayerPath()
-    DB = loadPlayersDB(forceLowercase=False)
+    DB = load_players_db(forceLowercase=False)
     for p in DB:
         if (player['name'] + ".player").lower() == p.lower():
             with open(path + p, "r") as read_file:
@@ -509,17 +509,17 @@ def _savePlayer(player, masterDB: {}, savePassword: str):
 
             with open(path + player['name'] + ".player", 'w') as fp:
                 fp.write(json.dumps(newPlayer))
-            loadPlayersDB()
+            load_players_db()
 
 
-def saveState(player, masterDB, savePassword):
+def save_state(player, masterDB, savePassword):
     _savePlayer(player, masterDB, savePassword)
-    # masterDB = loadPlayersDB()
+    # masterDB = load_players_db()
 
 
-def saveUniverse(rooms: {}, npcsDB: {}, npcs: {},
-                 itemsDB: {}, items: {},
-                 envDB: {}, env: {}, guildsDB: {}):
+def save_universe(rooms: {}, npcs_db: {}, npcs: {},
+                  items_db: {}, items: {},
+                  env_db: {}, env: {}, guilds_db: {}):
     # save rooms
     if os.path.isfile('universe.json'):
         os.rename('universe.json', 'universe2.json')
@@ -532,17 +532,17 @@ def saveUniverse(rooms: {}, npcsDB: {}, npcs: {},
     with open("universe_items.json", 'w') as fp:
         fp.write(json.dumps(items))
 
-    # save itemsDB
+    # save items_db
     if os.path.isfile('universe_itemsdb.json'):
         os.rename('universe_itemsdb.json', 'universe_itemsdb2.json')
     with open("universe_itemsdb.json", 'w') as fp:
-        fp.write(json.dumps(itemsDB))
+        fp.write(json.dumps(items_db))
 
     # save environment actors
     if os.path.isfile('universe_actorsdb.json'):
         os.rename('universe_actorsdb.json', 'universe_actorsdb2.json')
     with open("universe_actorsdb.json", 'w') as fp:
-        fp.write(json.dumps(envDB))
+        fp.write(json.dumps(env_db))
 
     # save environment actors
     if os.path.isfile('universe_actors.json'):
@@ -556,11 +556,11 @@ def saveUniverse(rooms: {}, npcsDB: {}, npcs: {},
     with open("universe_npcs.json", 'w') as fp:
         fp.write(json.dumps(npcs))
 
-    # save npcsDB
+    # save npcs_db
     if os.path.isfile('universe_npcsdb.json'):
         os.rename('universe_npcsdb.json', 'universe_npcsdb2.json')
     with open("universe_npcsdb.json", 'w') as fp:
-        fp.write(json.dumps(npcsDB))
+        fp.write(json.dumps(npcs_db))
 
 
 def str2bool(v) -> bool:
@@ -573,7 +573,7 @@ def str2bool(v) -> bool:
     return False
 
 
-def sendToChannel(sender, channel, message, channels):
+def send_to_channel(sender, channel, message, channels):
     # print("Im in!")
     channels[getFreeKey(channels)] = {
         "channel": str(channel),
@@ -582,7 +582,7 @@ def sendToChannel(sender, channel, message, channels):
     # print(channels)
 
 
-def loadBlocklist(filename, blocklist):
+def load_blocklist(filename, blocklist):
     if not os.path.isfile(filename):
         return False
 
@@ -613,23 +613,23 @@ def saveBlocklist(filename, blocklist):
     blockfile.close()
 
 
-def setRace(template, racesDB, name):
+def set_race(template, races_db, name):
     """Set the player race
     """
-    template['speakLanguage'] = racesDB[name]['language'][0]
+    template['speakLanguage'] = races_db[name]['language'][0]
     template['language'].clear()
-    template['language'].append(racesDB[name]['language'][0])
+    template['language'].append(races_db[name]['language'][0])
     template['race'] = name
-    template['str'] = racesDB[name]['str']
-    template['siz'] = racesDB[name]['siz']
-    template['per'] = racesDB[name]['per']
-    template['endu'] = racesDB[name]['endu']
-    template['cha'] = racesDB[name]['cha']
-    template['int'] = racesDB[name]['int']
-    template['agi'] = racesDB[name]['agi']
-    template['luc'] = racesDB[name]['luc']
-    template['cool'] = racesDB[name]['cool']
-    template['ref'] = racesDB[name]['ref']
+    template['str'] = races_db[name]['str']
+    template['siz'] = races_db[name]['siz']
+    template['per'] = races_db[name]['per']
+    template['endu'] = races_db[name]['endu']
+    template['cha'] = races_db[name]['cha']
+    template['int'] = races_db[name]['int']
+    template['agi'] = races_db[name]['agi']
+    template['luc'] = races_db[name]['luc']
+    template['cool'] = races_db[name]['cool']
+    template['ref'] = races_db[name]['ref']
 
 
 def prepareSpells(mud, id, players):
@@ -647,7 +647,7 @@ def prepareSpells(mud, id, players):
             players[id]['prepareSpell'] = ""
             players[id]['prepareSpellProgress'] = 0
             players[id]['prepareSpellTime'] = 0
-            mud.sendMessage(
+            mud.send_message(
                 id, "You prepared the spell <f220>" +
                 spellName + "<r>\n\n")
         else:
@@ -698,10 +698,10 @@ def messageToPlayersInRoom(mud, players, id, msg):
         if players[pid]['room'] == players[id]['room'] and \
            pid != id:
             if playerIsVisible(mud, pid, players, id, players):
-                mud.sendMessage(pid, msg)
+                mud.send_message(pid, msg)
 
 
-def showTiming(previousTiming, commentStr: str):
+def show_timing(previousTiming, commentStr: str):
     """Shows the length of time since the previous benchmark
     """
     currTime = time.time()

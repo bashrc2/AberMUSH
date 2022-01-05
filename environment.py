@@ -49,7 +49,7 @@ def runTide() -> float:
     return daily + lunar + solar
 
 
-def assignTerrainDifficulty(rooms: {}) -> int:
+def assign_terrain_difficulty(rooms: {}) -> int:
     """Updates the terrain difficulty for each room and returns the maximum
     """
     terrainDifficultyWords = (
@@ -106,7 +106,7 @@ def _roomAtZeroCoord(rooms: {}, rm) -> bool:
     return False
 
 
-def findRoomCollisions(rooms: {}) -> None:
+def find_room_collisions(rooms: {}) -> None:
     """Marks rooms whose geolocations collide
     """
     ctr = 0
@@ -339,7 +339,7 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
     return []
 
 
-def mapLevelAsCsv(rooms: {}, level: int):
+def map_level_as_csv(rooms: {}, level: int):
     """Print a vertical level of the map as a CSV
     """
     minX = 999999
@@ -499,7 +499,8 @@ def _removeCoordinateGaps(rooms: {}) -> None:
                 start_east = None
 
 
-def _createVirtualExits(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> None:
+def _createVirtualExits(rooms: {}, items_db: {},
+                        scripted_events_db: {}) -> None:
     """If there are any doors then this Generates the
     virtual exits dicts for each room
     """
@@ -508,15 +509,15 @@ def _createVirtualExits(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> None:
 
     # get a list of door items
     doorCtr = 0
-    for itemId in itemsDB:
-        if not itemsDB[itemId].get('exit'):
+    for itemId in items_db:
+        if not items_db[itemId].get('exit'):
             continue
-        if not itemsDB[itemId].get('exitName'):
+        if not items_db[itemId].get('exitName'):
             continue
-        if '|' not in itemsDB[itemId]['exitName']:
+        if '|' not in items_db[itemId]['exitName']:
             continue
         roomId = None
-        for event in scriptedEventsDB:
+        for event in scripted_events_db:
             if event[2] != 'spawnItem':
                 continue
             eventItem = event[3].split(';')
@@ -525,7 +526,7 @@ def _createVirtualExits(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> None:
             roomId = eventItem[1]
             break
         if roomId:
-            exitDirection = itemsDB[itemId]['exitName'].split('|')[0]
+            exitDirection = items_db[itemId]['exitName'].split('|')[0]
             collides = False
             if rooms[roomId]['exits'].get(exitDirection):
                 print('Room ' + roomId + ' has item ' +
@@ -540,21 +541,23 @@ def _createVirtualExits(rooms: {}, itemsDB: {}, scriptedEventsDB: {}) -> None:
                 collides = True
 
             if not collides:
-                exitRoomId = itemsDB[itemId]['exit']
+                exitRoomId = items_db[itemId]['exit']
                 rooms[roomId]['virtualExits'][exitDirection] = exitRoomId
                 doorCtr += 1
     print('Door items: ' + str(doorCtr))
 
 
-def assignCoordinates(rooms: {}, itemsDB: {},
-                      scriptedEventsDB: {}, environments: {}) -> []:
+def assign_coordinates(rooms: {}, items_db: {},
+                       scripted_events_db: {}, environments: {}) -> []:
     """Assigns cartesian coordinates to each room and returns the limits
     """
-    _createVirtualExits(rooms, itemsDB, scriptedEventsDB)
+    _createVirtualExits(rooms, items_db, scripted_events_db)
 
-    mapArea = [[9999999999, -9999999999],
-               [9999999999, -9999999999],
-               [9999999999, -9999999999]]
+    map_area = [
+        [9999999999, -9999999999],
+        [9999999999, -9999999999],
+        [9999999999, -9999999999]
+    ]
 
     # create a list of rooms which are on the map
     roomsOnMap = []
@@ -574,14 +577,14 @@ def assignCoordinates(rooms: {}, itemsDB: {},
                 continue
             coords = newRm['coords']
             # east/west extent
-            if coords[1] > mapArea[1][1]:
-                mapArea[1][1] = coords[1]
-            if coords[1] < mapArea[1][0]:
-                mapArea[1][0] = coords[1]
+            if coords[1] > map_area[1][1]:
+                map_area[1][1] = coords[1]
+            if coords[1] < map_area[1][0]:
+                map_area[1][0] = coords[1]
 
     # map out gaps in horizontal spacing
-    min_east = mapArea[1][0]
-    max_east = mapArea[1][1]
+    min_east = map_area[1][0]
+    max_east = map_area[1][1]
     occupied = [False] * ((max_east - min_east) + 1)
     for rm in rooms:
         if not rooms[rm].get('coords'):
@@ -607,9 +610,11 @@ def assignCoordinates(rooms: {}, itemsDB: {},
                                    end_east - min_east])
 
     maxRange = len(trimCoords)
-    mapArea = [[9999999999, -9999999999],
-               [9999999999, -9999999999],
-               [9999999999, -9999999999]]
+    map_area = [
+        [9999999999, -9999999999],
+        [9999999999, -9999999999],
+        [9999999999, -9999999999]
+    ]
     for i in range(maxRange - 1, 0, -1):
         for rm in rooms:
             if not rooms[rm].get('coords'):
@@ -630,33 +635,33 @@ def assignCoordinates(rooms: {}, itemsDB: {},
         if len(rooms[rm]['coords']) < 3:
             continue
         # north/south extent
-        if coords[0] > mapArea[0][1]:
-            mapArea[0][1] = coords[0]
-        if coords[0] < mapArea[0][0]:
-            mapArea[0][0] = coords[0]
+        if coords[0] > map_area[0][1]:
+            map_area[0][1] = coords[0]
+        if coords[0] < map_area[0][0]:
+            map_area[0][0] = coords[0]
         # east/west extent
-        if coords[1] > mapArea[1][1]:
-            mapArea[1][1] = coords[1]
-        if coords[1] < mapArea[1][0]:
-            mapArea[1][0] = coords[1]
+        if coords[1] > map_area[1][1]:
+            map_area[1][1] = coords[1]
+        if coords[1] < map_area[1][0]:
+            map_area[1][0] = coords[1]
         # up/down extent
-        if coords[2] > mapArea[2][1]:
-            mapArea[2][1] = coords[2]
-        if coords[2] < mapArea[2][0]:
-            mapArea[2][0] = coords[2]
+        if coords[2] > map_area[2][1]:
+            map_area[2][1] = coords[2]
+        if coords[2] < map_area[2][0]:
+            map_area[2][0] = coords[2]
 
     for rm in rooms:
         del rooms[rm]['allExits']
 
-    return mapArea
+    return map_area
 
 
-def _highestPointAtCoord(rooms: {}, mapArea: [], x: int, y: int) -> float:
+def _highestPointAtCoord(rooms: {}, map_area: [], x: int, y: int) -> float:
     """Returns the highest elevation at the given location
     """
     highest = 0
 
-    vertical_range = mapArea[2][1] - mapArea[2][0]
+    vertical_range = map_area[2][1] - map_area[2][0]
     if vertical_range < 1:
         vertical_range = 1
 
@@ -665,22 +670,22 @@ def _highestPointAtCoord(rooms: {}, mapArea: [], x: int, y: int) -> float:
             continue
         if len(rooms[rm]['coords']) < 3:
             continue
-        if rooms[rm]['coords'][0] - mapArea[0][0] != y:
+        if rooms[rm]['coords'][0] - map_area[0][0] != y:
             continue
-        if rooms[rm]['coords'][1] - mapArea[1][0] != x:
+        if rooms[rm]['coords'][1] - map_area[1][0] != x:
             continue
         if rooms[rm]['coords'][2] > highest:
             highest = rooms[rm]['coords'][2]
 
-    return (highest - mapArea[2][0]) * 255 / vertical_range
+    return (highest - map_area[2][0]) * 255 / vertical_range
 
 
-def generateCloud(
+def generate_cloud(
         randnumgen: int,
         rooms: {},
-        mapArea: [],
+        map_area: [],
         clouds: {},
-        cloudGrid: {},
+        cloud_grid: {},
         tileSize: int,
         windDirection: int) -> int:
     """Weather simulation
@@ -689,10 +694,10 @@ def generateCloud(
        more chance of rain as temperature falls.
        Wind blows clouds in one of 8 possible directions, or can be still.
     """
-    mapWidth = mapArea[1][1] - mapArea[1][0]
-    mapHeight = mapArea[0][1] - mapArea[0][0]
-    cloudGridWidth = int(mapWidth / tileSize)
-    cloudGridHeight = int(mapHeight / tileSize)
+    mapWidth = map_area[1][1] - map_area[1][0]
+    mapHeight = map_area[0][1] - map_area[0][0]
+    cloud_gridWidth = int(mapWidth / tileSize)
+    cloud_gridHeight = int(mapHeight / tileSize)
 
     if len(clouds) == 0:
         # Generate the clouds map
@@ -701,36 +706,36 @@ def generateCloud(
             for y in range(0, mapHeight):
                 clouds[x][y] = 0
 
-    if len(cloudGrid) == 0:
+    if len(cloud_grid) == 0:
         # Initialize clouds grid randomly
         # This is lower resolution than the map
-        for x in range(0, cloudGridWidth):
-            cloudGrid[x] = {}
-            for y in range(0, cloudGridHeight):
-                cloudGrid[x][y] = int(randnumgen.random() * 255)
+        for x in range(0, cloud_gridWidth):
+            cloud_grid[x] = {}
+            for y in range(0, cloud_gridHeight):
+                cloud_grid[x][y] = int(randnumgen.random() * 255)
 
     # Update clouds (same resolution as the map)
     for x in range(0, mapWidth - 1):
         tile_tx = int(x / tileSize)
         tile_bx = tile_tx + 1
-        if tile_bx >= cloudGridWidth:
+        if tile_bx >= cloud_gridWidth:
             tile_bx = 0
         for y in range(0, mapHeight - 1):
             tile_ty = int(y / tileSize)
             tile_by = tile_ty + 1
-            if tile_by >= cloudGridHeight:
+            if tile_by >= cloud_gridHeight:
                 tile_by = 0
 
             interpolate_top = \
-                cloudGrid[tile_tx][tile_ty] + \
-                int((cloudGrid[tile_bx][tile_ty] -
-                     cloudGrid[tile_tx][tile_ty]) *
+                cloud_grid[tile_tx][tile_ty] + \
+                int((cloud_grid[tile_bx][tile_ty] -
+                     cloud_grid[tile_tx][tile_ty]) *
                     (x % tileSize) / tileSize)
 
             interpolate_bottom = \
-                cloudGrid[tile_tx][tile_by] + \
-                int((cloudGrid[tile_bx][tile_by] -
-                     cloudGrid[tile_tx][tile_by]) *
+                cloud_grid[tile_tx][tile_by] + \
+                int((cloud_grid[tile_bx][tile_by] -
+                     cloud_grid[tile_tx][tile_by]) *
                     (x % tileSize) / tileSize)
 
             clouds[x][y] = \
@@ -739,14 +744,14 @@ def generateCloud(
                     (y % tileSize) / tileSize)
 
     # Clouds change
-    for x in range(0, cloudGridWidth):
-        for y in range(0, cloudGridHeight):
-            cloudGrid[x][y] = cloudGrid[x][y] + \
+    for x in range(0, cloud_gridWidth):
+        for y in range(0, cloud_gridHeight):
+            cloud_grid[x][y] = cloud_grid[x][y] + \
                 (int(randnumgen.random() * 11) - 5)
-            if cloudGrid[x][y] < 0:
-                cloudGrid[x][y] = cloudGrid[x][y] + 255
-            if cloudGrid[x][y] > 255:
-                cloudGrid[x][y] = cloudGrid[x][y] - 255
+            if cloud_grid[x][y] < 0:
+                cloud_grid[x][y] = cloud_grid[x][y] + 255
+            if cloud_grid[x][y] > 255:
+                cloud_grid[x][y] = cloud_grid[x][y] - 255
 
     # change wind direction
     windDirection = (windDirection + int(randnumgen.random() * 9) - 4) % 360
@@ -766,33 +771,33 @@ def generateCloud(
         dx = 1
 
     # Move clouds in the wind direction
-    cloudGridNew = {}
-    for x in range(0, cloudGridWidth):
-        cloudGridNew[x] = {}
-        for y in range(0, cloudGridHeight):
-            cloudGridNew[x][y] = cloudGrid[x][y]
+    cloud_gridNew = {}
+    for x in range(0, cloud_gridWidth):
+        cloud_gridNew[x] = {}
+        for y in range(0, cloud_gridHeight):
+            cloud_gridNew[x][y] = cloud_grid[x][y]
 
-    for x in range(0, cloudGridWidth):
+    for x in range(0, cloud_gridWidth):
         old_x = x + dx
-        for y in range(0, cloudGridHeight):
+        for y in range(0, cloud_gridHeight):
             old_y = y + dy
-            if old_x >= 0 and old_x <= cloudGridWidth - 1 and \
-               old_y >= 0 and old_y <= cloudGridHeight - 1:
-                cloudGridNew[x][y] = cloudGrid[old_x][old_y]
+            if old_x >= 0 and old_x <= cloud_gridWidth - 1 and \
+               old_y >= 0 and old_y <= cloud_gridHeight - 1:
+                cloud_gridNew[x][y] = cloud_grid[old_x][old_y]
             else:
                 if old_x < 0:
-                    old_x = old_x + cloudGridWidth
+                    old_x = old_x + cloud_gridWidth
                 if old_y < 0:
-                    old_y = old_y + cloudGridHeight
-                if old_x > cloudGridWidth - 1:
-                    old_x = old_x - cloudGridWidth
-                if old_y > cloudGridHeight - 1:
-                    old_y = old_y - cloudGridHeight
-                cloudGridNew[x][y] = randint(0, 255)
+                    old_y = old_y + cloud_gridHeight
+                if old_x > cloud_gridWidth - 1:
+                    old_x = old_x - cloud_gridWidth
+                if old_y > cloud_gridHeight - 1:
+                    old_y = old_y - cloud_gridHeight
+                cloud_gridNew[x][y] = randint(0, 255)
 
-    for x in range(0, cloudGridWidth):
-        for y in range(0, cloudGridHeight):
-            cloudGrid[x][y] = cloudGridNew[x][y]
+    for x in range(0, cloud_gridWidth):
+        for y in range(0, cloud_gridHeight):
+            cloud_grid[x][y] = cloud_gridNew[x][y]
 
     return windDirection
 
@@ -803,14 +808,14 @@ def _getCloudThreshold(temperature: float) -> float:
     return (10 + temperature) * 7
 
 
-def _altitudeTemperatureAdjustment(rooms: {}, mapArea: [],
+def _altitudeTemperatureAdjustment(rooms: {}, map_area: [],
                                    x: int, y: int) -> float:
     """Temperature decreases with altitude
     """
-    return _highestPointAtCoord(rooms, mapArea, x, y) * 2.0 / 255.0
+    return _highestPointAtCoord(rooms, map_area, x, y) * 2.0 / 255.0
 
 
-def _terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
+def _terrainTemperatureAdjustment(temperature: float, rooms: {}, map_area: [],
                                   x: int, y: int) -> float:
     """Temperature is adjusted for different types of terrain
     """
@@ -838,9 +843,9 @@ def _terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
         coords = rooms[rm]['coords']
         if len(coords) < 2:
             continue
-        if coords[0] - mapArea[0][0] != y:
+        if coords[0] - map_area[0][0] != y:
             continue
-        if coords[1] - mapArea[1][0] != x:
+        if coords[1] - map_area[1][0] != x:
             continue
         roomDescription = rooms[rm]['description'].lower()
         for w in terrainFreezingWords:
@@ -855,20 +860,21 @@ def _terrainTemperatureAdjustment(temperature: float, rooms: {}, mapArea: [],
     return temperature
 
 
-def plotClouds(rooms: {}, mapArea: [], clouds: {}, temperature: float) -> None:
+def plotClouds(rooms: {}, map_area: [], clouds: {},
+               temperature: float) -> None:
     """Show clouds as ASCII diagram for debugging purposes
     """
     cloudThreshold = _getCloudThreshold(temperature)
-    mapWidth = mapArea[1][1] - mapArea[1][0]
-    mapHeight = mapArea[0][1] - mapArea[0][0]
+    mapWidth = map_area[1][1] - map_area[1][0]
+    mapHeight = map_area[0][1] - map_area[0][0]
 
     for y in range(0, mapHeight - 1):
         lineStr = ''
         for x in range(0, mapWidth - 1):
             mapTemp = clouds[x][y] - \
-                (_altitudeTemperatureAdjustment(rooms, mapArea, x, y) * 7)
+                (_altitudeTemperatureAdjustment(rooms, map_area, x, y) * 7)
             mapTemp = _terrainTemperatureAdjustment(
-                mapTemp, rooms, mapArea, x, y)
+                mapTemp, rooms, map_area, x, y)
             lineChar = '.'
             if mapTemp > cloudThreshold:
                 lineChar = 'o'
@@ -879,7 +885,7 @@ def plotClouds(rooms: {}, mapArea: [], clouds: {}, temperature: float) -> None:
     print('\n')
 
 
-def _getTemperatureSeasonal() -> float:
+def _get_temperatureSeasonal() -> float:
     """Average temperature for the time of year
     """
     dayOfYear = int(datetime.datetime.today().strftime("%j"))
@@ -888,10 +894,10 @@ def _getTemperatureSeasonal() -> float:
     return 8 + (7 * tempFraction)
 
 
-def getTemperature() -> float:
+def get_temperature() -> float:
     """Average daily seasonal temperature for the universe
     """
-    avTemp = _getTemperatureSeasonal()
+    avTemp = _get_temperatureSeasonal()
 
     daysSinceEpoch = (
         datetime.datetime.today() -
@@ -921,27 +927,27 @@ def getTemperature() -> float:
     return avTemp + dailyVariance + solarCycle
 
 
-def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
-                           clouds: {}) -> float:
+def get_temperatureAtCoords(coords: [], rooms: {}, map_area: [],
+                            clouds: {}) -> float:
     """Returns the temperature at the given coordinates
     """
     # Average temperature of the universe
-    currTemp = getTemperature()
+    currTemp = get_temperature()
 
     if not coords:
         return currTemp
 
-    x = coords[1] - mapArea[1][0]
-    y = coords[0] - mapArea[0][0]
+    x = coords[1] - map_area[1][0]
+    y = coords[0] - map_area[0][0]
 
     # Adjust for altitude
-    currTemp = currTemp - _altitudeTemperatureAdjustment(rooms, mapArea, x, y)
+    currTemp = currTemp - _altitudeTemperatureAdjustment(rooms, map_area, x, y)
 
     # Adjust for terrain
-    currTemp = _terrainTemperatureAdjustment(currTemp, rooms, mapArea, x, y)
+    currTemp = _terrainTemperatureAdjustment(currTemp, rooms, map_area, x, y)
 
     # Adjust for rain
-    if getRainAtCoords([coords[0], coords[1]], mapArea, clouds):
+    if getRainAtCoords([coords[0], coords[1]], map_area, clouds):
         currTemp = currTemp * 0.8
 
     if clouds[x][y] < _getCloudThreshold(currTemp):
@@ -952,19 +958,19 @@ def getTemperatureAtCoords(coords: [], rooms: {}, mapArea: [],
     return currTemp * 0.8
 
 
-def getRainAtCoords(coords: [], mapArea: [], clouds: {}) -> bool:
+def getRainAtCoords(coords: [], map_area: [], clouds: {}) -> bool:
     """Returns whether it is raining at the civen coordinates
     """
     if not coords:
         return False
-    x = coords[1] - mapArea[1][0]
-    y = coords[0] - mapArea[0][0]
+    x = coords[1] - map_area[1][0]
+    y = coords[0] - map_area[0][0]
     if clouds[x][y] > rainThreshold:
         return True
     return False
 
 
-def assignEnvironmentToRooms(environments: {}, rooms: {}) -> int:
+def assign_environment_to_rooms(environments: {}, rooms: {}) -> int:
     """Assigns environment numbers to rooms based upon their descriptions
     Returns the percentage of rooms assigned to environments
     """
@@ -999,7 +1005,7 @@ def assignEnvironmentToRooms(environments: {}, rooms: {}) -> int:
     return percentAssigned
 
 
-def getRoomCulture(culturesDB: {}, rooms: {}, roomId) -> str:
+def getRoomCulture(cultures_db: {}, rooms: {}, roomId) -> str:
     """Returns the culture for a room
     """
     if not rooms[roomId].get('region'):
@@ -1007,7 +1013,7 @@ def getRoomCulture(culturesDB: {}, rooms: {}, roomId) -> str:
     region = rooms[roomId]['region']
     if not region:
         return None
-    for cultureName, item in culturesDB.items():
+    for cultureName, item in cultures_db.items():
         if region in item['regions']:
             return cultureName
     return None
@@ -1026,38 +1032,38 @@ def isFishingSite(rooms: {}, rid) -> bool:
     return False
 
 
-def holdingFishingRod(players: {}, id, itemsDB: {}) -> bool:
+def holdingFishingRod(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a fishing rod?
     """
     handLocations = ('clo_lhand', 'clo_rhand')
     for hand in handLocations:
         itemID = int(players[id][hand])
         if itemID > 0:
-            if 'fishing' in itemsDB[itemID]['name']:
+            if 'fishing' in items_db[itemID]['name']:
                 return True
     return False
 
 
-def holdingFlyFishingRod(players: {}, id, itemsDB: {}) -> bool:
+def holdingFlyFishingRod(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a fly fishing rod?
     """
     handLocations = ('clo_lhand', 'clo_rhand')
     for hand in handLocations:
         itemID = int(players[id][hand])
         if itemID > 0:
-            if 'fishing' in itemsDB[itemID]['name']:
-                if 'fly' in itemsDB[itemID]['name']:
+            if 'fishing' in items_db[itemID]['name']:
+                if 'fly' in items_db[itemID]['name']:
                     return True
     return False
 
 
-def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
+def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
     """The player catches a fish
     """
     if randint(1, 100) < 80:
         return
     rid = players[id]['room']
-    if not holdingFishingRod(players, id, itemsDB):
+    if not holdingFishingRod(players, id, items_db):
         return
     if not isFishingSite(rooms, rid):
         return
@@ -1088,7 +1094,7 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
             'trout', 'chub'
         )
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
-        if not holdingFlyFishingRod(players, id, itemsDB):
+        if not holdingFlyFishingRod(players, id, items_db):
             fishNames = (
                 'cod fish', 'haddock', 'turbot', 'sturgeon',
                 'dogfish', 'pollack', 'sea bass', 'mullet'
@@ -1098,7 +1104,7 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
                 'sea bass', 'mullet'
             )
     elif 'pond' in roomNameLower:
-        if not holdingFlyFishingRod(players, id, itemsDB):
+        if not holdingFlyFishingRod(players, id, items_db):
             fishNames = (
                 'pond weed'
             )
@@ -1107,7 +1113,7 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
     fishIds = []
     currMonthNumber = int(datetime.datetime.today().strftime("%m"))
     noOfFish = 0
-    for iid, item in itemsDB.items():
+    for iid, item in items_db.items():
         if item['edible'] <= 0:
             continue
         if item['weight'] <= 0:
@@ -1130,19 +1136,20 @@ def _catchFish(players: {}, id, rooms: {}, itemsDB: {}, mud) -> None:
     caughtId = random.choice(fishIds)
     if caughtId in players[id]['inv']:
         return
-    caughtStr = itemsDB[caughtId]['article'] + ' ' + itemsDB[caughtId]['name']
+    caughtStr = \
+        items_db[caughtId]['article'] + ' ' + items_db[caughtId]['name']
     msgStr = randomDescription('You catch ' + caughtStr)
     players[id]['inv'].append(caughtId)
     del players[id]['isFishing']
-    mud.sendMessage(id, msgStr + '\n\n')
+    mud.send_message(id, msgStr + '\n\n')
 
 
-def playersFishing(players: {}, rooms: {}, itemsDB: {}, mud) -> None:
+def players_fishing(players: {}, rooms: {}, items_db: {}, mud) -> None:
     """Updates players that are fishing
     """
     for p in players:
         if players[p].get('isFishing'):
-            _catchFish(players, p, rooms, itemsDB, mud)
+            _catchFish(players, p, rooms, items_db, mud)
 
 
 def _moonPosition(currTime) -> int:

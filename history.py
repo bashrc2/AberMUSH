@@ -19,7 +19,7 @@ def _getSwordName(description: str, swordNames: []) -> str:
     return swordNames[index]
 
 
-def assignItemHistory(key: int, item: {}, itemHistory: {}) -> bool:
+def assignItemHistory(key: int, item: {}, item_history: {}) -> bool:
     """Assigns history to a single item
     """
     assigned = False
@@ -27,7 +27,7 @@ def assignItemHistory(key: int, item: {}, itemHistory: {}) -> bool:
     itemNameLower = item['name'].lower()
     keyStr = str(key)
 
-    for name, hist in itemHistory.items():
+    for name, hist in item_history.items():
         if not hist.get('match'):
             continue
         matchStr = hist['match']
@@ -38,11 +38,11 @@ def assignItemHistory(key: int, item: {}, itemHistory: {}) -> bool:
     return assigned
 
 
-def assignItemsHistory(itemsDB: {}, itemHistory: {}) -> int:
+def assign_items_history(items_db: {}, item_history: {}) -> int:
     """Assign names and history to items
     """
     ctr = 0
-    for key, value in itemsDB.items():
-        if assignItemHistory(key, value, itemHistory):
+    for key, value in items_db.items():
+        if assignItemHistory(key, value, item_history):
             ctr += 1
     return ctr

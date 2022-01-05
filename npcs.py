@@ -11,7 +11,7 @@ __module_group__ = "NPCs"
 import os
 import datetime
 from suntime import Sun
-from functions import addToScheduler
+from functions import add_to_scheduler
 from functions import messageToPlayersInRoom
 from functions import log
 from functions import playerInventoryWeight
@@ -46,7 +46,7 @@ def corpseExists(corpses: {}, room: str, name: str) -> bool:
     return False
 
 
-def npcsRest(npcs: {}) -> None:
+def npcs_rest(npcs: {}) -> None:
     """Rest restores hit points of NPCs
     """
     for p in npcs:
@@ -89,7 +89,7 @@ def getSolar():
 
 
 def _entityIsActive(id, players: {}, rooms: {},
-                    moveTimes: [], mapArea: [], clouds: {}) -> bool:
+                    moveTimes: [], map_area: [], clouds: {}) -> bool:
     if len(moveTimes) == 0:
         return True
 
@@ -189,10 +189,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, mapArea, clouds):
+                if not getRainAtCoords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, mapArea, clouds):
+                if getRainAtCoords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainday':
@@ -208,10 +208,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, mapArea, clouds):
+                if not getRainAtCoords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, mapArea, clouds):
+                if getRainAtCoords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainnight':
@@ -227,10 +227,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, mapArea, clouds):
+                if not getRainAtCoords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, mapArea, clouds):
+                if getRainAtCoords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainmorning':
@@ -245,10 +245,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, mapArea, clouds):
+                if not getRainAtCoords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, mapArea, clouds):
+                if getRainAtCoords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainafternoon':
@@ -260,10 +260,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, mapArea, clouds):
+                if not getRainAtCoords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, mapArea, clouds):
+                if getRainAtCoords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainevening':
@@ -278,10 +278,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, mapArea, clouds):
+                if not getRainAtCoords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, mapArea, clouds):
+                if getRainAtCoords(coords, map_area, clouds):
                     return False
 
         # hour of day
@@ -410,7 +410,7 @@ def _moveNPCs(npcs, players, mud, now, nid) -> None:
         if thisNPC['room'] != rm:
             for (pid, pl) in list(players.items()):
                 if thisNPC['room'] == players[pid]['room']:
-                    mud.sendMessage(
+                    mud.send_message(
                         pid, '<f220>' + thisNPC['name'] + "<r> " +
                         randomDescription(thisNPC['outDescription']) +
                         "\n\n")
@@ -418,7 +418,7 @@ def _moveNPCs(npcs, players, mud, now, nid) -> None:
             thisNPC['lastRoom'] = rm
             for (pid, pl) in list(players.items()):
                 if thisNPC['room'] == players[pid]['room']:
-                    mud.sendMessage(
+                    mud.send_message(
                         pid, '<f220>' + thisNPC['name'] + "<r> " +
                         randomDescription(thisNPC['inDescription']) +
                         "\n\n")
@@ -426,7 +426,7 @@ def _moveNPCs(npcs, players, mud, now, nid) -> None:
         thisNPC['lastMoved'] = now
 
 
-def _removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
+def _removeInactiveEntity(nid, npcs: {}, nid2, npcs_db: {},
                           npcActive: bool) -> bool:
     """Moves inactive NPCs to and from purgatory
     Returns true when recovering from purgatory
@@ -434,7 +434,7 @@ def _removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
     # Where NPCs go when inactive by default
     purgatoryRoom = "$rid=1386$"
 
-    for timeRange in npcsDB[nid2]['moveTimes']:
+    for timeRange in npcs_db[nid2]['moveTimes']:
         if len(timeRange) == 2:
             if timeRange[0].startswith('inactive') or \
                timeRange[0].startswith('home'):
@@ -457,7 +457,7 @@ def _removeInactiveEntity(nid, npcs: {}, nid2, npcsDB: {},
         return False
 
 
-def npcRespawns(npcs: {}) -> None:
+def npc_respawns(npcs: {}) -> None:
     """Respawns inactive NPCs
     """
     for (nid, pl) in list(npcs.items()):
@@ -475,32 +475,32 @@ def npcRespawns(npcs: {}) -> None:
                     " hit points", "info")
 
 
-def runMobileItems(itemsDB: {}, items: {}, eventSchedule,
-                   scriptedEventsDB,
-                   rooms: {}, mapArea, clouds: {}) -> None:
+def run_mobile_items(items_db: {}, items: {}, event_schedule,
+                     scripted_events_db,
+                     rooms: {}, map_area, clouds: {}) -> None:
     """Updates all NPCs
     """
     for (item, pl) in list(items.items()):
         itemID = items[item]['id']
         # only non-takeable items
-        if itemsDB[itemID]['weight'] > 0:
+        if items_db[itemID]['weight'] > 0:
             continue
-        if not itemsDB[itemID].get('moveTimes'):
+        if not items_db[itemID].get('moveTimes'):
             continue
         # Active now?
         itemActive = \
             _entityIsActive(itemID, items, rooms,
-                            itemsDB[itemID]['moveTimes'],
-                            mapArea, clouds)
+                            items_db[itemID]['moveTimes'],
+                            map_area, clouds)
         # Remove if not active
-        _removeInactiveEntity(item, items, itemID, itemsDB, itemActive)
+        _removeInactiveEntity(item, items, itemID, items_db, itemActive)
         if not itemActive:
             continue
 
 
-def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
-            itemsDB: {}, npcsTemplate, rooms: {}, mapArea, clouds: {},
-            eventSchedule) -> None:
+def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
+             items_db: {}, npcsTemplate, rooms: {}, map_area, clouds: {},
+             event_schedule) -> None:
     """Updates all NPCs
     """
 
@@ -519,7 +519,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
             npcActive = \
                 _entityIsActive(nid, npcs, rooms,
                                 thisNPC['moveTimes'],
-                                mapArea, clouds)
+                                map_area, clouds)
             _removeInactiveEntity(nid, npcs, nid, npcs, npcActive)
             if not npcActive:
                 continue
@@ -538,22 +538,22 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                 for (pid, pl) in list(players.items()):
                     if thisNPC['room'] == players[pid]['room']:
                         if len(thisNPC['vocabulary']) > 1:
-                            # mud.sendMessage(pid,
+                            # mud.send_message(pid,
                             # thisNPC['vocabulary'][rnd])
                             msg = '<f220>' + thisNPC['name'] + \
                                 '<r> says: <f86>' + \
                                 thisNPC['vocabulary'][rnd] + "\n\n"
-                            mud.sendMessage(pid, msg)
+                            mud.send_message(pid, msg)
                             thisNPC['randomizer'] = \
                                 randint(0, thisNPC['randomFactor'])
                             thisNPC['lastSaid'] = rnd
                             thisNPC['timeTalked'] = now
                         else:
-                            # mud.sendMessage(pid, thisNPC['vocabulary'][0])
+                            # mud.send_message(pid, thisNPC['vocabulary'][0])
                             msg = '<f220>' + thisNPC['name'] + \
                                 '<r> says: <f86>' + \
                                 thisNPC['vocabulary'][0] + "\n\n"
-                            mud.sendMessage(pid, msg)
+                            mud.send_message(pid, msg)
                             thisNPC['randomizer'] = \
                                 randint(0, thisNPC['randomFactor'])
                             thisNPC['timeTalked'] = now
@@ -665,7 +665,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                 if players[pid]['authenticated'] is not None:
                     if players[pid]['authenticated'] is not None and \
                        players[pid]['room'] == thisNPC['room']:
-                        mud.sendMessage(
+                        mud.send_message(
                             pid,
                             "<f220>{}<r> ".format(thisNPC['name']) +
                             "<f88>has been killed.\n")
@@ -678,18 +678,18 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
             for i in thisNPC['inv']:
                 if not str(i).isdigit():
                     for (pid, pl) in list(players.items()):
-                        mud.sendMessage(
+                        mud.send_message(
                             pid, 'NPC drops item: ' +
                             str(i) + ' is not an item number\n')
                     continue
                 if randint(0, 100) < 50:
                     itemIDStr = str(i)
                     lastRoomStr = str(thisNPC['lastRoom'])
-                    addToScheduler("0|spawnItem|" + itemIDStr + ";" +
-                                   lastRoomStr + ";0;0",
-                                   -1, eventSchedule, scriptedEventsDB)
-                    print("Dropped!" + str(itemsDB[int(i)]['name']))
-                    droppedItems.append(str(itemsDB[int(i)]['name']))
+                    add_to_scheduler("0|spawnItem|" + itemIDStr + ";" +
+                                     lastRoomStr + ";0;0",
+                                     -1, event_schedule, scripted_events_db)
+                    print("Dropped!" + str(items_db[int(i)]['name']))
+                    droppedItems.append(str(items_db[int(i)]['name']))
 
             # Inform other players in the room what items got dropped on NPC
             # death
@@ -698,7 +698,7 @@ def runNPCs(mud, npcs: {}, players: {}, fights, corpses, scriptedEventsDB,
                     if players[p]['name'] is None:
                         continue
                     if players[p]['room'] == thisNPC['lastRoom']:
-                        mud.sendMessage(
+                        mud.send_message(
                             p, "Right before <f220>" +
                             str(thisNPC['name']) +
                             "<r>'s lifeless body collapsed to the floor, " +
@@ -727,7 +727,7 @@ def _conversationState(word: str, conversationStates: {},
 def _conversationCondition(word: str, conversationStates: {},
                            nid, npcs: {}, matchCtr: int,
                            players: {}, rooms: {},
-                           id, culturesDB: {}) -> (bool, bool, int):
+                           id, cultures_db: {}) -> (bool, bool, int):
     conditionType = ''
     if '>' in word.lower():
         conditionType = '>'
@@ -754,7 +754,7 @@ def _conversationCondition(word: str, conversationStates: {},
             targetValue = word.lower().split(conditionType)[1].strip()
     if varStr == 'roomcul' or \
        varStr == 'roomculture':
-        currValue = getRoomCulture(culturesDB, rooms, players[id]['room'])
+        currValue = getRoomCulture(cultures_db, rooms, players[id]['room'])
         targetValue = word.lower().split(conditionType)[1].strip()
     if varStr == 'str' or \
        varStr == 'strength':
@@ -892,7 +892,7 @@ def _conversationCondition(word: str, conversationStates: {},
 def _conversationWordCount(message: str, wordsList: [], npcs: {},
                            nid, conversationStates: {},
                            players: {}, rooms: {}, id,
-                           culturesDB: {}) -> int:
+                           cultures_db: {}) -> int:
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
     """
@@ -918,7 +918,7 @@ def _conversationWordCount(message: str, wordsList: [], npcs: {},
                                        nid, npcs,
                                        matchCtr,
                                        players, rooms, id,
-                                       culturesDB)
+                                       cultures_db)
 
             if not continueMatching:
                 break
@@ -931,8 +931,8 @@ def _conversationWordCount(message: str, wordsList: [], npcs: {},
 
 def _conversationGive(bestMatch: str, bestMatchAction: str,
                       thingGivenIDstr: str, players: {}, id,
-                      mud, npcs: {}, nid: int, itemsDB: {},
-                      puzzledStr: str, guildsDB: {}) -> bool:
+                      mud, npcs: {}, nid: int, items_db: {},
+                      puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives something to you
     """
     if bestMatchAction == 'give' or \
@@ -942,26 +942,26 @@ def _conversationGive(bestMatch: str, bestMatchAction: str,
             itemID = int(thingGivenIDstr)
             if itemID not in list(players[id]['inv']):
                 players[id]['inv'].append(str(itemID))
-                updatePlayerAttributes(id, players, itemsDB, itemID, 1)
+                updatePlayerAttributes(id, players, items_db, itemID, 1)
                 players[id]['wei'] = \
-                    playerInventoryWeight(id, players, itemsDB)
+                    playerInventoryWeight(id, players, items_db)
                 increaseAffinityBetweenPlayers(players, id, npcs, nid,
-                                               guildsDB)
+                                               guilds_db)
                 increaseAffinityBetweenPlayers(npcs, nid, players, id,
-                                               guildsDB)
+                                               guilds_db)
                 if '#' not in bestMatch:
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "<f220>" + thisNPC['name'] + "<r> says: " +
                         bestMatch + ".")
                 else:
-                    mud.sendMessage(id, "<f220>" +
-                                    bestMatch.replace('#', '').strip() + ".")
-                mud.sendMessage(
+                    mud.send_message(id, "<f220>" +
+                                     bestMatch.replace('#', '').strip() + ".")
+                mud.send_message(
                     id, "<f220>" + thisNPC['name'] +
-                    "<r> gives you " + itemsDB[itemID]['article'] +
-                    ' ' + itemsDB[itemID]['name'] + ".\n\n")
+                    "<r> gives you " + items_db[itemID]['article'] +
+                    ' ' + items_db[itemID]['name'] + ".\n\n")
                 return True
-        mud.sendMessage(
+        mud.send_message(
             id, "<f220>" + thisNPC['name'] +
             "<r> looks " + puzzledStr + ".\n\n")
         return True
@@ -971,8 +971,8 @@ def _conversationGive(bestMatch: str, bestMatchAction: str,
 def _conversationSkill(bestMatch: str, bestMatchAction: str,
                        bestMatchActionParam0: str,
                        bestMatchActionParam1: str,
-                       players: {}, id, mud, npcs: {}, nid, itemsDB: {},
-                       puzzledStr: str, guildsDB: {}) -> bool:
+                       players: {}, id, mud, npcs: {}, nid, items_db: {},
+                       puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives or alters a skill
     """
     if bestMatchAction == 'skill' or \
@@ -1003,15 +1003,15 @@ def _conversationSkill(bestMatch: str, bestMatchAction: str,
                         players[id][newSkill] + \
                         int(skillValueStr)
 
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
 
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> says: " + bestMatch +
                 ".\n\n")
             return True
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> looks " +
                 puzzledStr + ".\n\n")
             return False
@@ -1022,8 +1022,8 @@ def _conversationExperience(
         bestMatch: str, bestMatchAction: str,
         bestMatchActionParam0: str,
         bestMatchActionParam1: str,
-        players: {}, id, mud, npcs: {}, nid, itemsDB: {},
-        puzzledStr: str, guildsDB: {}) -> bool:
+        players: {}, id, mud, npcs: {}, nid, items_db: {},
+        puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC increases your experience
     """
     if bestMatchAction == 'exp' or \
@@ -1031,11 +1031,11 @@ def _conversationExperience(
         if len(bestMatchActionParam0) > 0:
             expValue = int(bestMatchActionParam0)
             players[id]['exp'] = players[id]['exp'] + expValue
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
             return True
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
                 puzzledStr + ".\n\n")
             return False
@@ -1046,8 +1046,8 @@ def _conversationJoinGuild(
         bestMatch: str, bestMatchAction: str,
         bestMatchActionParam0: str,
         bestMatchActionParam1: str,
-        players: {}, id, mud, npcs: {}, nid, itemsDB: {},
-        puzzledStr: str, guildsDB: {}) -> bool:
+        players: {}, id, mud, npcs: {}, nid, items_db: {},
+        puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC adds you to a guild
     """
     if bestMatchAction == 'clan' or \
@@ -1058,11 +1058,11 @@ def _conversationJoinGuild(
             players[id]['guild'] = bestMatchActionParam0
             if len(bestMatchActionParam1) > 0:
                 players[id]['guildRole'] = bestMatchActionParam1
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
             return True
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + npcs[nid]['name'] +
                 "<r> looks " + puzzledStr + ".\n\n")
             return False
@@ -1073,8 +1073,8 @@ def _conversationFamiliarMode(
         bestMatch: str, bestMatchAction: str,
         bestMatchActionParam0: str,
         bestMatchActionParam1: str,
-        players: {}, id, mud, npcs: {}, npcsDB: {}, rooms: {},
-        nid, items: {}, itemsDB: {}, puzzledStr: str) -> bool:
+        players: {}, id, mud, npcs: {}, npcs_db: {}, rooms: {},
+        nid, items: {}, items_db: {}, puzzledStr: str) -> bool:
     """Switches the mode of a familiar
     """
     thisNPC = npcs[nid]
@@ -1084,26 +1084,26 @@ def _conversationFamiliarMode(
                 mode = bestMatchActionParam0.lower().strip()
                 if mode in getFamiliarModes():
                     if mode == 'follow':
-                        familiarDefaultMode(nid, npcs, npcsDB)
+                        familiarDefaultMode(nid, npcs, npcs_db)
                     if mode == 'hide':
-                        familiarHide(nid, npcs, npcsDB)
-                    mud.sendMessage(
+                        familiarHide(nid, npcs, npcs_db)
+                    mud.send_message(
                         id, "<f220>" + thisNPC['name'] +
                         "<r> " + bestMatch + ".\n\n")
                     if mode == 'scout':
                         familiarScout(mud, players, id, nid,
-                                      npcs, npcsDB, rooms,
+                                      npcs, npcs_db, rooms,
                                       bestMatchActionParam1)
                     if mode == 'see':
-                        familiarSight(mud, nid, npcs, npcsDB,
+                        familiarSight(mud, nid, npcs, npcs_db,
                                       rooms, players, id, items,
-                                      itemsDB)
+                                      items_db)
                     return True
             else:
-                mud.sendMessage(
+                mud.send_message(
                     id, thisNPC['name'] + " is not your familiar.\n\n")
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] +
                 "<r> looks " + puzzledStr + ".\n\n")
             return False
@@ -1113,7 +1113,7 @@ def _conversationFamiliarMode(
 def _conversationTransport(
         bestMatchAction: str, bestMatchActionParam0: str,
         mud, id, players: {}, bestMatch, npcs: {}, nid,
-        puzzledStr, guildsDB: {}, rooms: {}) -> bool:
+        puzzledStr, guilds_db: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some location
     """
     if bestMatchAction == 'transport' or \
@@ -1121,22 +1121,22 @@ def _conversationTransport(
        bestMatchAction == 'teleport':
         thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0:
-            roomID = bestMatchActionParam0
-            mud.sendMessage(id, bestMatch)
+            room_id = bestMatchActionParam0
+            mud.send_message(id, bestMatch)
             messageToPlayersInRoom(
                 mud, players, id,
                 '<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
-            players[id]['room'] = roomID
-            thisNPC['room'] = roomID
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
+            players[id]['room'] = room_id
+            thisNPC['room'] = room_id
+            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
+            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
             messageToPlayersInRoom(
                 mud, players, id,
                 '<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
-            mud.sendMessage(
-                id, "You are in " + rooms[roomID]['name'] + "\n\n")
+            mud.send_message(
+                id, "You are in " + rooms[room_id]['name'] + "\n\n")
             return True
-        mud.sendMessage(
+        mud.send_message(
             id, "<f220>" + thisNPC['name'] + "<r> looks " +
             puzzledStr + ".\n\n")
         return True
@@ -1146,8 +1146,8 @@ def _conversationTransport(
 def _conversationTaxi(
         bestMatchAction: str, bestMatchActionParam0: str,
         bestMatchActionParam1: str, players: {},
-        id, mud, bestMatch, npcs: {}, nid, itemsDB: {},
-        puzzledStr: str, guildsDB: {}, rooms: {}) -> bool:
+        id, mud, bestMatch, npcs: {}, nid, items_db: {},
+        puzzledStr: str, guilds_db: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some
     location in exchange for payment/barter
     """
@@ -1155,34 +1155,34 @@ def _conversationTaxi(
         thisNPC = npcs[nid]
         if len(bestMatchActionParam0) > 0 and \
            len(bestMatchActionParam1) > 0:
-            roomID = bestMatchActionParam0
+            room_id = bestMatchActionParam0
             itemBuyID = int(bestMatchActionParam1)
             if str(itemBuyID) in list(players[id]['inv']):
                 players[id]['inv'].remove(str(itemBuyID))
 
                 increaseAffinityBetweenPlayers(players, id, npcs,
-                                               nid, guildsDB)
+                                               nid, guilds_db)
                 increaseAffinityBetweenPlayers(npcs, nid, players,
-                                               id, guildsDB)
-                mud.sendMessage(id, bestMatch)
+                                               id, guilds_db)
+                mud.send_message(id, bestMatch)
                 messageToPlayersInRoom(
                     mud, players, id,
                     '<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
-                players[id]['room'] = roomID
-                thisNPC['room'] = roomID
+                players[id]['room'] = room_id
+                thisNPC['room'] = room_id
                 messageToPlayersInRoom(
                     mud, players, id,
                     '<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
-                mud.sendMessage(
-                    id, "You are in " + rooms[roomID]['name'] + "\n\n")
+                mud.send_message(
+                    id, "You are in " + rooms[room_id]['name'] + "\n\n")
                 return True
             else:
-                mud.sendMessage(
+                mud.send_message(
                     id, "<f220>" + thisNPC['name'] + "<r> says: Give me " +
-                    itemsDB[itemBuyID]['article'] + ' ' +
-                    itemsDB[itemBuyID]['name'] + ".\n\n")
+                    items_db[itemBuyID]['article'] + ' ' +
+                    items_db[itemBuyID]['name'] + ".\n\n")
                 return True
-        mud.sendMessage(
+        mud.send_message(
             id, "<f220>" + thisNPC['name'] + "<r> looks " +
             puzzledStr + ".\n\n")
         return True
@@ -1192,8 +1192,8 @@ def _conversationTaxi(
 def _conversationGiveOnDate(
         bestMatchAction: str, bestMatchActionParam0: str,
         bestMatchActionParam1: str, players: {},
-        id, mud, npcs: {}, nid, itemsDB: {}, bestMatch,
-        puzzledStr: str, guildsDB: {}) -> bool:
+        id, mud, npcs: {}, nid, items_db: {}, bestMatch,
+        puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives something to you on
     a particular date of the year eg. Some festival or holiday
     """
@@ -1213,28 +1213,28 @@ def _conversationGiveOnDate(
                            int(datetime.datetime.today().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
                             players[id]['wei'] = \
-                                playerInventoryWeight(id, players, itemsDB)
+                                playerInventoryWeight(id, players, items_db)
                             updatePlayerAttributes(
-                                id, players, itemsDB, itemID, 1)
+                                id, players, items_db, itemID, 1)
                             increaseAffinityBetweenPlayers(
-                                players, id, npcs, nid, guildsDB)
+                                players, id, npcs, nid, guilds_db)
                             increaseAffinityBetweenPlayers(
-                                npcs, nid, players, id, guildsDB)
+                                npcs, nid, players, id, guilds_db)
                             if '#' not in bestMatch:
-                                mud.sendMessage(
+                                mud.send_message(
                                     id, "<f220>" + thisNPC['name'] +
                                     "<r> says: " + bestMatch + ".")
                             else:
-                                mud.sendMessage(
+                                mud.send_message(
                                     id, "<f220>" +
                                     bestMatch.replace('#', '').strip() + ".")
-                            mud.sendMessage(
+                            mud.send_message(
                                 id, "<f220>" + thisNPC['name'] +
                                 "<r> gives you " +
-                                itemsDB[itemID]['article'] +
-                                ' ' + itemsDB[itemID]['name'] + ".\n\n")
+                                items_db[itemID]['article'] +
+                                ' ' + items_db[itemID]['name'] + ".\n\n")
                             return True
-        mud.sendMessage(
+        mud.send_message(
             id, "<f220>" + thisNPC['name'] + "<r> looks " +
             puzzledStr + ".\n\n")
         return True
@@ -1244,8 +1244,8 @@ def _conversationGiveOnDate(
 def _conversationSell(
         bestMatch: str, bestMatchAction: str,
         bestMatchActionParam0: str,
-        npcs: {}, nid, mud, id, players: {}, itemsDB: {},
-        puzzledStr: str, guildsDB: {}) -> bool:
+        npcs: {}, nid, mud, id, players: {}, items_db: {},
+        puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which a player sells to an NPC
     """
     if bestMatchAction == 'sell':
@@ -1254,7 +1254,7 @@ def _conversationSell(
             for sellIDStr in sellItemIds:
                 sellIDStr = sellIDStr.strip()
                 itemSellID = int(sellIDStr)
-                cost = itemsDB[sellIDStr]['cost']
+                cost = items_db[sellIDStr]['cost']
                 qty = 0
                 denomination = None
                 if cost:
@@ -1266,18 +1266,18 @@ def _conversationSell(
                     # decrease the players inventory
                     players[id]['inv'].remove(sellIDStr)
                     updatePlayerAttributes(
-                        id, players, itemsDB, itemSellID, -1)
+                        id, players, items_db, itemSellID, -1)
                     players[id]['wei'] = \
-                        playerInventoryWeight(id, players, itemsDB)
+                        playerInventoryWeight(id, players, items_db)
                     increaseAffinityBetweenPlayers(players, id, npcs,
-                                                   nid, guildsDB)
+                                                   nid, guilds_db)
                     increaseAffinityBetweenPlayers(npcs, nid, players,
-                                                   id, guildsDB)
+                                                   id, guilds_db)
 
                     itemName = \
-                        itemsDB[sellIDStr]['article'] + ' ' + \
-                        itemsDB[sellIDStr]['name']
-                    mud.sendMessage(
+                        items_db[sellIDStr]['article'] + ' ' + \
+                        items_db[sellIDStr]['name']
+                    mud.send_message(
                         id, "You sell " + itemName + ".\n\n")
                     return True
     return False
@@ -1287,8 +1287,8 @@ def _conversationBuyOrExchange(
         bestMatch: str, bestMatchAction: str,
         bestMatchActionParam0: str,
         bestMatchActionParam1: str,
-        npcs: {}, nid, mud, id, players: {}, itemsDB: {},
-        puzzledStr: str, guildsDB: {}) -> bool:
+        npcs: {}, nid, mud, id, players: {}, items_db: {},
+        puzzledStr: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC exchanges/swaps some item
     with you or in which you buy some item from them
     """
@@ -1303,11 +1303,11 @@ def _conversationBuyOrExchange(
             itemSellID = int(bestMatchActionParam1)
             if str(itemSellID) not in list(thisNPC['inv']):
                 if bestMatchAction == 'buy':
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "<f220>" + thisNPC['name'] +
                         "<r> says: I don't have any of those to sell.\n\n")
                 else:
-                    mud.sendMessage(
+                    mud.send_message(
                         id, "<f220>" + thisNPC['name'] +
                         "<r> says: I don't have any of those to trade.\n\n")
             else:
@@ -1315,62 +1315,64 @@ def _conversationBuyOrExchange(
                     if str(itemSellID) not in list(players[id]['inv']):
                         players[id]['inv'].remove(str(itemBuyID))
                         updatePlayerAttributes(
-                            id, players, itemsDB, itemBuyID, -1)
+                            id, players, items_db, itemBuyID, -1)
                         players[id]['inv'].append(str(itemSellID))
                         players[id]['wei'] = \
-                            playerInventoryWeight(id, players, itemsDB)
+                            playerInventoryWeight(id, players, items_db)
                         updatePlayerAttributes(
-                            id, players, itemsDB, itemSellID, 1)
+                            id, players, items_db, itemSellID, 1)
                         if str(itemBuyID) not in list(thisNPC['inv']):
                             thisNPC['inv'].append(str(itemBuyID))
                         increaseAffinityBetweenPlayers(players, id, npcs,
-                                                       nid, guildsDB)
+                                                       nid, guilds_db)
                         increaseAffinityBetweenPlayers(npcs, nid, players,
-                                                       id, guildsDB)
-                        mud.sendMessage(
+                                                       id, guilds_db)
+                        mud.send_message(
                             id, "<f220>" + thisNPC['name'] +
                             "<r> says: " + bestMatch + ".")
-                        mud.sendMessage(
+                        mud.send_message(
                             id, "<f220>" + thisNPC['name'] +
                             "<r> gives you " +
-                            itemsDB[itemSellID]['article'] +
-                            ' ' + itemsDB[itemSellID]['name'] + ".\n\n")
+                            items_db[itemSellID]['article'] +
+                            ' ' + items_db[itemSellID]['name'] + ".\n\n")
                     else:
-                        mud.sendMessage(id, "<f220>" + thisNPC['name'] +
-                                        "<r> says: I see you already have " +
-                                        itemsDB[itemSellID]['article'] + ' ' +
-                                        itemsDB[itemSellID]['name'] + ".\n\n")
+                        mud.send_message(id, "<f220>" + thisNPC['name'] +
+                                         "<r> says: I see you already have " +
+                                         items_db[itemSellID]['article'] +
+                                         ' ' +
+                                         items_db[itemSellID]['name'] +
+                                         ".\n\n")
                 else:
                     if bestMatchAction == 'buy':
-                        mud.sendMessage(
+                        mud.send_message(
                             id, "<f220>" + thisNPC['name'] + "<r> says: " +
-                            itemsDB[itemSellID]['article'] + ' ' +
-                            itemsDB[itemSellID]['name'] + " costs " +
-                            itemsDB[itemBuyID]['article'] + ' ' +
-                            itemsDB[itemBuyID]['name'] + ".\n\n")
+                            items_db[itemSellID]['article'] + ' ' +
+                            items_db[itemSellID]['name'] + " costs " +
+                            items_db[itemBuyID]['article'] + ' ' +
+                            items_db[itemBuyID]['name'] + ".\n\n")
                     else:
-                        mud.sendMessage(
+                        mud.send_message(
                             id, "<f220>" + thisNPC['name'] +
                             "<r> says: I'll give you " +
-                            itemsDB[itemSellID]['article'] +
-                            ' ' + itemsDB[itemSellID]['name'] +
+                            items_db[itemSellID]['article'] +
+                            ' ' + items_db[itemSellID]['name'] +
                             " in exchange for " +
-                            itemsDB[itemBuyID]['article'] + ' ' +
-                            itemsDB[itemBuyID]['name'] + ".\n\n")
+                            items_db[itemBuyID]['article'] + ' ' +
+                            items_db[itemBuyID]['name'] + ".\n\n")
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> looks " +
                 puzzledStr + ".\n\n")
             return True
     return False
 
 
-def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
-                    items: {}, itemsDB: {}, rooms: {},
+def npcConversation(mud, npcs: {}, npcs_db: {}, players: {},
+                    items: {}, items_db: {}, rooms: {},
                     id: int, nid: int, message,
-                    characterClassDB: {}, sentimentDB: {},
-                    guildsDB: {}, clouds: {}, racesDB: {},
-                    itemHistory: {}, culturesDB: {}) -> None:
+                    character_class_db: {}, sentiment_db: {},
+                    guilds_db: {}, clouds: {}, races_db: {},
+                    item_history: {}, cultures_db: {}) -> None:
     """Conversation with an NPC
     This typically works by matching some words and then
     producing a corresponding response and/or action
@@ -1380,7 +1382,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
         # is this a familiar of another player?
         if thisNPC['familiarOf'] != players[id]['name']:
             # familiar only talks to its assigned player
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] +
                 "<r> ignores you.\n\n")
             return
@@ -1396,7 +1398,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
 
     if thisNPC.get('language'):
         if players[id]['speakLanguage'] not in thisNPC['language']:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> looks " +
                 puzzledStr +
                 ". They don't understand your language.\n\n")
@@ -1422,7 +1424,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                 _conversationWordCount(message, conv[0], npcs,
                                        nid, conversationStates,
                                        players, rooms, id,
-                                       culturesDB)
+                                       cultures_db)
             # store the best match
             if matchCtr > maxMatchCtr:
                 maxMatchCtr = matchCtr
@@ -1454,12 +1456,12 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                 conv[idx].lower().split(':')[1].strip()
                         idx += 1
 
-    if getSentiment(message, sentimentDB) >= 0:
-        increaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
-        increaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
+    if getSentiment(message, sentiment_db) >= 0:
+        increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
+        increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
     else:
-        decreaseAffinityBetweenPlayers(players, id, npcs, nid, guildsDB)
-        decreaseAffinityBetweenPlayers(npcs, nid, players, id, guildsDB)
+        decreaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
+        decreaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
 
     if len(bestMatch) > 0:
         # There were some word matches
@@ -1467,7 +1469,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
             imageFilename = 'images/events/' + imageName
             if os.path.isfile(imageFilename):
                 with open(imageFilename, 'r') as imageFile:
-                    mud.sendImage(id, '\n' + imageFile.read())
+                    mud.send_image(id, '\n' + imageFile.read())
 
         if len(conversationNewState) > 0:
             # set the new conversation state with this npc
@@ -1477,32 +1479,32 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
             # give
             if _conversationGive(bestMatch, bestMatchAction,
                                  bestMatchActionParam0, players,
-                                 id, mud, npcs, nid, itemsDB, puzzledStr,
-                                 guildsDB):
+                                 id, mud, npcs, nid, items_db, puzzledStr,
+                                 guilds_db):
                 return
 
             # teach skill
             if _conversationSkill(bestMatch, bestMatchAction,
                                   bestMatchActionParam0,
                                   bestMatchActionParam1, players,
-                                  id, mud, npcs, nid, itemsDB, puzzledStr,
-                                  guildsDB):
+                                  id, mud, npcs, nid, items_db, puzzledStr,
+                                  guilds_db):
                 return
 
             # increase experience
             if _conversationExperience(bestMatch, bestMatchAction,
                                        bestMatchActionParam0,
                                        bestMatchActionParam1, players,
-                                       id, mud, npcs, nid, itemsDB, puzzledStr,
-                                       guildsDB):
+                                       id, mud, npcs, nid, items_db,
+                                       puzzledStr, guilds_db):
                 return
 
             # Join a guild
             if _conversationJoinGuild(bestMatch, bestMatchAction,
                                       bestMatchActionParam0,
                                       bestMatchActionParam1, players,
-                                      id, mud, npcs, nid, itemsDB, puzzledStr,
-                                      guildsDB):
+                                      id, mud, npcs, nid, items_db, puzzledStr,
+                                      guilds_db):
                 return
 
             # Switch familiar into different modes
@@ -1510,15 +1512,15 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                          bestMatchActionParam0,
                                          bestMatchActionParam1,
                                          players,
-                                         id, mud, npcs, npcsDB, rooms,
-                                         nid, items, itemsDB, puzzledStr):
+                                         id, mud, npcs, npcs_db, rooms,
+                                         nid, items, items_db, puzzledStr):
                 return
 
             # transport (free taxi)
             if _conversationTransport(bestMatchAction,
                                       bestMatchActionParam0, mud,
                                       id, players, bestMatch, npcs,
-                                      nid, puzzledStr, guildsDB, rooms):
+                                      nid, puzzledStr, guilds_db, rooms):
                 return
 
             # taxi (exchange for an item)
@@ -1526,7 +1528,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                  bestMatchActionParam0,
                                  bestMatchActionParam1, players,
                                  id, mud, bestMatch, npcs, nid,
-                                 itemsDB, puzzledStr, guildsDB, rooms):
+                                 items_db, puzzledStr, guilds_db, rooms):
                 return
 
             # give on a date
@@ -1534,15 +1536,15 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                        bestMatchActionParam0,
                                        bestMatchActionParam1,
                                        players, id, mud, npcs, nid,
-                                       itemsDB, bestMatch, puzzledStr,
-                                       guildsDB):
+                                       items_db, bestMatch, puzzledStr,
+                                       guilds_db):
                 return
 
             # sell
             if _conversationSell(bestMatch, bestMatchAction,
                                  bestMatchActionParam0,
                                  npcs, nid, mud, id, players,
-                                 itemsDB, puzzledStr, guildsDB):
+                                 items_db, puzzledStr, guilds_db):
                 return
 
             # buy or exchange
@@ -1550,7 +1552,7 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
                                           bestMatchActionParam0,
                                           bestMatchActionParam1,
                                           npcs, nid, mud, id, players,
-                                          itemsDB, puzzledStr, guildsDB):
+                                          items_db, puzzledStr, guilds_db):
                 return
 
         if thisNPC['familiarOf'] == players[id]['name'] or \
@@ -1558,15 +1560,15 @@ def npcConversation(mud, npcs: {}, npcsDB: {}, players: {},
            '#' in bestMatch:
             # Talking with a familiar or animal can include
             # non-verbal responses so we remove 'says'
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> " +
                 bestMatch.replace('#', '').strip() + ".\n\n")
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> says: " +
                 bestMatch + ".\n\n")
     else:
         # No word matches
-        mud.sendMessage(
+        mud.send_message(
             id, "<f220>" + thisNPC['name'] +
             "<r> looks " + puzzledStr + ".\n\n")

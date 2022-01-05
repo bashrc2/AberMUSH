@@ -14,72 +14,88 @@ from collections import namedtuple
 from itertools import product
 from random import randrange
 
-suit = '♥ ♦ ♣ ♠'.split()
+SUIT = '♥ ♦ ♣ ♠'.split()
+
 # ordered strings of faces
-faces = '2 3 4 5 6 7 8 9 10 j q k a'
-lowaces = 'a 2 3 4 5 6 7 8 9 10 j q k'
+FACES = '2 3 4 5 6 7 8 9 10 j q k a'
+LOWACES = 'a 2 3 4 5 6 7 8 9 10 j q k'
+
 # faces as lists
-face = faces.split()
-lowace = lowaces.split()
+face = FACES.split()
+lowace = LOWACES.split()
 
 
 class Card(namedtuple('Card', 'face, suit')):
+    """Types of cards
+    """
     def __repr__(self):
         return ''.join(self)
 
 
 class Deck():
+    """Deck object
+    """
     def __init__(self):
-        self.__deck = [Card(f, s) for f, s in product(face, suit)]
+        self.__deck = [Card(f, s) for f, s in product(face, SUIT)]
 
     def __repr__(self):
         return ' '.join(repr(card) for card in self.__deck)
 
     def shuffle(self):
+        """Shuffle the deck
+        """
         pass
 
     def deal(self):
+        """Deal cards
+        """
         return self.__deck.pop(randrange(len(self.__deck)))
 
 
 def straightflush(hand: str) -> bool:
-    f, fs = ((lowace, lowaces) if any(card.face == '2' for card in hand)
-             else (face, faces))
-    ordered = sorted(hand, key=lambda card: (f.index(card.face), card.suit))
+    """Is the given hand a straight flush?
+    """
+    fac, ffs = ((lowace, LOWACES) if any(card.face == '2' for card in hand)
+                else (face, FACES))
+    ordered = sorted(hand, key=lambda card: (fac.index(card.face), card.suit))
     first, rest = ordered[0], ordered[1:]
     if all(card.suit == first.suit for card in rest) and \
-       ' '.join(card.face for card in ordered) in fs:
+       ' '.join(card.face for card in ordered) in ffs:
         return 'a straight flush', ordered[-1].face
     return False
 
 
 def fourofakind(hand: str) -> bool:
+    """Is the given hand four of a kind?
+    """
     allfaces = [f for f, s in hand]
     allftypes = set(allfaces)
     if len(allftypes) != 2:
         return False
-    for f in allftypes:
-        if allfaces.count(f) == 4:
-            allftypes.remove(f)
-            return 'four of a kind', [f, allftypes.pop()]
-    else:
-        return False
+    for fac in allftypes:
+        if allfaces.count(fac) == 4:
+            allftypes.remove(fac)
+            return 'four of a kind', [fac, allftypes.pop()]
+    return False
 
 
 def fullhouse(hand: str) -> bool:
+    """Is the given hand a full house?
+    """
     allfaces = [f for f, s in hand]
     allftypes = set(allfaces)
     if len(allftypes) != 2:
         return False
-    for f in allftypes:
-        if allfaces.count(f) == 3:
-            allftypes.remove(f)
-            return 'a full house', [f, allftypes.pop()]
-    else:
-        return False
+    for fac in allftypes:
+        if allfaces.count(fac) == 3:
+            allftypes.remove(fac)
+            return 'a full house', [fac, allftypes.pop()]
+    return False
 
 
 def flush(hand: str) -> bool:
+    """Is the given hand a flush?
+    """
     allstypes = {s for f, s in hand}
     if len(allstypes) == 1:
         allfaces = [f for f, s in hand]
@@ -90,43 +106,50 @@ def flush(hand: str) -> bool:
 
 
 def straight(hand: str) -> bool:
-    f, fs = ((lowace, lowaces) if any(card.face == '2' for card in hand)
-             else (face, faces))
-    ordered = sorted(hand, key=lambda card: (f.index(card.face), card.suit))
-    if ' '.join(card.face for card in ordered) in fs:
+    """Is the given hand a straight?
+    """
+    fac, ffs = ((lowace, LOWACES) if any(card.face == '2' for card in hand)
+                else (face, FACES))
+    ordered = sorted(hand, key=lambda card: (fac.index(card.face), card.suit))
+    if ' '.join(card.face for card in ordered) in ffs:
         return 'a straight', ordered[-1].face
     return False
 
 
 def threeofakind(hand: str) -> bool:
+    """Is the given hand three of a kind?
+    """
     allfaces = [f for f, s in hand]
     allftypes = set(allfaces)
     if len(allftypes) <= 2:
         return False
-    for f in allftypes:
-        if allfaces.count(f) == 3:
-            allftypes.remove(f)
+    for fac in allftypes:
+        if allfaces.count(fac) == 3:
+            allftypes.remove(fac)
             return ('three of a kind',
-                    [f] + sorted(allftypes,
-                                 key=lambda f: face.index(f),
-                                 reverse=True))
-    else:
-        return False
+                    [fac] + sorted(allftypes,
+                                   key=lambda f: face.index(f),
+                                   reverse=True))
+    return False
 
 
 def twopair(hand: str) -> bool:
+    """Is the given hand two pairs?
+    """
     allfaces = [f for f, s in hand]
     allftypes = set(allfaces)
     pairs = [f for f in allftypes if allfaces.count(f) == 2]
     if len(pairs) != 2:
         return False
-    p0, p1 = pairs
+    pp0, pp1 = pairs
     other = [(allftypes - set(pairs)).pop()]
     return 'two pairs', pairs + other \
-        if face.index(p0) > face.index(p1) else pairs[::-1] + other
+        if face.index(pp0) > face.index(pp1) else pairs[::-1] + other
 
 
 def onepair(hand: str) -> bool:
+    """Is the given hand one pair?
+    """
     allfaces = [f for f, s in hand]
     allftypes = set(allfaces)
     pairs = [f for f in allftypes if allfaces.count(f) == 2]
@@ -139,6 +162,8 @@ def onepair(hand: str) -> bool:
 
 
 def highcard(hand: str):
+    """Does the given hand have a high card?
+    """
     allfaces = [f for f, s in hand]
     return 'a high-card', sorted(allfaces,
                                  key=lambda f: face.index(f),
@@ -146,14 +171,16 @@ def highcard(hand: str):
 
 
 def _handy(cards: str):
+    """Returns the hand
+    """
     hand = []
     for card in cards.split():
-        f, s = card[:-1], card[-1]
-        if f not in face:
+        fac, sut = card[:-1], card[-1]
+        if fac not in face:
             return None
-        if s not in suit:
+        if sut not in SUIT:
             return None
-        hand.append(Card(f, s))
+        hand.append(Card(fac, sut))
     if len(hand) != 5:
         return None
     if len(set(hand)) != 5:
@@ -161,7 +188,9 @@ def _handy(cards: str):
     return hand
 
 
-def _cardRank(cards: str) -> []:
+def _card_rank(cards: str) -> []:
+    """Returns the rank
+    """
     hand = _handy(cards)
     if not hand:
         return None
@@ -178,11 +207,11 @@ def _cardRank(cards: str) -> []:
     return rank
 
 
-def _parseCard(cardDescription: str) -> str:
+def _parse_card(card_description: str) -> str:
     """Takes a card description, such as "the ace of spades"
     and turns it into "a♠"
     """
-    suitName = {
+    suit_name = {
         "sword": "♥",
         "collar": "♥",
         "heart": "♥",
@@ -195,19 +224,19 @@ def _parseCard(cardDescription: str) -> str:
         "cup": "♠",
         "spade": "♠"
     }
-    detectedSuit = ''
-    detectedFace = ''
-    cardDescription = cardDescription.lower().replace('the ', '')
-    cardDescription = cardDescription.replace(' of ', ' ').replace('.', '')
-    cardDescription = cardDescription.replace(',', '')
-    for name, symbol in suitName.items():
-        if name + 's' in cardDescription:
-            detectedSuit = symbol
-        elif name in cardDescription:
-            detectedSuit = symbol
-    if not detectedSuit:
+    detected_suit = ''
+    detected_face = ''
+    card_description = card_description.lower().replace('the ', '')
+    card_description = card_description.replace(' of ', ' ').replace('.', '')
+    card_description = card_description.replace(',', '')
+    for name, symbol in suit_name.items():
+        if name + 's' in card_description:
+            detected_suit = symbol
+        elif name in card_description:
+            detected_suit = symbol
+    if not detected_suit:
         return None
-    faceNames = {
+    face_names = {
         "two": "2",
         "three": "3",
         "four": "4",
@@ -222,83 +251,84 @@ def _parseCard(cardDescription: str) -> str:
         "king": "k",
         "ace": "a"
     }
-    for name, symbol in faceNames.items():
-        if name in cardDescription:
-            detectedFace = symbol
-    if not detectedFace:
+    for name, symbol in face_names.items():
+        if name in card_description:
+            detected_face = symbol
+    if not detected_face:
         for i in range(10, 2, -1):
-            if str(i) in cardDescription:
-                detectedFace = str(i)
+            if str(i) in card_description:
+                detected_face = str(i)
         return None
-    return detectedFace+detectedSuit
+    return detected_face + detected_suit
 
 
-def _dealCardsToPlayer(players: {}, dealerId, name: str, noOfCards: int, deck,
-                       mud, hands, rooms: {}, items: {}, itemsDB: {}) -> bool:
+def _deal_cards_to_player(players: {}, dealerId, name: str, no_of_cards: int,
+                          deck, mud, hands, rooms: {}, items: {},
+                          items_db: {}) -> bool:
     """Deals a number of cards to a player
     """
-    cardPlayerId = None
+    card_player_id = None
     name = name.lower()
-    for p in players:
-        if players[p]['room'] == players[dealerId]['room']:
-            if players[p]['name'].lower() == name:
-                cardPlayerId = p
+    for plyr in players:
+        if players[plyr]['room'] == players[dealerId]['room']:
+            if players[plyr]['name'].lower() == name:
+                card_player_id = plyr
                 break
-    if cardPlayerId is None:
+    if card_player_id is None:
         if 'myself' in name or ' me' in name or ' self' in name:
-            cardPlayerId = dealerId
+            card_player_id = dealerId
         else:
-            mud.sendMessage(dealerId, "\nThey're not in the room.\n")
+            mud.send_message(dealerId, "\nThey're not in the room.\n")
             return False
-    cardPlayerName = players[cardPlayerId]['name']
-    hands[cardPlayerName] = ''
+    card_player_name = players[card_player_id]['name']
+    hands[card_player_name] = ''
     ctr = 0
-    for i in range(noOfCards):
-        topCard = deck.deal()
-        if topCard:
+    for _ in range(no_of_cards):
+        top_card = deck.deal()
+        if top_card:
             if ctr == 0:
-                hands[cardPlayerName] += str(topCard)
+                hands[card_player_name] += str(top_card)
             else:
-                hands[cardPlayerName] += ' ' + str(topCard)
+                hands[card_player_name] += ' ' + str(top_card)
             ctr += 1
     if ctr > 0:
-        hands[cardPlayerName] = hands[cardPlayerName]
-        if dealerId == cardPlayerId:
-            mud.sendMessage(dealerId, '\nYou deal ' + str(ctr) +
-                            ' cards to yourself.\n')
+        hands[card_player_name] = hands[card_player_name]
+        if dealerId == card_player_id:
+            mud.send_message(dealerId, '\nYou deal ' + str(ctr) +
+                             ' cards to yourself.\n')
         else:
-            mud.sendMessage(dealerId,
-                            '\nYou deal ' + str(ctr) +
-                            ' cards to ' + cardPlayerName + '.\n')
-            mud.sendMessage(cardPlayerId,
-                            '\n' + players[dealerId]['name'] + ' deals ' +
-                            str(ctr) + ' cards to you.\n')
+            mud.send_message(dealerId,
+                             '\nYou deal ' + str(ctr) +
+                             ' cards to ' + card_player_name + '.\n')
+            mud.send_message(card_player_id,
+                             '\n' + players[dealerId]['name'] + ' deals ' +
+                             str(ctr) + ' cards to you.\n')
         return True
     return False
 
 
-def _cardGameInRoom(players: {}, id, rooms: {}, items: {}, itemsDB: {}):
+def _cardGameInRoom(players: {}, id, rooms: {}, items: {}, items_db: {}):
     """Returns the item ID if there is a card game in the room
     """
     rid = players[id]['room']
     for i in items:
         if items[i]['room'] != rid:
             continue
-        if 'cards' in itemsDB[items[i]['id']]['game'].lower():
+        if 'cards' in items_db[items[i]['id']]['game'].lower():
             return i
     return None
 
 
-def _cardGamePack(players: {}, id, rooms: {}, items: {}, itemsDB: {}) -> str:
+def _cardGamePack(players: {}, pid, rooms: {}, items: {}, items_db: {}) -> str:
     """Returns the card pack name to use
     """
-    rid = players[id]['room']
-    for i in items:
-        if items[i]['room'] != rid:
+    rid = players[pid]['room']
+    for idx in items:
+        if items[idx]['room'] != rid:
             continue
-        if 'cards' in itemsDB[items[i]['id']]['game'].lower():
-            if itemsDB[items[i]['id']].get('cardPack'):
-                return itemsDB[items[i]['id']]['cardPack']
+        if 'cards' in items_db[items[idx]['id']]['game'].lower():
+            if items_db[items[idx]['id']].get('cardPack'):
+                return items_db[items[idx]['id']]['cardPack']
     return None
 
 
@@ -308,7 +338,7 @@ def _getNumberFromText(text: str) -> int:
     for i in range(10, 2, -1):
         if str(i) in text:
             return i
-    numStr = {
+    num_str = {
         "two": 2,
         "three": 3,
         "four": 4,
@@ -319,25 +349,25 @@ def _getNumberFromText(text: str) -> int:
         "nine": 9,
         "ten": 10
     }
-    for name, num in numStr.items():
+    for name, num in num_str.items():
         if name in text:
             return num
     return None
 
 
 def dealToPlayers(players: {}, dealerId, description: str,
-                  mud, rooms: {}, items: {}, itemsDB: {}) -> None:
+                  mud, rooms: {}, items: {}, items_db: {}) -> None:
     """Deal cards to players
     """
-    gameItemID = _cardGameInRoom(players, dealerId, rooms, items, itemsDB)
-    if not gameItemID:
-        mud.sendMessage(dealerId,
-                        '\nThere are no playing cards here.\n')
+    game_item_id = _cardGameInRoom(players, dealerId, rooms, items, items_db)
+    if not game_item_id:
+        mud.send_message(dealerId,
+                         '\nThere are no playing cards here.\n')
         return
 
-    noOfCards = _getNumberFromText(description)
-    if noOfCards is None:
-        noOfCards = 5
+    no_of_cards = _getNumberFromText(description)
+    if no_of_cards is None:
+        no_of_cards = 5
 
     description = description.lower().replace('.', ' ').replace(',', ' ') + ' '
     description = description.replace('myself', players[dealerId]['name'])
@@ -346,211 +376,208 @@ def dealToPlayers(players: {}, dealerId, description: str,
     description = description.replace(' self ', ' ' +
                                       players[dealerId]['name'] + ' ')
 
-    playerCount = 0
-    for p in players:
-        if players[p]['room'] != players[dealerId]['room']:
+    player_count = 0
+    for plyr in players:
+        if players[plyr]['room'] != players[dealerId]['room']:
             continue
-        if players[p]['name'].lower() not in description:
+        if players[plyr]['name'].lower() not in description:
             continue
-        playerCount += 1
+        player_count += 1
 
-    if playerCount == 0:
-        mud.sendMessage(dealerId, '\nName some players to deal to.\n')
+    if player_count == 0:
+        mud.send_message(dealerId, '\nName some players to deal to.\n')
         return
 
     # initialise the deck
     deck = Deck()
 
     # create game state
-    if not items[gameItemID].get('gameState'):
-        items[gameItemID]['gameState'] = {}
+    if not items[game_item_id].get('gameState'):
+        items[game_item_id]['gameState'] = {}
 
     hands = {}
-    for p in players:
-        if players[p]['room'] != players[dealerId]['room']:
+    for pid in players:
+        if players[pid]['room'] != players[dealerId]['room']:
             continue
-        if players[p]['name'].lower() not in description:
+        if players[pid]['name'].lower() not in description:
             continue
-        if _dealCardsToPlayer(players, dealerId, players[p]['name'],
-                              noOfCards, deck, mud, hands,
-                              rooms, items, itemsDB):
-            items[gameItemID]['gameState']['hands'] = hands
-            items[gameItemID]['gameState']['table'] = {}
-            items[gameItemID]['gameState']['deck'] = str(deck)
-            showHandOfCards(players, p, mud, rooms, items, itemsDB)
+        if _deal_cards_to_player(players, dealerId, players[pid]['name'],
+                                 no_of_cards, deck, mud, hands,
+                                 rooms, items, items_db):
+            items[game_item_id]['gameState']['hands'] = hands
+            items[game_item_id]['gameState']['table'] = {}
+            items[game_item_id]['gameState']['deck'] = str(deck)
+            showHandOfCards(players, pid, mud, rooms, items, items_db)
 
     # no cards played
-    items[gameItemID]['gameState']['hands'] = hands
-    items[gameItemID]['gameState']['called'] = 0
-    items[gameItemID]['gameState']['deck'] = str(deck)
+    items[game_item_id]['gameState']['hands'] = hands
+    items[game_item_id]['gameState']['called'] = 0
+    items[game_item_id]['gameState']['deck'] = str(deck)
 
 
-def _getCardDescription(pack: str, rank: str, suit: str) -> str:
+def _get_card_description(pack: str, rank: str, suit: str) -> str:
     """Given rank as a single character and suit
     returns a description of the card
     This is used for non-graphical output
     """
-    rankStr = str(rank).upper()
-    if rankStr.startswith('K'):
-        rankStr = 'King'
-    elif rankStr.startswith('Q'):
+    rank_str = str(rank).upper()
+    if rank_str.startswith('K'):
+        rank_str = 'King'
+    elif rank_str.startswith('Q'):
         if pack == 'set1':
-            rankStr = 'Knight'
+            rank_str = 'Knight'
         else:
-            rankStr = 'Queen'
-    elif rankStr.startswith('A'):
-        rankStr = 'Ace'
-    elif rankStr.startswith('J'):
-        rankStr = 'Jack'
-    elif rankStr.startswith('2'):
-        rankStr = 'Two'
-    elif rankStr.startswith('3'):
-        rankStr = 'Three'
-    elif rankStr.startswith('4'):
-        rankStr = 'Four'
-    elif rankStr.startswith('5'):
-        rankStr = 'Five'
-    elif rankStr.startswith('6'):
-        rankStr = 'Six'
-    elif rankStr.startswith('7'):
-        rankStr = 'Seven'
-    elif rankStr.startswith('8'):
-        rankStr = 'Eight'
-    elif rankStr.startswith('9'):
-        rankStr = 'Nine'
-    elif rankStr.startswith('10'):
-        rankStr = 'Ten'
+            rank_str = 'Queen'
+    elif rank_str.startswith('A'):
+        rank_str = 'Ace'
+    elif rank_str.startswith('J'):
+        rank_str = 'Jack'
+    elif rank_str.startswith('2'):
+        rank_str = 'Two'
+    elif rank_str.startswith('3'):
+        rank_str = 'Three'
+    elif rank_str.startswith('4'):
+        rank_str = 'Four'
+    elif rank_str.startswith('5'):
+        rank_str = 'Five'
+    elif rank_str.startswith('6'):
+        rank_str = 'Six'
+    elif rank_str.startswith('7'):
+        rank_str = 'Seven'
+    elif rank_str.startswith('8'):
+        rank_str = 'Eight'
+    elif rank_str.startswith('9'):
+        rank_str = 'Nine'
+    elif rank_str.startswith('10'):
+        rank_str = 'Ten'
 
     if suit == '♥':
         if pack == 'cloisters':
-            return str(rankStr) + ' of collars\n'
-        elif pack == 'set1':
-            return str(rankStr) + ' of swords\n'
-        else:
-            return str(rankStr) + ' of hearts\n'
+            return str(rank_str) + ' of collars\n'
+        if pack == 'set1':
+            return str(rank_str) + ' of swords\n'
+        return str(rank_str) + ' of hearts\n'
     elif suit == '♦':
         if pack == 'cloisters':
-            return str(rankStr) + ' of horns\n'
-        elif pack == 'set1':
-            return str(rankStr) + ' of coins\n'
-        else:
-            return str(rankStr) + ' of diamonds\n'
+            return str(rank_str) + ' of horns\n'
+        if pack == 'set1':
+            return str(rank_str) + ' of coins\n'
+        return str(rank_str) + ' of diamonds\n'
     elif suit == '♣':
         if pack == 'cloisters':
-            return str(rankStr) + ' of loops\n'
-        else:
-            return str(rankStr) + ' of clubs\n'
+            return str(rank_str) + ' of loops\n'
+        return str(rank_str) + ' of clubs\n'
     if pack == 'cloisters':
-        return str(rankStr) + ' of leashes\n'
-    elif pack == 'set1':
-        return str(rankStr) + ' of cups\n'
-    else:
-        return str(rankStr) + ' of spades\n'
+        return str(rank_str) + ' of leashes\n'
+    if pack == 'set1':
+        return str(rank_str) + ' of cups\n'
+    return str(rank_str) + ' of spades\n'
 
 
 def showHandOfCards(players: {}, id, mud, rooms: {},
-                    items: {}, itemsDB: {}) -> None:
+                    items: {}, items_db: {}) -> None:
     """Shows the cards for the given player
     """
-    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
-    if not gameItemID:
-        mud.sendMessage(id, '\nThere are no playing cards here.\n')
+    game_item_id = _cardGameInRoom(players, id, rooms, items, items_db)
+    if not game_item_id:
+        mud.send_message(id, '\nThere are no playing cards here.\n')
         return
 
     # get the pack to be shown within the web interface
-    pack = _cardGamePack(players, id, rooms, items, itemsDB)
+    pack = _cardGamePack(players, id, rooms, items, items_db)
     if not pack:
         pack = 'standard'
 
-    playerName = players[id]['name']
-    if not items[gameItemID].get('gameState'):
-        mud.sendMessage(id, '\nNo cards have been dealt.\n')
+    player_name = players[id]['name']
+    if not items[game_item_id].get('gameState'):
+        mud.send_message(id, '\nNo cards have been dealt.\n')
         return
 
-    if not items[gameItemID]['gameState'].get('hands'):
-        mud.sendMessage(id, '\nNo hands have been dealt.\n')
+    if not items[game_item_id]['gameState'].get('hands'):
+        mud.send_message(id, '\nNo hands have been dealt.\n')
         return
 
-    if not items[gameItemID]['gameState']['hands'].get(playerName):
-        mud.sendMessage(id, '\nNo hands have been dealt to ' +
-                        playerName + '.\n')
+    if not items[game_item_id]['gameState']['hands'].get(player_name):
+        mud.send_message(id, '\nNo hands have been dealt to ' +
+                         player_name + '.\n')
         return
 
-    handStr = items[gameItemID]['gameState']['hands'][playerName]
-    hand = handStr.split()
+    hand_str = items[game_item_id]['gameState']['hands'][player_name]
+    hand = hand_str.split()
     lines = [[] for i in range(9)]
-    cardColor = "\u001b[38;5;240m"
-    cardDescriptions = ''
-    htmlStr = '<table id="cards"><tr>'
+    card_color = "\u001b[38;5;240m"
+    card_descriptions = ''
+    html_str = '<table id="cards"><tr>'
 
-    for cardStr in hand:
-        if len(cardStr) < 2:
+    for card_str in hand:
+        if len(card_str) < 2:
             continue
-        rankColor = "\u001b[38;5;250m"
-        if cardStr[1] != '0':
-            rank = cardStr[0].upper()
-            suit = cardStr[1]
+        rank_color = "\u001b[38;5;250m"
+        if card_str[1] != '0':
+            rank = card_str[0].upper()
+            suit = card_str[1]
         else:
-            rank = cardStr[0] + cardStr[1]
-            suit = cardStr[2]
-        suitColor = "\u001b[38;5;245m"
+            rank = card_str[0] + card_str[1]
+            suit = card_str[2]
+        suit_color = "\u001b[38;5;245m"
 
-        desc = _getCardDescription(pack, rank, suit)
-        cardDescriptions += desc.strip()
+        desc = _get_card_description(pack, rank, suit)
+        card_descriptions += desc.strip()
 
         # create html for the web interface
-        htmlStr += '<td>'
-        htmlStr += '<img class="playingcard" ' + \
+        html_str += '<td>'
+        html_str += '<img class="playingcard" ' + \
             'src="cardpacks/' + pack.lower() + '/' + \
             desc.replace(' ', '_').lower() + '.jpg" />'
-        htmlStr += '</td>'
+        html_str += '</td>'
 
         if suit == '♥' or suit == '♦':
-            suitColor = "\u001b[31m"
-            rankColor = suitColor
+            suit_color = "\u001b[31m"
+            rank_color = suit_color
         if rank == '10':
             space = ''
         else:
             space = ' '
         lines[0].append('┌─────────┐')
-        lines[1].append('│{}{}{}{}       │'.format(rankColor, rank,
-                                                   cardColor, space))
+        lines[1].append('│{}{}{}{}       │'.format(rank_color, rank,
+                                                   card_color, space))
         lines[2].append('│         │')
         lines[3].append('│         │')
-        lines[4].append('│    {}{}{}    │'.format(suitColor, suit, cardColor))
+        lines[4].append('│    {}{}{}    │'.format(suit_color, suit,
+                                                  card_color))
         lines[5].append('│         │')
         lines[6].append('│         │')
-        lines[7].append('│       {}{}{}{}│'.format(space, rankColor,
-                                                   rank, cardColor))
+        lines[7].append('│       {}{}{}{}│'.format(space, rank_color,
+                                                   rank, card_color))
         lines[8].append('└─────────┘')
 
-    htmlStr += '</tr></table>'
-    boardStr = cardColor + '\n'
+    html_str += '</tr></table>'
+    board_str = card_color + '\n'
 
-    graphicalCards = True
+    graphical_cards = True
     if players[id].get('graphics'):
         if players[id]['graphics'] == 'off':
-            graphicalCards = False
-    if graphicalCards:
-        if mud.playerUsingWebInterface(id):
-            boardStr = htmlStr
+            graphical_cards = False
+    if graphical_cards:
+        if mud.player_using_web_interface(id):
+            board_str = html_str
         else:
-            for lineRowStr in lines:
-                lineStr = ''
-                for s in lineRowStr:
-                    lineStr += s
-                boardStr += lineStr + '\n'
+            for line_row_str in lines:
+                line_str = ''
+                for sline in line_row_str:
+                    line_str += sline
+                board_str += line_str + '\n'
     else:
-        boardStr += cardDescriptions
+        board_str += card_descriptions
 
-    mud.send_game_board(id, boardStr)
-    rankedStr = _cardRank(handStr)
-    if rankedStr:
-        mud.sendMessage(id, 'You have ' + str(rankedStr[0]) + '.\n\n')
+    mud.send_game_board(id, board_str)
+    ranked_str = _card_rank(hand_str)
+    if ranked_str:
+        mud.send_message(id, 'You have ' + str(ranked_str[0]) + '.\n\n')
 
-    if not items[gameItemID]['gameState'].get('called'):
+    if not items[game_item_id]['gameState'].get('called'):
         return
-    if not items[gameItemID]['gameState']['called'] == 0:
+    if not items[game_item_id]['gameState']['called'] == 0:
         return
 
     # show your hand to other players
@@ -559,142 +586,146 @@ def showHandOfCards(players: {}, id, mud, rooms: {},
             continue
         if id == p:
             continue
-        if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            mud.sendMessage(p, '\n' + players[id]['name'] +
-                            ' shows their hand.\n' + boardStr)
-            if rankedStr:
-                mud.sendMessage(p, players[id]['name'] + ' has ' +
-                                str(rankedStr[0]) + '.\n\n')
+        if items[game_item_id]['gameState']['hands'].get(players[p]['name']):
+            mud.send_message(p, '\n' + players[id]['name'] +
+                             ' shows their hand.\n' + board_str)
+            if ranked_str:
+                mud.send_message(p, players[id]['name'] + ' has ' +
+                                 str(ranked_str[0]) + '.\n\n')
 
 
-def swapCard(cardDescription: str, players: {}, id, mud, rooms: {},
-             items: {}, itemsDB: {}) -> None:
-    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
-    if not gameItemID:
-        mud.sendMessage(id, '\nThere are no playing cards here.\n')
+def swapCard(card_description: str, players: {}, id, mud, rooms: {},
+             items: {}, items_db: {}) -> None:
+    game_item_id = _cardGameInRoom(players, id, rooms, items, items_db)
+    if not game_item_id:
+        mud.send_message(id, '\nThere are no playing cards here.\n')
         return
 
-    cardStr = _parseCard(cardDescription)
-    if not cardStr:
-        mud.sendMessage(id, "\nThat's not a card.\n")
+    card_str = _parse_card(card_description)
+    if not card_str:
+        mud.send_message(id, "\nThat's not a card.\n")
         return
 
-    playerName = players[id]['name']
-    if not items[gameItemID].get('gameState'):
-        mud.sendMessage(id, '\nNo cards have been dealt.\n')
+    player_name = players[id]['name']
+    if not items[game_item_id].get('gameState'):
+        mud.send_message(id, '\nNo cards have been dealt.\n')
         return
 
-    if items[gameItemID]['gameState'].get('called'):
-        if items[gameItemID]['gameState']['called'] != 0:
-            mud.sendMessage(id, '\nThis round is over. Deal again.\n')
+    if items[game_item_id]['gameState'].get('called'):
+        if items[game_item_id]['gameState']['called'] != 0:
+            mud.send_message(id, '\nThis round is over. Deal again.\n')
             return
 
-    if not items[gameItemID]['gameState'].get('hands'):
-        mud.sendMessage(id, '\nNo hands have been dealt.\n')
+    if not items[game_item_id]['gameState'].get('hands'):
+        mud.send_message(id, '\nNo hands have been dealt.\n')
         return
 
-    if not items[gameItemID]['gameState']['hands'].get(playerName):
-        mud.sendMessage(id, '\nNo hands have been dealt to you.\n')
+    if not items[game_item_id]['gameState']['hands'].get(player_name):
+        mud.send_message(id, '\nNo hands have been dealt to you.\n')
         return
 
-    handStr = items[gameItemID]['gameState']['hands'][playerName]
-    if cardStr not in handStr:
-        mud.sendMessage(id, '\n' + cardStr.upper() +
-                        ' is not in your hand.\n')
+    hand_str = items[game_item_id]['gameState']['hands'][player_name]
+    if card_str not in hand_str:
+        mud.send_message(id, '\n' + card_str.upper() +
+                         ' is not in your hand.\n')
         return
 
-    deck = items[gameItemID]['gameState']['deck'].split()
+    deck = items[game_item_id]['gameState']['deck'].split()
     if len(deck) == 0:
-        mud.sendMessage(id, '\nNo more cards in the deck.\n')
+        mud.send_message(id, '\nNo more cards in the deck.\n')
         return
-    nextCard = deck.pop(randrange(len(deck)))
-    items[gameItemID]['gameState']['deck'] = ""
-    for deckCardStr in deck:
-        if items[gameItemID]['gameState']['deck'] != "":
-            items[gameItemID]['gameState']['deck'] += ' ' + deckCardStr
+    next_card = deck.pop(randrange(len(deck)))
+    items[game_item_id]['gameState']['deck'] = ""
+    for deck_card_str in deck:
+        if items[game_item_id]['gameState']['deck'] != "":
+            items[game_item_id]['gameState']['deck'] += ' ' + deck_card_str
         else:
-            items[gameItemID]['gameState']['deck'] += deckCardStr
+            items[game_item_id]['gameState']['deck'] += deck_card_str
 
-    items[gameItemID]['gameState']['hands'][playerName] = \
-        handStr.replace(cardStr, nextCard)
+    items[game_item_id]['gameState']['hands'][player_name] = \
+        hand_str.replace(card_str, next_card)
 
     # tell other players that a card was swapped
-    for p in players:
-        if players[p]['room'] != players[id]['room']:
+    for plyr in players:
+        if players[plyr]['room'] != players[id]['room']:
             continue
-        if p == id:
+        if plyr == id:
             continue
-        otherPlayerName = players[p]['name']
-        if items[gameItemID]['gameState']['hands'].get(otherPlayerName):
-            mud.sendMessage(p, '\n' + playerName + ' swaps a card.\n')
-    mud.sendMessage(p, '\nYou swap a card.\n')
-    showHandOfCards(players, id, mud, rooms, items, itemsDB)
+        other_player_name = players[plyr]['name']
+        if items[game_item_id]['gameState']['hands'].get(other_player_name):
+            mud.send_message(plyr, '\n' + player_name + ' swaps a card.\n')
+    mud.send_message(id, '\nYou swap a card.\n')
+    showHandOfCards(players, id, mud, rooms, items, items_db)
 
 
-def shuffleCards(players: {}, id, mud, rooms: {},
-                 items: {}, itemsDB: {}) -> None:
-    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
-    if not gameItemID:
-        mud.sendMessage(id, '\nThere are no playing cards here.\n')
+def shuffleCards(players: {}, pid, mud, rooms: {},
+                 items: {}, items_db: {}) -> None:
+    game_item_id = _cardGameInRoom(players, id, rooms, items, items_db)
+    if not game_item_id:
+        mud.send_message(pid, '\nThere are no playing cards here.\n')
         return
 
-    mud.sendMessage(id, '\nYou shuffle the cards.\n')
+    mud.send_message(pid, '\nYou shuffle the cards.\n')
 
-    for p in players:
-        if players[p]['room'] != players[id]['room']:
+    for plyr in players:
+        if players[plyr]['room'] != players[pid]['room']:
             continue
-        if p == id:
+        if plyr == pid:
             continue
-        mud.sendMessage(p, '\n' + players[id]['name'] + ' shuffles cards.\n')
+        mud.send_message(plyr,
+                         '\n' + players[pid]['name'] + ' shuffles cards.\n')
 
 
-def callCards(players: {}, id, mud, rooms: {},
-              items: {}, itemsDB: {}) -> None:
-    gameItemID = _cardGameInRoom(players, id, rooms, items, itemsDB)
-    if not gameItemID:
-        mud.sendMessage(id, '\nThere are no playing cards here.\n')
+def callCards(players: {}, pid, mud, rooms: {},
+              items: {}, items_db: {}) -> None:
+    game_item_id = _cardGameInRoom(players, pid, rooms, items, items_db)
+    if not game_item_id:
+        mud.send_message(pid, '\nThere are no playing cards here.\n')
         return
 
-    playerName = players[id]['name']
-    if not items[gameItemID].get('gameState'):
-        mud.sendMessage(id, '\nNo cards have been dealt.\n')
+    player_name = players[pid]['name']
+    if not items[game_item_id].get('gameState'):
+        mud.send_message(pid, '\nNo cards have been dealt.\n')
         return
 
-    if not items[gameItemID]['gameState'].get('hands'):
-        mud.sendMessage(id, '\nNo hands have been dealt.\n')
+    if not items[game_item_id]['gameState'].get('hands'):
+        mud.send_message(pid, '\nNo hands have been dealt.\n')
         return
 
-    mud.sendMessage(id, '\nYou call.\n')
-    items[gameItemID]['gameState']['called'] = 1
-    for p in players:
-        if players[p]['room'] != players[id]['room']:
+    mud.send_message(pid, '\nYou call.\n')
+    items[game_item_id]['gameState']['called'] = 1
+    for plyr in players:
+        if players[plyr]['room'] != players[pid]['room']:
             continue
-        if p == id:
+        if plyr == pid:
             continue
-        if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            mud.sendMessage(p, '\n' + playerName + ' calls.\n')
+        pname = players[plyr]['name']
+        if items[game_item_id]['gameState']['hands'].get(pname):
+            mud.send_message(plyr, '\n' + player_name + ' calls.\n')
 
-    resultStr = ''
-    for p in players:
-        if players[p]['room'] != players[id]['room']:
+    result_str = ''
+    for plyr in players:
+        if players[plyr]['room'] != players[pid]['room']:
             continue
-        if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            handStr = \
-                items[gameItemID]['gameState']['hands'][players[p]['name']]
-            rankedStr = _cardRank(handStr)
-            if rankedStr:
-                resultStr += '<f0><f32>' + players[p]['name'] + \
-                    '<r> has ' + str(rankedStr[0]) + '.\n'
+        pname = players[plyr]['name']
+        if items[game_item_id]['gameState']['hands'].get(pname):
+            hand_str = \
+                items[game_item_id]['gameState']['hands'][pname]
+            ranked_str = _card_rank(hand_str)
+            if ranked_str:
+                result_str += '<f0><f32>' + players[plyr]['name'] + \
+                    '<r> has ' + str(ranked_str[0]) + '.\n'
             else:
-                resultStr += '<f0><f32>' + players[p]['name'] + \
+                result_str += '<f0><f32>' + players[plyr]['name'] + \
                     '<r> has nothing.\n'
 
-    if len(resultStr) == 0:
-        mud.sendMessage(id, '\nNo hands have been dealt.\n')
+    if len(result_str) == 0:
+        mud.send_message(pid, '\nNo hands have been dealt.\n')
         return
 
-    for p in players:
-        if players[p]['room'] != players[id]['room']:
+    for plyr in players:
+        if players[plyr]['room'] != players[pid]['room']:
             continue
-        if items[gameItemID]['gameState']['hands'].get(players[p]['name']):
-            mud.sendMessage(p, '\n' + resultStr)
+        pname = players[plyr]['name']
+        if items[game_item_id]['gameState']['hands'].get(pname):
+            mud.send_message(plyr, '\n' + result_str)

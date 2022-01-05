@@ -18,7 +18,7 @@ from functions import playerIsProne
 from functions import setPlayerProne
 from random import randint
 # from copy import deepcopy
-from environment import getTemperatureAtCoords
+from environment import get_temperatureAtCoords
 from proficiencies import damageProficiency
 from traps import playerIsTrapped
 import os
@@ -47,17 +47,17 @@ def removePreparedSpell(players, id, spellName):
     del players[id]['spellSlots'][spellName]
 
 
-def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
-                       mapArea: {}, clouds: {},
+def _playerIsAvailable(id, players: {}, items_db: {}, rooms: {},
+                       map_area: {}, clouds: {},
                        maxTerrainDifficulty: int) -> bool:
     """Returns True if the player is available.
     Availability is encumbered by weight, temperature and terrain
     """
     currRoom = players[id]['room']
     weightDifficulty = \
-        int(_getEncumberanceFromWeight(id, players, itemsDB) * 2)
+        int(_getEncumberanceFromWeight(id, players, items_db) * 2)
     temperatureDifficulty = \
-        _getTemperatureDifficulty(currRoom, rooms, mapArea, clouds)
+        _get_temperatureDifficulty(currRoom, rooms, map_area, clouds)
     terrainDifficulty = \
         int(rooms[players[id]['room']]['terrainDifficulty'] * 10 /
             maxTerrainDifficulty)
@@ -65,7 +65,7 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
     # Agility of NPC
     modifier = \
         10 - players[id]['agi'] - \
-        _armorAgility(id, players, itemsDB) + terrainDifficulty + \
+        _armorAgility(id, players, items_db) + terrainDifficulty + \
         temperatureDifficulty + weightDifficulty
     if modifier < 6:
         modifier = 6
@@ -77,10 +77,10 @@ def _playerIsAvailable(id, players: {}, itemsDB: {}, rooms: {},
     return True
 
 
-def _getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
+def _getEncumberanceFromWeight(id, players: {}, items_db: {}) -> int:
     """Returns the light medium or heavy encumberance (0,1,2)
     """
-    totalWeight = playerInventoryWeight(id, players, itemsDB)
+    totalWeight = playerInventoryWeight(id, players, items_db)
 
     strength = int(players[id]['str'])
     if strength < 1:
@@ -147,22 +147,22 @@ def _getEncumberanceFromWeight(id, players: {}, itemsDB: {}) -> int:
 
 
 def _playerShoves(mud, id, players1: {}, s2id, players2: {},
-                  racesDB: {}) -> bool:
+                  races_db: {}) -> bool:
     """One player attempts to shove another
     """
     player1Size = players1[id]['siz']
     player2Size = players2[s2id]['siz']
     if players2[s2id].get('race'):
         race = players2[s2id]['race'].lower()
-        if racesDB.get(race):
-            if racesDB[race].get('siz'):
-                player2Size = racesDB[race]['siz']
+        if races_db.get(race):
+            if races_db[race].get('siz'):
+                player2Size = races_db[race]['siz']
     if player2Size < player1Size or player2Size > player1Size + 1:
         if player2Size > player1Size:
             descr = randomDescription("They're too large to shove")
         else:
             descr = randomDescription("They're too small to shove")
-        mud.sendMessage(id, descr + '.\n')
+        mud.send_message(id, descr + '.\n')
         players1[id]['shove'] = 0
         return False
 
@@ -170,21 +170,21 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
     player2Strength = players2[s2id]['str']
     if players2[s2id].get('race'):
         race = players2[s2id]['race'].lower()
-        if racesDB.get(race):
-            if racesDB[race].get('str'):
-                player2Strength = racesDB[race]['str']
+        if races_db.get(race):
+            if races_db[race].get('str'):
+                player2Strength = races_db[race]['str']
 
     players1[id]['shove'] = 0
 
     if playerIsProne(s2id, players2):
-        mud.sendMessage(
+        mud.send_message(
             id,
             'You attempt to shove ' + players2[s2id]['name'] +
             ', but they are already prone.\n')
         return False
 
     descr = randomDescription('You shove ' + players2[s2id]['name'])
-    mud.sendMessage(id, descr + '.\n')
+    mud.send_message(id, descr + '.\n')
 
     if randint(1, player1Strength) > randint(1, player2Strength):
         players2[s2id]['prone'] = 1
@@ -197,7 +197,7 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             'They lose balance and fall backwards'
         )
         descr = randomDescription(desc)
-        mud.sendMessage(id, descr + '.\n')
+        mud.send_message(id, descr + '.\n')
         return True
     else:
         desc = (
@@ -208,11 +208,11 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             'They remain steady'
         )
         descr = randomDescription(desc)
-        mud.sendMessage(id, descr + '.\n')
+        mud.send_message(id, descr + '.\n')
         return False
 
 
-def _combatUpdateMaxHitPoints(id, players: {}, racesDB: {}) -> None:
+def _combatUpdateMaxHitPoints(id, players: {}, races_db: {}) -> None:
     """Updates the hpMax value
     """
     # some npcs are invincible
@@ -223,9 +223,9 @@ def _combatUpdateMaxHitPoints(id, players: {}, racesDB: {}) -> None:
     hitDie = '1d10'
     if players[id].get('race'):
         race = players[id]['race'].lower()
-        if racesDB.get(race):
-            if racesDB[race].get('hitDie'):
-                hitDie = racesDB[race]['hitDie']
+        if races_db.get(race):
+            if races_db[race].get('hitDie'):
+                hitDie = races_db[race]['hitDie']
     hpMax = int(hitDie.split('d')[1])
     if level > 1:
         hpMax = hpMax + (int(hpMax/2) * (level - 1))
@@ -303,7 +303,7 @@ def _combatAbilityModifier(score: int) -> int:
 
 
 def _combatRaceResistance(id: int, players: {},
-                          racesDB: {}, weaponType: str) -> int:
+                          races_db: {}, weaponType: str) -> int:
     """How much resistance does the player have to the weapon type
        based upon their race
     """
@@ -320,16 +320,16 @@ def _combatRaceResistance(id: int, players: {},
 
     if players[id].get('race'):
         race = players[id]['race'].lower()
-        if racesDB.get(race):
-            if racesDB[race].get(resistParam):
-                resistance = racesDB[race][resistParam]
+        if races_db.get(race):
+            if races_db[race].get(resistParam):
+                resistance = races_db[race][resistParam]
 
     return resistance
 
 
 def _combatDamageFromWeapon(id, players: {},
-                            itemsDB: {}, weaponType: str,
-                            characterClassDB: {},
+                            items_db: {}, weaponType: str,
+                            character_class_db: {},
                             isCritical: bool) -> (int, str):
     """find the weapon being used and return its damage value
     """
@@ -347,7 +347,7 @@ def _combatDamageFromWeapon(id, players: {},
         itemID = int(players[id][w])
         if itemID <= 0:
             continue
-        damageRoll = itemsDB[itemID]['damage']
+        damageRoll = items_db[itemID]['damage']
         if not damageRoll:
             continue
         if 'd' not in damageRoll:
@@ -358,7 +358,7 @@ def _combatDamageFromWeapon(id, players: {},
             # double the damage for a critical hit
             noOfRolls *= 2
         score = 0
-        if not itemsDB[itemID].get('damageChart'):
+        if not items_db[itemID].get('damageChart'):
             # linear damage
             for roll in range(noOfRolls):
                 score += randint(1, die + 1)
@@ -367,10 +367,10 @@ def _combatDamageFromWeapon(id, players: {},
             # 2021/12/in-defense-of-the-damage-chart.html
             for roll in range(noOfRolls):
                 chartIndex = randint(0, die)
-                if chartIndex < len(itemsDB[itemID]['damageChart']):
-                    score += itemsDB[itemID]['damageChart'][chartIndex]
+                if chartIndex < len(items_db[itemID]['damageChart']):
+                    score += items_db[itemID]['damageChart'][chartIndex]
                 else:
-                    score += itemsDB[itemID]['damageChart'][-1]
+                    score += items_db[itemID]['damageChart'][-1]
         if score > maxDamage:
             maxDamage = score
             damageRollBest = damageRoll
@@ -378,8 +378,8 @@ def _combatDamageFromWeapon(id, players: {},
 
 
 def _combatArmorClass(id, players: {},
-                      racesDB: {}, attackWeaponType: str,
-                      itemsDB: {}) -> int:
+                      races_db: {}, attackWeaponType: str,
+                      items_db: {}) -> int:
     """Returns the armor class for the given player
     when attacked by the given weapon type
     """
@@ -389,11 +389,11 @@ def _combatArmorClass(id, players: {},
         if itemID <= 0:
             continue
 
-        armorClass += itemsDB[itemID]['armorClass']
+        armorClass += items_db[itemID]['armorClass']
     if armorClass < 10:
         armorClass += 10
 
-    raceArmor = _combatRaceResistance(id, players, racesDB,
+    raceArmor = _combatRaceResistance(id, players, races_db,
                                       attackWeaponType)
     if armorClass < raceArmor:
         armorClass = raceArmor
@@ -405,16 +405,16 @@ def _combatArmorClass(id, players: {},
 
 
 def _combatProficiencyBonus(id, players: {}, weaponType: str,
-                            characterClassDB: {}) -> int:
+                            character_class_db: {}) -> int:
     """Returns the proficiency bonus with the given weapon type
     """
     return damageProficiency(id, players, weaponType,
-                             characterClassDB)
+                             character_class_db)
 
 
 def _combatAttackRoll(id, players: {}, weaponType: str,
                       targetArmorClass: int,
-                      characterClassDB: {},
+                      character_class_db: {},
                       dodgeModifier: int) -> (bool, bool):
     """Returns true if an attack against a target succeeds
     """
@@ -434,7 +434,7 @@ def _combatAttackRoll(id, players: {}, weaponType: str,
 
     proficiencyBonus = \
         _combatProficiencyBonus(id, players, weaponType,
-                                characterClassDB)
+                                character_class_db)
 
     if d20 + abilityModifier + proficiencyBonus >= \
        targetArmorClass + dodgeModifier:
@@ -455,10 +455,10 @@ def _sendCombatImage(mud, id, players: {}, race: str,
     if not os.path.isfile(combatImageFilename):
         return
     with open(combatImageFilename, 'r') as imgFile:
-        mud.sendImage(id, '\n' + imgFile.read())
+        mud.send_image(id, '\n' + imgFile.read())
 
 
-def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
+def update_temporary_incapacitation(mud, players: {}, isNPC: bool) -> None:
     """Checks if players are incapacitated by spells and removes them
        after the duration has elapsed
     """
@@ -473,11 +473,11 @@ def updateTemporaryIncapacitation(mud, players: {}, isNPC: bool) -> None:
                 thisPlayer['frozenDuration'] = 0
                 thisPlayer['frozenDescription'] = ""
                 if not isNPC:
-                    mud.sendMessage(
+                    mud.send_message(
                         p, "<f220>You find that you can move again.<r>\n\n")
 
 
-def updateTemporaryHitPoints(mud, players: {}, isNPC: bool) -> None:
+def update_temporary_hit_points(mud, players: {}, isNPC: bool) -> None:
     """Updates any hit points added for a temporary period
        as the result of a spell
     """
@@ -498,11 +498,11 @@ def updateTemporaryHitPoints(mud, players: {}, isNPC: bool) -> None:
                 thisPlayer['tempHitPointsStart'] = 0
                 thisPlayer['tempHitPointsDuration'] = 0
                 if not isNPC:
-                    mud.sendMessage(
+                    mud.send_message(
                         p, "<f220>Your magical protection expires.<r>\n\n")
 
 
-def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
+def update_temporary_charm(mud, players: {}, isNPC: bool) -> None:
     """Updates any charm added for a temporary period
        as the result of a spell
     """
@@ -528,11 +528,11 @@ def updateTemporaryCharm(mud, players: {}, isNPC: bool) -> None:
                         thisPlayer['tempCharm']
                 thisPlayer['tempCharm'] = 0
                 if not isNPC:
-                    mud.sendMessage(
+                    mud.send_message(
                         p, "<f220>A charm spell wears off.<r>\n\n")
 
 
-def updateMagicShield(mud, players: {}, isNPC: bool) -> None:
+def update_magic_shield(mud, players: {}, isNPC: bool) -> None:
     """Updates any magic shield for a temporary period
        as the result of a spell
     """
@@ -555,11 +555,11 @@ def updateMagicShield(mud, players: {}, isNPC: bool) -> None:
                 thisPlayer['magicShieldDuration'] = 0
                 thisPlayer['magicShield'] = 0
                 if not isNPC:
-                    mud.sendMessage(
+                    mud.send_message(
                         p, "<f220>Your magic shield wears off.<r>\n\n")
 
 
-def playersRest(mud, players: {}) -> None:
+def players_rest(mud, players: {}) -> None:
     """Rest restores hit points
     """
     for p in players:
@@ -577,26 +577,26 @@ def playersRest(mud, players: {}) -> None:
                 prepareSpells(mud, p, players)
 
 
-def _itemInNPCInventory(npcs, id: int, itemName: str, itemsDB: {}) -> bool:
+def _itemInNPCInventory(npcs, id: int, itemName: str, items_db: {}) -> bool:
     if len(list(npcs[id]['inv'])) > 0:
         itemNameLower = itemName.lower()
         for i in list(npcs[id]['inv']):
-            if itemsDB[int(i)]['name'].lower() == itemNameLower:
+            if items_db[int(i)]['name'].lower() == itemNameLower:
                 return True
     return False
 
 
-def _npcUpdateLuck(nid, npcs: {}, items: {}, itemsDB: {}) -> None:
+def _npcUpdateLuck(nid, npcs: {}, items: {}, items_db: {}) -> None:
     """Calculate the luck of an NPC based on what items they are carrying
     """
     luck = 0
     for i in npcs[nid]['inv']:
-        luck = luck + itemsDB[int(i)]['mod_luc']
+        luck = luck + items_db[int(i)]['mod_luc']
     npcs[nid]['luc'] = luck
 
 
 def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
-                     itemsDB: {}) -> bool:
+                     items_db: {}) -> bool:
     """what is the best weapon which the NPC is carrying?
     """
     itemID = 0
@@ -604,22 +604,22 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
     max_damage = 0
     if int(npcs[nid]['canWield']) != 0:
         for i in npcs[nid]['inv']:
-            if itemsDB[int(i)]['clo_rhand'] > 0:
-                if itemsDB[int(i)]['mod_str'] > max_damage:
-                    max_damage = itemsDB[int(i)]['mod_str']
+            if items_db[int(i)]['clo_rhand'] > 0:
+                if items_db[int(i)]['mod_str'] > max_damage:
+                    max_damage = items_db[int(i)]['mod_str']
                     itemID = int(i)
-            elif itemsDB[int(i)]['clo_lhand'] > 0:
-                if itemsDB[int(i)]['mod_str'] > max_damage:
-                    max_damage = itemsDB[int(i)]['mod_str']
+            elif items_db[int(i)]['clo_lhand'] > 0:
+                if items_db[int(i)]['mod_str'] > max_damage:
+                    max_damage = items_db[int(i)]['mod_str']
                     itemID = int(i)
 
     putOnArmor = False
     if int(npcs[nid]['canWear']) != 0:
         for i in npcs[nid]['inv']:
-            if itemsDB[int(i)]['clo_chest'] < 1:
+            if items_db[int(i)]['clo_chest'] < 1:
                 continue
-            if itemsDB[int(i)]['mod_endu'] > max_protection:
-                max_protection = itemsDB[int(i)]['mod_endu']
+            if items_db[int(i)]['mod_endu'] > max_protection:
+                max_protection = items_db[int(i)]['mod_endu']
                 itemID = int(i)
                 putOnArmor = True
 
@@ -631,16 +631,16 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
         for (iid, pl) in list(itemsInWorldCopy.items()):
             if itemsInWorldCopy[iid]['room'] != npcs[nid]['room']:
                 continue
-            if itemsDB[items[iid]['id']]['weight'] == 0:
+            if items_db[items[iid]['id']]['weight'] == 0:
                 continue
-            if itemsDB[items[iid]['id']]['clo_rhand'] == 0:
+            if items_db[items[iid]['id']]['clo_rhand'] == 0:
                 continue
-            if itemsDB[items[iid]['id']]['mod_str'] <= max_damage:
+            if items_db[items[iid]['id']]['mod_str'] <= max_damage:
                 continue
-            itemName = itemsDB[items[iid]['id']]['name']
-            if _itemInNPCInventory(npcs, nid, itemName, itemsDB):
+            itemName = items_db[items[iid]['id']]['name']
+            if _itemInNPCInventory(npcs, nid, itemName, items_db):
                 continue
-            max_damage = itemsDB[items[iid]['id']]['mod_str']
+            max_damage = items_db[items[iid]['id']]['mod_str']
             itemID = int(items[iid]['id'])
             itemWeaponIndex = iid
             pickedUpWeapon = True
@@ -652,17 +652,17 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
         for (iid, pl) in list(itemsInWorldCopy.items()):
             if itemsInWorldCopy[iid]['room'] != npcs[nid]['room']:
                 continue
-            if itemsDB[items[iid]['id']]['weight'] == 0:
+            if items_db[items[iid]['id']]['weight'] == 0:
                 continue
-            if itemsDB[items[iid]['id']]['clo_chest'] == 0:
+            if items_db[items[iid]['id']]['clo_chest'] == 0:
                 continue
-            if itemsDB[items[iid]['id']]['mod_endu'] <= max_protection:
+            if items_db[items[iid]['id']]['mod_endu'] <= max_protection:
                 continue
-            itemName = itemsDB[items[iid]['id']]['name']
-            if _itemInNPCInventory(npcs, nid, itemName, itemsDB):
+            itemName = items_db[items[iid]['id']]['name']
+            if _itemInNPCInventory(npcs, nid, itemName, items_db):
                 continue
             max_protection = \
-                itemsDB[items[iid]['id']]['mod_endu']
+                items_db[items[iid]['id']]['mod_endu']
             itemID = int(items[iid]['id'])
             itemArmorIndex = iid
             pickedUpArmor = True
@@ -671,14 +671,14 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
         if putOnArmor:
             if npcs[nid]['clo_chest'] != itemID:
                 npcs[nid]['clo_chest'] = itemID
-                mud.sendMessage(
+                mud.send_message(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
                     '<r> puts on ' +
-                    itemsDB[itemID]['article'] +
+                    items_db[itemID]['article'] +
                     ' ' +
-                    itemsDB[itemID]['name'] +
+                    items_db[itemID]['name'] +
                     '\n')
                 return True
             return False
@@ -688,14 +688,14 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
                 npcs[nid]['inv'].append(str(itemID))
                 npcs[nid]['clo_chest'] = itemID
                 del items[itemArmorIndex]
-                mud.sendMessage(
+                mud.send_message(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
                     '<r> picks up and wears ' +
-                    itemsDB[itemID]['article'] +
+                    items_db[itemID]['article'] +
                     ' ' +
-                    itemsDB[itemID]['name'] +
+                    items_db[itemID]['name'] +
                     '\n')
                 return True
             return False
@@ -707,29 +707,29 @@ def _npcWieldsWeapon(mud, id: int, nid, npcs: {}, items: {},
             if pickedUpWeapon:
                 npcs[nid]['inv'].append(str(itemID))
                 del items[itemWeaponIndex]
-                mud.sendMessage(
+                mud.send_message(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
                     '<r> picks up ' +
-                    itemsDB[itemID]['article'] +
+                    items_db[itemID]['article'] +
                     ' ' +
-                    itemsDB[itemID]['name'] +
+                    items_db[itemID]['name'] +
                     '\n')
             else:
-                mud.sendMessage(
+                mud.send_message(
                     id,
                     '<f220>' +
                     npcs[nid]['name'] +
                     '<r> has drawn their ' +
-                    itemsDB[itemID]['name'] +
+                    items_db[itemID]['name'] +
                     '\n')
             return True
 
     return False
 
 
-def _npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
+def _npcWearsArmor(id: int, npcs: {}, items_db: {}) -> None:
     """An NPC puts on armor
     """
     if len(npcs[id]['inv']) == 0:
@@ -740,19 +740,19 @@ def _npcWearsArmor(id: int, npcs: {}, itemsDB: {}) -> None:
         # what is the best defense which the NPC is carrying?
         max_defense = 0
         for i in npcs[id]['inv']:
-            if itemsDB[int(i)][c] < 1:
+            if items_db[int(i)][c] < 1:
                 continue
-            if itemsDB[int(i)]['mod_str'] != 0:
+            if items_db[int(i)]['mod_str'] != 0:
                 continue
-            if itemsDB[int(i)]['mod_endu'] > max_defense:
-                max_defense = itemsDB[int(i)]['mod_endu']
+            if items_db[int(i)]['mod_endu'] > max_defense:
+                max_defense = items_db[int(i)]['mod_endu']
                 itemID = int(i)
         if itemID > 0:
             # Wear the armor
             npcs[id][c] = itemID
 
 
-def _twoHandedWeapon(id: int, players: {}, itemsDB: {}) -> None:
+def _twoHandedWeapon(id: int, players: {}, items_db: {}) -> None:
     """ If carrying a two handed weapon then make sure
     that the other hand is empty
     """
@@ -762,16 +762,16 @@ def _twoHandedWeapon(id: int, players: {}, itemsDB: {}) -> None:
     if itemIDleft == 0 or itemIDright == 0:
         return
     # at least one item is two handed
-    if itemsDB[itemIDleft]['bothHands'] == 0 and \
-       itemsDB[itemIDright]['bothHands'] == 0:
+    if items_db[itemIDleft]['bothHands'] == 0 and \
+       items_db[itemIDright]['bothHands'] == 0:
         return
-    if itemsDB[itemIDright]['bothHands'] == 1:
+    if items_db[itemIDright]['bothHands'] == 1:
         players[id]['clo_lhand'] = 0
     else:
         players[id]['clo_rhand'] = 0
 
 
-def _armorAgility(id: int, players: {}, itemsDB: {}) -> int:
+def _armorAgility(id: int, players: {}, items_db: {}) -> int:
     """Modify agility based on armor worn
     """
     agility = 0
@@ -779,27 +779,27 @@ def _armorAgility(id: int, players: {}, itemsDB: {}) -> int:
     for c in defenseClothing:
         itemID = int(players[id][c])
         if itemID > 0:
-            agility = agility + int(itemsDB[itemID]['mod_agi'])
+            agility = agility + int(items_db[itemID]['mod_agi'])
 
     # Total agility for clothing
     return agility
 
 
-def _canUseWeapon(id: int, players: {}, itemsDB: {}, itemID: int) -> bool:
+def _canUseWeapon(id: int, players: {}, items_db: {}, itemID: int) -> bool:
     if itemID == 0:
         return True
-    lockItemID = itemsDB[itemID]['lockedWithItem']
+    lockItemID = items_db[itemID]['lockedWithItem']
     if str(lockItemID).isdigit():
         if lockItemID > 0:
-            itemName = itemsDB[lockItemID]['name']
+            itemName = items_db[lockItemID]['name']
             for i in list(players[id]['inv']):
-                if itemsDB[int(i)]['name'] == itemName:
+                if items_db[int(i)]['name'] == itemName:
                     return True
             return False
     return True
 
 
-def _getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
+def _getWeaponHeld(id: int, players: {}, items_db: {}) -> (int, str, int):
     """Returns the type of weapon held, or fists if none
     is held and the rounds of fire
     """
@@ -807,23 +807,25 @@ def _getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
     if fighter['clo_rhand'] > 0 and fighter['clo_lhand'] == 0:
         # something in right hand
         itemID = int(fighter['clo_rhand'])
-        if itemsDB[itemID]['mod_str'] > 0:
-            if len(itemsDB[itemID]['type']) > 0:
-                return itemID, itemsDB[itemID]['type'], itemsDB[itemID]['rof']
+        if items_db[itemID]['mod_str'] > 0:
+            if len(items_db[itemID]['type']) > 0:
+                return itemID, items_db[itemID]['type'], \
+                    items_db[itemID]['rof']
 
     if fighter['clo_lhand'] > 0 and fighter['clo_rhand'] == 0:
         # something in left hand
         itemID = int(fighter['clo_lhand'])
-        if itemsDB[itemID]['mod_str'] > 0:
-            if len(itemsDB[itemID]['type']) > 0:
-                return itemID, itemsDB[itemID]['type'], itemsDB[itemID]['rof']
+        if items_db[itemID]['mod_str'] > 0:
+            if len(items_db[itemID]['type']) > 0:
+                return itemID, items_db[itemID]['type'], \
+                    items_db[itemID]['rof']
 
     if fighter['clo_lhand'] > 0 and fighter['clo_rhand'] > 0:
         # something in both hands
         itemRightID = int(fighter['clo_rhand'])
-        itemRight = itemsDB[itemRightID]
+        itemRight = items_db[itemRightID]
         itemLeftID = int(fighter['clo_lhand'])
-        itemLeft = itemsDB[itemLeftID]
+        itemLeft = items_db[itemLeftID]
         if randint(0, 1) == 1:
             if itemRight['mod_str'] > 0:
                 if len(itemRight['type']) > 0:
@@ -842,7 +844,7 @@ def _getWeaponHeld(id: int, players: {}, itemsDB: {}) -> (int, str, int):
 
 
 def _getAttackDescription(animalType: str, weaponType: str,
-                          attackDB: {}, isCritical: bool) -> (str, str):
+                          attack_db: {}, isCritical: bool) -> (str, str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -864,7 +866,7 @@ def _getAttackDescription(animalType: str, weaponType: str,
             "ineptly punched"
         ]
         attackDescriptionSecond = randomDescription(attackStrings)
-        for attackType, attackDesc in attackDB.items():
+        for attackType, attackDesc in attack_db.items():
             if animalType.startswith('animal '):
                 continue
             attackTypeList = attackType.split('|')
@@ -903,7 +905,7 @@ def _getAttackDescription(animalType: str, weaponType: str,
             "savagely gnawed into"
         ]
         attackDescriptionSecond = randomDescription(attackStrings)
-        for anType, attackDesc in attackDB.items():
+        for anType, attackDesc in attack_db.items():
             if not anType.startswith('animal '):
                 continue
             anType = anType.replace('animal ', '')
@@ -930,13 +932,13 @@ def _getAttackDescription(animalType: str, weaponType: str,
     return attackDescriptionFirst, attackDescriptionSecond
 
 
-def _getTemperatureDifficulty(rm: str, rooms: {}, mapArea: [],
-                              clouds: {}) -> int:
+def _get_temperatureDifficulty(rm: str, rooms: {}, map_area: [],
+                               clouds: {}) -> int:
     """Returns a difficulty factor based on the ambient
        temperature
     """
-    temperature = getTemperatureAtCoords(
-        rooms[rm]['coords'], rooms, mapArea, clouds)
+    temperature = get_temperatureAtCoords(
+        rooms[rm]['coords'], rooms, map_area, clouds)
 
     if temperature > 5:
         # Things get difficult when hotter
@@ -945,11 +947,11 @@ def _getTemperatureDifficulty(rm: str, rooms: {}, mapArea: [],
     return -(temperature - 5)
 
 
-def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
-                             fights, fid, itemsDB: {},
-                             rooms: {}, maxTerrainDifficulty, mapArea: [],
-                             clouds: {}, racesDB: {}, characterClassDB: {},
-                             guilds: {}, attackDB: {}):
+def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
+                              fights, fid, items_db: {},
+                              rooms: {}, maxTerrainDifficulty, map_area: [],
+                              clouds: {}, races_db: {}, character_class_db: {},
+                              guilds: {}, attack_db: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -962,7 +964,7 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
     # is the player frozen?
     if players[s1id]['frozenStart'] > 0 or players[s1id]['canAttack'] == 0:
         descr = randomDescription(players[s1id]['frozenDescription'])
-        mud.sendMessage(s2id, descr + '\n')
+        mud.send_message(s2id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -970,8 +972,8 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    if not _playerIsAvailable(s1id, players, itemsDB, rooms,
-                              mapArea, clouds,
+    if not _playerIsAvailable(s1id, players, items_db, rooms,
+                              map_area, clouds,
                               maxTerrainDifficulty):
         return
 
@@ -996,39 +998,39 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 'gets back on their feet|' +
                 'stands back up again'
             )
-            mud.sendMessage(s2id, '<f32>' + players[s1id]['name'] + ' ' +
-                            descr + '<r>.\n')
+            mud.send_message(s2id, '<f32>' + players[s1id]['name'] + ' ' +
+                             descr + '<r>.\n')
             return
 
         # attempt to shove
         if players[s1id].get('shove'):
             if players[s1id]['shove'] == 1:
-                if _playerShoves(mud, s1id, players, s2id, players, racesDB):
+                if _playerShoves(mud, s1id, players, s2id, players, races_db):
                     players[s2id]['lastCombatAction'] = int(time.time())
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
-        _twoHandedWeapon(s1id, players, itemsDB)
+        _twoHandedWeapon(s1id, players, items_db)
         weaponID, weaponType, roundsOfFire = \
-            _getWeaponHeld(s1id, players, itemsDB)
-        if not _canUseWeapon(s1id, players, itemsDB, weaponID):
-            lockItemID = itemsDB[weaponID]['lockedWithItem']
-            mud.sendMessage(
+            _getWeaponHeld(s1id, players, items_db)
+        if not _canUseWeapon(s1id, players, items_db, weaponID):
+            lockItemID = items_db[weaponID]['lockedWithItem']
+            mud.send_message(
                 s1id, 'You take aim, but find you have no ' +
-                itemsDB[lockItemID]['name'].lower() + '.\n')
-            mud.sendMessage(
+                items_db[lockItemID]['name'].lower() + '.\n')
+            mud.send_message(
                 s2id, '<f32>' +
                 players[s1id]['name'] +
                 '<r> takes aim, but finds they have no ' +
-                itemsDB[lockItemID]['name'].lower() + '.\n')
-            stowHands(s1id, players, itemsDB, mud)
-            mud.sendMessage(
+                items_db[lockItemID]['name'].lower() + '.\n')
+            stowHands(s1id, players, items_db, mud)
+            mud.send_message(
                 s2id, '<f32>' +
                 players[s1id]['name'] +
                 '<r> stows ' +
-                itemsDB[weaponID]['article'] +
+                items_db[weaponID]['article'] +
                 ' <b234>' +
-                itemsDB[weaponID]['name'] + '\n\n')
+                items_db[weaponID]['name'] + '\n\n')
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
@@ -1046,9 +1048,9 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     'You duck'
                 )
                 dodgeDescription = randomDescription(desc)
-                mud.sendMessage(s2id,
-                                '<f32>' + dodgeDescription + '<r>.\n')
-                mud.sendMessage(
+                mud.send_message(s2id,
+                                 '<f32>' + dodgeDescription + '<r>.\n')
+                mud.send_message(
                     s1id, '<f32>' + players[s2id]['name'] +
                     '<r> tries to ' +
                     dodgeDescription.replace('You ', '') + '.\n')
@@ -1056,15 +1058,16 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
 
         targetArmorClass = \
             _combatArmorClass(s2id, players,
-                              racesDB, weaponType, itemsDB)
+                              races_db, weaponType, items_db)
 
         # Do damage to the PC here
         hit, isCritical = _combatAttackRoll(s1id, players, weaponType,
-                                            targetArmorClass, characterClassDB,
+                                            targetArmorClass,
+                                            character_class_db,
                                             dodgeModifier)
         if hit:
             attackDescriptionFirst, attackDescriptionSecond = \
-                _getAttackDescription("", weaponType, attackDB, isCritical)
+                _getAttackDescription("", weaponType, attack_db, isCritical)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1074,8 +1077,8 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     break
                 damageValue, damageRoll = \
                     _combatDamageFromWeapon(s1id, players,
-                                            itemsDB, weaponType,
-                                            characterClassDB,
+                                            items_db, weaponType,
+                                            character_class_db,
                                             isCritical)
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
@@ -1104,7 +1107,7 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     if len(attackDescriptionFirst) > 1:
                         finalText = ' ' + \
                             randomDescription(attackDescriptionFirst[1]) + '\n'
-                mud.sendMessage(
+                mud.send_message(
                     s1id, 'You ' + attackText + ' <f32><u>' +
                     players[s2id]['name'] +
                     '<r> for <f15><b2> * ' +
@@ -1134,7 +1137,7 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                         finalText = ' ' + \
                             randomDescription(attackDescriptionSecond[1]) + \
                             '\n'
-                mud.sendMessage(
+                mud.send_message(
                     s2id, '<f32>' +
                     players[s1id]['name'] +
                     '<r> has ' + attackText + ' you for <f15><b88> * ' +
@@ -1143,16 +1146,16 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                     healthDescription + '\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
-            mud.sendMessage(
+            mud.send_message(
                 s1id, 'You miss trying to hit <f32><u>' +
                 players[s2id]['name'] + '\n')
-            mud.sendMessage(
+            mud.send_message(
                 s2id, '<f32><u>' +
                 players[s1id]['name'] +
                 '<r> missed while trying to hit you!\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
-        mud.sendMessage(
+        mud.send_message(
             s1id,
             '<f225>Suddenly you stop. It wouldn`t be a good ' +
             'idea to attack <f32>' +
@@ -1168,11 +1171,12 @@ def _runFightsBetweenPlayers(mud, players: {}, npcs: {},
                 players[s2id]['isInCombat'] = 0
 
 
-def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
-                                  itemsDB: {}, rooms: {}, maxTerrainDifficulty,
-                                  mapArea: [], clouds: {}, racesDB: {},
-                                  characterClassDB: {}, guilds: {},
-                                  attackDB: {}):
+def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
+                                   items_db: {}, rooms: {},
+                                   maxTerrainDifficulty,
+                                   map_area: [], clouds: {}, races_db: {},
+                                   character_class_db: {}, guilds: {},
+                                   attack_db: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -1186,7 +1190,7 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     if players[s1id]['frozenStart'] > 0 or \
        players[s1id]['canAttack'] == 0:
         descr = randomDescription(players[s1id]['frozenDescription'])
-        mud.sendMessage(s2id, descr + '\n')
+        mud.send_message(s2id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -1194,8 +1198,8 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    if not _playerIsAvailable(s1id, players, itemsDB, rooms,
-                              mapArea, clouds,
+    if not _playerIsAvailable(s1id, players, items_db, rooms,
+                              map_area, clouds,
                               maxTerrainDifficulty):
         return
 
@@ -1219,22 +1223,22 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         # attempt to shove
         if players[s1id].get('shove'):
             if players[s1id]['shove'] == 1:
-                if _playerShoves(mud, s1id, players, s2id, npcs, racesDB):
+                if _playerShoves(mud, s1id, players, s2id, npcs, races_db):
                     npcs[s2id]['lastCombatAction'] = int(time.time())
                 players[s1id]['lastCombatAction'] = int(time.time())
                 return
 
-        _twoHandedWeapon(s1id, players, itemsDB)
+        _twoHandedWeapon(s1id, players, items_db)
         weaponID, weaponType, roundsOfFire = \
-            _getWeaponHeld(s1id, players, itemsDB)
-        if not _canUseWeapon(s1id, players, itemsDB, weaponID):
-            lockItemID = itemsDB[weaponID]['lockedWithItem']
-            mud.sendMessage(
+            _getWeaponHeld(s1id, players, items_db)
+        if not _canUseWeapon(s1id, players, items_db, weaponID):
+            lockItemID = items_db[weaponID]['lockedWithItem']
+            mud.send_message(
                 s1id,
                 'You take aim, but find you have no ' +
-                itemsDB[lockItemID]['name'].lower() +
+                items_db[lockItemID]['name'].lower() +
                 '.\n')
-            stowHands(s1id, players, itemsDB, mud)
+            stowHands(s1id, players, items_db, mud)
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
@@ -1245,22 +1249,23 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         if npcs[s2id].get('dodge'):
             if npcs[s2id]['dodge'] == 1:
                 dodgeModifier = randint(0, npcs[s2id]['luc'])
-                mud.sendMessage(
+                mud.send_message(
                     s1id, '<f32>' + npcs[s2id]['name'] +
                     '<r> tries to dodge.\n')
                 npcs[s2id]['dodge'] = 0
 
         targetArmorClass = \
             _combatArmorClass(s2id, npcs,
-                              racesDB, weaponType, itemsDB)
+                              races_db, weaponType, items_db)
 
         # Do damage to the PC here
         hit, isCritical = _combatAttackRoll(s1id, players, weaponType,
-                                            targetArmorClass, characterClassDB,
+                                            targetArmorClass,
+                                            character_class_db,
                                             dodgeModifier)
         if hit:
             attackDescriptionFirst, attackDescriptionSecond = \
-                _getAttackDescription("", weaponType, attackDB, isCritical)
+                _getAttackDescription("", weaponType, attack_db, isCritical)
 
             if roundsOfFire < 1:
                 roundsOfFire = 1
@@ -1271,15 +1276,15 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
 
                 damageValue, damageRoll = \
                     _combatDamageFromWeapon(s1id, players,
-                                            itemsDB, weaponType,
-                                            characterClassDB,
+                                            items_db, weaponType,
+                                            character_class_db,
                                             isCritical)
                 # eg "1d8 = 5"
                 damageValueDesc = damageRoll + ' = ' + str(damageValue)
                 if isCritical:
                     damageValueDesc = '2 x ' + damageValueDesc
 
-                _npcWearsArmor(s2id, npcs, itemsDB)
+                _npcWearsArmor(s2id, npcs, items_db)
 
                 if int(npcs[s2id]['hpMax']) < 999:
                     npcs[s2id]['hp'] = int(npcs[s2id]['hp']) - damageValue
@@ -1301,7 +1306,7 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                     if len(attackDescriptionFirst) > 1:
                         finalText = ' ' + \
                             randomDescription(attackDescriptionFirst[1]) + '\n'
-                mud.sendMessage(
+                mud.send_message(
                     s1id,
                     'You ' + attackText + ' <f220>' +
                     npcs[s2id]['name'] +
@@ -1326,10 +1331,10 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 '<r> by a wide margin'
             ]
             descr = randomDescription(desc)
-            mud.sendMessage(s1id, descr + '\n')
+            mud.send_message(s1id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
-        mud.sendMessage(
+        mud.send_message(
             s1id,
             '<f225>Suddenly you stop. It wouldn`t be a good ' +
             'idea to attack <u><f21>' +
@@ -1345,11 +1350,11 @@ def _runFightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 npcs[s2id]['isInCombat'] = 0
 
 
-def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
-                                  items: {}, itemsDB: {}, rooms: {},
-                                  maxTerrainDifficulty, mapArea, clouds: {},
-                                  racesDB: {}, characterClassDB: {},
-                                  guilds: {}, attackDB: {}):
+def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
+                                   items: {}, items_db: {}, rooms: {},
+                                   maxTerrainDifficulty, map_area, clouds: {},
+                                   races_db: {}, character_class_db: {},
+                                   guilds: {}, attack_db: {}):
     """Fight between NPC and player
     """
     s1id = fights[fid]['s1id']
@@ -1361,15 +1366,15 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
 
     # is the player frozen?
     if npcs[s1id]['frozenStart'] > 0:
-        mud.sendMessage(
+        mud.send_message(
             s2id, '<f220>' +
             npcs[s1id]['name'] +
             "<r> tries to attack but can't move\n")
         npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    if not _playerIsAvailable(s1id, npcs, itemsDB, rooms,
-                              mapArea, clouds,
+    if not _playerIsAvailable(s1id, npcs, items_db, rooms,
+                              map_area, clouds,
                               maxTerrainDifficulty):
         return
 
@@ -1394,17 +1399,17 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             'stands back up again'
         )
         descr = randomDescription(desc)
-        mud.sendMessage(s2id, '<f32>' + npcs[s1id]['name'] + ' ' +
-                        descr + '<r>.\n')
+        mud.send_message(s2id, '<f32>' + npcs[s1id]['name'] + ' ' +
+                         descr + '<r>.\n')
         return
 
-    _npcUpdateLuck(s1id, npcs, items, itemsDB)
-    if _npcWieldsWeapon(mud, s2id, s1id, npcs, items, itemsDB):
+    _npcUpdateLuck(s1id, npcs, items, items_db)
+    if _npcWieldsWeapon(mud, s2id, s1id, npcs, items, items_db):
         npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    _twoHandedWeapon(s1id, npcs, itemsDB)
-    weaponID, weaponType, roundsOfFire = _getWeaponHeld(s1id, npcs, itemsDB)
+    _twoHandedWeapon(s1id, npcs, items_db)
+    weaponID, weaponType, roundsOfFire = _getWeaponHeld(s1id, npcs, items_db)
 
     # A dodge value used to adjust agility of the target player
     # This is proportional to their luck, which can be modified by
@@ -1420,22 +1425,22 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 'You duck'
             )
             dodgeDescription = randomDescription(desc)
-            mud.sendMessage(s2id,
-                            '<f32>' + dodgeDescription + '<r>.\n')
+            mud.send_message(s2id,
+                             '<f32>' + dodgeDescription + '<r>.\n')
             players[s2id]['dodge'] = 0
 
     targetArmorClass = \
         _combatArmorClass(s2id, players,
-                          racesDB, weaponType, itemsDB)
+                          races_db, weaponType, items_db)
 
     # Do damage to the PC here
     hit, isCritical = _combatAttackRoll(s1id, npcs, weaponType,
-                                        targetArmorClass, characterClassDB,
+                                        targetArmorClass, character_class_db,
                                         dodgeModifier)
     if hit:
         attackDescriptionFirst, attackDescriptionSecond = \
             _getAttackDescription(npcs[s1id]['animalType'],
-                                  weaponType, attackDB, isCritical)
+                                  weaponType, attack_db, isCritical)
 
         if roundsOfFire < 1:
             roundsOfFire = 1
@@ -1445,8 +1450,8 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 break
             damageValue, damageRoll = \
                 _combatDamageFromWeapon(s1id, npcs,
-                                        itemsDB, weaponType,
-                                        characterClassDB,
+                                        items_db, weaponType,
+                                        character_class_db,
                                         isCritical)
             # eg "1d8 = 5"
             damageValueDesc = damageRoll + ' = ' + str(damageValue)
@@ -1486,7 +1491,7 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                     finalText = ' ' + \
                         randomDescription(attackDescriptionSecond[1]) + \
                         '\n'
-            mud.sendMessage(
+            mud.send_message(
                 s2id, '<f220>' +
                 npcs[s1id]['name'] + '<r> has ' +
                 attackText +
@@ -1507,7 +1512,7 @@ def _runFightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             '<f220>' + npcs[s1id]['name'] + '<r> missed you by a wide margin'
         ]
         descr = randomDescription(desc)
-        mud.sendMessage(s2id, descr + '\n')
+        mud.send_message(s2id, descr + '\n')
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
@@ -1524,32 +1529,36 @@ def isPlayerFighting(id, players: {}, fights: {}) -> bool:
     return False
 
 
-def runFights(mud, players: {}, npcs: {}, fights: {}, items: {}, itemsDB: {},
-              rooms: {}, maxTerrainDifficulty, mapArea: [], clouds: {},
-              racesDB: {}, characterClassDB: {}, guilds: {}, attackDB: {}):
+def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
+               rooms: {}, maxTerrainDifficulty, map_area: [], clouds: {},
+               races_db: {}, character_class_db: {}, guilds: {},
+               attack_db: {}):
     """Handles fights
     """
     for (fid, pl) in list(fights.items()):
         # PC -> PC
         if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
-            _runFightsBetweenPlayers(mud, players, npcs, fights, fid, itemsDB,
-                                     rooms, maxTerrainDifficulty, mapArea,
-                                     clouds, racesDB, characterClassDB, guilds,
-                                     attackDB)
+            _run_fightsBetweenPlayers(mud, players, npcs, fights, fid,
+                                      items_db, rooms, maxTerrainDifficulty,
+                                      map_area, clouds, races_db,
+                                      character_class_db,
+                                      guilds, attack_db)
         # PC -> NPC
         elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
-            _runFightsBetweenPlayerAndNPC(mud, players, npcs, fights,
-                                          fid, itemsDB, rooms,
-                                          maxTerrainDifficulty, mapArea,
-                                          clouds, racesDB, characterClassDB,
-                                          guilds, attackDB)
+            _run_fightsBetweenPlayerAndNPC(mud, players, npcs, fights,
+                                           fid, items_db, rooms,
+                                           maxTerrainDifficulty, map_area,
+                                           clouds, races_db,
+                                           character_class_db,
+                                           guilds, attack_db)
         # NPC -> PC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
-            _runFightsBetweenNPCAndPlayer(mud, players, npcs, fights,
-                                          fid, items,
-                                          itemsDB, rooms, maxTerrainDifficulty,
-                                          mapArea, clouds, racesDB,
-                                          characterClassDB, guilds, attackDB)
+            _run_fightsBetweenNPCAndPlayer(mud, players, npcs, fights,
+                                           fid, items, items_db, rooms,
+                                           maxTerrainDifficulty,
+                                           map_area, clouds, races_db,
+                                           character_class_db, guilds,
+                                           attack_db)
         # NPC -> NPC
         # elif fights[fid]['s1type'] == 'npc' and \
         #    fights[fid]['s2type'] == 'npc':
@@ -1600,13 +1609,13 @@ def stopAttack(players: {}, id, npcs: {}, fights: {}):
 
 
 def playerBeginsAttack(players: {}, id, target: str,
-                       npcs: {}, fights: {}, mud, racesDB: {},
-                       itemHistory: {}) -> bool:
+                       npcs: {}, fights: {}, mud, races_db: {},
+                       item_history: {}) -> bool:
     """Player begins an attack on another player or npc
     """
     targetFound = False
     if players[id]['name'].lower() == target.lower():
-        mud.sendMessage(
+        mud.send_message(
             id,
             'You attempt hitting yourself and realise this ' +
             'might not be the most productive way of using your time.\n')
@@ -1632,10 +1641,10 @@ def playerBeginsAttack(players: {}, id, target: str,
                 'retaliated': 0
             }
 
-            _combatUpdateMaxHitPoints(id, players, racesDB)
-            _combatUpdateMaxHitPoints(pid, players, racesDB)
+            _combatUpdateMaxHitPoints(id, players, races_db)
+            _combatUpdateMaxHitPoints(pid, players, races_db)
 
-            mud.sendMessage(
+            mud.send_message(
                 id, '<f214>Attacking <r><f255>' + target + '!\n')
 
     if not targetFound:
@@ -1657,11 +1666,11 @@ def playerBeginsAttack(players: {}, id, target: str,
                     "Your familiar looks at you disapprovingly"
                 )
                 descr = randomDescription(desc)
-                mud.sendMessage(id, descr + "\n\n")
+                mud.send_message(id, descr + "\n\n")
                 return False
 
             if npcs[nid]['isAttackable'] == 0:
-                mud.sendMessage(id, "You can't attack them\n\n")
+                mud.send_message(id, "You can't attack them\n\n")
                 return False
 
             targetFound = True
@@ -1675,22 +1684,22 @@ def playerBeginsAttack(players: {}, id, target: str,
                 'retaliated': 0
             }
 
-            _combatUpdateMaxHitPoints(id, players, racesDB)
-            _combatUpdateMaxHitPoints(nid, npcs, racesDB)
+            _combatUpdateMaxHitPoints(id, players, races_db)
+            _combatUpdateMaxHitPoints(nid, npcs, races_db)
 
-            mud.sendMessage(
+            mud.send_message(
                 id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
             break
 
     if not targetFound:
-        mud.sendMessage(
+        mud.send_message(
             id, 'You cannot see ' + target + ' anywhere nearby.\n')
     return targetFound
 
 
 def _npcBeginsAttack(npcs: {}, id, target: str, players: {},
-                     fights: {}, mud, items: {}, itemsDB: {},
-                     racesDB: {}) -> bool:
+                     fights: {}, mud, items: {}, items_db: {},
+                     races_db: {}) -> bool:
     """npc begins an attack on a player or another npc
     """
     targetFound = False
@@ -1728,13 +1737,13 @@ def _npcBeginsAttack(npcs: {}, id, target: str, players: {},
             players[pid]['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
 
-            _combatUpdateMaxHitPoints(pid, players, racesDB)
-            _combatUpdateMaxHitPoints(id, npcs, racesDB)
+            _combatUpdateMaxHitPoints(pid, players, races_db)
+            _combatUpdateMaxHitPoints(id, npcs, races_db)
 
-            _npcUpdateLuck(id, npcs, items, itemsDB)
-            _npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
+            _npcUpdateLuck(id, npcs, items, items_db)
+            _npcWieldsWeapon(mud, pid, id, npcs, items, items_db)
 
-            mud.sendMessage(
+            mud.send_message(
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
 
     if not targetFound:
@@ -1775,18 +1784,18 @@ def _npcBeginsAttack(npcs: {}, id, target: str, players: {},
             npcs[nid]['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
 
-            _combatUpdateMaxHitPoints(nid, npcs, racesDB)
-            _combatUpdateMaxHitPoints(id, npcs, racesDB)
+            _combatUpdateMaxHitPoints(nid, npcs, races_db)
+            _combatUpdateMaxHitPoints(id, npcs, races_db)
 
-            _npcUpdateLuck(id, npcs, items, itemsDB)
-            _npcWieldsWeapon(mud, pid, id, npcs, items, itemsDB)
+            _npcUpdateLuck(id, npcs, items, items_db)
+            _npcWieldsWeapon(mud, pid, id, npcs, items, items_db)
             break
 
     return targetFound
 
 
-def npcAggression(npcs: {}, players: {}, fights: {}, mud,
-                  items: {}, itemsDB: {}, racesDB: {}):
+def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
+                   items: {}, items_db: {}, races_db: {}):
     """Aggressive npcs start fights
     """
     for (nid, pl) in list(npcs.items()):
@@ -1815,4 +1824,4 @@ def npcAggression(npcs: {}, players: {}, fights: {}, mud,
                 if randint(0, 1000) > 995:
                     _npcBeginsAttack(npcs, nid, players[pid]['name'],
                                      players, fights, mud, items,
-                                     itemsDB, racesDB)
+                                     items_db, races_db)

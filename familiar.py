@@ -30,7 +30,7 @@ def getFamiliarName(players, id, npcs):
     return ''
 
 
-def familiarRecall(mud, players, id, npcs, npcsDB):
+def familiar_recall(mud, players, id, npcs, npcs_db):
     """Move any familiar to the player's location
     """
     # remove any existing familiars
@@ -46,41 +46,42 @@ def familiarRecall(mud, players, id, npcs, npcsDB):
     players[id]['familiar'] = -1
 
     # Find familiar and set its room to that of the player
-    for (nid, pl) in list(npcsDB.items()):
+    for (nid, pl) in list(npcs_db.items()):
         if pl['familiarOf'] == players[id]['name']:
             players[id]['familiar'] = int(nid)
             if not npcs.get(nid):
-                npcs[nid] = deepcopy(npcsDB[nid])
+                npcs[nid] = deepcopy(npcs_db[nid])
             npcs[nid]['room'] = players[id]['room']
-            mud.sendMessage(id, "Your familiar is recalled.\n\n")
+            mud.send_message(id, "Your familiar is recalled.\n\n")
             break
 
 
-def familiarDefaultMode(nid, npcs, npcsDB):
+def familiarDefaultMode(nid, npcs, npcs_db):
     npcs[nid]['familiarMode'] = "follow"
-    npcsDB[nid]['familiarMode'] = "follow"
+    npcs_db[nid]['familiarMode'] = "follow"
     npcs[nid]['moveType'] = ""
-    npcsDB[nid]['moveType'] = ""
+    npcs_db[nid]['moveType'] = ""
     npcs[nid]['path'] = []
-    npcsDB[nid]['path'] = []
+    npcs_db[nid]['path'] = []
 
 
-def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
+def familiarSight(mud, nid, npcs, npcs_db, rooms, players, id,
+                  items, items_db):
     """familiar reports what it sees
     """
     startRoomID = npcs[nid]['room']
     roomExits = rooms[startRoomID]['exits']
 
-    mud.sendMessage(id, "Your familiar says:\n")
+    mud.send_message(id, "Your familiar says:\n")
     if len(roomExits) == 0:
-        mud.sendMessage(id, "There are no exits.")
+        mud.send_message(id, "There are no exits.")
     else:
         if len(roomExits) > 1:
-            mud.sendMessage(id, "There are " + str(len(roomExits)) +
-                            " exits.")
+            mud.send_message(id, "There are " + str(len(roomExits)) +
+                             " exits.")
         else:
             exitDescription = randomDescription("a single|one")
-            mud.sendMessage(id, "There is " + exitDescription + " exit.")
+            mud.send_message(id, "There is " + exitDescription + " exit.")
     creaturesCount = 0
     creaturesFriendly = 0
     creaturesRaces = []
@@ -156,7 +157,7 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
                                 creaturesMsg = \
                                     creaturesMsg + ' and <f220>' + r + 's<r>.'
                         ctr = ctr + 1
-        mud.sendMessage(id, creaturesMsg)
+        mud.send_message(id, creaturesMsg)
 
     itemsInRoom = 0
     weaponsInRoom = 0
@@ -177,25 +178,25 @@ def familiarSight(mud, nid, npcs, npcsDB, rooms, players, id, items, itemsDB):
                     if items[iid]['edible'] != 0:
                         edibleInRoom += 1
     if armorInRoom > 0 and weaponsInRoom > 0:
-        mud.sendMessage(id, 'There are some weapons and armor here.')
+        mud.send_message(id, 'There are some weapons and armor here.')
     else:
         if armorInRoom > 0:
-            mud.sendMessage(id, 'There is some armor here.')
+            mud.send_message(id, 'There is some armor here.')
         else:
             if weaponsInRoom > 0:
-                mud.sendMessage(id, 'There are some weapons here.')
+                mud.send_message(id, 'There are some weapons here.')
             else:
-                mud.sendMessage(id, 'There are some items here.')
+                mud.send_message(id, 'There are some items here.')
     if edibleInRoom:
-        mud.sendMessage(id, 'There are some edibles here.')
-    mud.sendMessage(id, '\n\n')
+        mud.send_message(id, 'There are some edibles here.')
+    mud.send_message(id, '\n\n')
 
 
-def familiarHide(nid, npcs, npcsDB):
+def familiarHide(nid, npcs, npcs_db):
     """Causes a familiar to hide
     """
     npcs[nid]['familiarMode'] = "hide"
-    npcsDB[nid]['familiarMode'] = "hide"
+    npcs_db[nid]['familiarMode'] = "hide"
 
 
 def familiarIsHidden(players: {}, id, npcs: {}):
@@ -237,15 +238,15 @@ def _familiarScoutInDirection(mud, players, id, startRoomID, roomExits,
                rooms[roomExits[direction]]['maxPlayerSize']:
                 newPath = [startRoomID, roomExits[direction]]
             else:
-                mud.sendMessage(id, "It's too small to enter!\n\n")
+                mud.send_message(id, "It's too small to enter!\n\n")
         else:
             newPath = [startRoomID, roomExits[direction]]
     else:
-        mud.sendMessage(id, "I can't go that way!\n\n")
+        mud.send_message(id, "I can't go that way!\n\n")
     return newPath
 
 
-def familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, direction):
+def familiarScout(mud, players, id, nid, npcs, npcs_db, rooms, direction):
     """familiar begins scouting the surrounding rooms
     """
     startRoomID = npcs[nid]['room']
@@ -265,8 +266,8 @@ def familiarScout(mud, players, id, nid, npcs, npcsDB, rooms, direction):
         npcs[nid]['familiarMode'] = "scout"
         npcs[nid]['moveType'] = "patrol"
         npcs[nid]['path'] = deepcopy(newPath)
-        npcsDB[nid]['familiarMode'] = "scout"
-        npcsDB[nid]['moveType'] = "patrol"
-        npcsDB[nid]['path'] = deepcopy(newPath)
+        npcs_db[nid]['familiarMode'] = "scout"
+        npcs_db[nid]['moveType'] = "patrol"
+        npcs_db[nid]['path'] = deepcopy(newPath)
     else:
-        familiarDefaultMode(nid, npcs, npcsDB)
+        familiarDefaultMode(nid, npcs, npcs_db)

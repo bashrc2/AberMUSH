@@ -405,22 +405,22 @@ def _testFunctions():
         'handleMessage',
         'handleConnected',
         'handleClose',
-        'getNextId',
+        'get_next_id',
         'close_sig_handler',
         'run_websocket_server',
         'update',
         'get_new_players',
         'get_disconnected_players',
         'get_commands',
-        'playerUsingWebInterface',
-        'sendMessageWrap',
-        'sendMessage',
-        'sendImage',
+        'player_using_web_interface',
+        'send_message_wrap',
+        'send_message',
+        'send_image',
         'send_game_board',
         'shutdown',
         'add_new_player',
-        'receiveMessage',
-        'handleDisconnect',
+        'receive_message',
+        'handle_disconnect',
         'close',
         'sendFragmentStart',
         'sendFragment',
@@ -690,7 +690,7 @@ def _testMoneyPurchase() -> None:
     assert players[id]["sp"] == 10
 
 
-def runAllTests():
+def run_all_tests():
     print('Running tests...')
     _testFunctions()
     _testDuplicateExits()

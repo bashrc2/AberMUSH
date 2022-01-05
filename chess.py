@@ -37,10 +37,10 @@ def showChessBoard(boardName: str, gameState: [],
                    id: int, mud, turn: str) -> None:
     """Shows the chess board
     """
-    if mud.playerUsingWebInterface(id):
+    if mud.player_using_web_interface(id):
         _showChessBoardAsHtml(boardName, gameState, id, mud, turn)
         return
-    mud.sendMessage(id, '\n')
+    mud.send_message(id, '\n')
     boardStr = ''
     i = 0
     if turn == 'white':

@@ -11,13 +11,13 @@ __module_group__ = "Core"
 from events import evaluateEvent
 from random import randint
 # from copy import deepcopy
-from functions import showTiming
+from functions import show_timing
 from functions import deepcopy
 
 import time
 
 
-def runMessages(mud, channels, players):
+def run_messages(mud, channels, players):
     # go through channels messages queue and send messages to subscribed
     # players
     previousTiming = time.time()
@@ -25,7 +25,7 @@ def runMessages(mud, channels, players):
     ch = deepcopy(channels)
 
     previousTiming = \
-        showTiming(previousTiming, "copy channels")
+        show_timing(previousTiming, "copy channels")
 
     for p in players:
         if players[p]['channels'] is not None:
@@ -33,18 +33,18 @@ def runMessages(mud, channels, players):
                 # print(c)
                 for m in ch:
                     if ch[m]['channel'] == c:
-                        mud.sendMessage(
+                        mud.send_message(
                             p, "[<f191>" + ch[m]['channel'] +
                             "<r>] <f32>" + ch[m]['sender'] +
                             "<r>: " + ch[m]['message'] + "\n")
                         # del channels[m]
             previousTiming = \
-                showTiming(previousTiming, "send message " +
-                           str(len(players[p]['channels'])) + ' x ' +
-                           str(len(ch)))
+                show_timing(previousTiming, "send message " +
+                            str(len(players[p]['channels'])) + ' x ' +
+                            str(len(ch)))
 
 
-def runEnvironment(mud, players, env):
+def run_environment(mud, players, env):
     # Iterate through ENV elements and see if it's time to send a message to
     # players in the same room as the ENV elements
     for (eid, pl) in list(env.items()):
@@ -65,34 +65,34 @@ def runEnvironment(mud, players, env):
                     if len(env[eid]['vocabulary']) > 1:
                         msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
                             env[eid]['vocabulary'][rnd] + "\n\n"
-                        mud.sendMessage(pid, msg)
+                        mud.send_message(pid, msg)
                         env[eid]['lastSaid'] = rnd
                         env[eid]['timeTalked'] = now
                     else:
                         msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
                             env[eid]['vocabulary'][0] + "\n\n"
-                        mud.sendMessage(pid, msg)
+                        mud.send_message(pid, msg)
                         env[eid]['lastSaid'] = rnd
                         env[eid]['timeTalked'] = now
                         env[eid]['randomizer'] = \
                             randint(0, env[eid]['randomFactor'])
 
 
-def runSchedule(mud, eventSchedule, players: {}, npcs: {},
-                itemsInWorld: {}, env, npcsDB: {}, envDB: {}):
+def run_schedule(mud, event_schedule, players: {}, npcs: {},
+                 itemsInWorld: {}, env, npcs_db: {}, env_db: {}):
     # Evaluate the Event Schedule
-    for (event, pl) in list(eventSchedule.items()):
-        if time.time() < eventSchedule[event]['time']:
+    for (event, pl) in list(event_schedule.items()):
+        if time.time() < event_schedule[event]['time']:
             continue
         # its time to run the event!
-        if eventSchedule[event]['type'] == "msg":
-            mud.sendMessage(int(eventSchedule[event]['target']),
-                            str(eventSchedule[event]['body']) + "\n")
+        if event_schedule[event]['type'] == "msg":
+            mud.send_message(int(event_schedule[event]['target']),
+                             str(event_schedule[event]['body']) + "\n")
         else:
             evaluateEvent(
-                eventSchedule[event]['target'],
-                eventSchedule[event]['type'],
-                eventSchedule[event]['body'],
+                event_schedule[event]['target'],
+                event_schedule[event]['type'],
+                event_schedule[event]['body'],
                 players, npcs, itemsInWorld, env,
-                npcsDB, envDB)
-        del eventSchedule[event]
+                npcs_db, env_db)
+        del event_schedule[event]

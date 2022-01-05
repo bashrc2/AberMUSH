@@ -226,7 +226,7 @@ class WebSocket(object):
                 self.frag_buffer = None
 
             elif self.opcode == PING:
-                self._sendMessage(False, PONG, self.data)
+                self._send_message(False, PONG, self.data)
 
             elif self.opcode == PONG:
                 pass
@@ -305,7 +305,7 @@ class WebSocket(object):
                 else:
                     close_msg.extend(reason)
 
-                self._sendMessage(False, CLOSE, close_msg)
+                self._send_message(False, CLOSE, close_msg)
 
         finally:
             self.closed = True
@@ -349,7 +349,7 @@ class WebSocket(object):
         opcode = BINARY
         if _check_unicode(data):
             opcode = TEXT
-        self._sendMessage(True, opcode, data)
+        self._send_message(True, opcode, data)
 
     def sendFragment(self, data):
         """
@@ -358,7 +358,7 @@ class WebSocket(object):
           If data is a unicode object then the frame is sent as Text.
           If the data is a bytearray object then the frame is sent as Binary.
         """
-        self._sendMessage(True, STREAM, data)
+        self._send_message(True, STREAM, data)
 
     def sendFragmentEnd(self, data):
         """
@@ -367,9 +367,9 @@ class WebSocket(object):
           If data is a unicode object then the frame is sent as Text.
           If the data is a bytearray object then the frame is sent as Binary.
         """
-        self._sendMessage(False, STREAM, data)
+        self._send_message(False, STREAM, data)
 
-    def sendMessage(self, data):
+    def send_message(self, data):
         """
           Send websocket data frame to the client.
 
@@ -379,9 +379,9 @@ class WebSocket(object):
         opcode = BINARY
         if _check_unicode(data):
             opcode = TEXT
-        self._sendMessage(False, opcode, data)
+        self._send_message(False, opcode, data)
 
-    def _sendMessage(self, fin, opcode, data):
+    def _send_message(self, fin, opcode, data):
 
         payload = bytearray()
 

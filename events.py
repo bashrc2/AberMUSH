@@ -16,397 +16,402 @@ import time
 
 
 def _setPlayerCulture(etarget, ebody, players, npcs, items,
-                      env, npcsDB, envDB):
+                      env, npcs_db, env_db):
     if etarget in players:
         players[etarget]['culture'] = str(ebody)
 
 
-def _setPlayerCanGo(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerCanGo(etarget, ebody, players, npcs, items,
+                    env, npcs_db, env_db):
     if etarget in players:
         players[etarget]['canGo'] = int(ebody)
 
 
 def _setPlayerCanLook(etarget, ebody, players, npcs, items,
-                      env, npcsDB, envDB):
+                      env, npcs_db, env_db):
     if etarget in players:
         players[etarget]['canLook'] = int(ebody)
 
 
-def _setPlayerCanSay(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerCanSay(etarget, ebody, players, npcs, items,
+                     env, npcs_db, env_db):
     if etarget in players:
         players[etarget]['canSay'] = int(ebody)
 
 
 def _setPlayerCanAttack(etarget, ebody, players, npcs, items, env,
-                        npcsDB, envDB):
+                        npcs_db, env_db):
     if etarget in players:
         players[etarget]['canAttack'] = int(ebody)
 
 
 def _setPlayerCanDirectMessage(etarget, ebody, players, npcs, items,
-                               env, npcsDB, envDB):
+                               env, npcs_db, env_db):
     if etarget in players:
         players[etarget]['canDirectMessage'] = int(ebody)
 
 
-def _setPlayerPrefix(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerPrefix(etarget, ebody, players, npcs, items,
+                     env, npcs_db, env_db):
     if etarget in players:
         players[etarget]['prefix'] = str(ebody)
 
 
-def _setPlayerName(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerName(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['name'] = str(ebody)
 
 
-def _setPlayerRoom(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerRoom(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['room'] = str(ebody)
 
 
-def _setPlayerLvl(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerLvl(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['lvl'] = int(ebody)
 
 
-def _modPlayerLvl(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerLvl(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['lvl'] += int(ebody)
 
 
-def _setPlayerExp(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerExp(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['exp'] = int(ebody)
 
 
-def _modPlayerExp(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerExp(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['exp'] += int(ebody)
 
 
-def _setPlayerStr(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerStr(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['str'] = int(ebody)
 
 
-def _modPlayerStr(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerStr(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['str'] += int(ebody)
 
 
-def _setPlayerSiz(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerSiz(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['siz'] = int(ebody)
 
 
-def _modPlayerSiz(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerSiz(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['siz'] += int(ebody)
 
 
-def _setPlayerWei(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerWei(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['wei'] = int(ebody)
 
 
-def _modPlayerWei(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerWei(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['wei'] += int(ebody)
 
 
-def _setPlayerPer(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerPer(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['per'] = int(ebody)
 
 
-def _modPlayerPer(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerPer(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['per'] += int(ebody)
 
 
 def _setPlayerCool(etarget, ebody, players, npcs, items,
-                   env, npcsDB, envDB):
+                   env, npcs_db, env_db):
     players[etarget]['cool'] = int(ebody)
 
 
 def _modPlayerCool(etarget, ebody, players, npcs, items,
-                   env, npcsDB, envDB):
+                   env, npcs_db, env_db):
     players[etarget]['cool'] += int(ebody)
 
 
 def _setPlayerEndu(etarget, ebody, players, npcs, items,
-                   env, npcsDB, envDB):
+                   env, npcs_db, env_db):
     players[etarget]['endu'] = int(ebody)
 
 
 def _modPlayerEndu(etarget, ebody, players, npcs, items,
-                   env, npcsDB, envDB):
+                   env, npcs_db, env_db):
     players[etarget]['endu'] += int(ebody)
 
 
 def _setPlayerCha(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['cha'] = int(ebody)
 
 
 def _modPlayerCha(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['cha'] += int(ebody)
 
 
 def _setPlayerInt(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['inte'] = int(ebody)
 
 
 def _modPlayerInt(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['inte'] += int(ebody)
 
 
 def _setPlayerAgi(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['agi'] = int(ebody)
 
 
 def _modPlayerAgi(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['agi'] += int(ebody)
 
 
 def _setPlayerLuc(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['luc'] = int(ebody)
 
 
 def _modPlayerLuc(etarget, ebody, players, npcs, items,
-                  env, npcsDB, envDB):
+                  env, npcs_db, env_db):
     players[etarget]['luc'] += int(ebody)
 
 
 def _setPlayerCred(etarget, ebody, players, npcs, items,
-                   env, npcsDB, envDB):
+                   env, npcs_db, env_db):
     players[etarget]['cred'] = int(ebody)
 
 
 def _modPlayerCred(etarget, ebody, players, npcs, items,
-                   env, npcsDB, envDB):
+                   env, npcs_db, env_db):
     players[etarget]['cred'] += int(ebody)
 
 
 def _setPlayerGoldPieces(etarget, ebody, players, npcs, items,
-                         env, npcsDB, envDB):
+                         env, npcs_db, env_db):
     players[etarget]['gp'] = int(ebody)
 
 
 def _modPlayerGoldPieces(etarget, ebody, players, npcs, items,
-                         env, npcsDB, envDB):
+                         env, npcs_db, env_db):
     players[etarget]['gp'] += int(ebody)
 
 
 def _setPlayerSilverPieces(etarget, ebody, players, npcs, items,
-                           env, npcsDB, envDB):
+                           env, npcs_db, env_db):
     players[etarget]['sp'] = int(ebody)
 
 
 def _modPlayerSilverPieces(etarget, ebody, players, npcs, items,
-                           env, npcsDB, envDB):
+                           env, npcs_db, env_db):
     players[etarget]['sp'] += int(ebody)
 
 
 def _setPlayerCopperPieces(etarget, ebody, players, npcs, items,
-                           env, npcsDB, envDB):
+                           env, npcs_db, env_db):
     players[etarget]['cp'] = int(ebody)
 
 
 def _modPlayerCopperPieces(etarget, ebody, players, npcs, items,
-                           env, npcsDB, envDB):
+                           env, npcs_db, env_db):
     players[etarget]['cp'] += int(ebody)
 
 
 def _setPlayerElectrumPieces(etarget, ebody, players, npcs, items,
-                             env, npcsDB, envDB):
+                             env, npcs_db, env_db):
     players[etarget]['ep'] = int(ebody)
 
 
 def _modPlayerElectrumPieces(etarget, ebody, players, npcs, items,
-                             env, npcsDB, envDB):
+                             env, npcs_db, env_db):
     players[etarget]['ep'] += int(ebody)
 
 
 def _setPlayerPlatinumPieces(etarget, ebody, players, npcs, items,
-                             env, npcsDB, envDB):
+                             env, npcs_db, env_db):
     players[etarget]['pp'] = int(ebody)
 
 
 def _modPlayerPlatinumPieces(etarget, ebody, players, npcs, items,
-                             env, npcsDB, envDB):
+                             env, npcs_db, env_db):
     players[etarget]['pp'] += int(ebody)
 
 
-def _setPlayerInv(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerInv(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['inv'] = str(ebody)
 
 
 def _setAuthenticated(etarget, ebody, players, npcs, items,
-                      env, npcsDB, envDB):
+                      env, npcs_db, env_db):
     players[etarget]['authenticated'] = str2bool(ebody)
 
 
 def _setPlayerClo_head(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_neck(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_lwrist(etarget, ebody, players, npcs,
-                         items, env, npcsDB, envDB):
+                         items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_rwrist(etarget, ebody, players, npcs,
-                         items, env, npcsDB, envDB):
+                         items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_larm(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_rarm(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_lhand(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_rhand(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_lfinger(etarget, ebody, players, npcs,
-                          items, env, npcsDB, envDB):
+                          items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_gloves(etarget, ebody, players, npcs,
-                         items, env, npcsDB, envDB):
+                         items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_rfinger(etarget, ebody, players, npcs,
-                          items, env, npcsDB, envDB):
+                          items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_chest(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_lleg(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_rleg(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerClo_feet(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_head(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_larm(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_rarm(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_lhand(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_rhand(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_chest(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_lleg(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_rleg(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
 def _setPlayerImp_feet(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     return
 
 
-def _setPlayerHp(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerHp(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['hp'] = int(ebody)
 
 
-def _modPlayerHp(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerHp(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     players[etarget]['hp'] += int(ebody)
 
 
-def _setPlayerCharge(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _setPlayerCharge(etarget, ebody, players, npcs, items,
+                     env, npcs_db, env_db):
     players[etarget]['charge'] = int(ebody)
 
 
-def _modPlayerCharge(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _modPlayerCharge(etarget, ebody, players, npcs, items,
+                     env, npcs_db, env_db):
     players[etarget]['charge'] += int(ebody)
 
 
 def _setPlayerIsInCombat(etarget, ebody, players, npcs,
-                         items, env, npcsDB, envDB):
+                         items, env, npcs_db, env_db):
     players[etarget]['isInCombat'] += int(ebody)
 
 
 def _setPlayerLastCombatAction(etarget, ebody, players, npcs, items,
-                               env, npcsDB, envDB):
+                               env, npcs_db, env_db):
     players[etarget]['lastCombatAction'] = int(ebody)
 
 
 def _modPlayerLastCombatAction(etarget, ebody, players, npcs,
-                               items, env, npcsDB, envDB):
+                               items, env, npcs_db, env_db):
     players[etarget]['lastCombatAction'] += int(ebody)
 
 
 def _setPlayerIsAttackable(etarget, ebody, players, npcs,
-                           items, env, npcsDB, envDB):
+                           items, env, npcs_db, env_db):
     players[etarget]['isAttackable'] = int(ebody)
 
 
 def _setPlayerLastRoom(etarget, ebody, players, npcs,
-                       items, env, npcsDB, envDB):
+                       items, env, npcs_db, env_db):
     players[etarget]['lastRoom'] = str(ebody)
 
 
 def _setPlayerCorpseTTL(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     players[etarget]['corpseTTL'] = int(ebody)
 
 
 def _modPlayerCorpseTTL(etarget, ebody, players, npcs,
-                        items, env, npcsDB, envDB):
+                        items, env, npcs_db, env_db):
     players[etarget]['corpseTTL'] += int(ebody)
 
 
@@ -418,7 +423,7 @@ def _itemInRoom(items, id, room):
     return False
 
 
-def _spawnItem(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _spawnItem(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
     bodyInt = int(body[0])
     if not _itemInRoom(items, bodyInt, body[1]):
@@ -431,141 +436,142 @@ def _spawnItem(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
         }
 
 
-def _spawnNPC(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _spawnNPC(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
 
     # if the size is unknown then estimate it
-    if npcsDB[int(body[0])]['siz'] == 0:
-        npcsDB[int(body[0])]['siz'] = sizeFromDescription(
-            npcsDB[int(body[0])]['name'] + ' ' +
-            npcsDB[int(body[0])]['lookDescription'])
+    if npcs_db[int(body[0])]['siz'] == 0:
+        npcs_db[int(body[0])]['siz'] = sizeFromDescription(
+            npcs_db[int(body[0])]['name'] + ' ' +
+            npcs_db[int(body[0])]['lookDescription'])
 
+    npcs_body = npcs_db[int(body[0])]
     npcs[getFreeKey(npcs, 90000)] = {
-        'name': npcsDB[int(body[0])]['name'],
+        'name': npcs_body['name'],
         'room': body[1],
-        'lvl': npcsDB[int(body[0])]['lvl'],
-        'exp': npcsDB[int(body[0])]['exp'],
-        'str': npcsDB[int(body[0])]['str'],
-        'siz': npcsDB[int(body[0])]['siz'],
-        'wei': npcsDB[int(body[0])]['wei'],
-        'per': npcsDB[int(body[0])]['per'],
-        'endu': npcsDB[int(body[0])]['endu'],
-        'cha': npcsDB[int(body[0])]['cha'],
-        'int': npcsDB[int(body[0])]['int'],
-        'agi': npcsDB[int(body[0])]['agi'],
-        'follow': npcsDB[int(body[0])]['follow'],
-        'bodyType': npcsDB[int(body[0])]['bodyType'],
-        'canWear': npcsDB[int(body[0])]['canWear'],
-        'visibleWhenWearing': npcsDB[int(body[0])]['visibleWhenWearing'],
-        'canWield': npcsDB[int(body[0])]['canWield'],
-        'luc': npcsDB[int(body[0])]['luc'],
-        'cool': npcsDB[int(body[0])]['cool'],
-        'ref': npcsDB[int(body[0])]['ref'],
-        'cred': npcsDB[int(body[0])]['cred'],
-        'pp': npcsDB[int(body[0])]['pp'],
-        'ep': npcsDB[int(body[0])]['ep'],
-        'cp': npcsDB[int(body[0])]['cp'],
-        'sp': npcsDB[int(body[0])]['sp'],
-        'gp': npcsDB[int(body[0])]['gp'],
-        'inv': npcsDB[int(body[0])]['inv'],
-        'speakLanguage': npcsDB[int(body[0])]['speakLanguage'],
-        'language': npcsDB[int(body[0])]['language'],
-        'culture': npcsDB[int(body[0])]['culture'],
-        'conv': npcsDB[int(body[0])]['conv'],
-        'path': npcsDB[int(body[0])]['path'],
-        'moveDelay': npcsDB[int(body[0])]['moveDelay'],
-        'moveType': npcsDB[int(body[0])]['moveType'],
-        'moveTimes': npcsDB[int(body[0])]['moveTimes'],
+        'lvl': npcs_body['lvl'],
+        'exp': npcs_body['exp'],
+        'str': npcs_body['str'],
+        'siz': npcs_body['siz'],
+        'wei': npcs_body['wei'],
+        'per': npcs_body['per'],
+        'endu': npcs_body['endu'],
+        'cha': npcs_body['cha'],
+        'int': npcs_body['int'],
+        'agi': npcs_body['agi'],
+        'follow': npcs_body['follow'],
+        'bodyType': npcs_body['bodyType'],
+        'canWear': npcs_body['canWear'],
+        'visibleWhenWearing': npcs_body['visibleWhenWearing'],
+        'canWield': npcs_body['canWield'],
+        'luc': npcs_body['luc'],
+        'cool': npcs_body['cool'],
+        'ref': npcs_body['ref'],
+        'cred': npcs_body['cred'],
+        'pp': npcs_body['pp'],
+        'ep': npcs_body['ep'],
+        'cp': npcs_body['cp'],
+        'sp': npcs_body['sp'],
+        'gp': npcs_body['gp'],
+        'inv': npcs_body['inv'],
+        'speakLanguage': npcs_body['speakLanguage'],
+        'language': npcs_body['language'],
+        'culture': npcs_body['culture'],
+        'conv': npcs_body['conv'],
+        'path': npcs_body['path'],
+        'moveDelay': npcs_body['moveDelay'],
+        'moveType': npcs_body['moveType'],
+        'moveTimes': npcs_body['moveTimes'],
         'isAttackable': int(body[2]),
         'isStealable': int(body[3]),
         'isKillable': int(body[4]),
         'isAggressive': int(body[5]),
-        'clo_head': npcsDB[int(body[0])]['clo_head'],
-        'clo_neck': npcsDB[int(body[0])]['clo_neck'],
-        'clo_lwrist': npcsDB[int(body[0])]['clo_lwrist'],
-        'clo_rwrist': npcsDB[int(body[0])]['clo_rwrist'],
-        'clo_larm': npcsDB[int(body[0])]['clo_larm'],
-        'clo_rarm': npcsDB[int(body[0])]['clo_rarm'],
-        'clo_lhand': npcsDB[int(body[0])]['clo_lhand'],
-        'clo_rhand': npcsDB[int(body[0])]['clo_rhand'],
-        'clo_gloves': npcsDB[int(body[0])]['clo_gloves'],
-        'clo_lfinger': npcsDB[int(body[0])]['clo_lfinger'],
-        'clo_rfinger': npcsDB[int(body[0])]['clo_rfinger'],
-        'clo_waist': npcsDB[int(body[0])]['clo_waist'],
-        'clo_lear': npcsDB[int(body[0])]['clo_lear'],
-        'clo_rear': npcsDB[int(body[0])]['clo_rear'],
-        'clo_chest': npcsDB[int(body[0])]['clo_chest'],
-        'clo_back': npcsDB[int(body[0])]['clo_back'],
-        'clo_lleg': npcsDB[int(body[0])]['clo_lleg'],
-        'clo_rleg': npcsDB[int(body[0])]['clo_rleg'],
-        'clo_feet': npcsDB[int(body[0])]['clo_feet'],
-        'imp_head': npcsDB[int(body[0])]['imp_head'],
-        'imp_neck': npcsDB[int(body[0])]['imp_neck'],
-        'imp_larm': npcsDB[int(body[0])]['imp_larm'],
-        'imp_rarm': npcsDB[int(body[0])]['imp_rarm'],
-        'imp_lhand': npcsDB[int(body[0])]['imp_lhand'],
-        'imp_gloves': npcsDB[int(body[0])]['imp_gloves'],
-        'imp_lfinger': npcsDB[int(body[0])]['imp_lfinger'],
-        'imp_rhand': npcsDB[int(body[0])]['imp_rhand'],
-        'imp_rfinger': npcsDB[int(body[0])]['imp_rfinger'],
-        'imp_waist': npcsDB[int(body[0])]['imp_waist'],
-        'imp_lear': npcsDB[int(body[0])]['imp_lear'],
-        'imp_rear': npcsDB[int(body[0])]['imp_rear'],
-        'imp_chest': npcsDB[int(body[0])]['imp_chest'],
-        'imp_back': npcsDB[int(body[0])]['imp_back'],
-        'imp_lleg': npcsDB[int(body[0])]['imp_lleg'],
-        'imp_rleg': npcsDB[int(body[0])]['imp_rleg'],
-        'imp_feet': npcsDB[int(body[0])]['imp_feet'],
-        'hp': npcsDB[int(body[0])]['hp'],
-        'hpMax': npcsDB[int(body[0])]['hpMax'],
-        'charge': npcsDB[int(body[0])]['charge'],
+        'clo_head': npcs_body['clo_head'],
+        'clo_neck': npcs_body['clo_neck'],
+        'clo_lwrist': npcs_body['clo_lwrist'],
+        'clo_rwrist': npcs_body['clo_rwrist'],
+        'clo_larm': npcs_body['clo_larm'],
+        'clo_rarm': npcs_body['clo_rarm'],
+        'clo_lhand': npcs_body['clo_lhand'],
+        'clo_rhand': npcs_body['clo_rhand'],
+        'clo_gloves': npcs_body['clo_gloves'],
+        'clo_lfinger': npcs_body['clo_lfinger'],
+        'clo_rfinger': npcs_body['clo_rfinger'],
+        'clo_waist': npcs_body['clo_waist'],
+        'clo_lear': npcs_body['clo_lear'],
+        'clo_rear': npcs_body['clo_rear'],
+        'clo_chest': npcs_body['clo_chest'],
+        'clo_back': npcs_body['clo_back'],
+        'clo_lleg': npcs_body['clo_lleg'],
+        'clo_rleg': npcs_body['clo_rleg'],
+        'clo_feet': npcs_body['clo_feet'],
+        'imp_head': npcs_body['imp_head'],
+        'imp_neck': npcs_body['imp_neck'],
+        'imp_larm': npcs_body['imp_larm'],
+        'imp_rarm': npcs_body['imp_rarm'],
+        'imp_lhand': npcs_body['imp_lhand'],
+        'imp_gloves': npcs_body['imp_gloves'],
+        'imp_lfinger': npcs_body['imp_lfinger'],
+        'imp_rhand': npcs_body['imp_rhand'],
+        'imp_rfinger': npcs_body['imp_rfinger'],
+        'imp_waist': npcs_body['imp_waist'],
+        'imp_lear': npcs_body['imp_lear'],
+        'imp_rear': npcs_body['imp_rear'],
+        'imp_chest': npcs_body['imp_chest'],
+        'imp_back': npcs_body['imp_back'],
+        'imp_lleg': npcs_body['imp_lleg'],
+        'imp_rleg': npcs_body['imp_rleg'],
+        'imp_feet': npcs_body['imp_feet'],
+        'hp': npcs_body['hp'],
+        'hpMax': npcs_body['hpMax'],
+        'charge': npcs_body['charge'],
         'corpseTTL': int(body[6]),
         'respawn': int(body[7]),
-        'vocabulary': npcsDB[int(body[0])]['vocabulary'],
-        'talkDelay': npcsDB[int(body[0])]['talkDelay'],
-        'inDescription': npcsDB[int(body[0])]['inDescription'],
-        'outDescription': npcsDB[int(body[0])]['outDescription'],
-        'lookDescription': npcsDB[int(body[0])]['lookDescription'],
+        'vocabulary': npcs_body['vocabulary'],
+        'talkDelay': npcs_body['talkDelay'],
+        'inDescription': npcs_body['inDescription'],
+        'outDescription': npcs_body['outDescription'],
+        'lookDescription': npcs_body['lookDescription'],
         'timeTalked': 0,
         'isInCombat': 0,
         'lastCombatAction': 0,
         'lastRoom': None,
         'whenDied': None,
         'randomizer': 0,
-        'randomFactor': npcsDB[int(body[0])]['randomFactor'],
+        'randomFactor': npcs_body['randomFactor'],
         'lastSaid': 0,
         'lastMoved': 0,
-        'race': npcsDB[int(body[0])]['race'],
-        'characterClass': npcsDB[int(body[0])]['characterClass'],
-        'proficiencies': npcsDB[int(body[0])]['proficiencies'],
-        'fightingStyle': npcsDB[int(body[0])]['fightingStyle'],
-        'restRequired': npcsDB[int(body[0])]['restRequired'],
-        'enemy': npcsDB[int(body[0])]['enemy'],
-        'magicShield': npcsDB[int(body[0])]['magicShield'],
-        'magicShieldStart': npcsDB[int(body[0])]['magicShieldStart'],
-        'magicShieldDuration': npcsDB[int(body[0])]['magicShieldDuration'],
-        'tempCharm': npcsDB[int(body[0])]['tempCharm'],
-        'tempCharmTarget': npcsDB[int(body[0])]['tempCharmTarget'],
-        'tempCharmDuration': npcsDB[int(body[0])]['tempCharmDuration'],
-        'tempCharmStart': npcsDB[int(body[0])]['tempCharmStart'],
-        'guild': npcsDB[int(body[0])]['guild'],
-        'guildRole': npcsDB[int(body[0])]['guildRole'],
-        'archetype': npcsDB[int(body[0])]['archetype'],
-        'preparedSpells': npcsDB[int(body[0])]['preparedSpells'],
-        'spellSlots': npcsDB[int(body[0])]['spellSlots'],
-        'tempHitPoints': npcsDB[int(body[0])]['tempHitPoints'],
-        'tempHitPointsStart': npcsDB[int(body[0])]['tempHitPointsStart'],
-        'tempHitPointsDuration': npcsDB[int(body[0])]['tempHitPointsDuration'],
-        'frozenDuration': npcsDB[int(body[0])]['frozenDuration'],
-        'frozenStart': npcsDB[int(body[0])]['frozenStart'],
-        'frozenDescription': npcsDB[int(body[0])]['frozenDescription'],
-        'affinity': npcsDB[int(body[0])]['affinity'],
-        'familiar': npcsDB[int(body[0])]['familiar'],
-        'familiarOf': npcsDB[int(body[0])]['familiarOf'],
-        'familiarTarget': npcsDB[int(body[0])]['familiarTarget'],
-        'familiarType': npcsDB[int(body[0])]['familiarType'],
-        'familiarMode': npcsDB[int(body[0])]['familiarMode'],
-        'animalType': npcsDB[int(body[0])]['animalType']
+        'race': npcs_body['race'],
+        'characterClass': npcs_body['characterClass'],
+        'proficiencies': npcs_body['proficiencies'],
+        'fightingStyle': npcs_body['fightingStyle'],
+        'restRequired': npcs_body['restRequired'],
+        'enemy': npcs_body['enemy'],
+        'magicShield': npcs_body['magicShield'],
+        'magicShieldStart': npcs_body['magicShieldStart'],
+        'magicShieldDuration': npcs_body['magicShieldDuration'],
+        'tempCharm': npcs_body['tempCharm'],
+        'tempCharmTarget': npcs_body['tempCharmTarget'],
+        'tempCharmDuration': npcs_body['tempCharmDuration'],
+        'tempCharmStart': npcs_body['tempCharmStart'],
+        'guild': npcs_body['guild'],
+        'guildRole': npcs_body['guildRole'],
+        'archetype': npcs_body['archetype'],
+        'preparedSpells': npcs_body['preparedSpells'],
+        'spellSlots': npcs_body['spellSlots'],
+        'tempHitPoints': npcs_body['tempHitPoints'],
+        'tempHitPointsStart': npcs_body['tempHitPointsStart'],
+        'tempHitPointsDuration': npcs_body['tempHitPointsDuration'],
+        'frozenDuration': npcs_body['frozenDuration'],
+        'frozenStart': npcs_body['frozenStart'],
+        'frozenDescription': npcs_body['frozenDescription'],
+        'affinity': npcs_body['affinity'],
+        'familiar': npcs_body['familiar'],
+        'familiarOf': npcs_body['familiarOf'],
+        'familiarTarget': npcs_body['familiarTarget'],
+        'familiarType': npcs_body['familiarType'],
+        'familiarMode': npcs_body['familiarMode'],
+        'animalType': npcs_body['animalType']
     }
 
 
@@ -577,19 +583,19 @@ def _actorInRoom(env, name, room):
     return False
 
 
-def _spawnActor(etarget, ebody, players, npcs, items, env, npcsDB, envDB):
+def _spawnActor(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
     bodyInt = int(body[0])
-    if not _actorInRoom(env, envDB[bodyInt]['name'], body[1]):
+    if not _actorInRoom(env, env_db[bodyInt]['name'], body[1]):
         env[bodyInt] = {
-            'name': envDB[bodyInt]['name'],
-            'vocabulary': envDB[bodyInt]['vocabulary'],
-            'talkDelay': envDB[bodyInt]['talkDelay'],
-            'randomFactor': envDB[bodyInt]['randomFactor'],
+            'name': env_db[bodyInt]['name'],
+            'vocabulary': env_db[bodyInt]['vocabulary'],
+            'talkDelay': env_db[bodyInt]['talkDelay'],
+            'randomFactor': env_db[bodyInt]['randomFactor'],
             'room': body[1],
-            'randomizer': envDB[bodyInt]['randomizer'],
-            'timeTalked': envDB[bodyInt]['timeTalked'],
-            'lastSaid': envDB[bodyInt]['lastSaid']
+            'randomizer': env_db[bodyInt]['randomizer'],
+            'timeTalked': env_db[bodyInt]['timeTalked'],
+            'lastSaid': env_db[bodyInt]['lastSaid']
         }
 
 # Function for evaluating an Event
@@ -603,8 +609,8 @@ def evaluateEvent(
         npcs,
         items,
         env,
-        npcsDB,
-        envDB):
+        npcs_db,
+        env_db):
     switcher = {
         "setPlayerCulture": _setPlayerCulture,
         "setPlayerCanGo": _setPlayerCanGo,
@@ -692,4 +698,4 @@ def evaluateEvent(
         "spawnNPC": _spawnNPC,
         "spawnActor": _spawnActor,
     }
-    switcher[etype](etarget, ebody, players, npcs, items, env, npcsDB, envDB)
+    switcher[etype](etarget, ebody, players, npcs, items, env, npcs_db, env_db)

@@ -10,8 +10,8 @@ __module_group__ = "Core"
 
 import os
 from functions import log
-from functions import saveState
-from functions import loadPlayersDB
+from functions import save_state
+from functions import load_players_db
 from functions import deepcopy
 # from copy import deepcopy
 
@@ -24,8 +24,8 @@ def _runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
     # go through any newly connected players
     for id in mud.get_new_players():
         if len(players) >= maximum_players:
-            mud.sendMessage(id, "Player limit reached\n\n")
-            mud.handleDisconnect(id)
+            mud.send_message(id, "Player limit reached\n\n")
+            mud.handle_disconnect(id)
 
         # add the new player to the dictionary, noting that they've not been
         # named yet.
@@ -159,24 +159,24 @@ def _runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
                 motdImageFile = lineStr.strip()
                 if os.path.isfile(motdImageFile):
                     with open(motdImageFile, 'r') as imgFile:
-                        mud.sendImage(id, '\n' + imgFile.read(), True)
+                        mud.send_image(id, '\n' + imgFile.read(), True)
             else:
-                mud.sendMessage(id, lineStr)
+                mud.send_message(id, lineStr)
 
         if not os.path.isfile(".disableRegistrations"):
-            mud.sendMessageWrap(
+            mud.send_message_wrap(
                 id, '<f220>',
                 'You can create a new Character, or use the guest account, ' +
                 'username: <f32>Guest<r>, password: <f32>Password<r>')
-            mud.sendMessage(
+            mud.send_message(
                 id, "What is your username? " +
                 "(type <f32>new<r> for new character)\n")
         else:
-            mud.sendMessage(
+            mud.send_message(
                 id,
                 '<f0><b220> New account registrations are currently closed')
 
-            mud.sendMessage(id, "\nWhat is your username?\n\n")
+            mud.send_message(id, "\nWhat is your username?\n\n")
         idStr = str(id)
         log("Player ID " + idStr + " has connected", "info")
 
@@ -205,7 +205,7 @@ def _runPlayerDisconnections(mud, id, players, playersDB, fights,
                 if players[pid]['authenticated'] is not None \
                    and players[pid]['room'] == players[id]['room'] \
                    and players[pid]['name'] != players[id]['name']:
-                    mud.sendMessage(
+                    mud.send_message(
                         pid, "<f32><u>{}<r>".format(players[id]['name']) +
                         "'s body has vanished.\n\n")
 
@@ -213,8 +213,8 @@ def _runPlayerDisconnections(mud, id, players, playersDB, fights,
         # before removing him from players dictionary
         if players[id]['authenticated'] is not None:
             log("Player disconnected, saving state", "info")
-            saveState(players[id], playersDB, False)
-            playersDB = loadPlayersDB()
+            save_state(players[id], playersDB, False)
+            playersDB = load_players_db()
 
         # Create a deep copy of fights, iterate through it and remove fights
         # disconnected player was taking part in
@@ -228,15 +228,15 @@ def _runPlayerDisconnections(mud, id, players, playersDB, fights,
         del players[id]
 
 
-def runPlayerConnections(mud, id, players, playersDB, fights,
-                         Config, terminalMode: {}):
+def run_player_connections(mud, id, players, playersDB, fights,
+                           Config, terminalMode: {}):
     _runNewPlayerConnections(mud, id, players, playersDB, fights, Config)
     _runPlayerDisconnections(mud, id, players, playersDB, fights,
                              Config, terminalMode)
 
 
-def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
-                          playersDB: {}) -> bool:
+def disconnect_idle_players(mud, players: {}, allowedPlayerIdle: int,
+                            playersDB: {}) -> bool:
     # Evaluate player idle time and disconnect if required
     authenticatedPlayersDisconnected = False
     now = int(time.time())
@@ -244,17 +244,17 @@ def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
     for p in playersCopy:
         if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
             if players[p]['authenticated'] is not None:
-                mud.sendMessageWrap(
+                mud.send_message_wrap(
                     p, "<f232><b11>",
                     "<f232><b11>Your body starts tingling. " +
                     "You instinctively hold your hand up to " +
                     "your face and notice you slowly begin to " +
                     "vanish. You are being disconnected due " +
                     "to inactivity...****DISCONNECT****\n")
-                saveState(players[p], playersDB, False)
+                save_state(players[p], playersDB, False)
                 authenticatedPlayersDisconnected = True
             else:
-                mud.sendMessage(
+                mud.send_message(
                     p, "<f232><b11>You are being disconnected " +
                     "due to inactivity. Bye!****DISCONNECT****\n")
             nameStr = str(players[p]['name'])
@@ -263,11 +263,11 @@ def disconnectIdlePlayers(mud, players: {}, allowedPlayerIdle: int,
             pStr = str(p)
             log("Disconnecting client " + pStr, "warning")
             del players[p]
-            mud.handleDisconnect(p)
+            mud.handle_disconnect(p)
     return authenticatedPlayersDisconnected
 
 
-def playerInGame(id, username: str, players: {}) -> bool:
+def player_in_game(id, username: str, players: {}) -> bool:
     """ is the given player already logged in?
     """
     for pl in players:
@@ -279,7 +279,7 @@ def playerInGame(id, username: str, players: {}) -> bool:
     return False
 
 
-def initialSetupAfterLogin(mud, id, players: {}, loadedJson: {}) -> None:
+def initial_setup_after_login(mud, id, players: {}, loadedJson: {}) -> None:
     """Sets up a player after login
     """
     players[id] = loadedJson.copy()
@@ -304,28 +304,28 @@ def initialSetupAfterLogin(mud, id, players: {}, loadedJson: {}) -> None:
         if players[pid]['authenticated'] is not None \
            and players[pid]['room'] == players[id]['room'] \
            and players[pid]['name'] != players[id]['name']:
-            mud.sendMessage(
+            mud.send_message(
                 pid, '{} '.format(players[id]['name']) +
                 'has materialised out of thin air nearby.\n\n')
 
     # send the new player a welcome message
-    mud.sendMessageWrap(id, '<f255>',
-                        '****CLEAR****<f220>Welcome to AberMUSH!, ' +
-                        '{}. '.format(players[id]['name']))
-    mud.sendMessageWrap(id, '<f255>',
-                        '<f255>Hello there traveller! ' +
-                        'You have connected to the ' +
-                        'server. You can move around the ' +
-                        'rooms along with other players, ' +
-                        'attack each other (including NPCs), ' +
-                        'pick up and drop items and chat. ' +
-                        'Make sure to visit the repo for ' +
-                        'further info. Thanks for your ' +
-                        'interest in AberMUSH.')
-    mud.sendMessageWrap(id, '<f255>',
-                        "<f255>Type '<r><f220>help<r><f255>' " +
-                        "for a list of all currently implemented " +
-                        "commands.")
-    mud.sendMessageWrap(id, '<f255>',
-                        "<f255>Type '<r><f220>look<r><f255>' " +
-                        "to see what's around you.\n\n")
+    mud.send_message_wrap(id, '<f255>',
+                          '****CLEAR****<f220>Welcome to AberMUSH!, ' +
+                          '{}. '.format(players[id]['name']))
+    mud.send_message_wrap(id, '<f255>',
+                          '<f255>Hello there traveller! ' +
+                          'You have connected to the ' +
+                          'server. You can move around the ' +
+                          'rooms along with other players, ' +
+                          'attack each other (including NPCs), ' +
+                          'pick up and drop items and chat. ' +
+                          'Make sure to visit the repo for ' +
+                          'further info. Thanks for your ' +
+                          'interest in AberMUSH.')
+    mud.send_message_wrap(id, '<f255>',
+                          "<f255>Type '<r><f220>help<r><f255>' " +
+                          "for a list of all currently implemented " +
+                          "commands.")
+    mud.send_message_wrap(id, '<f255>',
+                          "<f255>Type '<r><f220>look<r><f255>' " +
+                          "to see what's around you.\n\n")

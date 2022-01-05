@@ -121,32 +121,32 @@ def marketBuysItemTypes(marketType: str, markets: {}) -> []:
     return marketBuys
 
 
-def assignMarkets(markets: {}, rooms: {}, itemsDB: {},
-                  culturesDB: {}) -> int:
+def assign_markets(markets: {}, rooms: {}, items_db: {},
+                   cultures_db: {}) -> int:
     """Assigns market types to rooms
     """
     noOfMarkets = 0
-    for roomID, rm in rooms.items():
+    for room_id, rm in rooms.items():
         # whether or not there is a market here depends on the room name
-        rooms[roomID]['marketInventory'] = None
+        rooms[room_id]['marketInventory'] = None
         roomName = rm['name'].lower()
         marketType = getMarketType(roomName, markets)
         if not marketType:
             continue
 
         # get the types of items sold
-        rooms[roomID]['marketInventory'] = {}
+        rooms[room_id]['marketInventory'] = {}
         marketSells = _marketSellsItemTypes(marketType, markets)
         if not marketSells:
             continue
 
         # the market can have a culture, which then
         # determines the types of items within it
-        roomCulture = getRoomCulture(culturesDB, rooms, roomID)
+        roomCulture = getRoomCulture(cultures_db, rooms, room_id)
 
         inventoryCtr = 0
         itemNamesList = []
-        for itemID, item in itemsDB.items():
+        for itemID, item in items_db.items():
             for itemType in marketSells:
                 itemName = item['name'].lower()
                 if itemType not in itemName:
@@ -164,7 +164,7 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {},
                 # TODO cost and stock level could vary with
                 # region, coords, season, etc
                 # which could then lead to merchanting
-                rooms[roomID]['marketInventory'][itemID] = {
+                rooms[room_id]['marketInventory'][itemID] = {
                     "stock": 1,
                     "cost": itemCost
                 }
@@ -175,7 +175,7 @@ def assignMarkets(markets: {}, rooms: {}, itemsDB: {},
     return noOfMarkets
 
 
-def buyItem(players: {}, id, itemID, itemsDB: {}, cost: str) -> bool:
+def buyItem(players: {}, id, itemID, items_db: {}, cost: str) -> bool:
     """Returns true if the given item was bought
     """
     if cost == '0':

@@ -85,7 +85,7 @@ def _getMMP(rooms: {}, environments: {}) -> str:
     return xmlStr
 
 
-def exportMMP(rooms: {}, environments: {}, filename: str) -> None:
+def export_mmp(rooms: {}, environments: {}, filename: str) -> None:
     """Exports rooms in MMP format for use by MUD clients
     See https://wiki.mudlet.org/w/Standards:MMP
     """
