@@ -13,14 +13,14 @@ import random
 import math
 from math import sin
 import datetime
-from functions import randomDescription
+from functions import random_desc
 import decimal
 dec = decimal.Decimal
 
 rainThreshold = 230
 
 
-def runTide() -> float:
+def run_tide() -> float:
     """Calculates the tide level as the addition of sine waves
     """
     lunar_orbit_mins = 39312
@@ -947,7 +947,7 @@ def get_temperatureAtCoords(coords: [], rooms: {}, map_area: [],
     currTemp = _terrainTemperatureAdjustment(currTemp, rooms, map_area, x, y)
 
     # Adjust for rain
-    if getRainAtCoords([coords[0], coords[1]], map_area, clouds):
+    if get_rain_at_coords([coords[0], coords[1]], map_area, clouds):
         currTemp = currTemp * 0.8
 
     if clouds[x][y] < _getCloudThreshold(currTemp):
@@ -958,7 +958,7 @@ def get_temperatureAtCoords(coords: [], rooms: {}, map_area: [],
     return currTemp * 0.8
 
 
-def getRainAtCoords(coords: [], map_area: [], clouds: {}) -> bool:
+def get_rain_at_coords(coords: [], map_area: [], clouds: {}) -> bool:
     """Returns whether it is raining at the civen coordinates
     """
     if not coords:
@@ -1005,7 +1005,7 @@ def assign_environment_to_rooms(environments: {}, rooms: {}) -> int:
     return percentAssigned
 
 
-def getRoomCulture(cultures_db: {}, rooms: {}, roomId) -> str:
+def get_room_culture(cultures_db: {}, rooms: {}, roomId) -> str:
     """Returns the culture for a room
     """
     if not rooms[roomId].get('region'):
@@ -1019,7 +1019,7 @@ def getRoomCulture(cultures_db: {}, rooms: {}, roomId) -> str:
     return None
 
 
-def isFishingSite(rooms: {}, rid) -> bool:
+def is_fishing_site(rooms: {}, rid) -> bool:
     """Is the given location a fishing site?
     """
     fishingSites = ('river', 'lake', 'sea', 'ocean', 'pond')
@@ -1032,7 +1032,7 @@ def isFishingSite(rooms: {}, rid) -> bool:
     return False
 
 
-def holdingFishingRod(players: {}, id, items_db: {}) -> bool:
+def holding_fishing_rod(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a fishing rod?
     """
     handLocations = ('clo_lhand', 'clo_rhand')
@@ -1044,7 +1044,7 @@ def holdingFishingRod(players: {}, id, items_db: {}) -> bool:
     return False
 
 
-def holdingFlyFishingRod(players: {}, id, items_db: {}) -> bool:
+def holding_fly_fishing_rod(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a fly fishing rod?
     """
     handLocations = ('clo_lhand', 'clo_rhand')
@@ -1063,9 +1063,9 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
     if randint(1, 100) < 80:
         return
     rid = players[id]['room']
-    if not holdingFishingRod(players, id, items_db):
+    if not holding_fishing_rod(players, id, items_db):
         return
-    if not isFishingSite(rooms, rid):
+    if not is_fishing_site(rooms, rid):
         return
     roomNameLower = rooms[rid]['name'].lower()
     fishNames = []
@@ -1094,7 +1094,7 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
             'trout', 'chub'
         )
     elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
-        if not holdingFlyFishingRod(players, id, items_db):
+        if not holding_fly_fishing_rod(players, id, items_db):
             fishNames = (
                 'cod fish', 'haddock', 'turbot', 'sturgeon',
                 'dogfish', 'pollack', 'sea bass', 'mullet'
@@ -1104,7 +1104,7 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
                 'sea bass', 'mullet'
             )
     elif 'pond' in roomNameLower:
-        if not holdingFlyFishingRod(players, id, items_db):
+        if not holding_fly_fishing_rod(players, id, items_db):
             fishNames = (
                 'pond weed'
             )
@@ -1138,7 +1138,7 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
         return
     caughtStr = \
         items_db[caughtId]['article'] + ' ' + items_db[caughtId]['name']
-    msgStr = randomDescription('You catch ' + caughtStr)
+    msgStr = random_desc('You catch ' + caughtStr)
     players[id]['inv'].append(caughtId)
     del players[id]['isFishing']
     mud.send_message(id, msgStr + '\n\n')
@@ -1161,7 +1161,7 @@ def _moonPosition(currTime) -> int:
     return lunations % dec(1)
 
 
-def moonPhase(currTime) -> int:
+def moon_phase(currTime) -> int:
     """Returns a number representing the phase of the moon
     """
     position = _moonPosition(currTime)
@@ -1170,7 +1170,7 @@ def moonPhase(currTime) -> int:
     return int(index) & 7
 
 
-def moonIllumination(currTime) -> int:
+def moon_illumination(currTime) -> int:
     """Returns additional illumination due to moonlight
     """
     position = _moonPosition(currTime)

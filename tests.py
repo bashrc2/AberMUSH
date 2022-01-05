@@ -11,7 +11,7 @@ __module_group__ = "Unit Testing"
 import os
 import json
 import configparser
-from markets import moneyPurchase
+from markets import money_purchase
 
 
 def getFunctionCallArgs(name: str, lines: [], startLineCtr: int) -> []:
@@ -184,11 +184,11 @@ def _testFunctions():
     exclusions = [
         'familiarIsHidden',
         '_nod',
-        '_prone',
+        '_pose_prone',
         '_stand',
         '_shove',
         '_dodge',
-        '_sendCommandError',
+        '_send_command_error',
         '_teleport',
         '_summon',
         '_mute',
@@ -205,12 +205,12 @@ def _testFunctions():
         '_tell',
         '_whisper',
         '_help',
-        '_castSpell',
+        '_cast_spell',
         '_affinity',
-        '_clearSpells',
+        '_clear_spells',
         '_spells',
         '_sit',
-        '_prepareSpell',
+        '_prepare_spell',
         '_speak',
         '_laugh',
         '_thinking',
@@ -232,11 +232,11 @@ def _testFunctions():
         '_smug',
         '_relieved',
         '_stick',
-        '_escapeTrap',
-        '_attack',
+        '_escape_trap',
+        '_begin_attack',
         '_describe',
-        '_changeSetting',
-        '_writeOnItem',
+        '_change_setting',
+        '_write_on_item',
         '_check',
         '_wear',
         '_unwear',
@@ -244,36 +244,36 @@ def _testFunctions():
         '_stow',
         '_bio',
         '_eat',
-        '_stepOver',
+        '_step_over',
         '_jump',
         '_deal',
-        '_handOfCards',
-        '_swapACard',
+        '_hand_of_cards',
+        '_swap_a_card',
         '_shuffle',
-        '_callCardGame',
-        '_morrisGame',
+        '_call_card_game',
+        '_morris_game',
         '_chess',
         '_graphics',
-        '_goNorth',
-        '_goSouth',
-        '_goEast',
-        '_goWest',
-        '_goUp',
-        '_goDown',
-        '_goIn',
-        '_goOut',
+        '_go_north',
+        '_go_south',
+        '_go_east',
+        '_go_west',
+        '_go_up',
+        '_go_down',
+        '_go_in',
+        '_go_out',
         '_dismiss',
         '_conjure',
         '_destroy',
         '_give',
         '_drop',
-        '_openItem',
-        '_closeItem',
-        '_pullLever',
-        '_pushLever',
-        '_windLever',
-        '_unwindLever',
-        '_putItem',
+        '_open_item',
+        '_close_item',
+        '_pull_lever',
+        '_push_lever',
+        '_wind_lever',
+        '_unwind_lever',
+        '_put_item',
         '_take',
         '_taunt',
         '_buy',
@@ -669,11 +669,11 @@ def _testMoneyPurchase() -> None:
             "pp": 0
         }
     }
-    assert moneyPurchase(id, players, "0gp")
+    assert money_purchase(id, players, "0gp")
     players[id]["gp"] = 100
-    assert moneyPurchase(id, players, "0gp")
-    assert not moneyPurchase(id, players, "101gp")
-    assert moneyPurchase(id, players, "40gp")
+    assert money_purchase(id, players, "0gp")
+    assert not money_purchase(id, players, "101gp")
+    assert money_purchase(id, players, "40gp")
     if players[id]["gp"] != 60:
         print('gp ' + str(players[id]["gp"]))
     assert players[id]["gp"] == 60
@@ -686,7 +686,7 @@ def _testMoneyPurchase() -> None:
             "pp": 0
         }
     }
-    assert moneyPurchase(id, players, "2gp")
+    assert money_purchase(id, players, "2gp")
     assert players[id]["sp"] == 10
 
 

@@ -8,7 +8,7 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "NPCs"
 
-from functions import randomDescription
+from functions import random_desc
 from functions import deepcopy
 # from copy import deepcopy
 
@@ -20,7 +20,7 @@ def getFamiliarModes():
     return familiarModes
 
 
-def getFamiliarName(players, id, npcs):
+def get_familiar_name(players, id, npcs):
     """Returns the name of the familiar of the given player
     """
     if players[id]['familiar'] != -1:
@@ -80,7 +80,7 @@ def familiarSight(mud, nid, npcs, npcs_db, rooms, players, id,
             mud.send_message(id, "There are " + str(len(roomExits)) +
                              " exits.")
         else:
-            exitDescription = randomDescription("a single|one")
+            exitDescription = random_desc("a single|one")
             mud.send_message(id, "There is " + exitDescription + " exit.")
     creaturesCount = 0
     creaturesFriendly = 0
@@ -111,7 +111,7 @@ def familiarSight(mud, nid, npcs, npcs_db, rooms, players, id,
                                 creaturesFriendly = creaturesFriendly + 1
 
     if creaturesCount > 0:
-        creatureStr = randomDescription("creature|being|entity")
+        creatureStr = random_desc("creature|being|entity")
         creaturesMsg = 'I see '
         if creaturesCount > 1:
             creaturesMsg = creaturesMsg + str(creaturesCount) + ' ' + \
@@ -121,7 +121,7 @@ def familiarSight(mud, nid, npcs, npcs_db, rooms, players, id,
         creaturesMsg = creaturesMsg + ' here.'
 
         friendlyWord = \
-            randomDescription("friendly|nice|pleasing|not threatening")
+            random_desc("friendly|nice|pleasing|not threatening")
         if creaturesFriendly > 0:
             if creaturesFriendly > 1:
                 creaturesMsg = creaturesMsg + ' ' + \

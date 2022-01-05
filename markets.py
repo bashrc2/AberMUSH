@@ -7,7 +7,7 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = ""
 
-from environment import getRoomCulture
+from environment import get_room_culture
 
 
 exchangeRate = {
@@ -49,7 +49,7 @@ exchangeRate = {
 }
 
 
-def moneyPurchase(id, players: {}, cost: str) -> bool:
+def money_purchase(id, players: {}, cost: str) -> bool:
     """Does the player have enough money to buy something at the given cost?
     """
     costDenom = None
@@ -74,7 +74,7 @@ def moneyPurchase(id, players: {}, cost: str) -> bool:
     return False
 
 
-def getMarketType(roomName: str, markets: {}) -> str:
+def get_market_type(roomName: str, markets: {}) -> str:
     """Returns the market type for the room name
     """
     for marketType, item in markets.items():
@@ -105,7 +105,7 @@ def _marketSellsItemTypes(marketType: str, markets: {}) -> []:
     return marketSells
 
 
-def marketBuysItemTypes(marketType: str, markets: {}) -> []:
+def market_buys_item_types(marketType: str, markets: {}) -> []:
     """Returns a list of item types which a market buys
     """
     marketBuys = []
@@ -130,7 +130,7 @@ def assign_markets(markets: {}, rooms: {}, items_db: {},
         # whether or not there is a market here depends on the room name
         rooms[room_id]['marketInventory'] = None
         roomName = rm['name'].lower()
-        marketType = getMarketType(roomName, markets)
+        marketType = get_market_type(roomName, markets)
         if not marketType:
             continue
 
@@ -142,7 +142,7 @@ def assign_markets(markets: {}, rooms: {}, items_db: {},
 
         # the market can have a culture, which then
         # determines the types of items within it
-        roomCulture = getRoomCulture(cultures_db, rooms, room_id)
+        roomCulture = get_room_culture(cultures_db, rooms, room_id)
 
         inventoryCtr = 0
         itemNamesList = []
@@ -175,12 +175,12 @@ def assign_markets(markets: {}, rooms: {}, items_db: {},
     return noOfMarkets
 
 
-def buyItem(players: {}, id, itemID, items_db: {}, cost: str) -> bool:
+def buy_item(players: {}, id, itemID, items_db: {}, cost: str) -> bool:
     """Returns true if the given item was bought
     """
     if cost == '0':
         cost = '0gp'
 
-    if moneyPurchase(id, players, cost):
+    if money_purchase(id, players, cost):
         return True
     return False

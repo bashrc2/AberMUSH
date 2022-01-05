@@ -20,8 +20,8 @@ validMorrisBoardLocations = [
 ]
 
 
-def getMorrisBoardName(players: {}, id: int, rooms: {},
-                       items: {}, items_db: {}) -> str:
+def get_morris_board_name(players: {}, id: int, rooms: {},
+                          items: {}, items_db: {}) -> str:
     """Returns the name of the morris board if there is one in the room
     This then corresponds to the subdirectory within morrisboards, where
     icons exist
@@ -96,9 +96,9 @@ def _morrisBoardSet(board: str, index: int, piece: str) -> str:
     return board[:index] + piece + board[(index + 1):]
 
 
-def morrisMove(moveDescription: str,
-               players: {}, id, mud, rooms: {},
-               items: {}, items_db: {}) -> None:
+def morris_move(moveDescription: str,
+                players: {}, id, mud, rooms: {},
+                items: {}, items_db: {}) -> None:
     gameItemID = _morrisBoardInRoom(players, id, rooms, items, items_db)
     if not gameItemID:
         mud.send_message(id, '\nThere are no Morris board here.\n')
@@ -132,23 +132,23 @@ def morrisMove(moveDescription: str,
         board = '·' * 24
         items[gameItemID]['gameState']['morris'] = board
 
-    boardName = getMorrisBoardName(players, id, rooms, items, items_db)
+    boardName = get_morris_board_name(players, id, rooms, items, items_db)
 
     # check for a win
     if whiteCounters == 0 and blackCounters == 0:
         if _morrisPieces('white', board) <= 2 or \
            _morrisPieces('black', board) <= 2:
-            showMorrisBoard(boardName, players, id, mud, rooms,
-                            items, items_db)
+            show_morris_board(boardName, players, id, mud, rooms,
+                              items, items_db)
             return
 
     if _noOfMills('black', board) > \
        items[gameItemID]['gameState']['millsBlack']:
-        showMorrisBoard(boardName, players, id, mud, rooms, items, items_db)
+        show_morris_board(boardName, players, id, mud, rooms, items, items_db)
         return
     if _noOfMills('white', board) > \
        items[gameItemID]['gameState']['millsWhite']:
-        showMorrisBoard(boardName, players, id, mud, rooms, items, items_db)
+        show_morris_board(boardName, players, id, mud, rooms, items, items_db)
         return
 
     moveDescription = \
@@ -262,7 +262,7 @@ def morrisMove(moveDescription: str,
                 items[gameItemID]['gameState']['morris'] = board
                 break
             toIndex += 1
-    showMorrisBoard(boardName, players, id, mud, rooms, items, items_db)
+    show_morris_board(boardName, players, id, mud, rooms, items, items_db)
 
 
 def _morrisPieces(side: str, board: str) -> int:
@@ -278,8 +278,8 @@ def _morrisPieces(side: str, board: str) -> int:
     return ctr
 
 
-def resetMorrisBoard(players: {}, id: int, mud, rooms: {},
-                     items: {}, items_db: {}) -> None:
+def reset_morris_board(players: {}, id: int, mud, rooms: {},
+                       items: {}, items_db: {}) -> None:
     gameItemID = _morrisBoardInRoom(players, id, rooms, items, items_db)
     if not gameItemID:
         mud.send_message(id, '\nThere are no Morris board here.\n')
@@ -288,7 +288,7 @@ def resetMorrisBoard(players: {}, id: int, mud, rooms: {},
     if not items[gameItemID].get('gameState'):
         items[gameItemID]['gameState'] = {}
 
-    boardName = getMorrisBoardName(players, id, rooms, items, items_db)
+    boardName = get_morris_board_name(players, id, rooms, items, items_db)
 
     board = '·' * 24
     items[gameItemID]['gameState']['morris'] = board
@@ -297,7 +297,7 @@ def resetMorrisBoard(players: {}, id: int, mud, rooms: {},
     items[gameItemID]['gameState']['morrisBlack'] = 9
     items[gameItemID]['gameState']['millsBlack'] = 0
     items[gameItemID]['gameState']['morrisTurn'] = 'white'
-    showMorrisBoard(boardName, players, id, mud, rooms, items, items_db)
+    show_morris_board(boardName, players, id, mud, rooms, items, items_db)
 
 
 def _boardLocationIndexes(boardName: str) -> {}:
@@ -332,9 +332,9 @@ def _boardLocationIndexes(boardName: str) -> {}:
     return locations
 
 
-def _showMorrisBoardAsHtml(boardName: str,
-                           players: {}, id: int, mud, rooms: {},
-                           items: {}, items_db: {}) -> None:
+def _show_morris_boardAsHtml(boardName: str,
+                             players: {}, id: int, mud, rooms: {},
+                             items: {}, items_db: {}) -> None:
     """Shows the board as html for the web interface
     """
     locations = _boardLocationIndexes(boardName)
@@ -426,14 +426,14 @@ def _showMorrisBoardAsHtml(boardName: str,
                      "'s move\n")
 
 
-def showMorrisBoard(boardName: str,
-                    players: {}, id: int, mud, rooms: {},
-                    items: {}, items_db: {}) -> None:
+def show_morris_board(boardName: str,
+                      players: {}, id: int, mud, rooms: {},
+                      items: {}, items_db: {}) -> None:
     """Draws the morris board
     """
     if mud.player_using_web_interface(id):
-        _showMorrisBoardAsHtml(boardName, players, id, mud, rooms,
-                               items, items_db)
+        _show_morris_boardAsHtml(boardName, players, id, mud, rooms,
+                                 items, items_db)
         return
     gameItemID = _morrisBoardInRoom(players, id, rooms, items, items_db)
     if not gameItemID:
@@ -505,9 +505,9 @@ def showMorrisBoard(boardName: str,
                      "'s move\n")
 
 
-def takeMorrisCounter(takeDescription: str,
-                      players: {}, id, mud, rooms: {},
-                      items: {}, items_db: {}) -> None:
+def take_morris_counter(takeDescription: str,
+                        players: {}, id, mud, rooms: {},
+                        items: {}, items_db: {}) -> None:
     """Takes an opponent counter from the board
     """
     gameItemID = _morrisBoardInRoom(players, id, rooms, items, items_db)
@@ -515,7 +515,7 @@ def takeMorrisCounter(takeDescription: str,
         mud.send_message(id, '\nThere are no Morris board here.\n')
         return
 
-    boardName = getMorrisBoardName(players, id, rooms, items, items_db)
+    boardName = get_morris_board_name(players, id, rooms, items, items_db)
 
     if not items[gameItemID].get('gameState'):
         items[gameItemID]['gameState'] = {}
@@ -554,8 +554,8 @@ def takeMorrisCounter(takeDescription: str,
                         _noOfMills('black', board)
                     board = _morrisBoardSet(board, index, '·')
                     items[gameItemID]['gameState']['morris'] = board
-                    showMorrisBoard(boardName,
-                                    players, id, mud, rooms, items, items_db)
+                    show_morris_board(boardName,
+                                      players, id, mud, rooms, items, items_db)
             index += 1
     elif (_noOfMills('white', board) >
           items[gameItemID]['gameState']['millsWhite']):
@@ -567,6 +567,6 @@ def takeMorrisCounter(takeDescription: str,
                         _noOfMills('white', board)
                     board = _morrisBoardSet(board, index, '·')
                     items[gameItemID]['gameState']['morris'] = board
-                    showMorrisBoard(boardName,
-                                    players, id, mud, rooms, items, items_db)
+                    show_morris_board(boardName,
+                                      players, id, mud, rooms, items, items_db)
             index += 1

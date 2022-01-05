@@ -8,19 +8,19 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "DnD Mechanics"
 
-from functions import playerInventoryWeight
-from functions import stowHands
+from functions import player_inventory_weight
+from functions import stow_hands
 from functions import prepareSpells
-from functions import randomDescription
-from functions import decreaseAffinityBetweenPlayers
+from functions import random_desc
+from functions import decrease_affinity_between_players
 from functions import deepcopy
-from functions import playerIsProne
-from functions import setPlayerProne
+from functions import player_is_prone
+from functions import set_player_prone
 from random import randint
 # from copy import deepcopy
 from environment import get_temperatureAtCoords
 from proficiencies import damageProficiency
-from traps import playerIsTrapped
+from traps import player_is_trapped
 import os
 import time
 
@@ -42,7 +42,7 @@ defenseClothing = (
     'clo_gloves')
 
 
-def removePreparedSpell(players, id, spellName):
+def remove_prepared_spell(players, id, spellName):
     del players[id]['preparedSpells'][spellName]
     del players[id]['spellSlots'][spellName]
 
@@ -80,7 +80,7 @@ def _playerIsAvailable(id, players: {}, items_db: {}, rooms: {},
 def _getEncumberanceFromWeight(id, players: {}, items_db: {}) -> int:
     """Returns the light medium or heavy encumberance (0,1,2)
     """
-    totalWeight = playerInventoryWeight(id, players, items_db)
+    totalWeight = player_inventory_weight(id, players, items_db)
 
     strength = int(players[id]['str'])
     if strength < 1:
@@ -159,9 +159,9 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
                 player2Size = races_db[race]['siz']
     if player2Size < player1Size or player2Size > player1Size + 1:
         if player2Size > player1Size:
-            descr = randomDescription("They're too large to shove")
+            descr = random_desc("They're too large to shove")
         else:
-            descr = randomDescription("They're too small to shove")
+            descr = random_desc("They're too small to shove")
         mud.send_message(id, descr + '.\n')
         players1[id]['shove'] = 0
         return False
@@ -176,14 +176,14 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
 
     players1[id]['shove'] = 0
 
-    if playerIsProne(s2id, players2):
+    if player_is_prone(s2id, players2):
         mud.send_message(
             id,
             'You attempt to shove ' + players2[s2id]['name'] +
             ', but they are already prone.\n')
         return False
 
-    descr = randomDescription('You shove ' + players2[s2id]['name'])
+    descr = random_desc('You shove ' + players2[s2id]['name'])
     mud.send_message(id, descr + '.\n')
 
     if randint(1, player1Strength) > randint(1, player2Strength):
@@ -196,7 +196,7 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             'They stagger and fall backwards',
             'They lose balance and fall backwards'
         )
-        descr = randomDescription(desc)
+        descr = random_desc(desc)
         mud.send_message(id, descr + '.\n')
         return True
     else:
@@ -207,7 +207,7 @@ def _playerShoves(mud, id, players1: {}, s2id, players2: {},
             'They push back and remain standing',
             'They remain steady'
         )
-        descr = randomDescription(desc)
+        descr = random_desc(desc)
         mud.send_message(id, descr + '.\n')
         return False
 
@@ -232,7 +232,7 @@ def _combatUpdateMaxHitPoints(id, players: {}, races_db: {}) -> None:
     players[id]['hpMax'] = hpMax
 
 
-def healthOfPlayer(pid: int, players: {}) -> str:
+def health_of_player(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
     hp = players[pid]['hp']
@@ -858,14 +858,14 @@ def _getAttackDescription(animalType: str, weaponType: str,
             "crudely swing a fist at",
             "ineptly punch"
         ]
-        attackDescriptionFirst = randomDescription(attackStrings)
+        attackDescriptionFirst = random_desc(attackStrings)
         attackStrings = [
             "swung a fist at",
             "punched",
             "crudely swung a fist at",
             "ineptly punched"
         ]
-        attackDescriptionSecond = randomDescription(attackStrings)
+        attackDescriptionSecond = random_desc(attackStrings)
         for attackType, attackDesc in attack_db.items():
             if animalType.startswith('animal '):
                 continue
@@ -876,17 +876,17 @@ def _getAttackDescription(animalType: str, weaponType: str,
                 if not isCritical:
                     # first person - you attack a player or npc
                     attackDescriptionFirst = \
-                        randomDescription(attackDesc['first'])
+                        random_desc(attackDesc['first'])
                     # second person - you were attacked by a player or npc
                     attackDescriptionSecond = \
-                        randomDescription(attackDesc['second'])
+                        random_desc(attackDesc['second'])
                 else:
                     # first person critical hit
                     attackDescriptionFirst = \
-                        randomDescription(attackDesc['critical first'])
+                        random_desc(attackDesc['critical first'])
                     # second person critical hit
                     attackDescriptionSecond = \
-                        randomDescription(attackDesc['critical second'])
+                        random_desc(attackDesc['critical second'])
                 break
     else:
         attackStrings = [
@@ -896,7 +896,7 @@ def _getAttackDescription(animalType: str, weaponType: str,
             "viciously bite",
             "savagely gnaw"
         ]
-        attackDescriptionFirst = randomDescription(attackStrings)
+        attackDescriptionFirst = random_desc(attackStrings)
         attackStrings = [
             "savaged",
             "mauled",
@@ -904,7 +904,7 @@ def _getAttackDescription(animalType: str, weaponType: str,
             "viciously bit into",
             "savagely gnawed into"
         ]
-        attackDescriptionSecond = randomDescription(attackStrings)
+        attackDescriptionSecond = random_desc(attackStrings)
         for anType, attackDesc in attack_db.items():
             if not anType.startswith('animal '):
                 continue
@@ -916,17 +916,17 @@ def _getAttackDescription(animalType: str, weaponType: str,
                 if not isCritical:
                     # first person -  you attack a player or npc
                     attackDescriptionFirst = \
-                        randomDescription(attackDesc['first'])
+                        random_desc(attackDesc['first'])
                     # second person -  you were attacked by a player or npc
                     attackDescriptionSecond = \
-                        randomDescription(attackDesc['second'])
+                        random_desc(attackDesc['second'])
                 else:
                     # first person critical hit
                     attackDescriptionFirst = \
-                        randomDescription(attackDesc['critical first'])
+                        random_desc(attackDesc['critical first'])
                     # second person critical hit
                     attackDescriptionSecond = \
-                        randomDescription(attackDesc['critical second'])
+                        random_desc(attackDesc['critical second'])
                 break
 
     return attackDescriptionFirst, attackDescriptionSecond
@@ -963,12 +963,12 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
 
     # is the player frozen?
     if players[s1id]['frozenStart'] > 0 or players[s1id]['canAttack'] == 0:
-        descr = randomDescription(players[s1id]['frozenDescription'])
+        descr = random_desc(players[s1id]['frozenDescription'])
         mud.send_message(s2id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    if playerIsTrapped(s1id, players, rooms):
+    if player_is_trapped(s1id, players, rooms):
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -987,12 +987,12 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
         players[s1id]['isInCombat'] = 1
         players[s2id]['isInCombat'] = 1
 
-        if playerIsProne(s1id, players):
+        if player_is_prone(s1id, players):
             # on the ground, so can't attack and misses the turn
             players[s1id]['lastCombatAction'] = int(time.time())
             # stand up for the next turn
-            setPlayerProne(s1id, players, False)
-            descr = randomDescription(
+            set_player_prone(s1id, players, False)
+            descr = random_desc(
                 'stands up|' +
                 'gets up|' +
                 'gets back on their feet|' +
@@ -1023,7 +1023,7 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
                 players[s1id]['name'] +
                 '<r> takes aim, but finds they have no ' +
                 items_db[lockItemID]['name'].lower() + '.\n')
-            stowHands(s1id, players, items_db, mud)
+            stow_hands(s1id, players, items_db, mud)
             mud.send_message(
                 s2id, '<f32>' +
                 players[s1id]['name'] +
@@ -1047,7 +1047,7 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
                     'You pivot',
                     'You duck'
                 )
-                dodgeDescription = randomDescription(desc)
+                dodgeDescription = random_desc(desc)
                 mud.send_message(s2id,
                                  '<f32>' + dodgeDescription + '<r>.\n')
                 mud.send_message(
@@ -1091,9 +1091,9 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
                     if players[s2id]['hp'] < 0:
                         players[s2id]['hp'] = 0
 
-                decreaseAffinityBetweenPlayers(
+                decrease_affinity_between_players(
                     players, s2id, players, s1id, guilds)
-                decreaseAffinityBetweenPlayers(
+                decrease_affinity_between_players(
                     players, s1id, players, s2id, guilds)
                 _sendCombatImage(mud, s1id, players,
                                  players[s1id]['race'], weaponType)
@@ -1106,7 +1106,7 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
                     attackText = attackDescriptionFirst[0]
                     if len(attackDescriptionFirst) > 1:
                         finalText = ' ' + \
-                            randomDescription(attackDescriptionFirst[1]) + '\n'
+                            random_desc(attackDescriptionFirst[1]) + '\n'
                 mud.send_message(
                     s1id, 'You ' + attackText + ' <f32><u>' +
                     players[s2id]['name'] +
@@ -1115,12 +1115,12 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
                     ' *<r> points of damage.\n' +
                     finalText +
                     players[s2id]['name'] + ' is ' +
-                    healthOfPlayer(s2id, players) + '\n')
+                    health_of_player(s2id, players) + '\n')
 
                 _sendCombatImage(mud, s2id, players,
                                  players[s1id]['race'], weaponType)
 
-                healthDescription = healthOfPlayer(s2id, players)
+                healthDescription = health_of_player(s2id, players)
                 if 'dead' in healthDescription:
                     healthDescription = 'You are ' + healthDescription
                 else:
@@ -1135,7 +1135,7 @@ def _run_fightsBetweenPlayers(mud, players: {}, npcs: {},
                     attackText = attackDescriptionSecond[0]
                     if len(attackDescriptionSecond) > 1:
                         finalText = ' ' + \
-                            randomDescription(attackDescriptionSecond[1]) + \
+                            random_desc(attackDescriptionSecond[1]) + \
                             '\n'
                 mud.send_message(
                     s2id, '<f32>' +
@@ -1189,12 +1189,12 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
     # is the player frozen?
     if players[s1id]['frozenStart'] > 0 or \
        players[s1id]['canAttack'] == 0:
-        descr = randomDescription(players[s1id]['frozenDescription'])
+        descr = random_desc(players[s1id]['frozenDescription'])
         mud.send_message(s2id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
-    if playerIsTrapped(s1id, players, rooms):
+    if player_is_trapped(s1id, players, rooms):
         players[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -1213,11 +1213,11 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
         players[s1id]['isInCombat'] = 1
         npcs[s2id]['isInCombat'] = 1
 
-        if playerIsProne(s1id, players):
+        if player_is_prone(s1id, players):
             # on the ground, so can't attack and misses the turn
             players[s1id]['lastCombatAction'] = int(time.time())
             # stand up for the next turn
-            setPlayerProne(s1id, players, False)
+            set_player_prone(s1id, players, False)
             return
 
         # attempt to shove
@@ -1238,7 +1238,7 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 'You take aim, but find you have no ' +
                 items_db[lockItemID]['name'].lower() +
                 '.\n')
-            stowHands(s1id, players, items_db, mud)
+            stow_hands(s1id, players, items_db, mud)
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
@@ -1291,10 +1291,10 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                     if int(npcs[s2id]['hp']) < 0:
                         npcs[s2id]['hp'] = 0
 
-                decreaseAffinityBetweenPlayers(npcs, s2id, players,
-                                               s1id, guilds)
-                decreaseAffinityBetweenPlayers(players, s1id, npcs,
-                                               s2id, guilds)
+                decrease_affinity_between_players(npcs, s2id, players,
+                                                  s1id, guilds)
+                decrease_affinity_between_players(players, s1id, npcs,
+                                                  s2id, guilds)
                 _sendCombatImage(mud, s1id, players,
                                  players[s1id]['race'], weaponType)
                 attackText = 'attack'
@@ -1305,7 +1305,7 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                     attackText = attackDescriptionFirst[0]
                     if len(attackDescriptionFirst) > 1:
                         finalText = ' ' + \
-                            randomDescription(attackDescriptionFirst[1]) + '\n'
+                            random_desc(attackDescriptionFirst[1]) + '\n'
                 mud.send_message(
                     s1id,
                     'You ' + attackText + ' <f220>' +
@@ -1314,7 +1314,7 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                     damageValueDesc +
                     ' * <r> points of damage\n' + finalText +
                     npcs[s2id]['name'] + ' is ' +
-                    healthOfPlayer(s2id, npcs) + '\n')
+                    health_of_player(s2id, npcs) + '\n')
         else:
             players[s1id]['lastCombatAction'] = int(time.time())
             desc = [
@@ -1330,7 +1330,7 @@ def _run_fightsBetweenPlayerAndNPC(mud, players: {}, npcs: {}, fights, fid,
                 'You miss <f220>' + npcs[s2id]['name'] +
                 '<r> by a wide margin'
             ]
-            descr = randomDescription(desc)
+            descr = random_desc(desc)
             mud.send_message(s1id, descr + '\n')
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
@@ -1387,18 +1387,18 @@ def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
     npcs[s1id]['isInCombat'] = 1
     players[s2id]['isInCombat'] = 1
 
-    if playerIsProne(s1id, npcs):
+    if player_is_prone(s1id, npcs):
         # on the ground, so can't attack and misses the turn
         npcs[s1id]['lastCombatAction'] = int(time.time())
         # stand up for the next turn
-        setPlayerProne(s1id, npcs, False)
+        set_player_prone(s1id, npcs, False)
         desc = (
             'stands up',
             'gets up',
             'gets back on their feet',
             'stands back up again'
         )
-        descr = randomDescription(desc)
+        descr = random_desc(desc)
         mud.send_message(s2id, '<f32>' + npcs[s1id]['name'] + ' ' +
                          descr + '<r>.\n')
         return
@@ -1424,7 +1424,7 @@ def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 'You pivot',
                 'You duck'
             )
-            dodgeDescription = randomDescription(desc)
+            dodgeDescription = random_desc(desc)
             mud.send_message(s2id,
                              '<f32>' + dodgeDescription + '<r>.\n')
             players[s2id]['dodge'] = 0
@@ -1463,10 +1463,10 @@ def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 if int(players[s2id]['hp']) < 0:
                     players[s2id]['hp'] = 0
 
-            decreaseAffinityBetweenPlayers(npcs, s1id, players,
-                                           s2id, guilds)
-            decreaseAffinityBetweenPlayers(players, s2id, npcs,
-                                           s1id, guilds)
+            decrease_affinity_between_players(npcs, s1id, players,
+                                              s2id, guilds)
+            decrease_affinity_between_players(players, s2id, npcs,
+                                              s1id, guilds)
             if not npcs[s1id]['animalType']:
                 _sendCombatImage(mud, s2id, players,
                                  npcs[s1id]['race'], weaponType)
@@ -1474,7 +1474,7 @@ def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 _sendCombatImage(mud, s2id, players,
                                  npcs[s1id]['animalType'], weaponType)
 
-            healthDescription = healthOfPlayer(s2id, players)
+            healthDescription = health_of_player(s2id, players)
             if 'dead' in healthDescription:
                 healthDescription = 'You are ' + healthDescription
             else:
@@ -1489,7 +1489,7 @@ def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
                 attackText = attackDescriptionSecond[0]
                 if len(attackDescriptionSecond) > 1:
                     finalText = ' ' + \
-                        randomDescription(attackDescriptionSecond[1]) + \
+                        random_desc(attackDescriptionSecond[1]) + \
                         '\n'
             mud.send_message(
                 s2id, '<f220>' +
@@ -1511,12 +1511,12 @@ def _run_fightsBetweenNPCAndPlayer(mud, players: {}, npcs: {}, fights, fid,
             '<f220>' + npcs[s1id]['name'] + '<r> missed you by miles!',
             '<f220>' + npcs[s1id]['name'] + '<r> missed you by a wide margin'
         ]
-        descr = randomDescription(desc)
+        descr = random_desc(desc)
         mud.send_message(s2id, descr + '\n')
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
-def isPlayerFighting(id, players: {}, fights: {}) -> bool:
+def is_player_fighting(id, players: {}, fights: {}) -> bool:
     """Returns true if the player is fighting
     """
     for (fid, pl) in list(fights.items()):
@@ -1565,7 +1565,7 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
         #     test = 1
 
 
-def isAttacking(players: {}, id, fights: {}) -> bool:
+def is_attacking(players: {}, id, fights: {}) -> bool:
     """Returns true if the given player is attacking
     """
     for (fight, pl) in fights.items():
@@ -1574,7 +1574,7 @@ def isAttacking(players: {}, id, fights: {}) -> bool:
     return False
 
 
-def getAttackingTarget(players: {}, id, fights: {}):
+def get_attacking_target(players: {}, id, fights: {}):
     """Return the player or npc which is the target of an attack
     """
     for (fight, pl) in fights.items():
@@ -1583,7 +1583,7 @@ def getAttackingTarget(players: {}, id, fights: {}):
     return None
 
 
-def stopAttack(players: {}, id, npcs: {}, fights: {}):
+def stop_attack(players: {}, id, npcs: {}, fights: {}):
     """Stops any fights for the given player
     """
     fightsCopy = deepcopy(fights)
@@ -1608,9 +1608,9 @@ def stopAttack(players: {}, id, npcs: {}, fights: {}):
                 npcs[s1id]['isInCombat'] = 0
 
 
-def playerBeginsAttack(players: {}, id, target: str,
-                       npcs: {}, fights: {}, mud, races_db: {},
-                       item_history: {}) -> bool:
+def player_begins_attack(players: {}, id, target: str,
+                         npcs: {}, fights: {}, mud, races_db: {},
+                         item_history: {}) -> bool:
     """Player begins an attack on another player or npc
     """
     targetFound = False
@@ -1665,7 +1665,7 @@ def playerBeginsAttack(players: {}, id, target: str,
                     "your own familiar, but decide against it",
                     "Your familiar looks at you disapprovingly"
                 )
-                descr = randomDescription(desc)
+                descr = random_desc(desc)
                 mud.send_message(id, descr + "\n\n")
                 return False
 
@@ -1809,7 +1809,7 @@ def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
         if npcs[nid]['frozenStart'] > 0:
             continue
         # already attacking?
-        if isAttacking(npcs, nid, fights):
+        if is_attacking(npcs, nid, fights):
             continue
         # are there players in the same room?
         for (pid, pl) in players.items():

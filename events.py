@@ -9,8 +9,8 @@ __status__ = "Production"
 __module_group__ = "Core"
 
 from functions import str2bool
-from functions import getFreeKey
-from functions import sizeFromDescription
+from functions import get_free_key
+from functions import size_from_description
 
 import time
 
@@ -427,7 +427,7 @@ def _spawnItem(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
     bodyInt = int(body[0])
     if not _itemInRoom(items, bodyInt, body[1]):
-        items[getFreeKey(items, 200000)] = {
+        items[get_free_key(items, 200000)] = {
             'id': bodyInt,
             'room': body[1],
             'whenDropped': int(time.time()),
@@ -441,12 +441,12 @@ def _spawnNPC(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
 
     # if the size is unknown then estimate it
     if npcs_db[int(body[0])]['siz'] == 0:
-        npcs_db[int(body[0])]['siz'] = sizeFromDescription(
+        npcs_db[int(body[0])]['siz'] = size_from_description(
             npcs_db[int(body[0])]['name'] + ' ' +
             npcs_db[int(body[0])]['lookDescription'])
 
     npcs_body = npcs_db[int(body[0])]
-    npcs[getFreeKey(npcs, 90000)] = {
+    npcs[get_free_key(npcs, 90000)] = {
         'name': npcs_body['name'],
         'room': body[1],
         'lvl': npcs_body['lvl'],

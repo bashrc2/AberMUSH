@@ -33,12 +33,12 @@ uni_pieces_html = {
 }
 
 
-def showChessBoard(boardName: str, gameState: [],
-                   id: int, mud, turn: str) -> None:
+def show_chess_board(boardName: str, gameState: [],
+                     id: int, mud, turn: str) -> None:
     """Shows the chess board
     """
     if mud.player_using_web_interface(id):
-        _showChessBoardAsHtml(boardName, gameState, id, mud, turn)
+        _show_chess_boardAsHtml(boardName, gameState, id, mud, turn)
         return
     mud.send_message(id, '\n')
     boardStr = ''
@@ -62,8 +62,8 @@ def showChessBoard(boardName: str, gameState: [],
     mud.send_game_board(id, boardStr)
 
 
-def _showChessBoardAsHtml(boardName: str, gameState: [], id: int,
-                          mud, turn: str) -> None:
+def _show_chess_boardAsHtml(boardName: str, gameState: [], id: int,
+                            mud, turn: str) -> None:
     """Shows the chess board as html for the web interface
     """
     if not boardName:
@@ -157,7 +157,7 @@ def _showChessBoardAsHtml(boardName: str, gameState: [], id: int,
     mud.send_game_board(id, boardHtml + '\n')
 
 
-def initialChessBoard() -> []:
+def initial_chess_board() -> []:
     """Returns the initial state of a chess game
     """
     return initial.copy()
@@ -186,8 +186,8 @@ def _chessPieceSet(gameState: [], coord: str, piece: str) -> None:
         row[:col] + piece + row[(col + 1):]
 
 
-def moveChessPiece(moveStr: str, gameState: [],
-                   turn: str, id: int, mud) -> bool:
+def move_chess_piece(moveStr: str, gameState: [],
+                     turn: str, id: int, mud) -> bool:
     movematch = re.match('([a-h][1-8])'*2, moveStr.lower())
     if not movematch:
         return False

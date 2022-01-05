@@ -23,9 +23,9 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
-wearLocation = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
-                'chest', 'feet', 'lfinger', 'rfinger', 'back',
-                'lleg', 'rleg', 'gloves')
+wear_location = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
+                 'chest', 'feet', 'lfinger', 'rfinger', 'back',
+                 'lleg', 'rleg', 'gloves')
 
 _dispatcher = {}
 
@@ -61,7 +61,7 @@ def deepcopy(sth):
         return cp(sth, _dispatcher)
 
 
-def TimeStringToSec(durationStr: str) -> int:
+def time_string_to_sec(durationStr: str) -> int:
     """Converts a description of a duration such as '1 hour'
        into a number of seconds
     """
@@ -79,7 +79,7 @@ def TimeStringToSec(durationStr: str) -> int:
     return 1
 
 
-def getSentiment(text: str, sentiment_db: {}) -> int:
+def get_sentiment(text: str, sentiment_db: {}) -> int:
     """Returns a sentiment score for the given text
        which can be positive or negative
     """
@@ -91,7 +91,7 @@ def getSentiment(text: str, sentiment_db: {}) -> int:
     return sentiment
 
 
-def getGuildSentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
+def get_guild_sentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
     """Returns the sentiment of the guild of the first player
     towards the second
     """
@@ -127,8 +127,8 @@ def _baselineAffinity(players, id):
     return averageAffinity
 
 
-def increaseAffinityBetweenPlayers(players: {}, id, npcs: {},
-                                   p, guilds: {}) -> None:
+def increase_affinity_between_players(players: {}, id, npcs: {},
+                                      p, guilds: {}) -> None:
     """Increases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -163,8 +163,8 @@ def increaseAffinityBetweenPlayers(players: {}, id, npcs: {},
                     _baselineAffinity(players, id)
 
 
-def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
-                                   p, guilds: {}) -> None:
+def decrease_affinity_between_players(players: {}, id, npcs: {},
+                                      p, guilds: {}) -> None:
     """Decreases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -206,7 +206,7 @@ def decreaseAffinityBetweenPlayers(players: {}, id, npcs: {},
                     _baselineAffinity(players, id)
 
 
-def randomDescription(descriptionList):
+def random_desc(descriptionList):
     if isinstance(descriptionList, list):
         descList = descriptionList
     else:
@@ -235,7 +235,7 @@ def levelUp(id, players, character_class_db, increment):
                     players[id]['proficiencies'].append(prof)
 
 
-def stowHands(id, players: {}, items_db: {}, mud):
+def stow_hands(id, players: {}, items_db: {}, mud):
     if int(players[id]['clo_rhand']) > 0:
         itemID = int(players[id]['clo_rhand'])
         mud.send_message(
@@ -257,7 +257,7 @@ def stowHands(id, players: {}, items_db: {}, mud):
         players[id]['clo_lhand'] = 0
 
 
-def sizeFromDescription(description: str):
+def size_from_description(description: str):
     tinyEntity = ('tiny', 'moth', 'butterfly', 'insect', 'beetle', 'ant',
                   'bee', 'wasp', 'hornet', 'mosquito', 'lizard', 'mouse',
                   'rat', 'crab', 'roach', 'snail', 'slug', 'hamster',
@@ -304,8 +304,8 @@ def sizeFromDescription(description: str):
     return size
 
 
-def updatePlayerAttributes(id, players: {},
-                           items_db: {}, itemID: str, mult: int):
+def update_player_attributes(id, players: {},
+                             items_db: {}, itemID: str, mult: int):
     playerAttributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
     for attr in playerAttributes:
         players[id][attr] = \
@@ -315,7 +315,7 @@ def updatePlayerAttributes(id, players: {},
     items_db[itemID]['mod_exp'] = 0
 
 
-def playerInventoryWeight(id, players, items_db):
+def player_inventory_weight(id, players, items_db):
     """Returns the total weight of a player's inventory
     """
     if len(list(players[id]['inv'])) == 0:
@@ -413,7 +413,7 @@ def log(content, type):
     log.close()
 
 
-def getFreeKey(itemsDict, start=None):
+def get_free_key(itemsDict, start=None):
     """Function for returning a first available key value for appending a new
     element to a dictionary
     """
@@ -435,7 +435,7 @@ def getFreeKey(itemsDict, start=None):
         return(start)
 
 
-def getFreeRoomKey(rooms):
+def get_free_room_key(rooms):
     """Function for returning a first available room key value for appending a
     room element to a dictionary
     """
@@ -460,7 +460,7 @@ def add_to_scheduler(eventID, targetID, scheduler, database):
     if isinstance(eventID, int):
         for item in database:
             if int(item[0]) == eventID:
-                scheduler[getFreeKey(scheduler)] = {
+                scheduler[get_free_key(scheduler)] = {
                     'time': int(time.time() + int(item[1])),
                     'target': int(targetID),
                     'type': item[2],
@@ -468,7 +468,7 @@ def add_to_scheduler(eventID, targetID, scheduler, database):
                 }
     elif isinstance(eventID, str):
         item = eventID.split('|')
-        scheduler[getFreeKey(scheduler)] = {
+        scheduler[get_free_key(scheduler)] = {
             'time': int(time.time() + int(item[0])),
             'target': int(targetID),
             'type': item[1],
@@ -575,7 +575,7 @@ def str2bool(v) -> bool:
 
 def send_to_channel(sender, channel, message, channels):
     # print("Im in!")
-    channels[getFreeKey(channels)] = {
+    channels[get_free_key(channels)] = {
         "channel": str(channel),
         "message": str(message),
         "sender": str(sender)}
@@ -606,7 +606,7 @@ def load_blocklist(filename, blocklist):
     return True
 
 
-def saveBlocklist(filename, blocklist):
+def save_blocklist(filename, blocklist):
     blockfile = open(filename, "w")
     for blockedstr in blocklist:
         blockfile.write(blockedstr + '\n')
@@ -655,7 +655,7 @@ def prepareSpells(mud, id, players):
                 players[id]['prepareSpellProgress'] + 1
 
 
-def isWearing(id, players: {}, itemList: []) -> bool:
+def is_wearing(id, players: {}, itemList: []) -> bool:
     """Given a list of possible item IDs is the player wearing any of them?
     """
     if not itemList:
@@ -663,10 +663,10 @@ def isWearing(id, players: {}, itemList: []) -> bool:
 
     for itemID in itemList:
         if not str(itemID).isdigit():
-            print('isWearing: ' + str(itemID) + ' is not a digit')
+            print('is_wearing: ' + str(itemID) + ' is not a digit')
             continue
         itemID = int(itemID)
-        for locn in wearLocation:
+        for locn in wear_location:
             if int(players[id]['clo_' + locn]) == itemID:
                 return True
         if int(players[id]['clo_lhand']) == itemID or \
@@ -675,8 +675,8 @@ def isWearing(id, players: {}, itemList: []) -> bool:
     return False
 
 
-def playerIsVisible(mud, observerId: int, observers: {},
-                    otherPlayerId: int, others: {}) -> bool:
+def player_is_visible(mud, observerId: int, observers: {},
+                      otherPlayerId: int, others: {}) -> bool:
     """Is the other player visible to the observer?
     """
     observerId = int(observerId)
@@ -684,20 +684,20 @@ def playerIsVisible(mud, observerId: int, observers: {},
     if not others[otherPlayerId].get('visibleWhenWearing'):
         return True
     if others[otherPlayerId].get('visibleWhenWearing'):
-        if isWearing(observerId, observers,
-                     others[otherPlayerId]['visibleWhenWearing']):
+        if is_wearing(observerId, observers,
+                      others[otherPlayerId]['visibleWhenWearing']):
             return True
     return False
 
 
-def messageToPlayersInRoom(mud, players, id, msg):
+def message_to_room_players(mud, players, id, msg):
     # go through all the players in the game
     for (pid, pl) in list(players.items()):
         # if player is in the same room and isn't the player
         # sending the command
         if players[pid]['room'] == players[id]['room'] and \
            pid != id:
-            if playerIsVisible(mud, pid, players, id, players):
+            if player_is_visible(mud, pid, players, id, players):
                 mud.send_message(pid, msg)
 
 
@@ -710,7 +710,7 @@ def show_timing(previousTiming, commentStr: str):
     return currTime
 
 
-def playerIsProne(id, players: {}) -> bool:
+def player_is_prone(id, players: {}) -> bool:
     """Returns true if the given player is prone
     """
     if players[id].get('prone'):
@@ -719,7 +719,7 @@ def playerIsProne(id, players: {}) -> bool:
     return False
 
 
-def setPlayerProne(id, players: {}, prone: bool) -> None:
+def set_player_prone(id, players: {}, prone: bool) -> None:
     """Sets the prone state for a player
     """
     if prone:
@@ -728,7 +728,7 @@ def setPlayerProne(id, players: {}, prone: bool) -> None:
         players[id]['prone'] = 0
 
 
-def parseCost(costStr: str) -> (int, str):
+def parse_cost(costStr: str) -> (int, str):
     """Parses a cost string and returns quantity and denomination
     """
     denomination = None

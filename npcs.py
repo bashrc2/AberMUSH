@@ -12,16 +12,16 @@ import os
 import datetime
 from suntime import Sun
 from functions import add_to_scheduler
-from functions import messageToPlayersInRoom
+from functions import message_to_room_players
 from functions import log
-from functions import playerInventoryWeight
-from functions import updatePlayerAttributes
-from functions import increaseAffinityBetweenPlayers
-from functions import decreaseAffinityBetweenPlayers
-from functions import getSentiment
-from functions import randomDescription
+from functions import player_inventory_weight
+from functions import update_player_attributes
+from functions import increase_affinity_between_players
+from functions import decrease_affinity_between_players
+from functions import get_sentiment
+from functions import random_desc
 from functions import deepcopy
-from functions import parseCost
+from functions import parse_cost
 from random import randint
 # from copy import deepcopy
 from familiar import getFamiliarModes
@@ -29,8 +29,8 @@ from familiar import familiarDefaultMode
 from familiar import familiarScout
 from familiar import familiarHide
 from familiar import familiarSight
-from environment import getRainAtCoords
-from environment import getRoomCulture
+from environment import get_rain_at_coords
+from environment import get_room_culture
 
 import time
 
@@ -84,7 +84,7 @@ def _getLeaderRoomIndex(npcs: {}, players: {}, mud,
     return ''
 
 
-def getSolar():
+def get_solar():
     return Sun(52.414, 4.081)
 
 
@@ -158,7 +158,7 @@ def _entityIsActive(id, players: {}, rooms: {},
            timeRangeType == 'dawn':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = getSolar()
+            sun = get_solar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
@@ -174,7 +174,7 @@ def _entityIsActive(id, players: {}, rooms: {},
            timeRangeType == 'dusk':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = getSolar()
+            sun = get_solar()
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
@@ -189,16 +189,16 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, map_area, clouds):
+                if not get_rain_at_coords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, map_area, clouds):
+                if get_rain_at_coords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainday':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = getSolar()
+            sun = get_solar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if currHour < sunRiseTime or \
@@ -208,16 +208,16 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, map_area, clouds):
+                if not get_rain_at_coords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, map_area, clouds):
+                if get_rain_at_coords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainnight':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = getSolar()
+            sun = get_solar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if currHour >= sunRiseTime and \
@@ -227,16 +227,16 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, map_area, clouds):
+                if not get_rain_at_coords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, map_area, clouds):
+                if get_rain_at_coords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainmorning':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = getSolar()
+            sun = get_solar()
             sunRiseTime = sun.get_local_sunrise_time(currTime).hour
             if currHour < sunRiseTime or \
                currHour > 12:
@@ -245,10 +245,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, map_area, clouds):
+                if not get_rain_at_coords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, map_area, clouds):
+                if get_rain_at_coords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainafternoon':
@@ -260,16 +260,16 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, map_area, clouds):
+                if not get_rain_at_coords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, map_area, clouds):
+                if get_rain_at_coords(coords, map_area, clouds):
                     return False
 
         if timeRangeType == 'rainevening':
             currTime = datetime.datetime.today()
             currHour = currTime.hour
-            sun = getSolar()
+            sun = get_solar()
             sunSetTime = sun.get_local_sunset_time(currTime).hour
             if currHour < 17 or \
                currHour > sunSetTime:
@@ -278,10 +278,10 @@ def _entityIsActive(id, players: {}, rooms: {},
             coords = rooms[rm]['coords']
             if 'true' in timeRangeStart.lower() or \
                'y' in timeRangeStart.lower():
-                if not getRainAtCoords(coords, map_area, clouds):
+                if not get_rain_at_coords(coords, map_area, clouds):
                     return False
             else:
-                if getRainAtCoords(coords, map_area, clouds):
+                if get_rain_at_coords(coords, map_area, clouds):
                     return False
 
         # hour of day
@@ -412,7 +412,7 @@ def _moveNPCs(npcs, players, mud, now, nid) -> None:
                 if thisNPC['room'] == players[pid]['room']:
                     mud.send_message(
                         pid, '<f220>' + thisNPC['name'] + "<r> " +
-                        randomDescription(thisNPC['outDescription']) +
+                        random_desc(thisNPC['outDescription']) +
                         "\n\n")
             thisNPC['room'] = rm
             thisNPC['lastRoom'] = rm
@@ -420,7 +420,7 @@ def _moveNPCs(npcs, players, mud, now, nid) -> None:
                 if thisNPC['room'] == players[pid]['room']:
                     mud.send_message(
                         pid, '<f220>' + thisNPC['name'] + "<r> " +
-                        randomDescription(thisNPC['inDescription']) +
+                        random_desc(thisNPC['inDescription']) +
                         "\n\n")
         thisNPC['randomizer'] = randint(0, thisNPC['randomFactor'])
         thisNPC['lastMoved'] = now
@@ -754,7 +754,7 @@ def _conversationCondition(word: str, conversationStates: {},
             targetValue = word.lower().split(conditionType)[1].strip()
     if varStr == 'roomcul' or \
        varStr == 'roomculture':
-        currValue = getRoomCulture(cultures_db, rooms, players[id]['room'])
+        currValue = get_room_culture(cultures_db, rooms, players[id]['room'])
         targetValue = word.lower().split(conditionType)[1].strip()
     if varStr == 'str' or \
        varStr == 'strength':
@@ -942,13 +942,13 @@ def _conversationGive(bestMatch: str, bestMatchAction: str,
             itemID = int(thingGivenIDstr)
             if itemID not in list(players[id]['inv']):
                 players[id]['inv'].append(str(itemID))
-                updatePlayerAttributes(id, players, items_db, itemID, 1)
+                update_player_attributes(id, players, items_db, itemID, 1)
                 players[id]['wei'] = \
-                    playerInventoryWeight(id, players, items_db)
-                increaseAffinityBetweenPlayers(players, id, npcs, nid,
-                                               guilds_db)
-                increaseAffinityBetweenPlayers(npcs, nid, players, id,
-                                               guilds_db)
+                    player_inventory_weight(id, players, items_db)
+                increase_affinity_between_players(players, id, npcs, nid,
+                                                  guilds_db)
+                increase_affinity_between_players(npcs, nid, players, id,
+                                                  guilds_db)
                 if '#' not in bestMatch:
                     mud.send_message(
                         id, "<f220>" + thisNPC['name'] + "<r> says: " +
@@ -1003,8 +1003,10 @@ def _conversationSkill(bestMatch: str, bestMatchAction: str,
                         players[id][newSkill] + \
                         int(skillValueStr)
 
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
+            increase_affinity_between_players(players, id, npcs,
+                                              nid, guilds_db)
+            increase_affinity_between_players(npcs, nid, players,
+                                              id, guilds_db)
 
             mud.send_message(
                 id, "<f220>" + thisNPC['name'] + "<r> says: " + bestMatch +
@@ -1031,8 +1033,10 @@ def _conversationExperience(
         if len(bestMatchActionParam0) > 0:
             expValue = int(bestMatchActionParam0)
             players[id]['exp'] = players[id]['exp'] + expValue
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
+            increase_affinity_between_players(players, id, npcs,
+                                              nid, guilds_db)
+            increase_affinity_between_players(npcs, nid, players,
+                                              id, guilds_db)
             return True
         else:
             mud.send_message(
@@ -1058,8 +1062,10 @@ def _conversationJoinGuild(
             players[id]['guild'] = bestMatchActionParam0
             if len(bestMatchActionParam1) > 0:
                 players[id]['guildRole'] = bestMatchActionParam1
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
+            increase_affinity_between_players(players, id, npcs,
+                                              nid, guilds_db)
+            increase_affinity_between_players(npcs, nid, players,
+                                              id, guilds_db)
             return True
         else:
             mud.send_message(
@@ -1123,14 +1129,16 @@ def _conversationTransport(
         if len(bestMatchActionParam0) > 0:
             room_id = bestMatchActionParam0
             mud.send_message(id, bestMatch)
-            messageToPlayersInRoom(
+            message_to_room_players(
                 mud, players, id,
                 '<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
             players[id]['room'] = room_id
             thisNPC['room'] = room_id
-            increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
-            increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
-            messageToPlayersInRoom(
+            increase_affinity_between_players(players, id, npcs,
+                                              nid, guilds_db)
+            increase_affinity_between_players(npcs, nid, players,
+                                              id, guilds_db)
+            message_to_room_players(
                 mud, players, id,
                 '<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
             mud.send_message(
@@ -1160,17 +1168,17 @@ def _conversationTaxi(
             if str(itemBuyID) in list(players[id]['inv']):
                 players[id]['inv'].remove(str(itemBuyID))
 
-                increaseAffinityBetweenPlayers(players, id, npcs,
-                                               nid, guilds_db)
-                increaseAffinityBetweenPlayers(npcs, nid, players,
-                                               id, guilds_db)
+                increase_affinity_between_players(players, id, npcs,
+                                                  nid, guilds_db)
+                increase_affinity_between_players(npcs, nid, players,
+                                                  id, guilds_db)
                 mud.send_message(id, bestMatch)
-                messageToPlayersInRoom(
+                message_to_room_players(
                     mud, players, id,
                     '<f32>{}<r> leaves.'.format(players[id]['name']) + "\n\n")
                 players[id]['room'] = room_id
                 thisNPC['room'] = room_id
-                messageToPlayersInRoom(
+                message_to_room_players(
                     mud, players, id,
                     '<f32>{}<r> arrives.'.format(players[id]['name']) + "\n\n")
                 mud.send_message(
@@ -1213,12 +1221,12 @@ def _conversationGiveOnDate(
                            int(datetime.datetime.today().strftime("%m")):
                             players[id]['inv'].append(str(itemID))
                             players[id]['wei'] = \
-                                playerInventoryWeight(id, players, items_db)
-                            updatePlayerAttributes(
+                                player_inventory_weight(id, players, items_db)
+                            update_player_attributes(
                                 id, players, items_db, itemID, 1)
-                            increaseAffinityBetweenPlayers(
+                            increase_affinity_between_players(
                                 players, id, npcs, nid, guilds_db)
-                            increaseAffinityBetweenPlayers(
+                            increase_affinity_between_players(
                                 npcs, nid, players, id, guilds_db)
                             if '#' not in bestMatch:
                                 mud.send_message(
@@ -1258,21 +1266,21 @@ def _conversationSell(
                 qty = 0
                 denomination = None
                 if cost:
-                    qty, denomination = parseCost(cost)
+                    qty, denomination = parse_cost(cost)
                 if sellIDStr in players[id]['inv'] and \
                    cost and qty and denomination:
                     players[id][denomination] += qty
 
                     # decrease the players inventory
                     players[id]['inv'].remove(sellIDStr)
-                    updatePlayerAttributes(
+                    update_player_attributes(
                         id, players, items_db, itemSellID, -1)
                     players[id]['wei'] = \
-                        playerInventoryWeight(id, players, items_db)
-                    increaseAffinityBetweenPlayers(players, id, npcs,
-                                                   nid, guilds_db)
-                    increaseAffinityBetweenPlayers(npcs, nid, players,
-                                                   id, guilds_db)
+                        player_inventory_weight(id, players, items_db)
+                    increase_affinity_between_players(players, id, npcs,
+                                                      nid, guilds_db)
+                    increase_affinity_between_players(npcs, nid, players,
+                                                      id, guilds_db)
 
                     itemName = \
                         items_db[sellIDStr]['article'] + ' ' + \
@@ -1314,19 +1322,19 @@ def _conversationBuyOrExchange(
                 if str(itemBuyID) in list(players[id]['inv']):
                     if str(itemSellID) not in list(players[id]['inv']):
                         players[id]['inv'].remove(str(itemBuyID))
-                        updatePlayerAttributes(
+                        update_player_attributes(
                             id, players, items_db, itemBuyID, -1)
                         players[id]['inv'].append(str(itemSellID))
                         players[id]['wei'] = \
-                            playerInventoryWeight(id, players, items_db)
-                        updatePlayerAttributes(
+                            player_inventory_weight(id, players, items_db)
+                        update_player_attributes(
                             id, players, items_db, itemSellID, 1)
                         if str(itemBuyID) not in list(thisNPC['inv']):
                             thisNPC['inv'].append(str(itemBuyID))
-                        increaseAffinityBetweenPlayers(players, id, npcs,
-                                                       nid, guilds_db)
-                        increaseAffinityBetweenPlayers(npcs, nid, players,
-                                                       id, guilds_db)
+                        increase_affinity_between_players(players, id, npcs,
+                                                          nid, guilds_db)
+                        increase_affinity_between_players(npcs, nid, players,
+                                                          id, guilds_db)
                         mud.send_message(
                             id, "<f220>" + thisNPC['name'] +
                             "<r> says: " + bestMatch + ".")
@@ -1367,12 +1375,12 @@ def _conversationBuyOrExchange(
     return False
 
 
-def npcConversation(mud, npcs: {}, npcs_db: {}, players: {},
-                    items: {}, items_db: {}, rooms: {},
-                    id: int, nid: int, message,
-                    character_class_db: {}, sentiment_db: {},
-                    guilds_db: {}, clouds: {}, races_db: {},
-                    item_history: {}, cultures_db: {}) -> None:
+def npc_conversation(mud, npcs: {}, npcs_db: {}, players: {},
+                     items: {}, items_db: {}, rooms: {},
+                     id: int, nid: int, message,
+                     character_class_db: {}, sentiment_db: {},
+                     guilds_db: {}, clouds: {}, races_db: {},
+                     item_history: {}, cultures_db: {}) -> None:
     """Conversation with an NPC
     This typically works by matching some words and then
     producing a corresponding response and/or action
@@ -1428,7 +1436,7 @@ def npcConversation(mud, npcs: {}, npcs_db: {}, players: {},
             # store the best match
             if matchCtr > maxMatchCtr:
                 maxMatchCtr = matchCtr
-                bestMatch = randomDescription(conv[1])
+                bestMatch = random_desc(conv[1])
                 bestMatchAction = ''
                 bestMatchActionParam0 = ''
                 bestMatchActionParam1 = ''
@@ -1456,12 +1464,12 @@ def npcConversation(mud, npcs: {}, npcs_db: {}, players: {},
                                 conv[idx].lower().split(':')[1].strip()
                         idx += 1
 
-    if getSentiment(message, sentiment_db) >= 0:
-        increaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
-        increaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
+    if get_sentiment(message, sentiment_db) >= 0:
+        increase_affinity_between_players(players, id, npcs, nid, guilds_db)
+        increase_affinity_between_players(npcs, nid, players, id, guilds_db)
     else:
-        decreaseAffinityBetweenPlayers(players, id, npcs, nid, guilds_db)
-        decreaseAffinityBetweenPlayers(npcs, nid, players, id, guilds_db)
+        decrease_affinity_between_players(players, id, npcs, nid, guilds_db)
+        decrease_affinity_between_players(npcs, nid, players, id, guilds_db)
 
     if len(bestMatch) > 0:
         # There were some word matches

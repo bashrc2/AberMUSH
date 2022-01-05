@@ -186,7 +186,7 @@ def weaponProficiency(id, players: {}, weaponType: str,
     return competence
 
 
-def _thievesCantCountChars(txt: str) -> int:
+def _thieves_cantCountChars(txt: str) -> int:
     result = 0
     for char in txt.lower():
         if char == 'a' or \
@@ -198,7 +198,7 @@ def _thievesCantCountChars(txt: str) -> int:
     return result
 
 
-def thievesCant(spokenText: str) -> str:
+def thieves_cant(spokenText: str) -> str:
     cantCode = (
         "Hey, girl, hey!",
         "Look what the cat dragged in",
@@ -227,6 +227,6 @@ def thievesCant(spokenText: str) -> str:
         "No, I am otherwise engaged",
         "Give my regards to your Granny",
         "…and have your pets spayed")
-    index = (_thievesCantCountChars(spokenText) +
+    index = (_thieves_cantCountChars(spokenText) +
              len(spokenText.split(' '))) % len(cantCode)
     return cantCode[index]
