@@ -927,8 +927,8 @@ def get_temperature() -> float:
     return avTemp + dailyVariance + solarCycle
 
 
-def get_temperatureAtCoords(coords: [], rooms: {}, map_area: [],
-                            clouds: {}) -> float:
+def get_temperature_at_coords(coords: [], rooms: {}, map_area: [],
+                              clouds: {}) -> float:
     """Returns the temperature at the given coordinates
     """
     # Average temperature of the universe

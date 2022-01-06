@@ -78,8 +78,8 @@ def _damageProficiencyItem(prof: str, id, players: int,
     return 0
 
 
-def damageProficiency(id, players: {}, weaponType: str,
-                      character_class_db: {}) -> int:
+def damage_proficiency(id, players: {}, weaponType: str,
+                       character_class_db: {}) -> int:
     if not players[id].get('race'):
         return 0
 

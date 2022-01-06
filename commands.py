@@ -1768,13 +1768,13 @@ def _clear_spells(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id, "Your don't have any spells prepared.\n\n")
 
 
-def _spells(params, mud, players_db: {}, players: {}, rooms: {},
-            npcs_db: {}, npcs: {}, items_db: {}, items: {},
-            env_db: {}, env: {}, eventDB: {}, event_schedule,
-            id: int, fights: {}, corpses: {}, blocklist,
-            map_area: [], character_class_db: {}, spells_db: {},
-            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-            item_history: {}, markets: {}, cultures_db: {}):
+def _spells_list(params, mud, players_db: {}, players: {}, rooms: {},
+                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
+                 env_db: {}, env: {}, eventDB: {}, event_schedule,
+                 id: int, fights: {}, corpses: {}, blocklist,
+                 map_area: [], character_class_db: {}, spells_db: {},
+                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+                 item_history: {}, markets: {}, cultures_db: {}):
     if len(players[id]['preparedSpells']) > 0:
         mud.send_message(id, 'Your prepared spells:\n')
         for name, _ in players[id]['preparedSpells'].items():
@@ -7648,10 +7648,10 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "destroy": _destroy,
         "cast": _cast_spell,
         "spell": _cast_spell,
-        "spells": _spells,
+        "spells": _spells_list,
         "dismiss": _dismiss,
         "clear": _clear_spells,
-        "spellbook": _spells,
+        "spellbook": _spells_list,
         "affinity": _affinity,
         "escape": _escape_trap,
         "cut": _escape_trap,

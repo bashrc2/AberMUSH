@@ -632,7 +632,7 @@ def set_race(template, races_db, name):
     template['ref'] = races_db[name]['ref']
 
 
-def prepareSpells(mud, id, players):
+def prepare_spells(mud, id, players):
     """Player prepares spells, called once per second
     """
     if len(players[id]['prepareSpell']) == 0:
@@ -641,15 +641,15 @@ def prepareSpells(mud, id, players):
     if players[id]['prepareSpellTime'] > 0:
         if players[id]['prepareSpellProgress'] >= \
            players[id]['prepareSpellTime']:
-            spellName = players[id]['prepareSpell']
-            players[id]['preparedSpells'][spellName] = 1
-            players[id]['spellSlots'][spellName] = 1
+            spell_name = players[id]['prepareSpell']
+            players[id]['preparedSpells'][spell_name] = 1
+            players[id]['spellSlots'][spell_name] = 1
             players[id]['prepareSpell'] = ""
             players[id]['prepareSpellProgress'] = 0
             players[id]['prepareSpellTime'] = 0
             mud.send_message(
                 id, "You prepared the spell <f220>" +
-                spellName + "<r>\n\n")
+                spell_name + "<r>\n\n")
         else:
             players[id]['prepareSpellProgress'] = \
                 players[id]['prepareSpellProgress'] + 1

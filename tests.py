@@ -208,7 +208,7 @@ def _testFunctions():
         '_cast_spell',
         '_affinity',
         '_clear_spells',
-        '_spells',
+        '_spells_list',
         '_sit',
         '_prepare_spell',
         '_speak',
