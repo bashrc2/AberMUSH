@@ -9,7 +9,8 @@ __status__ = "Production"
 __module_group__ = "Core"
 
 import re
-dict = {
+
+col_dict = {
     '<f0>': "\u001b[38;5;0m",
     '<f1>': "\u001b[38;5;1m",
     '<f2>': "\u001b[38;5;2m",
@@ -528,10 +529,12 @@ dict = {
 }
 
 # Create a regular expression from the dictionary keys
-pattern = re.compile("(%s)" % "|".join(map(re.escape, dict.keys())))
+pattern = re.compile("(%s)" % "|".join(map(re.escape, col_dict.keys())))
 
 
-def cmsg(text):
-    # For each match, look-up corresponding value in dictionary
+def cmsg(text: str):
+    """ For each match, look-up corresponding value in dictionary
+    """
     return pattern.sub(
-        lambda mo: dict[mo.string[mo.start(): mo.end()]], text) + "\u001b[0m"
+        lambda mo: col_dict[mo.string[mo.start(): mo.end()]], text) + \
+        "\u001b[0m"
