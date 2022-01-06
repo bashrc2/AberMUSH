@@ -5312,13 +5312,13 @@ def _buy(params, mud, players_db: {}, players: {}, rooms: {},
         mud.send_message(id, "That's not sold here\n\n")
 
 
-def _fish(params, mud, players_db: {}, players: {}, rooms: {},
-          npcs_db: {}, npcs: {}, items_db: {}, items: {},
-          env_db: {}, env: {}, eventDB: {}, event_schedule,
-          id: int, fights: {}, corpses: {}, blocklist,
-          map_area: [], character_class_db: {}, spells_db: {},
-          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+def _start_fishing(params, mud, players_db: {}, players: {}, rooms: {},
+                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
+                   env_db: {}, env: {}, eventDB: {}, event_schedule,
+                   id: int, fights: {}, corpses: {}, blocklist,
+                   map_area: [], character_class_db: {}, spells_db: {},
+                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+                   item_history: {}, markets: {}, cultures_db: {}):
     """Go fishing
     """
     if players[id]['frozenStart'] != 0:
@@ -7696,7 +7696,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "purchase": _buy,
         "sell": _sell,
         "trade": _sell,
-        "fish": _fish
+        "fish": _start_fishing
     }
 
     try:

@@ -648,7 +648,7 @@ while True:
                            tileSize, wind_direction)
         previous_timing = \
             show_timing(previous_timing, "calc wind directions")
-        # plotClouds(rooms, map_area, clouds, temperature)
+        # plot_clouds(rooms, map_area, clouds, temperature)
 
     if now >= last_fishing_update + fishing_update_interval:
         players_fishing(players, rooms, items_db, mud)

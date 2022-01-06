@@ -17,7 +17,7 @@ from functions import random_desc
 import decimal
 dec = decimal.Decimal
 
-rainThreshold = 230
+RAIN_THRESHOLD = 230
 
 
 def run_tide() -> float:
@@ -25,25 +25,25 @@ def run_tide() -> float:
     """
     lunar_orbit_mins = 39312
 
-    daysSinceEpoch = (
+    days_since_epoch = (
         datetime.datetime.today() -
         datetime.datetime(
             1970,
             1,
             1)).days
-    currHour = datetime.datetime.today().hour
-    currMin = datetime.datetime.today().minute
-    timeMins = (daysSinceEpoch * 60 * 24) + (currHour * 60) + currMin
+    curr_hour = datetime.datetime.today().hour
+    curr_min = datetime.datetime.today().minute
+    time_mins = (days_since_epoch * 60 * 24) + (curr_hour * 60) + curr_min
 
-    lunarMins = timeMins % int(lunar_orbit_mins)
-    solarMins = timeMins % int(24 * 60 * 365)
-    dailyMins = timeMins % int(24 * 60)
+    lunar_mins = time_mins % int(lunar_orbit_mins)
+    solar_mins = time_mins % int(24 * 60 * 365)
+    daily_mins = time_mins % int(24 * 60)
 
-    lunar = sin(float(lunarMins) * 2.0 * 3.1415927 /
+    lunar = sin(float(lunar_mins) * 2.0 * 3.1415927 /
                 float(lunar_orbit_mins)) * 0.08
-    solar = sin(float(solarMins) * 2.0 * 3.1415927 /
+    solar = sin(float(solar_mins) * 2.0 * 3.1415927 /
                 float(24 * 60 * 365)) * 0.02
-    daily = sin(float(dailyMins) * 2.0 * 3.1415927 /
+    daily = sin(float(daily_mins) * 2.0 * 3.1415927 /
                 float(24 * 60)) * 0.9
 
     return daily + lunar + solar
@@ -52,7 +52,7 @@ def run_tide() -> float:
 def assign_terrain_difficulty(rooms: {}) -> int:
     """Updates the terrain difficulty for each room and returns the maximum
     """
-    terrainDifficultyWords = (
+    terrain_difficulty_words = (
         'rock',
         'boulder',
         'slip',
@@ -77,22 +77,22 @@ def assign_terrain_difficulty(rooms: {}) -> int:
         'snow',
         'ice',
         'marsh')
-    maxTerrainDifficulty = 1
-    for rm in rooms:
-        difficulty = rooms[rm]['terrainDifficulty']
+    max_terrain_difficulty = 1
+    for rmid in rooms:
+        difficulty = rooms[rmid]['terrainDifficulty']
         if difficulty == 0:
-            roomDescription = rooms[rm]['description'].lower()
+            room_description = rooms[rmid]['description'].lower()
             difficulty = 0
-            for w in terrainDifficultyWords:
-                if w in roomDescription:
+            for wrd in terrain_difficulty_words:
+                if wrd in room_description:
                     difficulty += 1
-            rooms[rm]['terrainDifficulty'] = difficulty
-        if difficulty > maxTerrainDifficulty:
-            maxTerrainDifficulty = difficulty
-    return maxTerrainDifficulty
+            rooms[rmid]['terrainDifficulty'] = difficulty
+        if difficulty > max_terrain_difficulty:
+            max_terrain_difficulty = difficulty
+    return max_terrain_difficulty
 
 
-def _roomAtZeroCoord(rooms: {}, rm) -> bool:
+def _room_at_zero_coord(rooms: {}, rm) -> bool:
     """Room is at coord 0,0,0
     """
     if not rooms[rm].get('coords'):
@@ -110,57 +110,57 @@ def find_room_collisions(rooms: {}) -> None:
     """Marks rooms whose geolocations collide
     """
     ctr = 0
-    totalCtr = 0
-    roomDict = {}
-    for rm in rooms:
-        roomDict[ctr] = rm
+    total_ctr = 0
+    room_dict = {}
+    for rmid in rooms:
+        room_dict[ctr] = rmid
         ctr += 1
     ctr = 0
     for index1 in range(len(rooms)):
-        rm = roomDict[index1]
-        if not rooms[rm].get('coords'):
+        rmid = room_dict[index1]
+        if not rooms[rmid].get('coords'):
             continue
         # Room with coords
-        if len(rooms[rm]['coords']) <= 2:
+        if len(rooms[rmid]['coords']) <= 2:
             continue
-        if _roomAtZeroCoord(rooms, rm):
+        if _room_at_zero_coord(rooms, rmid):
             continue
-        totalCtr += 1
+        total_ctr += 1
         for index2 in range(index1, len(rooms)):
-            rm2 = roomDict[index2]
+            rm2 = room_dict[index2]
             if not rooms[rm2].get('coords'):
                 continue
             # Other room with coords
             if len(rooms[rm2]['coords']) <= 2:
                 continue
             # not the same room
-            if rm2 == rm:
+            if rm2 == rmid:
                 continue
-            if _roomAtZeroCoord(rooms, rm2):
+            if _room_at_zero_coord(rooms, rm2):
                 continue
-            if rooms[rm]['coords'][0] != rooms[rm2]['coords'][0]:
+            if rooms[rmid]['coords'][0] != rooms[rm2]['coords'][0]:
                 continue
-            if rooms[rm]['coords'][1] != rooms[rm2]['coords'][1]:
+            if rooms[rmid]['coords'][1] != rooms[rm2]['coords'][1]:
                 continue
-            if rooms[rm]['coords'][2] != rooms[rm2]['coords'][2]:
+            if rooms[rmid]['coords'][2] != rooms[rm2]['coords'][2]:
                 continue
             print('Collision between rooms ' +
-                  str(rm) + ' and ' + str(rm2))
-            print(rooms[rm]['name'] + ' ' + str(rooms[rm]['coords']))
+                  str(rmid) + ' and ' + str(rm2))
+            print(rooms[rmid]['name'] + ' ' + str(rooms[rmid]['coords']))
             print(rooms[rm2]['name'] + ' ' + str(rooms[rm2]['coords']))
-            rooms[rm]['collides'] = rm2
+            rooms[rmid]['collides'] = rm2
             ctr += 1
     if ctr > 0:
-        print(str(ctr) + ' room collisions out of ' + str(totalCtr))
+        print(str(ctr) + ' room collisions out of ' + str(total_ctr))
 
 
-def _distanceBetweenRooms(rooms: {}, roomId: str, environments: {}) -> int:
+def _distance_between_rooms(rooms: {}, room_id: str, environments: {}) -> int:
     """Returns the travel distance between rooms, which depends upon
     the type of environment
     """
-    if rooms[roomId].get('environmentId'):
-        environmentId = rooms[roomId]['environmentId']
-        env = environments[str(environmentId)]
+    if rooms[room_id].get('environmentId'):
+        environment_id = rooms[room_id]['environmentId']
+        env = environments[str(environment_id)]
         if 'collisions' in env:
             if env['collisions'] is False:
                 return 0
@@ -169,99 +169,99 @@ def _distanceBetweenRooms(rooms: {}, roomId: str, environments: {}) -> int:
     return 1
 
 
-def _isOnMap(rooms: {}, roomId: str, environments: {}) -> bool:
+def _is_on_map(rooms: {}, room_id: str, environments: {}) -> bool:
     """Returns true if the room should not be assigned map coordinates
     """
-    if _distanceBetweenRooms(rooms, roomId, environments) == 0:
+    if _distance_between_rooms(rooms, room_id, environments) == 0:
         return False
     return True
 
 
-def _getAllRoomExits(rooms: {}, roomId: str) -> {}:
+def _getAllRoomExits(rooms: {}, room_id: str) -> {}:
     """combine exits with virtual exists so that we know
     all the possible directions from here
     """
-    exitDict = rooms[roomId]['exits'].copy()
+    exit_dict = rooms[room_id]['exits'].copy()
 
-    if rooms[roomId].get('virtualExits'):
-        exitDict.update(rooms[roomId]['virtualExits'])
+    if rooms[room_id].get('virtualExits'):
+        exit_dict.update(rooms[room_id]['virtualExits'])
 
-    if rooms[roomId].get('tideOutExits'):
-        exitDict.update(rooms[roomId]['tideOutExits'])
+    if rooms[room_id].get('tideOutExits'):
+        exit_dict.update(rooms[room_id]['tideOutExits'])
 
-    return exitDict
+    return exit_dict
 
 
 def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
-                                    roomsOnMap: [], environments: {},
-                                    otherRoomsFound: []) -> bool:
+                                    rooms_on_map: [], environments: {},
+                                    other_rooms_found: []) -> bool:
     """Assigns coordinates to rooms surrounding one which has coordinates
     """
-    exitDict = rooms[thisRoom]['allExits']
+    exit_dict = rooms[thisRoom]['allExits']
     # distance moved between rooms
-    distance = _distanceBetweenRooms(rooms, thisRoom, environments)
+    distance = _distance_between_rooms(rooms, thisRoom, environments)
     directions = ('north', 'south', 'east', 'west', 'up', 'down')
-    for ex, roomId in exitDict.items():
-        if roomId == thisRoom:
+    for ex, room_id in exit_dict.items():
+        if room_id == thisRoom:
             continue
         if ex not in directions:
             continue
-        if roomId not in roomsOnMap:
+        if room_id not in rooms_on_map:
             continue
         # room which is exited to
-        otherRoom = rooms[roomId]
-        if otherRoom['coordsAssigned']:
+        other_room = rooms[room_id]
+        if other_room['coordsAssigned']:
             continue
         if not rooms[thisRoom].get('coords'):
             continue
-        otherRoom['coords'] = rooms[thisRoom]['coords'].copy()
+        other_room['coords'] = rooms[thisRoom]['coords'].copy()
         # the other room does not have coordinates assigned
         if ex == 'north':
-            otherRoom['coords'][0] += distance
+            other_room['coords'][0] += distance
         elif ex == 'south':
-            otherRoom['coords'][0] -= distance
+            other_room['coords'][0] -= distance
         elif ex == 'east':
-            otherRoom['coords'][1] -= distance
+            other_room['coords'][1] -= distance
         elif ex == 'west':
-            otherRoom['coords'][1] += distance
+            other_room['coords'][1] += distance
         elif ex == 'up':
-            otherRoom['coords'][2] += 1
+            other_room['coords'][2] += 1
         elif ex == 'down':
-            otherRoom['coords'][2] -= 1
-        otherRoom['coordsAssigned'] = True
-        otherRoomsFound.append(otherRoom)
-    if otherRoomsFound:
+            other_room['coords'][2] -= 1
+        other_room['coordsAssigned'] = True
+        other_rooms_found.append(other_room)
+    if other_rooms_found:
         return True
     return False
 
 
-def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
-                                     roomsOnMap: [], environments: {},
-                                     roomsFound: []) -> bool:
+def _infer_coords_from_surrounding_rooms(thisRoom: str, rooms: {},
+                                         rooms_on_map: [], environments: {},
+                                         rooms_found: []) -> bool:
     """Infers the coordinates for the given room from the
     coordinates of the surrounding rooms
     """
-    exitDict = rooms[thisRoom]['allExits']
+    exit_dict = rooms[thisRoom]['allExits']
     directions = ('north', 'south', 'east', 'west', 'up', 'down')
     # Search the exits for rooms which have coords
-    for ex, roomId in exitDict.items():
-        if roomId == thisRoom:
+    for ex, room_id in exit_dict.items():
+        if room_id == thisRoom:
             continue
         if ex not in directions:
             continue
-        if roomId not in roomsOnMap:
+        if room_id not in rooms_on_map:
             continue
         # room which is exited to
-        otherRoom = rooms[roomId]
+        other_room = rooms[room_id]
         # if the other room has coorninates assigned
-        if not otherRoom['coordsAssigned']:
+        if not other_room['coordsAssigned']:
             continue
         # distance moved between rooms
-        distance = _distanceBetweenRooms(rooms, roomId, environments)
+        distance = _distance_between_rooms(rooms, room_id, environments)
         # make this room relative to the other
-        if not otherRoom.get('coords'):
+        if not other_room.get('coords'):
             continue
-        rooms[thisRoom]['coords'] = otherRoom['coords'].copy()
+        rooms[thisRoom]['coords'] = other_room['coords'].copy()
         if ex == 'north':
             rooms[thisRoom]['coords'][0] -= distance
         elif ex == 'south':
@@ -279,62 +279,63 @@ def _inferCoordsFromSurroundingRooms(thisRoom: str, rooms: {},
     return False
 
 
-def _assignRelativeRoomCoords(rooms: {}, roomsOnMap: [],
-                              environments: {}) -> []:
+def _assign_relative_room_coords(rooms: {}, rooms_on_map: [],
+                                 environments: {}) -> []:
     """Finds the next room without assigned coordinates
     """
-    otherRoomsFound = []
+    other_rooms_found = []
 
-    for rm in roomsOnMap:
-        if not rooms[rm]['coordsAssigned']:
+    for rmid in rooms_on_map:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        roomsFound = []
-        if _assignCoordsToSurroundingRooms(rm, rooms,
-                                           roomsOnMap, environments,
-                                           roomsFound):
-            if roomsFound:
-                otherRoomsFound += roomsFound
+        rooms_found = []
+        if _assignCoordsToSurroundingRooms(rmid, rooms,
+                                           rooms_on_map, environments,
+                                           rooms_found):
+            if rooms_found:
+                other_rooms_found += rooms_found
                 break
 
-    for rm in roomsOnMap:
-        if not rooms[rm]['coordsAssigned']:
-            if _inferCoordsFromSurroundingRooms(rm, rooms,
-                                                roomsOnMap, environments,
-                                                otherRoomsFound):
-                otherRoomsFound += [rooms[rm]]
+    for rmid in rooms_on_map:
+        if not rooms[rmid]['coordsAssigned']:
+            if _infer_coords_from_surrounding_rooms(rmid, rooms,
+                                                    rooms_on_map, environments,
+                                                    other_rooms_found):
+                other_rooms_found += [rooms[rmid]]
                 break
 
-    return otherRoomsFound
+    return other_rooms_found
 
 
-def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
-                            environments: {}) -> []:
+def _find_rooms_without_coords(rooms: {}, rooms_on_map: [],
+                               environments: {}) -> []:
     """Finds the next room without assigned coordinates
     """
-    otherRooms = _assignRelativeRoomCoords(rooms, roomsOnMap, environments)
-    if otherRooms:
-        return otherRooms
+    other_rooms = \
+        _assign_relative_room_coords(rooms, rooms_on_map, environments)
+    if other_rooms:
+        return other_rooms
 
     # get the maximum east coordinate
     max_east = 0
-    for rm in roomsOnMap:
-        if not rooms[rm]['coordsAssigned']:
+    for rmid in rooms_on_map:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        if not rooms[rm].get('coords'):
+        if not rooms[rmid].get('coords'):
             continue
-        if rooms[rm]['coords'][1] > max_east:
-            max_east = rooms[rm]['coords'][1]
+        if rooms[rmid]['coords'][1] > max_east:
+            max_east = rooms[rmid]['coords'][1]
 
     # initial assignment of room coordinates
-    noOfRooms = len(rooms)
-    for rm in roomsOnMap:
+    no_of_rooms = len(rooms)
+    for rmid in rooms_on_map:
         # Room should not yet have coords
-        if rooms[rm]['coordsAssigned']:
+        if rooms[rmid]['coordsAssigned']:
             continue
         # assign some initial coordinates
-        rooms[rm]['coordsAssigned'] = True
-        rooms[rm]['coords'] = [0, max_east + noOfRooms, 0]
-        return [rooms[rm]]
+        rooms[rmid]['coordsAssigned'] = True
+        rooms[rmid]['coords'] = [0, max_east + no_of_rooms, 0]
+        return [rooms[rmid]]
 
     return []
 
@@ -342,216 +343,216 @@ def _findRoomsWithoutCoords(rooms: {}, roomsOnMap: [],
 def map_level_as_csv(rooms: {}, level: int):
     """Print a vertical level of the map as a CSV
     """
-    minX = 999999
-    maxX = -999999
-    minY = 999999
-    maxY = -999999
+    min_x = 999999
+    max_x = -999999
+    min_y = 999999
+    max_y = -999999
 
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        if not rooms[rm]['coordsAssigned']:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        if len(rooms[rm]['coords']) <= 2:
+        if len(rooms[rmid]['coords']) <= 2:
             continue
-        if rooms[rm]['coords'][2] != level:
+        if rooms[rmid]['coords'][2] != level:
             continue
-        x = rooms[rm]['coords'][1]
-        y = rooms[rm]['coords'][0]
-        if y < minY:
-            minY = y
-        if y > maxY:
-            maxY = y
-        if x < minX:
-            minX = x
-        if x > maxX:
-            maxX = x
+        x_co = rooms[rmid]['coords'][1]
+        y_co = rooms[rmid]['coords'][0]
+        if y_co < min_y:
+            min_y = y_co
+        if y_co > max_y:
+            max_y = y_co
+        if x_co < min_x:
+            min_x = x_co
+        if x_co > max_x:
+            max_x = x_co
 
-    w = maxX - minX + 1
-    h = maxY - minY + 1
-    grid = [[' ' for y in range(h)] for x in range(w)]
+    w_co = max_x - min_x + 1
+    h_co = max_y - min_y + 1
+    grid = [[' ' for y_co in range(h_co)] for x_co in range(w_co)]
 
-    mapStr = ''
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    map_str = ''
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        if not rooms[rm]['coordsAssigned']:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        if len(rooms[rm]['coords']) <= 2:
+        if len(rooms[rmid]['coords']) <= 2:
             continue
-        if rooms[rm]['coords'][2] != level:
+        if rooms[rmid]['coords'][2] != level:
             continue
-        x = rooms[rm]['coords'][1] - minX
-        y = rooms[rm]['coords'][0] - minY
-        rid = int(rm.replace('$', '').replace('rid=', ''))
-        grid[x][y] = str(rid) + ' ' + rooms[rm]['name']
+        x_co = rooms[rmid]['coords'][1] - min_x
+        y_co = rooms[rmid]['coords'][0] - min_y
+        rid = int(rmid.replace('$', '').replace('rid=', ''))
+        grid[x_co][y_co] = str(rid) + ' ' + rooms[rmid]['name']
 
-        exitDict = rooms[rm]['exits'].copy()
-        if rooms[rm].get('virtualExits'):
-            exitDict.update(rooms[rm]['virtualExits'])
-        if rooms[rm].get('tideOutExits'):
-            exitDict.update(rooms[rm]['tideOutExits'])
+        exit_dict = rooms[rmid]['exits'].copy()
+        if rooms[rmid].get('virtualExits'):
+            exit_dict.update(rooms[rmid]['virtualExits'])
+        if rooms[rmid].get('tideOutExits'):
+            exit_dict.update(rooms[rmid]['tideOutExits'])
 
-        if exitDict.get('north'):
-            if exitDict.get('west'):
-                grid[x][y] = '          ▲\n⮜ ' + grid[x][y]
+        if exit_dict.get('north'):
+            if exit_dict.get('west'):
+                grid[x_co][y_co] = '          ▲\n⮜ ' + grid[x_co][y_co]
             else:
-                grid[x][y] = '          ▲\n  ' + grid[x][y]
+                grid[x_co][y_co] = '          ▲\n  ' + grid[x_co][y_co]
         else:
-            if exitDict.get('west'):
-                grid[x][y] = '⮜ ' + grid[x][y]
+            if exit_dict.get('west'):
+                grid[x_co][y_co] = '⮜ ' + grid[x_co][y_co]
             else:
-                grid[x][y] = '\n   ' + grid[x][y]
-        if exitDict.get('east'):
-            grid[x][y] = grid[x][y] + ' ⮞'
+                grid[x_co][y_co] = '\n   ' + grid[x_co][y_co]
+        if exit_dict.get('east'):
+            grid[x_co][y_co] = grid[x_co][y_co] + ' ⮞'
         else:
-            grid[x][y] = grid[x][y] + '   '
-        if exitDict.get('south'):
-            grid[x][y] = grid[x][y] + '\n          ▼'
+            grid[x_co][y_co] = grid[x_co][y_co] + '   '
+        if exit_dict.get('south'):
+            grid[x_co][y_co] = grid[x_co][y_co] + '\n          ▼'
         else:
-            grid[x][y] = grid[x][y] + '\n'
-        grid[x][y] = '"\n' + grid[x][y] + '\n"'
+            grid[x_co][y_co] = grid[x_co][y_co] + '\n'
+        grid[x_co][y_co] = '"\n' + grid[x_co][y_co] + '\n"'
 
-    for y1 in range(h):
-        y = h - y1 - 1
-        lineStr = ''
-        for x1 in range(w):
-            x = w - x1 - 1
-            if grid[x][y] == ' ':
-                lineStr += ','
+    for yy1 in range(h_co):
+        y_co = h_co - yy1 - 1
+        line_str = ''
+        for xx1 in range(w_co):
+            x_co = w_co - xx1 - 1
+            if grid[x_co][y_co] == ' ':
+                line_str += ','
                 continue
-            lineStr += grid[x][y] + ','
-        mapStr += lineStr.strip() + '\n'
+            line_str += grid[x_co][y_co] + ','
+        map_str += line_str.strip() + '\n'
 
     filename = 'map_level_' + str(level) + '.csv'
-    csvFile = open(filename, 'w+')
-    if csvFile:
-        csvFile.write(mapStr)
-        csvFile.close()
+    csv_file = open(filename, 'w+')
+    if csv_file:
+        csv_file.write(map_str)
+        csv_file.close()
         print('Map level ' + str(level) + ' saved')
 
 
-def _removeCoordinateGaps(rooms: {}) -> None:
+def _remove_coordinate_gaps(rooms: {}) -> None:
     """Removes gaps in the east line coordinates of rooms
     """
     max_east = 0
-    for rm in rooms:
+    for rmid in rooms:
         # Room without coords
-        if not rooms[rm].get('coords'):
+        if not rooms[rmid].get('coords'):
             continue
-        if not rooms[rm]['coordsAssigned']:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        if rooms[rm]['coords'][1] > max_east:
-            max_east = rooms[rm]['coords'][1]
+        if rooms[rmid]['coords'][1] > max_east:
+            max_east = rooms[rmid]['coords'][1]
 
-    eastLine = [0] * (max_east + 1)
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    east_line = [0] * (max_east + 1)
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        if not rooms[rm]['coordsAssigned']:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        e = rooms[rm]['coords'][1]
-        eastLine[e] = 1
+        e_co = rooms[rmid]['coords'][1]
+        east_line[e_co] = 1
 
     start_east = None
     gaps = []
-    for e in range(max_east + 1):
+    for e_co in range(max_east + 1):
         if not start_east:
-            if eastLine[e] == 0:
-                start_east = e
+            if east_line[e_co] == 0:
+                start_east = e_co
         else:
-            if eastLine[e] == 1:
-                if e - start_east > 5:
-                    gaps = [[start_east, e - start_east]] + gaps
+            if east_line[e_co] == 1:
+                if e_co - start_east > 5:
+                    gaps = [[start_east, e_co - start_east]] + gaps
                 start_east = None
 
-    for g in gaps:
-        start_east = g[0]
-        gap_width = g[1]
-        for rm in rooms:
-            if not rooms[rm].get('coords'):
+    for g_co in gaps:
+        start_east = g_co[0]
+        gap_width = g_co[1]
+        for rmid in rooms:
+            if not rooms[rmid].get('coords'):
                 continue
-            if not rooms[rm]['coordsAssigned']:
+            if not rooms[rmid]['coordsAssigned']:
                 continue
-            e = rooms[rm]['coords'][1]
-            if e >= start_east:
-                rooms[rm]['coords'][1] -= gap_width
+            e_co = rooms[rmid]['coords'][1]
+            if e_co >= start_east:
+                rooms[rmid]['coords'][1] -= gap_width
 
-    eastLine = [0] * (max_east + 1)
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    east_line = [0] * (max_east + 1)
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        if not rooms[rm]['coordsAssigned']:
+        if not rooms[rmid]['coordsAssigned']:
             continue
-        e = rooms[rm]['coords'][1]
-        eastLine[e] = 1
+        e_co = rooms[rmid]['coords'][1]
+        east_line[e_co] = 1
 
     start_east = None
-    for e in range(max_east + 1):
+    for e_co in range(max_east + 1):
         if not start_east:
-            if eastLine[e] == 0:
-                start_east = e
+            if east_line[e_co] == 0:
+                start_east = e_co
         else:
-            if eastLine[e] == 1:
-                if e - start_east > 5:
+            if east_line[e_co] == 1:
+                if e_co - start_east > 5:
                     print('East line gap ' +
-                          str(start_east) + ' -> ' + str(e-1))
+                          str(start_east) + ' -> ' + str(e_co - 1))
                 start_east = None
 
 
-def _createVirtualExits(rooms: {}, items_db: {},
-                        scripted_events_db: {}) -> None:
+def _create_virtual_exits(rooms: {}, items_db: {},
+                          scripted_events_db: {}) -> None:
     """If there are any doors then this Generates the
     virtual exits dicts for each room
     """
-    for rm in rooms:
-        rooms[rm]['virtualExits'] = {}
+    for rmid in rooms:
+        rooms[rmid]['virtualExits'] = {}
 
     # get a list of door items
-    doorCtr = 0
-    for itemId in items_db:
-        if not items_db[itemId].get('exit'):
+    door_ctr = 0
+    for item_id in items_db:
+        if not items_db[item_id].get('exit'):
             continue
-        if not items_db[itemId].get('exitName'):
+        if not items_db[item_id].get('exitName'):
             continue
-        if '|' not in items_db[itemId]['exitName']:
+        if '|' not in items_db[item_id]['exitName']:
             continue
-        roomId = None
+        room_id = None
         for event in scripted_events_db:
             if event[2] != 'spawnItem':
                 continue
-            eventItem = event[3].split(';')
-            if eventItem[0] != str(itemId):
+            event_item = event[3].split(';')
+            if event_item[0] != str(item_id):
                 continue
-            roomId = eventItem[1]
+            room_id = event_item[1]
             break
-        if roomId:
-            exitDirection = items_db[itemId]['exitName'].split('|')[0]
+        if room_id:
+            exit_direction = items_db[item_id]['exitName'].split('|')[0]
             collides = False
-            if rooms[roomId]['exits'].get(exitDirection):
-                print('Room ' + roomId + ' has item ' +
-                      str(itemId) + ' with colliding exit ' + exitDirection)
+            if rooms[room_id]['exits'].get(exit_direction):
+                print('Room ' + room_id + ' has item ' +
+                      str(item_id) + ' with colliding exit ' + exit_direction)
                 collides = True
 
-            if rooms[roomId].get('tideOutExits'):
-                if rooms[roomId]['tideOutExits'].get(exitDirection):
-                    print('Room ' + roomId + ' has item ' +
-                          str(itemId) + ' with colliding tide out exit ' +
-                          exitDirection)
+            if rooms[room_id].get('tideOutExits'):
+                if rooms[room_id]['tideOutExits'].get(exit_direction):
+                    print('Room ' + room_id + ' has item ' +
+                          str(item_id) + ' with colliding tide out exit ' +
+                          exit_direction)
                 collides = True
 
             if not collides:
-                exitRoomId = items_db[itemId]['exit']
-                rooms[roomId]['virtualExits'][exitDirection] = exitRoomId
-                doorCtr += 1
-    print('Door items: ' + str(doorCtr))
+                exit_room_id = items_db[item_id]['exit']
+                rooms[room_id]['virtualExits'][exit_direction] = exit_room_id
+                door_ctr += 1
+    print('Door items: ' + str(door_ctr))
 
 
 def assign_coordinates(rooms: {}, items_db: {},
                        scripted_events_db: {}, environments: {}) -> []:
     """Assigns cartesian coordinates to each room and returns the limits
     """
-    _createVirtualExits(rooms, items_db, scripted_events_db)
+    _create_virtual_exits(rooms, items_db, scripted_events_db)
 
     map_area = [
         [9999999999, -9999999999],
@@ -560,22 +561,23 @@ def assign_coordinates(rooms: {}, items_db: {},
     ]
 
     # create a list of rooms which are on the map
-    roomsOnMap = []
-    for rm in rooms:
-        rooms[rm]['coordsAssigned'] = False
-        if _isOnMap(rooms, rm, environments):
-            roomsOnMap.append(rm)
-        rooms[rm]['allExits'] = _getAllRoomExits(rooms, rm)
+    rooms_on_map = []
+    for rmid in rooms:
+        rooms[rmid]['coordsAssigned'] = False
+        if _is_on_map(rooms, rmid, environments):
+            rooms_on_map.append(rmid)
+        rooms[rmid]['allExits'] = _getAllRoomExits(rooms, rmid)
 
     # assign coordinates
     while True:
-        newRooms = _findRoomsWithoutCoords(rooms, roomsOnMap, environments)
-        if not newRooms:
+        new_rooms = \
+            _find_rooms_without_coords(rooms, rooms_on_map, environments)
+        if not new_rooms:
             break
-        for newRm in newRooms:
-            if not newRm.get('coords'):
+        for new_rm in new_rooms:
+            if not new_rm.get('coords'):
                 continue
-            coords = newRm['coords']
+            coords = new_rm['coords']
             # east/west extent
             if coords[1] > map_area[1][1]:
                 map_area[1][1] = coords[1]
@@ -586,53 +588,53 @@ def assign_coordinates(rooms: {}, items_db: {},
     min_east = map_area[1][0]
     max_east = map_area[1][1]
     occupied = [False] * ((max_east - min_east) + 1)
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        if len(rooms[rm]['coords']) > 1:
-            occupied[rooms[rm]['coords'][1] - min_east] = True
+        if len(rooms[rmid]['coords']) > 1:
+            occupied[rooms[rmid]['coords'][1] - min_east] = True
 
     # remove the horizontal spacing to compact the map
     state = 0
     start_east = 0
     end_east = 0
-    trimCoords = []
-    for i in range(len(occupied)):
+    trim_coords = []
+    for idx in range(len(occupied)):
         if state == 0:
-            if not occupied[i]:
+            if not occupied[idx]:
                 state = 1
-                start_east = i
+                start_east = idx
         elif state == 1:
-            if occupied[i]:
+            if occupied[idx]:
                 state = 0
-                end_east = i
-                trimCoords.append([start_east - min_east,
+                end_east = idx
+                trim_coords.append([start_east - min_east,
                                    end_east - min_east])
 
-    maxRange = len(trimCoords)
+    max_range = len(trim_coords)
     map_area = [
         [9999999999, -9999999999],
         [9999999999, -9999999999],
         [9999999999, -9999999999]
     ]
-    for i in range(maxRange - 1, 0, -1):
-        for rm in rooms:
-            if not rooms[rm].get('coords'):
+    for i in range(max_range - 1, 0, -1):
+        for rmid in rooms:
+            if not rooms[rmid].get('coords'):
                 continue
-            if len(rooms[rm]['coords']) < 3:
+            if len(rooms[rmid]['coords']) < 3:
                 continue
-            if rooms[rm]['coords'][1] >= trimCoords[i][1]:
-                adjust = (trimCoords[i][1] - trimCoords[i][0]) - 2
-                rooms[rm]['coords'][1] -= adjust
+            if rooms[rmid]['coords'][1] >= trim_coords[i][1]:
+                adjust = (trim_coords[i][1] - trim_coords[i][0]) - 2
+                rooms[rmid]['coords'][1] -= adjust
 
-    _removeCoordinateGaps(rooms)
+    _remove_coordinate_gaps(rooms)
 
     # recalculate the map area
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        coords = rooms[rm]['coords']
-        if len(rooms[rm]['coords']) < 3:
+        coords = rooms[rmid]['coords']
+        if len(rooms[rmid]['coords']) < 3:
             continue
         # north/south extent
         if coords[0] > map_area[0][1]:
@@ -650,8 +652,8 @@ def assign_coordinates(rooms: {}, items_db: {},
         if coords[2] < map_area[2][0]:
             map_area[2][0] = coords[2]
 
-    for rm in rooms:
-        del rooms[rm]['allExits']
+    for rmid in rooms:
+        del rooms[rmid]['allExits']
 
     return map_area
 
@@ -665,17 +667,17 @@ def _highestPointAtCoord(rooms: {}, map_area: [], x: int, y: int) -> float:
     if vertical_range < 1:
         vertical_range = 1
 
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        if len(rooms[rm]['coords']) < 3:
+        if len(rooms[rmid]['coords']) < 3:
             continue
-        if rooms[rm]['coords'][0] - map_area[0][0] != y:
+        if rooms[rmid]['coords'][0] - map_area[0][0] != y:
             continue
-        if rooms[rm]['coords'][1] - map_area[1][0] != x:
+        if rooms[rmid]['coords'][1] - map_area[1][0] != x:
             continue
-        if rooms[rm]['coords'][2] > highest:
-            highest = rooms[rm]['coords'][2]
+        if rooms[rmid]['coords'][2] > highest:
+            highest = rooms[rmid]['coords'][2]
 
     return (highest - map_area[2][0]) * 255 / vertical_range
 
@@ -687,122 +689,122 @@ def generate_cloud(
         clouds: {},
         cloud_grid: {},
         tileSize: int,
-        windDirection: int) -> int:
+        wind_direction: int) -> int:
     """Weather simulation
        This uses a simple cloud model adjusted for topology in which
        clouds get smaller as temperature increases and bigger with
        more chance of rain as temperature falls.
        Wind blows clouds in one of 8 possible directions, or can be still.
     """
-    mapWidth = map_area[1][1] - map_area[1][0]
-    mapHeight = map_area[0][1] - map_area[0][0]
-    cloud_gridWidth = int(mapWidth / tileSize)
-    cloud_gridHeight = int(mapHeight / tileSize)
+    map_width = map_area[1][1] - map_area[1][0]
+    map_height = map_area[0][1] - map_area[0][0]
+    cloud_grid_width = int(map_width / tileSize)
+    cloud_grid_height = int(map_height / tileSize)
 
     if len(clouds) == 0:
         # Generate the clouds map
-        for x in range(0, mapWidth):
-            clouds[x] = {}
-            for y in range(0, mapHeight):
-                clouds[x][y] = 0
+        for x_co in range(0, map_width):
+            clouds[x_co] = {}
+            for y_co in range(0, map_height):
+                clouds[x_co][y_co] = 0
 
     if len(cloud_grid) == 0:
         # Initialize clouds grid randomly
         # This is lower resolution than the map
-        for x in range(0, cloud_gridWidth):
-            cloud_grid[x] = {}
-            for y in range(0, cloud_gridHeight):
-                cloud_grid[x][y] = int(randnumgen.random() * 255)
+        for x_co in range(0, cloud_grid_width):
+            cloud_grid[x_co] = {}
+            for y_co in range(0, cloud_grid_height):
+                cloud_grid[x_co][y_co] = int(randnumgen.random() * 255)
 
     # Update clouds (same resolution as the map)
-    for x in range(0, mapWidth - 1):
-        tile_tx = int(x / tileSize)
+    for x_co in range(0, map_width - 1):
+        tile_tx = int(x_co / tileSize)
         tile_bx = tile_tx + 1
-        if tile_bx >= cloud_gridWidth:
+        if tile_bx >= cloud_grid_width:
             tile_bx = 0
-        for y in range(0, mapHeight - 1):
-            tile_ty = int(y / tileSize)
+        for y_co in range(0, map_height - 1):
+            tile_ty = int(y_co / tileSize)
             tile_by = tile_ty + 1
-            if tile_by >= cloud_gridHeight:
+            if tile_by >= cloud_grid_height:
                 tile_by = 0
 
             interpolate_top = \
                 cloud_grid[tile_tx][tile_ty] + \
                 int((cloud_grid[tile_bx][tile_ty] -
                      cloud_grid[tile_tx][tile_ty]) *
-                    (x % tileSize) / tileSize)
+                    (x_co % tileSize) / tileSize)
 
             interpolate_bottom = \
                 cloud_grid[tile_tx][tile_by] + \
                 int((cloud_grid[tile_bx][tile_by] -
                      cloud_grid[tile_tx][tile_by]) *
-                    (x % tileSize) / tileSize)
+                    (x_co % tileSize) / tileSize)
 
-            clouds[x][y] = \
+            clouds[x_co][y_co] = \
                 interpolate_top + \
                 int((interpolate_bottom - interpolate_top) *
-                    (y % tileSize) / tileSize)
+                    (y_co % tileSize) / tileSize)
 
     # Clouds change
-    for x in range(0, cloud_gridWidth):
-        for y in range(0, cloud_gridHeight):
-            cloud_grid[x][y] = cloud_grid[x][y] + \
+    for x_co in range(0, cloud_grid_width):
+        for y_co in range(0, cloud_grid_height):
+            cloud_grid[x_co][y_co] = cloud_grid[x_co][y_co] + \
                 (int(randnumgen.random() * 11) - 5)
-            if cloud_grid[x][y] < 0:
-                cloud_grid[x][y] = cloud_grid[x][y] + 255
-            if cloud_grid[x][y] > 255:
-                cloud_grid[x][y] = cloud_grid[x][y] - 255
+            if cloud_grid[x_co][y_co] < 0:
+                cloud_grid[x_co][y_co] = cloud_grid[x_co][y_co] + 255
+            if cloud_grid[x_co][y_co] > 255:
+                cloud_grid[x_co][y_co] = cloud_grid[x_co][y_co] - 255
 
     # change wind direction
-    windDirection = (windDirection + int(randnumgen.random() * 9) - 4) % 360
-    if windDirection < 0:
-        windDirection = windDirection + 360
+    wind_direction = (wind_direction + int(randnumgen.random() * 9) - 4) % 360
+    if wind_direction < 0:
+        wind_direction = wind_direction + 360
 
     # Which directions to shift the clouds
-    dx = 0
-    dy = 0
-    if windDirection >= 320 or windDirection <= 40:
-        dy = 1
-    if windDirection <= 200 and windDirection > 160:
-        dy = -1
-    if windDirection < 300 and windDirection >= 230:
-        dx = -1
-    if windDirection > 50 and windDirection <= 130:
-        dx = 1
+    dxx = 0
+    dyy = 0
+    if wind_direction >= 320 or wind_direction <= 40:
+        dyy = 1
+    if wind_direction <= 200 and wind_direction > 160:
+        dyy = -1
+    if wind_direction < 300 and wind_direction >= 230:
+        dxx = -1
+    if wind_direction > 50 and wind_direction <= 130:
+        dxx = 1
 
     # Move clouds in the wind direction
-    cloud_gridNew = {}
-    for x in range(0, cloud_gridWidth):
-        cloud_gridNew[x] = {}
-        for y in range(0, cloud_gridHeight):
-            cloud_gridNew[x][y] = cloud_grid[x][y]
+    cloud_grid_new = {}
+    for x_co in range(0, cloud_grid_width):
+        cloud_grid_new[x_co] = {}
+        for y_co in range(0, cloud_grid_height):
+            cloud_grid_new[x_co][y_co] = cloud_grid[x_co][y_co]
 
-    for x in range(0, cloud_gridWidth):
-        old_x = x + dx
-        for y in range(0, cloud_gridHeight):
-            old_y = y + dy
-            if old_x >= 0 and old_x <= cloud_gridWidth - 1 and \
-               old_y >= 0 and old_y <= cloud_gridHeight - 1:
-                cloud_gridNew[x][y] = cloud_grid[old_x][old_y]
+    for x_co in range(0, cloud_grid_width):
+        old_x = x_co + dxx
+        for y_co in range(0, cloud_grid_height):
+            old_y = y_co + dyy
+            if old_x >= 0 and old_x <= cloud_grid_width - 1 and \
+               old_y >= 0 and old_y <= cloud_grid_height - 1:
+                cloud_grid_new[x_co][y_co] = cloud_grid[old_x][old_y]
             else:
                 if old_x < 0:
-                    old_x = old_x + cloud_gridWidth
+                    old_x = old_x + cloud_grid_width
                 if old_y < 0:
-                    old_y = old_y + cloud_gridHeight
-                if old_x > cloud_gridWidth - 1:
-                    old_x = old_x - cloud_gridWidth
-                if old_y > cloud_gridHeight - 1:
-                    old_y = old_y - cloud_gridHeight
-                cloud_gridNew[x][y] = randint(0, 255)
+                    old_y = old_y + cloud_grid_height
+                if old_x > cloud_grid_width - 1:
+                    old_x = old_x - cloud_grid_width
+                if old_y > cloud_grid_height - 1:
+                    old_y = old_y - cloud_grid_height
+                cloud_grid_new[x_co][y_co] = randint(0, 255)
 
-    for x in range(0, cloud_gridWidth):
-        for y in range(0, cloud_gridHeight):
-            cloud_grid[x][y] = cloud_gridNew[x][y]
+    for x_co in range(0, cloud_grid_width):
+        for y_co in range(0, cloud_grid_height):
+            cloud_grid[x_co][y_co] = cloud_grid_new[x_co][y_co]
 
-    return windDirection
+    return wind_direction
 
 
-def _getCloudThreshold(temperature: float) -> float:
+def _get_cloud_threshold(temperature: float) -> float:
     """Temperature threshold at which cloud is formed
     """
     return (10 + temperature) * 7
@@ -815,12 +817,13 @@ def _altitudeTemperatureAdjustment(rooms: {}, map_area: [],
     return _highestPointAtCoord(rooms, map_area, x, y) * 2.0 / 255.0
 
 
-def _terrainTemperatureAdjustment(temperature: float, rooms: {}, map_area: [],
-                                  x: int, y: int) -> float:
+def _terrain_temperature_adjustment(temperature: float, rooms: {},
+                                    map_area: [],
+                                    x: int, y: int) -> float:
     """Temperature is adjusted for different types of terrain
     """
-    terrainFreezingWords = ('snow', 'ice')
-    terrainCoolingWords = (
+    terrain_freezing_words = ('snow', 'ice')
+    terrain_cooling_words = (
         'rock',
         'steep',
         'sewer',
@@ -835,71 +838,74 @@ def _terrainTemperatureAdjustment(temperature: float, rooms: {}, map_area: [],
         'fog',
         'beach',
         'shore')
-    terrainHeatingWords = ('sun', 'lava', 'volcan', 'molten', 'desert', 'dry')
+    terrain_heating_words = (
+        'sun', 'lava', 'volcan', 'molten', 'desert', 'dry'
+    )
 
-    for rm in rooms:
-        if not rooms[rm].get('coords'):
+    for rmid in rooms:
+        if not rooms[rmid].get('coords'):
             continue
-        coords = rooms[rm]['coords']
+        coords = rooms[rmid]['coords']
         if len(coords) < 2:
             continue
         if coords[0] - map_area[0][0] != y:
             continue
         if coords[1] - map_area[1][0] != x:
             continue
-        roomDescription = rooms[rm]['description'].lower()
-        for w in terrainFreezingWords:
-            if w in roomDescription:
+        room_description = rooms[rmid]['description'].lower()
+        for wrd in terrain_freezing_words:
+            if wrd in room_description:
                 temperature = temperature * 0.1
-        for w in terrainCoolingWords:
-            if w in roomDescription:
+        for wrd in terrain_cooling_words:
+            if wrd in room_description:
                 temperature = temperature * 0.98
-        for w in terrainHeatingWords:
-            if w in roomDescription:
+        for wrd in terrain_heating_words:
+            if wrd in room_description:
                 temperature = temperature * 1.05
     return temperature
 
 
-def plotClouds(rooms: {}, map_area: [], clouds: {},
-               temperature: float) -> None:
+def plot_clouds(rooms: {}, map_area: [], clouds: {},
+                temperature: float) -> None:
     """Show clouds as ASCII diagram for debugging purposes
     """
-    cloudThreshold = _getCloudThreshold(temperature)
-    mapWidth = map_area[1][1] - map_area[1][0]
-    mapHeight = map_area[0][1] - map_area[0][0]
+    cloud_threshold = _get_cloud_threshold(temperature)
+    map_width = map_area[1][1] - map_area[1][0]
+    map_height = map_area[0][1] - map_area[0][0]
 
-    for y in range(0, mapHeight - 1):
-        lineStr = ''
-        for x in range(0, mapWidth - 1):
-            mapTemp = clouds[x][y] - \
-                (_altitudeTemperatureAdjustment(rooms, map_area, x, y) * 7)
-            mapTemp = _terrainTemperatureAdjustment(
-                mapTemp, rooms, map_area, x, y)
-            lineChar = '.'
-            if mapTemp > cloudThreshold:
-                lineChar = 'o'
-            if mapTemp > rainThreshold:
-                lineChar = 'O'
-            lineStr = lineStr + lineChar
-        print(lineStr + '\n')
+    for y_coord in range(0, map_height - 1):
+        line_str = ''
+        for x_coord in range(0, map_width - 1):
+            map_temp = clouds[x_coord][y_coord] - \
+                (_altitudeTemperatureAdjustment(rooms, map_area,
+                                                x_coord, y_coord) * 7)
+            map_temp = _terrain_temperature_adjustment(
+                map_temp, rooms, map_area, x_coord, y_coord)
+            line_char = '.'
+            if map_temp > cloud_threshold:
+                line_char = 'o'
+            if map_temp > RAIN_THRESHOLD:
+                line_char = 'O'
+            line_str = line_str + line_char
+        print(line_str + '\n')
     print('\n')
 
 
-def _get_temperatureSeasonal() -> float:
+def _get_temperature_seasonal() -> float:
     """Average temperature for the time of year
     """
-    dayOfYear = int(datetime.datetime.today().strftime("%j"))
-    tempFraction = (
-        (sin((0.75 + (dayOfYear / 365.0)) * 2 * 3.1415927) + 1) / 2.0)
-    return 8 + (7 * tempFraction)
+    day_of_year = int(datetime.datetime.today().strftime("%j"))
+    temp_fraction = (
+        (sin((0.75 + (day_of_year / 365.0)) * 2 * 3.1415927) + 1) / 2.0)
+    return 8 + (7 * temp_fraction)
 
 
 def get_temperature() -> float:
     """Average daily seasonal temperature for the universe
     """
-    avTemp = _get_temperatureSeasonal()
+    av_temp = _get_temperature_seasonal()
 
-    daysSinceEpoch = (
+    days_since_epoch = (
         datetime.datetime.today() -
         datetime.datetime(
             1970,
@@ -907,24 +913,24 @@ def get_temperature() -> float:
             1)).days
 
     # Temperature can vary randomly from one day to the next
-    r1 = random.Random(daysSinceEpoch)
-    dailyVariance = avTemp * 0.4 * (r1.random() - 0.5)
+    ran1 = random.Random(days_since_epoch)
+    daily_variance = av_temp * 0.4 * (ran1.random() - 0.5)
 
     # Calculate number of minutes elapsed in the day so far
-    currHour = datetime.datetime.today().hour
-    currMin = datetime.datetime.today().minute
-    dayMins = (currHour * 60) + currMin
+    curr_hour = datetime.datetime.today().hour
+    curr_min = datetime.datetime.today().minute
+    day_mins = (curr_hour * 60) + curr_min
 
     # Seed number generator for the current minute of the day
-    dayFraction = dayMins / (60.0 * 24.0)
-    r1 = random.Random((daysSinceEpoch * 1440) + dayMins)
+    day_fraction = day_mins / (60.0 * 24.0)
+#    ran1 = random.Random((days_since_epoch * 1440) + day_mins)
 
-    solarVariance = avTemp * 0.2
-    solarCycle = sin((0.75 + dayFraction) * 2 * 3.1415927) * solarVariance
+    solar_variance = av_temp * 0.2
+    solar_cycle = sin((0.75 + day_fraction) * 2 * 3.1415927) * solar_variance
 
-    # print("avTemp " + str(avTemp) + " dailyVariance " +
-    # str(dailyVariance) + " solarCycle " + str(solarCycle))
-    return avTemp + dailyVariance + solarCycle
+    # print("av_temp " + str(av_temp) + " daily_variance " +
+    # str(daily_variance) + " solar_cycle " + str(solar_cycle))
+    return av_temp + daily_variance + solar_cycle
 
 
 def get_temperature_at_coords(coords: [], rooms: {}, map_area: [],
@@ -932,30 +938,32 @@ def get_temperature_at_coords(coords: [], rooms: {}, map_area: [],
     """Returns the temperature at the given coordinates
     """
     # Average temperature of the universe
-    currTemp = get_temperature()
+    curr_temp = get_temperature()
 
     if not coords:
-        return currTemp
+        return curr_temp
 
-    x = coords[1] - map_area[1][0]
-    y = coords[0] - map_area[0][0]
+    x_co = coords[1] - map_area[1][0]
+    y_co = coords[0] - map_area[0][0]
 
     # Adjust for altitude
-    currTemp = currTemp - _altitudeTemperatureAdjustment(rooms, map_area, x, y)
+    curr_temp = \
+        curr_temp - _altitudeTemperatureAdjustment(rooms, map_area, x_co, y_co)
 
     # Adjust for terrain
-    currTemp = _terrainTemperatureAdjustment(currTemp, rooms, map_area, x, y)
+    curr_temp = \
+        _terrain_temperature_adjustment(curr_temp, rooms, map_area, x_co, y_co)
 
     # Adjust for rain
     if get_rain_at_coords([coords[0], coords[1]], map_area, clouds):
-        currTemp = currTemp * 0.8
+        curr_temp = curr_temp * 0.8
 
-    if clouds[x][y] < _getCloudThreshold(currTemp):
+    if clouds[x_co][y_co] < _get_cloud_threshold(curr_temp):
         # without cloud
-        return currTemp
+        return curr_temp
 
     # with cloud
-    return currTemp * 0.8
+    return curr_temp * 0.8
 
 
 def get_rain_at_coords(coords: [], map_area: [], clouds: {}) -> bool:
@@ -963,9 +971,9 @@ def get_rain_at_coords(coords: [], map_area: [], clouds: {}) -> bool:
     """
     if not coords:
         return False
-    x = coords[1] - map_area[1][0]
-    y = coords[0] - map_area[0][0]
-    if clouds[x][y] > rainThreshold:
+    x_coord = coords[1] - map_area[1][0]
+    y_coord = coords[0] - map_area[0][0]
+    if clouds[x_coord][y_coord] > RAIN_THRESHOLD:
         return True
     return False
 
@@ -974,60 +982,60 @@ def assign_environment_to_rooms(environments: {}, rooms: {}) -> int:
     """Assigns environment numbers to rooms based upon their descriptions
     Returns the percentage of rooms assigned to environments
     """
-    assignedRooms = 0
-    noOfRooms = 0
-    for roomId, item in rooms.items():
-        noOfRooms += 1
-        roomName = item['name'].lower()
-        roomWords = roomName.split(' ')
-        maxScore = 0
+    assigned_rooms = 0
+    no_of_rooms = 0
+    for room_id, item in rooms.items():
+        no_of_rooms += 1
+        room_name = item['name'].lower()
+        room_words = room_name.split(' ')
+        max_score = 0
         env = 0
-        for environmentId, envItem in environments.items():
+        for environment_id, env_item in environments.items():
             score = 0
-            for word in roomWords:
-                if word in envItem['name'].lower():
+            for word in room_words:
+                if word in env_item['name'].lower():
                     score += 10
-            if envItem.get('keywords'):
-                for word in envItem['keywords']:
-                    if word in roomName:
+            if env_item.get('keywords'):
+                for word in env_item['keywords']:
+                    if word in room_name:
                         score += 10
-            if score > maxScore:
-                maxScore = score
-                env = int(environmentId)
+            if score > max_score:
+                max_score = score
+                env = int(environment_id)
         if env > 0:
-            assignedRooms += 1
+            assigned_rooms += 1
         else:
             print('Environment not assigned to ' + item['name'])
-        rooms[roomId]['environmentId'] = env
-    percentAssigned = 0
-    if noOfRooms > 0:
-        percentAssigned = int(assignedRooms * 100 / noOfRooms)
-    return percentAssigned
+        rooms[room_id]['environmentId'] = env
+    percent_assigned = 0
+    if no_of_rooms > 0:
+        percent_assigned = int(assigned_rooms * 100 / no_of_rooms)
+    return percent_assigned
 
 
-def get_room_culture(cultures_db: {}, rooms: {}, roomId) -> str:
+def get_room_culture(cultures_db: {}, rooms: {}, room_id) -> str:
     """Returns the culture for a room
     """
-    if not rooms[roomId].get('region'):
+    if not rooms[room_id].get('region'):
         return None
-    region = rooms[roomId]['region']
+    region = rooms[room_id]['region']
     if not region:
         return None
-    for cultureName, item in cultures_db.items():
+    for culture_name, item in cultures_db.items():
         if region in item['regions']:
-            return cultureName
+            return culture_name
     return None
 
 
 def is_fishing_site(rooms: {}, rid) -> bool:
     """Is the given location a fishing site?
     """
-    fishingSites = ('river', 'lake', 'sea', 'ocean', 'pond')
+    fishing_sites = ('river', 'lake', 'sea', 'ocean', 'pond')
     if rooms[rid]['weather'] != 1:
         return False
-    roomNameLower = rooms[rid]['name'].lower()
-    for site in fishingSites:
-        if site in roomNameLower:
+    room_name_lower = rooms[rid]['name'].lower()
+    for site in fishing_sites:
+        if site in room_name_lower:
             return True
     return False
 
@@ -1035,11 +1043,11 @@ def is_fishing_site(rooms: {}, rid) -> bool:
 def holding_fishing_rod(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a fishing rod?
     """
-    handLocations = ('clo_lhand', 'clo_rhand')
-    for hand in handLocations:
-        itemID = int(players[id][hand])
-        if itemID > 0:
-            if 'fishing' in items_db[itemID]['name']:
+    hand_locations = ('clo_lhand', 'clo_rhand')
+    for hand in hand_locations:
+        item_id = int(players[id][hand])
+        if item_id > 0:
+            if 'fishing' in items_db[item_id]['name']:
                 return True
     return False
 
@@ -1047,17 +1055,17 @@ def holding_fishing_rod(players: {}, id, items_db: {}) -> bool:
 def holding_fly_fishing_rod(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a fly fishing rod?
     """
-    handLocations = ('clo_lhand', 'clo_rhand')
-    for hand in handLocations:
-        itemID = int(players[id][hand])
-        if itemID > 0:
-            if 'fishing' in items_db[itemID]['name']:
-                if 'fly' in items_db[itemID]['name']:
+    hand_locations = ('clo_lhand', 'clo_rhand')
+    for hand in hand_locations:
+        item_id = int(players[id][hand])
+        if item_id > 0:
+            if 'fishing' in items_db[item_id]['name']:
+                if 'fly' in items_db[item_id]['name']:
                     return True
     return False
 
 
-def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
+def _catch_fish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
     """The player catches a fish
     """
     if randint(1, 100) < 80:
@@ -1067,9 +1075,9 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
         return
     if not is_fishing_site(rooms, rid):
         return
-    roomNameLower = rooms[rid]['name'].lower()
-    fishNames = []
-    fishingSeason = {
+    room_name_lower = rooms[rid]['name'].lower()
+    fish_names = []
+    fishing_season = {
         "carp": [4, 5, 6, 7, 8, 9, 10, 11, 12],
         "pike fish": [1, 2, 3, 9, 10, 11, 12],
         "minnow": [],
@@ -1085,61 +1093,61 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
         "sea bass": [5, 6, 7, 8, 9, 10, 11, 12],
         "mullet": [5, 6, 7, 8, 9, 10, 11, 12]
     }
-    if 'lake' in roomNameLower:
-        fishNames = (
+    if 'lake' in room_name_lower:
+        fish_names = (
             'carp', 'pike fish', 'minnow', 'tench'
         )
-    elif 'river' in roomNameLower:
-        fishNames = (
+    elif 'river' in room_name_lower:
+        fish_names = (
             'trout', 'chub'
         )
-    elif 'sea' in roomNameLower or 'ocean' in roomNameLower:
+    elif 'sea' in room_name_lower or 'ocean' in room_name_lower:
         if not holding_fly_fishing_rod(players, id, items_db):
-            fishNames = (
+            fish_names = (
                 'cod fish', 'haddock', 'turbot', 'sturgeon',
                 'dogfish', 'pollack', 'sea bass', 'mullet'
             )
         else:
-            fishNames = (
+            fish_names = (
                 'sea bass', 'mullet'
             )
-    elif 'pond' in roomNameLower:
+    elif 'pond' in room_name_lower:
         if not holding_fly_fishing_rod(players, id, items_db):
-            fishNames = (
+            fish_names = (
                 'pond weed'
             )
-    if not fishNames:
+    if not fish_names:
         return
-    fishIds = []
-    currMonthNumber = int(datetime.datetime.today().strftime("%m"))
-    noOfFish = 0
+    fish_ids = []
+    curr_month_number = int(datetime.datetime.today().strftime("%m"))
+    no_of_fish = 0
     for iid, item in items_db.items():
         if item['edible'] <= 0:
             continue
         if item['weight'] <= 0:
             continue
-        itemNameLower = item['name'].lower()
-        for fish in fishNames:
-            if fish in itemNameLower:
+        item_name_lower = item['name'].lower()
+        for fish in fish_names:
+            if fish in item_name_lower:
                 if iid in players[id]['inv']:
-                    noOfFish += 1
+                    no_of_fish += 1
                 # is this fishable at this time of year?
-                if fishingSeason.get(fish):
-                    if currMonthNumber in fishingSeason[fish]:
-                        fishIds.append(iid)
+                if fishing_season.get(fish):
+                    if curr_month_number in fishing_season[fish]:
+                        fish_ids.append(iid)
                 else:
-                    fishIds.append(iid)
-    if noOfFish > 1:
+                    fish_ids.append(iid)
+    if no_of_fish > 1:
         return
-    if not fishIds:
+    if not fish_ids:
         return
-    caughtId = random.choice(fishIds)
-    if caughtId in players[id]['inv']:
+    caught_id = random.choice(fish_ids)
+    if caught_id in players[id]['inv']:
         return
-    caughtStr = \
-        items_db[caughtId]['article'] + ' ' + items_db[caughtId]['name']
-    msg_str = random_desc('You catch ' + caughtStr)
-    players[id]['inv'].append(caughtId)
+    caught_str = \
+        items_db[caught_id]['article'] + ' ' + items_db[caught_id]['name']
+    msg_str = random_desc('You catch ' + caught_str)
+    players[id]['inv'].append(caught_id)
     del players[id]['isFishing']
     mud.send_message(id, msg_str + '\n\n')
 
@@ -1147,12 +1155,12 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
 def players_fishing(players: {}, rooms: {}, items_db: {}, mud) -> None:
     """Updates players that are fishing
     """
-    for p in players:
-        if players[p].get('isFishing'):
-            _catchFish(players, p, rooms, items_db, mud)
+    for plyr in players:
+        if players[plyr].get('isFishing'):
+            _catch_fish(players, plyr, rooms, items_db, mud)
 
 
-def _moonPosition(currTime) -> int:
+def _moon_position(currTime) -> int:
     """Returns a number representing the position of the moon
     """
     diff = currTime - datetime.datetime(2001, 1, 1)
@@ -1164,7 +1172,7 @@ def _moonPosition(currTime) -> int:
 def moon_phase(currTime) -> int:
     """Returns a number representing the phase of the moon
     """
-    position = _moonPosition(currTime)
+    position = _moon_position(currTime)
     index = (position * dec(8)) + dec("0.5")
     index = math.floor(index)
     return int(index) & 7
@@ -1173,6 +1181,6 @@ def moon_phase(currTime) -> int:
 def moon_illumination(currTime) -> int:
     """Returns additional illumination due to moonlight
     """
-    position = _moonPosition(currTime)
+    position = _moon_position(currTime)
     pos = int(position) & 7
     return int((5 - abs(4 - pos)) * 2)
