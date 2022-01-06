@@ -24,11 +24,11 @@ from functions import deepcopy
 from functions import parse_cost
 from random import randint
 # from copy import deepcopy
-from familiar import getFamiliarModes
-from familiar import familiarDefaultMode
-from familiar import familiarScout
-from familiar import familiarHide
-from familiar import familiarSight
+from familiar import get_familiar_modes
+from familiar import familiar_default_mode
+from familiar import familiar_scout
+from familiar import familiar_hide
+from familiar import familiar_sight
 from environment import get_rain_at_coords
 from environment import get_room_culture
 
@@ -1088,22 +1088,22 @@ def _conversationFamiliarMode(
         if len(bestMatchActionParam0) > 0:
             if thisNPC['familiarOf'] == players[id]['name']:
                 mode = bestMatchActionParam0.lower().strip()
-                if mode in getFamiliarModes():
+                if mode in get_familiar_modes():
                     if mode == 'follow':
-                        familiarDefaultMode(nid, npcs, npcs_db)
+                        familiar_default_mode(nid, npcs, npcs_db)
                     if mode == 'hide':
-                        familiarHide(nid, npcs, npcs_db)
+                        familiar_hide(nid, npcs, npcs_db)
                     mud.send_message(
                         id, "<f220>" + thisNPC['name'] +
                         "<r> " + bestMatch + ".\n\n")
                     if mode == 'scout':
-                        familiarScout(mud, players, id, nid,
-                                      npcs, npcs_db, rooms,
-                                      bestMatchActionParam1)
+                        familiar_scout(mud, players, id, nid,
+                                       npcs, npcs_db, rooms,
+                                       bestMatchActionParam1)
                     if mode == 'see':
-                        familiarSight(mud, nid, npcs, npcs_db,
-                                      rooms, players, id, items,
-                                      items_db)
+                        familiar_sight(mud, nid, npcs, npcs_db,
+                                       rooms, players, id, items,
+                                       items_db)
                     return True
             else:
                 mud.send_message(

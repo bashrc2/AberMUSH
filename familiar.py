@@ -13,18 +13,18 @@ from functions import deepcopy
 # from copy import deepcopy
 
 # Movement modes for familiars
-familiarModes = ("follow", "scout", "hide", "see")
+FAMILIAR_MODES = ("follow", "scout", "hide", "see")
 
 
-def getFamiliarModes():
-    return familiarModes
+def get_familiar_modes():
+    return FAMILIAR_MODES
 
 
 def get_familiar_name(players, id, npcs):
     """Returns the name of the familiar of the given player
     """
     if players[id]['familiar'] != -1:
-        for (nid, pl) in list(npcs.items()):
+        for nid, _ in list(npcs.items()):
             if npcs[nid]['familiarOf'] == players[id]['name']:
                 return npcs[nid]['name']
     return ''
@@ -35,8 +35,8 @@ def familiar_recall(mud, players, id, npcs, npcs_db):
     """
     # remove any existing familiars
     removals = []
-    for (nid, pl) in list(npcs.items()):
-        if pl['familiarOf'] == players[id]['name']:
+    for nid, item in list(npcs.items()):
+        if item['familiarOf'] == players[id]['name']:
             removals.append(nid)
 
     for index in removals:
@@ -46,8 +46,8 @@ def familiar_recall(mud, players, id, npcs, npcs_db):
     players[id]['familiar'] = -1
 
     # Find familiar and set its room to that of the player
-    for (nid, pl) in list(npcs_db.items()):
-        if pl['familiarOf'] == players[id]['name']:
+    for nid, item in list(npcs_db.items()):
+        if item['familiarOf'] == players[id]['name']:
             players[id]['familiar'] = int(nid)
             if not npcs.get(nid):
                 npcs[nid] = deepcopy(npcs_db[nid])
@@ -56,7 +56,7 @@ def familiar_recall(mud, players, id, npcs, npcs_db):
             break
 
 
-def familiarDefaultMode(nid, npcs, npcs_db):
+def familiar_default_mode(nid, npcs, npcs_db):
     npcs[nid]['familiarMode'] = "follow"
     npcs_db[nid]['familiarMode'] = "follow"
     npcs[nid]['moveType'] = ""
@@ -65,209 +65,212 @@ def familiarDefaultMode(nid, npcs, npcs_db):
     npcs_db[nid]['path'] = []
 
 
-def familiarSight(mud, nid, npcs, npcs_db, rooms, players, id,
-                  items, items_db):
+def familiar_sight(mud, nid, npcs, npcs_db, rooms, players, id,
+                   items, items_db):
     """familiar reports what it sees
     """
-    startRoomID = npcs[nid]['room']
-    roomExits = rooms[startRoomID]['exits']
+    start_room_id = npcs[nid]['room']
+    room_exits = rooms[start_room_id]['exits']
 
     mud.send_message(id, "Your familiar says:\n")
-    if len(roomExits) == 0:
+    if len(room_exits) == 0:
         mud.send_message(id, "There are no exits.")
     else:
-        if len(roomExits) > 1:
-            mud.send_message(id, "There are " + str(len(roomExits)) +
+        if len(room_exits) > 1:
+            mud.send_message(id, "There are " + str(len(room_exits)) +
                              " exits.")
         else:
-            exitDescription = random_desc("a single|one")
-            mud.send_message(id, "There is " + exitDescription + " exit.")
-    creaturesCount = 0
-    creaturesFriendly = 0
-    creaturesRaces = []
-    for p in players:
-        if players[p]['name'] is None:
+            exit_description = random_desc("a single|one")
+            mud.send_message(id, "There is " + exit_description + " exit.")
+    creatures_count = 0
+    creatures_friendly = 0
+    creatures_races = []
+    for plyr in players:
+        if players[plyr]['name'] is None:
             continue
-        if players[p]['room'] == npcs[nid]['room']:
-            creaturesCount = creaturesCount+1
-            if players[p]['race'] not in creaturesRaces:
-                creaturesRaces.append(players[p]['race'])
-            for name, value in players[p]['affinity'].items():
+        if players[plyr]['room'] == npcs[nid]['room']:
+            creatures_count = creatures_count+1
+            if players[plyr]['race'] not in creatures_races:
+                creatures_races.append(players[plyr]['race'])
+            for name, value in players[plyr]['affinity'].items():
                 if npcs[nid]['familiarOf'] == name:
                     if value >= 0:
-                        creaturesFriendly = creaturesFriendly + 1
+                        creatures_friendly = creatures_friendly + 1
 
-    for n in npcs:
-        if n != nid:
-            if npcs[n]['room'] == npcs[nid]['room']:
-                creaturesCount = creaturesCount+1
-                if npcs[n].get('race'):
-                    if npcs[n]['race'] not in creaturesRaces:
-                        creaturesRaces.append(npcs[n]['race'])
-                if npcs[n].get('affinity'):
-                    for name, value in npcs[n]['affinity'].items():
+    for n_co in npcs:
+        if n_co != nid:
+            if npcs[n_co]['room'] == npcs[nid]['room']:
+                creatures_count = creatures_count+1
+                if npcs[n_co].get('race'):
+                    if npcs[n_co]['race'] not in creatures_races:
+                        creatures_races.append(npcs[n_co]['race'])
+                if npcs[n_co].get('affinity'):
+                    for name, value in npcs[n_co]['affinity'].items():
                         if npcs[nid]['familiarOf'] == name:
                             if value >= 0:
-                                creaturesFriendly = creaturesFriendly + 1
+                                creatures_friendly = creatures_friendly + 1
 
-    if creaturesCount > 0:
-        creatureStr = random_desc("creature|being|entity")
-        creaturesMsg = 'I see '
-        if creaturesCount > 1:
-            creaturesMsg = creaturesMsg + str(creaturesCount) + ' ' + \
-                creatureStr + 's'
+    if creatures_count > 0:
+        creature_str = random_desc("creature|being|entity")
+        creatures_msg = 'I see '
+        if creatures_count > 1:
+            creatures_msg = creatures_msg + str(creatures_count) + ' ' + \
+                creature_str + 's'
         else:
-            creaturesMsg = creaturesMsg + 'one ' + creatureStr
-        creaturesMsg = creaturesMsg + ' here.'
+            creatures_msg = creatures_msg + 'one ' + creature_str
+        creatures_msg = creatures_msg + ' here.'
 
-        friendlyWord = \
+        friendly_word = \
             random_desc("friendly|nice|pleasing|not threatening")
-        if creaturesFriendly > 0:
-            if creaturesFriendly > 1:
-                creaturesMsg = creaturesMsg + ' ' + \
-                    str(creaturesFriendly) + ' are ' + friendlyWord + '.'
+        if creatures_friendly > 0:
+            if creatures_friendly > 1:
+                creatures_msg = creatures_msg + ' ' + \
+                    str(creatures_friendly) + ' are ' + friendly_word + '.'
             else:
-                if creaturesFriendly == creaturesCount:
-                    creaturesMsg = \
-                        creaturesMsg + ' They are ' + friendlyWord + '.'
+                if creatures_friendly == creatures_count:
+                    creatures_msg = \
+                        creatures_msg + ' They are ' + friendly_word + '.'
                 else:
-                    creaturesMsg = \
-                        creaturesMsg + ' One is ' + friendlyWord + '.'
-        creaturesMsg = creaturesMsg + '\n'
-        if len(creaturesRaces) > 0:
-            creaturesMsg = creaturesMsg + 'They are '
-            if len(creaturesRaces) == 1:
-                creaturesMsg = \
-                    creaturesMsg + '<f220>' + creaturesRaces[0] + 's<r>.'
+                    creatures_msg = \
+                        creatures_msg + ' One is ' + friendly_word + '.'
+        creatures_msg = creatures_msg + '\n'
+        if len(creatures_races) > 0:
+            creatures_msg = creatures_msg + 'They are '
+            if len(creatures_races) == 1:
+                creatures_msg = \
+                    creatures_msg + '<f220>' + creatures_races[0] + 's<r>.'
             else:
-                if len(creaturesRaces) == 2:
-                    creaturesMsg = \
-                        creaturesMsg + '<f220>' + creaturesRaces[0] + \
-                        's<r> and <f220>' + creaturesRaces[1] + 's<r>.'
+                if len(creatures_races) == 2:
+                    creatures_msg = \
+                        creatures_msg + '<f220>' + creatures_races[0] + \
+                        's<r> and <f220>' + creatures_races[1] + 's<r>.'
                 else:
                     ctr = 0
-                    for r in creaturesRaces:
+                    for rac in creatures_races:
                         if ctr == 0:
-                            creaturesMsg = creaturesMsg + '<f220>' + r + 's<r>'
+                            creatures_msg = \
+                                creatures_msg + '<f220>' + rac + 's<r>'
                         if ctr > 0:
-                            if ctr < len(creaturesRaces) - 1:
-                                creaturesMsg = \
-                                    creaturesMsg + ', <f220>' + r + 's<r>'
+                            if ctr < len(creatures_races) - 1:
+                                creatures_msg = \
+                                    creatures_msg + ', <f220>' + rac + 's<r>'
                             else:
-                                creaturesMsg = \
-                                    creaturesMsg + ' and <f220>' + r + 's<r>.'
+                                creatures_msg = \
+                                    creatures_msg + ' and <f220>' + \
+                                    rac + 's<r>.'
                         ctr = ctr + 1
-        mud.send_message(id, creaturesMsg)
+        mud.send_message(id, creatures_msg)
 
-    itemsInRoom = 0
-    weaponsInRoom = 0
-    armorInRoom = 0
-    edibleInRoom = 0
-    for (iid, pl) in list(items.items()):
+    items_in_room = 0
+    weapons_in_room = 0
+    armor_in_room = 0
+    edible_in_room = 0
+    for iid, _ in list(items.items()):
         if items[iid]['room'] == npcs[nid]['room']:
             if items[iid].get('weight'):
                 if items[iid]['weight'] > 0:
-                    itemsInRoom += 1
+                    items_in_room += 1
                     if (items[iid]['mod_str'] > 0 and
                         (items[iid]['clo_lhand'] > 0 or
                          items[iid]['clo_rhand'] > 0)):
-                        weaponsInRoom += 1
+                        weapons_in_room += 1
                     if items[iid]['mod_endu'] > 0 and \
                        items[iid]['clo_chest'] > 0:
-                        armorInRoom += 1
+                        armor_in_room += 1
                     if items[iid]['edible'] != 0:
-                        edibleInRoom += 1
-    if armorInRoom > 0 and weaponsInRoom > 0:
+                        edible_in_room += 1
+    if armor_in_room > 0 and weapons_in_room > 0:
         mud.send_message(id, 'There are some weapons and armor here.')
     else:
-        if armorInRoom > 0:
+        if armor_in_room > 0:
             mud.send_message(id, 'There is some armor here.')
         else:
-            if weaponsInRoom > 0:
+            if weapons_in_room > 0:
                 mud.send_message(id, 'There are some weapons here.')
             else:
                 mud.send_message(id, 'There are some items here.')
-    if edibleInRoom:
+    if edible_in_room:
         mud.send_message(id, 'There are some edibles here.')
     mud.send_message(id, '\n\n')
 
 
-def familiarHide(nid, npcs, npcs_db):
+def familiar_hide(nid, npcs, npcs_db):
     """Causes a familiar to hide
     """
     npcs[nid]['familiarMode'] = "hide"
     npcs_db[nid]['familiarMode'] = "hide"
 
 
-def familiarIsHidden(players: {}, id, npcs: {}):
+def familiar_is_hidden(players: {}, id, npcs: {}):
     """Returns true if the familiar of the player is hidden
     TODO: currently unused
     """
     if players[id]['familiar'] != -1:
-        for (nid, pl) in list(npcs.items()):
+        for nid, _ in list(npcs.items()):
             if npcs[nid]['familiarOf'] == players[id]['name']:
                 if npcs[nid]['familiarMode'] == 'hide':
                     return True
     return False
 
 
-def _familiarScoutAnyDirection(familiarSize, startRoomID,
-                               roomExits, rooms: {}):
+def _familiar_scout_any_direction(familiarSize, start_room_id,
+                                  room_exits, rooms: {}):
     """Scout in any direction
     """
-    newPath = [startRoomID]
-    for ex, rm in roomExits.items():
-        if rooms[rm]['maxPlayerSize'] > -1:
-            if familiarSize > rooms[rm]['maxPlayerSize']:
+    new_path = [start_room_id]
+    for _, rmid in room_exits.items():
+        if rooms[rmid]['maxPlayerSize'] > -1:
+            if familiarSize > rooms[rmid]['maxPlayerSize']:
                 continue
-        newPath.append(rm)
-        newPath.append(startRoomID)
-    if len(newPath) == 1:
-        newPath.clear()
-    return newPath
+        new_path.append(rmid)
+        new_path.append(start_room_id)
+    if len(new_path) == 1:
+        new_path.clear()
+    return new_path
 
 
-def _familiarScoutInDirection(mud, players, id, startRoomID, roomExits,
-                              direction, rooms):
+def _familiar_scout_in_direction(mud, players, id, start_room_id, room_exits,
+                                 direction, rooms):
     """Scout in the given direction
     """
-    newPath = []
-    if roomExits.get(direction):
-        if rooms[roomExits[direction]]['maxPlayerSize'] > -1:
+    new_path = []
+    if room_exits.get(direction):
+        if rooms[room_exits[direction]]['maxPlayerSize'] > -1:
             if players[id]['siz'] <= \
-               rooms[roomExits[direction]]['maxPlayerSize']:
-                newPath = [startRoomID, roomExits[direction]]
+               rooms[room_exits[direction]]['maxPlayerSize']:
+                new_path = [start_room_id, room_exits[direction]]
             else:
                 mud.send_message(id, "It's too small to enter!\n\n")
         else:
-            newPath = [startRoomID, roomExits[direction]]
+            new_path = [start_room_id, room_exits[direction]]
     else:
         mud.send_message(id, "I can't go that way!\n\n")
-    return newPath
+    return new_path
 
 
-def familiarScout(mud, players, id, nid, npcs, npcs_db, rooms, direction):
+def familiar_scout(mud, players, id, nid, npcs, npcs_db, rooms, direction):
     """familiar begins scouting the surrounding rooms
     """
-    startRoomID = npcs[nid]['room']
-    roomExits = rooms[startRoomID]['exits']
+    start_room_id = npcs[nid]['room']
+    room_exits = rooms[start_room_id]['exits']
 
-    newPath = []
+    new_path = []
 
     if direction == 'any' or direction == 'all' or len(direction) == 0:
-        newPath = \
-            _familiarScoutAnyDirection(npcs[nid]['siz'], startRoomID,
-                                       roomExits, rooms)
+        new_path = \
+            _familiar_scout_any_direction(npcs[nid]['siz'], start_room_id,
+                                          room_exits, rooms)
     else:
-        newPath = _familiarScoutInDirection(mud, players, id, startRoomID,
-                                            roomExits, direction, rooms)
+        new_path = \
+            _familiar_scout_in_direction(mud, players, id, start_room_id,
+                                         room_exits, direction, rooms)
 
-    if len(newPath) > 0:
+    if len(new_path) > 0:
         npcs[nid]['familiarMode'] = "scout"
         npcs[nid]['moveType'] = "patrol"
-        npcs[nid]['path'] = deepcopy(newPath)
+        npcs[nid]['path'] = deepcopy(new_path)
         npcs_db[nid]['familiarMode'] = "scout"
         npcs_db[nid]['moveType'] = "patrol"
-        npcs_db[nid]['path'] = deepcopy(newPath)
+        npcs_db[nid]['path'] = deepcopy(new_path)
     else:
-        familiarDefaultMode(nid, npcs, npcs_db)
+        familiar_default_mode(nid, npcs, npcs_db)

@@ -1633,13 +1633,13 @@ def _cast_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 item_history: {}, markets: {}, cultures_db: {}):
     # cast fishing rod
     if 'fishing' in params or params == 'rod' or params == 'fish':
-        _fish(params, mud, players_db, players, rooms,
-              npcs_db, npcs, items_db, items,
-              env_db, env, eventDB, event_schedule,
-              id, fights, corpses, blocklist,
-              map_area, character_class_db, spells_db,
-              sentiment_db, guilds_db, clouds, races_db,
-              item_history, markets, cultures_db)
+        _start_fishing(params, mud, players_db, players, rooms,
+                       npcs_db, npcs, items_db, items,
+                       env_db, env, eventDB, event_schedule,
+                       id, fights, corpses, blocklist,
+                       map_area, character_class_db, spells_db,
+                       sentiment_db, guilds_db, clouds, races_db,
+                       item_history, markets, cultures_db)
         return
 
     if players[id]['frozenStart'] != 0:

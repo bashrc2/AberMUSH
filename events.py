@@ -425,10 +425,10 @@ def _itemInRoom(items, id, room):
 
 def _spawnItem(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
-    bodyInt = int(body[0])
-    if not _itemInRoom(items, bodyInt, body[1]):
+    body_int = int(body[0])
+    if not _itemInRoom(items, body_int, body[1]):
         items[get_free_key(items, 200000)] = {
-            'id': bodyInt,
+            'id': body_int,
             'room': body[1],
             'whenDropped': int(time.time()),
             'lifespan': int(body[2]),
@@ -576,26 +576,26 @@ def _spawnNPC(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
 
 
 def _actorInRoom(env, name, room):
-    for e in env.items():
-        if room == e[1]['room']:
-            if name in e[1]['name']:
+    for e_co in env.items():
+        if room == e_co[1]['room']:
+            if name in e_co[1]['name']:
                 return True
     return False
 
 
 def _spawnActor(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
-    bodyInt = int(body[0])
-    if not _actorInRoom(env, env_db[bodyInt]['name'], body[1]):
-        env[bodyInt] = {
-            'name': env_db[bodyInt]['name'],
-            'vocabulary': env_db[bodyInt]['vocabulary'],
-            'talkDelay': env_db[bodyInt]['talkDelay'],
-            'randomFactor': env_db[bodyInt]['randomFactor'],
+    body_int = int(body[0])
+    if not _actorInRoom(env, env_db[body_int]['name'], body[1]):
+        env[body_int] = {
+            'name': env_db[body_int]['name'],
+            'vocabulary': env_db[body_int]['vocabulary'],
+            'talkDelay': env_db[body_int]['talkDelay'],
+            'randomFactor': env_db[body_int]['randomFactor'],
             'room': body[1],
-            'randomizer': env_db[bodyInt]['randomizer'],
-            'timeTalked': env_db[bodyInt]['timeTalked'],
-            'lastSaid': env_db[bodyInt]['lastSaid']
+            'randomizer': env_db[body_int]['randomizer'],
+            'timeTalked': env_db[body_int]['timeTalked'],
+            'lastSaid': env_db[body_int]['lastSaid']
         }
 
 # Function for evaluating an Event

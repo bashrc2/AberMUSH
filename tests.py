@@ -182,7 +182,7 @@ def _testFunctions():
 
     # don't check these functions, because they are procedurally called
     exclusions = [
-        'familiarIsHidden',
+        'familiar_is_hidden',
         '_nod',
         '_pose_prone',
         '_stand',
