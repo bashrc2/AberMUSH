@@ -1138,10 +1138,10 @@ def _catchFish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
         return
     caughtStr = \
         items_db[caughtId]['article'] + ' ' + items_db[caughtId]['name']
-    msgStr = random_desc('You catch ' + caughtStr)
+    msg_str = random_desc('You catch ' + caughtStr)
     players[id]['inv'].append(caughtId)
     del players[id]['isFishing']
-    mud.send_message(id, msgStr + '\n\n')
+    mud.send_message(id, msg_str + '\n\n')
 
 
 def players_fishing(players: {}, rooms: {}, items_db: {}, mud) -> None:

@@ -53,11 +53,11 @@ def _playerIsAvailable(id, players: {}, items_db: {}, rooms: {},
     """Returns True if the player is available.
     Availability is encumbered by weight, temperature and terrain
     """
-    currRoom = players[id]['room']
+    curr_room = players[id]['room']
     weightDifficulty = \
         int(_getEncumberanceFromWeight(id, players, items_db) * 2)
     temperatureDifficulty = \
-        _get_temperatureDifficulty(currRoom, rooms, map_area, clouds)
+        _get_temperatureDifficulty(curr_room, rooms, map_area, clouds)
     terrainDifficulty = \
         int(rooms[players[id]['room']]['terrainDifficulty'] * 10 /
             maxTerrainDifficulty)

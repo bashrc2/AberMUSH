@@ -99,7 +99,7 @@ def _get_max_weight(id, players: {}) -> int:
     return strength * 15
 
 
-def _pose_prone(params, mud, playersDB: {}, players: {}, rooms: {},
+def _pose_prone(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -120,15 +120,15 @@ def _pose_prone(params, mud, playersDB: {}, players: {}, rooms: {},
         del players[id]['isFishing']
 
     if not player_is_prone(id, players):
-        msgStr = 'You lie down<r>\n\n'
-        mud.send_message(id, random_desc(msgStr))
+        msg_str = 'You lie down<r>\n\n'
+        mud.send_message(id, random_desc(msg_str))
         set_player_prone(id, players, True)
     else:
-        msgStr = 'You are already lying down<r>\n\n'
-        mud.send_message(id, random_desc(msgStr))
+        msg_str = 'You are already lying down<r>\n\n'
+        mud.send_message(id, random_desc(msg_str))
 
 
-def _stand(params, mud, playersDB: {}, players: {}, rooms: {},
+def _stand(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -146,15 +146,15 @@ def _stand(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if player_is_prone(id, players):
-        msgStr = 'You stand up<r>\n\n'
-        mud.send_message(id, random_desc(msgStr))
+        msg_str = 'You stand up<r>\n\n'
+        mud.send_message(id, random_desc(msg_str))
         set_player_prone(id, players, True)
     else:
-        msgStr = 'You are already standing up<r>\n\n'
-        mud.send_message(id, random_desc(msgStr))
+        msg_str = 'You are already standing up<r>\n\n'
+        mud.send_message(id, random_desc(msg_str))
 
 
-def _shove(params, mud, playersDB: {}, players: {}, rooms: {},
+def _shove(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -199,7 +199,7 @@ def _shove(params, mud, playersDB: {}, players: {}, rooms: {},
     players[id]['shove'] = 1
 
 
-def _dodge(params, mud, playersDB: {}, players: {}, rooms: {},
+def _dodge(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -243,15 +243,15 @@ def _dodge(params, mud, playersDB: {}, players: {}, rooms: {},
     players[id]['dodge'] = 1
 
 
-def _remove_item_from_clothing(players: {}, pid: int, itemID: int) -> None:
+def _remove_item_from_clothing(players: {}, pid: int, item_id: int) -> None:
     """If worn an item is removed
     """
     for cstr in wear_location:
-        if int(players[pid]['clo_' + cstr]) == itemID:
+        if int(players[pid]['clo_' + cstr]) == item_id:
             players[pid]['clo_' + cstr] = 0
 
 
-def _send_command_error(params, mud, playersDB: {}, players: {}, rooms: {},
+def _send_command_error(params, mud, players_db: {}, players: {}, rooms: {},
                         npcs_db: {}, npcs: {}, items_db: {}, items: {},
                         env_db: {}, env, eventDB: {}, event_schedule, id: int,
                         fights: {}, corpses, blocklist, map_area: [],
@@ -273,8 +273,8 @@ def _is_witch(id: int, players: {}) -> bool:
     witchesfile = open("witches", "r")
 
     for line in witchesfile:
-        witchName = line.strip()
-        if witchName == name:
+        witch_name = line.strip()
+        if witch_name == name:
             return True
 
     witchesfile.close()
@@ -290,8 +290,8 @@ def _disable_registrations(mud, id: int, players: {}) -> None:
     if os.path.isfile(".disableRegistrations"):
         mud.send_message(id, "New registrations are already closed.\n\n")
         return
-    with open(".disableRegistrations", 'w') as fp:
-        fp.write('')
+    with open(".disableRegistrations", 'w') as fp_dis:
+        fp_dis.write('')
     mud.send_message(id, "New player registrations are now closed.\n\n")
 
 
@@ -308,7 +308,7 @@ def _enable_registrations(mud, id: int, players: {}) -> None:
     mud.send_message(id, "New player registrations are now permitted.\n\n")
 
 
-def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
+def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
               npcs: {}, items_db: {}, items: {}, env_db: {}, env, eventDB: {},
               event_schedule, id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
@@ -323,29 +323,29 @@ def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
         if player_is_trapped(id, players, rooms):
             teleport_from_trap(mud, id, players, rooms)
 
-        targetLocation = params[0:].strip().lower().replace('to ', '', 1)
-        if len(targetLocation) != 0:
-            currRoom = players[id]['room']
-            if rooms[currRoom]['name'].strip().lower() == targetLocation:
+        target_location = params[0:].strip().lower().replace('to ', '', 1)
+        if len(target_location) != 0:
+            curr_room = players[id]['room']
+            if rooms[curr_room]['name'].strip().lower() == target_location:
                 mud.send_message(
                     id, "You are already in " +
-                    rooms[currRoom]['name'] +
+                    rooms[curr_room]['name'] +
                     "\n\n")
                 return
-            for rm in rooms:
-                if rooms[rm]['name'].strip().lower() == targetLocation:
+            for rmid in rooms:
+                if rooms[rmid]['name'].strip().lower() == target_location:
                     if is_attacking(players, id, fights):
                         stop_attack(players, id, npcs, fights)
                     mud.send_message(
-                        id, "You teleport to " + rooms[rm]['name'] + "\n\n")
-                    pName = players[id]['name']
-                    desc = '<f32>{}<r> suddenly vanishes.'.format(pName)
+                        id, "You teleport to " + rooms[rmid]['name'] + "\n\n")
+                    pname = players[id]['name']
+                    desc = '<f32>{}<r> suddenly vanishes.'.format(pname)
                     message_to_room_players(mud, players, id, desc + "\n\n")
-                    players[id]['room'] = rm
-                    desc = '<f32>{}<r> suddenly appears.'.format(pName)
+                    players[id]['room'] = rmid
+                    desc = '<f32>{}<r> suddenly appears.'.format(pname)
 
                     message_to_room_players(mud, players, id, desc + "\n\n")
-                    _look('', mud, playersDB, players, rooms, npcs_db, npcs,
+                    _look('', mud, players_db, players, rooms, npcs_db, npcs,
                           items_db, items, env_db, env, eventDB,
                           event_schedule,
                           id, fights, corpses, blocklist, map_area,
@@ -355,24 +355,24 @@ def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
                     return
 
             # try adding or removing "the"
-            if targetLocation.startswith('the '):
-                targetLocation = targetLocation.replace('the ', '')
+            if target_location.startswith('the '):
+                target_location = target_location.replace('the ', '')
             else:
-                targetLocation = 'the ' + targetLocation
+                target_location = 'the ' + target_location
 
-            pName = players[id]['name']
-            desc1 = '<f32>{}<r> suddenly vanishes.'.format(pName)
-            desc2 = '<f32>{}<r> suddenly appears.'.format(pName)
-            for rm in rooms:
-                if rooms[rm]['name'].strip().lower() == targetLocation:
+            pname = players[id]['name']
+            desc1 = '<f32>{}<r> suddenly vanishes.'.format(pname)
+            desc2 = '<f32>{}<r> suddenly appears.'.format(pname)
+            for rmid in rooms:
+                if rooms[rmid]['name'].strip().lower() == target_location:
                     mud.send_message(
-                        id, "You teleport to " + rooms[rm]['name'] + "\n\n")
+                        id, "You teleport to " + rooms[rmid]['name'] + "\n\n")
                     message_to_room_players(mud, players, id,
                                             desc1 + "\n\n")
-                    players[id]['room'] = rm
+                    players[id]['room'] = rmid
                     message_to_room_players(mud, players, id,
                                             desc2 + "\n\n")
-                    _look('', mud, playersDB, players, rooms, npcs_db, npcs,
+                    _look('', mud, players_db, players, rooms, npcs_db, npcs,
                           items_db, items, env_db, env, eventDB,
                           event_schedule,
                           id, fights, corpses, blocklist, map_area,
@@ -382,7 +382,7 @@ def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
                     return
 
             mud.send_message(
-                id, targetLocation +
+                id, target_location +
                 " isn't a place you can teleport to.\n\n")
         else:
             mud.send_message(id, "That's not a place.\n\n")
@@ -390,7 +390,7 @@ def _teleport(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
         mud.send_message(id, "You don't have enough powers to teleport.\n\n")
 
 
-def _summon(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
+def _summon(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             npcs: {}, items_db: {}, items: {}, env_db: {}, env, eventDB: {},
             event_schedule, id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
@@ -398,34 +398,34 @@ def _summon(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
             item_history: {}, markets: {}, cultures_db: {}) -> None:
     if players[id]['permissionLevel'] == 0:
         if _is_witch(id, players):
-            targetPlayer = params[0:].strip().lower()
-            if len(targetPlayer) != 0:
-                for p in players:
-                    if players[p]['name'].strip().lower() == targetPlayer:
-                        if players[p]['room'] != players[id]['room']:
-                            pNam = players[p]['name']
-                            desc = '<f32>{}<r> suddenly vanishes.'.format(pNam)
-                            message_to_room_players(mud, players, p,
+            target_player = params[0:].strip().lower()
+            if len(target_player) != 0:
+                for plyr in players:
+                    if players[plyr]['name'].strip().lower() == target_player:
+                        if players[plyr]['room'] != players[id]['room']:
+                            pnam = players[plyr]['name']
+                            desc = '<f32>{}<r> suddenly vanishes.'.format(pnam)
+                            message_to_room_players(mud, players, plyr,
                                                     desc + "\n")
-                            players[p]['room'] = players[id]['room']
-                            rm = players[p]['room']
+                            players[plyr]['room'] = players[id]['room']
+                            rmid = players[plyr]['room']
                             mud.send_message(id, "You summon " +
-                                             players[p]['name'] + "\n\n")
-                            mud.send_message(p,
+                                             players[plyr]['name'] + "\n\n")
+                            mud.send_message(plyr,
                                              "A mist surrounds you. When it " +
                                              "clears you find that you " +
                                              "are now in " +
-                                             rooms[rm]['name'] + "\n\n")
+                                             rooms[rmid]['name'] + "\n\n")
                         else:
                             mud.send_message(
-                                id, players[p]['name'] +
+                                id, players[plyr]['name'] +
                                 " is already here.\n\n")
                         return
         else:
             mud.send_message(id, "You don't have enough powers for that.\n\n")
 
 
-def _mute(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
+def _mute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
           npcs: {}, items_db: {}, items: {}, env_db: {}, env, eventDB: {},
           event_schedule, id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
@@ -441,12 +441,12 @@ def _mute(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
         return
     target = params.partition(' ')[0]
     if len(target) != 0:
-        for p in players:
-            if players[p]['name'] == target:
-                if not _is_witch(p, players):
-                    players[p]['canSay'] = 0
-                    players[p]['canAttack'] = 0
-                    players[p]['canDirectMessage'] = 0
+        for plyr in players:
+            if players[plyr]['name'] == target:
+                if not _is_witch(plyr, players):
+                    players[plyr]['canSay'] = 0
+                    players[plyr]['canAttack'] = 0
+                    players[plyr]['canDirectMessage'] = 0
                     mud.send_message(
                         id, "You have muted " + target + "\n\n")
                 else:
@@ -456,7 +456,7 @@ def _mute(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
                 return
 
 
-def _unmute(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
+def _unmute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             npcs: {}, items_db: {}, items: {}, env_db: {}, env, eventDB: {},
             event_schedule, id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
@@ -473,18 +473,18 @@ def _unmute(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
     target = params.partition(' ')[0]
     if len(target) != 0:
         if target.lower() != 'guest':
-            for p in players:
-                if players[p]['name'] == target:
-                    if not _is_witch(p, players):
-                        players[p]['canSay'] = 1
-                        players[p]['canAttack'] = 1
-                        players[p]['canDirectMessage'] = 1
+            for plyr in players:
+                if players[plyr]['name'] == target:
+                    if not _is_witch(plyr, players):
+                        players[plyr]['canSay'] = 1
+                        players[plyr]['canAttack'] = 1
+                        players[plyr]['canDirectMessage'] = 1
                         mud.send_message(
                             id, "You have unmuted " + target + "\n\n")
                     return
 
 
-def _freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
+def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             npcs: {}, items_db: {}, items: {}, env_db: {}, env, eventDB: {},
             event_schedule, id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
@@ -495,26 +495,26 @@ def _freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
             target = params.partition(' ')[0]
             if len(target) != 0:
                 # freeze players
-                for p in players:
-                    if players[p]['whenDied']:
+                for plyr in players:
+                    if players[plyr]['whenDied']:
                         mud.send_message(
                             id,
                             "Freezing a player while dead is pointless\n\n")
                         continue
-                    if players[p]['frozenStart'] > 0:
+                    if players[plyr]['frozenStart'] > 0:
                         mud.send_message(
                             id, "They are already frozen\n\n")
                         continue
-                    if target in players[p]['name']:
-                        if not _is_witch(p, players):
+                    if target in players[plyr]['name']:
+                        if not _is_witch(plyr, players):
                             # remove from any fights
-                            for (fight, pl) in fights.items():
-                                if fights[fight]['s1id'] == p or \
-                                   fights[fight]['s2id'] == p:
+                            for fight, _ in fights.items():
+                                if plyr in (fights[fight]['s1id'],
+                                            fights[fight]['s2id']):
                                     del fights[fight]
-                                    players[p]['isInCombat'] = 0
-                            players[p]['canGo'] = 0
-                            players[p]['canAttack'] = 0
+                                    players[plyr]['isInCombat'] = 0
+                            players[plyr]['canGo'] = 0
+                            players[plyr]['canAttack'] = 0
                             mud.send_message(
                                 id, "You have frozen " + target + "\n\n")
                         else:
@@ -523,26 +523,26 @@ def _freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
                                 " but their power is too strong.\n\n")
                         return
                 # freeze npcs
-                for p in npcs:
-                    if npcs[p]['whenDied']:
+                for plyr in npcs:
+                    if npcs[plyr]['whenDied']:
                         mud.send_message(
                             id, "Freezing while dead is pointless\n\n")
                         continue
-                    if npcs[p]['frozenStart'] > 0:
+                    if npcs[plyr]['frozenStart'] > 0:
                         mud.send_message(
                             id, "They are already frozen\n\n")
                         continue
-                    if target in npcs[p]['name']:
-                        if not _is_witch(p, npcs):
+                    if target in npcs[plyr]['name']:
+                        if not _is_witch(plyr, npcs):
                             # remove from any fights
-                            for (fight, pl) in fights.items():
-                                if fights[fight]['s1id'] == p or \
-                                   fights[fight]['s2id'] == p:
+                            for fight, _ in fights.items():
+                                if plyr in (fights[fight]['s1id'],
+                                            fights[fight]['s2id']):
                                     del fights[fight]
-                                    npcs[p]['isInCombat'] = 0
+                                    npcs[plyr]['isInCombat'] = 0
 
-                            npcs[p]['canGo'] = 0
-                            npcs[p]['canAttack'] = 0
+                            npcs[plyr]['canGo'] = 0
+                            npcs[plyr]['canAttack'] = 0
                             mud.send_message(
                                 id, "You have frozen " + target + "\n\n")
                         else:
@@ -552,7 +552,7 @@ def _freeze(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
                         return
 
 
-def _unfreeze(params, mud, playersDB: {}, players: {}, rooms: {},
+def _unfreeze(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
@@ -565,28 +565,28 @@ def _unfreeze(params, mud, playersDB: {}, players: {}, rooms: {},
             if len(target) != 0:
                 if target.lower() != 'guest':
                     # unfreeze players
-                    for p in players:
-                        if target in players[p]['name']:
-                            if not _is_witch(p, players):
-                                players[p]['canGo'] = 1
-                                players[p]['canAttack'] = 1
-                                players[p]['frozenStart'] = 0
+                    for plyr in players:
+                        if target in players[plyr]['name']:
+                            if not _is_witch(plyr, players):
+                                players[plyr]['canGo'] = 1
+                                players[plyr]['canAttack'] = 1
+                                players[plyr]['frozenStart'] = 0
                                 mud.send_message(
                                     id, "You have unfrozen " + target + "\n\n")
                             return
                     # unfreeze npcs
-                    for p in npcs:
-                        if target in npcs[p]['name']:
-                            if not _is_witch(p, npcs):
-                                npcs[p]['canGo'] = 1
-                                npcs[p]['canAttack'] = 1
-                                npcs[p]['frozenStart'] = 0
+                    for plyr in npcs:
+                        if target in npcs[plyr]['name']:
+                            if not _is_witch(plyr, npcs):
+                                npcs[plyr]['canGo'] = 1
+                                npcs[plyr]['canAttack'] = 1
+                                npcs[plyr]['frozenStart'] = 0
                                 mud.send_message(
                                     id, "You have unfrozen " + target + "\n\n")
                             return
 
 
-def _show_blocklist(params, mud, playersDB: {}, players: {}, rooms: {},
+def _show_blocklist(params, mud, players_db: {}, players: {}, rooms: {},
                     npcs_db: {}, npcs: {}, items_db: {}, items: {},
                     env_db: {}, env: {}, eventDB: {}, event_schedule,
                     id: int, fights: {}, corpses: {}, blocklist,
@@ -599,14 +599,14 @@ def _show_blocklist(params, mud, playersDB: {}, players: {}, rooms: {},
 
     blocklist.sort()
 
-    blockStr = ''
+    block_str = ''
     for blockedstr in blocklist:
-        blockStr = blockStr + blockedstr + '\n'
+        block_str = block_str + blockedstr + '\n'
 
-    mud.send_message(id, "Blocked strings are:\n\n" + blockStr + '\n')
+    mud.send_message(id, "Blocked strings are:\n\n" + block_str + '\n')
 
 
-def _block(params, mud, playersDB: {}, players: {}, rooms: {},
+def _block(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
            env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -618,7 +618,7 @@ def _block(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if len(params) == 0:
-        _show_blocklist(params, mud, playersDB, players, rooms, npcs_db, npcs,
+        _show_blocklist(params, mud, players_db, players, rooms, npcs_db, npcs,
                         items_db, items, env_db, env, eventDB, event_schedule,
                         id, fights, corpses, blocklist, map_area,
                         character_class_db, spells_db, sentiment_db, guilds_db,
@@ -644,7 +644,7 @@ def _block(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "That's already in the blocklist.\n")
 
 
-def _unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
+def _unblock(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
              npcs: {}, items_db: {}, items: {}, env_db: {}, env: {},
              eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
@@ -656,7 +656,7 @@ def _unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
         return
 
     if len(params) == 0:
-        _show_blocklist(params, mud, playersDB, players, rooms, npcs_db,
+        _show_blocklist(params, mud, players_db, players, rooms, npcs_db,
                         npcs, items_db, items, env_db, env, eventDB,
                         event_schedule,
                         id, fights, corpses, blocklist, map_area,
@@ -683,7 +683,7 @@ def _unblock(params, mud, playersDB: {}, players: {}, rooms: {}, npcs_db: {},
         mud.send_message(id, "That's not in the blocklist.\n")
 
 
-def _kick(params, mud, playersDB: {}, players: {}, rooms: {},
+def _kick(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -694,22 +694,22 @@ def _kick(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
 
-    playerName = params
+    player_name = params
 
-    if len(playerName) == 0:
+    if len(player_name) == 0:
         mud.send_message(id, "Who?\n\n")
         return
 
     for (pid, pl) in list(players.items()):
-        if players[pid]['name'] == playerName:
-            mud.send_message(id, "Removing player " + playerName + "\n\n")
+        if players[pid]['name'] == player_name:
+            mud.send_message(id, "Removing player " + player_name + "\n\n")
             mud.handle_disconnect(pid)
             return
 
     mud.send_message(id, "There are no players with that name.\n\n")
 
 
-def _shutdown(params, mud, playersDB: {}, players: {}, rooms: {},
+def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
@@ -725,14 +725,14 @@ def _shutdown(params, mud, playersDB: {}, players: {}, rooms: {},
                   env_db, env, guilds_db)
     mud.send_message(id, "\n\nUniverse saved.\n\n")
     log("Universe saved", "info")
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         mud.send_message(pid, "Game server shutting down...\n\n")
         mud.handle_disconnect(pid)
     log("Shutting down", "info")
     sys.exit()
 
 
-def _resetUniverse(params, mud, playersDB: {}, players: {}, rooms: {},
+def _resetUniverse(params, mud, players_db: {}, players: {}, rooms: {},
                    npcs_db: {}, npcs: {}, items_db: {}, items: {},
                    env_db: {}, env: {}, eventDB: {}, event_schedule,
                    id: int, fights: {}, corpses: {}, blocklist,
@@ -744,14 +744,14 @@ def _resetUniverse(params, mud, playersDB: {}, players: {}, rooms: {},
         return
     os.system('rm universe*.json')
     log('Universe reset', 'info')
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         mud.send_message(pid, "Game server shutting down...\n\n")
         mud.handle_disconnect(pid)
     log("Shutting down", "info")
     sys.exit()
 
 
-def _quit(params, mud, playersDB: {}, players: {}, rooms: {},
+def _quit(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -761,7 +761,7 @@ def _quit(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.handle_disconnect(id)
 
 
-def _who(params, mud, playersDB: {}, players: {}, rooms: {},
+def _who(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {},
          env_db: {}, env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
@@ -771,26 +771,26 @@ def _who(params, mud, playersDB: {}, players: {}, rooms: {},
     counter = 1
     if players[id]['permissionLevel'] == 0:
         is_witch = _is_witch(id, players)
-        for p in players:
-            if players[p]['name'] is None:
+        for plyr in players:
+            if players[plyr]['name'] is None:
                 continue
 
             if not is_witch:
-                name = players[p]['name']
+                name = players[plyr]['name']
             else:
-                if not _is_witch(p, players):
-                    if players[p]['canSay'] == 1:
-                        name = players[p]['name']
+                if not _is_witch(plyr, players):
+                    if players[plyr]['canSay'] == 1:
+                        name = players[plyr]['name']
                     else:
-                        name = players[p]['name'] + " (muted)"
+                        name = players[plyr]['name'] + " (muted)"
                 else:
-                    name = "<f32>" + players[p]['name'] + "<r>"
+                    name = "<f32>" + players[plyr]['name'] + "<r>"
 
-            if players[p]['room'] is None:
+            if players[plyr]['room'] is None:
                 room = "None"
             else:
-                rm = rooms[players[p]['room']]
-                room = "<f230>" + rm['name']
+                rmid = rooms[players[plyr]['room']]
+                room = "<f230>" + rmid['name']
 
             mud.send_message(id, str(counter) + ". " + name + " is in " + room)
             counter += 1
@@ -799,7 +799,7 @@ def _who(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "You do not have permission to do this.\n")
 
 
-def _tell(params, mud, playersDB: {}, players: {}, rooms: {},
+def _tell(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -812,16 +812,16 @@ def _tell(params, mud, playersDB: {}, players: {}, rooms: {},
     # replace "familiar" with their NPC name
     # as in: "ask familiar to follow"
     if target.lower() == 'familiar':
-        newTarget = get_familiar_name(players, id, npcs)
-        if len(newTarget) > 0:
-            target = newTarget
+        new_target = get_familiar_name(players, id, npcs)
+        if len(new_target) > 0:
+            target = new_target
 
     message = params.replace(target, "")[1:]
     if len(target) != 0 and len(message) != 0:
-        cantStr = thieves_cant(message)
-        for p in players:
-            if players[p]['authenticated'] is not None and \
-               players[p]['name'].lower() == target.lower():
+        cant_str = thieves_cant(message)
+        for plyr in players:
+            if players[plyr]['authenticated'] is not None and \
+               players[plyr]['name'].lower() == target.lower():
                 # print("sending a tell")
                 if players[id]['name'].lower() == target.lower():
                     mud.send_message(
@@ -831,32 +831,32 @@ def _tell(params, mud, playersDB: {}, players: {}, rooms: {},
                     break
                 else:
                     # don't tell if the string contains a blocked string
-                    selfOnly = False
+                    self_only = False
                     msglower = message.lower()
                     for blockedstr in blocklist:
                         if blockedstr in msglower:
-                            selfOnly = True
+                            self_only = True
                             break
 
-                    if not selfOnly:
-                        langList = players[p]['language']
-                        if players[id]['speakLanguage'] in langList:
+                    if not self_only:
+                        lang_list = players[plyr]['language']
+                        if players[id]['speakLanguage'] in lang_list:
                             add_to_scheduler(
                                 "0|msg|<f90>From " +
                                 players[id]['name'] +
                                 ": " + message +
-                                '\n', p, event_schedule,
+                                '\n', plyr, event_schedule,
                                 eventDB)
-                            sentimentScore = \
+                            sentiment_score = \
                                 get_sentiment(message, sentiment_db) + \
                                 get_guild_sentiment(players, id, players,
-                                                    p, guilds_db)
-                            if sentimentScore >= 0:
+                                                    plyr, guilds_db)
+                            if sentiment_score >= 0:
                                 increase_affinity_between_players(
-                                    players, id, players, p, guilds_db)
+                                    players, id, players, plyr, guilds_db)
                             else:
                                 decrease_affinity_between_players(
-                                    players, id, players, p, guilds_db)
+                                    players, id, players, plyr, guilds_db)
                         else:
                             if players[id]['speakLanguage'] != 'cant':
                                 add_to_scheduler(
@@ -864,31 +864,31 @@ def _tell(params, mud, playersDB: {}, players: {}, rooms: {},
                                     players[id]['name'] +
                                     ": something in " +
                                     players[id]['speakLanguage'] +
-                                    '\n', p, event_schedule,
+                                    '\n', plyr, event_schedule,
                                     eventDB)
                             else:
                                 add_to_scheduler(
                                     "0|msg|<f90>From " +
                                     players[id]['name'] +
-                                    ": " + cantStr +
-                                    '\n', p, event_schedule,
+                                    ": " + cant_str +
+                                    '\n', plyr, event_schedule,
                                     eventDB)
                     mud.send_message(
                         id, "<f90>To " +
-                        players[p]['name'] +
+                        players[plyr]['name'] +
                         ": " + message +
                         "\n\n")
                     told = True
                     break
         if not told:
-            for (nid, pl) in list(npcs.items()):
+            for nid, _ in list(npcs.items()):
                 if (npcs[nid]['room'] == players[id]['room']) or \
                    npcs[nid]['familiarOf'] == players[id]['name']:
                     if target.lower() in npcs[nid]['name'].lower():
-                        messageLower = message.lower()
+                        message_lower = message.lower()
                         npc_conversation(mud, npcs, npcs_db, players,
                                          items, items_db, rooms, id,
-                                         nid, messageLower,
+                                         nid, message_lower,
                                          character_class_db,
                                          sentiment_db, guilds_db,
                                          clouds, races_db, item_history,
@@ -904,7 +904,7 @@ def _tell(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "Huh?\n\n")
 
 
-def _whisper(params, mud, playersDB: {}, players: {}, rooms: {},
+def _whisper(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {},
              env_db: {}, env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
@@ -916,70 +916,71 @@ def _whisper(params, mud, playersDB: {}, players: {}, rooms: {},
 
     # if message[0] == " ":
     # message.replace(message[0], "")
-    messageSent = False
+    message_sent = False
     # print(message)
     # print(str(len(message)))
     if len(target) > 0:
         if len(message) > 0:
-            cantStr = thieves_cant(message)
-            for p in players:
-                if players[p]['name'] is not None and \
-                   players[p]['name'].lower() == target.lower():
-                    if players[p]['room'] == players[id]['room']:
-                        if players[p]['name'].lower() != \
+            cant_str = thieves_cant(message)
+            for plyr in players:
+                if players[plyr]['name'] is not None and \
+                   players[plyr]['name'].lower() == target.lower():
+                    if players[plyr]['room'] == players[id]['room']:
+                        if players[plyr]['name'].lower() != \
                            players[id]['name'].lower():
 
                             # don't whisper if the string contains a blocked
                             # string
-                            selfOnly = False
+                            self_only = False
                             msglower = message[1:].lower()
                             for blockedstr in blocklist:
                                 if blockedstr in msglower:
-                                    selfOnly = True
+                                    self_only = True
                                     break
 
-                            sentimentScore = \
+                            sentiment_score = \
                                 get_sentiment(message[1:], sentiment_db) + \
                                 get_guild_sentiment(players, id, players,
-                                                    p, guilds_db)
-                            if sentimentScore >= 0:
+                                                    plyr, guilds_db)
+                            if sentiment_score >= 0:
                                 increase_affinity_between_players(
-                                    players, id, players, p, guilds_db)
+                                    players, id, players, plyr, guilds_db)
                             else:
                                 decrease_affinity_between_players(
-                                    players, id, players, p, guilds_db)
+                                    players, id, players, plyr, guilds_db)
 
                             mud.send_message(
                                 id, "You whisper to <f32>" +
-                                players[p]['name'] + "<r>: " +
+                                players[plyr]['name'] + "<r>: " +
                                 message[1:] + '\n')
-                            if not selfOnly:
-                                langList = players[p]['language']
-                                if players[id]['speakLanguage'] in langList:
+                            if not self_only:
+                                lang_list = players[plyr]['language']
+                                if players[id]['speakLanguage'] in lang_list:
                                     mud.send_message(
-                                        p, "<f162>" + players[id]['name'] +
+                                        plyr, "<f162>" + players[id]['name'] +
                                         " whispers: " + message[1:] + '\n')
                                 else:
                                     if players[id]['speakLanguage'] != 'cant':
                                         mud.send_message(
-                                            p, "<f162>" +
+                                            plyr, "<f162>" +
                                             players[id]['name'] +
                                             " whispers something in " +
                                             players[id]['speakLanguage'] +
                                             '\n')
                                     else:
                                         mud.send_message(
-                                            p, "<f162>" + players[id]['name'] +
-                                            " whispers:  " + cantStr + '\n')
-                            messageSent = True
+                                            plyr, "<f162>" +
+                                            players[id]['name'] +
+                                            " whispers:  " + cant_str + '\n')
+                            message_sent = True
                             break
                         else:
                             mud.send_message(
                                 id, "You would probably look rather silly " +
                                 "whispering to yourself.\n")
-                            messageSent = True
+                            message_sent = True
                             break
-            if not messageSent:
+            if not message_sent:
                 mud.send_message(
                     id, "<f32>" + target + "<r> is not here with you.\n")
         else:
@@ -988,7 +989,7 @@ def _whisper(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "Who would you like to whisper to??\n")
 
 
-def _help(params, mud, playersDB: {}, players: {}, rooms: {},
+def _help(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -996,7 +997,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
     if params.lower().startswith('card'):
-        _help_cards(params, mud, playersDB, players,
+        _help_cards(params, mud, players_db, players,
                     rooms, npcs_db, npcs, items_db,
                     items, env_db, env, eventDB, event_schedule,
                     id, fights, corpses,
@@ -1005,7 +1006,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
                     item_history, markets, cultures_db)
         return
     if params.lower().startswith('chess'):
-        _help_chess(params, mud, playersDB, players,
+        _help_chess(params, mud, players_db, players,
                     rooms, npcs_db, npcs, items_db,
                     items, env_db, env, eventDB,
                     event_schedule, id, fights, corpses,
@@ -1014,7 +1015,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
                     item_history, markets, cultures_db)
         return
     if params.lower().startswith('morris'):
-        _help_morris(params, mud, playersDB, players,
+        _help_morris(params, mud, players_db, players,
                      rooms, npcs_db, npcs, items_db,
                      items, env_db, env, eventDB,
                      event_schedule, id, fights, corpses,
@@ -1024,7 +1025,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
                      cultures_db)
         return
     if params.lower().startswith('witch'):
-        _help_witch(params, mud, playersDB, players,
+        _help_witch(params, mud, players_db, players,
                     rooms, npcs_db, npcs, items_db,
                     items, env_db, env, eventDB,
                     event_schedule, id, fights, corpses,
@@ -1033,7 +1034,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
                     item_history, markets, cultures_db)
         return
     if params.lower().startswith('spell'):
-        _help_spell(params, mud, playersDB, players,
+        _help_spell(params, mud, players_db, players,
                     rooms, npcs_db, npcs, items_db,
                     items, env_db, env, eventDB, event_schedule,
                     id, fights, corpses,
@@ -1042,7 +1043,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
                     item_history, markets, cultures_db)
         return
     if params.lower().startswith('emot'):
-        _help_emote(params, mud, playersDB, players,
+        _help_emote(params, mud, players_db, players,
                     rooms, npcs_db, npcs, items_db,
                     items, env_db, env, eventDB, event_schedule,
                     id, fights, corpses,
@@ -1218,7 +1219,7 @@ def _help(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def _help_spell(params, mud, playersDB: {}, players: {}, rooms: {},
+def _help_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -1258,7 +1259,7 @@ def _help_spell(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def _help_emote(params, mud, playersDB: {}, players: {}, rooms: {},
+def _help_emote(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -1287,7 +1288,7 @@ def _help_emote(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def _help_witch(params, mud, playersDB: {}, players: {}, rooms: {},
+def _help_witch(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -1401,7 +1402,7 @@ def _help_witch(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def _help_morris(params, mud, playersDB: {}, players: {}, rooms,
+def _help_morris(params, mud, players_db: {}, players: {}, rooms,
                  npcs_db: {}, npcs: {}, items_db: {}, items: {},
                  env_db: {}, env: {}, eventDB: {}, event_schedule,
                  id: int, fights: {}, corpses: {}, blocklist,
@@ -1432,7 +1433,7 @@ def _help_morris(params, mud, playersDB: {}, players: {}, rooms,
     mud.send_message(id, '\n\n')
 
 
-def _help_chess(params, mud, playersDB: {}, players: {}, rooms: {},
+def _help_chess(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -1459,7 +1460,7 @@ def _help_chess(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def _help_cards(params, mud, playersDB: {}, players: {}, rooms: {},
+def _help_cards(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -1499,112 +1500,112 @@ def _help_cards(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def _cast_spell_on_player(mud, spellName: str, players: {}, id, npcs: {},
-                          p, spellDetails):
+def _cast_spell_on_player(mud, spell_name: str, players: {}, id, npcs: {},
+                          p, spell_details: {}):
     if npcs[p]['room'] != players[id]['room']:
         mud.send_message(id, "They're not here.\n\n")
         return
 
-    if spellDetails['action'].startswith('protect'):
-        npcs[p]['tempHitPoints'] = spellDetails['hp']
+    if spell_details['action'].startswith('protect'):
+        npcs[p]['tempHitPoints'] = spell_details['hp']
         npcs[p]['tempHitPointsDuration'] = \
-            time_string_to_sec(spellDetails['duration'])
+            time_string_to_sec(spell_details['duration'])
         npcs[p]['tempHitPointsStart'] = int(time.time())
 
-    if spellDetails['action'].startswith('cure'):
+    if spell_details['action'].startswith('cure'):
         if npcs[p]['hp'] < npcs[p]['hpMax']:
-            npcs[p]['hp'] += randint(1, spellDetails['hp'])
+            npcs[p]['hp'] += randint(1, spell_details['hp'])
             if npcs[p]['hp'] > npcs[p]['hpMax']:
                 npcs[p]['hp'] = npcs[p]['hpMax']
 
-    if spellDetails['action'].startswith('charm'):
-        charmTarget = players[id]['name']
-        charmValue = int(npcs[p]['cha'] + players[id]['cha'])
-        npcs[p]['tempCharm'] = charmValue
-        npcs[p]['tempCharmTarget'] = charmTarget
+    if spell_details['action'].startswith('charm'):
+        charm_target = players[id]['name']
+        charm_value = int(npcs[p]['cha'] + players[id]['cha'])
+        npcs[p]['tempCharm'] = charm_value
+        npcs[p]['tempCharmTarget'] = charm_target
         npcs[p]['tempCharmDuration'] = \
-            time_string_to_sec(spellDetails['duration'])
+            time_string_to_sec(spell_details['duration'])
         npcs[p]['tempCharmStart'] = int(time.time())
-        if npcs[p]['affinity'].get(charmTarget):
-            npcs[p]['affinity'][charmTarget] += charmValue
+        if npcs[p]['affinity'].get(charm_target):
+            npcs[p]['affinity'][charm_target] += charm_value
         else:
-            npcs[p]['affinity'][charmTarget] = charmValue
+            npcs[p]['affinity'][charm_target] = charm_value
 
-    if spellDetails['action'].startswith('friend'):
+    if spell_details['action'].startswith('friend'):
         if players[id]['cha'] < npcs[p]['cha']:
-            remove_prepared_spell(players, id, spellName)
+            remove_prepared_spell(players, id, spell_name)
             mud.send_message(id, "You don't have enough charisma.\n\n")
             return
-        playerName = players[id]['name']
-        if npcs[p]['affinity'].get(playerName):
-            npcs[p]['affinity'][playerName] += 1
+        player_name = players[id]['name']
+        if npcs[p]['affinity'].get(player_name):
+            npcs[p]['affinity'][player_name] += 1
         else:
-            npcs[p]['affinity'][playerName] = 1
+            npcs[p]['affinity'][player_name] = 1
 
-    if spellDetails['action'].startswith('attack'):
-        if len(spellDetails['damageType']
-               ) == 0 or spellDetails['damageType'] == 'str':
-            npcs[p]['hp'] = npcs[p]['hp'] - randint(1, spellDetails['damage'])
+    if spell_details['action'].startswith('attack'):
+        if len(spell_details['damageType']
+               ) == 0 or spell_details['damageType'] == 'str':
+            npcs[p]['hp'] = npcs[p]['hp'] - randint(1, spell_details['damage'])
         else:
-            damageType = spellDetails['damageType']
-            if npcs[p].get(damageType):
-                npcs[p][damageType] = npcs[p][damageType] - \
-                    randint(1, spellDetails['damage'])
-                if npcs[p][damageType] < 0:
-                    npcs[p][damageType] = 0
+            damage_type = spell_details['damageType']
+            if npcs[p].get(damage_type):
+                npcs[p][damage_type] = npcs[p][damage_type] - \
+                    randint(1, spell_details['damage'])
+                if npcs[p][damage_type] < 0:
+                    npcs[p][damage_type] = 0
 
-    if spellDetails['action'].startswith('frozen'):
-        npcs[p]['frozenDescription'] = spellDetails['actionDescription']
+    if spell_details['action'].startswith('frozen'):
+        npcs[p]['frozenDescription'] = spell_details['actionDescription']
         npcs[p]['frozenDuration'] = \
-            time_string_to_sec(spellDetails['duration'])
+            time_string_to_sec(spell_details['duration'])
         npcs[p]['frozenStart'] = int(time.time())
 
-    _show_spell_image(mud, id, spellName.replace(' ', '_'), players)
+    _show_spell_image(mud, id, spell_name.replace(' ', '_'), players)
 
     mud.send_message(
         id,
-        random_desc(spellDetails['description']).format('<f32>' +
-                                                        npcs[p]['name'] +
-                                                        '<r>') + '\n\n')
+        random_desc(spell_details['description']).format('<f32>' +
+                                                         npcs[p]['name'] +
+                                                         '<r>') + '\n\n')
 
-    secondDesc = random_desc(spellDetails['description_second'])
-    if npcs == players and len(secondDesc) > 0:
+    second_desc = random_desc(spell_details['description_second'])
+    if npcs == players and len(second_desc) > 0:
         mud.send_message(
             p,
-            secondDesc.format(players[id]['name'],
-                              'you') + '\n\n')
+            second_desc.format(players[id]['name'],
+                               'you') + '\n\n')
 
-    remove_prepared_spell(players, id, spellName)
+    remove_prepared_spell(players, id, spell_name)
 
 
-def _cast_spell_undirected(params, mud, playersDB: {}, players: {}, rooms: {},
+def _cast_spell_undirected(params, mud, players_db: {}, players: {}, rooms: {},
                            npcs_db: {}, npcs: {}, items_db: {}, items: {},
                            env_db: {}, env: {}, eventDB: {}, event_schedule,
                            id: int, fights: {}, corpses: {}, blocklist,
                            map_area: [], character_class_db: {}, spells_db: {},
-                           sentiment_db: {}, spellName: {}, spellDetails: {},
+                           sentiment_db: {}, spell_name: {}, spell_details: {},
                            clouds: {}, races_db: {}, guilds_db: {},
                            item_history: {}, markets: {}, cultures_db: {}):
-    spellAction = spellDetails['action']
-    if spellAction.startswith('familiar'):
-        _show_spell_image(mud, id, spellName.replace(' ', '_'), players)
-        _conjure_npc(spellDetails['action'], mud, playersDB, players,
+    spell_action = spell_details['action']
+    if spell_action.startswith('familiar'):
+        _show_spell_image(mud, id, spell_name.replace(' ', '_'), players)
+        _conjure_npc(spell_details['action'], mud, players_db, players,
                      rooms, npcs_db, npcs, items_db, items, env_db, env,
                      eventDB, event_schedule, id, fights, corpses,
                      blocklist, map_area, character_class_db, spells_db,
                      sentiment_db, guilds_db, clouds, races_db,
                      item_history, markets, cultures_db)
         return
-    elif spellAction.startswith('defen'):
+    if spell_action.startswith('defen'):
         # defense spells
-        if spellName.endswith('shield') and spellDetails.get('armor'):
+        if spell_name.endswith('shield') and spell_details.get('armor'):
             _show_spell_image(mud, id, "magic_shield", players)
             if not players[id]["magicShield"]:
-                remove_prepared_spell(players, id, spellName)
-                players[id]['magicShield'] = spellDetails['armor']
+                remove_prepared_spell(players, id, spell_name)
+                players[id]['magicShield'] = spell_details['armor']
                 players[id]['magicShieldStart'] = int(time.time())
                 players[id]["magicShieldDuration"] = \
-                    time_string_to_sec(spellDetails['duration'])
+                    time_string_to_sec(spell_details['duration'])
                 mud.send_message(id, "Magic shield active.\n\n")
 
                 # inform other players in the room
@@ -1613,17 +1614,17 @@ def _cast_spell_undirected(params, mud, playersDB: {}, players: {}, rooms: {},
                         continue
                     if players[pid]['room'] == players[id]['room']:
                         _show_spell_image(mud, pid, "magic_shield", players)
-                        msgStr = \
+                        msg_str = \
                             '<f32>' + players[id]['name'] + \
                             '<r> activates a magic shield'
-                        mud.send_message(pid, msgStr + ".\n\n")
+                        mud.send_message(pid, msg_str + ".\n\n")
             else:
                 mud.send_message(id, "Magic shield is already active.\n\n")
             return
     mud.send_message(id, "Nothing happens.\n\n")
 
 
-def _cast_spell(params, mud, playersDB: {}, players: {}, rooms: {},
+def _cast_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -1632,7 +1633,7 @@ def _cast_spell(params, mud, playersDB: {}, players: {}, rooms: {},
                 item_history: {}, markets: {}, cultures_db: {}):
     # cast fishing rod
     if 'fishing' in params or params == 'rod' or params == 'fish':
-        _fish(params, mud, playersDB, players, rooms,
+        _fish(params, mud, players_db, players, rooms,
               npcs_db, npcs, items_db, items,
               env_db, env, eventDB, event_schedule,
               id, fights, corpses, blocklist,
@@ -1651,58 +1652,58 @@ def _cast_spell(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'You try to cast a spell but fail horribly.\n\n')
         return
 
-    castStr = params.lower().strip()
-    if castStr.startswith('the spell '):
-        castStr = castStr.replace('the spell ', '', 1)
-    if castStr.startswith('a '):
-        castStr = castStr.replace('a ', '', 1)
-    if castStr.startswith('the '):
-        castStr = castStr.replace('the ', '', 1)
-    if castStr.startswith('spell '):
-        castStr = castStr.replace('spell ', '', 1)
-    castAt = ''
-    spellName = ''
-    if ' at ' in castStr:
-        spellName = castStr.split(' at ')[0].strip()
-        castAt = castStr.split(' at ')[1].strip()
+    cast_str = params.lower().strip()
+    if cast_str.startswith('the spell '):
+        cast_str = cast_str.replace('the spell ', '', 1)
+    if cast_str.startswith('a '):
+        cast_str = cast_str.replace('a ', '', 1)
+    if cast_str.startswith('the '):
+        cast_str = cast_str.replace('the ', '', 1)
+    if cast_str.startswith('spell '):
+        cast_str = cast_str.replace('spell ', '', 1)
+    cast_at = ''
+    spell_name = ''
+    if ' at ' in cast_str:
+        spell_name = cast_str.split(' at ')[0].strip()
+        cast_at = cast_str.split(' at ')[1].strip()
     else:
-        if ' on ' in castStr:
-            spellName = castStr.split(' on ')[0].strip()
-            castAt = castStr.split(' on ')[1].strip()
+        if ' on ' in cast_str:
+            spell_name = cast_str.split(' on ')[0].strip()
+            cast_at = cast_str.split(' on ')[1].strip()
         else:
-            spellName = castStr.strip()
+            spell_name = cast_str.strip()
 
-    if not players[id]['preparedSpells'].get(spellName):
+    if not players[id]['preparedSpells'].get(spell_name):
         mud.send_message(id, "That's not a prepared spell.\n\n")
         return
 
-    spellDetails = None
+    spell_details = None
     if spells_db.get('cantrip'):
-        if spells_db['cantrip'].get(spellName):
-            spellDetails = spells_db['cantrip'][spellName]
-    if spellDetails is None:
-        maxSpellLevel = _get_player_max_spell_level(players, id)
-        for level in range(1, maxSpellLevel + 1):
-            if spells_db[str(level)].get(spellName):
-                spellDetails = spells_db[str(level)][spellName]
+        if spells_db['cantrip'].get(spell_name):
+            spell_details = spells_db['cantrip'][spell_name]
+    if spell_details is None:
+        max_spell_level = _get_player_max_spell_level(players, id)
+        for level in range(1, max_spell_level + 1):
+            if spells_db[str(level)].get(spell_name):
+                spell_details = spells_db[str(level)][spell_name]
                 break
-    if spellDetails is None:
+    if spell_details is None:
         mud.send_message(id, "You have no knowledge of that spell.\n\n")
         return
 
-    if len(castAt) > 0:
+    if len(cast_at) > 0:
         for p in players:
-            if castAt not in players[p]['name'].lower():
+            if cast_at not in players[p]['name'].lower():
                 continue
             if p == id:
                 mud.send_message(id, "This is not a hypnosis spell.\n\n")
                 return
             _cast_spell_on_player(
-                mud, spellName, players, id, players, p, spellDetails)
+                mud, spell_name, players, id, players, p, spell_details)
             return
 
         for p in npcs:
-            if castAt not in npcs[p]['name'].lower():
+            if cast_at not in npcs[p]['name'].lower():
                 continue
 
             if npcs[p]['familiarOf'] == players[id]['name']:
@@ -1710,48 +1711,48 @@ def _cast_spell(params, mud, playersDB: {}, players: {}, rooms: {},
                     id, "You can't cast a spell on your own familiar!\n\n")
                 return
 
-            _cast_spell_on_player(mud, spellName, players, id, npcs,
-                                  p, spellDetails)
+            _cast_spell_on_player(mud, spell_name, players, id, npcs,
+                                  p, spell_details)
             return
     else:
-        _cast_spell_undirected(params, mud, playersDB, players, rooms,
+        _cast_spell_undirected(params, mud, players_db, players, rooms,
                                npcs_db, npcs, items_db, items, env_db,
                                env, eventDB, event_schedule, id, fights,
                                corpses, blocklist, map_area,
                                character_class_db, spells_db, sentiment_db,
-                               spellName, spellDetails,
+                               spell_name, spell_details,
                                clouds, races_db, guilds_db,
                                item_history, markets, cultures_db)
 
 
-def _affinity(params, mud, playersDB: {}, players: {}, rooms: {},
+def _affinity(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}):
-    otherPlayer = params.lower().strip()
-    if len(otherPlayer) == 0:
+    other_player = params.lower().strip()
+    if len(other_player) == 0:
         mud.send_message(id, 'With which player?\n\n')
         return
-    if players[id]['affinity'].get(otherPlayer):
-        affinity = players[id]['affinity'][otherPlayer]
+    if players[id]['affinity'].get(other_player):
+        affinity = players[id]['affinity'][other_player]
         if affinity >= 0:
             mud.send_message(
                 id, 'Your affinity with <f32><u>' +
-                otherPlayer + '<r> is <f15><b2>+' +
+                other_player + '<r> is <f15><b2>+' +
                 str(affinity) + '<r>\n\n')
         else:
             mud.send_message(
                 id, 'Your affinity with <f32><u>' +
-                otherPlayer + '<r> is <f15><b88>' +
+                other_player + '<r> is <f15><b88>' +
                 str(affinity) + '<r>\n\n')
         return
     mud.send_message(id, "You don't have any affinity with them.\n\n")
 
 
-def _clear_spells(params, mud, playersDB: {}, players: {}, rooms: {},
+def _clear_spells(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist,
@@ -1767,7 +1768,7 @@ def _clear_spells(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, "Your don't have any spells prepared.\n\n")
 
 
-def _spells(params, mud, playersDB: {}, players: {}, rooms: {},
+def _spells(params, mud, players_db: {}, players: {}, rooms: {},
             npcs_db: {}, npcs: {}, items_db: {}, items: {},
             env_db: {}, env: {}, eventDB: {}, event_schedule,
             id: int, fights: {}, corpses: {}, blocklist,
@@ -1776,39 +1777,40 @@ def _spells(params, mud, playersDB: {}, players: {}, rooms: {},
             item_history: {}, markets: {}, cultures_db: {}):
     if len(players[id]['preparedSpells']) > 0:
         mud.send_message(id, 'Your prepared spells:\n')
-        for name, details in players[id]['preparedSpells'].items():
+        for name, _ in players[id]['preparedSpells'].items():
             mud.send_message(id, '  <b234>' + name + '<r>')
         mud.send_message(id, '\n')
     else:
         mud.send_message(id, 'You have no spells prepared.\n\n')
 
 
-def _prepare_spell_at_level(params, mud, playersDB: {}, players: {}, rooms: {},
+def _prepare_spell_at_level(params, mud, players_db: {},
+                            players: {}, rooms: {},
                             npcs_db: {}, npcs: {}, items_db: {}, items: {},
                             env_db: {}, env: {}, eventDB: {}, event_schedule,
                             id: int, fights: {}, corpses: {}, blocklist,
                             map_area: [], character_class_db: {},
-                            spells_db: {}, spellName: {}, level: {}):
+                            spells_db: {}, spell_name: {}, level: {}):
     for name, details in spells_db[level].items():
-        if name.lower() == spellName:
+        if name.lower() == spell_name:
             if name.lower() not in players[id]['preparedSpells']:
                 if len(spells_db[level][name]['items']) == 0:
                     players[id]['preparedSpells'][name] = 1
                 else:
                     for required in spells_db[level][name]['items']:
-                        requiredItemFound = False
+                        required_item_found = False
                         for i in list(players[id]['inv']):
                             if int(i) == required:
-                                requiredItemFound = True
+                                required_item_found = True
                                 break
-                        if not requiredItemFound:
+                        if not required_item_found:
                             mud.send_message(
                                 id, 'You need <b234>' +
                                 items_db[required]['article'] +
                                 ' ' + items_db[required]['name'] +
                                 '<r>\n\n')
                             return True
-                players[id]['prepareSpell'] = spellName
+                players[id]['prepareSpell'] = spell_name
                 players[id]['prepareSpellProgress'] = 0
                 players[id]['prepareSpellTime'] = time_string_to_sec(
                     details['prepareTime'])
@@ -1816,13 +1818,13 @@ def _prepare_spell_at_level(params, mud, playersDB: {}, players: {}, rooms: {},
                     mud.send_message(
                         id,
                         'You begin preparing the spell <b234>' +
-                        spellName + '<r>. It will take ' +
+                        spell_name + '<r>. It will take ' +
                         details['prepareTime'] + '.\n\n')
                 else:
                     mud.send_message(
                         id,
                         'You begin preparing the spell <b234>' +
-                        spellName + '<r>.\n\n')
+                        spell_name + '<r>.\n\n')
                 return True
     return False
 
@@ -1830,16 +1832,16 @@ def _prepare_spell_at_level(params, mud, playersDB: {}, players: {}, rooms: {},
 def _player_max_cantrips(players: {}, id) -> int:
     """Returns the maximum number of cantrips which the player can prepare
     """
-    maxCantrips = 0
+    max_cantrips = 0
     for prof in players[id]['proficiencies']:
         if isinstance(prof, list):
             continue
         if prof.lower().startswith('cantrip'):
             if '(' in prof and ')' in prof:
                 cantrips = int(prof.split('(')[1].replace(')', ''))
-                if cantrips > maxCantrips:
-                    maxCantrips = cantrips
-    return maxCantrips
+                if cantrips > max_cantrips:
+                    max_cantrips = cantrips
+    return max_cantrips
 
 
 def _get_player_max_spell_level(players: {}, id) -> int:
@@ -1847,22 +1849,23 @@ def _get_player_max_spell_level(players: {}, id) -> int:
     """
     for prof in players[id]['proficiencies']:
         if isinstance(prof, list):
-            spellList = list(prof)
-            if len(spellList) > 0:
-                if spellList[0].lower() == 'spell':
-                    return len(spellList) - 1
+            spell_list = list(prof)
+            if len(spell_list) > 0:
+                if spell_list[0].lower() == 'spell':
+                    return len(spell_list) - 1
     return -1
 
 
-def _get_player_spell_slots_at_spell_level(players: {}, id, spellLevel) -> int:
+def _get_player_spell_slots_at_spell_level(players: {}, id,
+                                           spell_level: str) -> int:
     """Returns the maximum spell slots at the given spell level
     """
     for prof in players[id]['proficiencies']:
         if isinstance(prof, list):
-            spellList = list(prof)
-            if len(spellList) > 0:
-                if spellList[0].lower() == 'spell':
-                    return spellList[spellLevel]
+            spell_list = list(prof)
+            if len(spell_list) > 0:
+                if spell_list[0].lower() == 'spell':
+                    return spell_list[spell_level]
     return 0
 
 
@@ -1873,110 +1876,111 @@ def _get_player_used_slots_at_spell_level(players: {}, id, spellLevel,
     if not spells_db.get(str(spellLevel)):
         return 0
 
-    usedCounter = 0
-    for spellName, details in spells_db[str(spellLevel)].items():
-        if spellName in players[id]['preparedSpells']:
-            usedCounter += 1
-    return usedCounter
+    used_counter = 0
+    for spell_name, _ in spells_db[str(spellLevel)].items():
+        if spell_name in players[id]['preparedSpells']:
+            used_counter += 1
+    return used_counter
 
 
 def _player_prepared_cantrips(players, id, spells_db: {}) -> int:
     """Returns the number of cantrips which the player has prepared
     """
-    preparedCounter = 0
-    for spellName in players[id]['preparedSpells']:
-        for cantripName, details in spells_db['cantrip'].items():
-            if cantripName == spellName:
-                preparedCounter += 1
+    prepared_counter = 0
+    for spell_name in players[id]['preparedSpells']:
+        for cantripname, _ in spells_db['cantrip'].items():
+            if cantripname == spell_name:
+                prepared_counter += 1
                 break
-    return preparedCounter
+    return prepared_counter
 
 
-def _prepare_spell(params, mud, playersDB: {}, players: {}, rooms: {},
+def _prepare_spell(params, mud, players_db: {}, players: {}, rooms: {},
                    npcs_db: {}, npcs: {}, items_db: {}, items: {},
                    env_db: {}, env: {}, eventDB: {}, event_schedule,
                    id: int, fights: {}, corpses: {}, blocklist,
                    map_area: [], character_class_db: {}, spells_db: {},
                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                    item_history: {}, markets: {}, cultures_db: {}):
-    spellName = params.lower().strip()
+    spell_name = params.lower().strip()
 
     # "learn spells" or "prepare spells" shows list of spells
-    if spellName == 'spell' or spellName == 'spells':
-        spellName = ''
+    if spell_name == 'spell' or spell_name == 'spells':
+        spell_name = ''
 
-    maxCantrips = _player_max_cantrips(players, id)
-    maxSpellLevel = _get_player_max_spell_level(players, id)
+    max_cantrips = _player_max_cantrips(players, id)
+    max_spell_level = _get_player_max_spell_level(players, id)
 
-    if maxSpellLevel < 0 and maxCantrips == 0:
+    if max_spell_level < 0 and max_cantrips == 0:
         mud.send_message(id, "You can't prepare spells.\n\n")
         return
 
-    if len(spellName) == 0:
+    if len(spell_name) == 0:
         # list spells which can be prepared
         mud.send_message(id, 'Spells you can prepare are:\n')
 
-        if maxCantrips > 0 and spells_db.get('cantrip'):
-            for name, details in spells_db['cantrip'].items():
+        if max_cantrips > 0 and spells_db.get('cantrip'):
+            for name, _ in spells_db['cantrip'].items():
                 if name.lower() not in players[id]['preparedSpells']:
-                    spellClasses = spells_db['cantrip'][name]['classes']
-                    if players[id]['characterClass'] in spellClasses or \
-                       len(spellClasses) == 0:
+                    spell_classes = spells_db['cantrip'][name]['classes']
+                    if players[id]['characterClass'] in spell_classes or \
+                       len(spell_classes) == 0:
                         mud.send_message(id, '  <f220>-' + name + '<r>')
 
-        if maxSpellLevel > 0:
-            for level in range(1, maxSpellLevel + 1):
+        if max_spell_level > 0:
+            for level in range(1, max_spell_level + 1):
                 if not spells_db.get(str(level)):
                     continue
-                for name, details in spells_db[str(level)].items():
+                for name, _ in spells_db[str(level)].items():
                     if name.lower() not in players[id]['preparedSpells']:
-                        spellClasses = spells_db[str(level)][name]['classes']
-                        if players[id]['characterClass'] in spellClasses or \
-                           len(spellClasses) == 0:
+                        spell_classes = spells_db[str(level)][name]['classes']
+                        if players[id]['characterClass'] in spell_classes or \
+                           len(spell_classes) == 0:
                             mud.send_message(id, '  <b234>' + name + '<r>')
         mud.send_message(id, '\n')
     else:
-        if spellName.startswith('the spell '):
-            spellName = spellName.replace('the spell ', '')
-        if spellName.startswith('spell '):
-            spellName = spellName.replace('spell ', '')
-        if spellName == players[id]['prepareSpell']:
+        if spell_name.startswith('the spell '):
+            spell_name = spell_name.replace('the spell ', '')
+        if spell_name.startswith('spell '):
+            spell_name = spell_name.replace('spell ', '')
+        if spell_name == players[id]['prepareSpell']:
             mud.send_message(id, 'You are already preparing that.\n\n')
             return
 
-        if maxCantrips > 0 and spells_db.get('cantrip'):
-            if _player_prepared_cantrips(players, id, spells_db) < maxCantrips:
-                if _prepare_spell_at_level(params, mud, playersDB, players,
+        if max_cantrips > 0 and spells_db.get('cantrip'):
+            prepared = _player_prepared_cantrips(players, id, spells_db)
+            if prepared < max_cantrips:
+                if _prepare_spell_at_level(params, mud, players_db, players,
                                            rooms, npcs_db, npcs, items_db,
                                            items, env_db, env, eventDB,
                                            event_schedule, id, fights,
                                            corpses, blocklist, map_area,
                                            character_class_db, spells_db,
-                                           spellName, 'cantrip'):
+                                           spell_name, 'cantrip'):
                     return
             else:
                 mud.send_message(
                     id, "You can't prepare any more cantrips.\n\n")
                 return
 
-        if maxSpellLevel > 0:
-            for level in range(1, maxSpellLevel + 1):
+        if max_spell_level > 0:
+            for level in range(1, max_spell_level + 1):
                 if not spells_db.get(str(level)):
                     continue
-                maxSlots = \
+                max_slots = \
                     _get_player_spell_slots_at_spell_level(players, id, level)
-                usedSlots = \
+                used_slots = \
                     _get_player_used_slots_at_spell_level(players, id,
                                                           level, spells_db)
-                if usedSlots < maxSlots:
-                    if _prepare_spell_at_level(params, mud, playersDB,
+                if used_slots < max_slots:
+                    if _prepare_spell_at_level(params, mud, players_db,
                                                players, rooms, npcs_db, npcs,
                                                items_db, items, env_db, env,
                                                eventDB, event_schedule, id,
                                                fights, corpses, blocklist,
                                                map_area,
                                                character_class_db,
-                                               spells_db, spellName,
+                                               spells_db, spell_name,
                                                str(level)):
                         return
                 else:
@@ -1989,7 +1993,7 @@ def _prepare_spell(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "That's not a spell.\n\n")
 
 
-def _speak(params, mud, playersDB: {}, players: {}, rooms: {},
+def _speak(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
            env: {}, eventDB: {}, event_schedule: {}, id: int,
            fights: {}, corpses: {}, blocklist,
@@ -2004,7 +2008,7 @@ def _speak(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, "You switch to speaking in " + lang + "\n\n")
 
 
-def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
+def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
            env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -2026,85 +2030,84 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
         # replace "familiar" with their NPC name
         # as in: "taunt familiar"
         if target.lower() == 'familiar':
-            newTarget = get_familiar_name(players, id, npcs)
-            if len(newTarget) > 0:
-                target = newTarget
+            new_target = get_familiar_name(players, id, npcs)
+            if len(new_target) > 0:
+                target = new_target
 
-        fullTarget = target
+        full_target = target
         if target.startswith('the '):
             target = target.replace('the ', '', 1)
 
-        tauntTypeFirstPerson = \
+        taunt_first_person = \
             random_desc('taunt|insult|besmirch|' +
                         'gibe|ridicule')
-        if tauntTypeFirstPerson != 'besmirch':
-            tauntTypeSecondPerson = tauntTypeFirstPerson + 's'
+        if taunt_first_person != 'besmirch':
+            taunt_second_person = taunt_first_person + 's'
         else:
-            tauntTypeSecondPerson = tauntTypeFirstPerson + 'es'
+            taunt_second_person = taunt_first_person + 'es'
 
-        isDone = False
-        for p in players:
-            if players[p]['authenticated'] is not None and \
-               target.lower() in players[p]['name'].lower() and \
-               players[p]['room'] == players[id]['room']:
+        is_done = False
+        for plyr in players:
+            if players[plyr]['authenticated'] is not None and \
+               target.lower() in players[plyr]['name'].lower() and \
+               players[plyr]['room'] == players[id]['room']:
                 if target.lower() in players[id]['name'].lower():
                     mud.send_message_wrap(
                         id, '<f230>', "It'd be pointless to taunt yourself!\n")
                 else:
-                    langList = players[p]['language']
-                    if players[id]['speakLanguage'] in langList:
+                    lang_list = players[plyr]['language']
+                    if players[id]['speakLanguage'] in lang_list:
                         mud.send_message_wrap(
-                            p, '<f230>',
+                            plyr, '<f230>',
                             players[id]['name'] + " " +
-                            tauntTypeSecondPerson + " you\n")
+                            taunt_second_person + " you\n")
                         decrease_affinity_between_players(
-                            players, p, players, id, guilds_db)
+                            players, plyr, players, id, guilds_db)
                     else:
                         mud.send_message_wrap(
-                            p, '<f230>',
+                            plyr, '<f230>',
                             players[id]['name'] + " says something in " +
                             players[id]['speakLanguage'] + '\n')
                     decrease_affinity_between_players(
-                        players, id, players, p, guilds_db)
-                isDone = True
+                        players, id, players, plyr, guilds_db)
+                is_done = True
                 break
-        if not isDone:
-            for p in npcs:
-                if target.lower() in npcs[p]['name'].lower() and \
-                   npcs[p]['room'] == players[id]['room']:
+        if not is_done:
+            for plyr in npcs:
+                if target.lower() in npcs[plyr]['name'].lower() and \
+                   npcs[plyr]['room'] == players[id]['room']:
                     if target.lower() in players[id]['name'].lower():
                         mud.send_message_wrap(
                             id, '<f230>',
-                            "It'd be pointless to " + tauntTypeFirstPerson +
+                            "It'd be pointless to " + taunt_first_person +
                             " yourself!\n")
                     else:
-                        langList = npcs[p]['language']
-                        if players[id]['speakLanguage'] in langList:
+                        lang_list = npcs[plyr]['language']
+                        if players[id]['speakLanguage'] in lang_list:
                             decrease_affinity_between_players(
-                                npcs, p, players, id, guilds_db)
+                                npcs, plyr, players, id, guilds_db)
                     decrease_affinity_between_players(
-                        players, id, npcs, p, guilds_db)
-                    isDone = True
+                        players, id, npcs, plyr, guilds_db)
+                    is_done = True
                     break
 
-        if isDone:
-            tauntTypeFirstPerson
-            for p in players:
-                if p == id:
-                    tauntSeverity = \
+        if is_done:
+            for plyr in players:
+                if plyr == id:
+                    taunt_severity = \
                         random_desc('mercilessly|severely|harshly|' +
                                     'loudly|blatantly|coarsely|' +
                                     'crudely|unremittingly|' +
                                     'witheringly|pitilessly')
-                    descr = "You " + tauntSeverity + ' ' + \
-                        tauntTypeFirstPerson + ' ' + fullTarget
+                    descr = "You " + taunt_severity + ' ' + \
+                        taunt_first_person + ' ' + full_target
                     mud.send_message_wrap(id, '<f230>', descr + ".\n")
                     continue
-                if players[p]['room'] == players[id]['room']:
+                if players[plyr]['room'] == players[id]['room']:
                     mud.send_message_wrap(
                         id, '<f230>',
-                        players[id]['name'] + ' ' + tauntTypeSecondPerson +
-                        ' ' + fullTarget + "\n")
+                        players[id]['name'] + ' ' + taunt_second_person +
+                        ' ' + full_target + "\n")
         else:
             mud.send_message_wrap(
                 id, '<f230>', target + ' is not here.\n')
@@ -2114,7 +2117,7 @@ def _taunt(params, mud, playersDB: {}, players: {}, rooms: {},
             'To find yourself unable to taunt at this time.\n')
 
 
-def _say(params, mud, playersDB: {}, players: {}, rooms: {},
+def _say(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
          env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
@@ -2124,30 +2127,30 @@ def _say(params, mud, playersDB: {}, players: {}, rooms: {},
     if players[id]['canSay'] == 1:
 
         # don't say if the string contains a blocked string
-        selfOnly = False
+        self_only = False
         params2 = params.lower()
         for blockedstr in blocklist:
             if blockedstr in params2:
-                selfOnly = True
+                self_only = True
                 break
 
         # go through every player in the game
-        cantStr = thieves_cant(params)
-        for (pid, pl) in list(players.items()):
+        cant_str = thieves_cant(params)
+        for pid, _ in list(players.items()):
             # if they're in the same room as the player
             if players[pid]['room'] == players[id]['room']:
                 # can the other player see this player?
                 if not player_is_visible(mud, pid, players, id, players):
                     continue
-                if selfOnly is False or pid == id:
-                    langList = players[pid]['language']
-                    if players[id]['speakLanguage'] in langList:
-                        sentimentScore = \
+                if self_only is False or pid == id:
+                    lang_list = players[pid]['language']
+                    if players[id]['speakLanguage'] in lang_list:
+                        sentiment_score = \
                             get_sentiment(params, sentiment_db) + \
                             get_guild_sentiment(players, id, players,
                                                 pid, guilds_db)
 
-                        if sentimentScore >= 0:
+                        if sentiment_score >= 0:
                             increase_affinity_between_players(
                                 players, id, players, pid, guilds_db)
                             increase_affinity_between_players(
@@ -2159,25 +2162,25 @@ def _say(params, mud, playersDB: {}, players: {}, rooms: {},
                                 players, pid, players, id, guilds_db)
 
                         # send them a message telling them what the player said
-                        pName = players[id]['name']
+                        pname = players[id]['name']
                         desc = \
-                            '<f220>{}<r> says: <f159>{}'.format(pName, params)
+                            '<f220>{}<r> says: <f159>{}'.format(pname, params)
                         mud.send_message_wrap(
                             pid, '<f230>', desc + "\n\n")
                     else:
-                        pName = players[id]['name']
+                        pname = players[id]['name']
                         if players[id]['speakLanguage'] != 'cant':
-                            pLang = players[id]['speakLanguage']
+                            plang = players[id]['speakLanguage']
                             desc = \
-                                '<f220>{}<r> says '.format(pName) + \
-                                'something in <f159>{}<r>'.format(pLang)
+                                '<f220>{}<r> says '.format(pname) + \
+                                'something in <f159>{}<r>'.format(plang)
                             mud.send_message_wrap(
                                 pid, '<f230>', desc + "\n\n")
                         else:
                             mud.send_message_wrap(
                                 pid, '<f230>',
-                                '<f220>{}<r> says: '.format(pName) +
-                                '<f159>{}'.format(cantStr) + "\n\n")
+                                '<f220>{}<r> says: '.format(pname) +
+                                '<f159>{}'.format(cant_str) + "\n\n")
     else:
         mud.send_message_wrap(
             id, '<f230>',
@@ -2185,11 +2188,11 @@ def _say(params, mud, playersDB: {}, players: {}, rooms: {},
             'yourself to utter a single word!\n')
 
 
-def _emote(params, mud, playersDB: {}, players: {}, rooms: {},
+def _emote(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, emoteDescription: str):
     if players[id]['canSay'] == 1:
         # go through every player in the game
-        for (pid, pl) in list(players.items()):
+        for pid, _ in list(players.items()):
             # if they're in the same room as the player
             if players[pid]['room'] == players[id]['room']:
                 # can the other player see this player?
@@ -2197,9 +2200,9 @@ def _emote(params, mud, playersDB: {}, players: {}, rooms: {},
                     continue
 
                 # send them a message telling them what the player did
-                pName = players[id]['name']
+                pname = players[id]['name']
                 desc = \
-                    '<f220>{}<r> {}<f159>'.format(pName, emoteDescription)
+                    '<f220>{}<r> {}<f159>'.format(pname, emoteDescription)
                 mud.send_message_wrap(
                     pid, '<f230>', desc + "\n\n")
     else:
@@ -2209,223 +2212,223 @@ def _emote(params, mud, playersDB: {}, players: {}, rooms: {},
             'yourself to make any expression!\n')
 
 
-def _laugh(params, mud, playersDB: {}, players: {}, rooms: {},
+def _laugh(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
            env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'laughs')
+    _emote(params, mud, players_db, players, rooms, id, 'laughs')
 
 
-def _thinking(params, mud, playersDB: {}, players: {}, rooms: {},
+def _thinking(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
               env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'is thinking')
 
 
-def _grimace(params, mud, playersDB: {}, players: {}, rooms: {},
+def _grimace(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
              env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'grimaces')
 
 
-def _applaud(params, mud, playersDB: {}, players: {}, rooms: {},
+def _applaud(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
              env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'applauds')
+    _emote(params, mud, players_db, players, rooms, id, 'applauds')
 
 
-def _nod(params, mud, playersDB: {}, players: {}, rooms: {},
+def _nod(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
          env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
          item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'nods')
+    _emote(params, mud, players_db, players, rooms, id, 'nods')
 
 
-def _wave(params, mud, playersDB: {}, players: {}, rooms: {},
+def _wave(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
           env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'waves')
+    _emote(params, mud, players_db, players, rooms, id, 'waves')
 
 
-def _astonished(params, mud, playersDB: {}, players: {}, rooms: {},
+def _astonished(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
                 env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'is astonished')
 
 
-def _confused(params, mud, playersDB: {}, players: {}, rooms: {},
+def _confused(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
               env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'looks confused')
 
 
-def _bow(params, mud, playersDB: {}, players: {}, rooms: {},
+def _bow(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
          env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
          item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'takes a bow')
 
 
-def _calm(params, mud, playersDB: {}, players: {}, rooms: {},
+def _calm(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
           env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'looks calm')
 
 
-def _cheer(params, mud, playersDB: {}, players: {}, rooms: {},
+def _cheer(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
            env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'cheers heartily')
 
 
-def _curious(params, mud, playersDB: {}, players: {}, rooms: {},
+def _curious(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
              env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'looks curious')
 
 
-def _curtsey(params, mud, playersDB: {}, players: {}, rooms: {},
+def _curtsey(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
              env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'curtseys')
+    _emote(params, mud, players_db, players, rooms, id, 'curtseys')
 
 
-def _frown(params, mud, playersDB: {}, players: {}, rooms: {},
+def _frown(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
            env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'frowns')
+    _emote(params, mud, players_db, players, rooms, id, 'frowns')
 
 
-def _eyebrow(params, mud, playersDB: {}, players: {}, rooms: {},
+def _eyebrow(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
              env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms,
+    _emote(params, mud, players_db, players, rooms,
            id, 'raises an eyebrow')
 
 
-def _giggle(params, mud, playersDB: {}, players: {}, rooms: {},
+def _giggle(params, mud, players_db: {}, players: {}, rooms: {},
             npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
             env: {}, eventDB: {}, event_schedule,
             id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
             item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'giggles')
+    _emote(params, mud, players_db, players, rooms, id, 'giggles')
 
 
-def _grin(params, mud, playersDB: {}, players: {}, rooms: {},
+def _grin(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
           env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'grins')
+    _emote(params, mud, players_db, players, rooms, id, 'grins')
 
 
-def _yawn(params, mud, playersDB: {}, players: {}, rooms: {},
+def _yawn(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
           env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'yawns')
+    _emote(params, mud, players_db, players, rooms, id, 'yawns')
 
 
-def _smug(params, mud, playersDB: {}, players: {}, rooms: {},
+def _smug(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
           env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'looks smug')
+    _emote(params, mud, players_db, players, rooms, id, 'looks smug')
 
 
-def _relieved(params, mud, playersDB: {}, players: {}, rooms: {},
+def _relieved(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
               env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}):
-    _emote(params, mud, playersDB, players, rooms, id, 'looks relieved')
+    _emote(params, mud, players_db, players, rooms, id, 'looks relieved')
 
 
-def _stick(params, mud, playersDB: {}, players: {}, rooms: {},
+def _stick(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
            env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
-    _say('stick', mud, playersDB, players, rooms,
+    _say('stick', mud, players_db, players, rooms,
          npcs_db, npcs, items_db, items, env_db,
          env, eventDB, event_schedule,
          id, fights, corpses, blocklist,
@@ -2437,74 +2440,74 @@ def _stick(params, mud, playersDB: {}, players: {}, rooms: {},
 def _holding_light_source(players: {}, id, items: {}, items_db: {}) -> bool:
     """Is the given player holding a light source?
     """
-    itemID = int(players[id]['clo_lhand'])
-    if itemID > 0:
-        if items_db[itemID]['lightSource'] != 0:
+    item_id = int(players[id]['clo_lhand'])
+    if item_id > 0:
+        if items_db[item_id]['lightSource'] != 0:
             return True
-    itemID = int(players[id]['clo_rhand'])
-    if itemID > 0:
-        if items_db[int(itemID)]['lightSource'] != 0:
+    item_id = int(players[id]['clo_rhand'])
+    if item_id > 0:
+        if items_db[int(item_id)]['lightSource'] != 0:
             return True
 
     # are there any other players in the same room holding a light source?
-    for p in players:
-        if p == id:
+    for plyr in players:
+        if plyr == id:
             continue
-        if players[p]['room'] != players[id]['room']:
+        if players[plyr]['room'] != players[id]['room']:
             continue
-        itemID = int(players[p]['clo_lhand'])
-        if itemID > 0:
-            if items_db[itemID]['lightSource'] != 0:
+        item_id = int(players[plyr]['clo_lhand'])
+        if item_id > 0:
+            if items_db[item_id]['lightSource'] != 0:
                 return True
-        itemID = int(players[p]['clo_rhand'])
-        if itemID > 0:
-            if items_db[int(itemID)]['lightSource'] != 0:
+        item_id = int(players[plyr]['clo_rhand'])
+        if item_id > 0:
+            if items_db[int(item_id)]['lightSource'] != 0:
                 return True
 
     # is there a light source in the room?
     return _light_source_in_room(players, id, items, items_db)
 
 
-def _conditional_logic(condType: str, cond: str, description: str, id,
+def _conditional_logic(cond_type: str, cond: str, description: str, id,
                        players: {}, items: {},
                        items_db: {}, clouds: {}, map_area: [],
-                       rooms: {}, lookModifier: str) -> bool:
-    if lookModifier:
+                       rooms: {}, look_modifier: str) -> bool:
+    if look_modifier:
         # look under/above/behind
-        if condType == lookModifier:
+        if cond_type == look_modifier:
             return True
 
-    if condType == 'sunrise' or \
-       condType == 'dawn':
-        currTime = datetime.datetime.today()
-        currHour = currTime.hour
+    if cond_type == 'sunrise' or \
+       cond_type == 'dawn':
+        curr_time = datetime.datetime.today()
+        curr_hour = curr_time.hour
         sun = get_solar()
-        sunRiseTime = sun.get_local_sunrise_time(currTime).hour
+        sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
         if 'true' in cond.lower() or \
            'y' in cond.lower():
-            if currHour >= sunRiseTime - 1 and currHour <= sunRiseTime:
+            if curr_hour >= sun_rise_time - 1 and curr_hour <= sun_rise_time:
                 return True
         else:
-            if currHour < sunRiseTime - 1 or currHour > sunRiseTime:
+            if curr_hour < sun_rise_time - 1 or curr_hour > sun_rise_time:
                 return True
 
-    if condType == 'sunset' or \
-       condType == 'dusk':
-        currTime = datetime.datetime.today()
-        currHour = currTime.hour
+    if cond_type == 'sunset' or \
+       cond_type == 'dusk':
+        curr_time = datetime.datetime.today()
+        curr_hour = curr_time.hour
         sun = get_solar()
-        sunSetTime = sun.get_local_sunset_time(currTime).hour
+        sun_set_time = sun.get_local_sunset_time(curr_time).hour
         if 'true' in cond.lower() or \
            'y' in cond.lower():
-            if currHour >= sunSetTime and currHour <= sunSetTime+1:
+            if curr_hour >= sun_set_time and curr_hour <= sun_set_time+1:
                 return True
         else:
-            if currHour < sunSetTime or currHour > sunSetTime+1:
+            if curr_hour < sun_set_time or curr_hour > sun_set_time+1:
                 return True
 
-    if condType.startswith('rain'):
-        rm = players[id]['room']
-        coords = rooms[rm]['coords']
+    if cond_type.startswith('rain'):
+        rmid = players[id]['room']
+        coords = rooms[rmid]['coords']
         if 'true' in cond.lower() or \
            'y' in cond.lower():
             if get_rain_at_coords(coords, map_area, clouds):
@@ -2513,9 +2516,9 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
             if not get_rain_at_coords(coords, map_area, clouds):
                 return True
 
-    if condType == 'morning':
-        currHour = datetime.datetime.today().hour
-        if currHour < 12:
+    if cond_type == 'morning':
+        curr_hour = datetime.datetime.today().hour
+        if curr_hour < 12:
             if 'true' in cond.lower() or \
                'y' in cond.lower():
                 return True
@@ -2523,9 +2526,9 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
             if 'false' in cond.lower() or \
                'n' in cond.lower():
                 return True
-    if condType == 'noon':
-        currHour = datetime.datetime.today().hour
-        if currHour == 12:
+    if cond_type == 'noon':
+        curr_hour = datetime.datetime.today().hour
+        if curr_hour == 12:
             if 'true' in cond.lower() or \
                'y' in cond.lower():
                 return True
@@ -2533,9 +2536,9 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
             if 'false' in cond.lower() or \
                'n' in cond.lower():
                 return True
-    if condType == 'afternoon':
-        currHour = datetime.datetime.today().hour
-        if currHour >= 12 and currHour < 17:
+    if cond_type == 'afternoon':
+        curr_hour = datetime.datetime.today().hour
+        if curr_hour >= 12 and curr_hour < 17:
             if 'true' in cond.lower() or \
                'y' in cond.lower():
                 return True
@@ -2543,9 +2546,9 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
             if 'false' in cond.lower() or \
                'n' in cond.lower():
                 return True
-    if condType == 'evening':
-        currHour = datetime.datetime.today().hour
-        if currHour >= 17:
+    if cond_type == 'evening':
+        curr_hour = datetime.datetime.today().hour
+        if curr_hour >= 17:
             if 'true' in cond.lower() or \
                'y' in cond.lower():
                 return True
@@ -2553,9 +2556,9 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
             if 'false' in cond.lower() or \
                'n' in cond.lower():
                 return True
-    if condType == 'night':
-        currHour = datetime.datetime.today().hour
-        if currHour >= 22 or currHour < 6:
+    if cond_type == 'night':
+        curr_hour = datetime.datetime.today().hour
+        if curr_hour >= 22 or curr_hour < 6:
             if 'true' in cond.lower() or \
                'y' in cond.lower():
                 return True
@@ -2564,12 +2567,12 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
                'n' in cond.lower():
                 return True
 
-    if condType.endswith('moon'):
-        currTime = datetime.datetime.today()
-        currHour = currTime.hour
-        phase = moon_phase(currTime)
-        if currHour >= 22 or currHour < 6:
-            moon_phaseNames = {
+    if cond_type.endswith('moon'):
+        curr_time = datetime.datetime.today()
+        curr_hour = curr_time.hour
+        phase = moon_phase(curr_time)
+        if curr_hour >= 22 or curr_hour < 6:
+            moon_phase_names = {
                 0: "newmoon",
                 1: "waxingcrescentmoon",
                 2: "firstquartermoon",
@@ -2579,8 +2582,8 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
                 6: "lastquartermoon",
                 7: "waningcrescentmoon"
             }
-            for moonIndex, phaseName in moon_phaseNames.items():
-                if condType == phaseName and phase == moonIndex:
+            for moon_index, phase_name in moon_phase_names.items():
+                if cond_type == phase_name and phase == moon_index:
                     if 'true' in cond.lower() or \
                        'y' in cond.lower():
                         return True
@@ -2589,98 +2592,98 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
                'n' in cond.lower():
                 return True
 
-    if condType == 'hour':
-        currHour = datetime.datetime.today().hour
-        condHour = \
+    if cond_type == 'hour':
+        curr_hour = datetime.datetime.today().hour
+        cond_hour = \
             cond.replace('>', '').replace('<', '').replace('=', '').strip()
         if '>' in cond:
-            if currHour > int(condHour):
+            if curr_hour > int(cond_hour):
                 return True
         if '<' in cond:
-            if currHour < int(condHour):
+            if curr_hour < int(cond_hour):
                 return True
         if '=' in cond:
-            if currHour == int(condHour):
+            if curr_hour == int(cond_hour):
                 return True
 
-    if condType == 'skill':
+    if cond_type == 'skill':
         if '<=' in cond:
-            skillType = cond.split('<=')[0].strip()
-            if players[id].get(skillType):
-                skillValue = int(cond.split('<=')[1].split())
-                if players[id][skillType] <= skillValue:
+            skill_type = cond.split('<=')[0].strip()
+            if players[id].get(skill_type):
+                skill_value = int(cond.split('<=')[1].split())
+                if players[id][skill_type] <= skill_value:
                     return True
         if '>=' in cond:
-            skillType = cond.split('>=')[0].strip()
-            if players[id].get(skillType):
-                skillValue = int(cond.split('>=')[1].split())
-                if players[id][skillType] >= skillValue:
+            skill_type = cond.split('>=')[0].strip()
+            if players[id].get(skill_type):
+                skill_value = int(cond.split('>=')[1].split())
+                if players[id][skill_type] >= skill_value:
                     return True
         if '>' in cond:
-            skillType = cond.split('>')[0].strip()
-            if players[id].get(skillType):
-                skillValue = int(cond.split('>')[1].split())
-                if players[id][skillType] > skillValue:
+            skill_type = cond.split('>')[0].strip()
+            if players[id].get(skill_type):
+                skill_value = int(cond.split('>')[1].split())
+                if players[id][skill_type] > skill_value:
                     return True
         if '<' in cond:
-            skillType = cond.split('<')[0].strip()
-            if players[id].get(skillType):
-                skillValue = int(cond.split('<')[1].split())
-                if players[id][skillType] < skillValue:
+            skill_type = cond.split('<')[0].strip()
+            if players[id].get(skill_type):
+                skill_value = int(cond.split('<')[1].split())
+                if players[id][skill_type] < skill_value:
                     return True
         if '=' in cond:
             cond = cond.replace('==', '=')
-            skillType = cond.split('=')[0].strip()
-            if players[id].get(skillType):
-                skillValue = int(cond.split('=')[1].split())
-                if players[id][skillType] == skillValue:
+            skill_type = cond.split('=')[0].strip()
+            if players[id].get(skill_type):
+                skill_value = int(cond.split('=')[1].split())
+                if players[id][skill_type] == skill_value:
                     return True
 
-    if condType == 'date' or condType == 'dayofmonth':
-        dayNumber = int(cond.split('/')[0])
-        if dayNumber == \
+    if cond_type == 'date' or cond_type == 'dayofmonth':
+        day_number = int(cond.split('/')[0])
+        if day_number == \
            int(datetime.datetime.today().strftime("%d")):
-            monthNumber = int(cond.split('/')[1])
-            if monthNumber == \
+            month_number = int(cond.split('/')[1])
+            if month_number == \
                int(datetime.datetime.today().strftime("%m")):
                 return True
 
-    if condType == 'month':
+    if cond_type == 'month':
         if '|' in cond:
             months = cond.split('|')
-            for m in months:
-                if int(m) == int(datetime.datetime.today().strftime("%m")):
+            for mnth in months:
+                if int(mnth) == int(datetime.datetime.today().strftime("%m")):
                     return True
         else:
-            currMonthNumber = \
+            curr_month_number = \
                 int(datetime.datetime.today().strftime("%m"))
-            monthNumber = int(cond)
-            if monthNumber == currMonthNumber:
+            month_number = int(cond)
+            if month_number == curr_month_number:
                 return True
 
-    if condType == 'season':
-        currMonthNumber = int(datetime.datetime.today().strftime("%m"))
+    if cond_type == 'season':
+        curr_month_number = int(datetime.datetime.today().strftime("%m"))
         if cond == 'spring':
-            if currMonthNumber > 1 and currMonthNumber <= 4:
+            if curr_month_number > 1 and curr_month_number <= 4:
                 return True
         elif cond == 'summer':
-            if currMonthNumber > 4 and currMonthNumber <= 9:
+            if curr_month_number > 4 and curr_month_number <= 9:
                 return True
         elif cond == 'autumn':
-            if currMonthNumber > 9 and currMonthNumber <= 10:
+            if curr_month_number > 9 and curr_month_number <= 10:
                 return True
         elif cond == 'winter':
-            if currMonthNumber > 10 or currMonthNumber <= 1:
+            if curr_month_number > 10 or curr_month_number <= 1:
                 return True
 
-    if condType == 'day' or \
-       condType == 'dayofweek' or condType == 'dow' or \
-       condType == 'weekday':
-        dayOfWeek = int(cond)
-        if dayOfWeek == datetime.datetime.today().weekday():
+    if cond_type == 'day' or \
+       cond_type == 'dayofweek' or cond_type == 'dow' or \
+       cond_type == 'weekday':
+        day_of_week = int(cond)
+        if day_of_week == datetime.datetime.today().weekday():
             return True
 
-    if condType == 'held' or condType.startswith('hold'):
+    if cond_type == 'held' or cond_type.startswith('hold'):
         if not cond.isdigit():
             if cond.lower() == 'lightsource':
                 return _holding_light_source(players, id, items, items_db)
@@ -2688,9 +2691,9 @@ def _conditional_logic(condType: str, cond: str, description: str, id,
               players[id]['clo_rhand'] == int(cond)):
             return True
 
-    if condType.startswith('wear'):
-        for c in wear_location:
-            if players[id]['clo_' + c] == int(cond):
+    if cond_type.startswith('wear'):
+        for clth in wear_location:
+            if players[id]['clo_' + clth] == int(cond):
                 return True
 
     return False
@@ -2702,56 +2705,56 @@ def _conditional_room_desc(description: str, tideOutDescription: str,
                            rooms: {}):
     """Returns a room description which can vary depending on conditions
     """
-    roomDescription = description
+    room_description = description
     if len(tideOutDescription) > 0:
         if run_tide() < 0.0:
-            roomDescription = tideOutDescription
+            room_description = tideOutDescription
 
     # Alternative descriptions triggered by conditions
-    for possibleDescription in conditional:
-        if len(possibleDescription) >= 3:
-            condType = possibleDescription[0]
-            cond = possibleDescription[1]
-            alternativeDescription = possibleDescription[2]
-            if _conditional_logic(condType, cond,
-                                  alternativeDescription,
+    for possible_description in conditional:
+        if len(possible_description) >= 3:
+            cond_type = possible_description[0]
+            cond = possible_description[1]
+            alternative_description = possible_description[2]
+            if _conditional_logic(cond_type, cond,
+                                  alternative_description,
                                   id, players, items, items_db,
                                   clouds, map_area, rooms, None):
-                roomDescription = alternativeDescription
+                room_description = alternative_description
                 break
 
-    return roomDescription
+    return room_description
 
 
-def _conditional_item_desc(itemId, conditional: [],
+def _conditional_item_desc(item_id, conditional: [],
                            id, players: {}, items: {},
                            items_db: {}, clouds: {}, map_area: [],
-                           rooms: {}, lookModifier: str):
+                           rooms: {}, look_modifier: str):
     """Returns an item description which can vary depending on conditions
     """
-    itemDescription = items_db[itemId]['long_description']
+    item_description = items_db[item_id]['long_description']
 
     # Alternative descriptions triggered by conditions
-    for possibleDescription in conditional:
-        if len(possibleDescription) >= 2:
-            condType = possibleDescription[0]
+    for possible_description in conditional:
+        if len(possible_description) >= 2:
+            cond_type = possible_description[0]
             cond = None
-            if condType.startswith('wear') or condType.startswith('hold'):
-                cond = str(itemId)
-                alternativeDescription = possibleDescription[1]
-            elif len(possibleDescription) >= 3:
-                cond = possibleDescription[1]
-                alternativeDescription = possibleDescription[2]
+            if cond_type.startswith('wear') or cond_type.startswith('hold'):
+                cond = str(item_id)
+                alternative_description = possible_description[1]
+            elif len(possible_description) >= 3:
+                cond = possible_description[1]
+                alternative_description = possible_description[2]
             if cond:
-                if _conditional_logic(condType, cond,
-                                      alternativeDescription,
+                if _conditional_logic(cond_type, cond,
+                                      alternative_description,
                                       id, players, items, items_db,
                                       clouds, map_area, rooms,
-                                      lookModifier):
-                    itemDescription = alternativeDescription
+                                      look_modifier):
+                    item_description = alternative_description
                     break
 
-    return itemDescription
+    return item_description
 
 
 def _conditional_room_image(conditional: [], id, players: {}, items: {},
@@ -2760,71 +2763,71 @@ def _conditional_room_image(conditional: [], id, players: {}, items: {},
     """If there is an image associated with a conditional
     room description then return its name
     """
-    for possibleDescription in conditional:
-        if len(possibleDescription) < 4:
+    for possible_description in conditional:
+        if len(possible_description) < 4:
             continue
-        condType = possibleDescription[0]
-        cond = possibleDescription[1]
-        alternativeDescription = possibleDescription[2]
-        if _conditional_logic(condType, cond,
-                              alternativeDescription,
+        cond_type = possible_description[0]
+        cond = possible_description[1]
+        alternative_description = possible_description[2]
+        if _conditional_logic(cond_type, cond,
+                              alternative_description,
                               id, players, items, items_db, clouds,
                               map_area, rooms, None):
-            roomImageFilename = \
-                'images/rooms/' + possibleDescription[3]
-            if os.path.isfile(roomImageFilename):
-                return possibleDescription[3]
+            room_image_filename = \
+                'images/rooms/' + possible_description[3]
+            if os.path.isfile(room_image_filename):
+                return possible_description[3]
             break
     return None
 
 
-def _conditional_item_image(itemId,
+def _conditional_item_image(item_id,
                             conditional: [], id, players: {}, items: {},
                             items_db: {}, clouds: {}, map_area: [],
-                            rooms: {}, lookModifier: str) -> str:
+                            rooms: {}, look_modifier: str) -> str:
     """If there is an image associated with a conditional
     item description then return its name
     """
     # Alternative descriptions triggered by conditions
-    for possibleDescription in conditional:
-        if len(possibleDescription) < 3:
+    for possible_description in conditional:
+        if len(possible_description) < 3:
             continue
-        condType = possibleDescription[0]
+        cond_type = possible_description[0]
         cond = None
-        itemIdStr = None
-        if condType.startswith('wear') or condType.startswith('hold'):
-            cond = str(itemId)
-            alternativeDescription = possibleDescription[1]
-            itemIdStr = possibleDescription[2]
-        elif len(possibleDescription) >= 4:
-            cond = possibleDescription[1]
-            alternativeDescription = possibleDescription[2]
-            itemIdStr = possibleDescription[3]
-        if cond and itemIdStr:
-            if _conditional_logic(condType, cond,
-                                  alternativeDescription,
+        item_id_str = None
+        if cond_type.startswith('wear') or cond_type.startswith('hold'):
+            cond = str(item_id)
+            alternative_description = possible_description[1]
+            item_id_str = possible_description[2]
+        elif len(possible_description) >= 4:
+            cond = possible_description[1]
+            alternative_description = possible_description[2]
+            item_id_str = possible_description[3]
+        if cond and item_id_str:
+            if _conditional_logic(cond_type, cond,
+                                  alternative_description,
                                   id, players, items, items_db,
                                   clouds, map_area, rooms,
-                                  lookModifier):
-                return str(itemIdStr)
-    return str(itemId)
+                                  look_modifier):
+                return str(item_id_str)
+    return str(item_id)
 
 
-def _players_in_room(targetRoom, players, npcs):
+def _players_in_room(target_room, players, npcs):
     """Returns the number of players in the given room.
        This includes NPCs.
     """
-    playersCtr = 0
-    for (pid, pl) in list(players.items()):
+    players_ctr = 0
+    for pid, _ in list(players.items()):
         # if they're in the same room as the player
-        if players[pid]['room'] == targetRoom:
-            playersCtr += 1
+        if players[pid]['room'] == target_room:
+            players_ctr += 1
 
-    for (nid, pl) in list(npcs.items()):
-        if npcs[nid]['room'] == targetRoom:
-            playersCtr += 1
+    for nid, _ in list(npcs.items()):
+        if npcs[nid]['room'] == target_room:
+            players_ctr += 1
 
-    return playersCtr
+    return players_ctr
 
 
 def _room_requires_light_source(players: {}, id, rooms: {}) -> bool:
@@ -2852,120 +2855,120 @@ def _light_source_in_room(players: {}, id, items: {}, items_db: {}) -> bool:
     return False
 
 
-def _item_is_visible(observerId: int, players: {},
-                     itemId: int, items_db: {}) -> bool:
+def _item_is_visible(observer_id: int, players: {},
+                     item_id: int, items_db: {}) -> bool:
     """Is the item visible to the observer?
     """
-    itemId = int(itemId)
-    if not items_db[itemId].get('visibleWhenWearing'):
+    item_id = int(item_id)
+    if not items_db[item_id].get('visibleWhenWearing'):
         return True
-    if is_wearing(observerId, players,
-                  items_db[itemId]['visibleWhenWearing']):
+    if is_wearing(observer_id, players,
+                  items_db[item_id]['visibleWhenWearing']):
         return True
     return False
 
 
-def _item_is_climbable(climberId: int, players: {},
-                       itemId: int, items_db: {}) -> bool:
+def _item_is_climbable(climber_id: int, players: {},
+                       item_id: int, items_db: {}) -> bool:
     """Is the item climbable by the player?
     """
-    itemId = int(itemId)
-    if not items_db[itemId].get('climbWhenWearing'):
+    item_id = int(item_id)
+    if not items_db[item_id].get('climbWhenWearing'):
         return True
-    if is_wearing(climberId, players,
-                  items_db[itemId]['climbWhenWearing']):
+    if is_wearing(climber_id, players,
+                  items_db[item_id]['climbWhenWearing']):
         return True
     return False
 
 
-def _room_illumination(roomImage, outdoors: bool):
+def _room_illumination(room_image, outdoors: bool):
     """Alters the brightness and contrast of the image to simulate
     evening and night conditions
     """
     if not outdoors:
-        return roomImage
-    currTime = datetime.datetime.today()
-    currHour = currTime.hour
+        return room_image
+    curr_time = datetime.datetime.today()
+    curr_hour = curr_time.hour
     sun = get_solar()
-    sunRiseTime = sun.get_local_sunrise_time(currTime).hour
-    sunSetTime = sun.get_local_sunset_time(currTime).hour
-    if currHour > sunRiseTime+1 and currHour < sunSetTime-1:
-        return roomImage
+    sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
+    sun_set_time = sun.get_local_sunset_time(curr_time).hour
+    if curr_hour > sun_rise_time+1 and curr_hour < sun_set_time-1:
+        return room_image
     brightness = 60
-    colorVariance = 80
-    if currHour < sunRiseTime or currHour > sunSetTime:
+    color_variance = 80
+    if curr_hour < sun_rise_time or curr_hour > sun_set_time:
         brightness = 30
     # extra dark
-    if currHour < (sunRiseTime-2) or currHour > (sunSetTime+2):
-        colorVariance = 50
+    if curr_hour < (sun_rise_time-2) or curr_hour > (sun_set_time+2):
+        color_variance = 50
 
-    brightness += moon_illumination(currTime)
-    pixels = roomImage.split('[')
+    brightness += moon_illumination(curr_time)
+    pixels = room_image.split('[')
 
-    averageIntensity = 0
-    averageIntensityCtr = 0
-    for p in pixels:
-        values = p.split(';')
+    av_intensity = 0
+    av_intensity_ctr = 0
+    for pix in pixels:
+        values = pix.split(';')
         if len(values) != 5:
             continue
         values[4] = values[4].split('m')[0]
         ctr = 0
-        for v in values:
+        for val in values:
             if ctr > 1:
-                averageIntensity += int(v)
-                averageIntensityCtr += 1
+                av_intensity += int(val)
+                av_intensity_ctr += 1
             ctr += 1
-    averageIntensity /= averageIntensityCtr
-    newAverageIntensity = int(averageIntensity * brightness / 100)
+    av_intensity /= av_intensity_ctr
+    new_av_intensity = int(av_intensity * brightness / 100)
     # minimum average illumination
-    if newAverageIntensity < 20:
-        newAverageIntensity = 20
+    if new_av_intensity < 20:
+        new_av_intensity = 20
 
-    newRoomImage = ''
+    new_room_image = ''
     trailing = None
-    firstValue = True
-    for p in pixels:
-        if firstValue:
-            newRoomImage += p + '['
-            firstValue = False
+    first_value = True
+    for pix in pixels:
+        if first_value:
+            new_room_image += pix + '['
+            first_value = False
             continue
-        values = p.split(';')
+        values = pix.split(';')
         if len(values) != 5:
-            newRoomImage += p + '['
+            new_room_image += pix + '['
             continue
         trailing = values[4].split('m')[1]
         values[4] = values[4].split('m')[0]
         ctr = 0
-        for v in values:
+        for val in values:
             if ctr > 1:
                 # difference from average illumination
-                diff = int(int(v) - averageIntensity)
+                diff = int(int(val) - av_intensity)
                 # reduce color variance
-                variance = colorVariance
+                variance = color_variance
                 # reduce blue by more than other channels
                 if ctr == 2:
-                    variance = int(colorVariance / 4)
-                v = int(newAverageIntensity + (diff * variance / 100))
-                if v < 0:
-                    v = 0
-                elif v > 255:
-                    v = 255
-            values[ctr] = int(v)
+                    variance = int(color_variance / 4)
+                val = int(new_av_intensity + (diff * variance / 100))
+                if val < 0:
+                    val = 0
+                elif val > 255:
+                    val = 255
+            values[ctr] = int(val)
             ctr += 1
-        darkStr = trailing + '['
-        darkStr = ''
+        dark_str = trailing + '['
+        dark_str = ''
         ctr = 0
-        for v in values:
+        for val in values:
             if ctr < 4:
-                darkStr += str(v) + ';'
+                dark_str += str(val) + ';'
             else:
-                darkStr += str(v) + 'm'
+                dark_str += str(val) + 'm'
             ctr += 1
-        newRoomImage += darkStr+trailing + '['
-    return newRoomImage[:len(newRoomImage) - 1]
+        new_room_image += dark_str + trailing + '['
+    return new_room_image[:len(new_room_image) - 1]
 
 
-def _show_room_image(mud, id, roomId, rooms: {}, players: {},
+def _show_room_image(mud, id, room_id, rooms: {}, players: {},
                      items: {}, items_db: {},
                      clouds: {}, map_area: []) -> None:
     """Shows an image for the room if it exists
@@ -2973,33 +2976,33 @@ def _show_room_image(mud, id, roomId, rooms: {}, players: {},
     if players[id].get('graphics'):
         if players[id]['graphics'] == 'off':
             return
-    conditionalImage = \
-        _conditional_room_image(rooms[roomId]['conditional'],
+    conditional_image = \
+        _conditional_room_image(rooms[room_id]['conditional'],
                                 id, players, items,
                                 items_db, clouds,
                                 map_area, rooms)
     outdoors = False
-    if rooms[roomId]['weather'] == 1:
+    if rooms[room_id]['weather'] == 1:
         outdoors = True
-    if not conditionalImage:
-        roomIdStr = str(roomId).replace('rid=', '').replace('$', '')
+    if not conditional_image:
+        room_id_str = str(room_id).replace('rid=', '').replace('$', '')
     else:
-        roomIdStr = conditionalImage
-    roomImageFilename = 'images/rooms/' + roomIdStr
-    if os.path.isfile(roomImageFilename + '_night'):
-        currTime = datetime.datetime.today()
+        room_id_str = conditional_image
+    room_image_filename = 'images/rooms/' + room_id_str
+    if os.path.isfile(room_image_filename + '_night'):
+        curr_time = datetime.datetime.today()
         sun = get_solar()
-        sunRiseTime = sun.get_local_sunrise_time(currTime).hour
-        sunSetTime = sun.get_local_sunset_time(currTime).hour
-        if currTime.hour < sunRiseTime or \
-           currTime.hour > sunSetTime:
-            roomImageFilename = roomImageFilename + '_night'
+        sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
+        sun_set_time = sun.get_local_sunset_time(curr_time).hour
+        if curr_time.hour < sun_rise_time or \
+           curr_time.hour > sun_set_time:
+            room_image_filename = room_image_filename + '_night'
             outdoors = False
-    if not os.path.isfile(roomImageFilename):
+    if not os.path.isfile(room_image_filename):
         return
-    with open(roomImageFilename, 'r') as roomFile:
-        roomImageStr = roomFile.read()
-        mud.send_image(id, '\n' + _room_illumination(roomImageStr, outdoors))
+    with open(room_image_filename, 'r') as fp_room:
+        room_image_str = fp_room.read()
+        mud.send_image(id, '\n' + _room_illumination(room_image_str, outdoors))
 
 
 def _show_spell_image(mud, id, spellId, players: {}) -> None:
@@ -3008,108 +3011,108 @@ def _show_spell_image(mud, id, spellId, players: {}) -> None:
     if players[id].get('graphics'):
         if players[id]['graphics'] == 'off':
             return
-    spellImageFilename = 'images/spells/' + spellId
-    if not os.path.isfile(spellImageFilename):
+    spell_image_filename = 'images/spells/' + spellId
+    if not os.path.isfile(spell_image_filename):
         return
-    with open(spellImageFilename, 'r') as spellFile:
-        mud.send_image(id, '\n' + spellFile.read())
+    with open(spell_image_filename, 'r') as fp_spell:
+        mud.send_image(id, '\n' + fp_spell.read())
 
 
-def _show_item_image(mud, id, itemId, roomId, rooms: {}, players: {},
+def _show_item_image(mud, id, item_id, room_id, rooms: {}, players: {},
                      items: {}, items_db: {},
-                     clouds: {}, map_area: [], lookModifier: str) -> None:
+                     clouds: {}, map_area: [], look_modifier: str) -> None:
     """Shows an image for the item if it exists
     """
     if players[id].get('graphics'):
         if players[id]['graphics'] == 'off':
             return
-    itemIdStr = \
-        _conditional_item_image(itemId,
-                                items_db[itemId]['conditional'],
+    item_id_str = \
+        _conditional_item_image(item_id,
+                                items_db[item_id]['conditional'],
                                 id, players, items,
                                 items_db, clouds,
-                                map_area, rooms, lookModifier)
+                                map_area, rooms, look_modifier)
 
     # fixed items can have their illumination changed if they are outdoors
     outdoors = False
-    if items_db[itemId]['weight'] == 0:
-        if rooms[roomId]['weather'] == 1:
+    if items_db[item_id]['weight'] == 0:
+        if rooms[room_id]['weather'] == 1:
             outdoors = True
 
-    itemImageFilename = 'images/items/' + itemIdStr
-    if os.path.isfile(itemImageFilename + '_night'):
-        currTime = datetime.datetime.today()
+    item_image_filename = 'images/items/' + item_id_str
+    if os.path.isfile(item_image_filename + '_night'):
+        curr_time = datetime.datetime.today()
         sun = get_solar()
-        sunRiseTime = sun.get_local_sunrise_time(currTime).hour
-        sunSetTime = sun.get_local_sunset_time(currTime).hour
-        if currTime.hour < sunRiseTime or \
-           currTime.hour > sunSetTime:
-            itemImageFilename = itemImageFilename + '_night'
+        sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
+        sun_set_time = sun.get_local_sunset_time(curr_time).hour
+        if curr_time.hour < sun_rise_time or \
+           curr_time.hour > sun_set_time:
+            item_image_filename = item_image_filename + '_night'
             outdoors = False
-    if not os.path.isfile(itemImageFilename):
+    if not os.path.isfile(item_image_filename):
         return
-    with open(itemImageFilename, 'r') as itemFile:
-        itemImageStr = itemFile.read()
-        mud.send_image(id, '\n' + _room_illumination(itemImageStr, outdoors))
+    with open(item_image_filename, 'r') as fp_item:
+        item_image_str = fp_item.read()
+        mud.send_image(id, '\n' + _room_illumination(item_image_str, outdoors))
 
 
-def _show_npc_image(mud, id, npcName, players: {}) -> None:
+def _show_npc_image(mud, id, npc_name, players: {}) -> None:
     """Shows an image for a NPC
     """
     if players[id].get('graphics'):
         if players[id]['graphics'] == 'off':
             return
-    npcImageFilename = 'images/npcs/' + npcName.replace(' ', '_')
-    if not os.path.isfile(npcImageFilename):
+    npc_image_filename = 'images/npcs/' + npc_name.replace(' ', '_')
+    if not os.path.isfile(npc_image_filename):
         return
-    with open(npcImageFilename, 'r') as npcFile:
-        mud.send_image(id, '\n' + npcFile.read())
+    with open(npc_image_filename, 'r') as fp_npc:
+        mud.send_image(id, '\n' + fp_npc.read())
 
 
 def _get_room_exits(mud, rooms: {}, players: {}, id) -> {}:
     """Returns a dictionary of exits for the given player
     """
-    rm = rooms[players[id]['room']]
-    exits = rm['exits']
+    rm_item = rooms[players[id]['room']]
+    exits = rm_item['exits']
 
-    if rm.get('tideOutExits'):
+    if rm_item.get('tideOutExits'):
         if run_tide() < 0.0:
-            for direction, room_id in rm['tideOutExits'].items():
+            for direction, room_id in rm_item['tideOutExits'].items():
                 exits[direction] = room_id
         else:
-            for direction, room_id in rm['tideOutExits'].items():
+            for direction, room_id in rm_item['tideOutExits'].items():
                 if exits.get(direction):
-                    del rm['exits'][direction]
+                    del rm_item['exits'][direction]
 
-    if rm.get('exitsWhenWearing'):
-        directionsAdded = []
-        for ex in rm['exitsWhenWearing']:
+    if rm_item.get('exitsWhenWearing'):
+        directions_added = []
+        for ex in rm_item['exitsWhenWearing']:
             if len(ex) < 3:
                 continue
             direction = ex[0]
-            itemID = ex[1]
-            if is_wearing(id, players, [itemID]):
+            item_id = ex[1]
+            if is_wearing(id, players, [item_id]):
                 room_id = ex[2]
                 exits[direction] = room_id
                 # keep track of directions added via wearing items
-                if direction not in directionsAdded:
-                    directionsAdded.append(direction)
+                if direction not in directions_added:
+                    directions_added.append(direction)
             else:
                 if exits.get(direction):
                     # only remove if the direction was not previously added
                     # via another item
-                    if direction not in directionsAdded:
-                        del rm['exits'][direction]
+                    if direction not in directions_added:
+                        del rm_item['exits'][direction]
     return exits
 
 
-def _item_in_player_room(players: {}, id, items: {}, itemId: int) -> bool:
+def _item_in_player_room(players: {}, id, items: {}, item_id: int) -> bool:
     """Returns true if the given item is in the given room
     """
-    return items[itemId]['room'].lower() == players[id]['room']
+    return items[item_id]['room'].lower() == players[id]['room']
 
 
-def _look(params, mud, playersDB: {}, players: {}, rooms: {},
+def _look(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -3122,27 +3125,27 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
             # surroundings
 
             # store the player's current room
-            rm = rooms[players[id]['room']]
+            rm_item = rooms[players[id]['room']]
 
             # send the player back the description of their current room
-            playerRoomId = players[id]['room']
-            _show_room_image(mud, id, playerRoomId,
+            player_room_id = players[id]['room']
+            _show_room_image(mud, id, player_room_id,
                              rooms, players, items,
                              items_db, clouds, map_area)
-            roomDescription = \
-                _conditional_room_desc(rm['description'],
-                                       rm['tideOutDescription'],
-                                       rm['conditional'],
+            room_description = \
+                _conditional_room_desc(rm_item['description'],
+                                       rm_item['tideOutDescription'],
+                                       rm_item['conditional'],
                                        id, players, items, items_db,
                                        clouds, map_area, rooms)
 
-            if rm['trap'].get('trap_activation') and \
-               rm['trap'].get('trapPerception'):
+            if rm_item['trap'].get('trap_activation') and \
+               rm_item['trap'].get('trapPerception'):
                 if randint(1, players[id]['per']) > \
-                   rm['trap']['trapPerception']:
-                    if rm['trap']['trapType'].startswith('dart') and \
+                   rm_item['trap']['trapPerception']:
+                    if rm_item['trap']['trapType'].startswith('dart') and \
                        randint(0, 1) == 1:
-                        roomDescription += \
+                        room_description += \
                             random_desc(" You notice some tiny " +
                                         "holes in the wall.| " +
                                         "There are some small " +
@@ -3150,8 +3153,8 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                         "observe some tiny holes" +
                                         " in the wall.")
                     else:
-                        if rm['trap']['trap_activation'] == 'tripwire':
-                            roomDescription += \
+                        if rm_item['trap']['trap_activation'] == 'tripwire':
+                            room_description += \
                                 random_desc(" A tripwire is " +
                                             "carefully set along " +
                                             "the floor.| You notice " +
@@ -3159,9 +3162,9 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                             "the floor.| An almost " +
                                             "invisible wire runs " +
                                             "along the floor.")
-                        trap_act = rm['trap']['trap_activation']
+                        trap_act = rm_item['trap']['trap_activation']
                         if trap_act.startswith('pressure'):
-                            roomDescription += \
+                            room_description += \
                                 random_desc(" The faint outline of " +
                                             "a pressure plate can be " +
                                             "seen on the floor.| The " +
@@ -3171,13 +3174,13 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
 
             mud.send_message_wrap(id, '<f230>',
                                   "****CLEAR****<f230>" +
-                                  roomDescription.strip())
+                                  room_description.strip())
             playershere = []
 
             itemshere = []
 
             # go through every player in the game
-            for (pid, pl) in list(players.items()):
+            for pid, _ in list(players.items()):
                 # if they're in the same room as the player
                 if players[pid]['room'] == players[id]['room']:
                     # ... and they have a name to be shown
@@ -3193,7 +3196,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                     players[pid]['name'])
 
             # Show corpses in the room
-            for (corpse, pl) in list(corpses.items()):
+            for corpse, _ in list(corpses.items()):
                 if corpses[corpse]['room'] == players[id]['room']:
                     playershere.append(corpses[corpse]['name'])
 
@@ -3208,7 +3211,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                             playershere.append(npcs[nid]['name'])
 
             # Show items in the room
-            for (item, pl) in list(items.items()):
+            for item, _ in list(items.items()):
                 if _item_in_player_room(players, id, items, item):
                     if _item_is_visible(id, players, items[item]['id'],
                                         items_db):
@@ -3224,21 +3227,22 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                     '<f230>You see: <f220>{}'.format(', '.join(playershere)))
 
             # send player a message containing the list of exits from this room
-            roomExitsStr = _get_room_exits(mud, rooms, players, id)
-            if roomExitsStr:
+            room_exits_str = _get_room_exits(mud, rooms, players, id)
+            if room_exits_str:
+                ex_str = room_exits_str
                 desc = \
-                    '<f230>Exits are: <f220>{}'.format(', '.join(roomExitsStr))
+                    '<f230>Exits are: <f220>{}'.format(', '.join(ex_str))
                 mud.send_message(id, desc)
 
             # send player a message containing the list of items in the room
             if len(itemshere) > 0:
-                needsLight = _room_requires_light_source(players, id, rooms)
-                playersWithLight = False
-                if needsLight:
-                    playersWithLight = \
+                needs_light = _room_requires_light_source(players, id, rooms)
+                players_with_light = False
+                if needs_light:
+                    players_with_light = \
                         _holding_light_source(players, id, items, items_db)
-                if needsLight is False or \
-                   (needsLight is True and playersWithLight is True):
+                if needs_light is False or \
+                   (needs_light is True and players_with_light is True):
                     desc = '<f230>You notice: ' + \
                         '<f220>{}'.format(', '.join(itemshere))
                     mud.send_message_wrap(id, '<f220>', desc)
@@ -3253,28 +3257,31 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                 param = params.replace('my ', '', 1)
 
             # "look under the ..."
-            lookModifier = None
+            look_modifier = None
             if param.startswith('under '):
                 param = params.replace('under ', '', 1)
-                lookModifier = 'under'
+                look_modifier = 'under'
             elif param.startswith('below '):
                 param = params.replace('below ', '', 1)
-                lookModifier = 'under'
+                look_modifier = 'under'
+            elif param.startswith('beneath '):
+                param = params.replace('beneath ', '', 1)
+                look_modifier = 'under'
             elif param.startswith('behind '):
                 param = params.replace('behind ', '', 1)
-                lookModifier = 'behind'
+                look_modifier = 'behind'
             elif param.startswith('above '):
                 param = params.replace('above ', '', 1)
-                lookModifier = 'above'
+                look_modifier = 'above'
             elif param.startswith('on top of '):
                 param = params.replace('on top of ', '', 1)
-                lookModifier = 'above'
+                look_modifier = 'above'
 
             # replace "familiar" with the name of the familiar
             if param.startswith('familiar'):
-                familiarName = get_familiar_name(players, id, npcs)
-                if len(familiarName) > 0:
-                    param = param.replace('familiar', familiarName, 1)
+                familiar_name = get_familiar_name(players, id, npcs)
+                if len(familiar_name) > 0:
+                    param = param.replace('familiar', familiar_name, 1)
 
             if param.startswith('at the '):
                 param = param.replace('at the ', '')
@@ -3284,114 +3291,116 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                 param = param.replace('at ', '')
             if param.startswith('a '):
                 param = param.replace('a ', '')
-            messageSent = False
+            message_sent = False
 
             # Go through all players in game
-            for p in players:
-                if players[p]['authenticated'] is not None:
-                    if players[p]['name'].lower() == param and \
-                       players[p]['room'] == players[id]['room']:
-                        if player_is_visible(mud, players, id, p, players):
-                            _bio_of_player(mud, id, p, players, items_db)
-                            messageSent = True
+            for plyr in players:
+                if players[plyr]['authenticated'] is not None:
+                    if players[plyr]['name'].lower() == param and \
+                       players[plyr]['room'] == players[id]['room']:
+                        if player_is_visible(mud, players, id, plyr, players):
+                            _bio_of_player(mud, id, plyr, players, items_db)
+                            message_sent = True
 
             message = ""
 
             # Go through all NPCs in game
-            for n in npcs:
-                if param in npcs[n]['name'].lower() and \
-                   npcs[n]['room'] == players[id]['room']:
-                    if player_is_visible(mud, id, players, n, npcs):
-                        if npcs[n]['familiarMode'] != 'hide':
-                            nameLower = npcs[n]['name'].lower()
-                            _show_npc_image(mud, id, nameLower, players)
-                            _bio_of_player(mud, id, n, npcs, items_db)
-                            messageSent = True
+            for nitem in npcs:
+                if param in npcs[nitem]['name'].lower() and \
+                   npcs[nitem]['room'] == players[id]['room']:
+                    if player_is_visible(mud, id, players, nitem, npcs):
+                        if npcs[nitem]['familiarMode'] != 'hide':
+                            name_lower = npcs[nitem]['name'].lower()
+                            _show_npc_image(mud, id, name_lower, players)
+                            _bio_of_player(mud, id, nitem, npcs, items_db)
+                            message_sent = True
                         else:
-                            if npcs[n]['familiarOf'] == players[id]['name']:
+                            if npcs[nitem]['familiarOf'] == \
+                               players[id]['name']:
                                 message = "They are hiding somewhere here."
-                                messageSent = True
+                                message_sent = True
 
             if len(message) > 0:
                 mud.send_message(id, "****CLEAR****" + message + "\n\n")
-                messageSent = True
+                message_sent = True
 
             message = ""
 
             # Go through all Items in game
-            itemCounter = 0
+            item_counter = 0
             for i in items:
                 if _item_in_player_room(players, id, items, i) and \
                    param in items_db[items[i]['id']]['name'].lower():
                     if _item_is_visible(id, players, items[i]['id'], items_db):
-                        if itemCounter == 0:
-                            itemLanguage = items_db[items[i]['id']]['language']
-                            thisItemID = int(items[i]['id'])
+                        if item_counter == 0:
+                            item_language = \
+                                items_db[items[i]['id']]['language']
+                            this_item_id = int(items[i]['id'])
                             idx = items[i]['id']
                             if items_db[idx].get('itemName'):
                                 message += \
                                     'Name: ' + items_db[idx]['itemName'] + '\n'
-                            condDesc = []
+                            cond_desc = []
                             if items_db[idx].get('conditional'):
-                                condDesc = items_db[idx]['conditional']
+                                cond_desc = items_db[idx]['conditional']
                             desc = \
-                                _conditional_item_desc(idx, condDesc,
+                                _conditional_item_desc(idx, cond_desc,
                                                        id, players,
                                                        items, items_db,
                                                        clouds, map_area,
-                                                       rooms, lookModifier)
+                                                       rooms, look_modifier)
                             message += random_desc(desc)
                             message += \
                                 _describe_container_contents(mud, id,
                                                              items_db,
                                                              items[i]['id'],
                                                              True)
-                            if len(itemLanguage) == 0:
-                                roomId = players[id]['room']
+                            if len(item_language) == 0:
+                                room_id = players[id]['room']
                                 _show_item_image(mud, id, idx,
-                                                 roomId, rooms, players,
+                                                 room_id, rooms, players,
                                                  items, items_db,
                                                  clouds, map_area,
-                                                 lookModifier)
+                                                 look_modifier)
                             else:
-                                if itemLanguage in players[id]['language']:
-                                    roomId = players[id]['room']
+                                if item_language in players[id]['language']:
+                                    room_id = players[id]['room']
                                     _show_item_image(mud, id, idx,
-                                                     roomId, rooms, players,
+                                                     room_id, rooms, players,
                                                      items, items_db,
                                                      clouds, map_area,
-                                                     lookModifier)
+                                                     look_modifier)
                                 else:
                                     message += \
-                                        "It's written in " + itemLanguage
-                            itemName = \
+                                        "It's written in " + item_language
+                            item_name = \
                                 items_db[items[i]['id']]['article'] + \
                                 " " + items_db[items[i]['id']]['name']
-                        itemCounter += 1
+                        item_counter += 1
 
             # Examine items in inventory
             if len(message) == 0:
                 playerinv = list(players[id]['inv'])
                 if len(playerinv) > 0:
                     # check for exact match of item name
-                    invItemFound = False
+                    inv_item_found = False
                     for i in playerinv:
-                        thisItemID = int(i)
-                        items_dbEntry = items_db[thisItemID]
-                        if param == items_dbEntry['name'].lower():
-                            itemLanguage = items_dbEntry['language']
-                            roomId = players[id]['room']
-                            _show_item_image(mud, id, thisItemID,
-                                             roomId, rooms, players,
+                        this_item_id = int(i)
+                        items_db_entry = items_db[this_item_id]
+                        if param == items_db_entry['name'].lower():
+                            item_language = items_db_entry['language']
+                            room_id = players[id]['room']
+                            _show_item_image(mud, id, this_item_id,
+                                             room_id, rooms, players,
                                              items, items_db,
                                              clouds, map_area, None)
-                            if len(itemLanguage) == 0:
-                                condDesc = []
-                                if items_dbEntry.get('conditional'):
-                                    condDesc = items_dbEntry['conditional']
+                            if len(item_language) == 0:
+                                cond_desc = []
+                                if items_db_entry.get('conditional'):
+                                    cond_desc = items_db_entry['conditional']
                                 desc = \
-                                    _conditional_item_desc(thisItemID,
-                                                           condDesc,
+                                    _conditional_item_desc(this_item_id,
+                                                           cond_desc,
                                                            id, players,
                                                            items, items_db,
                                                            clouds,
@@ -3400,15 +3409,16 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                 message += random_desc(desc)
                                 message += \
                                     _describe_container_contents(
-                                        mud, id, items_db, thisItemID, True)
+                                        mud, id, items_db, this_item_id, True)
                             else:
-                                if itemLanguage in players[id]['language']:
-                                    condDesc = []
-                                    if items_dbEntry.get('conditional'):
-                                        condDesc = items_dbEntry['conditional']
+                                if item_language in players[id]['language']:
+                                    cond_desc = []
+                                    if items_db_entry.get('conditional'):
+                                        cond_desc = \
+                                            items_db_entry['conditional']
                                     desc = \
-                                        _conditional_item_desc(thisItemID,
-                                                               condDesc,
+                                        _conditional_item_desc(this_item_id,
+                                                               cond_desc,
                                                                id,
                                                                players,
                                                                items,
@@ -3419,35 +3429,36 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                     message += random_desc(desc)
                                     message += \
                                         _describe_container_contents(
-                                            mud, id, items_db, thisItemID,
+                                            mud, id, items_db, this_item_id,
                                             True)
                                 else:
                                     message += \
-                                        "It's written in " + itemLanguage
-                            itemName = \
-                                items_dbEntry['article'] + " " + \
-                                items_dbEntry['name']
-                            invItemFound = True
+                                        "It's written in " + item_language
+                            item_name = \
+                                items_db_entry['article'] + " " + \
+                                items_db_entry['name']
+                            inv_item_found = True
                             break
-                    if not invItemFound:
+                    if not inv_item_found:
                         # check for partial match of item name
                         for i in playerinv:
-                            thisItemID = int(i)
-                            items_dbEntry = items_db[thisItemID]
-                            if param in items_dbEntry['name'].lower():
-                                itemLanguage = items_dbEntry['language']
-                                roomId = players[id]['room']
-                                _show_item_image(mud, id, thisItemID,
-                                                 roomId, rooms, players,
+                            this_item_id = int(i)
+                            items_db_entry = items_db[this_item_id]
+                            if param in items_db_entry['name'].lower():
+                                item_language = items_db_entry['language']
+                                room_id = players[id]['room']
+                                _show_item_image(mud, id, this_item_id,
+                                                 room_id, rooms, players,
                                                  items, items_db,
                                                  clouds, map_area, None)
-                                if len(itemLanguage) == 0:
-                                    condDesc = []
-                                    if items_dbEntry.get('conditional'):
-                                        condDesc = items_dbEntry['conditional']
+                                if len(item_language) == 0:
+                                    cond_desc = []
+                                    if items_db_entry.get('conditional'):
+                                        cond_desc = \
+                                            items_db_entry['conditional']
                                     desc = \
-                                        _conditional_item_desc(thisItemID,
-                                                               condDesc,
+                                        _conditional_item_desc(this_item_id,
+                                                               cond_desc,
                                                                id,
                                                                players,
                                                                items,
@@ -3458,17 +3469,19 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                     message += random_desc(desc)
                                     message += \
                                         _describe_container_contents(
-                                            mud, id, items_db, thisItemID,
+                                            mud, id, items_db, this_item_id,
                                             True)
                                 else:
-                                    if itemLanguage in players[id]['language']:
-                                        condDesc = []
-                                        if items_dbEntry.get('conditional'):
-                                            condDesc = \
-                                                items_dbEntry['conditional']
+                                    player_langs = players[id]['language']
+                                    if item_language in player_langs:
+                                        cond_desc = []
+                                        if items_db_entry.get('conditional'):
+                                            cond_desc = \
+                                                items_db_entry['conditional']
+                                        this_id = this_item_id
                                         desc = \
-                                            _conditional_item_desc(thisItemID,
-                                                                   condDesc,
+                                            _conditional_item_desc(this_id,
+                                                                   cond_desc,
                                                                    id,
                                                                    players,
                                                                    items,
@@ -3480,29 +3493,29 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
                                         message += \
                                             _describe_container_contents(
                                                 mud, id, items_db,
-                                                thisItemID, True)
+                                                this_item_id, True)
                                     else:
                                         message += \
-                                            "It's written in " + itemLanguage
+                                            "It's written in " + item_language
 
-                                itemName = \
-                                    items_dbEntry['article'] + " " + \
-                                    items_dbEntry['name']
+                                item_name = \
+                                    items_db_entry['article'] + " " + \
+                                    items_db_entry['name']
                                 break
 
             if len(message) > 0:
-                mud.send_message(id, "****CLEAR****It's " + itemName + ".")
+                mud.send_message(id, "****CLEAR****It's " + item_name + ".")
                 mud.send_message_wrap(id, '', message + "<r>\n\n")
-                messageSent = True
-                if itemCounter > 1:
+                message_sent = True
+                if item_counter > 1:
                     mud.send_message(
                         id, "You can see " +
-                        str(itemCounter) +
+                        str(item_counter) +
                         " of those in the vicinity.<r>\n\n")
 
             # If no message has been sent, it means no player/npc/item was
             # found
-            if not messageSent:
+            if not message_sent:
                 mud.send_message(id, "Look at what?<r>\n")
     else:
         mud.send_message(
@@ -3512,7 +3525,7 @@ def _look(params, mud, playersDB: {}, players: {}, rooms: {},
             'to perceive and describe your immediate surroundings...<r>\n')
 
 
-def _escape_trap(params, mud, playersDB: {}, players: {}, rooms: {},
+def _escape_trap(params, mud, players_db: {}, players: {}, rooms: {},
                  npcs_db: {}, npcs: {}, items_db: {}, items: {},
                  env_db: {}, env: {}, eventDB: {}, event_schedule,
                  id: int, fights: {}, corpses: {}, blocklist,
@@ -3535,7 +3548,7 @@ def _escape_trap(params, mud, playersDB: {}, players: {}, rooms: {},
         escape_from_trap(mud, id, players, rooms, items_db)
 
 
-def _begin_attack(params, mud, playersDB: {}, players: {}, rooms: {},
+def _begin_attack(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist,
@@ -3593,18 +3606,18 @@ def _begin_attack(params, mud, playersDB: {}, players: {}, rooms: {},
             'yourself to attack anyone or anything.\n')
 
 
-def _item_in_inventory(players: {}, id, itemName: str, items_db: {}):
+def _item_in_inventory(players: {}, id, item_name: str, items_db: {}):
     """Is the named item in the player inventory?
     """
     if len(list(players[id]['inv'])) > 0:
-        itemNameLower = itemName.lower()
+        item_name_lower = item_name.lower()
         for i in list(players[id]['inv']):
-            if items_db[int(i)]['name'].lower() == itemNameLower:
+            if items_db[int(i)]['name'].lower() == item_name_lower:
                 return True
     return False
 
 
-def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
+def _describe(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
@@ -3620,48 +3633,48 @@ def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
             id, 'Descriptions need to be within double quotes.\n\n')
         return
 
-    descriptionStrings = re.findall('"([^"]*)"', params)
-    if len(descriptionStrings) == 0:
+    description_strings = re.findall('"([^"]*)"', params)
+    if len(description_strings) == 0:
         mud.send_message(
             id, 'Descriptions need to be within double quotes.\n\n')
         return
 
-    if len(descriptionStrings[0].strip()) < 3:
+    if len(description_strings[0].strip()) < 3:
         mud.send_message(id, 'Description is too short.\n\n')
         return
 
-    rm = players[id]['room']
-    if len(descriptionStrings) == 1:
-        rooms[rm]['description'] = descriptionStrings[0]
+    rmid = players[id]['room']
+    if len(description_strings) == 1:
+        rooms[rmid]['description'] = description_strings[0]
         mud.send_message(id, 'Room description set.\n\n')
         save_universe(rooms, npcs_db, npcs,
                       items_db, items, env_db,
                       env, guilds_db)
         return
 
-    if len(descriptionStrings) == 2:
-        thingDescribed = descriptionStrings[0].lower()
-        thingDescription = descriptionStrings[1]
+    if len(description_strings) == 2:
+        thing_described = description_strings[0].lower()
+        thing_description = description_strings[1]
 
-        if len(thingDescription) < 3:
+        if len(thing_description) < 3:
             mud.send_message(
                 id, 'Description of ' +
-                descriptionStrings[0] +
+                description_strings[0] +
                 ' is too short.\n\n')
             return
 
-        if thingDescribed == 'name':
-            rooms[rm]['name'] = thingDescription
+        if thing_described == 'name':
+            rooms[rmid]['name'] = thing_description
             mud.send_message(
                 id, 'Room name changed to ' +
-                thingDescription + '.\n\n')
+                thing_description + '.\n\n')
             save_universe(rooms, npcs_db, npcs,
                           items_db, items, env_db,
                           env, guilds_db)
             return
 
-        if thingDescribed == 'tide':
-            rooms[rm]['tideOutDescription'] = thingDescription
+        if thing_described == 'tide':
+            rooms[rmid]['tideOutDescription'] = thing_description
             mud.send_message(id, 'Tide out description set.\n\n')
             save_universe(rooms, npcs_db, npcs,
                           items_db, items,
@@ -3669,11 +3682,11 @@ def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
             return
 
         # change the description of an item in the room
-        for (item, pl) in list(items.items()):
+        for item, _ in list(items.items()):
             if items[item]['room'] == players[id]['room']:
                 idx = items[item]['id']
-                if thingDescribed in items_db[idx]['name'].lower():
-                    items_db[idx]['long_description'] = thingDescription
+                if thing_described in items_db[idx]['name'].lower():
+                    items_db[idx]['long_description'] = thing_description
                     mud.send_message(id, 'New description set for ' +
                                      items_db[idx]['article'] +
                                      ' ' + items_db[idx]['name'] +
@@ -3684,10 +3697,10 @@ def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
                     return
 
         # Change the description of an NPC in the room
-        for (nid, pl) in list(npcs.items()):
+        for nid, _ in list(npcs.items()):
             if npcs[nid]['room'] == players[id]['room']:
-                if thingDescribed in npcs[nid]['name'].lower():
-                    npcs[nid]['lookDescription'] = thingDescription
+                if thing_described in npcs[nid]['name'].lower():
+                    npcs[nid]['lookDescription'] = thing_description
                     mud.send_message(
                         id, 'New description set for ' +
                         npcs[nid]['name'] + '.\n\n')
@@ -3696,25 +3709,25 @@ def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
                         items, env_db, env, guilds_db)
                     return
 
-    if len(descriptionStrings) == 3:
-        if descriptionStrings[0].lower() != 'name':
+    if len(description_strings) == 3:
+        if description_strings[0].lower() != 'name':
             mud.send_message(id, "I don't understand.\n\n")
             return
-        thingDescribed = descriptionStrings[1].lower()
-        thingName = descriptionStrings[2]
-        if len(thingName) < 3:
+        thing_described = description_strings[1].lower()
+        thing_name = description_strings[2]
+        if len(thing_name) < 3:
             mud.send_message(
                 id, 'Description of ' +
-                descriptionStrings[1] +
+                description_strings[1] +
                 ' is too short.\n\n')
             return
 
         # change the name of an item in the room
-        for (item, pl) in list(items.items()):
+        for item, _ in list(items.items()):
             if items[item]['room'] == players[id]['room']:
                 idx = items[item]['id']
-                if thingDescribed in items_db[idx]['name'].lower():
-                    items_db[idx]['name'] = thingName
+                if thing_described in items_db[idx]['name'].lower():
+                    items_db[idx]['name'] = thing_name
                     mud.send_message(id, 'New description set for ' +
                                      items_db[idx]['article'] +
                                      ' ' +
@@ -3726,10 +3739,10 @@ def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
                     return
 
         # Change the name of an NPC in the room
-        for (nid, pl) in list(npcs.items()):
+        for nid, _ in list(npcs.items()):
             if npcs[nid]['room'] == players[id]['room']:
-                if thingDescribed in npcs[nid]['name'].lower():
-                    npcs[nid]['name'] = thingName
+                if thing_described in npcs[nid]['name'].lower():
+                    npcs[nid]['name'] = thing_name
                     mud.send_message(
                         id, 'New description set for ' +
                         npcs[nid]['name'] + '.\n\n')
@@ -3739,7 +3752,7 @@ def _describe(params, mud, playersDB: {}, players: {}, rooms: {},
                     return
 
 
-def _check_inventory(params, mud, playersDB: {}, players: {}, rooms: {},
+def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
                      npcs_db: {}, npcs: {}, items_db: {}, items: {},
                      env_db: {}, env: {}, eventDB: {}, event_schedule,
                      id: int, fights: {}, corpses: {}, blocklist,
@@ -3864,30 +3877,30 @@ def _check_inventory(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, '<r>\n\n')
 
 
-def _change_setting(params, mud, playersDB: {}, players: {}, rooms: {},
+def _change_setting(params, mud, players_db: {}, players: {}, rooms: {},
                     npcs_db: {}, npcs: {}, items_db: {}, items: {},
                     env_db: {}, env: {}, eventDB: {}, event_schedule,
                     id: int, fights: {}, corpses: {}, blocklist,
                     map_area: [], character_class_db: {}, spells_db: {},
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                     item_history: {}, markets: {}, cultures_db: {}):
-    newPassword = ''
+    new_password = ''
     if params.startswith('password '):
-        newPassword = params.replace('password ', '')
+        new_password = params.replace('password ', '')
     if params.startswith('pass '):
-        newPassword = params.replace('pass ', '')
-    if len(newPassword) > 0:
-        if len(newPassword) < 6:
+        new_password = params.replace('pass ', '')
+    if len(new_password) > 0:
+        if len(new_password) < 6:
             mud.send_message(id, "That password is too short.\n\n")
             return
-        players[id]['pwd'] = hash_password(newPassword)
+        players[id]['pwd'] = hash_password(new_password)
         log("Player " + players[id]['name'] +
             " changed their password", "info")
-        save_state(players[id], playersDB, True)
+        save_state(players[id], players_db, True)
         mud.send_message(id, "Your password has been changed.\n\n")
 
 
-def _write_on_item(params, mud, playersDB: {}, players: {}, rooms: {},
+def _write_on_item(params, mud, players_db: {}, players: {}, rooms: {},
                    npcs_db: {}, npcs: {}, items_db: {}, items: {},
                    env_db: {}, env: {}, eventDB: {}, event_schedule,
                    id: int, fights: {}, corpses: {}, blocklist,
@@ -3913,7 +3926,7 @@ def _write_on_item(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'That message is too long.\n\n')
 
 
-def _check(params, mud, playersDB: {}, players: {}, rooms: {},
+def _check(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: str, fights: {}, corpses: {}, blocklist,
@@ -3922,7 +3935,7 @@ def _check(params, mud, playersDB: {}, players: {}, rooms: {},
            item_history: {}, markets: {}, cultures_db: {}):
     if params.lower() == 'inventory' or \
        params.lower() == 'inv':
-        _check_inventory(params, mud, playersDB, players,
+        _check_inventory(params, mud, players_db, players,
                          rooms, npcs_db, npcs, items_db, items,
                          env_db, env, eventDB, event_schedule,
                          id, fights, corpses, blocklist,
@@ -3935,7 +3948,7 @@ def _check(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'Check what?\n')
 
 
-def _wear(params, mud, playersDB: {}, players: {}, rooms: {},
+def _wear(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -3956,36 +3969,36 @@ def _wear(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'You are not carrying that.\n\n')
         return
 
-    itemName = params.lower()
-    if itemName.startswith('the '):
-        itemName = itemName.replace('the ', '')
-    if itemName.startswith('my '):
-        itemName = itemName.replace('my ', '')
-    if itemName.startswith('your '):
-        itemName = itemName.replace('your ', '')
+    item_name = params.lower()
+    if item_name.startswith('the '):
+        item_name = item_name.replace('the ', '')
+    if item_name.startswith('my '):
+        item_name = item_name.replace('my ', '')
+    if item_name.startswith('your '):
+        item_name = item_name.replace('your ', '')
 
-    itemID = 0
+    item_id = 0
     for i in list(players[id]['inv']):
-        if items_db[int(i)]['name'].lower() == itemName:
-            itemID = int(i)
+        if items_db[int(i)]['name'].lower() == item_name:
+            item_id = int(i)
 
-    if itemID == 0:
+    if item_id == 0:
         for i in list(players[id]['inv']):
-            if itemName in items_db[int(i)]['name'].lower():
-                itemID = int(i)
+            if item_name in items_db[int(i)]['name'].lower():
+                item_id = int(i)
 
-    if itemID == 0:
-        mud.send_message(id, itemName + " is not in your inventory.\n\n")
+    if item_id == 0:
+        mud.send_message(id, item_name + " is not in your inventory.\n\n")
         return
 
-    for clothingType in wear_location:
-        if _wear_clothing(itemID, players, id, clothingType, mud, items_db):
+    for clothing_type in wear_location:
+        if _wear_clothing(item_id, players, id, clothing_type, mud, items_db):
             return
 
     mud.send_message(id, "You can't wear that\n\n")
 
 
-def _wield(params, mud, playersDB: {}, players: {}, rooms: {},
+def _wield(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule: {},
            id: int, fights: {}, corpses: {}, blocklist: {},
@@ -4006,104 +4019,104 @@ def _wield(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'You are not carrying that.\n\n')
         return
 
-    itemName = params.lower()
-    itemHand = 1
-    if itemName.startswith('the '):
-        itemName = itemName.replace('the ', '')
-    if itemName.startswith('my '):
-        itemName = itemName.replace('my ', '')
-    if itemName.startswith('your '):
-        itemName = itemName.replace('your ', '')
-    if itemName.endswith(' on left hand'):
-        itemName = itemName.replace(' on left hand', '')
-        itemHand = 0
-    if itemName.endswith(' in left hand'):
-        itemName = itemName.replace(' in left hand', '')
-        itemHand = 0
-    if itemName.endswith(' in my left hand'):
-        itemName = itemName.replace(' in my left hand', '')
-        itemHand = 0
-    if itemName.endswith(' in your left hand'):
-        itemName = itemName.replace(' in your left hand', '')
-        itemHand = 0
-    if itemName.endswith(' left'):
-        itemName = itemName.replace(' left', '')
-        itemHand = 0
-    if itemName.endswith(' in left'):
-        itemName = itemName.replace(' in left', '')
-        itemHand = 0
-    if itemName.endswith(' on left'):
-        itemName = itemName.replace(' on left', '')
-        itemHand = 0
-    if itemName.endswith(' on right hand'):
-        itemName = itemName.replace(' on right hand', '')
-        itemHand = 1
-    if itemName.endswith(' in right hand'):
-        itemName = itemName.replace(' in right hand', '')
-        itemHand = 1
-    if itemName.endswith(' in my right hand'):
-        itemName = itemName.replace(' in my right hand', '')
-        itemHand = 1
-    if itemName.endswith(' in your right hand'):
-        itemName = itemName.replace(' in your right hand', '')
-        itemHand = 1
-    if itemName.endswith(' right'):
-        itemName = itemName.replace(' right', '')
-        itemHand = 1
-    if itemName.endswith(' in right'):
-        itemName = itemName.replace(' in right', '')
-        itemHand = 1
-    if itemName.endswith(' on right'):
-        itemName = itemName.replace(' on right', '')
-        itemHand = 1
+    item_name = params.lower()
+    item_hand = 1
+    if item_name.startswith('the '):
+        item_name = item_name.replace('the ', '')
+    if item_name.startswith('my '):
+        item_name = item_name.replace('my ', '')
+    if item_name.startswith('your '):
+        item_name = item_name.replace('your ', '')
+    if item_name.endswith(' on left hand'):
+        item_name = item_name.replace(' on left hand', '')
+        item_hand = 0
+    if item_name.endswith(' in left hand'):
+        item_name = item_name.replace(' in left hand', '')
+        item_hand = 0
+    if item_name.endswith(' in my left hand'):
+        item_name = item_name.replace(' in my left hand', '')
+        item_hand = 0
+    if item_name.endswith(' in your left hand'):
+        item_name = item_name.replace(' in your left hand', '')
+        item_hand = 0
+    if item_name.endswith(' left'):
+        item_name = item_name.replace(' left', '')
+        item_hand = 0
+    if item_name.endswith(' in left'):
+        item_name = item_name.replace(' in left', '')
+        item_hand = 0
+    if item_name.endswith(' on left'):
+        item_name = item_name.replace(' on left', '')
+        item_hand = 0
+    if item_name.endswith(' on right hand'):
+        item_name = item_name.replace(' on right hand', '')
+        item_hand = 1
+    if item_name.endswith(' in right hand'):
+        item_name = item_name.replace(' in right hand', '')
+        item_hand = 1
+    if item_name.endswith(' in my right hand'):
+        item_name = item_name.replace(' in my right hand', '')
+        item_hand = 1
+    if item_name.endswith(' in your right hand'):
+        item_name = item_name.replace(' in your right hand', '')
+        item_hand = 1
+    if item_name.endswith(' right'):
+        item_name = item_name.replace(' right', '')
+        item_hand = 1
+    if item_name.endswith(' in right'):
+        item_name = item_name.replace(' in right', '')
+        item_hand = 1
+    if item_name.endswith(' on right'):
+        item_name = item_name.replace(' on right', '')
+        item_hand = 1
 
-    itemID = 0
+    item_id = 0
     for i in list(players[id]['inv']):
-        if items_db[int(i)]['name'].lower() == itemName:
-            itemID = int(i)
+        if items_db[int(i)]['name'].lower() == item_name:
+            item_id = int(i)
 
-    if itemID == 0:
+    if item_id == 0:
         for i in list(players[id]['inv']):
-            if itemName in items_db[int(i)]['name'].lower():
-                itemID = int(i)
+            if item_name in items_db[int(i)]['name'].lower():
+                item_id = int(i)
 
-    if itemID == 0:
-        mud.send_message(id, itemName + " is not in your inventory.\n\n")
+    if item_id == 0:
+        mud.send_message(id, item_name + " is not in your inventory.\n\n")
         return
 
-    if items_db[itemID]['clo_lhand'] == 0 and \
-       items_db[itemID]['clo_rhand'] == 0:
+    if items_db[item_id]['clo_lhand'] == 0 and \
+       items_db[item_id]['clo_rhand'] == 0:
         mud.send_message(id, "You can't hold that.\n\n")
         return
 
     # items stowed on legs
-    if int(players[id]['clo_lleg']) == itemID:
+    if int(players[id]['clo_lleg']) == item_id:
         players[id]['clo_lleg'] = 0
-    if int(players[id]['clo_rleg']) == itemID:
+    if int(players[id]['clo_rleg']) == item_id:
         players[id]['clo_rleg'] = 0
 
     if 'isFishing' in players[id]:
         del players[id]['isFishing']
 
-    if itemHand == 0:
-        if int(players[id]['clo_rhand']) == itemID:
+    if item_hand == 0:
+        if int(players[id]['clo_rhand']) == item_id:
             players[id]['clo_rhand'] = 0
-        players[id]['clo_lhand'] = itemID
+        players[id]['clo_lhand'] = item_id
         mud.send_message(id, 'You hold <b234>' +
-                         items_db[itemID]['article'] + ' ' +
-                         items_db[itemID]['name'] +
+                         items_db[item_id]['article'] + ' ' +
+                         items_db[item_id]['name'] +
                          '<r> in your left hand.\n\n')
     else:
-        if int(players[id]['clo_lhand']) == itemID:
+        if int(players[id]['clo_lhand']) == item_id:
             players[id]['clo_lhand'] = 0
-        players[id]['clo_rhand'] = itemID
+        players[id]['clo_rhand'] = item_id
         mud.send_message(id, 'You hold <b234>' +
-                         items_db[itemID]['article'] + ' ' +
-                         items_db[itemID]['name'] +
+                         items_db[item_id]['article'] + ' ' +
+                         items_db[item_id]['name'] +
                          '<r> in your right hand.\n\n')
 
 
-def _stow(params, mud, playersDB: {}, players: {}, rooms: {},
+def _stow(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id, fights: {}, corpses: {}, blocklist,
@@ -4113,29 +4126,29 @@ def _stow(params, mud, playersDB: {}, players: {}, rooms: {},
     if len(list(players[id]['inv'])) == 0:
         return
 
-    stowFrom = ('clo_lhand', 'clo_rhand')
-    for stowLocation in stowFrom:
-        itemID = int(players[id][stowLocation])
-        if itemID == 0:
+    stow_from = ('clo_lhand', 'clo_rhand')
+    for stow_location in stow_from:
+        item_id = int(players[id][stow_location])
+        if item_id == 0:
             continue
-        if int(items_db[itemID]['clo_rleg']) > 0:
+        if int(items_db[item_id]['clo_rleg']) > 0:
             if int(players[id]['clo_rleg']) == 0:
-                if int(players[id]['clo_lleg']) != itemID:
-                    players[id]['clo_rleg'] = itemID
+                if int(players[id]['clo_lleg']) != item_id:
+                    players[id]['clo_rleg'] = item_id
                     mud.send_message(id, 'You stow <b234>' +
-                                     items_db[itemID]['article'] + ' ' +
-                                     items_db[itemID]['name'] + '<r>\n\n')
-                    players[id][stowLocation] = 0
+                                     items_db[item_id]['article'] + ' ' +
+                                     items_db[item_id]['name'] + '<r>\n\n')
+                    players[id][stow_location] = 0
                     continue
 
-        if int(items_db[itemID]['clo_lleg']) > 0:
+        if int(items_db[item_id]['clo_lleg']) > 0:
             if int(players[id]['clo_lleg']) == 0:
-                if int(players[id]['clo_rleg']) != itemID:
-                    players[id]['clo_lleg'] = itemID
+                if int(players[id]['clo_rleg']) != item_id:
+                    players[id]['clo_lleg'] = item_id
                     mud.send_message(id, 'You stow <b234>' +
-                                     items_db[itemID]['article'] + ' ' +
-                                     items_db[itemID]['name'] + '<r>\n\n')
-                    players[id][stowLocation] = 0
+                                     items_db[item_id]['article'] + ' ' +
+                                     items_db[item_id]['name'] + '<r>\n\n')
+                    players[id][stow_location] = 0
 
     stow_hands(id, players, items_db, mud)
 
@@ -4143,74 +4156,74 @@ def _stow(params, mud, playersDB: {}, players: {}, rooms: {},
         del players[id]['isFishing']
 
 
-def _wear_clothing(itemID, players: {}, id, clothingType,
+def _wear_clothing(item_id, players: {}, id, clothing_type,
                    mud, items_db: {}) -> bool:
-    clothingParam = 'clo_' + clothingType
-    if items_db[itemID][clothingParam] > 0:
-        players[id][clothingParam] = itemID
+    clothing_param = 'clo_' + clothing_type
+    if items_db[item_id][clothing_param] > 0:
+        players[id][clothing_param] = item_id
 
         # handle items which are pairs
-        if items_db[itemID]['article'] == 'some':
-            if clothingType == 'lleg' or clothingType == 'rleg':
-                players[id]['clo_lleg'] = itemID
-                players[id]['clo_rleg'] = itemID
-            elif clothingType == 'lhand' or clothingType == 'rhand':
-                players[id]['clo_lhand'] = itemID
-                players[id]['clo_rhand'] = itemID
+        if items_db[item_id]['article'] == 'some':
+            if clothing_type == 'lleg' or clothing_type == 'rleg':
+                players[id]['clo_lleg'] = item_id
+                players[id]['clo_rleg'] = item_id
+            elif clothing_type == 'lhand' or clothing_type == 'rhand':
+                players[id]['clo_lhand'] = item_id
+                players[id]['clo_rhand'] = item_id
 
-        clothingOpened = False
-        if len(items_db[itemID]['open_description']) > 0:
+        clothing_opened = False
+        if len(items_db[item_id]['open_description']) > 0:
             # there is a special description for wearing
             desc = \
-                random_desc(items_db[itemID]['open_description'])
-            if ' open' not in items_db[itemID]['open_description']:
+                random_desc(items_db[item_id]['open_description'])
+            if ' open' not in items_db[item_id]['open_description']:
                 mud.send_message(id, desc + '\n\n')
-                clothingOpened = True
-        if not clothingOpened:
+                clothing_opened = True
+        if not clothing_opened:
             # generic weating description
             mud.send_message(
                 id,
                 'You put on ' +
-                items_db[itemID]['article'] +
+                items_db[item_id]['article'] +
                 ' <b234>' +
-                items_db[itemID]['name'] +
+                items_db[item_id]['name'] +
                 '\n\n')
         return True
     return False
 
 
-def _remove_clothing(players: {}, id, clothingType, mud, items_db: {}):
-    if int(players[id]['clo_' + clothingType]) > 0:
-        itemID = int(players[id]['clo_' + clothingType])
-        clothingClosed = False
-        if len(items_db[itemID]['close_description']) > 0:
-            desc = items_db[itemID]['open_description']
+def _remove_clothing(players: {}, id, clothing_type, mud, items_db: {}):
+    if int(players[id]['clo_' + clothing_type]) > 0:
+        item_id = int(players[id]['clo_' + clothing_type])
+        clothing_closed = False
+        if len(items_db[item_id]['close_description']) > 0:
+            desc = items_db[item_id]['open_description']
             if ' close ' not in desc and \
                'closed' not in desc and \
                'closing' not in desc and \
                'shut' not in desc:
                 desc = \
-                    random_desc(items_db[itemID]['close_description'])
+                    random_desc(items_db[item_id]['close_description'])
                 mud.send_message(id, desc + '\n\n')
-                clothingClosed = True
-        if not clothingClosed:
+                clothing_closed = True
+        if not clothing_closed:
             mud.send_message(id, 'You remove ' +
-                             items_db[itemID]['article'] + ' <b234>' +
-                             items_db[itemID]['name'] + '\n\n')
+                             items_db[item_id]['article'] + ' <b234>' +
+                             items_db[item_id]['name'] + '\n\n')
 
         # handle items which are pairs
-        if items_db[itemID]['article'] == 'some':
-            if clothingType == 'lleg' or clothingType == 'rleg':
+        if items_db[item_id]['article'] == 'some':
+            if clothing_type == 'lleg' or clothing_type == 'rleg':
                 players[id]['clo_lleg'] = 0
                 players[id]['clo_rleg'] = 0
-            elif clothingType == 'lhand' or clothingType == 'rhand':
+            elif clothing_type == 'lhand' or clothing_type == 'rhand':
                 players[id]['clo_lhand'] = 0
                 players[id]['clo_rhand'] = 0
 
-        players[id]['clo_' + clothingType] = 0
+        players[id]['clo_' + clothing_type] = 0
 
 
-def _unwear(params, mud, playersDB: {}, players: {}, rooms: {},
+def _unwear(params, mud, players_db: {}, players: {}, rooms: {},
             npcs_db: {}, npcs: {}, items_db: {}, items: {},
             env_db: {}, env: {}, eventDB: {}, event_schedule,
             id: int, fights: {}, corpses: {}, blocklist,
@@ -4220,12 +4233,12 @@ def _unwear(params, mud, playersDB: {}, players: {}, rooms: {},
     if len(list(players[id]['inv'])) == 0:
         return
 
-    for clothingType in wear_location:
-        _remove_clothing(players, id, clothingType, mud, items_db)
+    for clothing_type in wear_location:
+        _remove_clothing(players, id, clothing_type, mud, items_db)
 
 
 def _players_move_together(id, rm, mud,
-                           playersDB, players, rooms: {}, npcs_db: {}, npcs,
+                           players_db, players, rooms: {}, npcs_db: {}, npcs,
                            items_db: {}, items: {}, env_db: {},
                            env, eventDB: {}, event_schedule,
                            fights, corpses, blocklist, map_area,
@@ -4237,7 +4250,7 @@ def _players_move_together(id, rm, mud,
     """In boats when one player rows the rest move with them
     """
     # go through all the players in the game
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         # if player is in the same room and isn't the player
         # sending the command
         if players[pid]['room'] == players[id]['room'] and \
@@ -4247,169 +4260,171 @@ def _players_move_together(id, rm, mud,
             desc = 'You row to <f106>{}'.format(rooms[rm]['name'])
             mud.send_message(pid, desc + "\n\n")
 
-            _look('', mud, playersDB, players, rooms, npcs_db, npcs,
+            _look('', mud, players_db, players, rooms, npcs_db, npcs,
                   items_db, items, env_db, env, eventDB, event_schedule,
                   pid, fights, corpses, blocklist, map_area,
                   character_class_db, spells_db, sentiment_db, guilds_db,
                   clouds, races_db, item_history, markets, cultures_db)
 
             if rooms[rm]['eventOnEnter'] != "":
-                evID = int(rooms[rm]['eventOnEnter'])
-                add_to_scheduler(evID, pid, event_schedule, eventDB)
+                ev_id = int(rooms[rm]['eventOnEnter'])
+                add_to_scheduler(ev_id, pid, event_schedule, eventDB)
 
 
 def _bio_of_player(mud, id, pid, players: {}, items_db: {}) -> None:
-    thisPlayer = players[pid]
-    if thisPlayer.get('race'):
-        if len(thisPlayer['race']) > 0:
+    """Shows the bio of a player
+    """
+    this_player = players[pid]
+    if this_player.get('race'):
+        if len(this_player['race']) > 0:
             mud.send_message(id, '****CLEAR****<f32>' +
-                             thisPlayer['name'] + '<r> (' +
-                             thisPlayer['race'] + ' ' +
-                             thisPlayer['characterClass'] + ')\n')
+                             this_player['name'] + '<r> (' +
+                             this_player['race'] + ' ' +
+                             this_player['characterClass'] + ')\n')
 
-    if thisPlayer.get('speakLanguage'):
+    if this_player.get('speakLanguage'):
         mud.send_message(
             id,
             '<f15>Speaks:<r> ' +
-            thisPlayer['speakLanguage'] +
+            this_player['speakLanguage'] +
             '\n')
     if pid == id:
         if players[id].get('language'):
             if len(players[id]['language']) > 1:
-                languagesStr = ''
-                langCtr = 0
+                languages_str = ''
+                lang_ctr = 0
                 for lang in players[id]['language']:
-                    if langCtr > 0:
-                        languagesStr = languagesStr + ', ' + lang
+                    if lang_ctr > 0:
+                        languages_str = languages_str + ', ' + lang
                     else:
-                        languagesStr = languagesStr + lang
-                    langCtr += 1
-                mud.send_message(id, 'Languages:<r> ' + languagesStr + '\n')
+                        languages_str = languages_str + lang
+                    lang_ctr += 1
+                mud.send_message(id, 'Languages:<r> ' + languages_str + '\n')
 
     desc = \
-        random_desc(thisPlayer['lookDescription'])
+        random_desc(this_player['lookDescription'])
     mud.send_message_wrap(id, '', desc + '<r>\n')
 
-    if thisPlayer.get('canGo'):
-        if thisPlayer['canGo'] == 0:
+    if this_player.get('canGo'):
+        if this_player['canGo'] == 0:
             mud.send_message(id, 'They are frozen.<r>\n')
 
     # count items of clothing
-    wearingCtr = 0
-    for c in wear_location:
-        if int(thisPlayer['clo_' + c]) > 0:
-            wearingCtr += 1
+    wearing_ctr = 0
+    for clth in wear_location:
+        if int(this_player['clo_' + clth]) > 0:
+            wearing_ctr += 1
 
-    playerName = 'You'
-    playerName2 = 'your'
-    playerName3 = 'have'
+    player_name = 'You'
+    player_name2 = 'your'
+    player_name3 = 'have'
     if id != pid:
-        playerName = 'They'
-        playerName2 = 'their'
-        playerName3 = 'have'
+        player_name = 'They'
+        player_name2 = 'their'
+        player_name3 = 'have'
 
-    if int(thisPlayer['clo_rhand']) > 0:
-        handItemID = thisPlayer['clo_rhand']
-        itemName = items_db[handItemID]['name']
-        if 'right hand ' in itemName:
-            itemName = itemName.replace('right hand ', '')
-        elif 'right handed ' in itemName:
-            itemName = itemName.replace('right handed ', '')
-        mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                         items_db[handItemID]['article'] +
-                         ' ' + itemName +
-                         ' in ' + playerName2 + ' right hand.<r>\n')
-    if thisPlayer.get('clo_rfinger'):
-        if int(thisPlayer['clo_rfinger']) > 0:
-            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                             items_db[thisPlayer['clo_rfinger']]['article'] +
+    if int(this_player['clo_rhand']) > 0:
+        hand_item_id = this_player['clo_rhand']
+        item_name = items_db[hand_item_id]['name']
+        if 'right hand ' in item_name:
+            item_name = item_name.replace('right hand ', '')
+        elif 'right handed ' in item_name:
+            item_name = item_name.replace('right handed ', '')
+        mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                         items_db[hand_item_id]['article'] +
+                         ' ' + item_name +
+                         ' in ' + player_name2 + ' right hand.<r>\n')
+    if this_player.get('clo_rfinger'):
+        if int(this_player['clo_rfinger']) > 0:
+            mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                             items_db[this_player['clo_rfinger']]['article'] +
                              ' ' +
-                             items_db[thisPlayer['clo_rfinger']]['name'] +
-                             ' on the finger of ' + playerName2 +
+                             items_db[this_player['clo_rfinger']]['name'] +
+                             ' on the finger of ' + player_name2 +
                              ' right hand.<r>\n')
-    if thisPlayer.get('clo_waist'):
-        if int(thisPlayer['clo_waist']) > 0:
-            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                             items_db[thisPlayer['clo_waist']]['article'] +
+    if this_player.get('clo_waist'):
+        if int(this_player['clo_waist']) > 0:
+            mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                             items_db[this_player['clo_waist']]['article'] +
                              ' ' +
-                             items_db[thisPlayer['clo_waist']]['name'] +
-                             ' on waist of ' + playerName2 + '<r>\n')
-    if int(thisPlayer['clo_lhand']) > 0:
-        handItemID = thisPlayer['clo_lhand']
-        itemName = items_db[handItemID]['name']
-        if 'left hand ' in itemName:
-            itemName = itemName.replace('left hand ', '')
-        elif 'left handed ' in itemName:
-            itemName = itemName.replace('left handed ', '')
-        mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                         items_db[thisPlayer['clo_lhand']]['article'] +
-                         ' ' + itemName +
-                         ' in ' + playerName2 + ' left hand.<r>\n')
-    if int(thisPlayer['clo_lear']) > 0:
-        handItemID = thisPlayer['clo_lear']
-        itemName = items_db[handItemID]['name']
-        mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                         items_db[thisPlayer['clo_lear']]['article'] +
-                         ' ' + itemName +
-                         ' in ' + playerName2 + ' left ear.<r>\n')
-    if int(thisPlayer['clo_rear']) > 0:
-        handItemID = thisPlayer['clo_rear']
-        itemName = items_db[handItemID]['name']
-        mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                         items_db[thisPlayer['clo_rear']]['article'] +
-                         ' ' + itemName +
-                         ' in ' + playerName2 + ' right ear.<r>\n')
-    if thisPlayer.get('clo_lfinger'):
-        if int(thisPlayer['clo_lfinger']) > 0:
-            mud.send_message(id, playerName + ' ' + playerName3 + ' ' +
-                             items_db[thisPlayer['clo_lfinger']]['article'] +
+                             items_db[this_player['clo_waist']]['name'] +
+                             ' on waist of ' + player_name2 + '<r>\n')
+    if int(this_player['clo_lhand']) > 0:
+        hand_item_id = this_player['clo_lhand']
+        item_name = items_db[hand_item_id]['name']
+        if 'left hand ' in item_name:
+            item_name = item_name.replace('left hand ', '')
+        elif 'left handed ' in item_name:
+            item_name = item_name.replace('left handed ', '')
+        mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                         items_db[this_player['clo_lhand']]['article'] +
+                         ' ' + item_name +
+                         ' in ' + player_name2 + ' left hand.<r>\n')
+    if int(this_player['clo_lear']) > 0:
+        hand_item_id = this_player['clo_lear']
+        item_name = items_db[hand_item_id]['name']
+        mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                         items_db[this_player['clo_lear']]['article'] +
+                         ' ' + item_name +
+                         ' in ' + player_name2 + ' left ear.<r>\n')
+    if int(this_player['clo_rear']) > 0:
+        hand_item_id = this_player['clo_rear']
+        item_name = items_db[hand_item_id]['name']
+        mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                         items_db[this_player['clo_rear']]['article'] +
+                         ' ' + item_name +
+                         ' in ' + player_name2 + ' right ear.<r>\n')
+    if this_player.get('clo_lfinger'):
+        if int(this_player['clo_lfinger']) > 0:
+            mud.send_message(id, player_name + ' ' + player_name3 + ' ' +
+                             items_db[this_player['clo_lfinger']]['article'] +
                              ' ' +
-                             items_db[thisPlayer['clo_lfinger']]['name'] +
-                             ' on the finger of ' + playerName2 +
+                             items_db[this_player['clo_lfinger']]['name'] +
+                             ' on the finger of ' + player_name2 +
                              ' left hand.<r>\n')
 
-    if wearingCtr > 0:
-        wearingMsg = playerName + ' are wearing'
-        wearingCtr2 = 0
-        for cl in wear_location:
-            if not thisPlayer.get('clo_' + cl):
+    if wearing_ctr > 0:
+        wearing_msg = player_name + ' are wearing'
+        wearing_ctr2 = 0
+        for clth in wear_location:
+            if not this_player.get('clo_' + clth):
                 continue
-            clothingItemID = thisPlayer['clo_' + cl]
-            if int(clothingItemID) > 0:
-                if wearingCtr2 > 0:
-                    if wearingCtr2 == wearingCtr - 1:
-                        wearingMsg = wearingMsg + ' and '
+            clothing_item_id = this_player['clo_' + clth]
+            if int(clothing_item_id) > 0:
+                if wearing_ctr2 > 0:
+                    if wearing_ctr2 == wearing_ctr - 1:
+                        wearing_msg = wearing_msg + ' and '
                     else:
-                        wearingMsg = wearingMsg + ', '
+                        wearing_msg = wearing_msg + ', '
                 else:
-                    wearingMsg = wearingMsg + ' '
-                wearingMsg = wearingMsg + \
-                    items_db[clothingItemID]['article'] + \
-                    ' ' + items_db[clothingItemID]['name']
-                if cl == 'neck':
-                    wearingMsg = \
-                        wearingMsg + ' around ' + playerName2 + ' neck'
-                if cl == 'lwrist':
-                    wearingMsg = \
-                        wearingMsg + ' on ' + playerName2 + ' left wrist'
-                if cl == 'rwrist':
-                    wearingMsg = \
-                        wearingMsg + ' on ' + playerName2 + ' right wrist'
-                if cl == 'lleg':
-                    wearingMsg = \
-                        wearingMsg + ' on ' + playerName2 + ' left leg'
-                if cl == 'rleg':
-                    wearingMsg = \
-                        wearingMsg + ' on ' + playerName2 + ' right leg'
-                wearingCtr2 += 1
-        mud.send_message(id, wearingMsg + '.<r>\n')
+                    wearing_msg = wearing_msg + ' '
+                wearing_msg = wearing_msg + \
+                    items_db[clothing_item_id]['article'] + \
+                    ' ' + items_db[clothing_item_id]['name']
+                if clth == 'neck':
+                    wearing_msg = \
+                        wearing_msg + ' around ' + player_name2 + ' neck'
+                if clth == 'lwrist':
+                    wearing_msg = \
+                        wearing_msg + ' on ' + player_name2 + ' left wrist'
+                if clth == 'rwrist':
+                    wearing_msg = \
+                        wearing_msg + ' on ' + player_name2 + ' right wrist'
+                if clth == 'lleg':
+                    wearing_msg = \
+                        wearing_msg + ' on ' + player_name2 + ' left leg'
+                if clth == 'rleg':
+                    wearing_msg = \
+                        wearing_msg + ' on ' + player_name2 + ' right leg'
+                wearing_ctr2 += 1
+        mud.send_message(id, wearing_msg + '.<r>\n')
 
     mud.send_message(id, '<f15>Health status:<r> ' +
                      health_of_player(pid, players) + '.<r>\n')
     mud.send_message(id, '<r>\n')
 
 
-def _health(params, mud, playersDB: {}, players: {}, rooms: {},
+def _health(params, mud, players_db: {}, players: {}, rooms: {},
             npcs_db: {}, npcs: {}, items_db: {}, items: {},
             env_db: {}, env: {}, eventDB: {}, event_schedule,
             id: int, fights: {}, corpses: {}, blocklist,
@@ -4421,7 +4436,7 @@ def _health(params, mud, playersDB: {}, players: {}, rooms: {},
                      health_of_player(id, players) + '.<r>\n')
 
 
-def _bio(params, mud, playersDB: {}, players: {}, rooms: {},
+def _bio(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {},
          env_db: {}, env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
@@ -4438,7 +4453,7 @@ def _bio(params, mud, playersDB: {}, players: {}, rooms: {},
 
     # go through all the players in the game
     if players[id]['authenticated'] is not None:
-        for (pid, pl) in list(players.items()):
+        for pid, _ in list(players.items()):
             if players[pid]['name'] == params:
                 _bio_of_player(mud, id, pid, players, items_db)
                 return
@@ -4464,7 +4479,7 @@ def _bio(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, "Your bio has been set.\n\n")
 
 
-def _eat(params, mud, playersDB: {}, players: {}, rooms: {},
+def _eat(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {},
          env_db: {}, env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
@@ -4472,35 +4487,35 @@ def _eat(params, mud, playersDB: {}, players: {}, rooms: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
          item_history: {}, markets: {}, cultures_db: {}):
     food = params.lower()
-    foodItemID = 0
+    food_item_id = 0
     if len(list(players[id]['inv'])) > 0:
         for i in list(players[id]['inv']):
             if food in items_db[int(i)]['name'].lower():
                 if items_db[int(i)]['edible'] != 0:
-                    foodItemID = int(i)
+                    food_item_id = int(i)
                     break
-                else:
-                    mud.send_message(id, "That's not consumable.\n\n")
-                    return
+                mud.send_message(id, "That's not consumable.\n\n")
+                return
 
-    if foodItemID == 0:
+    if food_item_id == 0:
         mud.send_message(id, "Your don't have " + params + ".\n\n")
         return
 
-    edibility = items_db[foodItemID]['edible']
+    edibility = items_db[food_item_id]['edible']
 
-    foodStr = \
-        items_db[foodItemID]['article'] + " " + items_db[foodItemID]['name']
+    food_str = \
+        items_db[food_item_id]['article'] + " " + \
+        items_db[food_item_id]['name']
     if edibility > 1:
-        eatStr = "You consume " + foodStr
+        eat_str = "You consume " + food_str
     else:
-        eatStr = \
+        eat_str = \
             random_desc(
-                "With extreme reluctance, you eat " + foodStr + '|' +
-                "You eat " + foodStr +
+                "With extreme reluctance, you eat " + food_str + '|' +
+                "You eat " + food_str +
                 ", but now you wish that you hadn't|" +
-                "Revoltingly, you eat " + foodStr)
-    mud.send_message(id, eatStr + ".\n\n")
+                "Revoltingly, you eat " + food_str)
+    mud.send_message(id, eat_str + ".\n\n")
 
     # Alter hp
     players[id]['hp'] = players[id]['hp'] + edibility
@@ -4508,19 +4523,19 @@ def _eat(params, mud, playersDB: {}, players: {}, rooms: {},
         players[id]['hp'] = 100
 
     # Consumed
-    players[id]['inv'].remove(str(foodItemID))
+    players[id]['inv'].remove(str(food_item_id))
 
     # decrement any attributes associated with the food
-    update_player_attributes(id, players, items_db, foodItemID, -1)
+    update_player_attributes(id, players, items_db, food_item_id, -1)
 
     # Remove from hands
-    if int(players[id]['clo_rhand']) == foodItemID:
+    if int(players[id]['clo_rhand']) == food_item_id:
         players[id]['clo_rhand'] = 0
-    if int(players[id]['clo_lhand']) == foodItemID:
+    if int(players[id]['clo_lhand']) == food_item_id:
         players[id]['clo_lhand'] = 0
 
 
-def _step_over(params, mud, playersDB: {}, players: {}, rooms: {},
+def _step_over(params, mud, players_db: {}, players: {}, rooms: {},
                npcs_db: {}, npcs: {}, items_db: {}, items: {},
                env_db: {}, env: {}, eventDB: {}, event_schedule,
                id: int, fights: {}, corpses: {}, blocklist,
@@ -4545,9 +4560,9 @@ def _step_over(params, mud, playersDB: {}, players: {}, rooms: {},
                 "Do what?|Eh?") + '.\n\n')
         return
 
-    for direction, ex in rooms[room_id]['exits'].items():
+    for direction, _ in rooms[room_id]['exits'].items():
         if direction in params:
-            _go('######step######' + direction, mud, playersDB, players,
+            _go('######step######' + direction, mud, players_db, players,
                 rooms, npcs_db, npcs, items_db, items, env_db, env, eventDB,
                 event_schedule, id, fights, corpses, blocklist, map_area,
                 character_class_db, spells_db, sentiment_db, guilds_db,
@@ -4555,7 +4570,7 @@ def _step_over(params, mud, playersDB: {}, players: {}, rooms: {},
             break
 
 
-def _climb_base(params, mud, playersDB: {}, players: {}, rooms: {},
+def _climb_base(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -4574,41 +4589,41 @@ def _climb_base(params, mud, playersDB: {}, players: {}, rooms: {},
         set_player_prone(id, players, False)
         return
 
-    failMsg = None
-    for (item, pl) in list(items.items()):
+    fail_msg = None
+    for item, _ in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            itemId = items[item]['id']
+            item_id = items[item]['id']
 
             # can the player see the item?
-            if not _item_is_visible(id, players, itemId, items_db):
+            if not _item_is_visible(id, players, item_id, items_db):
                 continue
 
             # item fields needed for climbing
-            if items_db[itemId].get('climbFail'):
-                failMsg = items_db[itemId]['climbFail']
-            if not items_db[itemId].get('climbThrough'):
+            if items_db[item_id].get('climbFail'):
+                fail_msg = items_db[item_id]['climbFail']
+            if not items_db[item_id].get('climbThrough'):
                 continue
-            if not items_db[itemId].get('exit'):
+            if not items_db[item_id].get('exit'):
                 continue
 
             # if this is a door is it open?
-            if items_db[itemId].get('state'):
-                if 'open' not in items_db[itemId]['state']:
-                    mud.send_message(id, items_db[itemId]['name'] +
+            if items_db[item_id].get('state'):
+                if 'open' not in items_db[item_id]['state']:
+                    mud.send_message(id, items_db[item_id]['name'] +
                                      " is closed.\n\n")
                     continue
 
             # is the player too big?
-            targetRoom = items_db[itemId]['exit']
-            if rooms[targetRoom]['maxPlayerSize'] > -1:
-                if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
+            target_room = items_db[item_id]['exit']
+            if rooms[target_room]['maxPlayerSize'] > -1:
+                if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
                     mud.send_message(id, "You're too big.\n\n")
                     return
 
             # are there too many players in the room?
-            if rooms[targetRoom]['maxPlayers'] > -1:
-                if _players_in_room(targetRoom, players, npcs) >= \
-                   rooms[targetRoom]['maxPlayers']:
+            if rooms[target_room]['maxPlayers'] > -1:
+                if _players_in_room(target_room, players, npcs) >= \
+                   rooms[target_room]['maxPlayers']:
                     if not sit:
                         mud.send_message(id, "It's too crowded.\n\n")
                     else:
@@ -4616,16 +4631,16 @@ def _climb_base(params, mud, playersDB: {}, players: {}, rooms: {},
                                          "It's already fully occupied.\n\n")
                     return
 
-            if not _item_is_climbable(id, players, itemId, items_db):
-                if failMsg:
+            if not _item_is_climbable(id, players, item_id, items_db):
+                if fail_msg:
                     mud.send_message_wrap(id, '<f220>',
-                                          random_desc(failMsg) + ".\n\n")
+                                          random_desc(fail_msg) + ".\n\n")
                 else:
                     if not sit:
-                        failMsg = 'You try to climb, but totally fail'
+                        fail_msg = 'You try to climb, but totally fail'
                     else:
-                        failMsg = 'You try to sit, but totally fail'
-                    mud.send_message(id, random_desc(failMsg) + ".\n\n")
+                        fail_msg = 'You try to sit, but totally fail'
+                    mud.send_message(id, random_desc(fail_msg) + ".\n\n")
                 return
 
             if 'isFishing' in players[id]:
@@ -4639,26 +4654,26 @@ def _climb_base(params, mud, playersDB: {}, players: {}, rooms: {},
 
             # Trigger old room eventOnLeave for the player
             if rooms[players[id]['room']]['eventOnLeave'] != "":
-                evLeave = int(rooms[players[id]['room']]['eventOnLeave'])
-                add_to_scheduler(evLeave, id, event_schedule, eventDB)
+                ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
+                add_to_scheduler(ev_leave, id, event_schedule, eventDB)
             # update the player's current room to the one the exit leads to
-            players[id]['room'] = targetRoom
+            players[id]['room'] = target_room
             # climbing message
             desc = \
-                random_desc(items_db[itemId]['climbThrough'])
+                random_desc(items_db[item_id]['climbThrough'])
             mud.send_message_wrap(id, '<f230>', desc + "\n\n")
             time.sleep(3)
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] != "":
-                evEnter = int(rooms[players[id]['room']]['eventOnEnter'])
-                add_to_scheduler(evEnter, id, event_schedule, eventDB)
+                ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
+                add_to_scheduler(ev_enter, id, event_schedule, eventDB)
             # message to other players
             desc = random_desc(players[id]['inDescription'])
             message_to_room_players(mud, players, id, '<f32>' +
                                     players[id]['name'] + '<r> ' +
                                     desc + "\n\n")
             # look after climbing
-            _look('', mud, playersDB, players, rooms,
+            _look('', mud, players_db, players, rooms,
                   npcs_db, npcs, items_db, items,
                   env_db, env, eventDB, event_schedule,
                   id, fights, corpses, blocklist,
@@ -4666,21 +4681,21 @@ def _climb_base(params, mud, playersDB: {}, players: {}, rooms: {},
                   sentiment_db, guilds_db, clouds, races_db,
                   item_history, markets, cultures_db)
             return
-    if failMsg:
-        failMsgStr = random_desc(failMsg)
-        mud.send_message_wrap(id, '<f220>', failMsgStr + ".\n\n")
+    if fail_msg:
+        fail_msg_str = random_desc(fail_msg)
+        mud.send_message_wrap(id, '<f220>', fail_msg_str + ".\n\n")
     else:
         mud.send_message(id, "Nothing happens.\n\n")
 
 
-def _climb(params, mud, playersDB: {}, players: {}, rooms: {},
+def _climb(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
-    _climb_base(params, mud, playersDB, players, rooms,
+    _climb_base(params, mud, players_db, players, rooms,
                 npcs_db, npcs, items_db, items,
                 env_db, env, eventDB, event_schedule,
                 id, fights, corpses, blocklist,
@@ -4689,14 +4704,14 @@ def _climb(params, mud, playersDB: {}, players: {}, rooms: {},
                 False, item_history, markets, cultures_db)
 
 
-def _sit(params, mud, playersDB: {}, players: {}, rooms: {},
+def _sit(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {},
          env_db: {}, env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
          item_history: {}, markets: {}, cultures_db: {}):
-    _climb_base(params, mud, playersDB, players, rooms,
+    _climb_base(params, mud, players_db, players, rooms,
                 npcs_db, npcs, items_db, items,
                 env_db, env, eventDB, event_schedule,
                 id, fights, corpses, blocklist,
@@ -4705,7 +4720,7 @@ def _sit(params, mud, playersDB: {}, players: {}, rooms: {},
                 True, item_history, markets, cultures_db)
 
 
-def _heave(params, mud, playersDB: {}, players: {}, rooms: {},
+def _heave(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -4728,30 +4743,30 @@ def _heave(params, mud, playersDB: {}, players: {}, rooms: {},
     if target.startswith('the '):
         target = target.replace('the ', '')
 
-    for (item, pl) in list(items.items()):
+    for item, _ in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            itemId = items[item]['id']
-            if not _item_is_visible(id, players, itemId, items_db):
+            item_id = items[item]['id']
+            if not _item_is_visible(id, players, item_id, items_db):
                 continue
-            if not items_db[itemId].get('heave'):
+            if not items_db[item_id].get('heave'):
                 continue
-            if not items_db[itemId].get('exit'):
+            if not items_db[item_id].get('exit'):
                 continue
-            if target not in items_db[itemId]['name']:
+            if target not in items_db[item_id]['name']:
                 continue
-            if items_db[itemId].get('state'):
-                if 'open' not in items_db[itemId]['state']:
-                    mud.send_message(id, items_db[itemId]['name'] +
+            if items_db[item_id].get('state'):
+                if 'open' not in items_db[item_id]['state']:
+                    mud.send_message(id, items_db[item_id]['name'] +
                                      " is closed.\n\n")
                     continue
-            targetRoom = items_db[itemId]['exit']
-            if rooms[targetRoom]['maxPlayerSize'] > -1:
-                if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
+            target_room = items_db[item_id]['exit']
+            if rooms[target_room]['maxPlayerSize'] > -1:
+                if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
                     mud.send_message(id, "You're too big.\n\n")
                     return
-            if rooms[targetRoom]['maxPlayers'] > -1:
-                if _players_in_room(targetRoom, players, npcs) >= \
-                   rooms[targetRoom]['maxPlayers']:
+            if rooms[target_room]['maxPlayers'] > -1:
+                if _players_in_room(target_room, players, npcs) >= \
+                   rooms[target_room]['maxPlayers']:
                     mud.send_message(id, "It's too crowded.\n\n")
                     return
             desc = random_desc(players[id]['outDescription'])
@@ -4760,17 +4775,17 @@ def _heave(params, mud, playersDB: {}, players: {}, rooms: {},
                                     desc + '\n')
             # Trigger old room eventOnLeave for the player
             if rooms[players[id]['room']]['eventOnLeave'] != "":
-                evLeave = int(rooms[players[id]['room']]['eventOnLeave'])
-                add_to_scheduler(evLeave, id, event_schedule, eventDB)
+                ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
+                add_to_scheduler(ev_leave, id, event_schedule, eventDB)
             # update the player's current room to the one the exit leads to
-            players[id]['room'] = targetRoom
+            players[id]['room'] = target_room
             # heave message
-            desc = random_desc(items_db[itemId]['heave'])
+            desc = random_desc(items_db[item_id]['heave'])
             mud.send_message_wrap(id, '<f220>', desc + "\n\n")
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] != "":
-                evEnter = int(rooms[players[id]['room']]['eventOnEnter'])
-                add_to_scheduler(evEnter, id, event_schedule, eventDB)
+                ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
+                add_to_scheduler(ev_enter, id, event_schedule, eventDB)
             # message to other players
             desc = random_desc(players[id]['inDescription'])
             message_to_room_players(mud, players, id, '<f32>' +
@@ -4778,7 +4793,7 @@ def _heave(params, mud, playersDB: {}, players: {}, rooms: {},
                                     desc + "\n\n")
             time.sleep(3)
             # look after climbing
-            _look('', mud, playersDB, players, rooms,
+            _look('', mud, players_db, players, rooms,
                   npcs_db, npcs, items_db, items,
                   env_db, env, eventDB, event_schedule, id,
                   fights, corpses, blocklist,
@@ -4789,7 +4804,7 @@ def _heave(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, "Nothing happens.\n\n")
 
 
-def _jump(params, mud, playersDB: {}, players: {}, rooms: {},
+def _jump(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -4820,35 +4835,35 @@ def _jump(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, random_desc(desc) + "\n\n")
         return
     words = params.lower().replace('.', '').split(' ')
-    for (item, pl) in list(items.items()):
+    for item, _ in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            itemId = items[item]['id']
-            if not _item_is_visible(id, players, itemId, items_db):
+            item_id = items[item]['id']
+            if not _item_is_visible(id, players, item_id, items_db):
                 continue
-            if not items_db[itemId].get('jumpTo'):
+            if not items_db[item_id].get('jumpTo'):
                 continue
-            if not items_db[itemId].get('exit'):
+            if not items_db[item_id].get('exit'):
                 continue
-            wordMatched = False
-            for w in words:
-                if w in items_db[itemId]['name'].lower():
-                    wordMatched = True
+            word_matched = False
+            for wrd in words:
+                if wrd in items_db[item_id]['name'].lower():
+                    word_matched = True
                     break
-            if not wordMatched:
+            if not word_matched:
                 continue
-            if items_db[itemId].get('state'):
-                if 'open' not in items_db[itemId]['state']:
-                    mud.send_message(id, items_db[itemId]['name'] +
+            if items_db[item_id].get('state'):
+                if 'open' not in items_db[item_id]['state']:
+                    mud.send_message(id, items_db[item_id]['name'] +
                                      " is closed.\n\n")
                     continue
-            targetRoom = items_db[itemId]['exit']
-            if rooms[targetRoom]['maxPlayerSize'] > -1:
-                if players[id]['siz'] > rooms[targetRoom]['maxPlayerSize']:
+            target_room = items_db[item_id]['exit']
+            if rooms[target_room]['maxPlayerSize'] > -1:
+                if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
                     mud.send_message(id, "You're too big.\n\n")
                     return
-            if rooms[targetRoom]['maxPlayers'] > -1:
-                if _players_in_room(targetRoom, players, npcs) >= \
-                   rooms[targetRoom]['maxPlayers']:
+            if rooms[target_room]['maxPlayers'] > -1:
+                if _players_in_room(target_room, players, npcs) >= \
+                   rooms[target_room]['maxPlayers']:
                     mud.send_message(id, "It's too crowded.\n\n")
                     return
             desc = \
@@ -4858,25 +4873,25 @@ def _jump(params, mud, playersDB: {}, players: {}, rooms: {},
                                     desc + '\n')
             # Trigger old room eventOnLeave for the player
             if rooms[players[id]['room']]['eventOnLeave'] != "":
-                evLeave = int(rooms[players[id]['room']]['eventOnLeave'])
-                add_to_scheduler(evLeave, id, event_schedule, eventDB)
+                ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
+                add_to_scheduler(ev_leave, id, event_schedule, eventDB)
             # update the player's current room to the one the exit leads to
-            players[id]['room'] = targetRoom
+            players[id]['room'] = target_room
             # climbing message
-            desc = random_desc(items_db[itemId]['jumpTo'])
+            desc = random_desc(items_db[item_id]['jumpTo'])
             mud.send_message_wrap(id, '<f230>', desc + "\n\n")
             time.sleep(3)
             # trigger new room eventOnEnter for the player
             if rooms[players[id]['room']]['eventOnEnter'] != "":
-                evEnter = int(rooms[players[id]['room']]['eventOnEnter'])
-                add_to_scheduler(evEnter, id, event_schedule, eventDB)
+                ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
+                add_to_scheduler(ev_enter, id, event_schedule, eventDB)
             # message to other players
             desc = random_desc(players[id]['inDescription'])
             message_to_room_players(mud, players, id, '<f32>' +
                                     players[id]['name'] + '<r> ' +
                                     desc + "\n\n")
             # look after climbing
-            _look('', mud, playersDB, players,
+            _look('', mud, players_db, players,
                   rooms, npcs_db, npcs, items_db, items,
                   env_db, env, eventDB, event_schedule,
                   id, fights, corpses, blocklist,
@@ -4921,7 +4936,7 @@ def _chess_board_name(players: {}, id, rooms: {}, items: {}, items_db: {}):
     return None
 
 
-def _deal(params, mud, playersDB: {}, players: {}, rooms: {},
+def _deal(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -4930,11 +4945,11 @@ def _deal(params, mud, playersDB: {}, players: {}, rooms: {},
           item_history: {}, markets: {}, cultures_db: {}):
     """Deal cards to other players
     """
-    paramsLower = params.lower()
-    deal_to_players(players, id, paramsLower, mud, rooms, items, items_db)
+    params_lower = params.lower()
+    deal_to_players(players, id, params_lower, mud, rooms, items, items_db)
 
 
-def _hand_of_cards(params, mud, playersDB: {}, players: {}, rooms: {},
+def _hand_of_cards(params, mud, players_db: {}, players: {}, rooms: {},
                    npcs_db: {}, npcs: {}, items_db: {}, items: {},
                    env_db: {}, env: {}, eventDB: {}, event_schedule,
                    id: int, fights: {}, corpses: {}, blocklist,
@@ -4946,7 +4961,7 @@ def _hand_of_cards(params, mud, playersDB: {}, players: {}, rooms: {},
     hand_of_cards_show(players, id, mud, rooms, items, items_db)
 
 
-def _swap_a_card(params, mud, playersDB: {}, players: {}, rooms: {},
+def _swap_a_card(params, mud, players_db: {}, players: {}, rooms: {},
                  npcs_db: {}, npcs: {}, items_db: {}, items: {},
                  env_db: {}, env: {}, eventDB: {}, event_schedule,
                  id: int, fights: {}, corpses: {}, blocklist,
@@ -4958,7 +4973,7 @@ def _swap_a_card(params, mud, playersDB: {}, players: {}, rooms: {},
     swap_card(params, players, id, mud, rooms, items, items_db)
 
 
-def _shuffle(params, mud, playersDB: {}, players: {}, rooms: {},
+def _shuffle(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {},
              env_db: {}, env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
@@ -4970,7 +4985,7 @@ def _shuffle(params, mud, playersDB: {}, players: {}, rooms: {},
     shuffle_cards(players, id, mud, rooms, items, items_db)
 
 
-def _call_card_game(params, mud, playersDB: {}, players: {}, rooms: {},
+def _call_card_game(params, mud, players_db: {}, players: {}, rooms: {},
                     npcs_db: {}, npcs: {}, items_db: {}, items: {},
                     env_db: {}, env: {}, eventDB: {}, event_schedule,
                     id: int, fights: {}, corpses: {}, blocklist,
@@ -4982,7 +4997,7 @@ def _call_card_game(params, mud, playersDB: {}, players: {}, rooms: {},
     call_cards(players, id, mud, rooms, items, items_db)
 
 
-def _morris_game(params, mud, playersDB: {}, players: {}, rooms: {},
+def _morris_game(params, mud, players_db: {}, players: {}, rooms: {},
                  npcs_db: {}, npcs: {}, items_db: {}, items: {},
                  env_db: {}, env: {}, eventDB: {}, event_schedule,
                  id: int, fights: {}, corpses: {}, blocklist,
@@ -5012,11 +5027,11 @@ def _morris_game(params, mud, playersDB: {}, players: {}, rooms: {},
                     items, items_db)
         return
 
-    boardName = get_morris_board_name(players, id, rooms, items, items_db)
-    show_morris_board(boardName, players, id, mud, rooms, items, items_db)
+    board_name = get_morris_board_name(players, id, rooms, items, items_db)
+    show_morris_board(board_name, players, id, mud, rooms, items, items_db)
 
 
-def _chess(params, mud, playersDB: {}, players: {}, rooms: {},
+def _chess(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
            id: int, fights: {}, corpses: {}, blocklist,
@@ -5026,25 +5041,25 @@ def _chess(params, mud, playersDB: {}, players: {}, rooms: {},
     """Jumping onto an item takes the player to a different room
     """
     # check if board exists in room
-    boardItemID = \
+    board_item_id = \
         _chess_board_in_room(players, id, rooms, items, items_db)
-    if not boardItemID:
+    if not board_item_id:
         mud.send_message(id, "\nThere isn't a chess board here.\n\n")
         return
     # create the game state
-    if not items[boardItemID].get('gameState'):
-        items[boardItemID]['gameState'] = {}
-    if not items[boardItemID]['gameState'].get('state'):
-        items[boardItemID]['gameState']['state'] = initial_chess_board()
-        items[boardItemID]['gameState']['turn'] = 'white'
-        items[boardItemID]['gameState']['history'] = []
+    if not items[board_item_id].get('gameState'):
+        items[board_item_id]['gameState'] = {}
+    if not items[board_item_id]['gameState'].get('state'):
+        items[board_item_id]['gameState']['state'] = initial_chess_board()
+        items[board_item_id]['gameState']['turn'] = 'white'
+        items[board_item_id]['gameState']['history'] = []
     # get the game history
-    game_state = items[boardItemID]['gameState']['state']
-    gameBoardName = \
+    game_state = items[board_item_id]['gameState']['state']
+    game_board_name = \
         _chess_board_name(players, id, rooms, items, items_db)
     if not params:
-        show_chess_board(gameBoardName, game_state, id, mud,
-                         items[boardItemID]['gameState']['turn'])
+        show_chess_board(game_board_name, game_state, id, mud,
+                         items[board_item_id]['gameState']['turn'])
         return
     if players[id]['canGo'] != 1 or \
        players[id]['frozenStart'] > 0:
@@ -5057,19 +5072,19 @@ def _chess(params, mud, playersDB: {}, players: {}, rooms: {},
         return
     params = params.lower().strip()
     if 'undo' in params:
-        if len(items[boardItemID]['gameState']['history']) < 2:
+        if len(items[board_item_id]['gameState']['history']) < 2:
             params = 'reset'
         else:
             mud.send_message(id, '\nUndoing last chess move.\n')
-            items[boardItemID]['gameState']['history'].pop()
-            game_state = items[boardItemID]['gameState']['history'][-1]
-            items[boardItemID]['gameState']['state'] = game_state
-            if items[boardItemID]['gameState']['turn'] == 'white':
-                items[boardItemID]['gameState']['turn'] = 'black'
+            items[board_item_id]['gameState']['history'].pop()
+            game_state = items[board_item_id]['gameState']['history'][-1]
+            items[board_item_id]['gameState']['state'] = game_state
+            if items[board_item_id]['gameState']['turn'] == 'white':
+                items[board_item_id]['gameState']['turn'] = 'black'
             else:
-                items[boardItemID]['gameState']['turn'] = 'white'
-            show_chess_board(gameBoardName, game_state, id, mud,
-                             items[boardItemID]['gameState']['turn'])
+                items[board_item_id]['gameState']['turn'] = 'white'
+            show_chess_board(game_board_name, game_state, id, mud,
+                             items[board_item_id]['gameState']['turn'])
             return
     # begin a new chess game
     if 'reset' in params or \
@@ -5078,12 +5093,12 @@ def _chess(params, mud, playersDB: {}, players: {}, rooms: {},
        'begin again' in params or \
        'new game' in params:
         mud.send_message(id, '\nStarting a new game.\n')
-        items[boardItemID]['gameState']['state'] = initial_chess_board()
-        items[boardItemID]['gameState']['turn'] = 'white'
-        items[boardItemID]['gameState']['history'] = []
-        game_state = items[boardItemID]['gameState']['state']
-        show_chess_board(gameBoardName, game_state, id, mud,
-                         items[boardItemID]['gameState']['turn'])
+        items[board_item_id]['gameState']['state'] = initial_chess_board()
+        items[board_item_id]['gameState']['turn'] = 'white'
+        items[board_item_id]['gameState']['history'] = []
+        game_state = items[board_item_id]['gameState']['state']
+        show_chess_board(game_board_name, game_state, id, mud,
+                         items[board_item_id]['gameState']['turn'])
         return
     if 'move' in params:
         params = params.replace('move ', '').replace('to ', '')
@@ -5105,60 +5120,59 @@ def _chess(params, mud, playersDB: {}, players: {}, rooms: {},
             mud.send_message(id, "\nEnter a move such as g8 f6.\n")
             return
         if move_chess_piece(chess_moves[0] + chess_moves[1],
-                            items[boardItemID]['gameState']['state'],
-                            items[boardItemID]['gameState']['turn'],
+                            items[board_item_id]['gameState']['state'],
+                            items[board_item_id]['gameState']['turn'],
                             id, mud):
             mud.send_message(id, "\n" +
-                             items[boardItemID]['gameState']['turn'] +
+                             items[board_item_id]['gameState']['turn'] +
                              " moves from " + chess_moves[0] +
                              " to " + chess_moves[1] + ".\n")
-            game_state = items[boardItemID]['gameState']['state']
-            currTurn = items[boardItemID]['gameState']['turn']
-            if currTurn == 'white':
-                items[boardItemID]['gameState']['player1'] = \
+            game_state = items[board_item_id]['gameState']['state']
+            curr_turn = items[board_item_id]['gameState']['turn']
+            if curr_turn == 'white':
+                items[board_item_id]['gameState']['player1'] = \
                     players[id]['name']
-                items[boardItemID]['gameState']['turn'] = 'black'
+                items[board_item_id]['gameState']['turn'] = 'black'
                 # send a notification to the other player
-                if items[boardItemID]['gameState'].get('player2'):
-                    for p in players:
-                        if p == id:
+                if items[board_item_id]['gameState'].get('player2'):
+                    for plyr in players:
+                        if plyr == id:
                             continue
-                        if players[p]['name'] == \
-                           items[boardItemID]['gameState']['player2']:
-                            if players[p]['room'] == players[id]['room']:
-                                turnStr = \
-                                    items[boardItemID]['gameState']['turn']
-                                show_chess_board(gameBoardName,
-                                                 game_state, p, mud,
-                                                 turnStr)
+                        if players[plyr]['name'] == \
+                           items[board_item_id]['gameState']['player2']:
+                            if players[plyr]['room'] == players[id]['room']:
+                                turn_str = \
+                                    items[board_item_id]['gameState']['turn']
+                                show_chess_board(game_board_name,
+                                                 game_state, plyr, mud,
+                                                 turn_str)
             else:
-                items[boardItemID]['gameState']['player2'] = \
+                items[board_item_id]['gameState']['player2'] = \
                     players[id]['name']
-                items[boardItemID]['gameState']['turn'] = 'white'
+                items[board_item_id]['gameState']['turn'] = 'white'
                 # send a notification to the other player
-                if items[boardItemID]['gameState'].get('player1'):
-                    for p in players:
-                        if p == id:
+                if items[board_item_id]['gameState'].get('player1'):
+                    for plyr in players:
+                        if plyr == id:
                             continue
-                        if players[p]['name'] == \
-                           items[boardItemID]['gameState']['player1']:
-                            if players[p]['room'] == players[id]['room']:
-                                turnStr = \
-                                    items[boardItemID]['gameState']['turn']
-                                show_chess_board(gameBoardName, game_state,
-                                                 p, mud, turnStr)
+                        if players[plyr]['name'] == \
+                           items[board_item_id]['gameState']['player1']:
+                            if players[plyr]['room'] == players[id]['room']:
+                                turn_str = \
+                                    items[board_item_id]['gameState']['turn']
+                                show_chess_board(game_board_name, game_state,
+                                                 plyr, mud, turn_str)
             gstate = game_state.copy()
-            items[boardItemID]['gameState']['history'].append(gstate)
-            show_chess_board(gameBoardName, game_state, id, mud, currTurn)
+            items[board_item_id]['gameState']['history'].append(gstate)
+            show_chess_board(game_board_name, game_state, id, mud, curr_turn)
             return
-        else:
-            mud.send_message(id, "\nThat's not a valid move.\n")
-            return
-    show_chess_board(gameBoardName, game_state, id, mud,
-                     items[boardItemID]['gameState']['turn'])
+        mud.send_message(id, "\nThat's not a valid move.\n")
+        return
+    show_chess_board(game_board_name, game_state, id, mud,
+                     items[board_item_id]['gameState']['turn'])
 
 
-def _graphics(params, mud, playersDB: {}, players: {}, rooms: {},
+def _graphics(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
@@ -5167,10 +5181,8 @@ def _graphics(params, mud, playersDB: {}, players: {}, rooms: {},
               item_history: {}, markets: {}, cultures_db: {}):
     """Turn graphical output on or off
     """
-    graphicsState = params.lower().strip()
-    if graphicsState == 'off' or \
-       graphicsState == 'false' or \
-       graphicsState == 'no':
+    graphics_state = params.lower().strip()
+    if graphics_state in ('off', 'false', 'no'):
         players[id]['graphics'] = 'off'
         mud.send_message(id, "Graphics have been turned off.\n\n")
     else:
@@ -5186,25 +5198,25 @@ def _show_items_for_sale(mud, rooms: {}, room_id, players: {},
         return
     mud.send_message(id, '\nFor Sale\n')
     ctr = 0
-    for itemID, item in rooms[room_id]['marketInventory'].items():
+    for item_id, item in rooms[room_id]['marketInventory'].items():
         if item['stock'] < 1:
             continue
-        itemLine = items_db[itemID]['name']
-        while len(itemLine) < 30:
-            itemLine += '.'
-        itemCost = item['cost']
-        if itemCost == '0':
-            itemLine += 'Free'
+        item_line = items_db[item_id]['name']
+        while len(item_line) < 30:
+            item_line += '.'
+        item_cost = item['cost']
+        if item_cost == '0':
+            item_line += 'Free'
         else:
-            itemLine += itemCost
-        mud.send_message(id, itemLine)
+            item_line += item_cost
+        mud.send_message(id, item_line)
         ctr += 1
     mud.send_message(id, '\n')
     if ctr == 0:
         mud.send_message(id, 'Nothing\n\n')
 
 
-def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
+def _buy(params, mud, players_db: {}, players: {}, rooms: {},
          npcs_db: {}, npcs: {}, items_db: {}, items: {},
          env_db: {}, env: {}, eventDB: {}, event_schedule,
          id: int, fights: {}, corpses: {}, blocklist,
@@ -5238,58 +5250,59 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'There is nothing to buy here.<r>\n')
         return
 
-    paramsLower = params.lower()
-    if not paramsLower:
+    params_lower = params.lower()
+    if not params_lower:
         _show_items_for_sale(mud, rooms, room_id, players, id, items_db)
     else:
         # buy some particular item
-        for itemID, item in rooms[room_id]['marketInventory'].items():
+        for item_id, item in rooms[room_id]['marketInventory'].items():
             if item['stock'] < 1:
                 continue
-            itemName = items_db[itemID]['name'].lower()
-            if itemName not in paramsLower:
+            item_name = items_db[item_id]['name'].lower()
+            if item_name not in params_lower:
                 continue
             if _item_in_inventory(players, id,
-                                  items_db[itemID]['name'], items_db):
+                                  items_db[item_id]['name'], items_db):
                 mud.send_message(id, 'You already have that\n\n')
                 return
-            itemCost = item['cost']
-            if buy_item(players, id, itemID, items_db, itemCost):
+            item_cost = item['cost']
+            if buy_item(players, id, item_id, items_db, item_cost):
                 # is the item too heavy?
                 players[id]['wei'] = \
                     player_inventory_weight(id, players, items_db)
 
-                if players[id]['wei'] + items_db[itemID]['weight'] > \
+                if players[id]['wei'] + items_db[item_id]['weight'] > \
                    _get_max_weight(id, players):
                     mud.send_message(id, "You can't carry any more.\n\n")
                     return
                 # add the item to the player's inventory
-                if str(itemID) not in players[id]['inv']:
-                    players[id]['inv'].append(str(itemID))
+                if str(item_id) not in players[id]['inv']:
+                    players[id]['inv'].append(str(item_id))
                 # update the weight of the player
                 players[id]['wei'] = \
                     player_inventory_weight(id, players, items_db)
-                update_player_attributes(id, players, items_db, itemID, 1)
+                update_player_attributes(id, players, items_db, item_id, 1)
 
-                mud.send_message(id, 'You buy ' + items_db[itemID]['article'] +
-                                 ' ' + items_db[itemID]['name'] + '\n\n')
+                mud.send_message(id, 'You buy ' +
+                                 items_db[item_id]['article'] +
+                                 ' ' + items_db[item_id]['name'] + '\n\n')
             else:
-                if itemCost.endswith('gp'):
+                if item_cost.endswith('gp'):
                     mud.send_message(id,
                                      'You do not have enough gold pieces\n\n')
-                elif itemCost.endswith('sp'):
+                elif item_cost.endswith('sp'):
                     mud.send_message(id,
                                      'You do not have enough ' +
                                      'silver pieces\n\n')
-                elif itemCost.endswith('cp'):
+                elif item_cost.endswith('cp'):
                     mud.send_message(id,
                                      'You do not have enough ' +
                                      'copper pieces\n\n')
-                elif itemCost.endswith('ep'):
+                elif item_cost.endswith('ep'):
                     mud.send_message(id,
                                      'You do not have enough ' +
                                      'electrum pieces\n\n')
-                elif itemCost.endswith('pp'):
+                elif item_cost.endswith('pp'):
                     mud.send_message(id,
                                      'You do not have enough ' +
                                      'platinum pieces\n\n')
@@ -5299,7 +5312,7 @@ def _buy(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "That's not sold here\n\n")
 
 
-def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
+def _fish(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -5321,49 +5334,49 @@ def _fish(params, mud, playersDB: {}, players: {}, rooms: {},
     if not holding_fishing_rod(players, id, items_db):
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
-        descStr = 'You need to be holding a rod|' + \
+        desc_str = 'You need to be holding a rod|' + \
             'You need to be holding something to fish with'
-        mud.send_message(id, random_desc(descStr) + '<r>\n\n')
+        mud.send_message(id, random_desc(desc_str) + '<r>\n\n')
         return
     rid = players[id]['room']
-    roomNameLower = rooms[rid]['name'].lower()
+    room_name_lower = rooms[rid]['name'].lower()
     if not is_fishing_site(rooms, rid):
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
-        descStr = "This isn't a fishing site|" + \
+        desc_str = "This isn't a fishing site|" + \
             "You can't fish here|" + \
             "This does not appear to be a fishing location"
-        mud.send_message(id, random_desc(descStr) + '<r>\n\n')
+        mud.send_message(id, random_desc(desc_str) + '<r>\n\n')
         return
-    if 'lava' in roomNameLower:
+    if 'lava' in room_name_lower:
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
-        descStr = "You won't find any fish here"
-        mud.send_message(id, random_desc(descStr) + '<r>\n\n')
+        desc_str = "You won't find any fish here"
+        mud.send_message(id, random_desc(desc_str) + '<r>\n\n')
         return
     if player_is_prone(id, players):
         if 'isFishing' in players[id]:
             del players[id]['isFishing']
-        descStr = "You can't fish while lying down"
-        mud.send_message(id, random_desc(descStr) + '<r>\n\n')
+        desc_str = "You can't fish while lying down"
+        mud.send_message(id, random_desc(desc_str) + '<r>\n\n')
         return
     if 'isFishing' not in players[id]:
         players[id]['isFishing'] = True
         if holding_fly_fishing_rod(players, id, items_db):
-            descStr = "You prepare the fly and then cast it out|" + \
+            desc_str = "You prepare the fly and then cast it out|" + \
                 "You wave the rod back and forth and cast out the fly|" + \
                 "Casting out the fly, you begin fishing"
         else:
-            descStr = \
+            desc_str = \
                 "With a forwards flick of the rod you cast out the line|" + \
                 "Casting out the line with a forward flick of the rod, " + \
                 "you begin fishing"
     else:
-        descStr = "You continue fishing"
-    mud.send_message(id, random_desc(descStr) + '<r>\n\n')
+        desc_str = "You continue fishing"
+    mud.send_message(id, random_desc(desc_str) + '<r>\n\n')
 
 
-def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
+def _sell(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -5397,53 +5410,53 @@ def _sell(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, "You can't sell here.<r>\n")
         return
 
-    paramsLower = params.lower()
-    if not paramsLower:
+    params_lower = params.lower()
+    if not params_lower:
         mud.send_message(id, 'What do you want to sell?\n')
     else:
         # does this market buy this type of item?
-        marketType = get_market_type(rooms[room_id]['name'], markets)
-        if not marketType:
+        market_type = get_market_type(rooms[room_id]['name'], markets)
+        if not market_type:
             mud.send_message(id, "You can't sell here.<r>\n")
             return
-        buysItemTypes = market_buys_item_types(marketType, markets)
-        ableToSell = False
-        for itemType in buysItemTypes:
-            if itemType in paramsLower:
-                ableToSell = True
+        buys_item_types = market_buys_item_types(market_type, markets)
+        able_to_sell = False
+        for item_type in buys_item_types:
+            if item_type in params_lower:
+                able_to_sell = True
                 break
-        if not ableToSell:
+        if not able_to_sell:
             mud.send_message(id, "You can't sell that here\n\n")
             return
-        itemID = -1
-        for (item, pl) in list(items.items()):
-            if paramsLower in items_db[items[item]['id']]['name'].lower():
-                itemID = items[item]['id']
+        item_id = -1
+        for item, _ in list(items.items()):
+            if params_lower in items_db[items[item]['id']]['name'].lower():
+                item_id = items[item]['id']
                 break
-        if itemID == -1:
+        if item_id == -1:
             mud.send_message(id, 'Error: item not found ' + params + ' \n\n')
             return
         # remove from item to the player's inventory
-        if str(itemID) in players[id]['inv']:
-            players[id]['inv'].remove(str(itemID))
+        if str(item_id) in players[id]['inv']:
+            players[id]['inv'].remove(str(item_id))
         # update the weight of the player
         players[id]['wei'] = player_inventory_weight(id, players, items_db)
-        update_player_attributes(id, players, items_db, itemID, 1)
+        update_player_attributes(id, players, items_db, item_id, 1)
 
         # Increase your money
-        itemCost = items_db[itemID]['cost']
+        item_cost = items_db[item_id]['cost']
         # TODO the cost may vary depending upon room/region/time
-        qty, denomination = parse_cost(itemCost)
+        qty, denomination = parse_cost(item_cost)
         if denomination:
             if denomination in players[id]:
-                qty = int(itemCost.replace(denomination, ''))
+                qty = int(item_cost.replace(denomination, ''))
                 players[id][denomination] += qty
-        mud.send_message(id, 'You have sold ' + items_db[itemID]['article'] +
-                         ' ' + items_db[itemID]['name'] + ' for ' +
-                         itemCost + '\n\n')
+        mud.send_message(id, 'You have sold ' + items_db[item_id]['article'] +
+                         ' ' + items_db[item_id]['name'] + ' for ' +
+                         item_cost + '\n\n')
 
 
-def _go(params, mud, playersDB: {}, players: {}, rooms: {},
+def _go(params, mud, players_db: {}, players: {}, rooms: {},
         npcs_db: {}, npcs: {}, items_db: {}, items: {},
         env_db: {}, env: {}, eventDB: {}, event_schedule,
         id: int, fights: {}, corpses: {}, blocklist,
@@ -5478,30 +5491,30 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                     stepping = True
 
         # store the player's current room
-        rm = rooms[players[id]['room']]
+        rmid = rooms[players[id]['room']]
 
         # if the specified exit is found in the room's exits list
-        rmExits = _get_room_exits(mud, rooms, players, id)
-        if ex in rmExits:
+        rmexits = _get_room_exits(mud, rooms, players, id)
+        if ex in rmexits:
             # check if there is enough room
-            targetRoom = None
-            if ex in rm['exits']:
-                targetRoom = rm['exits'][ex]
-            elif rm.get('tideOutExits'):
-                targetRoom = rm['tideOutExits'][ex]
-            elif rm.get('exitsWhenWearing'):
-                targetRoom = rm['exitsWhenWearing'][ex]
-            if targetRoom:
-                if rooms[targetRoom]['maxPlayers'] > -1:
-                    if _players_in_room(targetRoom, players, npcs) >= \
-                       rooms[targetRoom]['maxPlayers']:
+            target_room = None
+            if ex in rmid['exits']:
+                target_room = rmid['exits'][ex]
+            elif rmid.get('tideOutExits'):
+                target_room = rmid['tideOutExits'][ex]
+            elif rmid.get('exitsWhenWearing'):
+                target_room = rmid['exitsWhenWearing'][ex]
+            if target_room:
+                if rooms[target_room]['maxPlayers'] > -1:
+                    if _players_in_room(target_room, players, npcs) >= \
+                       rooms[target_room]['maxPlayers']:
                         mud.send_message(id, 'The room is full.<r>\n\n')
                         return
 
                 # Check that the player is not too tall
-                if rooms[targetRoom]['maxPlayerSize'] > -1:
+                if rooms[target_room]['maxPlayerSize'] > -1:
                     if players[id]['siz'] > \
-                       rooms[targetRoom]['maxPlayerSize']:
+                       rooms[target_room]['maxPlayerSize']:
                         mud.send_message(id, "The entrance is too small " +
                                          "for you to enter.<r>\n\n")
                         return
@@ -5526,34 +5539,37 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                     add_to_scheduler(idx, id, event_schedule, eventDB)
 
                 # Does the player have any follower NPCs or familiars?
-                followersMsg = ""
-                for (nid, pl) in list(npcs.items()):
+                followers_msg = ""
+                for nid, _ in list(npcs.items()):
                     if ((npcs[nid]['follow'] == players[id]['name'] or
                         npcs[nid]['familiarOf'] == players[id]['name']) and
                        npcs[nid]['familiarMode'] == 'follow'):
                         # is the npc in the same room as the player?
                         if npcs[nid]['room'] == players[id]['room']:
                             # is the player within the permitted npc path?
-                            if rm['exits'][ex] in list(npcs[nid]['path']) or \
+                            rm_ex = rmid['exits'][ex]
+                            if rm_ex in list(npcs[nid]['path']) or \
                                npcs[nid]['familiarOf'] == players[id]['name']:
-                                follRoomID = rm['exits'][ex]
-                                if rooms[follRoomID]['maxPlayerSize'] < 0 or \
+                                foll_room_id = rmid['exits'][ex]
+                                max_pl_size = \
+                                    rooms[foll_room_id]['maxPlayerSize']
+                                if max_pl_size < 0 or \
                                    npcs[nid]['siz'] <= \
-                                   rooms[follRoomID]['maxPlayerSize']:
-                                    npcs[nid]['room'] = follRoomID
-                                    np = npcs[nid]
+                                   rooms[foll_room_id]['maxPlayerSize']:
+                                    npcs[nid]['room'] = foll_room_id
+                                    npitem = npcs[nid]
                                     desc = \
-                                        random_desc(np['inDescription'])
-                                    followersMsg = \
-                                        followersMsg + '<f32>' + \
+                                        random_desc(npitem['inDescription'])
+                                    followers_msg = \
+                                        followers_msg + '<f32>' + \
                                         npcs[nid]['name'] + '<r> ' + \
                                         desc + '.\n\n'
                                     desc = \
-                                        random_desc(np['outDescription'])
+                                        random_desc(npitem['outDescription'])
                                     message_to_room_players(mud, players,
                                                             id,
                                                             '<f32>' +
-                                                            np['name'] +
+                                                            npitem['name'] +
                                                             '<r> ' +
                                                             desc +
                                                             " via exit " +
@@ -5574,8 +5590,8 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
 
                 # update the player's current room to the one the exit leads to
                 if rooms[players[id]['room']]['onWater'] == 1:
-                    _players_move_together(id, rm['exits'][ex], mud,
-                                           playersDB, players, rooms,
+                    _players_move_together(id, rmid['exits'][ex], mud,
+                                           players_db, players, rooms,
                                            npcs_db, npcs,
                                            items_db, items, env_db, env,
                                            eventDB, event_schedule,
@@ -5585,8 +5601,7 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                                            sentiment_db, guilds_db, clouds,
                                            races_db, item_history, markets,
                                            cultures_db)
-                players[id]['room'] = rm['exits'][ex]
-                rm = rooms[players[id]['room']]
+                players[id]['room'] = rmid['exits'][ex]
 
                 if 'isFishing' in players[id]:
                     del players[id]['isFishing']
@@ -5614,16 +5629,16 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
                     mud.send_message(id, desc + "<r>\n\n")
 
-                _look('', mud, playersDB, players, rooms, npcs_db, npcs,
+                _look('', mud, players_db, players, rooms, npcs_db, npcs,
                       items_db, items, env_db, env, eventDB, event_schedule,
                       id, fights, corpses, blocklist, map_area,
                       character_class_db, spells_db, sentiment_db,
                       guilds_db, clouds, races_db, item_history, markets,
                       cultures_db)
                 # report any followers
-                if len(followersMsg) > 0:
-                    message_to_room_players(mud, players, id, followersMsg)
-                    mud.send_message(id, followersMsg)
+                if len(followers_msg) > 0:
+                    message_to_room_players(mud, players, id, followers_msg)
+                    mud.send_message(id, followers_msg)
         else:
             # the specified exit wasn't found in the current room
             # send back an 'unknown exit' message
@@ -5634,119 +5649,119 @@ def _go(params, mud, playersDB: {}, players: {}, rooms: {},
                          'Somehow, your legs refuse to obey your will.<r>\n')
 
 
-def _go_north(params, mud, playersDB, players, rooms,
+def _go_north(params, mud, players_db, players, rooms,
               npcs_db: {}, npcs, items_db: {}, items: {}, env_db: {},
               env, eventDB: {}, event_schedule, id, fights,
               corpses, blocklist, map_area, character_class_db: {},
               spells_db: {}, sentiment_db: {},
               guilds_db: {}, clouds, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('north', mud, playersDB, players, rooms, npcs_db,
+    _go('north', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_south(params, mud, playersDB: {}, players: {}, rooms: {},
+def _go_south(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
               env, eventDB: {}, event_schedule, id, fights,
               corpses, blocklist, map_area, character_class_db: {},
               spells_db: {}, sentiment_db: {}, guilds_db: {},
               clouds, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('south', mud, playersDB, players, rooms, npcs_db,
+    _go('south', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_east(params, mud, playersDB: {}, players: {}, rooms: {},
+def _go_east(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
              env, eventDB: {}, event_schedule, id, fights,
              corpses, blocklist, map_area, character_class_db: {},
              spells_db: {}, sentiment_db: {},
              guilds_db: {}, clouds, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('east', mud, playersDB, players, rooms, npcs_db,
+    _go('east', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_west(params, mud, playersDB: {}, players: {}, rooms: {},
+def _go_west(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db,
              env, eventDB: {}, event_schedule, id, fights,
              corpses, blocklist, map_area, character_class_db: {},
              spells_db: {}, sentiment_db: {}, guilds_db: {},
              clouds, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('west', mud, playersDB, players, rooms, npcs_db,
+    _go('west', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_up(params, mud, playersDB: {}, players: {}, rooms: {},
+def _go_up(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
            env, eventDB: {}, event_schedule, id, fights,
            corpses, blocklist, map_area, character_class_db: {},
            spells_db: {}, sentiment_db: {}, guilds_db: {},
            clouds, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('up', mud, playersDB, players, rooms, npcs_db,
+    _go('up', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_down(params, mud, playersDB: {}, players: {}, rooms: {},
+def _go_down(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
              env, eventDB: {}, event_schedule, id, fights,
              corpses, blocklist, map_area, character_class_db: {},
              spells_db: {}, sentiment_db: {}, guilds_db: {}, clouds,
              races_db: {}, item_history: {}, markets: {},
              cultures_db: {}) -> None:
-    _go('down', mud, playersDB, players, rooms, npcs_db,
+    _go('down', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_in(params: str, mud, playersDB: {}, players: {}, rooms: {},
+def _go_in(params: str, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
            env, eventDB: {}, event_schedule, id, fights: {},
            corpses, blocklist, map_area, character_class_db: {},
            spells_db: {}, sentiment_db: {}, guilds_db: {},
            clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('in', mud, playersDB, players, rooms, npcs_db,
+    _go('in', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _go_out(params: str, mud, playersDB: {}, players: {}, rooms: {},
+def _go_out(params: str, mud, players_db: {}, players: {}, rooms: {},
             npcs_db: {}, npcs: {}, items_db: {}, items: {}, env_db: {},
             env, eventDB: {}, event_schedule, id, fights: {},
             corpses, blocklist, map_area, character_class_db: {},
             spells_db: {}, sentiment_db: {}, guilds_db: {},
             clouds: {}, races_db: {},
             item_history: {}, markets: {}, cultures_db: {}) -> None:
-    _go('out', mud, playersDB, players, rooms, npcs_db,
+    _go('out', mud, players_db, players, rooms, npcs_db,
         npcs, items_db, items, env_db, env, eventDB, event_schedule,
         id, fights, corpses, blocklist, map_area, character_class_db,
         spells_db, sentiment_db, guilds_db, clouds, races_db,
         item_history, markets, cultures_db)
 
 
-def _conjure_room(params, mud, playersDB: {}, players: {}, rooms: {},
+def _conjure_room(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist: {},
@@ -5754,10 +5769,10 @@ def _conjure_room(params, mud, playersDB: {}, players: {}, rooms: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                   item_history: {}, markets: {}, cultures_db: {}):
     params = params.replace('room ', '')
-    roomDirection = params.lower().strip()
-    possibleDirections = ('north', 'south', 'east', 'west',
-                          'up', 'down', 'in', 'out')
-    oppositeDirection = {
+    room_direction = params.lower().strip()
+    possible_directions = ('north', 'south', 'east', 'west',
+                           'up', 'down', 'in', 'out')
+    opposite_direction = {
         'north': 'south',
         'south': 'north',
         'east': 'west',
@@ -5767,14 +5782,14 @@ def _conjure_room(params, mud, playersDB: {}, players: {}, rooms: {},
         'in': 'out',
         'out': 'in'
     }
-    if roomDirection not in possibleDirections:
+    if room_direction not in possible_directions:
         mud.send_message(id, 'Specify a room direction.\n\n')
         return False
 
     # Is there already a room in that direction?
-    playerRoomID = players[id]['room']
-    roomExits = _get_room_exits(mud, rooms, players, id)
-    if roomExits.get(roomDirection):
+    player_room_id = players[id]['room']
+    room_exits = _get_room_exits(mud, rooms, players, id)
+    if room_exits.get(room_direction):
         mud.send_message(id, 'A room already exists in that direction.\n\n')
         return False
 
@@ -5806,15 +5821,15 @@ def _conjure_room(params, mud, playersDB: {}, players: {}, rooms: {},
         'terrainDifficulty': 0,
         'coords': [],
         'exits': {
-            oppositeDirection[roomDirection]: playerRoomID
+            opposite_direction[room_direction]: player_room_id
         }
     }
     rooms[room_id] = newrm
-    roomExits[roomDirection] = room_id
+    room_exits[room_direction] = room_id
 
     # update the room coordinates
-    for rm in rooms:
-        rooms[rm]['coords'] = []
+    for rmid in rooms:
+        rooms[rmid]['coords'] = []
 
     log("New room: " + room_id, 'info')
     save_universe(rooms, npcs_db, npcs, items_db, items,
@@ -5822,60 +5837,60 @@ def _conjure_room(params, mud, playersDB: {}, players: {}, rooms: {},
     mud.send_message(id, 'Room created.\n\n')
 
 
-def _conjure_item(params, mud, playersDB: {}, players: {}, rooms: {},
+def _conjure_item(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                   item_history: {}, markets: {}, cultures_db: {}):
-    itemName = params.lower()
-    if len(itemName) == 0:
+    item_name = params.lower()
+    if len(item_name) == 0:
         mud.send_message(id, "Specify the name of an item to conjure.\n\n")
         return False
 
     # Check if item is in player's inventory
     for item in players[id]['inv']:
-        for (iid, pl) in list(items_db.items()):
+        for iid, _ in list(items_db.items()):
             if str(iid) == item:
-                if itemName in items_db[iid]['name'].lower():
+                if item_name in items_db[iid]['name'].lower():
                     mud.send_message(id, "You have " +
                                      items_db[iid]['article'] + " " +
                                      items_db[iid]['name'] +
                                      " in your inventory already.\n\n")
                     return False
     # Check if it is in the room
-    for (item, pl) in list(items.items()):
+    for item, _ in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            if itemName in items_db[items[item]['id']]['name'].lower():
+            if item_name in items_db[items[item]['id']]['name'].lower():
                 mud.send_message(id, "It's already here.\n\n")
                 return False
 
-    itemID = -1
-    for (item, pl) in list(items.items()):
-        if itemName == items_db[items[item]['id']]['name'].lower():
-            itemID = items[item]['id']
+    item_id = -1
+    for item, _ in list(items.items()):
+        if item_name == items_db[items[item]['id']]['name'].lower():
+            item_id = items[item]['id']
             break
 
-    if itemID == -1:
-        for (item, pl) in list(items.items()):
-            if itemName in items_db[items[item]['id']]['name'].lower():
-                itemID = items[item]['id']
+    if item_id == -1:
+        for item, _ in list(items.items()):
+            if item_name in items_db[items[item]['id']]['name'].lower():
+                item_id = items[item]['id']
                 break
 
-    if itemID != -1:
+    if item_id != -1:
         # Generate item
-        itemKey = get_free_key(items)
-        items[itemKey] = {
-            'id': itemID,
+        item_key = get_free_key(items)
+        items[item_key] = {
+            'id': item_id,
             'room': players[id]['room'],
             'whenDropped': int(time.time()),
             'lifespan': 900000000, 'owner': id
         }
-        keyStr = str(itemKey)
-        assign_item_history(keyStr, items, item_history)
-        mud.send_message(id, items_db[itemID]['article'] + ' ' +
-                         items_db[itemID]['name'] +
+        key_str = str(item_key)
+        assign_item_history(key_str, items, item_history)
+        mud.send_message(id, items_db[item_id]['article'] + ' ' +
+                         items_db[item_id]['name'] +
                          ' spontaneously materializes in front of you.\n\n')
         save_universe(rooms, npcs_db, npcs, items_db, items, env_db,
                       env, guilds_db)
@@ -5886,18 +5901,18 @@ def _conjure_item(params, mud, playersDB: {}, players: {}, rooms: {},
 def _random_familiar(npcs_db: {}):
     """Picks a familiar at random and returns its index
     """
-    possibleFamiliars = []
+    possible_familiars = []
     for index, details in npcs_db.items():
         if len(details['familiarType']) > 0:
             if len(details['familiarOf']) == 0:
-                possibleFamiliars.append(int(index))
-    if len(possibleFamiliars) > 0:
-        randIndex = len(possibleFamiliars) - 1
-        return possibleFamiliars[randint(0, randIndex)]
+                possible_familiars.append(int(index))
+    if len(possible_familiars) > 0:
+        rand_index = len(possible_familiars) - 1
+        return possible_familiars[randint(0, rand_index)]
     return -1
 
 
-def _conjure_npc(params, mud, playersDB: {}, players: {}, rooms: {},
+def _conjure_npc(params, mud, players_db: {}, players: {}, rooms: {},
                  npcs_db: {}, npcs: {}, items_db: {}, items: {},
                  env_db: {}, env: {}, eventDB: {}, event_schedule,
                  id: int, fights: {}, corpses: {}, blocklist,
@@ -5908,90 +5923,90 @@ def _conjure_npc(params, mud, playersDB: {}, players: {}, rooms: {},
         if not params.startswith('familiar'):
             return False
 
-    npcHitPoints = 100
-    isFamiliar = False
-    npcType = 'NPC'
+    npc_hit_points = 100
+    is_familiar = False
+    npc_type = 'NPC'
     if params.startswith('familiar'):
-        isFamiliar = True
-        npcType = 'Familiar'
-        npcIndex = _random_familiar(npcs_db)
-        if npcIndex < 0:
+        is_familiar = True
+        npc_type = 'Familiar'
+        npc_index = _random_familiar(npcs_db)
+        if npc_index < 0:
             mud.send_message(id, "No familiars known.\n\n")
             return
-        npcName = npcs_db[npcIndex]['name']
-        npcHitPoints = 5
-        npcSize = 0
-        npcStrength = 5
-        npcFamiliarOf = players[id]['name']
-        npcAnimalType = npcs_db[npcIndex]['animalType']
-        npcFamiliarType = npcs_db[npcIndex]['familiarType']
-        npcFamiliarMode = "follow"
-        npcConv = deepcopy(npcs_db[npcIndex]['conv'])
-        npcVocabulary = deepcopy(npcs_db[npcIndex]['vocabulary'])
-        npcTalkDelay = npcs_db[npcIndex]['talkDelay']
-        npcRandomFactor = npcs_db[npcIndex]['randomFactor']
-        npcLookDescription = npcs_db[npcIndex]['lookDescription']
-        npcInDescription = npcs_db[npcIndex]['inDescription']
-        npcOutDescription = npcs_db[npcIndex]['outDescription']
-        npcMoveDelay = npcs_db[npcIndex]['moveDelay']
+        npc_name = npcs_db[npc_index]['name']
+        npc_hit_points = 5
+        npc_size = 0
+        npc_strength = 5
+        npc_familiar_of = players[id]['name']
+        npc_animal_type = npcs_db[npc_index]['animalType']
+        npc_familiar_type = npcs_db[npc_index]['familiarType']
+        npc_familiar_mode = "follow"
+        npc_conv = deepcopy(npcs_db[npc_index]['conv'])
+        npc_vocabulary = deepcopy(npcs_db[npc_index]['vocabulary'])
+        npc_talk_delay = npcs_db[npc_index]['talkDelay']
+        npc_random_factor = npcs_db[npc_index]['randomFactor']
+        npc_look_description = npcs_db[npc_index]['lookDescription']
+        npc_in_description = npcs_db[npc_index]['inDescription']
+        npc_out_description = npcs_db[npc_index]['outDescription']
+        npc_move_delay = npcs_db[npc_index]['moveDelay']
     else:
-        npcName = params.replace('npc ', '', 1).strip().replace('"', '')
-        npcSize = size_from_description(npcName)
-        npcStrength = 80
-        npcFamiliarOf = ""
-        npcAnimalType = ""
-        npcFamiliarType = ""
-        npcFamiliarMode = ""
-        npcConv = []
-        npcVocabulary = [""]
-        npcTalkDelay = 300
-        npcRandomFactor = 100
-        npcLookDescription = "A new NPC, not yet described"
-        npcInDescription = "arrives"
-        npcOutDescription = "goes"
-        npcMoveDelay = 300
+        npc_name = params.replace('npc ', '', 1).strip().replace('"', '')
+        npc_size = size_from_description(npc_name)
+        npc_strength = 80
+        npc_familiar_of = ""
+        npc_animal_type = ""
+        npc_familiar_type = ""
+        npc_familiar_mode = ""
+        npc_conv = []
+        npc_vocabulary = [""]
+        npc_talk_delay = 300
+        npc_random_factor = 100
+        npc_look_description = "A new NPC, not yet described"
+        npc_in_description = "arrives"
+        npc_out_description = "goes"
+        npc_move_delay = 300
 
-    if len(npcName) == 0:
+    if len(npc_name) == 0:
         mud.send_message(id, "Specify the name of an NPC to conjure.\n\n")
         return False
 
     # Check if NPC is in the room
-    for (nid, pl) in list(npcs.items()):
+    for nid, _ in list(npcs.items()):
         if npcs[nid]['room'] == players[id]['room']:
-            if npcName.lower() in npcs[nid]['name'].lower():
+            if npc_name.lower() in npcs[nid]['name'].lower():
                 mud.send_message(id, npcs[nid]['name'] +
                                  " is already here.\n\n")
                 return False
 
     # NPC has the culture assigned to the room
-    roomCulture = get_room_culture(cultures_db, rooms, players[id]['room'])
-    if roomCulture is None:
-        roomCulture = ''
+    room_culture = get_room_culture(cultures_db, rooms, players[id]['room'])
+    if room_culture is None:
+        room_culture = ''
 
     # default medium size
-    newNPC = {
-        "name": npcName,
+    new_npc = {
+        "name": npc_name,
         "whenDied": None,
         "isAggressive": 0,
         "inv": [],
         "speakLanguage": "common",
         "language": ["common"],
-        "culture": roomCulture,
-        "conv": npcConv,
+        "culture": room_culture,
+        "conv": npc_conv,
         "room": players[id]['room'],
         "path": [],
         "bodyType": "",
-        "moveDelay": npcMoveDelay,
+        "moveDelay": npc_move_delay,
         "moveType": "",
         "moveTimes": [],
-        "vocabulary": npcVocabulary,
-        "talkDelay": npcTalkDelay,
+        "vocabulary": npc_vocabulary,
+        "talkDelay": npc_talk_delay,
         "timeTalked": 0,
         "lastSaid": 0,
         "lastRoom": None,
         "lastMoved": 0,
         "randomizer": 0,
-        "randomFactor": npcRandomFactor,
+        "randomFactor": npc_random_factor,
         "follow": "",
         "canWield": 0,
         "canWear": 0,
@@ -6016,13 +6031,13 @@ def _conjure_npc(params, mud, playersDB: {}, players: {}, rooms: {},
         "tempHitPoints": 0,
         "spellSlots": {},
         "preparedSpells": {},
-        "hpMax": npcHitPoints,
-        "hp": npcHitPoints,
+        "hpMax": npc_hit_points,
+        "hp": npc_hit_points,
         "charge": 1233,
         "lvl": 5,
         "exp": 32,
-        "str": npcStrength,
-        "siz": npcSize,
+        "str": npc_strength,
+        "siz": npc_size,
         "wei": 100,
         "per": 3,
         "endu": 1,
@@ -6076,9 +6091,9 @@ def _conjure_npc(params, mud, playersDB: {}, players: {}, rooms: {},
         "imp_lleg": 0,
         "imp_rleg": 0,
         "imp_feet": 0,
-        "inDescription": npcInDescription,
-        "outDescription": npcOutDescription,
-        "lookDescription": npcLookDescription,
+        "inDescription": npc_in_description,
+        "outDescription": npc_out_description,
+        "lookDescription": npc_look_description,
         "canGo": 0,
         "canLook": 1,
         "canWield": 0,
@@ -6090,41 +6105,40 @@ def _conjure_npc(params, mud, playersDB: {}, players: {}, rooms: {},
         "frozenDescription": "",
         "affinity": {},
         "familiar": -1,
-        "familiarOf": npcFamiliarOf,
+        "familiarOf": npc_familiar_of,
         "familiarTarget": "",
-        "familiarType": npcFamiliarType,
-        "familiarMode": npcFamiliarMode,
-        "animalType": npcAnimalType
+        "familiarType": npc_familiar_type,
+        "familiarMode": npc_familiar_mode,
+        "animalType": npc_animal_type
     }
 
-    if isFamiliar:
+    if is_familiar:
         if players[id]['familiar'] != -1:
-            npcsKey = players[id]['familiar']
+            npcs_key = players[id]['familiar']
         else:
-            npcsKey = get_free_key(npcs)
-            players[id]['familiar'] = npcsKey
+            npcs_key = get_free_key(npcs)
+            players[id]['familiar'] = npcs_key
     else:
-        npcsKey = get_free_key(npcs)
+        npcs_key = get_free_key(npcs)
 
-    npcs[npcsKey] = newNPC
-    npcs_db[npcsKey] = newNPC
-    npcsKeyStr = str(npcsKey)
-    log(npcType + ' ' + npcName + ' generated in ' +
-        players[id]['room'] + ' with key ' + npcsKeyStr, 'info')
-    if isFamiliar:
+    npcs[npcs_key] = new_npc
+    npcs_db[npcs_key] = new_npc
+    npcs_key_str = str(npcs_key)
+    log(npc_type + ' ' + npc_name + ' generated in ' +
+        players[id]['room'] + ' with key ' + npcs_key_str, 'info')
+    if is_familiar:
         mud.send_message(
             id,
-            'Your familiar, ' +
-            npcName +
+            'Your familiar, ' + npc_name +
             ', spontaneously appears.\n\n')
     else:
-        mud.send_message(id, npcName + ' spontaneously appears.\n\n')
+        mud.send_message(id, npc_name + ' spontaneously appears.\n\n')
     save_universe(rooms, npcs_db, npcs, items_db, items,
                   env_db, env, guilds_db)
     return True
 
 
-def _dismiss(params, mud, playersDB: {}, players: {}, rooms: {},
+def _dismiss(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {},
              env_db: {}, env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
@@ -6135,12 +6149,12 @@ def _dismiss(params, mud, playersDB: {}, players: {}, rooms: {},
     """
     if params.lower().startswith('familiar'):
         players[id]['familiar'] = -1
-        familiarRemoved = False
+        familiar_removed = False
         removals = []
         for (index, details) in npcs_db.items():
             if details['familiarOf'] == players[id]['name']:
                 removals.append(index)
-                familiarRemoved = True
+                familiar_removed = True
         for index in removals:
             del npcs_db[index]
 
@@ -6151,13 +6165,13 @@ def _dismiss(params, mud, playersDB: {}, players: {}, rooms: {},
         for index in removals:
             del npcs[index]
 
-        if familiarRemoved:
+        if familiar_removed:
             mud.send_message(id, "Your familiar vanishes.\n\n")
         else:
             mud.send_message(id, "\n\n")
 
 
-def _conjure(params, mud, playersDB: {}, players: {}, rooms: {},
+def _conjure(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {},
              env_db: {}, env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
@@ -6169,7 +6183,7 @@ def _conjure(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if params.startswith('familiar'):
-        _conjure_npc(params, mud, playersDB, players, rooms,
+        _conjure_npc(params, mud, players_db, players, rooms,
                      npcs_db, npcs, items_db, items, env_db, env,
                      eventDB, event_schedule, id, fights, corpses,
                      blocklist, map_area, character_class_db,
@@ -6178,7 +6192,7 @@ def _conjure(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if params.startswith('room '):
-        _conjure_room(params, mud, playersDB, players, rooms, npcs_db,
+        _conjure_room(params, mud, players_db, players, rooms, npcs_db,
                       npcs, items_db, items, env_db, env, eventDB,
                       event_schedule, id, fights, corpses, blocklist,
                       map_area, character_class_db, spells_db,
@@ -6187,7 +6201,7 @@ def _conjure(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if params.startswith('npc '):
-        _conjure_npc(params, mud, playersDB, players, rooms,
+        _conjure_npc(params, mud, players_db, players, rooms,
                      npcs_db, npcs, items_db, items, env_db, env,
                      eventDB, event_schedule, id, fights, corpses,
                      blocklist, map_area, character_class_db,
@@ -6195,84 +6209,86 @@ def _conjure(params, mud, playersDB: {}, players: {}, rooms: {},
                      item_history, markets, cultures_db)
         return
 
-    _conjure_item(params, mud, playersDB, players, rooms, npcs_db, npcs,
+    _conjure_item(params, mud, players_db, players, rooms, npcs_db, npcs,
                   items_db, items, env_db, env, eventDB, event_schedule,
                   id, fights, corpses, blocklist, map_area,
                   character_class_db, spells_db, sentiment_db, guilds_db,
                   clouds, races_db, item_history, markets, cultures_db)
 
 
-def _destroy_item(params, mud, playersDB: {}, players: {}, rooms: {},
+def _destroy_item(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                   item_history: {}, markets: {}, cultures_db: {}):
-    itemName = params.lower()
-    if len(itemName) == 0:
+    item_name = params.lower()
+    if len(item_name) == 0:
         mud.send_message(id, "Specify the name of an item to destroy.\n\n")
         return False
 
     # Check if it is in the room
-    itemID = -1
-    destroyedName = ''
-    for (item, pl) in list(items.items()):
+    item_id = -1
+    found_item = None
+    destroyed_name = ''
+    for item, _ in list(items.items()):
         if items[item]['room'] == players[id]['room']:
-            if itemName in items_db[items[item]['id']]['name']:
-                destroyedName = items_db[items[item]['id']]['name']
-                itemID = items[item]['id']
+            if item_name in items_db[items[item]['id']]['name']:
+                destroyed_name = items_db[items[item]['id']]['name']
+                item_id = items[item]['id']
+                found_item = item
                 break
-    if itemID == -1:
+    if item_id == -1:
         mud.send_message(id, "It's not here.\n\n")
         return False
 
     mud.send_message(id, 'It suddenly vanishes.\n\n')
-    del items[item]
-    log("Item destroyed: " + destroyedName +
+    del items[found_item]
+    log("Item destroyed: " + destroyed_name +
         ' in ' + players[id]['room'], 'info')
     save_universe(rooms, npcs_db, npcs, items_db,
                   items, env_db, env, guilds_db)
     return True
 
 
-def _destroy_npc(params, mud, playersDB: {}, players: {}, rooms: {},
+def _destroy_npc(params, mud, players_db: {}, players: {}, rooms: {},
                  npcs_db: {}, npcs: {}, items_db: {}, items: {},
                  env_db: {}, env: {}, eventDB: {}, event_schedule,
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                  item_history: {}, markets: {}, cultures_db: {}):
-    npcName = params.lower().replace('npc ', '').strip().replace('"', '')
-    if len(npcName) == 0:
+    npc_name = params.lower().replace('npc ', '').strip().replace('"', '')
+    if len(npc_name) == 0:
         mud.send_message(id, "Specify the name of an NPC to destroy.\n\n")
         return False
 
     # Check if NPC is in the room
-    npcID = -1
-    destroyedName = ''
-    for (nid, pl) in list(npcs.items()):
+    npc_id = -1
+    destroyed_name = ''
+    for nid, _ in list(npcs.items()):
         if npcs[nid]['room'] == players[id]['room']:
-            if npcName.lower() in npcs[nid]['name'].lower():
-                destroyedName = npcs[nid]['name']
-                npcID = nid
+            if npc_name.lower() in npcs[nid]['name'].lower():
+                destroyed_name = npcs[nid]['name']
+                npc_id = nid
                 break
 
-    if npcID == -1:
+    if npc_id == -1:
         mud.send_message(id, "They're not here.\n\n")
         return False
 
     mud.send_message(id, 'They suddenly vanish.\n\n')
-    del npcs[npcID]
-    del npcs_db[npcID]
-    log("NPC destroyed: " + destroyedName +
+    del npcs[npc_id]
+    del npcs_db[npc_id]
+    log("NPC destroyed: " + destroyed_name +
         ' in ' + players[id]['room'], 'info')
     save_universe(rooms, npcs_db, npcs, items_db,
                   items, env_db, env, guilds_db)
     return True
 
 
-def _destroy_room(params, mud, playersDB: {}, players: {}, rooms: {},
+def _destroy_room(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist,
@@ -6280,8 +6296,8 @@ def _destroy_room(params, mud, playersDB: {}, players: {}, rooms: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                   item_history: {}, markets: {}, cultures_db: {}):
     params = params.replace('room ', '')
-    roomDirection = params.lower().strip()
-    possibleDirections = (
+    room_direction = params.lower().strip()
+    possible_directions = (
         'north',
         'south',
         'east',
@@ -6290,43 +6306,43 @@ def _destroy_room(params, mud, playersDB: {}, players: {}, rooms: {},
         'down',
         'in',
         'out')
-    oppositeDirection = {
+    opposite_direction = {
         'north': 'south', 'south': 'north', 'east': 'west',
         'west': 'east', 'up': 'down', 'down': 'up',
         'in': 'out', 'out': 'in'
     }
-    if roomDirection not in possibleDirections:
+    if room_direction not in possible_directions:
         mud.send_message(id, 'Specify a room direction.\n\n')
         return False
 
     # Is there already a room in that direction?
-    roomExits = _get_room_exits(mud, rooms, players, id)
-    if not roomExits.get(roomDirection):
+    room_exits = _get_room_exits(mud, rooms, players, id)
+    if not room_exits.get(room_direction):
         mud.send_message(id, 'There is no room in that direction.\n\n')
         return False
 
-    roomToDestroyID = roomExits.get(roomDirection)
-    roomToDestroy = rooms[roomToDestroyID]
-    roomExitsToDestroy = roomToDestroy['exits']
-    for direction, room_id in roomExitsToDestroy.items():
+    room_to_destroy_id = room_exits.get(room_direction)
+    room_to_destroy = rooms[room_to_destroy_id]
+    room_exits_to_destroy = room_to_destroy['exits']
+    for direction, room_id in room_exits_to_destroy.items():
         # Remove the exit from the other room to this one
-        otherRoom = rooms[room_id]
-        if otherRoom['exits'].get(oppositeDirection[direction]):
-            del otherRoom['exits'][oppositeDirection[direction]]
-    del rooms[roomToDestroyID]
+        other_room = rooms[room_id]
+        if other_room['exits'].get(opposite_direction[direction]):
+            del other_room['exits'][opposite_direction[direction]]
+    del rooms[room_to_destroy_id]
 
     # update the map area
-    for rm in rooms:
-        rooms[rm]['coords'] = []
+    for rmid in rooms:
+        rooms[rmid]['coords'] = []
 
-    log("Room destroyed: " + roomToDestroyID, 'info')
+    log("Room destroyed: " + room_to_destroy_id, 'info')
     save_universe(rooms, npcs_db, npcs, items_db,
                   items, env_db, env, guilds_db)
     mud.send_message(id, "Room destroyed.\n\n")
     return True
 
 
-def _destroy(params, mud, playersDB: {}, players: {}, rooms: {},
+def _destroy(params, mud, players_db: {}, players: {}, rooms: {},
              npcs_db: {}, npcs: {}, items_db: {}, items: {},
              env_db: {}, env: {}, eventDB: {}, event_schedule,
              id: int, fights: {}, corpses: {}, blocklist,
@@ -6338,7 +6354,7 @@ def _destroy(params, mud, playersDB: {}, players: {}, rooms: {},
         return
 
     if params.startswith('room '):
-        _destroy_room(params, mud, playersDB, players, rooms, npcs_db,
+        _destroy_room(params, mud, players_db, players, rooms, npcs_db,
                       npcs, items_db, items, env_db, env, eventDB,
                       event_schedule, id, fights, corpses, blocklist,
                       map_area, character_class_db, spells_db,
@@ -6346,14 +6362,14 @@ def _destroy(params, mud, playersDB: {}, players: {}, rooms: {},
                       item_history, markets, cultures_db)
     else:
         if params.startswith('npc '):
-            _destroy_npc(params, mud, playersDB, players, rooms, npcs_db,
+            _destroy_npc(params, mud, players_db, players, rooms, npcs_db,
                          npcs, items_db, items, env_db, env, eventDB,
                          event_schedule, id, fights, corpses, blocklist,
                          map_area, character_class_db, spells_db,
                          sentiment_db, guilds_db, clouds, races_db,
                          item_history, markets, cultures_db)
         else:
-            _destroy_item(params, mud, playersDB, players, rooms, npcs_db,
+            _destroy_item(params, mud, players_db, players, rooms, npcs_db,
                           npcs, items_db, items, env_db, env, eventDB,
                           event_schedule, id, fights, corpses, blocklist,
                           map_area, character_class_db, spells_db,
@@ -6361,7 +6377,7 @@ def _destroy(params, mud, playersDB: {}, players: {}, rooms: {},
                           item_history, markets, cultures_db)
 
 
-def _give(params, mud, playersDB: {}, players: {}, rooms: {},
+def _give(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -6374,63 +6390,63 @@ def _give(params, mud, playersDB: {}, players: {}, rooms: {},
         )
         mud.send_message(id, random_desc(desc) + '.\n\n')
         return
-    recipientName = params.split(' to ')[1].lower()
-    recipientId = None
-    for pid, playerItem in players.items():
+    recipient_name = params.split(' to ')[1].lower()
+    recipient_id = None
+    for pid, player_item in players.items():
         if pid == id:
             continue
-        if recipientName not in playerItem['name'].lower():
+        if recipient_name not in player_item['name'].lower():
             continue
-        if playerItem['room'] != players[id]['room']:
+        if player_item['room'] != players[id]['room']:
             continue
-        recipientId = pid
-    if not recipientId:
+        recipient_id = pid
+    if not recipient_id:
         desc = (
             "You don't see them here"
         )
         mud.send_message(id, random_desc(desc) + '.\n\n')
         return
-    giveStr = params.split(' to ')[0].lower()
-    moneyStr = None
+    give_str = params.split(' to ')[0].lower()
+    money_str = None
     denomination = None
-    if ' copper piece' in giveStr:
-        moneyStr = giveStr.split(' copper piece')[0]
+    if ' copper piece' in give_str:
+        money_str = give_str.split(' copper piece')[0]
         denomination = 'cp'
-    elif ' silver piece' in giveStr:
-        moneyStr = giveStr.split(' silver piece')[0]
+    elif ' silver piece' in give_str:
+        money_str = give_str.split(' silver piece')[0]
         denomination = 'sp'
-    elif ' electrum piece' in giveStr:
-        moneyStr = giveStr.split(' electrum piece')[0]
+    elif ' electrum piece' in give_str:
+        money_str = give_str.split(' electrum piece')[0]
         denomination = 'ep'
-    elif ' gold piece' in giveStr:
-        moneyStr = giveStr.split(' gold piece')[0]
+    elif ' gold piece' in give_str:
+        money_str = give_str.split(' gold piece')[0]
         denomination = 'gp'
-    elif ' platium piece' in giveStr:
-        moneyStr = giveStr.split(' platinum piece')[0]
+    elif ' platium piece' in give_str:
+        money_str = give_str.split(' platinum piece')[0]
         denomination = 'pp'
-    elif giveStr.endswith('cp'):
-        moneyStr = giveStr.split('cp')[0]
+    elif give_str.endswith('cp'):
+        money_str = give_str.split('cp')[0]
         denomination = 'cp'
-    elif giveStr.endswith('sp'):
-        moneyStr = giveStr.split('sp')[0]
+    elif give_str.endswith('sp'):
+        money_str = give_str.split('sp')[0]
         denomination = 'sp'
-    elif giveStr.endswith('ep'):
-        moneyStr = giveStr.split('ep')[0]
+    elif give_str.endswith('ep'):
+        money_str = give_str.split('ep')[0]
         denomination = 'ep'
-    elif giveStr.endswith('gp'):
-        moneyStr = giveStr.split('gp')[0]
+    elif give_str.endswith('gp'):
+        money_str = give_str.split('gp')[0]
         denomination = 'gp'
-    elif giveStr.endswith('pp'):
-        moneyStr = giveStr.split('pp')[0]
+    elif give_str.endswith('pp'):
+        money_str = give_str.split('pp')[0]
         denomination = 'pp'
 
     if denomination:
-        moneyStr = moneyStr.strip()
+        money_str = money_str.strip()
         qty = 0
-        if moneyStr.isdigit():
-            qty = int(moneyStr)
+        if money_str.isdigit():
+            qty = int(money_str)
         else:
-            qtyDict = {
+            qty_dict = {
                 'a': 1,
                 'one': 1,
                 'two': 2,
@@ -6444,30 +6460,29 @@ def _give(params, mud, playersDB: {}, players: {}, rooms: {},
                 'ten': 10,
                 'twenty': 20
             }
-            for qtyStr, value in qtyDict.items():
-                if qtyStr in moneyStr:
+            for qty_str, value in qty_dict.items():
+                if qty_str in money_str:
                     qty = value
                     break
         if qty > 0:
             cost = str(qty) + denomination
             if money_purchase(id, players, cost):
-                players[recipientId][denomination] += qty
+                players[recipient_id][denomination] += qty
                 desc = (
-                    "You give " + cost + " to " + players[recipientId]['name']
+                    "You give " + cost + " to " + players[recipient_id]['name']
                 )
                 mud.send_message(id, random_desc(desc) + '.\n\n')
                 desc = (
                     players[id]['name'] + " gives you " + cost
                 )
-                mud.send_message(recipientId,
+                mud.send_message(recipient_id,
                                  random_desc(desc) + '.\n\n')
                 return
-            else:
-                desc = (
-                    "You don't have " + cost
-                )
-                mud.send_message(id, random_desc(desc) + '.\n\n')
-                return
+            desc = (
+                "You don't have " + cost
+            )
+            mud.send_message(id, random_desc(desc) + '.\n\n')
+            return
     desc = (
         "You don't have that"
     )
@@ -6475,7 +6490,7 @@ def _give(params, mud, playersDB: {}, players: {}, rooms: {},
     return
 
 
-def _drop(params, mud, playersDB: {}, players: {}, rooms: {},
+def _drop(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -6489,37 +6504,37 @@ def _drop(params, mud, playersDB: {}, players: {}, rooms: {},
         mud.send_message(id, 'You don`t have that!\n\n')
         return
 
-    itemInDB = False
-    itemInInventory = False
-    itemID = None
+    item_in_db = False
+    item_in_inventory = False
+    item_id = None
     target = str(params).lower()
     if target.startswith('the '):
         target = params.replace('the ', '')
 
     # Check if item is in player's inventory
     for item in players[id]['inv']:
-        for (iid, pl) in list(items_db.items()):
+        for iid, _ in list(items_db.items()):
             if str(iid) == str(item):
                 if items_db[iid]['name'].lower() == target:
-                    itemID = iid
-                    itemInInventory = True
-                    itemInDB = True
+                    item_id = iid
+                    item_in_inventory = True
+                    item_in_db = True
                     break
-        if itemInInventory:
+        if item_in_inventory:
             break
 
-    if not itemInInventory:
+    if not item_in_inventory:
         # Try a fuzzy match
         for item in players[id]['inv']:
-            for (iid, pl) in list(items_db.items()):
+            for iid, _ in list(items_db.items()):
                 if str(iid) == str(item):
                     if target in items_db[iid]['name'].lower():
-                        itemID = iid
-                        itemInInventory = True
-                        itemInDB = True
+                        item_id = iid
+                        item_in_inventory = True
+                        item_in_db = True
                         break
 
-    if itemInDB and itemInInventory:
+    if item_in_db and item_in_inventory:
         if player_is_trapped(id, players, rooms):
             desc = (
                 "You're trapped",
@@ -6529,22 +6544,22 @@ def _drop(params, mud, playersDB: {}, players: {}, rooms: {},
             mud.send_message(id, random_desc(desc) + '.\n\n')
             return
 
-        inventoryCopy = deepcopy(players[id]['inv'])
-        for i in inventoryCopy:
-            if int(i) == itemID:
+        inventory_copy = deepcopy(players[id]['inv'])
+        for i in inventory_copy:
+            if int(i) == item_id:
                 # Remove first matching item from inventory
                 players[id]['inv'].remove(i)
-                update_player_attributes(id, players, items_db, itemID, -1)
+                update_player_attributes(id, players, items_db, item_id, -1)
                 break
 
         players[id]['wei'] = player_inventory_weight(id, players, items_db)
 
         # remove from clothing
-        _remove_item_from_clothing(players, id, int(i))
+        _remove_item_from_clothing(players, id, item_id)
 
         # Create item on the floor in the same room as the player
         items[get_free_key(items)] = {
-            'id': itemID,
+            'id': item_id,
             'room': players[id]['room'],
             'whenDropped': int(time.time()),
             'lifespan': 900000000,
@@ -6558,9 +6573,9 @@ def _drop(params, mud, playersDB: {}, players: {}, rooms: {},
         # print(y,':',itemsInWorld[x][y])
 
         mud.send_message(id, 'You drop ' +
-                         items_db[int(i)]['article'] +
+                         items_db[item_id]['article'] +
                          ' ' +
-                         items_db[int(i)]['name'] +
+                         items_db[item_id]['name'] +
                          ' on the floor.\n\n')
 
     else:
@@ -6571,293 +6586,292 @@ def _open_item_unlock(items: {}, items_db: {}, id, iid,
                       players: {}, mud) -> bool:
     """Unlock an item
     """
-    unlockItemID = items_db[items[iid]['id']]['lockedWithItem']
-    if not str(unlockItemID).isdigit():
+    unlock_item_id = items_db[items[iid]['id']]['lockedWithItem']
+    if not str(unlock_item_id).isdigit():
         return True
-    if unlockItemID <= 0:
+    if unlock_item_id <= 0:
         return True
-    keyFound = False
+    key_found = False
     for i in list(players[id]['inv']):
-        if int(i) == unlockItemID:
-            keyFound = True
+        if int(i) == unlock_item_id:
+            key_found = True
             break
-    if keyFound:
+    if key_found:
         mud.send_message(
             id, 'You use ' +
-            items_db[unlockItemID]['article'] +
-            ' ' + items_db[unlockItemID]['name'])
+            items_db[unlock_item_id]['article'] +
+            ' ' + items_db[unlock_item_id]['name'])
     else:
-        if len(items_db[unlockItemID]['open_failed_description']) > 0:
+        if len(items_db[unlock_item_id]['open_failed_description']) > 0:
             mud.send_message(
-                id, items_db[unlockItemID]['open_failed_description'] +
+                id, items_db[unlock_item_id]['open_failed_description'] +
                 ".\n\n")
         else:
-            if items_db[unlockItemID]['state'].startswith('lever '):
+            if items_db[unlock_item_id]['state'].startswith('lever '):
                 mud.send_message(id, "It's operated with a lever.\n\n")
             else:
                 if randint(0, 1) == 1:
                     mud.send_message(
                         id, "You don't have " +
-                        items_db[unlockItemID]['article'] +
-                        " " + items_db[unlockItemID]['name'] +
+                        items_db[unlock_item_id]['article'] +
+                        " " + items_db[unlock_item_id]['name'] +
                         ".\n\n")
                 else:
                     mud.send_message(
                         id, "Looks like you need " +
-                        items_db[unlockItemID]['article'] +
-                        " " + items_db[unlockItemID]['name'] +
+                        items_db[unlock_item_id]['article'] +
+                        " " + items_db[unlock_item_id]['name'] +
                         " for this.\n\n")
         return False
     return True
 
 
-def _describe_container_contents(mud, id, items_db: {}, itemID: {}, returnMsg):
+def _describe_container_contents(mud, id, items_db: {}, item_id: {},
+                                 return_msg) -> None:
     """Describe a container contents
     """
-    if not items_db[itemID]['state'].startswith('container open'):
-        if returnMsg:
+    if not items_db[item_id]['state'].startswith('container open'):
+        if return_msg:
             return ''
-        else:
-            return
-    containsList = items_db[itemID]['contains']
-    noOfItems = len(containsList)
-    containerMsg = '<f15>You see '
+        return
+    contains_list = items_db[item_id]['contains']
+    no_of_items = len(contains_list)
+    container_msg = '<f15>You see '
 
-    if noOfItems == 0:
-        if 'open always' not in items_db[itemID]['state']:
-            mud.send_message(id, containerMsg + 'nothing.\n')
+    if no_of_items == 0:
+        if 'open always' not in items_db[item_id]['state']:
+            mud.send_message(id, container_msg + 'nothing.\n')
         return ''
 
-    itemCtr = 0
-    for contentsID in containsList:
-        if itemCtr > 0:
-            if itemCtr < noOfItems - 1:
-                containerMsg += ', '
+    item_ctr = 0
+    for contents_id in contains_list:
+        if item_ctr > 0:
+            if item_ctr < no_of_items - 1:
+                container_msg += ', '
             else:
-                containerMsg += ' and '
+                container_msg += ' and '
 
-        containerMsg += \
-            items_db[int(contentsID)]['article'] + \
+        container_msg += \
+            items_db[int(contents_id)]['article'] + \
             ' <b234><f220>' + \
-            items_db[int(contentsID)]['name'] + '<r>'
-        itemCtr += 1
+            items_db[int(contents_id)]['name'] + '<r>'
+        item_ctr += 1
 
-    containerMsg = containerMsg + '.\n'
-    if returnMsg:
-        containerMsg = '\n' + containerMsg
-        return containerMsg
-    else:
-        mud.send_message_wrap(id, '<f220>', containerMsg + '\n')
+    container_msg = container_msg + '.\n'
+    if return_msg:
+        container_msg = '\n' + container_msg
+        return container_msg
+    mud.send_message_wrap(id, '<f220>', container_msg + '\n')
 
 
-def _open_item_container(params, mud, playersDB: {}, players: {}, rooms: {},
+def _open_item_container(params, mud, players_db: {}, players: {}, rooms: {},
                          npcs_db: {}, npcs: {}, items_db: {}, items: {},
                          env_db: {}, env: {}, eventDB: {}, event_schedule,
                          id: int, fights: {}, corpses: {}, target,
-                         itemsInWorldCopy: {}, iid):
+                         items_in_world_copy: {}, iid):
     """Opens a container
     """
     if not _open_item_unlock(items, items_db, id, iid, players, mud):
         return
 
-    itemID = items[iid]['id']
-    if items_db[itemID]['state'].startswith('container open'):
+    item_id = items[iid]['id']
+    if items_db[item_id]['state'].startswith('container open'):
         mud.send_message(id, "It's already open\n\n")
         return
 
-    items_db[itemID]['state'] = \
-        items_db[itemID]['state'].replace('closed', 'open')
-    items_db[itemID]['short_description'] = \
-        items_db[itemID]['short_description'].replace('closed', 'open')
-    items_db[itemID]['long_description'] = \
-        items_db[itemID]['long_description'].replace('closed', 'open')
-    items_db[itemID]['long_description'] = \
-        items_db[itemID]['long_description'].replace('shut', 'open')
+    items_db[item_id]['state'] = \
+        items_db[item_id]['state'].replace('closed', 'open')
+    items_db[item_id]['short_description'] = \
+        items_db[item_id]['short_description'].replace('closed', 'open')
+    items_db[item_id]['long_description'] = \
+        items_db[item_id]['long_description'].replace('closed', 'open')
+    items_db[item_id]['long_description'] = \
+        items_db[item_id]['long_description'].replace('shut', 'open')
 
-    if len(items_db[itemID]['open_description']) > 0:
-        mud.send_message(id, items_db[itemID]['open_description'] + '\n\n')
+    if len(items_db[item_id]['open_description']) > 0:
+        mud.send_message(id, items_db[item_id]['open_description'] + '\n\n')
     else:
-        itemArticle = items_db[itemID]['article']
-        if itemArticle == 'a':
-            itemArticle = 'the'
-        mud.send_message(id, 'You open ' + itemArticle +
-                         ' ' + items_db[itemID]['name'] + '.\n\n')
-    _describe_container_contents(mud, id, items_db, itemID, False)
+        item_article = items_db[item_id]['article']
+        if item_article == 'a':
+            item_article = 'the'
+        mud.send_message(id, 'You open ' + item_article +
+                         ' ' + items_db[item_id]['name'] + '.\n\n')
+    _describe_container_contents(mud, id, items_db, item_id, False)
 
 
-def _lever_up(params, mud, playersDB: {}, players: {}, rooms: {},
+def _lever_up(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, target,
-              itemsInWorldCopy: {}, iid):
+              items_in_world_copy: {}, iid):
     """Pull a lever up
     """
-    itemID = items[iid]['id']
-    linkedItemID = int(items_db[itemID]['linkedItem'])
-    room_id = items_db[itemID]['exit']
+    item_id = items[iid]['id']
+    linked_item_id = int(items_db[item_id]['linkedItem'])
+    room_id = items_db[item_id]['exit']
 
-    items_db[itemID]['state'] = 'lever up'
-    items_db[itemID]['short_description'] = \
-        items_db[itemID]['short_description'].replace('down', 'up')
-    items_db[itemID]['long_description'] = \
-        items_db[itemID]['long_description'].replace('down', 'up')
-    if '|' in items_db[itemID]['exitName']:
-        exitName = items_db[itemID]['exitName'].split('|')
+    items_db[item_id]['state'] = 'lever up'
+    items_db[item_id]['short_description'] = \
+        items_db[item_id]['short_description'].replace('down', 'up')
+    items_db[item_id]['long_description'] = \
+        items_db[item_id]['long_description'].replace('down', 'up')
+    if '|' in items_db[item_id]['exitName']:
+        exit_name = items_db[item_id]['exitName'].split('|')
 
-        if linkedItemID > 0:
-            desc = items_db[linkedItemID]['short_description']
-            items_db[linkedItemID]['short_description'] = \
+        if linked_item_id > 0:
+            desc = items_db[linked_item_id]['short_description']
+            items_db[linked_item_id]['short_description'] = \
                 desc.replace('open', 'closed')
-            desc = items_db[linkedItemID]['long_description']
-            items_db[linkedItemID]['long_description'] = \
+            desc = items_db[linked_item_id]['long_description']
+            items_db[linked_item_id]['long_description'] = \
                 desc.replace('open', 'closed')
-            items_db[linkedItemID]['state'] = 'closed'
-            linkedItemID2 = int(items_db[linkedItemID]['linkedItem'])
-            if linkedItemID2 > 0:
-                desc = items_db[linkedItemID2]['short_description']
-                items_db[linkedItemID2]['short_description'] = \
+            items_db[linked_item_id]['state'] = 'closed'
+            linked_item_id2 = int(items_db[linked_item_id]['linkedItem'])
+            if linked_item_id2 > 0:
+                desc = items_db[linked_item_id2]['short_description']
+                items_db[linked_item_id2]['short_description'] = \
                     desc.replace('open', 'closed')
-                desc = items_db[linkedItemID2]['long_description']
-                items_db[linkedItemID2]['long_description'] = \
+                desc = items_db[linked_item_id2]['long_description']
+                items_db[linked_item_id2]['long_description'] = \
                     desc.replace('open', 'closed')
-                items_db[linkedItemID2]['state'] = 'closed'
+                items_db[linked_item_id2]['state'] = 'closed'
 
         if len(room_id) > 0:
-            rm = players[id]['room']
-            if exitName[0] in rooms[rm]['exits']:
-                del rooms[rm]['exits'][exitName[0]]
+            rmid = players[id]['room']
+            if exit_name[0] in rooms[rmid]['exits']:
+                del rooms[rmid]['exits'][exit_name[0]]
 
-            rm = room_id
-            if exitName[1] in rooms[rm]['exits']:
-                del rooms[rm]['exits'][exitName[1]]
+            rmid = room_id
+            if exit_name[1] in rooms[rmid]['exits']:
+                del rooms[rmid]['exits'][exit_name[1]]
 
-    if len(items_db[itemID]['close_description']) > 0:
+    if len(items_db[item_id]['close_description']) > 0:
         mud.send_message_wrap(id, '<f220>',
-                              items_db[itemID]['close_description'] + '\n\n')
+                              items_db[item_id]['close_description'] + '\n\n')
     else:
         mud.send_message(
             id, 'You push ' +
-            items_db[itemID]['article'] +
-            ' ' + items_db[itemID]['name'] +
+            items_db[item_id]['article'] +
+            ' ' + items_db[item_id]['name'] +
             '\n\n')
 
 
-def _lever_down(params, mud, playersDB: {}, players: {}, rooms: {},
+def _lever_down(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, target,
-                itemsInWorldCopy: {}, iid):
+                items_in_world_copy: {}, iid):
     if not _open_item_unlock(items, items_db, id, iid, players, mud):
         return
 
-    itemID = items[iid]['id']
-    linkedItemID = int(items_db[itemID]['linkedItem'])
-    room_id = items_db[itemID]['exit']
+    item_id = items[iid]['id']
+    linked_item_id = int(items_db[item_id]['linkedItem'])
+    room_id = items_db[item_id]['exit']
 
-    items_db[itemID]['state'] = 'lever down'
-    items_db[itemID]['short_description'] = \
-        items_db[itemID]['short_description'].replace('up', 'down')
-    items_db[itemID]['long_description'] = \
-        items_db[itemID]['long_description'].replace('up', 'down')
-    if '|' in items_db[itemID]['exitName']:
-        exitName = items_db[itemID]['exitName'].split('|')
+    items_db[item_id]['state'] = 'lever down'
+    items_db[item_id]['short_description'] = \
+        items_db[item_id]['short_description'].replace('up', 'down')
+    items_db[item_id]['long_description'] = \
+        items_db[item_id]['long_description'].replace('up', 'down')
+    if '|' in items_db[item_id]['exitName']:
+        exit_name = items_db[item_id]['exitName'].split('|')
 
-        if linkedItemID > 0:
-            desc = items_db[linkedItemID]['short_description']
-            items_db[linkedItemID]['short_description'] = \
+        if linked_item_id > 0:
+            desc = items_db[linked_item_id]['short_description']
+            items_db[linked_item_id]['short_description'] = \
                 desc.replace('closed', 'open')
-            desc = items_db[linkedItemID]['long_description']
-            items_db[linkedItemID]['long_description'] = \
+            desc = items_db[linked_item_id]['long_description']
+            items_db[linked_item_id]['long_description'] = \
                 desc.replace('closed', 'open')
-            items_db[linkedItemID]['state'] = 'open'
-            linkedItemID2 = int(items_db[linkedItemID]['linkedItem'])
-            if linkedItemID2 > 0:
-                desc = items_db[linkedItemID2]['short_description']
-                items_db[linkedItemID2]['short_description'] = \
+            items_db[linked_item_id]['state'] = 'open'
+            linked_item_id2 = int(items_db[linked_item_id]['linkedItem'])
+            if linked_item_id2 > 0:
+                desc = items_db[linked_item_id2]['short_description']
+                items_db[linked_item_id2]['short_description'] = \
                     desc.replace('closed', 'open')
-                desc = items_db[linkedItemID2]['long_description']
-                items_db[linkedItemID2]['long_description'] = \
+                desc = items_db[linked_item_id2]['long_description']
+                items_db[linked_item_id2]['long_description'] = \
                     desc.replace('closed', 'open')
-                items_db[linkedItemID2]['state'] = 'open'
+                items_db[linked_item_id2]['state'] = 'open'
 
         if len(room_id) > 0:
-            rm = players[id]['room']
-            if exitName[0] in rooms[rm]['exits']:
-                del rooms[rm]['exits'][exitName[0]]
-            rooms[rm]['exits'][exitName[0]] = room_id
+            rmid = players[id]['room']
+            if exit_name[0] in rooms[rmid]['exits']:
+                del rooms[rmid]['exits'][exit_name[0]]
+            rooms[rmid]['exits'][exit_name[0]] = room_id
 
-            rm = room_id
-            if exitName[1] in rooms[rm]['exits']:
-                del rooms[rm]['exits'][exitName[1]]
-            rooms[rm]['exits'][exitName[1]] = players[id]['room']
+            rmid = room_id
+            if exit_name[1] in rooms[rmid]['exits']:
+                del rooms[rmid]['exits'][exit_name[1]]
+            rooms[rmid]['exits'][exit_name[1]] = players[id]['room']
 
-    if len(items_db[itemID]['open_description']) > 0:
+    if len(items_db[item_id]['open_description']) > 0:
         mud.send_message_wrap(id, '<f220>',
-                              items_db[itemID]['open_description'] +
+                              items_db[item_id]['open_description'] +
                               '\n\n')
     else:
         mud.send_message(
             id, 'You pull ' +
-            items_db[itemID]['article'] +
-            ' ' + items_db[itemID]['name'] +
+            items_db[item_id]['article'] +
+            ' ' + items_db[item_id]['name'] +
             '\n\n')
 
 
-def _open_item_door(params, mud, playersDB: {}, players: {}, rooms: {},
+def _open_item_door(params, mud, players_db: {}, players: {}, rooms: {},
                     npcs_db: {}, npcs: {}, items_db: {}, items: {},
                     env_db: {}, env: {}, eventDB: {}, event_schedule,
                     id: int, fights: {}, corpses: {}, target,
-                    itemsInWorldCopy: {}, iid):
+                    items_in_world_copy: {}, iid):
     if not _open_item_unlock(items, items_db, id, iid, players, mud):
         return
 
-    itemID = items[iid]['id']
-    linkedItemID = int(items_db[itemID]['linkedItem'])
-    room_id = items_db[itemID]['exit']
-    if '|' in items_db[itemID]['exitName']:
-        exitName = items_db[itemID]['exitName'].split('|')
+    item_id = items[iid]['id']
+    linked_item_id = int(items_db[item_id]['linkedItem'])
+    room_id = items_db[item_id]['exit']
+    if '|' in items_db[item_id]['exitName']:
+        exit_name = items_db[item_id]['exitName'].split('|')
 
-        items_db[itemID]['state'] = 'open'
-        desc = items_db[itemID]['short_description']
-        items_db[itemID]['short_description'] = \
+        items_db[item_id]['state'] = 'open'
+        desc = items_db[item_id]['short_description']
+        items_db[item_id]['short_description'] = \
             desc.replace('closed', 'open').replace('drawn up', 'drawn down')
-        desc = items_db[itemID]['long_description']
-        items_db[itemID]['long_description'] = \
+        desc = items_db[item_id]['long_description']
+        items_db[item_id]['long_description'] = \
             desc.replace('closed', 'open').replace('drawn up', 'drawn down')
 
-        if linkedItemID > 0:
-            desc = items_db[linkedItemID]['short_description']
-            items_db[linkedItemID]['short_description'] = \
+        if linked_item_id > 0:
+            desc = items_db[linked_item_id]['short_description']
+            items_db[linked_item_id]['short_description'] = \
                 desc.replace('closed',
                              'open').replace('drawn up', 'drawn down')
-            desc = items_db[linkedItemID]['long_description']
-            items_db[linkedItemID]['long_description'] = \
+            desc = items_db[linked_item_id]['long_description']
+            items_db[linked_item_id]['long_description'] = \
                 desc.replace('closed',
                              'open').replace('drawn up', 'drawn down')
-            items_db[linkedItemID]['state'] = 'open'
+            items_db[linked_item_id]['state'] = 'open'
 
         if len(room_id) > 0:
-            rm = players[id]['room']
-            if exitName[0] in rooms[rm]['exits']:
-                del rooms[rm]['exits'][exitName[0]]
-            rooms[rm]['exits'][exitName[0]] = room_id
+            rmid = players[id]['room']
+            if exit_name[0] in rooms[rmid]['exits']:
+                del rooms[rmid]['exits'][exit_name[0]]
+            rooms[rmid]['exits'][exit_name[0]] = room_id
 
-            rm = room_id
-            if exitName[1] in rooms[rm]['exits']:
-                del rooms[rm]['exits'][exitName[1]]
-            rooms[rm]['exits'][exitName[1]] = players[id]['room']
+            rmid = room_id
+            if exit_name[1] in rooms[rmid]['exits']:
+                del rooms[rmid]['exits'][exit_name[1]]
+            rooms[rmid]['exits'][exit_name[1]] = players[id]['room']
 
-    if len(items_db[itemID]['open_description']) > 0:
-        mud.send_message(id, items_db[itemID]['open_description'] + '\n\n')
+    if len(items_db[item_id]['open_description']) > 0:
+        mud.send_message(id, items_db[item_id]['open_description'] + '\n\n')
     else:
         mud.send_message(
             id, 'You open ' +
-            items_db[itemID]['article'] +
-            ' ' + items_db[itemID]['name'] +
+            items_db[item_id]['article'] +
+            ' ' + items_db[item_id]['name'] +
             '\n\n')
 
 
-def _open_item(params, mud, playersDB: {}, players: {}, rooms: {},
+def _open_item(params, mud, players_db: {}, players: {}, rooms: {},
                npcs_db: {}, npcs: {}, items_db: {}, items: {},
                env_db: {}, env: {}, eventDB: {}, event_schedule,
                id: int, fights: {}, corpses: {}, blocklist,
@@ -6873,30 +6887,30 @@ def _open_item(params, mud, playersDB: {}, players: {}, rooms: {},
     if target.startswith('the '):
         target = target.replace('the ', '')
 
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+    items_in_world_copy = deepcopy(items)
+    for (iid, pl) in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if items_db[items[iid]['id']]['state'] == 'closed':
-                    _open_item_door(params, mud, playersDB, players, rooms,
+                    _open_item_door(params, mud, players_db, players, rooms,
                                     npcs_db, npcs, items_db, items,
                                     env_db, env,
                                     eventDB, event_schedule, id, fights,
-                                    corpses, target, itemsInWorldCopy,
+                                    corpses, target, items_in_world_copy,
                                     iid)
                     return
                 idx = items[iid]['id']
                 if items_db[idx]['state'].startswith('container closed'):
-                    _open_item_container(params, mud, playersDB, players,
+                    _open_item_container(params, mud, players_db, players,
                                          rooms, npcs_db, npcs, items_db,
                                          items, env_db, env, eventDB,
                                          event_schedule, id, fights, corpses,
-                                         target, itemsInWorldCopy, iid)
+                                         target, items_in_world_copy, iid)
                     return
     mud.send_message(id, "You can't open it.\n\n")
 
 
-def _pull_lever(params, mud, playersDB: {}, players: {}, rooms: {},
+def _pull_lever(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist: {},
@@ -6909,23 +6923,22 @@ def _pull_lever(params, mud, playersDB: {}, players: {}, rooms: {},
         _enable_registrations(mud, id, players)
         return
 
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+    items_in_world_copy = deepcopy(items)
+    for iid, _ in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if items_db[items[iid]['id']]['state'] == 'lever up':
-                    _lever_down(params, mud, playersDB, players, rooms,
+                    _lever_down(params, mud, players_db, players, rooms,
                                 npcs_db, npcs, items_db, items, env_db,
                                 env, eventDB, event_schedule, id, fights,
-                                corpses, target, itemsInWorldCopy, iid)
+                                corpses, target, items_in_world_copy, iid)
                     return
-                else:
-                    mud.send_message(id, 'Nothing happens.\n\n')
-                    return
+                mud.send_message(id, 'Nothing happens.\n\n')
+                return
     mud.send_message(id, "There's nothing to pull.\n\n")
 
 
-def _push_lever(params, mud, playersDB: {}, players: {}, rooms: {},
+def _push_lever(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -6940,28 +6953,28 @@ def _push_lever(params, mud, playersDB: {}, players: {}, rooms: {},
         _enable_registrations(mud, id, players)
         return
 
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+    items_in_world_copy = deepcopy(items)
+    for iid, _ in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if not items_db[items[iid]['id']]['state']:
-                    _heave(params, mud, playersDB, players, rooms,
+                    _heave(params, mud, players_db, players, rooms,
                            npcs_db, npcs, items_db, items, env_db, env,
                            eventDB, event_schedule, id, fights,
                            corpses, blocklist, map_area, character_class_db,
                            spells_db, sentiment_db, guilds_db, clouds,
                            races_db, item_history, markets, cultures_db)
                     return
-                elif items_db[items[iid]['id']]['state'] == 'lever down':
-                    _lever_up(params, mud, playersDB, players, rooms, npcs_db,
+                if items_db[items[iid]['id']]['state'] == 'lever down':
+                    _lever_up(params, mud, players_db, players, rooms, npcs_db,
                               npcs, items_db, items, env_db, env, eventDB,
                               event_schedule, id, fights, corpses, target,
-                              itemsInWorldCopy, iid)
+                              items_in_world_copy, iid)
                     return
     mud.send_message(id, 'Nothing happens.\n\n')
 
 
-def _wind_lever(params, mud, playersDB: {}, players: {}, rooms: {},
+def _wind_lever(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -6974,24 +6987,23 @@ def _wind_lever(params, mud, playersDB: {}, players: {}, rooms: {},
         _enable_registrations(mud, id, players)
         return
 
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+    items_in_world_copy = deepcopy(items)
+    for iid, _ in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if items_db[items[iid]['id']]['state'] == 'lever up':
-                    _lever_down(params, mud, playersDB, players, rooms,
+                    _lever_down(params, mud, players_db, players, rooms,
                                 npcs_db, npcs, items_db, items, env_db,
                                 env, eventDB, event_schedule, id,
                                 fights, corpses, target,
-                                itemsInWorldCopy, iid)
+                                items_in_world_copy, iid)
                     return
-                else:
-                    mud.send_message(id, "It's wound all the way.\n\n")
-                    return
+                mud.send_message(id, "It's wound all the way.\n\n")
+                return
     mud.send_message(id, "There's nothing to wind.\n\n")
 
 
-def _unwind_lever(params, mud, playersDB: {}, players: {}, rooms: {},
+def _unwind_lever(params, mud, players_db: {}, players: {}, rooms: {},
                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
                   env_db: {}, env: {}, eventDB: {}, event_schedule,
                   id: int, fights: {}, corpses: {}, blocklist,
@@ -7004,99 +7016,98 @@ def _unwind_lever(params, mud, playersDB: {}, players: {}, rooms: {},
         _enable_registrations(mud, id, players)
         return
 
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+    items_in_world_copy = deepcopy(items)
+    for iid, _ in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if items_db[items[iid]['id']]['state'] == 'lever down':
-                    _lever_up(params, mud, playersDB, players, rooms,
+                    _lever_up(params, mud, players_db, players, rooms,
                               npcs_db, npcs, items_db, items, env_db, env,
                               eventDB, event_schedule, id, fights,
-                              corpses, target, itemsInWorldCopy, iid)
+                              corpses, target, items_in_world_copy, iid)
                     return
-                else:
-                    mud.send_message(id, "It's unwound all the way.\n\n")
-                    return
+                mud.send_message(id, "It's unwound all the way.\n\n")
+                return
     mud.send_message(id, "There's nothing to unwind.\n\n")
 
 
-def _close_item_container(params, mud, playersDB: {}, players: {}, rooms: {},
+def _close_item_container(params, mud, players_db: {}, players: {}, rooms: {},
                           npcs_db: {}, npcs: {}, items_db: {}, items: {},
                           env_db: {}, env: {}, eventDB: {}, event_schedule,
                           id: int, fights: {}, corpses: {}, target,
-                          itemsInWorldCopy: {}, iid):
-    itemID = items[iid]['id']
-    if items_db[itemID]['state'].startswith('container closed'):
+                          items_in_world_copy: {}, iid):
+    item_id = items[iid]['id']
+    if items_db[item_id]['state'].startswith('container closed'):
         mud.send_message(id, "It's already closed\n\n")
         return
 
-    if items_db[itemID]['state'].startswith('container open '):
+    if items_db[item_id]['state'].startswith('container open '):
         mud.send_message(id, "That's not possible.\n\n")
         return
 
-    items_db[itemID]['state'] = \
-        items_db[itemID]['state'].replace('open', 'closed')
-    items_db[itemID]['short_description'] = \
-        items_db[itemID]['short_description'].replace('open', 'closed')
-    items_db[itemID]['long_description'] = \
-        items_db[itemID]['long_description'].replace('open', 'closed')
+    items_db[item_id]['state'] = \
+        items_db[item_id]['state'].replace('open', 'closed')
+    items_db[item_id]['short_description'] = \
+        items_db[item_id]['short_description'].replace('open', 'closed')
+    items_db[item_id]['long_description'] = \
+        items_db[item_id]['long_description'].replace('open', 'closed')
 
-    if len(items_db[itemID]['close_description']) > 0:
-        mud.send_message(id, items_db[itemID]['close_description'] + '\n\n')
+    if len(items_db[item_id]['close_description']) > 0:
+        mud.send_message(id, items_db[item_id]['close_description'] + '\n\n')
     else:
-        itemArticle = items_db[itemID]['article']
-        if itemArticle == 'a':
-            itemArticle = 'the'
-        mud.send_message(id, 'You close ' + itemArticle +
-                         ' ' + items_db[itemID]['name'] + '.\n\n')
+        item_article = items_db[item_id]['article']
+        if item_article == 'a':
+            item_article = 'the'
+        mud.send_message(id, 'You close ' + item_article +
+                         ' ' + items_db[item_id]['name'] + '.\n\n')
 
 
-def _close_item_door(params, mud, playersDB: {}, players: {}, rooms: {},
+def _close_item_door(params, mud, players_db: {}, players: {}, rooms: {},
                      npcs_db: {}, npcs: {}, items_db: {}, items: {},
                      env_db: {}, env: {}, eventDB: {}, event_schedule,
                      id: int, fights: {}, corpses: {}, target,
-                     itemsInWorldCopy: {}, iid):
-    itemID = items[iid]['id']
-    linkedItemID = int(items_db[itemID]['linkedItem'])
-    room_id = items_db[itemID]['exit']
-    if '|' not in items_db[itemID]['exitName']:
+                     items_in_world_copy: {}, iid):
+    item_id = items[iid]['id']
+    linked_item_id = int(items_db[item_id]['linkedItem'])
+    room_id = items_db[item_id]['exit']
+    if '|' not in items_db[item_id]['exitName']:
         return
 
-    exitName = items_db[itemID]['exitName'].split('|')
+    exit_name = items_db[item_id]['exitName'].split('|')
 
-    items_db[itemID]['state'] = 'closed'
-    items_db[itemID]['short_description'] = \
-        items_db[itemID]['short_description'].replace('open', 'closed')
-    items_db[itemID]['long_description'] = \
-        items_db[itemID]['long_description'].replace('open', 'closed')
+    items_db[item_id]['state'] = 'closed'
+    items_db[item_id]['short_description'] = \
+        items_db[item_id]['short_description'].replace('open', 'closed')
+    items_db[item_id]['long_description'] = \
+        items_db[item_id]['long_description'].replace('open', 'closed')
 
-    if linkedItemID > 0:
-        desc = items_db[linkedItemID]['short_description']
-        items_db[linkedItemID]['short_description'] = \
+    if linked_item_id > 0:
+        desc = items_db[linked_item_id]['short_description']
+        items_db[linked_item_id]['short_description'] = \
             desc.replace('open', 'closed').replace('drawn down', 'drawn up')
-        desc = items_db[linkedItemID]['long_description']
-        items_db[linkedItemID]['long_description'] = \
+        desc = items_db[linked_item_id]['long_description']
+        items_db[linked_item_id]['long_description'] = \
             desc.replace('open', 'closed').replace('drawn down', 'drawn up')
-        items_db[linkedItemID]['state'] = 'closed'
+        items_db[linked_item_id]['state'] = 'closed'
 
     if len(room_id) > 0:
-        rm = players[id]['room']
-        if exitName[0] in rooms[rm]['exits']:
-            del rooms[rm]['exits'][exitName[0]]
+        rmid = players[id]['room']
+        if exit_name[0] in rooms[rmid]['exits']:
+            del rooms[rmid]['exits'][exit_name[0]]
 
-        rm = room_id
-        if exitName[1] in rooms[rm]['exits']:
-            del rooms[rm]['exits'][exitName[1]]
+        rmid = room_id
+        if exit_name[1] in rooms[rmid]['exits']:
+            del rooms[rmid]['exits'][exit_name[1]]
 
-    if len(items_db[itemID]['close_description']) > 0:
-        mud.send_message(id, items_db[itemID]['close_description'] + '\n\n')
+    if len(items_db[item_id]['close_description']) > 0:
+        mud.send_message(id, items_db[item_id]['close_description'] + '\n\n')
     else:
         mud.send_message(id, 'You close ' +
-                         items_db[itemID]['article'] + ' ' +
-                         items_db[itemID]['name'] + '\n\n')
+                         items_db[item_id]['article'] + ' ' +
+                         items_db[item_id]['name'] + '\n\n')
 
 
-def _close_item(params, mud, playersDB: {}, players: {}, rooms: {},
+def _close_item(params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -7112,31 +7123,31 @@ def _close_item(params, mud, playersDB: {}, players: {}, rooms: {},
     if target.startswith('the '):
         target = target.replace('the ', '')
 
-    itemsInWorldCopy = deepcopy(items)
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
+    items_in_world_copy = deepcopy(items)
+    for iid, _ in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if items_db[items[iid]['id']]['state'] == 'open':
-                    _close_item_door(params, mud, playersDB, players,
+                    _close_item_door(params, mud, players_db, players,
                                      rooms, npcs_db, npcs, items_db,
                                      items, env_db, env, eventDB,
                                      event_schedule, id, fights,
-                                     corpses, target, itemsInWorldCopy,
+                                     corpses, target, items_in_world_copy,
                                      iid)
                     return
                 idx = items[iid]['id']
                 if items_db[idx]['state'].startswith('container open'):
-                    _close_item_container(params, mud, playersDB, players,
+                    _close_item_container(params, mud, players_db, players,
                                           rooms, npcs_db, npcs, items_db,
                                           items, env_db, env, eventDB,
                                           event_schedule, id, fights,
-                                          corpses, target, itemsInWorldCopy,
+                                          corpses, target, items_in_world_copy,
                                           iid)
                     return
     mud.send_message(id, "You can't close it.\n\n")
 
 
-def _put_item(params, mud, playersDB: {}, players: {}, rooms: {},
+def _put_item(params, mud, players_db: {}, players: {}, rooms: {},
               npcs_db: {}, npcs: {}, items_db: {}, items: {},
               env_db: {}, env: {}, eventDB: {}, event_schedule,
               id: int, fights: {}, corpses: {}, blocklist,
@@ -7172,47 +7183,47 @@ def _put_item(params, mud, playersDB: {}, players: {}, rooms: {},
     if len(target) != 2:
         return
 
-    itemID = 0
-    itemName = target[0]
-    containerName = target[1]
+    item_id = 0
+    item_name = target[0]
+    container_name = target[1]
 
     if len(list(players[id]['inv'])) > 0:
-        itemNameLower = itemName.lower()
+        item_name_lower = item_name.lower()
         for i in list(players[id]['inv']):
-            if items_db[int(i)]['name'].lower() == itemNameLower:
-                itemID = int(i)
-                itemName = items_db[int(i)]['name']
+            if items_db[int(i)]['name'].lower() == item_name_lower:
+                item_id = int(i)
+                item_name = items_db[int(i)]['name']
 
-        if itemID == 0:
+        if item_id == 0:
             for i in list(players[id]['inv']):
-                if itemNameLower in items_db[int(i)]['name'].lower():
-                    itemID = int(i)
-                    itemName = items_db[int(i)]['name']
+                if item_name_lower in items_db[int(i)]['name'].lower():
+                    item_id = int(i)
+                    item_name = items_db[int(i)]['name']
 
-    if itemID == 0:
-        mud.send_message(id, "You don't have " + itemName + ".\n\n")
+    if item_id == 0:
+        mud.send_message(id, "You don't have " + item_name + ".\n\n")
         return
 
-    itemsInWorldCopy = deepcopy(items)
+    items_in_world_copy = deepcopy(items)
 
-    for (iid, pl) in list(itemsInWorldCopy.items()):
-        if itemsInWorldCopy[iid]['room'] == players[id]['room']:
-            iName = items_db[items[iid]['id']]['name'].lower()
-            if containerName.lower() in iName:
+    for iid, _ in list(items_in_world_copy.items()):
+        if items_in_world_copy[iid]['room'] == players[id]['room']:
+            iname = items_db[items[iid]['id']]['name'].lower()
+            if container_name.lower() in iname:
                 idx = items[iid]['id']
                 if items_db[idx]['state'].startswith('container open'):
                     if ' noput' not in items_db[idx]['state']:
-                        maxItemsInContainer = items_db[idx]['useTimes']
+                        max_items_in_container = items_db[idx]['useTimes']
                         len_cont = len(items_db[idx]['contains'])
-                        if maxItemsInContainer == 0 or \
-                           len_cont < maxItemsInContainer:
-                            players[id]['inv'].remove(str(itemID))
-                            _remove_item_from_clothing(players, id, itemID)
-                            items_db[idx]['contains'].append(str(itemID))
+                        if max_items_in_container == 0 or \
+                           len_cont < max_items_in_container:
+                            players[id]['inv'].remove(str(item_id))
+                            _remove_item_from_clothing(players, id, item_id)
+                            items_db[idx]['contains'].append(str(item_id))
                             idx = items[iid]['id']
                             mud.send_message(id, 'You put ' +
-                                             items_db[itemID]['article'] +
-                                             ' ' + items_db[itemID]['name'] +
+                                             items_db[item_id]['article'] +
+                                             ' ' + items_db[item_id]['name'] +
                                              inon +
                                              items_db[idx]['article'] +
                                              ' ' +
@@ -7231,40 +7242,39 @@ def _put_item(params, mud, playersDB: {}, players: {}, rooms: {},
                             mud.send_message(
                                 id, "You can't put anything in that.\n\n")
                     return
-                else:
-                    idx = items[iid]['id']
-                    if items_db[idx]['state'].startswith('container closed'):
-                        if 'on' in inon:
-                            mud.send_message(id, "You can't.\n\n")
-                        else:
-                            mud.send_message(id, "It's closed.\n\n")
-                        return
+
+                idx = items[iid]['id']
+                if items_db[idx]['state'].startswith('container closed'):
+                    if 'on' in inon:
+                        mud.send_message(id, "You can't.\n\n")
                     else:
-                        if 'on' in inon:
-                            mud.send_message(
-                                id, "You can't put anything on that.\n\n")
-                        else:
-                            mud.send_message(
-                                id, "It can't contain anything.\n\n")
-                        return
+                        mud.send_message(id, "It's closed.\n\n")
+                    return
+                if 'on' in inon:
+                    mud.send_message(
+                        id, "You can't put anything on that.\n\n")
+                else:
+                    mud.send_message(
+                        id, "It can't contain anything.\n\n")
+                return
 
-    mud.send_message(id, "You don't see " + containerName + ".\n\n")
+    mud.send_message(id, "You don't see " + container_name + ".\n\n")
 
 
-def _get_random_room_in_regions(rooms: {}, regionsList: []) -> str:
+def _get_random_room_in_regions(rooms: {}, regions_list: []) -> str:
     """Returns a random room within the given regions
     """
-    possibleRooms = []
-    for roomId, item in rooms.items():
+    possible_rooms = []
+    for room_id, item in rooms.items():
         if item.get('region'):
-            if item['region'] in regionsList:
-                possibleRooms.append(roomId)
-    if not possibleRooms:
+            if item['region'] in regions_list:
+                possible_rooms.append(room_id)
+    if not possible_rooms:
         return None
-    return random.choice(possibleRooms)
+    return random.choice(possible_rooms)
 
 
-def _take(params, mud, playersDB: {}, players: {}, rooms: {},
+def _take(params, mud, players_db: {}, players: {}, rooms: {},
           npcs_db: {}, npcs: {}, items_db: {}, items: {},
           env_db: {}, env: {}, eventDB: {}, event_schedule,
           id: int, fights: {}, corpses: {}, blocklist,
@@ -7279,7 +7289,7 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
 
     if params:
         if params == 'up':
-            _stand(params, mud, playersDB, players, rooms, npcs_db, npcs,
+            _stand(params, mud, players_db, players, rooms, npcs_db, npcs,
                    items_db, items, env_db, env, eventDB, event_schedule,
                    id, fights, corpses, blocklist, map_area,
                    character_class_db,
@@ -7289,7 +7299,7 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
 
         # get into, get through
         if params.startswith('into') or params.startswith('through'):
-            _climb(params, mud, playersDB, players, rooms, npcs_db, npcs,
+            _climb(params, mud, players_db, players, rooms, npcs_db, npcs,
                    items_db, items, env_db, env, eventDB, event_schedule,
                    id, fights, corpses, blocklist, map_area,
                    character_class_db,
@@ -7300,8 +7310,8 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
     if len(str(params)) < 3:
         return
 
-    paramsStr = str(params)
-    if _item_in_inventory(players, id, paramsStr, items_db):
+    params_str = str(params)
+    if _item_in_inventory(players, id, params_str, items_db):
         mud.send_message(id, 'You are already carring ' + str(params) + '\n\n')
         return
 
@@ -7310,15 +7320,15 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
         set_player_prone(id, players, False)
         return
 
-    itemInDB = False
-    itemName = None
-    itemPickedUp = False
-    itemIndex = None
+    item_in_db = False
+    item_name = None
+    item_picked_up = False
+    item_index = None
     target = str(params).lower()
     if target.startswith('the '):
         target = params.replace('the ', '')
 
-    for (iid, pl) in list(items.items()):
+    for iid, _ in list(items.items()):
         iid2 = items[iid]['id']
         if items[iid]['room'] != players[id]['room']:
             continue
@@ -7333,47 +7343,47 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
             return
         if _item_is_visible(id, players, iid2, items_db):
             # ID of the item to be picked up
-            itemName = items_db[iid2]['name']
-            itemInDB = True
-            itemIndex = iid2
+            item_name = items_db[iid2]['name']
+            item_in_db = True
+            item_index = iid2
         break
 
-    itemsInWorldCopy = deepcopy(items)
+    items_in_world_copy = deepcopy(items)
 
-    if not itemInDB:
+    if not item_in_db:
         # Try fuzzy match of the item name
-        for (iid, pl) in list(itemsInWorldCopy.items()):
-            if itemsInWorldCopy[iid]['room'] != players[id]['room']:
+        for iid, _ in list(items_in_world_copy.items()):
+            if items_in_world_copy[iid]['room'] != players[id]['room']:
                 continue
-            itemIndex = itemsInWorldCopy[iid]['id']
-            if target not in items_db[itemIndex]['name'].lower():
+            item_index = items_in_world_copy[iid]['id']
+            if target not in items_db[item_index]['name'].lower():
                 continue
-            if int(items_db[itemIndex]['weight']) == 0:
-                if items_db[itemIndex].get('takeFail'):
-                    desc = random_desc(items_db[itemIndex]['takeFail'])
+            if int(items_db[item_index]['weight']) == 0:
+                if items_db[item_index].get('takeFail'):
+                    desc = random_desc(items_db[item_index]['takeFail'])
                     mud.send_message_wrap(id, '<f220>', desc + "\n\n")
                 else:
                     mud.send_message(id, "You can't pick that up.\n\n")
                 return
 
-            itemName = items_db[itemIndex]['name']
-            if _item_in_inventory(players, id, itemName, items_db):
+            item_name = items_db[item_index]['name']
+            if _item_in_inventory(players, id, item_name, items_db):
                 mud.send_message(
-                    id, 'You are already carring ' + itemName + '\n\n')
+                    id, 'You are already carring ' + item_name + '\n\n')
                 return
-            if _item_is_visible(id, players, itemIndex, items_db):
+            if _item_is_visible(id, players, item_index, items_db):
                 # ID of the item to be picked up
-                itemInDB = True
+                item_in_db = True
             break
 
-    if itemInDB and itemIndex:
-        for (iid, pl) in list(itemsInWorldCopy.items()):
+    if item_in_db and item_index:
+        for iid, _ in list(items_in_world_copy.items()):
             # item in same room as player
-            if itemsInWorldCopy[iid]['room'] != players[id]['room']:
+            if items_in_world_copy[iid]['room'] != players[id]['room']:
                 continue
-            itemIndex = itemsInWorldCopy[iid]['id']
+            item_index = items_in_world_copy[iid]['id']
             # item has the expected name
-            if items_db[itemIndex]['name'] != itemName:
+            if items_db[item_index]['name'] != item_name:
                 continue
             # player can move
             if players[id]['canGo'] != 0:
@@ -7381,7 +7391,7 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
                 players[id]['wei'] = \
                     player_inventory_weight(id, players, items_db)
 
-                if players[id]['wei'] + items_db[itemIndex]['weight'] > \
+                if players[id]['wei'] + items_db[item_index]['weight'] > \
                    _get_max_weight(id, players):
                     mud.send_message(id, "You can't carry any more.\n\n")
                     return
@@ -7397,104 +7407,103 @@ def _take(params, mud, playersDB: {}, players: {}, rooms: {},
                     return
 
                 # add the item to the player's inventory
-                players[id]['inv'].append(str(itemIndex))
+                players[id]['inv'].append(str(item_index))
                 # update the weight of the player
                 players[id]['wei'] = \
                     player_inventory_weight(id, players, items_db)
-                update_player_attributes(id, players, items_db, itemIndex, 1)
+                update_player_attributes(id, players, items_db, item_index, 1)
                 # remove the item from the dict
-                if not items_db[itemIndex].get('respawnInRegion'):
+                if not items_db[item_index].get('respawnInRegion'):
                     del items[iid]
                 else:
-                    regionsList = items_db[itemIndex]['respawnInRegion']
-                    newRoomId = _get_random_room_in_regions(rooms, regionsList)
-                    if not newRoomId:
+                    regions_list = items_db[item_index]['respawnInRegion']
+                    new_room_id = \
+                        _get_random_room_in_regions(rooms, regions_list)
+                    if not new_room_id:
                         del items[iid]
                     else:
-                        items[iid]['room'] = newRoomId
-                itemPickedUp = True
+                        items[iid]['room'] = new_room_id
+                item_picked_up = True
                 break
-            else:
-                mud.send_message(id, 'You try to pick up ' + itemName +
-                                 " but find that your arms won't move.\n\n")
-                return
+            mud.send_message(id, 'You try to pick up ' + item_name +
+                             " but find that your arms won't move.\n\n")
+            return
 
-    if itemPickedUp:
+    if item_picked_up:
         mud.send_message(id, 'You pick up and place ' +
-                         itemName + ' in your inventory.\n\n')
-        itemPickedUp = False
+                         item_name + ' in your inventory.\n\n')
+        item_picked_up = False
     else:
         # are there any open containers with this item?
         if ' from ' in target:
             target2 = target.split(' from ')
             target = target2[0]
 
-        for (iid, pl) in list(itemsInWorldCopy.items()):
+        for iid, _ in list(items_in_world_copy.items()):
             # is the item in the same room as the player?
-            if itemsInWorldCopy[iid]['room'] != players[id]['room']:
+            if items_in_world_copy[iid]['room'] != players[id]['room']:
                 continue
-            itemIndex = itemsInWorldCopy[iid]['id']
+            item_index = items_in_world_copy[iid]['id']
             # is this an open container
-            if not items_db[itemIndex]['state'].startswith('container open'):
+            if not items_db[item_index]['state'].startswith('container open'):
                 continue
             # go through the items within the container
-            for containerItemID in items_db[itemIndex]['contains']:
+            for container_item_id in items_db[item_index]['contains']:
                 # does the name match?
-                itemName = items_db[int(containerItemID)]['name']
-                if target not in itemName.lower():
+                item_name = items_db[int(container_item_id)]['name']
+                if target not in item_name.lower():
                     continue
                 # can the item be taken?
-                if items_db[int(containerItemID)]['weight'] == 0:
-                    if items_db[int(containerItemID)].get('takeFail'):
-                        idx = int(containerItemID)
+                if items_db[int(container_item_id)]['weight'] == 0:
+                    if items_db[int(container_item_id)].get('takeFail'):
+                        idx = int(container_item_id)
                         desc = \
                             random_desc(items_db[idx]['takeFail'])
                         mud.send_message_wrap(id, '<f220>', desc + "\n\n")
                     else:
                         mud.send_message(id, "You can't pick that up.\n\n")
                     return
-                else:
-                    # can the player move?
-                    if players[id]['canGo'] != 0:
-                        # is the item too heavy?
-                        carryingWeight = \
-                            player_inventory_weight(id, players, items_db)
-                        idx = int(containerItemID)
-                        if carryingWeight + items_db[idx]['weight'] > \
-                           _get_max_weight(id, players):
-                            mud.send_message(id,
-                                             "You can't carry any more.\n\n")
-                            return
+                # can the player move?
+                if players[id]['canGo'] != 0:
+                    # is the item too heavy?
+                    carrying_weight = \
+                        player_inventory_weight(id, players, items_db)
+                    idx = int(container_item_id)
+                    if carrying_weight + items_db[idx]['weight'] > \
+                       _get_max_weight(id, players):
+                        mud.send_message(id,
+                                         "You can't carry any more.\n\n")
+                        return
 
-                        # add the item to the player's inventory
-                        players[id]['inv'].append(containerItemID)
-                        # remove the item from the container
-                        items_db[itemIndex]['contains'].remove(containerItemID)
-                        idx = int(containerItemID)
-                        mud.send_message(id, 'You take ' +
-                                         items_db[idx]['article'] +
-                                         ' ' +
-                                         items_db[idx]['name'] +
-                                         ' from ' +
-                                         items_db[itemIndex]['article'] +
-                                         ' ' +
-                                         items_db[itemIndex]['name'] +
-                                         '.\n\n')
-                    else:
-                        idx = int(containerItemID)
-                        mud.send_message(id, 'You try to pick up ' +
-                                         items_db[idx]['article'] +
-                                         ' ' +
-                                         items_db[idx]['name'] +
-                                         " but find that your arms won't " +
-                                         "move.\n\n")
-                    return
+                    # add the item to the player's inventory
+                    players[id]['inv'].append(container_item_id)
+                    # remove the item from the container
+                    items_db[item_index]['contains'].remove(container_item_id)
+                    idx = int(container_item_id)
+                    mud.send_message(id, 'You take ' +
+                                     items_db[idx]['article'] +
+                                     ' ' +
+                                     items_db[idx]['name'] +
+                                     ' from ' +
+                                     items_db[item_index]['article'] +
+                                     ' ' +
+                                     items_db[item_index]['name'] +
+                                     '.\n\n')
+                else:
+                    idx = int(container_item_id)
+                    mud.send_message(id, 'You try to pick up ' +
+                                     items_db[idx]['article'] +
+                                     ' ' +
+                                     items_db[idx]['name'] +
+                                     " but find that your arms won't " +
+                                     "move.\n\n")
+                return
 
         mud.send_message(id, 'You cannot see ' + target + ' anywhere.\n\n')
-        itemPickedUp = False
+        item_picked_up = False
 
 
-def run_command(command, params, mud, playersDB: {}, players: {}, rooms: {},
+def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
                 npcs_db: {}, npcs: {}, items_db: {}, items: {},
                 env_db: {}, env: {}, eventDB: {}, event_schedule,
                 id: int, fights: {}, corpses: {}, blocklist,
@@ -7691,7 +7700,7 @@ def run_command(command, params, mud, playersDB: {}, players: {}, rooms: {},
     }
 
     try:
-        switcher[command](params, mud, playersDB, players, rooms, npcs_db,
+        switcher[command](params, mud, players_db, players, rooms, npcs_db,
                           npcs, items_db, items, env_db, env, eventDB,
                           event_schedule, id, fights, corpses, blocklist,
                           map_area, character_class_db, spells_db,
@@ -7699,7 +7708,7 @@ def run_command(command, params, mud, playersDB: {}, players: {}, rooms: {},
                           item_history, markets, cultures_db)
     except Exception as e:
         # print(str(e))
-        switcher["sendCommandError"](e, mud, playersDB, players, rooms,
+        switcher["sendCommandError"](e, mud, players_db, players, rooms,
                                      npcs_db, npcs, items_db, items,
                                      env_db, env, eventDB, event_schedule,
                                      id, fights, corpses, blocklist,

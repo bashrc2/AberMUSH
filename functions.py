@@ -102,12 +102,12 @@ def get_guild_sentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
     guildName = players[id]['guild']
     if not guilds.get(guildName):
         return 0
-    otherPlayerName = npcs[p]['name']
-    if not guilds[guildName]['affinity'].get(otherPlayerName):
+    other_playerName = npcs[p]['name']
+    if not guilds[guildName]['affinity'].get(other_playerName):
         return 0
     # NOTE: this could be adjusted by the strength of affinity
     # between the player and the guild, but for now it's just hardcoded
-    return int(guilds[guildName]['affinity'][otherPlayerName] / 2)
+    return int(guilds[guildName]['affinity'][other_playerName] / 2)
 
 
 def _baselineAffinity(players, id):
@@ -393,8 +393,8 @@ def load_players_db(forceLowercase=True):
     else:
         return(DB)
 
-    # for i in playersDB:
-        # print(i, playersDB[i])
+    # for i in players_db:
+        # print(i, players_db[i])
 
 
 def log(content, type):
@@ -676,16 +676,16 @@ def is_wearing(id, players: {}, itemList: []) -> bool:
 
 
 def player_is_visible(mud, observerId: int, observers: {},
-                      otherPlayerId: int, others: {}) -> bool:
+                      other_playerId: int, others: {}) -> bool:
     """Is the other player visible to the observer?
     """
     observerId = int(observerId)
-    otherPlayerId = int(otherPlayerId)
-    if not others[otherPlayerId].get('visibleWhenWearing'):
+    other_playerId = int(other_playerId)
+    if not others[other_playerId].get('visibleWhenWearing'):
         return True
-    if others[otherPlayerId].get('visibleWhenWearing'):
+    if others[other_playerId].get('visibleWhenWearing'):
         if is_wearing(observerId, observers,
-                      others[otherPlayerId]['visibleWhenWearing']):
+                      others[other_playerId]['visibleWhenWearing']):
             return True
     return False
 

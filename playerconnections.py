@@ -20,7 +20,7 @@ import time
 maximum_players = 128
 
 
-def _runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
+def _runNewPlayerConnections(mud, id, players, players_db, fights, Config):
     # go through any newly connected players
     for id in mud.get_new_players():
         if len(players) >= maximum_players:
@@ -181,7 +181,7 @@ def _runNewPlayerConnections(mud, id, players, playersDB, fights, Config):
         log("Player ID " + idStr + " has connected", "info")
 
 
-def _runPlayerDisconnections(mud, id, players, playersDB, fights,
+def _runPlayerDisconnections(mud, id, players, players_db, fights,
                              Config, terminalMode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
@@ -213,8 +213,8 @@ def _runPlayerDisconnections(mud, id, players, playersDB, fights,
         # before removing him from players dictionary
         if players[id]['authenticated'] is not None:
             log("Player disconnected, saving state", "info")
-            save_state(players[id], playersDB, False)
-            playersDB = load_players_db()
+            save_state(players[id], players_db, False)
+            players_db = load_players_db()
 
         # Create a deep copy of fights, iterate through it and remove fights
         # disconnected player was taking part in
@@ -228,15 +228,15 @@ def _runPlayerDisconnections(mud, id, players, playersDB, fights,
         del players[id]
 
 
-def run_player_connections(mud, id, players, playersDB, fights,
+def run_player_connections(mud, id, players, players_db, fights,
                            Config, terminalMode: {}):
-    _runNewPlayerConnections(mud, id, players, playersDB, fights, Config)
-    _runPlayerDisconnections(mud, id, players, playersDB, fights,
+    _runNewPlayerConnections(mud, id, players, players_db, fights, Config)
+    _runPlayerDisconnections(mud, id, players, players_db, fights,
                              Config, terminalMode)
 
 
 def disconnect_idle_players(mud, players: {}, allowedPlayerIdle: int,
-                            playersDB: {}) -> bool:
+                            players_db: {}) -> bool:
     # Evaluate player idle time and disconnect if required
     authenticatedPlayersDisconnected = False
     now = int(time.time())
@@ -251,7 +251,7 @@ def disconnect_idle_players(mud, players: {}, allowedPlayerIdle: int,
                     "your face and notice you slowly begin to " +
                     "vanish. You are being disconnected due " +
                     "to inactivity...****DISCONNECT****\n")
-                save_state(players[p], playersDB, False)
+                save_state(players[p], players_db, False)
                 authenticatedPlayersDisconnected = True
             else:
                 mud.send_message(
