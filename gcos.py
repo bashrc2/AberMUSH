@@ -8,7 +8,9 @@ __status__ = "Production"
 __module_group__ = "Mainframe Emulator"
 
 
-def _terminalMount(mud, id):
+def _terminal_mount(mud, id) -> None:
+    """Mount
+    """
     mud.send_message(id, "<f220>DSS port C mounted")
     mud.send_message(id, "\n>")
 
@@ -29,7 +31,7 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'ls' or command == 'dir':
+    if command in ('ls', 'dir'):
         mud.send_message(id, "<f220>.")
         mud.send_message(id, "<f220>..")
         mud.send_message(
@@ -49,21 +51,17 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'mkdir' or \
-       command == 'rm' or \
-       command == 'rmdir' or \
-       command == 'echo':
+    if command in ('mkdir', 'rm', 'rmdir', 'echo'):
         mud.send_message(id, "<f220>OK")
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'passwd' or command == 'pass':
+    if command in ('passwd', 'pass'):
         mud.send_message(id, "<f220>New password:")
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'telnet' or command == "telnetadmin" or \
-       command == "admin" or command == "linuxshell" or command == "root":
+    if command in ('telnet', "telnetadmin", "admin", "linuxshell", "root"):
         mud.send_message(id, "<f220>Connected to DSS port C")
         mud.send_message(id, "\n<f220>Datanet 1200 open")
         mud.send_message(id, "\n>")
@@ -89,31 +87,30 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
                 "descendant.")
             mud.send_message(id, "\n>")
             return True
+        if 'mount' in params:
+            _terminal_mount(mud, id)
+            mud.send_message(id, "portc /spc spcfs rw 0 0")
+            mud.send_message(id, "proc /proc proc rw 0 0")
+            mud.send_message(id, "\n>")
+            return True
+        if 'busybox' in params:
+            params = params.split('busybox', 1)[1]
+            command = 'busybox'
         else:
-            if 'mount' in params:
-                _terminalMount(mud, id)
-                mud.send_message(id, "portc /spc spcfs rw 0 0")
-                mud.send_message(id, "proc /proc proc rw 0 0")
-                mud.send_message(id, "\n>")
-                return True
-            if 'busybox' in params:
-                params = params.split('busybox', 1)[1]
-                command = 'busybox'
-            else:
-                mud.send_message(id, "cat: Invalid DSS port")
-                mud.send_message(id, "\n>")
-                return True
+            mud.send_message(id, "cat: Invalid DSS port")
+            mud.send_message(id, "\n>")
+            return True
 
-    if command == 'unmount' or command == 'umount':
+    if command in ('unmount', 'umount'):
         mud.send_message(id, "<f220>DSS port C spindown")
         mud.send_message(id, "\n>")
         return True
 
     if command == 'mount':
-        _terminalMount(mud, id)
+        _terminal_mount(mud, id)
         return True
 
-    if command == 'shred ' or command == 'dd':
+    if command in ('shred ', 'dd'):
         mud.send_message(id, "<f220>ERROR 7291")
         mud.send_message(id, "\n>")
         return True
@@ -123,7 +120,7 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'pwd' or command == 'dirname':
+    if command in ('pwd', 'dirname'):
         mud.send_message(id, "<f220>/udd/acrc/cormorant")
         mud.send_message(id, "\n>")
         return True
@@ -149,25 +146,25 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'shutdown' or command == 'reset':
+    if command in ('shutdown', 'reset'):
         mud.send_message(id, "<f220>DSS port A spindown")
         mud.send_message(id, "<f220>DSS port C spindown")
         mud.send_message(id, ">")
         return True
 
-    if command == 'uname' or command == 'arch':
+    if command in ('uname', 'arch'):
         mud.send_message(id, "<f220>GCOS-3 TSS")
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'who' or command == 'whoami' or command == 'whois':
+    if command in ('who', 'whoami', 'whois'):
         mud.send_message(id, "<f220>cormorant")
         mud.send_message(id, "<f220>Data Services Division. Room 5A")
         mud.send_message(id, "<f220>Aberystwyth Computing Research Centre")
         mud.send_message(id, "\n>")
         return True
 
-    if command == 'useradd' or command == 'adduser':
+    if command in ('useradd', 'adduser'):
         mud.send_message(id, "<f220>Rewind DSS port B")
         mud.send_message(id, "\n>")
         return True
@@ -191,44 +188,47 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
         mud.send_message(id, "\n>")
         return True
 
-    invalidNames = ("sh", "bash", "chcon", "chgrp", "chown", "chmod", "cp",
-                    "cd", "dd", "df", "dir", "dircolors", "install", "ln",
-                    "ls", "mkdir", "mkfifo", "mknod", "mktemp", "mv",
-                    "realpath", "rm", "rmdir", "shred", "sync", "touch",
-                    "truncate", "vdir", "b2sum", "base32", "base64", "cat",
-                    "cksum", "comm", "csplit", "cut", "expand", "fmt",
-                    "fold", "head", "join", "md5sum", "nl", "numfmt",
-                    "od", "paste", "ptx", "pr", "sha1sum", "sha224sum",
-                    "sha256sum", "sha384sum", "sha512sum", "shuf", "sort",
-                    "split", "sum", "tac", "tail", "tr", "tsort",
-                    "unexpand", "uniq", "wc", "arch", "basename", "chroot",
-                    "date", "dirname", "du", "echo", "env", "expr",
-                    "factor", "false", "groups", "hostid", "id", "link",
-                    "logname", "nice", "nohup", "nproc", "pathchk", "pinky",
-                    "printenv", "printf", "pwd", "readlink", "runcon",
-                    "seq", "sleep", "stat", "stdbuf", "stty", "tee", "test",
-                    "timeout", "true", "tty", "uname", "unlink", "uptime",
-                    "users", "useradd", "adduser", "yes", "/bin/busybox",
-                    "busybox", "/bin/bash", "bash", "/bin/sh", "bin",
-                    "root")
-    if command in invalidNames:
+    invalid_names = (
+        "sh", "bash", "chcon", "chgrp", "chown", "chmod", "cp",
+        "cd", "dd", "df", "dir", "dircolors", "install", "ln",
+        "ls", "mkdir", "mkfifo", "mknod", "mktemp", "mv",
+        "realpath", "rm", "rmdir", "shred", "sync", "touch",
+        "truncate", "vdir", "b2sum", "base32", "base64", "cat",
+        "cksum", "comm", "csplit", "cut", "expand", "fmt",
+        "fold", "head", "join", "md5sum", "nl", "numfmt",
+        "od", "paste", "ptx", "pr", "sha1sum", "sha224sum",
+        "sha256sum", "sha384sum", "sha512sum", "shuf", "sort",
+        "split", "sum", "tac", "tail", "tr", "tsort",
+        "unexpand", "uniq", "wc", "arch", "basename", "chroot",
+        "date", "dirname", "du", "echo", "env", "expr",
+        "factor", "false", "groups", "hostid", "id", "link",
+        "logname", "nice", "nohup", "nproc", "pathchk", "pinky",
+        "printenv", "printf", "pwd", "readlink", "runcon",
+        "seq", "sleep", "stat", "stdbuf", "stty", "tee", "test",
+        "timeout", "true", "tty", "uname", "unlink", "uptime",
+        "users", "useradd", "adduser", "yes", "/bin/busybox",
+        "busybox", "/bin/bash", "bash", "/bin/sh", "bin",
+        "root"
+    )
+    if command in invalid_names:
         mud.send_message(id, "<f220>System GCOS3 MOD400 - S104 -0714/1417")
         mud.send_message(id, "<f220>Aberystwyth Computing " +
                          "Research Group ready!")
         mud.send_message(id,
                          "<f220>Logged in from DLCP terminal \"cormorant\"")
         if params:
-            possibleShells = {
+            possible_shells = {
                 "/bin/busybox": "VAR: applet not found",
                 "/bin/sh": "BusyBox v1.24 () built-in shell (ash)",
                 "/bin/bash": "/bin/bash: VAR: No such file or directory"
             }
-            for possShell, shellResponse in possibleShells.items():
-                if possShell in params:
-                    shellParam = params.split(possShell, 1)[1].strip()
-                    shellResponse = shellResponse.replace('VAR', shellParam)
-                    mud.send_message(id, "\n>" + possShell + ' ' + shellParam)
-                    mud.send_message(id, "\n" + shellResponse)
+            for poss_shell, shell_response in possible_shells.items():
+                if poss_shell in params:
+                    shell_param = params.split(poss_shell, 1)[1].strip()
+                    shell_response = shell_response.replace('VAR', shell_param)
+                    mud.send_message(id, "\n>" + poss_shell + ' ' +
+                                     shell_param)
+                    mud.send_message(id, "\n" + shell_response)
                     mud.send_message(id, "\n>")
                     return True
         mud.send_message(id, "\n>")
