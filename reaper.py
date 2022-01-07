@@ -32,7 +32,7 @@ __module_group__ = "Core"
 
 from functions import add_to_scheduler
 from functions import deepcopy
-from npcs import corpseExists
+from npcs import corpse_exists
 # from copy import deepcopy
 
 import time
@@ -40,24 +40,26 @@ import time
 
 def remove_corpses(corpses: {}):
     # Iterate through corpses and remove ones older than their TTL
-    corpsesCopy = deepcopy(corpses)
-    for (c, pl) in corpsesCopy.items():
-        if int(time.time()) >= corpsesCopy[c]['died'] + corpsesCopy[c]['TTL']:
-            del corpses[c]
+    corpses_copy = deepcopy(corpses)
+    curr_time = int(time.time())
+    for cor, _ in corpses_copy.items():
+        if curr_time >= corpses_copy[cor]['died'] + corpses_copy[cor]['TTL']:
+            del corpses[cor]
 
 
 def run_deaths(mud, players: {}, npcs: {}, corpses, fights: {},
                event_schedule, scripted_events_db):
     # Handle Player Deaths
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         if players[pid]['authenticated']:
             if players[pid]['hp'] <= 0:
-                corpseName = str(players[pid]['name'] + "'s corpse")
-                if not corpseExists(corpses, players[pid]['room'], corpseName):
+                corpse_name = str(players[pid]['name'] + "'s corpse")
+                if not corpse_exists(corpses, players[pid]['room'],
+                                     corpse_name):
                     # Create player's corpse in the room
                     corpses[len(corpses)] = {
                         'room': players[pid]['room'],
-                        'name': corpseName,
+                        'name': corpse_name,
                         'inv': deepcopy(players[pid]['inv']),
                         'died': int(time.time()),
                         'TTL': players[pid]['corpseTTL'],
@@ -73,28 +75,28 @@ def run_deaths(mud, players: {}, npcs: {}, corpses, fights: {},
                 players[pid]['dodge'] = 0
                 players[pid]['lastRoom'] = players[pid]['room']
                 players[pid]['room'] = '$rid=1262$'
-                fightsCopy = deepcopy(fights)
-                for (fight, pl) in fightsCopy.items():
-                    if ((fightsCopy[fight]['s1type'] == 'pc' and
-                         fightsCopy[fight]['s1id'] == pid) or
-                        (fightsCopy[fight]['s2type'] == 'pc' and
-                         fightsCopy[fight]['s2id'] == pid)):
+                fights_copy = deepcopy(fights)
+                for fight, _ in fights_copy.items():
+                    if ((fights_copy[fight]['s1type'] == 'pc' and
+                         fights_copy[fight]['s1id'] == pid) or
+                        (fights_copy[fight]['s2type'] == 'pc' and
+                         fights_copy[fight]['s2id'] == pid)):
                         # clear the combat flag
-                        if fightsCopy[fight]['s1type'] == 'pc':
-                            fid = fightsCopy[fight]['s1id']
+                        if fights_copy[fight]['s1type'] == 'pc':
+                            fid = fights_copy[fight]['s1id']
                             players[fid]['isInCombat'] = 0
-                        elif fightsCopy[fight]['s1type'] == 'npc':
-                            fid = fightsCopy[fight]['s1id']
+                        elif fights_copy[fight]['s1type'] == 'npc':
+                            fid = fights_copy[fight]['s1id']
                             npcs[fid]['isInCombat'] = 0
-                        if fightsCopy[fight]['s2type'] == 'pc':
-                            fid = fightsCopy[fight]['s2id']
+                        if fights_copy[fight]['s2type'] == 'pc':
+                            fid = fights_copy[fight]['s2id']
                             players[fid]['isInCombat'] = 0
-                        elif fightsCopy[fight]['s2type'] == 'npc':
-                            fid = fightsCopy[fight]['s2id']
+                        elif fights_copy[fight]['s2type'] == 'npc':
+                            fid = fights_copy[fight]['s2id']
                             npcs[fid]['isInCombat'] = 0
                         players[pid]['isInCombat'] = 0
                         del fights[fight]
-                for (pid2, pl) in list(players.items()):
+                for pid2, _ in list(players.items()):
                     if players[pid2]['authenticated'] is not None \
                        and players[pid2]['room'] == players[pid]['lastRoom'] \
                        and players[pid2]['name'] != players[pid]['name']:

@@ -35,7 +35,7 @@ from environment import get_room_culture
 import time
 
 
-def corpseExists(corpses: {}, room: str, name: str) -> bool:
+def corpse_exists(corpses: {}, room: str, name: str) -> bool:
     """Returns true if a corpse with the given name exists in the given room
     """
     corpses_copy = deepcopy(corpses)
@@ -652,9 +652,9 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                         npcs[fid]['isInCombat'] = 0
                     del fights[fight]
                     corpse_name = str(this_npc['name'] + "'s corpse")
-                    if not corpseExists(corpses,
-                                        this_npc['room'],
-                                        corpse_name):
+                    if not corpse_exists(corpses,
+                                         this_npc['room'],
+                                         corpse_name):
                         corpses[len(corpses)] = {
                             'room': this_npc['room'],
                             'name': corpse_name,
