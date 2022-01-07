@@ -14,171 +14,170 @@ import configparser
 from markets import money_purchase
 
 
-def getFunctionCallArgs(name: str, lines: [], startLineCtr: int) -> []:
+def get_func_call_args(name: str, lines: [], start_line_ctr: int) -> []:
     """Returns the arguments of a function call given lines
     of source code and a starting line number
     """
-    argsStr = lines[startLineCtr].split(name + '(')[1]
-    if ')' in argsStr:
-        argsStr = argsStr.split(')')[0].replace(' ', '').split(',')
-        return argsStr
-    for lineCtr in range(startLineCtr + 1, len(lines)):
-        if ')' not in lines[lineCtr]:
-            argsStr += lines[lineCtr]
+    args_str = lines[start_line_ctr].split(name + '(')[1]
+    if ')' in args_str:
+        args_str = args_str.split(')')[0].replace(' ', '').split(',')
+        return args_str
+    for line_ctr in range(start_line_ctr + 1, len(lines)):
+        if ')' not in lines[line_ctr]:
+            args_str += lines[line_ctr]
             continue
-        else:
-            argsStr += lines[lineCtr].split(')')[0]
-            break
-    return argsStr.replace('\n', '').replace(' ', '').split(',')
+        args_str += lines[line_ctr].split(')')[0]
+        break
+    return args_str.replace('\n', '').replace(' ', '').split(',')
 
 
-def getFunctionCalls(name: str, lines: [], startLineCtr: int,
-                     functionProperties: {}) -> []:
+def get_func_calls(name: str, lines: [], start_line_ctr: int,
+                   function_props: {}) -> []:
     """Returns the functions called by the given one,
     Starting with the given source code at the given line
     """
-    callsFunctions = []
-    functionContentStr = ''
-    for lineCtr in range(startLineCtr + 1, len(lines)):
-        lineStr = lines[lineCtr].strip()
-        if lineStr.startswith('def '):
+    calls_functions = []
+    function_content_str = ''
+    for line_ctr in range(start_line_ctr + 1, len(lines)):
+        line_str = lines[line_ctr].strip()
+        if line_str.startswith('def '):
             break
-        if lineStr.startswith('class '):
+        if line_str.startswith('class '):
             break
-        functionContentStr += lines[lineCtr]
-    for funcName, properties in functionProperties.items():
-        if funcName + '(' in functionContentStr:
-            callsFunctions.append(funcName)
-    return callsFunctions
+        function_content_str += lines[line_ctr]
+    for func_name, _ in function_props.items():
+        if func_name + '(' in function_content_str:
+            calls_functions.append(func_name)
+    return calls_functions
 
 
-def functionArgsMatch(callArgs: [], funcArgs: []):
+def function_args_match(call_args: [], funcArgs: []) -> bool:
     """Do the function artuments match the function call arguments
     """
-    if len(callArgs) == len(funcArgs):
+    if len(call_args) == len(funcArgs):
         return True
 
     # count non-optional arguments
-    callArgsCtr = 0
-    for a in callArgs:
-        if a == 'self':
+    call_args_ctr = 0
+    for aval in call_args:
+        if aval == 'self':
             continue
-        if '=' not in a or a.startswith("'"):
-            callArgsCtr += 1
+        if '=' not in aval or aval.startswith("'"):
+            call_args_ctr += 1
 
-    funcArgsCtr = 0
-    for a in funcArgs:
-        if a == 'self':
+    func_args_ctr = 0
+    for aval in funcArgs:
+        if aval == 'self':
             continue
-        if '=' not in a or a.startswith("'"):
-            funcArgsCtr += 1
+        if '=' not in aval or aval.startswith("'"):
+            func_args_ctr += 1
 
-    return callArgsCtr >= funcArgsCtr
+    return call_args_ctr >= func_args_ctr
 
 
-def _testFunctions():
+def _test_functions() -> None:
     print('testFunctions')
     function = {}
-    functionProperties = {}
+    function_props = {}
     modules = {}
-    modGroups = {}
+    mod_groups = {}
 
-    for subdir, dirs, files in os.walk('.'):
-        for sourceFile in files:
-            if not sourceFile.endswith('.py'):
+    for _, _, files in os.walk('.'):
+        for source_file in files:
+            if not source_file.endswith('.py'):
                 continue
-            modName = sourceFile.replace('.py', '')
-            modules[modName] = {
+            mod_name = source_file.replace('.py', '')
+            modules[mod_name] = {
                 'functions': []
             }
-            sourceStr = ''
-            with open(sourceFile, "r") as f:
-                sourceStr = f.read()
-                modules[modName]['source'] = sourceStr
-            with open(sourceFile, "r") as f:
-                lines = f.readlines()
-                modules[modName]['lines'] = lines
+            source_str = ''
+            with open(source_file, "r") as fp_src:
+                source_str = fp_src.read()
+                modules[mod_name]['source'] = source_str
+            with open(source_file, "r") as fp_src:
+                lines = fp_src.readlines()
+                modules[mod_name]['lines'] = lines
                 for line in lines:
                     if '__module_group__' in line:
                         if '=' in line:
-                            groupName = line.split('=')[1].strip()
-                            groupName = groupName.replace('"', '')
-                            groupName = groupName.replace("'", '')
-                            modules[modName]['group'] = groupName
-                            if not modGroups.get(groupName):
-                                modGroups[groupName] = [modName]
+                            group_name = line.split('=')[1].strip()
+                            group_name = group_name.replace('"', '')
+                            group_name = group_name.replace("'", '')
+                            modules[mod_name]['group'] = group_name
+                            if not mod_groups.get(group_name):
+                                mod_groups[group_name] = [mod_name]
                             else:
-                                if modName not in modGroups[groupName]:
-                                    modGroups[groupName].append(modName)
+                                if mod_name not in mod_groups[group_name]:
+                                    mod_groups[group_name].append(mod_name)
                     if not line.strip().startswith('def '):
                         continue
-                    methodName = line.split('def ', 1)[1].split('(')[0]
-                    methodArgs = \
-                        sourceStr.split('def ' + methodName + '(')[1]
-                    methodArgs = methodArgs.split(')')[0]
-                    methodArgs = methodArgs.replace(' ', '').split(',')
-                    if function.get(modName):
-                        function[modName].append(methodName)
+                    method_name = line.split('def ', 1)[1].split('(')[0]
+                    method_args = \
+                        source_str.split('def ' + method_name + '(')[1]
+                    method_args = method_args.split(')')[0]
+                    method_args = method_args.replace(' ', '').split(',')
+                    if function.get(mod_name):
+                        function[mod_name].append(method_name)
                     else:
-                        function[modName] = [methodName]
-                    if methodName not in modules[modName]['functions']:
-                        modules[modName]['functions'].append(methodName)
-                    functionProperties[methodName] = {
-                        "args": methodArgs,
-                        "module": modName,
+                        function[mod_name] = [method_name]
+                    if method_name not in modules[mod_name]['functions']:
+                        modules[mod_name]['functions'].append(method_name)
+                    function_props[method_name] = {
+                        "args": method_args,
+                        "module": mod_name,
                         "calledInModule": []
                     }
         break
 
-    excludeFuncArgs = [
+    exclude_func_args = [
         'pyjsonld'
     ]
-    excludeFuncs = [
+    exclude_funcs = [
         'add_new_player',
         'link',
         'set',
         'get'
     ]
     # which modules is each function used within?
-    for modName, modProperties in modules.items():
-        print('Module: ' + modName + ' ✓')
-        for name, properties in functionProperties.items():
-            lineCtr = 0
-            for line in modules[modName]['lines']:
-                lineStr = line.strip()
-                if lineStr.startswith('def '):
-                    lineCtr += 1
+    for mod_name, mod_properties in modules.items():
+        print('Module: ' + mod_name + ' ✓')
+        for name, properties in function_props.items():
+            line_ctr = 0
+            for line in modules[mod_name]['lines']:
+                line_str = line.strip()
+                if line_str.startswith('def '):
+                    line_ctr += 1
                     continue
-                if lineStr.startswith('class '):
-                    lineCtr += 1
+                if line_str.startswith('class '):
+                    line_ctr += 1
                     continue
                 if name + '(' in line:
-                    modList = \
-                        functionProperties[name]['calledInModule']
-                    if modName not in modList:
-                        modList.append(modName)
-                    if modName in excludeFuncArgs:
-                        lineCtr += 1
+                    mod_list = \
+                        function_props[name]['calledInModule']
+                    if mod_name not in mod_list:
+                        mod_list.append(mod_name)
+                    if mod_name in exclude_func_args:
+                        line_ctr += 1
                         continue
-                    if name in excludeFuncs:
-                        lineCtr += 1
+                    if name in exclude_funcs:
+                        line_ctr += 1
                         continue
-                    callArgs = \
-                        getFunctionCallArgs(name,
-                                            modules[modName]['lines'],
-                                            lineCtr)
-                    if not functionArgsMatch(callArgs,
-                                             functionProperties[name]['args']):
+                    call_args = \
+                        get_func_call_args(name,
+                                           modules[mod_name]['lines'],
+                                           line_ctr)
+                    if not function_args_match(call_args,
+                                               function_props[name]['args']):
                         print('Call to function ' + name +
                               ' does not match its arguments')
                         print('def args: ' +
-                              str(len(functionProperties[name]['args'])) +
-                              '\n' + str(functionProperties[name]['args']))
-                        print('Call args: ' + str(len(callArgs)) + '\n' +
-                              str(callArgs))
-                        print('module ' + modName + ' line ' + str(lineCtr))
+                              str(len(function_props[name]['args'])) +
+                              '\n' + str(function_props[name]['args']))
+                        print('Call args: ' + str(len(call_args)) + '\n' +
+                              str(call_args))
+                        print('module ' + mod_name + ' line ' + str(line_ctr))
                         assert False
-                lineCtr += 1
+                line_ctr += 1
 
     # don't check these functions, because they are procedurally called
     exclusions = [
@@ -431,30 +430,30 @@ def _testFunctions():
         'do_POST',
         'do_HEAD'
     ]
-    excludeImports = [
+    exclude_imports = [
         'link',
         'start',
         'get_local_sunrise_time',
         'get_local_sunset_time'
     ]
-    excludeLocal = [
+    exclude_local = [
         'pyjsonld',
         'daemon',
         'tests'
     ]
-    excludeMods = [
+    exclude_mods = [
         'pyjsonld'
     ]
     # check that functions are called somewhere
-    for name, properties in functionProperties.items():
+    for name, properties in function_props.items():
         if name.startswith('__'):
             if name.endswith('__'):
                 continue
         if name in exclusions:
             continue
-        if properties['module'] in excludeMods:
+        if properties['module'] in exclude_mods:
             continue
-        isLocalFunction = False
+        is_local_function = False
         if not properties['calledInModule']:
             print('function ' + name +
                   ' in module ' + properties['module'] +
@@ -462,181 +461,187 @@ def _testFunctions():
         assert properties['calledInModule']
 
         if len(properties['calledInModule']) == 1:
-            modName = properties['calledInModule'][0]
-            if modName not in excludeLocal and \
-               modName == properties['module']:
-                isLocalFunction = True
+            mod_name = properties['calledInModule'][0]
+            if mod_name not in exclude_local and \
+               mod_name == properties['module']:
+                is_local_function = True
                 if not name.startswith('_'):
                     print('Local function ' + name +
-                          ' in ' + modName + '.py does not begin with _')
+                          ' in ' + mod_name + '.py does not begin with _')
                     assert False
 
-        if name not in excludeImports:
-            for modName in properties['calledInModule']:
-                if modName == properties['module']:
+        if name not in exclude_imports:
+            for mod_name in properties['calledInModule']:
+                if mod_name == properties['module']:
                     continue
-                importStr = 'from ' + properties['module'] + ' import ' + name
-                if importStr not in modules[modName]['source']:
-                    print(importStr + ' not found in ' + modName + '.py')
+                import_str = 'from ' + properties['module'] + ' import ' + name
+                if import_str not in modules[mod_name]['source']:
+                    print(import_str + ' not found in ' + mod_name + '.py')
                     assert False
 
-        if not isLocalFunction:
+        if not is_local_function:
             if name.startswith('_'):
-                excludePublic = [
+                exclude_public = [
                     'pyjsonld',
                     'daemon',
                     'tests'
                 ]
-                modName = properties['module']
-                if modName not in excludePublic:
+                mod_name = properties['module']
+                if mod_name not in exclude_public:
                     print('Public function ' + name + ' in ' +
-                          modName + '.py begins with _')
+                          mod_name + '.py begins with _')
                     assert False
         print('Function: ' + name + ' ✓')
 
     print('Constructing function call graph')
-    moduleColors = ('red', 'green', 'yellow', 'orange', 'purple', 'cyan',
-                    'darkgoldenrod3', 'darkolivegreen1', 'darkorange1',
-                    'darkorchid1', 'darkseagreen', 'darkslategray4',
-                    'deeppink1', 'deepskyblue1', 'dimgrey', 'gold1',
-                    'goldenrod', 'burlywood2', 'bisque1', 'brown1',
-                    'chartreuse2', 'cornsilk', 'darksalmon')
-    maxModuleCalls = 1
-    maxFunctionCalls = 1
-    colorCtr = 0
-    for modName, modProperties in modules.items():
-        lineCtr = 0
-        modules[modName]['color'] = moduleColors[colorCtr]
-        colorCtr += 1
-        if colorCtr >= len(moduleColors):
-            colorCtr = 0
-        for line in modules[modName]['lines']:
+    module_colors = (
+        'red', 'green', 'yellow', 'orange', 'purple', 'cyan',
+        'darkgoldenrod3', 'darkolivegreen1', 'darkorange1',
+        'darkorchid1', 'darkseagreen', 'darkslategray4',
+        'deeppink1', 'deepskyblue1', 'dimgrey', 'gold1',
+        'goldenrod', 'burlywood2', 'bisque1', 'brown1',
+        'chartreuse2', 'cornsilk', 'darksalmon'
+    )
+    max_module_calls = 1
+    max_function_calls = 1
+    color_ctr = 0
+    for mod_name, mod_properties in modules.items():
+        line_ctr = 0
+        modules[mod_name]['color'] = module_colors[color_ctr]
+        color_ctr += 1
+        if color_ctr >= len(module_colors):
+            color_ctr = 0
+        for line in modules[mod_name]['lines']:
             if line.strip().startswith('def '):
                 name = line.split('def ')[1].split('(')[0]
-                callsList = \
-                    getFunctionCalls(name, modules[modName]['lines'],
-                                     lineCtr, functionProperties)
-                functionProperties[name]['calls'] = callsList.copy()
-                if len(callsList) > maxFunctionCalls:
-                    maxFunctionCalls = len(callsList)
+                calls_list = \
+                    get_func_calls(name, modules[mod_name]['lines'],
+                                   line_ctr, function_props)
+                function_props[name]['calls'] = calls_list.copy()
+                if len(calls_list) > max_function_calls:
+                    max_function_calls = len(calls_list)
                 # keep track of which module calls which other module
-                for fn in callsList:
-                    modCall = functionProperties[fn]['module']
-                    if modCall != modName:
-                        if modules[modName].get('calls'):
-                            if modCall not in modules[modName]['calls']:
-                                modules[modName]['calls'].append(modCall)
-                                if len(modules[modName]['calls']) > \
-                                   maxModuleCalls:
-                                    maxModuleCalls = \
-                                        len(modules[modName]['calls'])
+                for func in calls_list:
+                    mod_call = function_props[func]['module']
+                    if mod_call != mod_name:
+                        if modules[mod_name].get('calls'):
+                            if mod_call not in modules[mod_name]['calls']:
+                                modules[mod_name]['calls'].append(mod_call)
+                                if len(modules[mod_name]['calls']) > \
+                                   max_module_calls:
+                                    max_module_calls = \
+                                        len(modules[mod_name]['calls'])
                         else:
-                            modules[modName]['calls'] = [modCall]
-            lineCtr += 1
-    callGraphStr = 'digraph AberMUSHModules {\n\n'
-    callGraphStr += '  graph [fontsize=10 fontname="Verdana" compound=true];\n'
-    callGraphStr += '  node [shape=record fontsize=10 fontname="Verdana"];\n\n'
+                            modules[mod_name]['calls'] = [mod_call]
+            line_ctr += 1
+    call_graph_str = 'digraph AberMUSHModules {\n\n'
+    call_graph_str += \
+        '  graph [fontsize=10 fontname="Verdana" compound=true];\n'
+    call_graph_str += \
+        '  node [shape=record fontsize=10 fontname="Verdana"];\n\n'
     # colors of modules nodes
-    for modName, modProperties in modules.items():
-        if not modProperties.get('calls'):
-            callGraphStr += '  "' + modName + \
+    for mod_name, mod_properties in modules.items():
+        if not mod_properties.get('calls'):
+            call_graph_str += '  "' + mod_name + \
                 '" [fillcolor=yellow style=filled];\n'
             continue
-        if len(modProperties['calls']) <= int(maxModuleCalls / 8):
-            callGraphStr += '  "' + modName + \
+        if len(mod_properties['calls']) <= int(max_module_calls / 8):
+            call_graph_str += '  "' + mod_name + \
                 '" [fillcolor=green style=filled];\n'
-        elif len(modProperties['calls']) < int(maxModuleCalls / 4):
-            callGraphStr += '  "' + modName + \
+        elif len(mod_properties['calls']) < int(max_module_calls / 4):
+            call_graph_str += '  "' + mod_name + \
                 '" [fillcolor=orange style=filled];\n'
         else:
-            callGraphStr += '  "' + modName + \
+            call_graph_str += '  "' + mod_name + \
                 '" [fillcolor=red style=filled];\n'
-    callGraphStr += '\n'
+    call_graph_str += '\n'
     # connections between modules
-    for modName, modProperties in modules.items():
-        if not modProperties.get('calls'):
+    for mod_name, mod_properties in modules.items():
+        if not mod_properties.get('calls'):
             continue
-        for modCall in modProperties['calls']:
-            callGraphStr += '  "' + modName + '" -> "' + modCall + '";\n'
+        for mod_call in mod_properties['calls']:
+            call_graph_str += '  "' + mod_name + '" -> "' + mod_call + '";\n'
     # module groups/clusters
-    clusterCtr = 1
-    for groupName, groupModules in modGroups.items():
-        callGraphStr += '\n'
-        callGraphStr += \
-            '  subgraph cluster_' + str(clusterCtr) + ' {\n'
-        callGraphStr += '    node [style=filled];\n'
-        for modName in groupModules:
-            callGraphStr += '    ' + modName + ';\n'
-        callGraphStr += '    label = "' + groupName + '";\n'
-        callGraphStr += '    color = blue;\n'
-        callGraphStr += '  }\n'
-        clusterCtr += 1
-    callGraphStr += '\n}\n'
-    with open('abermush_modules.dot', 'w+') as fp:
-        fp.write(callGraphStr)
+    cluster_ctr = 1
+    for group_name, group_modules in mod_groups.items():
+        call_graph_str += '\n'
+        call_graph_str += \
+            '  subgraph cluster_' + str(cluster_ctr) + ' {\n'
+        call_graph_str += '    node [style=filled];\n'
+        for mod_name in group_modules:
+            call_graph_str += '    ' + mod_name + ';\n'
+        call_graph_str += '    label = "' + group_name + '";\n'
+        call_graph_str += '    color = blue;\n'
+        call_graph_str += '  }\n'
+        cluster_ctr += 1
+    call_graph_str += '\n}\n'
+    with open('abermush_modules.dot', 'w+') as fp_call:
+        fp_call.write(call_graph_str)
         print('Modules call graph saved to abermush_modules.dot')
         print('Plot using: ' +
               'sfdp -x -Goverlap=false -Goverlap_scaling=2 ' +
               '-Gsep=+100 -Tx11 abermush_modules.dot')
 
-    callGraphStr = 'digraph AberMUSH {\n\n'
-    callGraphStr += '  size="8,6"; ratio=fill;\n'
-    callGraphStr += '  graph [fontsize=10 fontname="Verdana" compound=true];\n'
-    callGraphStr += '  node [shape=record fontsize=10 fontname="Verdana"];\n\n'
+    call_graph_str = 'digraph AberMUSH {\n\n'
+    call_graph_str += '  size="8,6"; ratio=fill;\n'
+    call_graph_str += \
+        '  graph [fontsize=10 fontname="Verdana" compound=true];\n'
+    call_graph_str += \
+        '  node [shape=record fontsize=10 fontname="Verdana"];\n\n'
 
-    for modName, modProperties in modules.items():
-        callGraphStr += '  subgraph cluster_' + modName + ' {\n'
-        callGraphStr += '    label = "' + modName + '";\n'
-        callGraphStr += '    node [style=filled];\n'
-        moduleFunctionsStr = ''
-        for name in modProperties['functions']:
+    for mod_name, mod_properties in modules.items():
+        call_graph_str += '  subgraph cluster_' + mod_name + ' {\n'
+        call_graph_str += '    label = "' + mod_name + '";\n'
+        call_graph_str += '    node [style=filled];\n'
+        module_functions_str = ''
+        for name in mod_properties['functions']:
             if name.startswith('test'):
                 continue
-            if name not in excludeFuncs:
-                if not functionProperties[name]['calls']:
-                    moduleFunctionsStr += \
+            if name not in exclude_funcs:
+                if not function_props[name]['calls']:
+                    module_functions_str += \
                         '  "' + name + '" [fillcolor=yellow style=filled];\n'
                     continue
-                noOfCalls = len(functionProperties[name]['calls'])
-                if noOfCalls < int(maxFunctionCalls / 4):
-                    moduleFunctionsStr += '  "' + name + \
+                no_of_calls = len(function_props[name]['calls'])
+                if no_of_calls < int(max_function_calls / 4):
+                    module_functions_str += '  "' + name + \
                         '" [fillcolor=orange style=filled];\n'
                 else:
-                    moduleFunctionsStr += '  "' + name + \
+                    module_functions_str += '  "' + name + \
                         '" [fillcolor=red style=filled];\n'
 
-        if moduleFunctionsStr:
-            callGraphStr += moduleFunctionsStr + '\n'
-        callGraphStr += '    color=blue;\n'
-        callGraphStr += '  }\n\n'
+        if module_functions_str:
+            call_graph_str += module_functions_str + '\n'
+        call_graph_str += '    color=blue;\n'
+        call_graph_str += '  }\n\n'
 
-    for name, properties in functionProperties.items():
+    for name, properties in function_props.items():
         if not properties['calls']:
             continue
-        noOfCalls = len(properties['calls'])
-        if noOfCalls <= int(maxFunctionCalls / 8):
-            modColor = 'blue'
-        elif noOfCalls < int(maxFunctionCalls / 4):
-            modColor = 'green'
+        no_of_calls = len(properties['calls'])
+        if no_of_calls <= int(max_function_calls / 8):
+            mod_color = 'blue'
+        elif no_of_calls < int(max_function_calls / 4):
+            mod_color = 'green'
         else:
-            modColor = 'red'
-        for calledFunc in properties['calls']:
-            if calledFunc.startswith('test'):
+            mod_color = 'red'
+        for called_func in properties['calls']:
+            if called_func.startswith('test'):
                 continue
-            if calledFunc not in excludeFuncs:
-                callGraphStr += '  "' + name + '" -> "' + calledFunc + \
-                    '" [color=' + modColor + '];\n'
+            if called_func not in exclude_funcs:
+                call_graph_str += '  "' + name + '" -> "' + called_func + \
+                    '" [color=' + mod_color + '];\n'
 
-    callGraphStr += '\n}\n'
-    with open('abermush.dot', 'w+') as fp:
-        fp.write(callGraphStr)
+    call_graph_str += '\n}\n'
+    with open('abermush.dot', 'w+') as fp_call:
+        fp_call.write(call_graph_str)
         print('Call graph saved to abermush.dot')
         print('Plot using: ' +
               'sfdp -x -Goverlap=prism -Goverlap_scaling=8 ' +
               '-Gsep=+120 -Tx11 abermush.dot')
 
 
-def _testDuplicateExits():
+def _test_duplicate_exits():
     print('testDuplicateExits')
 
     Config = configparser.ConfigParser()
@@ -645,19 +650,19 @@ def _testDuplicateExits():
     with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
         rooms = json.loads(read_file.read())
 
-    for roomId, item in rooms.items():
+    for room_id, item in rooms.items():
         if not item.get('exits'):
             continue
         ids = []
-        for direction, exitRoomId in item['exits'].items():
-            if exitRoomId in ids:
+        for direction, exit_room_id in item['exits'].items():
+            if exit_room_id in ids:
                 print('Duplicate exit ' +
-                      roomId + ' ' + item['name'] + ' ' + direction)
+                      room_id + ' ' + item['name'] + ' ' + direction)
             else:
-                ids.append(exitRoomId)
+                ids.append(exit_room_id)
 
 
-def _testMoneyPurchase() -> None:
+def _test_purchase_with_money() -> None:
     print("testMoneyPurchase")
     id = "me"
     players = {
@@ -692,7 +697,7 @@ def _testMoneyPurchase() -> None:
 
 def run_all_tests():
     print('Running tests...')
-    _testFunctions()
-    _testDuplicateExits()
-    _testMoneyPurchase()
+    _test_functions()
+    _test_duplicate_exits()
+    _test_purchase_with_money()
     print('Tests succeeded\n')
