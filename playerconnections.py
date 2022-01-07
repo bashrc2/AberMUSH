@@ -277,10 +277,10 @@ def player_in_game(id, username: str, players: {}) -> bool:
     return False
 
 
-def initial_setup_after_login(mud, id, players: {}, loadedJson: {}) -> None:
+def initial_setup_after_login(mud, id, players: {}, loaded_json: {}) -> None:
     """Sets up a player after login
     """
-    players[id] = loadedJson.copy()
+    players[id] = loaded_json.copy()
     players[id]['authenticated'] = True
     players[id]['prefix'] = "None"
     players[id]['isInCombat'] = 0
