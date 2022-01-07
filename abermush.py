@@ -170,8 +170,8 @@ if 'true' in Config.get('Web', 'tlsEnabled').lower():
 
 log("Loading sentiment...", "info")
 
-with open(str(Config.get('Sentiment', 'Definition')), "r") as read_file:
-    sentiment_db = json.loads(read_file.read())
+with open(str(Config.get('Sentiment', 'Definition')), "r") as fp_read:
+    sentiment_db = json.loads(fp_read.read())
 
 count_str = str(len(sentiment_db))
 log("Sentiment loaded: " + count_str, "info")
@@ -179,8 +179,8 @@ log("Sentiment loaded: " + count_str, "info")
 log("Loading cultures...", "info")
 
 cultures_db = None
-with open(str(Config.get('Cultures', 'Definition')), "r") as read_file:
-    cultures_db = json.loads(read_file.read())
+with open(str(Config.get('Cultures', 'Definition')), "r") as fp_read:
+    cultures_db = json.loads(fp_read.read())
 
 count_str = str(len(cultures_db))
 log("Cultures loaded: " + count_str, "info")
@@ -189,14 +189,14 @@ log("Loading rooms...", "info")
 
 # Loading rooms
 if os.path.isfile("universe.json"):
-    with open("universe.json", "r") as read_file:
-        rooms = json.loads(read_file.read())
+    with open("universe.json", "r") as fp_read:
+        rooms = json.loads(fp_read.read())
     # Clear room coordinates
     for rm in rooms:
         rooms[rm]['coords'] = []
 else:
-    with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
-        rooms = json.loads(read_file.read())
+    with open(str(Config.get('Rooms', 'Definition')), "r") as fp_read:
+        rooms = json.loads(fp_read.read())
 
 for room_id, rm in rooms.items():
     room_id = room_id.replace('$rid=', '').replace('$', '')
@@ -208,8 +208,8 @@ count_str = str(len(rooms))
 log("Rooms loaded: " + count_str, "info")
 
 log("Loading environments...", "info")
-with open(str(Config.get('Environments', 'Definition')), "r") as read_file:
-    environments = json.loads(read_file.read())
+with open(str(Config.get('Environments', 'Definition')), "r") as fp_read:
+    environments = json.loads(fp_read.read())
 percent_assigned = str(assign_environment_to_rooms(environments, rooms))
 log(percent_assigned + '% of rooms have environments assigned', "info")
 
@@ -221,23 +221,21 @@ log("Terrain difficulty calculated. max=" + max_terrain_difficulty_str, "info")
 # Loading Items
 if os.path.isfile("universe_items.json"):
     try:
-        with open("universe_items.json", "r") as read_file:
-            items_in_world = json.loads(read_file.read())
+        with open("universe_items.json", "r") as fp_read:
+            items_in_world = json.loads(fp_read.read())
     except BaseException:
         print('WARN: unable to load universe_items.json')
-        pass
 
 if os.path.isfile("universe_itemsdb.json"):
     try:
-        with open("universe_itemsdb.json", "r") as read_file:
-            items_db = json.loads(read_file.read())
+        with open("universe_itemsdb.json", "r") as fp_read:
+            items_db = json.loads(fp_read.read())
     except BaseException:
         print('WARN: unable to load universe_itemsdb.json')
-        pass
 
 if not items_db:
-    with open(str(Config.get('Items', 'Definition')), "r") as read_file:
-        items_db = json.loads(read_file.read())
+    with open(str(Config.get('Items', 'Definition')), "r") as fp_read:
+        items_db = json.loads(fp_read.read())
 
 output_dict = {}
 for key, value in items_db.items():
@@ -246,52 +244,56 @@ for key, value in items_db.items():
 items_db = output_dict
 
 item_history = {}
-with open(str(Config.get('ItemHistory', 'Definition')), "r") as read_file:
-    item_history = json.loads(read_file.read())
+with open(str(Config.get('ItemHistory', 'Definition')), "r") as fp_read:
+    item_history = json.loads(fp_read.read())
 item_ctr = assign_items_history(items_db, item_history)
 item_ctr_str = str(item_ctr)
 log('Assigned history to ' + item_ctr_str + ' items', "info")
 
+items_fields_excluded = (
+    "name",
+    "long_description",
+    "short_description",
+    "open_description",
+    "open_failed_description",
+    "close_description",
+    "room",
+    "language",
+    "culture",
+    "state",
+    "visibleWhenWearing",
+    "climbWhenWearing",
+    "respawnInRegion",
+    "type",
+    "writeWithItems",
+    "written",
+    "written_description",
+    "contains",
+    "climbThrough",
+    "damage",
+    "damageChart",
+    "cost",
+    "range",
+    "heave",
+    "jumpTo",
+    "game",
+    "gameState",
+    "exit",
+    "exitName",
+    "moveTimes",
+    "conditional",
+    "takeFail",
+    "climbFail",
+    "cardPack",
+    "itemName",
+    "chessBoardName",
+    "morrisBoardName",
+    "article"
+)
+
 for k in items_db:
     for v in items_db[k]:
-        if not(v == "name" or
-               v == "long_description" or
-               v == "short_description" or
-               v == "open_description" or
-               v == "open_failed_description" or
-               v == "close_description" or
-               v == "room" or
-               v == "language" or
-               v == "culture" or
-               v == "state" or
-               v == "visibleWhenWearing" or
-               v == "climbWhenWearing" or
-               v == "respawnInRegion" or
-               v == "type" or
-               v == "writeWithItems" or
-               v == "written" or
-               v == "written_description" or
-               v == "contains" or
-               v == "climbThrough" or
-               v == "damage" or
-               v == "damageChart" or
-               v == "cost" or
-               v == "range" or
-               v == "heave" or
-               v == "jumpTo" or
-               v == "game" or
-               v == "gameState" or
-               v == "exit" or
-               v == "exitName" or
-               v == "moveTimes" or
-               v == "conditional" or
-               v == "takeFail" or
-               v == "climbFail" or
-               v == "cardPack" or
-               v == "itemName" or
-               v == "chessBoardName" or
-               v == "morrisBoardName" or
-               v == "article"):
+        if v not in items_fields_excluded:
             items_db[k][v] = int(items_db[k][v])
 
 count_str = str(len(items_db))
@@ -357,13 +359,17 @@ for key, value in env_db.items():
 
 env_db = output_dict
 
+env_fields_excluded = (
+    "name",
+    "room",
+    "vocabulary"
+ )
+
 for k in env_db:
     if not os.path.isfile("universe_actors.json"):
         env_db[k]['vocabulary'] = env_db[k]['vocabulary'].split('|')
     for v in env_db[k]:
-        if not (v == "name" or
-                v == "room" or
-                v == "vocabulary"):
+        if v not in env_fields_excluded:
             env_db[k][v] = int(env_db[k][v])
 
 count_str = str(len(env_db))
@@ -379,20 +385,19 @@ log("Environment Actors loaded: " + count_str, "info")
 
 log("Loading NPCs...", "info")
 # if os.path.isfile("universe_npcs.json"):
-#     with open("universe_npcs.json", "r") as read_file:
-#         npcs = json.loads(read_file.read())
+#     with open("universe_npcs.json", "r") as fp_read:
+#         npcs = json.loads(fp_read.read())
 
 if os.path.isfile("universe_npcsdb.json"):
     try:
-        with open("universe_npcsdb.json", "r") as read_file:
-            npcs_db = json.loads(read_file.read())
+        with open("universe_npcsdb.json", "r") as fp_read:
+            npcs_db = json.loads(fp_read.read())
     except BaseException:
         print('WARN: unable to load universe_npcsdb.json')
-        pass
 
 if not npcs_db:
-    with open(str(Config.get('NPCs', 'Definition')), "r") as read_file:
-        npcs_db = json.loads(read_file.read())
+    with open(str(Config.get('NPCs', 'Definition')), "r") as fp_read:
+        npcs_db = json.loads(fp_read.read())
 
 output_dict = {}
 for key, value in npcs_db.items():
@@ -400,83 +405,87 @@ for key, value in npcs_db.items():
 
 npcs_db = output_dict
 
+npcs_fields_excluded = (
+    "name",
+    "room",
+    "inv",
+    "visibleWhenWearing",
+    "climbWhenWearing",
+    "speakLanguage",
+    "language",
+    "culture",
+    "race",
+    "familiarOf",
+    "familiarTarget",
+    "familiarType",
+    "familiarMode",
+    "animalType",
+    "archetype",
+    "characterClass",
+    "proficiencies",
+    "fightingStyle",
+    "enemy",
+    "tempCharmTarget",
+    "guild",
+    "guildRole",
+    "affinity",
+    "preparedSpells",
+    "spellSlots",
+    "conv",
+    "path",
+    "moveTimes",
+    "follow",
+    "moveDelay",
+    "moveType",
+    "vocabulary",
+    "inDescription",
+    "outDescription",
+    "lookDescription",
+    "lastRoom",
+    "loot",
+    "frozenDescription",
+    "bodyType",
+    "whenDied"
+)
+
 for k in npcs_db:
     npcs_db[k]['lastRoom'] = None
     npcs_db[k]['whenDied'] = None
     if not os.path.isfile("universe_npcs.json"):
         npcs_db[k]['vocabulary'] = npcs_db[k]['vocabulary'].split('|')
     for v in npcs_db[k]:
-        if not(v == "name" or
-               v == "room" or
-               v == "inv" or
-               v == "visibleWhenWearing" or
-               v == "climbWhenWearing" or
-               v == "speakLanguage" or
-               v == "language" or
-               v == "culture" or
-               v == "race" or
-               v == "familiarOf" or
-               v == "familiarTarget" or
-               v == "familiarType" or
-               v == "familiarMode" or
-               v == "animalType" or
-               v == "archetype" or
-               v == "characterClass" or
-               v == "proficiencies" or
-               v == "fightingStyle" or
-               v == "enemy" or
-               v == "tempCharmTarget" or
-               v == "guild" or
-               v == "guildRole" or
-               v == "affinity" or
-               v == "preparedSpells" or
-               v == "spellSlots" or
-               v == "conv" or
-               v == "path" or
-               v == "moveTimes" or
-               v == "follow" or
-               v == "moveDelay" or
-               v == "moveType" or
-               v == "vocabulary" or
-               v == "inDescription" or
-               v == "outDescription" or
-               v == "lookDescription" or
-               v == "lastRoom" or
-               v == "loot" or
-               v == "frozenDescription" or
-               v == "bodyType" or
-               v == "whenDied"):
+        if v not in npcs_fields_excluded:
             npcs_db[k][v] = int(npcs_db[k][v])
 
 count_str = str(len(npcs_db))
 log("NPCs loaded: " + count_str, "info")
 
-with open(str(Config.get('Races', 'Definition')), "r") as read_file:
-    races_db = json.loads(read_file.read())
+with open(str(Config.get('Races', 'Definition')), "r") as fp_read:
+    races_db = json.loads(fp_read.read())
 
 count_str = str(len(races_db))
 log("Races loaded: " + count_str, "info")
 
-with open(str(Config.get('CharacterClass', 'Definition')), "r") as read_file:
-    character_class_db = json.loads(read_file.read())
+with open(str(Config.get('CharacterClass', 'Definition')), "r") as fp_read:
+    character_class_db = json.loads(fp_read.read())
 
 count_str = str(len(character_class_db))
 log("Character Classes loaded: " + count_str, "info")
 
-with open(str(Config.get('Spells', 'Definition')), "r") as read_file:
-    spells_db = json.loads(read_file.read())
+with open(str(Config.get('Spells', 'Definition')), "r") as fp_read:
+    spells_db = json.loads(fp_read.read())
 
 count_str = str(len(spells_db))
 log("Spells loaded: " + count_str, "info")
 
-with open(str(Config.get('Guilds', 'Definition')), "r") as read_file:
-    guilds_db = json.loads(read_file.read())
+with open(str(Config.get('Guilds', 'Definition')), "r") as fp_read:
+    guilds_db = json.loads(fp_read.read())
 
 count_str = str(len(guilds_db))
 log("Guilds loaded: " + count_str, "info")
 
-with open(str(Config.get('Attacks', 'Definition')), "r") as read_file:
-    attack_db = json.loads(read_file.read())
+with open(str(Config.get('Attacks', 'Definition')), "r") as fp_read:
+    attack_db = json.loads(fp_read.read())
 
 count_str = str(len(attack_db))
 log("Attacks loaded: " + count_str, "info")
@@ -516,8 +525,8 @@ add_to_scheduler(3, -1, event_schedule, scripted_events_db)
 # A State Save takes values held in memory and updates the database
 # at set intervals to achieve player state persistence
 state_save_interval = int(Config.get('World', 'StateSaveInterval'))
-stateSaveInterStr = str(state_save_interval)
-log("State Save interval: " + stateSaveInterStr + " seconds", "info")
+state_save_inter_str = str(state_save_interval)
+log("State Save interval: " + state_save_inter_str + " seconds", "info")
 
 # Set last state save to 'now' on server boot
 last_state_save = int(time.time())
@@ -535,31 +544,31 @@ npcs_template = deepcopy(npcs)
 players = {}
 
 # list of players
-playerList = []
+player_list = []
 
 # start the server
 mud = MudServer(websocket_tls, websocket_cert, websocket_key, websocket_ver)
 
 # weather
-currHour = datetime.datetime.today().hour
-currMin = datetime.datetime.today().minute
-daysSinceEpoch = (datetime.datetime.today() -
-                  datetime.datetime(1970, 1, 1)).days
-dayMins = (currHour * 60) + currMin
-random.seed((daysSinceEpoch * 1440) + dayMins)
+curr_hour = datetime.datetime.today().hour
+curr_min = datetime.datetime.today().minute
+days_since_epoch = (datetime.datetime.today() -
+                    datetime.datetime(1970, 1, 1)).days
+day_mins = (curr_hour * 60) + curr_min
+random.seed((days_since_epoch * 1440) + day_mins)
 last_weather_update = int(time.time())
 weather_update_interval = 120
 fishing_update_interval = 120
 last_fishing_update = int(time.time())
 clouds = {}
 cloud_grid = {}
-tileSize = 2
+tile_size = 2
 temperature = get_temperature()
-r1 = random.Random((daysSinceEpoch * 1440) + dayMins)
+r1 = random.Random((days_since_epoch * 1440) + day_mins)
 wind_direction = int(r1.random() * 359)
 wind_direction = \
     generate_cloud(r1, rooms, map_area, clouds,
-                   cloud_grid, tileSize, wind_direction)
+                   cloud_grid, tile_size, wind_direction)
 wind_directionStr = str(wind_direction)
 log("Clouds generated. Wind direction " + wind_directionStr, "info")
 
@@ -577,8 +586,8 @@ if load_blocklist("blocked.txt", blocklist):
 
 terminal_mode = {}
 
-with open(str(Config.get('Markets', 'Definition')), "r") as read_file:
-    markets = json.loads(read_file.read())
+with open(str(Config.get('Markets', 'Definition')), "r") as fp_read:
+    markets = json.loads(fp_read.read())
     no_of_markets = str(assign_markets(markets, rooms, items_db, cultures_db))
     markets_str = str(no_of_markets)
     log(markets_str + ' markets were created', "info")
@@ -645,7 +654,7 @@ while True:
         # print("Temperature " + str(temperature))
         wind_direction = \
             generate_cloud(r1, rooms, map_area, clouds, cloud_grid,
-                           tileSize, wind_direction)
+                           tile_size, wind_direction)
         previous_timing = \
             show_timing(previous_timing, "calc wind directions")
         # plot_clouds(rooms, map_area, clouds, temperature)
@@ -655,12 +664,12 @@ while True:
         last_fishing_update = now
 
     # update player list
-    playerList = []
+    player_list = []
     for p in players:
         if players[p]['name'] is not None and \
            players[p]['authenticated'] is not None:
-            if players[p]['name'] not in playerList:
-                playerList.append(players[p]['name'])
+            if players[p]['name'] not in player_list:
+                player_list.append(players[p]['name'])
 
     previous_timing = \
         show_timing(previous_timing, "update player list")
@@ -793,7 +802,7 @@ while True:
         show_timing(previous_timing, "resting")
 
     # go through any new commands sent from players
-    for (id, command, params) in mud.get_commands():
+    for id, command, params in mud.get_commands():
         # if for any reason the player isn't in the player map, skip them and
         # move on to the next one
         if id not in players:
@@ -993,8 +1002,8 @@ while True:
 
             # Load the player template from a file
             with open(str(Config.get('Players', 'Location')) +
-                      "/player.template", "r") as read_file:
-                template = json.loads(read_file.read())
+                      "/player.template", "r") as fp_read:
+                template = json.loads(fp_read.read())
 
             set_race(template, races_db, selected_race)
 
@@ -1025,8 +1034,8 @@ while True:
                         if lang not in template['language']:
                             template['language'].append(lang)
                 template['language'].append('cant')
-                with open("witches", "w") as witches_file:
-                    witches_file.write(template['name'])
+                with open("witches", "w") as fp_witches:
+                    fp_witches.write(template['name'])
 
             # populate initial inventory from character class
             template['inv'] = []
@@ -1047,8 +1056,8 @@ while True:
             # Save template into a new player file
             # print(template)
             with open(str(Config.get('Players', 'Location')) + "/" +
-                      template['name'] + ".player", 'w') as fp:
-                fp.write(json.dumps(template))
+                      template['name'] + ".player", 'w') as fp_player:
+                fp_player.write(json.dumps(template))
 
             # Reload PlayersDB to include this newly created player
             players_db = load_players_db()
