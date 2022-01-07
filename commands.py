@@ -3617,13 +3617,13 @@ def _item_in_inventory(players: {}, id, item_name: str, items_db: {}):
     return False
 
 
-def _describe(params, mud, players_db: {}, players: {}, rooms: {},
-              npcs_db: {}, npcs: {}, items_db: {}, items: {},
-              env_db: {}, env: {}, eventDB: {}, event_schedule,
-              id: int, fights: {}, corpses: {}, blocklist,
-              map_area: [], character_class_db: {}, spells_db: {},
-              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+def _describe_thing(params, mud, players_db: {}, players: {}, rooms: {},
+                    npcs_db: {}, npcs: {}, items_db: {}, items: {},
+                    env_db: {}, env: {}, eventDB: {}, event_schedule,
+                    id: int, fights: {}, corpses: {}, blocklist,
+                    map_area: [], character_class_db: {}, spells_db: {},
+                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+                    item_history: {}, markets: {}, cultures_db: {}):
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -7634,9 +7634,9 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "blocklist": _show_blocklist,
         "block": _block,
         "unblock": _unblock,
-        "describe": _describe,
-        "desc": _describe,
-        "description": _describe,
+        "describe": _describe_thing,
+        "desc": _describe_thing,
+        "description": _describe_thing,
         "conjure": _conjure,
         "make": _conjure,
         "cancel": _destroy,

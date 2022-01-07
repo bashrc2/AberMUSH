@@ -233,7 +233,7 @@ def _test_functions() -> None:
         '_stick',
         '_escape_trap',
         '_begin_attack',
-        '_describe',
+        '_describe_thing',
         '_change_setting',
         '_write_on_item',
         '_check',
