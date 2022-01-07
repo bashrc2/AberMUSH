@@ -9,21 +9,19 @@ __status__ = "Production"
 __module_group__ = "Core"
 
 import os
+import time
 from functions import log
 from functions import save_state
 from functions import load_players_db
 from functions import deepcopy
-# from copy import deepcopy
 
-import time
-
-maximum_players = 128
+MAXIMUM_PLAYERS = 128
 
 
-def _runNewPlayerConnections(mud, id, players, players_db, fights, Config):
+def _run_new_player_connections(mud, players, players_db, fights, Config):
     # go through any newly connected players
     for id in mud.get_new_players():
-        if len(players) >= maximum_players:
+        if len(players) >= MAXIMUM_PLAYERS:
             mud.send_message(id, "Player limit reached\n\n")
             mud.handle_disconnect(id)
 
@@ -150,18 +148,18 @@ def _runNewPlayerConnections(mud, id, players, players_db, fights, Config):
         }
 
         # Read in the MOTD file and send to the player
-        motdFile = open(str(Config.get('System', 'Motd')), "r")
-        motdLines = motdFile.readlines()
-        motdFile.close()
-        for fileLine in motdLines:
-            lineStr = fileLine[:-1]
-            if lineStr.strip().startswith('images/'):
-                motdImageFile = lineStr.strip()
-                if os.path.isfile(motdImageFile):
-                    with open(motdImageFile, 'r') as imgFile:
-                        mud.send_image(id, '\n' + imgFile.read(), True)
+        with open(str(Config.get('System', 'Motd')), "r") as motd_file:
+            motd_lines = motd_file.readlines()
+
+        for file_line in motd_lines:
+            line_str = file_line[:-1]
+            if line_str.strip().startswith('images/'):
+                motd_image_file = line_str.strip()
+                if os.path.isfile(motd_image_file):
+                    with open(motd_image_file, 'r') as fp_img:
+                        mud.send_image(id, '\n' + fp_img.read(), True)
             else:
-                mud.send_message(id, lineStr)
+                mud.send_message(id, line_str)
 
         if not os.path.isfile(".disableRegistrations"):
             mud.send_message_wrap(
@@ -177,12 +175,12 @@ def _runNewPlayerConnections(mud, id, players, players_db, fights, Config):
                 '<f0><b220> New account registrations are currently closed')
 
             mud.send_message(id, "\nWhat is your username?\n\n")
-        idStr = str(id)
-        log("Player ID " + idStr + " has connected", "info")
+        id_str = str(id)
+        log("Player ID " + id_str + " has connected", "info")
 
 
-def _runPlayerDisconnections(mud, id, players, players_db, fights,
-                             Config, terminalMode: {}):
+def _run_player_disconnections(mud, players, players_db, fights,
+                               Config, terminalMode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
 
@@ -191,14 +189,14 @@ def _runPlayerDisconnections(mud, id, players, players_db, fights,
         if id not in players:
             continue
 
-        idStr = str(id)
-        terminalMode[idStr] = False
-        nameStr = str(players[id]['name'])
-        log("Player ID " + idStr + " has disconnected [" +
-            nameStr + "]", "info")
+        id_str = str(id)
+        terminalMode[id_str] = False
+        name_str = str(players[id]['name'])
+        log("Player ID " + id_str + " has disconnected [" +
+            name_str + "]", "info")
 
         # go through all the players in the game
-        for (pid, pl) in list(players.items()):
+        for pid, _ in list(players.items()):
             # send each player a message to tell them about the diconnected
             # player if they are in the same room
             if players[pid]['authenticated'] is not None:
@@ -218,10 +216,10 @@ def _runPlayerDisconnections(mud, id, players, players_db, fights,
 
         # Create a deep copy of fights, iterate through it and remove fights
         # disconnected player was taking part in
-        fightsCopy = deepcopy(fights)
-        for (fight, pl) in fightsCopy.items():
-            if fightsCopy[fight]['s1'] == players[id]['name'] or \
-               fightsCopy[fight]['s2'] == players[id]['name']:
+        fights_copy = deepcopy(fights)
+        for fight, _ in fights_copy.items():
+            if fights_copy[fight]['s1'] == players[id]['name'] or \
+               fights_copy[fight]['s2'] == players[id]['name']:
                 del fights[fight]
 
         # remove the player's entry in the player dictionary
@@ -230,51 +228,51 @@ def _runPlayerDisconnections(mud, id, players, players_db, fights,
 
 def run_player_connections(mud, id, players, players_db, fights,
                            Config, terminalMode: {}):
-    _runNewPlayerConnections(mud, id, players, players_db, fights, Config)
-    _runPlayerDisconnections(mud, id, players, players_db, fights,
-                             Config, terminalMode)
+    _run_new_player_connections(mud, players, players_db, fights, Config)
+    _run_player_disconnections(mud, players, players_db, fights,
+                               Config, terminalMode)
 
 
-def disconnect_idle_players(mud, players: {}, allowedPlayerIdle: int,
+def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
                             players_db: {}) -> bool:
     # Evaluate player idle time and disconnect if required
-    authenticatedPlayersDisconnected = False
+    authenticated_players_disconnected = False
     now = int(time.time())
-    playersCopy = deepcopy(players)
-    for p in playersCopy:
-        if now - playersCopy[p]['idleStart'] > allowedPlayerIdle:
-            if players[p]['authenticated'] is not None:
+    players_copy = deepcopy(players)
+    for plyr in players_copy:
+        if now - players_copy[plyr]['idleStart'] > allowed_player_idle:
+            if players[plyr]['authenticated'] is not None:
                 mud.send_message_wrap(
-                    p, "<f232><b11>",
+                    plyr, "<f232><b11>",
                     "<f232><b11>Your body starts tingling. " +
                     "You instinctively hold your hand up to " +
                     "your face and notice you slowly begin to " +
                     "vanish. You are being disconnected due " +
                     "to inactivity...****DISCONNECT****\n")
-                save_state(players[p], players_db, False)
-                authenticatedPlayersDisconnected = True
+                save_state(players[plyr], players_db, False)
+                authenticated_players_disconnected = True
             else:
                 mud.send_message(
-                    p, "<f232><b11>You are being disconnected " +
+                    plyr, "<f232><b11>You are being disconnected " +
                     "due to inactivity. Bye!****DISCONNECT****\n")
-            nameStr = str(players[p]['name'])
-            log("Character " + nameStr +
+            name_str = str(players[plyr]['name'])
+            log("Character " + name_str +
                 " is being disconnected due to inactivity.", "warning")
-            pStr = str(p)
-            log("Disconnecting client " + pStr, "warning")
-            del players[p]
-            mud.handle_disconnect(p)
-    return authenticatedPlayersDisconnected
+            p_str = str(plyr)
+            log("Disconnecting client " + p_str, "warning")
+            del players[plyr]
+            mud.handle_disconnect(plyr)
+    return authenticated_players_disconnected
 
 
 def player_in_game(id, username: str, players: {}) -> bool:
     """ is the given player already logged in?
     """
-    for pl in players:
+    for plyr in players:
         if username is not None and \
-           players[pl]['name'] is not None and \
-           username == players[pl]['name'] and \
-           pl != id:
+           players[plyr]['name'] is not None and \
+           username == players[plyr]['name'] and \
+           plyr != id:
             return True
     return False
 
@@ -291,14 +289,14 @@ def initial_setup_after_login(mud, id, players: {}, loadedJson: {}) -> None:
     players[id]['corpseTTL'] = 60
     players[id]['idleStart'] = int(time.time())
 
-    idStr = str(id)
-    log("Player ID " + idStr +
+    id_str = str(id)
+    log("Player ID " + id_str +
         " has successfully authenticated user " +
         players[id]['name'], "info")
 
     # print(players[id])
     # go through all the players in the game
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         # send each player a message to tell them about the new
         # player
         if players[pid]['authenticated'] is not None \
