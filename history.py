@@ -11,12 +11,12 @@ __module_group__ = "Environment Simulation"
 import random
 
 
-def _getSwordName(description: str, swordNames: []) -> str:
+def _get_sword_name(description: str, sword_names: []) -> str:
     """Returns a sword name based on its description
     """
     randgen = random.Random(description)
-    index = randgen.randint(0, len(swordNames) - 1)
-    return swordNames[index]
+    index = randgen.randint(0, len(sword_names) - 1)
+    return sword_names[index]
 
 
 def assign_item_history(key: int, item: {}, item_history: {}) -> bool:
@@ -24,16 +24,17 @@ def assign_item_history(key: int, item: {}, item_history: {}) -> bool:
     """
     assigned = False
     item['itemName'] = ''
-    itemNameLower = item['name'].lower()
-    keyStr = str(key)
+    item_name_lower = item['name'].lower()
+    key_str = str(key)
 
-    for name, hist in item_history.items():
+    for _, hist in item_history.items():
         if not hist.get('match'):
             continue
-        matchStr = hist['match']
-        if matchStr in itemNameLower:
+        match_str = hist['match']
+        if match_str in item_name_lower:
             item['itemName'] = \
-                _getSwordName(keyStr + item['long_description'], hist['names'])
+                _get_sword_name(key_str + item['long_description'],
+                                hist['names'])
             assigned = True
     return assigned
 
