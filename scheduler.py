@@ -20,34 +20,34 @@ import time
 def run_messages(mud, channels, players):
     # go through channels messages queue and send messages to subscribed
     # players
-    previousTiming = time.time()
+    previous_timing = time.time()
 
-    ch = deepcopy(channels)
+    chans = deepcopy(channels)
 
-    previousTiming = \
-        show_timing(previousTiming, "copy channels")
+    previous_timing = \
+        show_timing(previous_timing, "copy channels")
 
-    for p in players:
-        if players[p]['channels'] is not None:
-            for c in players[p]['channels']:
+    for plyr in players:
+        if players[plyr]['channels'] is not None:
+            for cha in players[plyr]['channels']:
                 # print(c)
-                for m in ch:
-                    if ch[m]['channel'] == c:
+                for msg in chans:
+                    if chans[msg]['channel'] == cha:
                         mud.send_message(
-                            p, "[<f191>" + ch[m]['channel'] +
-                            "<r>] <f32>" + ch[m]['sender'] +
-                            "<r>: " + ch[m]['message'] + "\n")
+                            plyr, "[<f191>" + chans[msg]['channel'] +
+                            "<r>] <f32>" + chans[msg]['sender'] +
+                            "<r>: " + chans[msg]['message'] + "\n")
                         # del channels[m]
-            previousTiming = \
-                show_timing(previousTiming, "send message " +
-                            str(len(players[p]['channels'])) + ' x ' +
-                            str(len(ch)))
+            previous_timing = \
+                show_timing(previous_timing, "send message " +
+                            str(len(players[plyr]['channels'])) + ' x ' +
+                            str(len(chans)))
 
 
 def run_environment(mud, players, env):
     # Iterate through ENV elements and see if it's time to send a message to
     # players in the same room as the ENV elements
-    for (eid, pl) in list(env.items()):
+    for eid, _ in list(env.items()):
         now = int(time.time())
         if now > \
            env[eid]['timeTalked'] + \
@@ -60,7 +60,7 @@ def run_environment(mud, players, env):
             else:
                 rnd = 0
 
-            for (pid, pl) in list(players.items()):
+            for pid, _ in list(players.items()):
                 if env[eid]['room'] == players[pid]['room']:
                     if len(env[eid]['vocabulary']) > 1:
                         msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
@@ -81,7 +81,7 @@ def run_environment(mud, players, env):
 def run_schedule(mud, event_schedule, players: {}, npcs: {},
                  itemsInWorld: {}, env, npcs_db: {}, env_db: {}):
     # Evaluate the Event Schedule
-    for (event, pl) in list(event_schedule.items()):
+    for event, _ in list(event_schedule.items()):
         if time.time() < event_schedule[event]['time']:
             continue
         # its time to run the event!
