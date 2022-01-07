@@ -206,7 +206,7 @@ def _testFunctions():
         '_whisper',
         '_help',
         '_cast_spell',
-        '_affinity',
+        '_player_affinity',
         '_clear_spells',
         '_spells_list',
         '_sit',

@@ -23,28 +23,34 @@ from random import randint
 Config = configparser.ConfigParser()
 Config.read('config.ini')
 
-wear_location = ('head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
-                 'chest', 'feet', 'lfinger', 'rfinger', 'back',
-                 'lleg', 'rleg', 'gloves')
+WEAR_LOCATION = (
+    'head', 'neck', 'lwrist', 'rwrist', 'larm', 'rarm',
+    'chest', 'feet', 'lfinger', 'rfinger', 'back',
+    'lleg', 'rleg', 'gloves'
+)
 
 _dispatcher = {}
 
 
-def _copy_list(listToCopy: [], dispatch):
-    ret = listToCopy.copy()
+def _copy_list(list_to_copy: [], dispatch):
+    """Copy a list
+    """
+    ret = list_to_copy.copy()
     for idx, item in enumerate(ret):
-        cp = dispatch.get(type(item))
-        if cp is not None:
-            ret[idx] = cp(item, dispatch)
+        cp1 = dispatch.get(type(item))
+        if cp1 is not None:
+            ret[idx] = cp1(item, dispatch)
     return ret
 
 
 def _copy_dict(d, dispatch):
+    """Copy a dict
+    """
     ret = d.copy()
     for key, value in ret.items():
-        cp = dispatch.get(type(value))
-        if cp is not None:
-            ret[key] = cp(value, dispatch)
+        cp1 = dispatch.get(type(value))
+        if cp1 is not None:
+            ret[key] = cp1(value, dispatch)
 
     return ret
 
@@ -54,20 +60,21 @@ _dispatcher[dict] = _copy_dict
 
 
 def deepcopy(sth):
-    cp = _dispatcher.get(type(sth))
-    if cp is None:
+    """Deep copy an object
+    """
+    cp1 = _dispatcher.get(type(sth))
+    if cp1 is None:
         return sth
-    else:
-        return cp(sth, _dispatcher)
+    return cp1(sth, _dispatcher)
 
 
-def time_string_to_sec(durationStr: str) -> int:
+def time_string_to_sec(duration_str: str) -> int:
     """Converts a description of a duration such as '1 hour'
        into a number of seconds
     """
-    if ' ' not in durationStr:
+    if ' ' not in duration_str:
         return 1
-    dur = durationStr.lower().split(' ')
+    dur = duration_str.lower().split(' ')
     if dur[1].startswith('s'):
         return int(dur[0])
     if dur[1].startswith('min'):
@@ -83,10 +90,10 @@ def get_sentiment(text: str, sentiment_db: {}) -> int:
     """Returns a sentiment score for the given text
        which can be positive or negative
     """
-    textLower = text.lower()
+    text_lower = text.lower()
     sentiment = 0
     for word, value in sentiment_db.items():
-        if word in textLower:
+        if word in text_lower:
             sentiment = sentiment + value
     return sentiment
 
@@ -99,32 +106,32 @@ def get_guild_sentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
         return 0
     if not players[id].get('guildRole'):
         return 0
-    guildName = players[id]['guild']
-    if not guilds.get(guildName):
+    guild_name = players[id]['guild']
+    if not guilds.get(guild_name):
         return 0
-    other_playerName = npcs[p]['name']
-    if not guilds[guildName]['affinity'].get(other_playerName):
+    other_player_name = npcs[p]['name']
+    if not guilds[guild_name]['affinity'].get(other_player_name):
         return 0
     # NOTE: this could be adjusted by the strength of affinity
     # between the player and the guild, but for now it's just hardcoded
-    return int(guilds[guildName]['affinity'][other_playerName] / 2)
+    return int(guilds[guild_name]['affinity'][other_player_name] / 2)
 
 
-def _baselineAffinity(players, id):
+def _baseline_affinity(players, id):
     """Returns the average affinity value for the player
     """
-    averageAffinity = 0
+    average_affinity = 0
     ctr = 0
     for name, value in players[id]['affinity'].items():
-        averageAffinity = averageAffinity + value
+        average_affinity = average_affinity + value
         ctr += 1
 
     if ctr > 0:
-        averageAffinity = int(averageAffinity / ctr)
+        average_affinity = int(average_affinity / ctr)
 
-    if averageAffinity == 0:
-        averageAffinity = 1
-    return averageAffinity
+    if average_affinity == 0:
+        average_affinity = 1
+    return average_affinity
 
 
 def increase_affinity_between_players(players: {}, id, npcs: {},
@@ -142,25 +149,26 @@ def increase_affinity_between_players(players: {}, id, npcs: {},
 
     max_affinity = 10
 
-    recipientName = npcs[p]['name']
-    if players[id]['affinity'].get(recipientName):
-        if players[id]['affinity'][recipientName] < max_affinity:
-            players[id]['affinity'][recipientName] += 1
+    recipient_name = npcs[p]['name']
+    if players[id]['affinity'].get(recipient_name):
+        if players[id]['affinity'][recipient_name] < max_affinity:
+            players[id]['affinity'][recipient_name] += 1
     else:
         # set the affinity to an assumed average
-        players[id]['affinity'][recipientName] = _baselineAffinity(players, id)
+        players[id]['affinity'][recipient_name] = \
+            _baseline_affinity(players, id)
 
     # adjust guild affinity
     if players[id].get('guild') and players[id].get('guildRole'):
-        guildName = players[id]['guild']
-        if guilds.get(guildName):
-            guild = guilds[guildName]
-            if guild['affinity'].get(recipientName):
-                if guild['affinity'][recipientName] < max_affinity:
-                    guild['affinity'][recipientName] += 1
+        guild_name = players[id]['guild']
+        if guilds.get(guild_name):
+            guild = guilds[guild_name]
+            if guild['affinity'].get(recipient_name):
+                if guild['affinity'][recipient_name] < max_affinity:
+                    guild['affinity'][recipient_name] += 1
             else:
-                guild['affinity'][recipientName] = \
-                    _baselineAffinity(players, id)
+                guild['affinity'][recipient_name] = \
+                    _baseline_affinity(players, id)
 
 
 def decrease_affinity_between_players(players: {}, id, npcs: {},
@@ -178,43 +186,44 @@ def decrease_affinity_between_players(players: {}, id, npcs: {},
 
     min_affinity = -10
 
-    recipientName = npcs[p]['name']
-    if players[id]['affinity'].get(recipientName):
-        if players[id]['affinity'][recipientName] > min_affinity:
-            players[id]['affinity'][recipientName] -= 1
+    recipient_name = npcs[p]['name']
+    if players[id]['affinity'].get(recipient_name):
+        if players[id]['affinity'][recipient_name] > min_affinity:
+            players[id]['affinity'][recipient_name] -= 1
 
         # Avoid zero values
-        if players[id]['affinity'][recipientName] == 0:
-            players[id]['affinity'][recipientName] = -1
+        if players[id]['affinity'][recipient_name] == 0:
+            players[id]['affinity'][recipient_name] = -1
     else:
         # set the affinity to an assumed average
-        players[id]['affinity'][recipientName] = _baselineAffinity(players, id)
+        players[id]['affinity'][recipient_name] = \
+            _baseline_affinity(players, id)
 
     # adjust guild affinity
     if players[id].get('guild') and players[id].get('guildRole'):
-        guildName = players[id]['guild']
-        if guilds.get(guildName):
-            guild = guilds[guildName]
-            if guild['affinity'].get(recipientName):
-                if guild['affinity'][recipientName] > min_affinity:
-                    guild['affinity'][recipientName] -= 1
+        guild_name = players[id]['guild']
+        if guilds.get(guild_name):
+            guild = guilds[guild_name]
+            if guild['affinity'].get(recipient_name):
+                if guild['affinity'][recipient_name] > min_affinity:
+                    guild['affinity'][recipient_name] -= 1
                 # Avoid zero values
-                if guild['affinity'][recipientName] == 0:
-                    guild['affinity'][recipientName] = -1
+                if guild['affinity'][recipient_name] == 0:
+                    guild['affinity'][recipient_name] = -1
             else:
-                guild['affinity'][recipientName] = \
-                    _baselineAffinity(players, id)
+                guild['affinity'][recipient_name] = \
+                    _baseline_affinity(players, id)
 
 
-def random_desc(descriptionList):
-    if isinstance(descriptionList, list):
-        descList = descriptionList
+def random_desc(description_list):
+    if isinstance(description_list, list):
+        desc_list = description_list
     else:
-        if '|' in descriptionList:
-            descList = descriptionList.split('|')
+        if '|' in description_list:
+            desc_list = description_list.split('|')
         else:
-            return descriptionList
-    return descList[randint(0, len(descList) - 1)]
+            return description_list
+    return desc_list[randint(0, len(desc_list) - 1)]
 
 
 def levelUp(id, players, character_class_db, increment):
@@ -236,68 +245,84 @@ def levelUp(id, players, character_class_db, increment):
 
 
 def stow_hands(id, players: {}, items_db: {}, mud):
+    """Stows items held
+    """
     if int(players[id]['clo_rhand']) > 0:
-        itemID = int(players[id]['clo_rhand'])
+        item_id = int(players[id]['clo_rhand'])
         mud.send_message(
             id, 'You stow <b234>' +
-            items_db[itemID]['article'] +
+            items_db[item_id]['article'] +
             ' ' +
-            items_db[itemID]['name'] +
+            items_db[item_id]['name'] +
             '<r>\n\n')
         players[id]['clo_rhand'] = 0
 
     if int(players[id]['clo_lhand']) > 0:
-        itemID = int(players[id]['clo_lhand'])
+        item_id = int(players[id]['clo_lhand'])
         mud.send_message(
             id, 'You stow <b234>' +
-            items_db[itemID]['article'] +
+            items_db[item_id]['article'] +
             ' ' +
-            items_db[itemID]['name'] +
+            items_db[item_id]['name'] +
             '<r>\n\n')
         players[id]['clo_lhand'] = 0
 
 
 def size_from_description(description: str):
-    tinyEntity = ('tiny', 'moth', 'butterfly', 'insect', 'beetle', 'ant',
-                  'bee', 'wasp', 'hornet', 'mosquito', 'lizard', 'mouse',
-                  'rat', 'crab', 'roach', 'snail', 'slug', 'hamster',
-                  'gerbil')
-    smallEntity = ('small', 'dog', 'cat', 'weasel', 'otter', 'owl', 'hawk',
-                   'crow', 'rook', 'robin', 'penguin', 'bird', 'pidgeon',
-                   'wolf', 'badger', 'fox', 'rat', 'dwarf', 'mini', 'fish',
-                   'lobster', 'koala', 'gremlin', 'goblin', 'hare')
-    largeEntity = ('large', 'tiger', 'lion', 'tiger', 'wolf', 'leopard',
-                   'bear', 'elk', 'deer', 'horse', 'bison', 'moose',
-                   'kanga', 'zebra', 'oxe', 'beest', 'troll', 'taur')
-    hugeEntity = ('huge', 'ogre', 'elephant', 'mastodon', 'giraffe', 'titan')
-    gargantuanEntity = ('gargantuan', 'dragon', 'whale')
-    smallerEntity = ('young', 'child', 'cub', 'kitten', 'puppy', 'juvenile',
-                     'kid')
+    """Returns the size of an entiry based on its description
+    """
+    tiny_entity = (
+        'tiny', 'moth', 'butterfly', 'insect', 'beetle', 'ant',
+        'bee', 'wasp', 'hornet', 'mosquito', 'lizard', 'mouse',
+        'rat', 'crab', 'roach', 'snail', 'slug', 'hamster',
+        'gerbil'
+    )
+    small_entity = (
+        'small', 'dog', 'cat', 'weasel', 'otter', 'owl', 'hawk',
+        'crow', 'rook', 'robin', 'penguin', 'bird', 'pidgeon',
+        'wolf', 'badger', 'fox', 'rat', 'dwarf', 'mini', 'fish',
+        'lobster', 'koala', 'gremlin', 'goblin', 'hare'
+    )
+    large_entity = (
+        'large', 'tiger', 'lion', 'tiger', 'wolf', 'leopard',
+        'bear', 'elk', 'deer', 'horse', 'bison', 'moose',
+        'kanga', 'zebra', 'oxe', 'beest', 'troll', 'taur'
+    )
+    huge_entity = (
+        'huge', 'ogre', 'elephant', 'mastodon', 'giraffe', 'titan'
+    )
+    gargantuan_entity = (
+        'gargantuan', 'dragon', 'whale'
+    )
+    smaller_entity = (
+        'young', 'child', 'cub', 'kitten', 'puppy', 'juvenile',
+        'kid'
+    )
     description2 = description.lower()
     size = 2
-    for e in tinyEntity:
-        if e in description2:
+    for ent in tiny_entity:
+        if ent in description2:
             size = 0
             break
-    for e in smallEntity:
-        if e in description2:
+    for ent in small_entity:
+        if ent in description2:
             size = 1
             break
-    for e in largeEntity:
-        if e in description2:
+    for ent in large_entity:
+        if ent in description2:
             size = 3
             break
-    for e in hugeEntity:
-        if e in description2:
+    for ent in huge_entity:
+        if ent in description2:
             size = 4
             break
-    for e in gargantuanEntity:
-        if e in description2:
+    for ent in gargantuan_entity:
+        if ent in description2:
             size = 5
             break
     if size > 0:
-        for e in smallerEntity:
-            if e in description2:
+        for ent in smaller_entity:
+            if ent in description2:
                 size = size - 1
                 break
 
@@ -305,14 +330,14 @@ def size_from_description(description: str):
 
 
 def update_player_attributes(id, players: {},
-                             items_db: {}, itemID: str, mult: int):
-    playerAttributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
-    for attr in playerAttributes:
+                             items_db: {}, item_id: str, mult: int):
+    player_attributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
+    for attr in player_attributes:
         players[id][attr] = \
             players[id][attr] + \
-            (mult * items_db[itemID]['mod_' + attr])
+            (mult * items_db[item_id]['mod_' + attr])
     # experience returns to zero
-    items_db[itemID]['mod_exp'] = 0
+    items_db[item_id]['mod_exp'] = 0
 
 
 def player_inventory_weight(id, players, items_db):
@@ -355,46 +380,42 @@ def _silentRemove(filename: str):
     """
     try:
         os.remove(filename)
-    except OSError as e:
-        if e.errno != errno.ENOENT:
+    except OSError as ex:
+        if ex.errno != errno.ENOENT:
             raise
 
 
-def load_players_db(forceLowercase=True):
+def load_players_db(force_lowercase=True):
     """Function to load all registered players from JSON files
     """
     locn = Config.get('Players', 'Location')
     location = str(locn)
-    DB = {}
-    playerFiles = \
+    db1 = {}
+    player_files = \
         [i for i in os.listdir(location)
          if os.path.splitext(i)[1] == ".player"]
-    for f in playerFiles:
-        print('Player: ' + f)
-        with open(os.path.join(location, f)) as file_object:
-            DB[f] = json.loads(file_object.read())
+    for fil in player_files:
+        print('Player: ' + fil)
+        with open(os.path.join(location, fil)) as file_object:
+            db1[fil] = json.loads(file_object.read())
 
             # add any missing fields
-            if not DB[f].get('culture'):
-                DB[f]['culture'] = ""
-            if 'magicShield' not in DB[f]:
-                DB[f]['magicShield'] = 0
-                DB[f]['magicShieldStart'] = 0
-                DB[f]['magicShieldDuration'] = 0
-            if 'isFishing' in DB[f]:
-                del DB[f]['isFishing']
+            if not db1[fil].get('culture'):
+                db1[fil]['culture'] = ""
+            if 'magicShield' not in db1[fil]:
+                db1[fil]['magicShield'] = 0
+                db1[fil]['magicShieldStart'] = 0
+                db1[fil]['magicShieldDuration'] = 0
+            if 'isFishing' in db1[fil]:
+                del db1[fil]['isFishing']
 
-    if forceLowercase is True:
+    if force_lowercase is True:
         out = {}
-        for key, value in DB.items():
+        for key, value in db1.items():
             out[key.lower()] = value
 
-        return(out)
-    else:
-        return(DB)
-
-    # for i in players_db:
-        # print(i, players_db[i])
+        return out
+    return db1
 
 
 def log(content, type):
@@ -405,72 +426,73 @@ def log(content, type):
     print(str(time.strftime("%d/%m/%Y") + " " +
               time.strftime("%I:%M:%S") + " [" + type + "] " + content))
     if os.path.exists(logfile):
-        log = open(logfile, 'a')
+        log1 = open(logfile, 'a')
     else:
-        log = open(logfile, 'w')
-    log.write(str(time.strftime("%d/%m/%Y") + " " +
-              time.strftime("%I:%M:%S") + " [" + type + "] " + content) + '\n')
-    log.close()
+        log1 = open(logfile, 'w')
+    log1.write(str(time.strftime("%d/%m/%Y") + " " +
+                   time.strftime("%I:%M:%S") +
+                   " [" + type + "] " + content) + '\n')
+    log1.close()
 
 
-def get_free_key(itemsDict, start=None):
+def get_free_key(items_dict, start=None):
     """Function for returning a first available key value for appending a new
     element to a dictionary
     """
     if start is None:
         try:
-            for x in range(0, len(itemsDict) + 1):
-                if len(itemsDict[x]) > 0:
+            for x_co in range(0, len(items_dict) + 1):
+                if len(items_dict[x_co]) > 0:
                     pass
-        except Exception:
+        except BaseException:
             pass
-        return(x)
+        return x_co
     else:
         found = False
         while found is False:
-            if start in itemsDict:
+            if start in items_dict:
                 start += 1
             else:
                 found = True
-        return(start)
+        return start
 
 
 def get_free_room_key(rooms):
     """Function for returning a first available room key value for appending a
     room element to a dictionary
     """
-    maxRoomID = -1
+    max_room_id = -1
     for rmkey in rooms.keys():
-        room_idStr = rmkey.replace('$', '').replace('rid=', '')
-        if len(room_idStr) == 0:
+        room_id_str = rmkey.replace('$', '').replace('rid=', '')
+        if len(room_id_str) == 0:
             continue
 
-        room_id = int(room_idStr)
-        if room_id > maxRoomID:
-            maxRoomID = room_id
+        room_id = int(room_id_str)
+        if room_id > max_room_id:
+            max_room_id = room_id
 
-    if maxRoomID > -1:
-        return '$rid=' + str(maxRoomID + 1) + '$'
+    if max_room_id > -1:
+        return '$rid=' + str(max_room_id + 1) + '$'
     return ''
 
 
-def add_to_scheduler(eventID, targetID, scheduler, database):
+def add_to_scheduler(event_id, target_id, scheduler, database):
     """Function for adding events to event scheduler
     """
-    if isinstance(eventID, int):
+    if isinstance(event_id, int):
         for item in database:
-            if int(item[0]) == eventID:
+            if int(item[0]) == event_id:
                 scheduler[get_free_key(scheduler)] = {
                     'time': int(time.time() + int(item[1])),
-                    'target': int(targetID),
+                    'target': int(target_id),
                     'type': item[2],
                     'body': item[3]
                 }
-    elif isinstance(eventID, str):
-        item = eventID.split('|')
+    elif isinstance(event_id, str):
+        item = event_id.split('|')
         scheduler[get_free_key(scheduler)] = {
             'time': int(time.time() + int(item[0])),
-            'target': int(targetID),
+            'target': int(target_id),
             'type': item[1],
             'body': item[2]
         }
@@ -480,9 +502,8 @@ def load_player(name: str) -> dict:
     location = str(Config.get('Players', 'Location'))
     try:
         with open(os.path.join(location, name + ".player"), "r") as read_file:
-            playerDict = json.loads(read_file.read())
-            return(playerDict)
-    except Exception:
+            return json.loads(read_file.read())
+    except BaseException:
         pass
     return {}
 
@@ -492,75 +513,79 @@ def _getPlayerPath():
     return str(locn) + "/"
 
 
-def _savePlayer(player, masterDB: {}, savePassword: str):
+def _save_player(player, main_db: {}, save_password: str):
     path = _getPlayerPath()
-    DB = load_players_db(forceLowercase=False)
-    for p in DB:
-        if (player['name'] + ".player").lower() == p.lower():
-            with open(path + p, "r") as read_file:
+    dbase = load_players_db(force_lowercase=False)
+    for plyr in dbase:
+        if (player['name'] + ".player").lower() == plyr.lower():
+            with open(path + plyr, "r") as read_file:
                 temp = json.loads(read_file.read())
             _silentRemove(path + player['name'] + ".player")
-            newPlayer = deepcopy(temp)
-            newPlayer['pwd'] = temp['pwd']
-            for key in newPlayer:
-                if key != "pwd" or savePassword:
+            new_player = deepcopy(temp)
+            new_player['pwd'] = temp['pwd']
+            for key in new_player:
+                if key != "pwd" or save_password:
                     if player.get(key):
-                        newPlayer[key] = player[key]
+                        new_player[key] = player[key]
 
-            with open(path + player['name'] + ".player", 'w') as fp:
-                fp.write(json.dumps(newPlayer))
+            with open(path + player['name'] + ".player", 'w') as fp_pla:
+                fp_pla.write(json.dumps(new_player))
             load_players_db()
 
 
-def save_state(player, masterDB, savePassword):
-    _savePlayer(player, masterDB, savePassword)
-    # masterDB = load_players_db()
+def save_state(player, main_db: {}, save_password: str):
+    """Saves a player state
+    """
+    _save_player(player, main_db, save_password)
+    # main_db = load_players_db()
 
 
 def save_universe(rooms: {}, npcs_db: {}, npcs: {},
                   items_db: {}, items: {},
                   env_db: {}, env: {}, guilds_db: {}):
+    """Saves the state of the universe
+    """
     # save rooms
     if os.path.isfile('universe.json'):
         os.rename('universe.json', 'universe2.json')
-    with open("universe.json", 'w') as fp:
-        fp.write(json.dumps(rooms))
+    with open("universe.json", 'w') as fp_uni:
+        fp_uni.write(json.dumps(rooms))
 
     # save items
     if os.path.isfile('universe_items.json'):
         os.rename('universe_items.json', 'universe_items2.json')
-    with open("universe_items.json", 'w') as fp:
-        fp.write(json.dumps(items))
+    with open("universe_items.json", 'w') as fp_items:
+        fp_items.write(json.dumps(items))
 
     # save items_db
     if os.path.isfile('universe_itemsdb.json'):
         os.rename('universe_itemsdb.json', 'universe_itemsdb2.json')
-    with open("universe_itemsdb.json", 'w') as fp:
-        fp.write(json.dumps(items_db))
+    with open("universe_itemsdb.json", 'w') as fp_items:
+        fp_items.write(json.dumps(items_db))
 
     # save environment actors
     if os.path.isfile('universe_actorsdb.json'):
         os.rename('universe_actorsdb.json', 'universe_actorsdb2.json')
-    with open("universe_actorsdb.json", 'w') as fp:
-        fp.write(json.dumps(env_db))
+    with open("universe_actorsdb.json", 'w') as fp_actors:
+        fp_actors.write(json.dumps(env_db))
 
     # save environment actors
     if os.path.isfile('universe_actors.json'):
         os.rename('universe_actors.json', 'universe_actors2.json')
-    with open("universe_actors.json", 'w') as fp:
-        fp.write(json.dumps(env))
+    with open("universe_actors.json", 'w') as fp_actors:
+        fp_actors.write(json.dumps(env))
 
     # save npcs
     if os.path.isfile('universe_npcs.json'):
         os.rename('universe_npcs.json', 'universe_npcs2.json')
-    with open("universe_npcs.json", 'w') as fp:
-        fp.write(json.dumps(npcs))
+    with open("universe_npcs.json", 'w') as fp_npcs:
+        fp_npcs.write(json.dumps(npcs))
 
     # save npcs_db
     if os.path.isfile('universe_npcsdb.json'):
         os.rename('universe_npcsdb.json', 'universe_npcsdb2.json')
-    with open("universe_npcsdb.json", 'w') as fp:
-        fp.write(json.dumps(npcs_db))
+    with open("universe_npcsdb.json", 'w') as fp_npcs:
+        fp_npcs.write(json.dumps(npcs_db))
 
 
 def str2bool(v) -> bool:
@@ -661,16 +686,16 @@ def is_wearing(id, players: {}, itemList: []) -> bool:
     if not itemList:
         return False
 
-    for itemID in itemList:
-        if not str(itemID).isdigit():
-            print('is_wearing: ' + str(itemID) + ' is not a digit')
+    for item_id in itemList:
+        if not str(item_id).isdigit():
+            print('is_wearing: ' + str(item_id) + ' is not a digit')
             continue
-        itemID = int(itemID)
-        for locn in wear_location:
-            if int(players[id]['clo_' + locn]) == itemID:
+        item_id = int(item_id)
+        for locn in WEAR_LOCATION:
+            if int(players[id]['clo_' + locn]) == item_id:
                 return True
-        if int(players[id]['clo_lhand']) == itemID or \
-           int(players[id]['clo_rhand']) == itemID:
+        if int(players[id]['clo_lhand']) == item_id or \
+           int(players[id]['clo_rhand']) == item_id:
             return True
     return False
 
@@ -692,7 +717,7 @@ def player_is_visible(mud, observerId: int, observers: {},
 
 def message_to_room_players(mud, players, id, msg):
     # go through all the players in the game
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         # if player is in the same room and isn't the player
         # sending the command
         if players[pid]['room'] == players[id]['room'] and \
@@ -701,13 +726,13 @@ def message_to_room_players(mud, players, id, msg):
                 mud.send_message(pid, msg)
 
 
-def show_timing(previousTiming, commentStr: str):
+def show_timing(previous_timing, comment_str: str):
     """Shows the length of time since the previous benchmark
     """
-    currTime = time.time()
-    # timeDiff = int((currTime - previousTiming) * 1000)
-    # print('TIMING: ' + commentStr + ' = ' + str(timeDiff) + 'mS')
-    return currTime
+    curr_time = time.time()
+    # timeDiff = int((curr_time - previous_timing) * 1000)
+    # print('TIMING: ' + comment_str + ' = ' + str(timeDiff) + 'mS')
+    return curr_time
 
 
 def player_is_prone(id, players: {}) -> bool:
@@ -728,21 +753,21 @@ def set_player_prone(id, players: {}, prone: bool) -> None:
         players[id]['prone'] = 0
 
 
-def parse_cost(costStr: str) -> (int, str):
+def parse_cost(cost_str: str) -> (int, str):
     """Parses a cost string and returns quantity and denomination
     """
     denomination = None
-    if costStr.endswith('gp'):
+    if cost_str.endswith('gp'):
         denomination = 'gp'
-    elif costStr.endswith('sp'):
+    elif cost_str.endswith('sp'):
         denomination = 'sp'
-    elif costStr.endswith('cp'):
+    elif cost_str.endswith('cp'):
         denomination = 'cp'
-    elif costStr.endswith('ep'):
+    elif cost_str.endswith('ep'):
         denomination = 'ep'
-    elif costStr.endswith('pp'):
+    elif cost_str.endswith('pp'):
         denomination = 'pp'
     if not denomination:
         return None, None
-    qty = int(costStr.replace(denomination, ''))
+    qty = int(cost_str.replace(denomination, ''))
     return qty, denomination

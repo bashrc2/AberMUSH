@@ -11,7 +11,7 @@ __module_group__ = "Command Interface"
 from functions import parse_cost
 from functions import player_is_prone
 from functions import set_player_prone
-from functions import wear_location
+from functions import WEAR_LOCATION
 from functions import is_wearing
 from functions import player_is_visible
 from functions import message_to_room_players
@@ -246,7 +246,7 @@ def _dodge(params, mud, players_db: {}, players: {}, rooms: {},
 def _remove_item_from_clothing(players: {}, pid: int, item_id: int) -> None:
     """If worn an item is removed
     """
-    for cstr in wear_location:
+    for cstr in WEAR_LOCATION:
         if int(players[pid]['clo_' + cstr]) == item_id:
             players[pid]['clo_' + cstr] = 0
 
@@ -1725,13 +1725,13 @@ def _cast_spell(params, mud, players_db: {}, players: {}, rooms: {},
                                item_history, markets, cultures_db)
 
 
-def _affinity(params, mud, players_db: {}, players: {}, rooms: {},
-              npcs_db: {}, npcs: {}, items_db: {}, items: {},
-              env_db: {}, env: {}, eventDB: {}, event_schedule: {},
-              id: int, fights: {}, corpses: {}, blocklist,
-              map_area: [], character_class_db: {}, spells_db: {},
-              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+def _player_affinity(params, mud, players_db: {}, players: {}, rooms: {},
+                     npcs_db: {}, npcs: {}, items_db: {}, items: {},
+                     env_db: {}, env: {}, eventDB: {}, event_schedule: {},
+                     id: int, fights: {}, corpses: {}, blocklist,
+                     map_area: [], character_class_db: {}, spells_db: {},
+                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+                     item_history: {}, markets: {}, cultures_db: {}):
     other_player = params.lower().strip()
     if len(other_player) == 0:
         mud.send_message(id, 'With which player?\n\n')
@@ -2692,7 +2692,7 @@ def _conditional_logic(cond_type: str, cond: str, description: str, id,
             return True
 
     if cond_type.startswith('wear'):
-        for clth in wear_location:
+        for clth in WEAR_LOCATION:
             if players[id]['clo_' + clth] == int(cond):
                 return True
 
@@ -3991,7 +3991,7 @@ def _wear(params, mud, players_db: {}, players: {}, rooms: {},
         mud.send_message(id, item_name + " is not in your inventory.\n\n")
         return
 
-    for clothing_type in wear_location:
+    for clothing_type in WEAR_LOCATION:
         if _wear_clothing(item_id, players, id, clothing_type, mud, items_db):
             return
 
@@ -4233,7 +4233,7 @@ def _unwear(params, mud, players_db: {}, players: {}, rooms: {},
     if len(list(players[id]['inv'])) == 0:
         return
 
-    for clothing_type in wear_location:
+    for clothing_type in WEAR_LOCATION:
         _remove_clothing(players, id, clothing_type, mud, items_db)
 
 
@@ -4311,7 +4311,7 @@ def _bio_of_player(mud, id, pid, players: {}, items_db: {}) -> None:
 
     # count items of clothing
     wearing_ctr = 0
-    for clth in wear_location:
+    for clth in WEAR_LOCATION:
         if int(this_player['clo_' + clth]) > 0:
             wearing_ctr += 1
 
@@ -4386,7 +4386,7 @@ def _bio_of_player(mud, id, pid, players: {}, items_db: {}) -> None:
     if wearing_ctr > 0:
         wearing_msg = player_name + ' are wearing'
         wearing_ctr2 = 0
-        for clth in wear_location:
+        for clth in WEAR_LOCATION:
             if not this_player.get('clo_' + clth):
                 continue
             clothing_item_id = this_player['clo_' + clth]
@@ -7652,7 +7652,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "dismiss": _dismiss,
         "clear": _clear_spells,
         "spellbook": _spells_list,
-        "affinity": _affinity,
+        "affinity": _player_affinity,
         "escape": _escape_trap,
         "cut": _escape_trap,
         "slash": _escape_trap,
