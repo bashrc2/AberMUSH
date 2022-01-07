@@ -15,8 +15,8 @@ import datetime
 
 class threadWithTrace(threading.Thread):
     def __init__(self, *args, **keywords):
-        self.startTime = datetime.datetime.utcnow()
-        self.isStarted = False
+        self.start_time = datetime.datetime.utcnow()
+        self.is_started = False
         tries = 0
         while tries < 3:
             try:
@@ -24,8 +24,8 @@ class threadWithTrace(threading.Thread):
                 threading.Thread.__init__(self, *self._args, **self._keywords)
                 self.killed = False
                 break
-            except Exception as e:
-                print('ERROR: threads.py/__init__ failed - ' + str(e))
+            except Exception as ex:
+                print('ERROR: threads.py/__init__ failed - ' + str(ex))
                 time.sleep(1)
                 tries += 1
 
@@ -42,7 +42,7 @@ class threadWithTrace(threading.Thread):
                 time.sleep(1)
                 tries += 1
         # note that this is set True even if all tries failed
-        self.isStarted = True
+        self.is_started = True
 
     def __run(self):
         sys.settrace(self.globaltrace)
@@ -52,8 +52,7 @@ class threadWithTrace(threading.Thread):
     def globaltrace(self, frame, event, arg):
         if event == 'call':
             return self.localtrace
-        else:
-            return None
+        return None
 
     def localtrace(self, frame, event, arg):
         if self.killed:
@@ -70,65 +69,65 @@ class threadWithTrace(threading.Thread):
                                daemon=True)
 
 
-def removeDormantThreads(baseDir: str, threadsList: [], debug: bool) -> None:
+def removeDormantThreads(baseDir: str, threads_list: [], debug: bool) -> None:
     """Removes threads whose execution has completed
     """
-    if len(threadsList) == 0:
+    if len(threads_list) == 0:
         return
 
-    dormantThreads = []
-    currTime = datetime.datetime.utcnow()
+    dormant_threads = []
+    curr_time = datetime.datetime.utcnow()
     changed = False
 
     # which threads are dormant?
-    noOfActiveThreads = 0
-    for th in threadsList:
-        removeThread = False
+    no_of_active_threads = 0
+    for thd in threads_list:
+        remove_thread = False
 
-        if th.isStarted:
-            if not th.is_alive():
-                if (currTime - th.startTime).total_seconds() > 10:
+        if thd.is_started:
+            if not thd.is_alive():
+                if (curr_time - thd.start_time).total_seconds() > 10:
                     if debug:
                         print('DEBUG: ' +
                               'thread is not alive ten seconds after start')
-                    removeThread = True
+                    remove_thread = True
             # timeout for started threads
-            if (currTime - th.startTime).total_seconds() > 600:
+            if (curr_time - thd.start_time).total_seconds() > 600:
                 if debug:
                     print('DEBUG: started thread timed out')
-                removeThread = True
+                remove_thread = True
         else:
             # timeout for threads which havn't been started
-            if (currTime - th.startTime).total_seconds() > 600:
+            if (curr_time - thd.start_time).total_seconds() > 600:
                 if debug:
                     print('DEBUG: unstarted thread timed out')
-                removeThread = True
+                remove_thread = True
 
-        if removeThread:
-            dormantThreads.append(th)
+        if remove_thread:
+            dormant_threads.append(thd)
         else:
-            noOfActiveThreads += 1
+            no_of_active_threads += 1
     if debug:
-        print('DEBUG: ' + str(noOfActiveThreads) +
-              ' active threads out of ' + str(len(threadsList)))
+        print('DEBUG: ' + str(no_of_active_threads) +
+              ' active threads out of ' + str(len(threads_list)))
 
     # remove the dormant threads
-    dormantCtr = 0
-    for th in dormantThreads:
+    dormant_ctr = 0
+    for thd in dormant_threads:
         if debug:
-            print('DEBUG: Removing dormant thread ' + str(dormantCtr))
-        dormantCtr += 1
-        threadsList.remove(th)
-        th.kill()
+            print('DEBUG: Removing dormant thread ' + str(dormant_ctr))
+        dormant_ctr += 1
+        threads_list.remove(thd)
+        thd.kill()
         changed = True
 
     # start scheduled threads
-    if len(threadsList) < 10:
+    if len(threads_list) < 10:
         ctr = 0
-        for th in threadsList:
-            if not th.isStarted:
+        for thrd in threads_list:
+            if not thrd.is_started:
                 print('Starting new send thread ' + str(ctr))
-                th.start()
+                thrd.start()
                 changed = True
                 break
             ctr += 1
@@ -137,11 +136,11 @@ def removeDormantThreads(baseDir: str, threadsList: [], debug: bool) -> None:
         return
 
     if debug:
-        sendLogFilename = baseDir + '/send.csv'
+        send_log_filename = baseDir + '/send.csv'
         try:
-            with open(sendLogFilename, "a+") as logFile:
-                logFile.write(currTime.strftime("%Y-%m-%dT%H:%M:%SZ") +
-                              ',' + str(noOfActiveThreads) +
-                              ',' + str(len(threadsList)) + '\n')
+            with open(send_log_filename, "a+") as fp_log:
+                fp_log.write(curr_time.strftime("%Y-%m-%dT%H:%M:%SZ") +
+                             ',' + str(no_of_active_threads) +
+                             ',' + str(len(threads_list)) + '\n')
         except BaseException:
             pass
