@@ -5376,13 +5376,13 @@ def _start_fishing(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id, random_desc(desc_str) + '<r>\n\n')
 
 
-def _sell(params, mud, players_db: {}, players: {}, rooms: {},
-          npcs_db: {}, npcs: {}, items_db: {}, items: {},
-          env_db: {}, env: {}, eventDB: {}, event_schedule,
-          id: int, fights: {}, corpses: {}, blocklist,
-          map_area: [], character_class_db: {}, spells_db: {},
-          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+def _item_sell(params, mud, players_db: {}, players: {}, rooms: {},
+               npcs_db: {}, npcs: {}, items_db: {}, items: {},
+               env_db: {}, env: {}, eventDB: {}, event_schedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               map_area: [], character_class_db: {}, spells_db: {},
+               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+               item_history: {}, markets: {}, cultures_db: {}):
     """Sell in a market
     """
     if players[id]['frozenStart'] != 0:
@@ -6377,13 +6377,13 @@ def _destroy(params, mud, players_db: {}, players: {}, rooms: {},
                           item_history, markets, cultures_db)
 
 
-def _give(params, mud, players_db: {}, players: {}, rooms: {},
-          npcs_db: {}, npcs: {}, items_db: {}, items: {},
-          env_db: {}, env: {}, eventDB: {}, event_schedule,
-          id: int, fights: {}, corpses: {}, blocklist,
-          map_area: [], character_class_db: {}, spells_db: {},
-          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+def _item_give(params, mud, players_db: {}, players: {}, rooms: {},
+               npcs_db: {}, npcs: {}, items_db: {}, items: {},
+               env_db: {}, env: {}, eventDB: {}, event_schedule,
+               id: int, fights: {}, corpses: {}, blocklist,
+               map_area: [], character_class_db: {}, spells_db: {},
+               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+               item_history: {}, markets: {}, cultures_db: {}):
     if ' to ' not in params:
         desc = (
             "Give to who?"
@@ -7574,8 +7574,8 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "take": _take,
         "get": _take,
         "put": _put_item,
-        "give": _give,
-        "gift": _give,
+        "give": _item_give,
+        "gift": _item_give,
         "drop": _drop,
         "check": _check,
         "wear": _wear,
@@ -7694,8 +7694,8 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "stand": _stand,
         "buy": _buy,
         "purchase": _buy,
-        "sell": _sell,
-        "trade": _sell,
+        "sell": _item_sell,
+        "trade": _item_sell,
         "fish": _start_fishing
     }
 

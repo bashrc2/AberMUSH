@@ -502,19 +502,19 @@ class MudServer(object):
             return True
         # KeyError will be raised if there is no client with the given
         # id in the map
-        except KeyError as e:
+        except KeyError as ex:
             print("Failed to send data. Player ID " + str(clid) +
-                  ": " + str(e))
+                  ": " + str(ex))
             return False
-        except BlockingIOError as e:
+        except BlockingIOError as ex:
             print("Failed to send data. Player ID " + str(clid) +
-                  ": " + str(e))
+                  ": " + str(ex))
             return False
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
-        except socket.error as e:
+        except socket.error as ex:
             print("Failed to send data. Player ID " + str(clid) +
-                  ": " + str(e) + '. Disconnecting.')
+                  ": " + str(ex) + '. Disconnecting.')
             self.handle_disconnect(clid)
             return False
         return True
@@ -606,7 +606,7 @@ class MudServer(object):
             # of sockets, the first being those to test for readability.
             # It returns 3 list of sockets, the first being those that
             # are actually readable.
-            rlist, wlist, xlist = select.select([sock], [], [], 0)
+            rlist, _, _ = select.select([sock], [], [], 0)
 
             # if the client socket wasn't in the readable list, there
             # is no new data from the client - we can skip it and move
