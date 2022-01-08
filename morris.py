@@ -300,7 +300,7 @@ def reset_morris_board(players: {}, id: int, mud, rooms: {},
     show_morris_board(board_name, players, id, mud, rooms, items, items_db)
 
 
-def _boardLocationIndexes(board_name: str) -> {}:
+def _board_location_indexes(board_name: str) -> {}:
     """Returns a dictionary containing board coordinates for each index
     """
     locations_filename = 'morrisboards/' + board_name + '/locations.txt'
@@ -337,7 +337,7 @@ def _show_morris_board_as_html(board_name: str,
                                items: {}, items_db: {}) -> None:
     """Shows the board as html for the web interface
     """
-    locations = _boardLocationIndexes(board_name)
+    locations = _board_location_indexes(board_name)
     if not locations:
         mud.send_message(id, '\nSomething went wrong loading morris ' +
                          'board files.\n')

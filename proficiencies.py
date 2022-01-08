@@ -138,8 +138,8 @@ def _defense_proficiency_item(prof: str, id, players: {}) -> int:
     return 0
 
 
-def _weaponProficiencyItem(prof: str, id, players: {},
-                           weapon_type: str) -> int:
+def _weapon_proficiency_item(prof: str, id, players: {},
+                             weapon_type: str) -> int:
     if isinstance(prof, list):
         return 0
 
@@ -156,7 +156,7 @@ def _weaponProficiencyItem(prof: str, id, players: {},
     try:
         return switcher[prof_name](id, players, prof_value)
     except BaseException as ex:
-        print("_weaponProficiencyItem error " + prof + ' ' + str(ex))
+        print("_weapon_proficiency_item error " + prof + ' ' + str(ex))
 
     return 0
 
@@ -179,7 +179,7 @@ def weaponProficiency(id, players: {}, weapon_type: str,
             prof_list = character_class_db[player_race][str(lvl)]
             for prf in prof_list:
                 competence = competence + \
-                    _weaponProficiencyItem(prf, id, players, weapon_type)
+                    _weapon_proficiency_item(prf, id, players, weapon_type)
 
     if competence > 4:
         competence = 4

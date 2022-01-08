@@ -341,7 +341,7 @@ def _entity_is_active(id, players: {}, rooms: {},
     return True
 
 
-def _moveNPCs(npcs, players, mud, now, nid) -> None:
+def _move_npcs(npcs, players, mud, now, nid) -> None:
     """If movement is defined for an NPC this moves it around
     """
     this_npc = npcs[nid]
@@ -614,7 +614,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
         now = int(time.time())
         if is_in_fight is False and \
            len(this_npc['path']) > 0:
-            _moveNPCs(npcs, players, mud, now, nid)
+            _move_npcs(npcs, players, mud, now, nid)
 
         # Check if NPC is still alive, if not, remove from room and
         # create a corpse, set isInCombat to 0, set whenDied to now
@@ -728,10 +728,10 @@ def _conversation_state(word: str, conversation_states: {},
     return False, True, match_ctr
 
 
-def _conversationCondition(word: str, conversation_states: {},
-                           nid, npcs: {}, match_ctr: int,
-                           players: {}, rooms: {},
-                           id, cultures_db: {}) -> (bool, bool, int):
+def _conversation_condition(word: str, conversation_states: {},
+                            nid, npcs: {}, match_ctr: int,
+                            players: {}, rooms: {},
+                            id, cultures_db: {}) -> (bool, bool, int):
     condition_type = ''
     if '>' in word.lower():
         condition_type = '>'
@@ -881,10 +881,10 @@ def _conversationCondition(word: str, conversation_states: {},
     return True, True, match_ctr + 1
 
 
-def _conversationWordCount(message: str, wordsList: [], npcs: {},
-                           nid, conversation_states: {},
-                           players: {}, rooms: {}, id,
-                           cultures_db: {}) -> int:
+def _conversation_word_count(message: str, wordsList: [], npcs: {},
+                             nid, conversation_states: {},
+                             players: {}, rooms: {}, id,
+                             cultures_db: {}) -> int:
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
     """
@@ -905,12 +905,12 @@ def _conversationWordCount(message: str, wordsList: [], npcs: {},
         if not state_matched:
             # match conditions such as "strength < 10"
             word_matched, continue_matching, match_ctr = \
-                _conversationCondition(possible_word,
-                                       conversation_states,
-                                       nid, npcs,
-                                       match_ctr,
-                                       players, rooms, id,
-                                       cultures_db)
+                _conversation_condition(possible_word,
+                                        conversation_states,
+                                        nid, npcs,
+                                        match_ctr,
+                                        players, rooms, id,
+                                        cultures_db)
 
             if not continue_matching:
                 break
@@ -1420,10 +1420,10 @@ def npc_conversation(mud, npcs: {}, npcs_db: {}, players: {},
         if len(conv) >= 2:
             # count the number of matches for this line
             match_ctr = \
-                _conversationWordCount(message, conv[0], npcs,
-                                       nid, conversation_states,
-                                       players, rooms, id,
-                                       cultures_db)
+                _conversation_word_count(message, conv[0], npcs,
+                                         nid, conversation_states,
+                                         players, rooms, id,
+                                         cultures_db)
             # store the best match
             if match_ctr > max_match_ctr:
                 max_match_ctr = match_ctr

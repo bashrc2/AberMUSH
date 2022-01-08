@@ -700,9 +700,11 @@ def _kick(params, mud, players_db: {}, players: {}, rooms: {},
         mud.send_message(id, "Who?\n\n")
         return
 
-    for (pid, pl) in list(players.items()):
+    for pid, _ in list(players.items()):
         if players[pid]['name'] == player_name:
-            mud.send_message(id, "Removing player " + player_name + "\n\n")
+            remove_str = "Removing player " + player_name + "\n\n"
+            mud.send_message(id, remove_str)
+            print(remove_str)
             mud.handle_disconnect(pid)
             return
 
@@ -726,7 +728,9 @@ def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id, "\n\nUniverse saved.\n\n")
     log("Universe saved", "info")
     for pid, _ in list(players.items()):
-        mud.send_message(pid, "Game server shutting down...\n\n")
+        shutdown_str = "Game server shutting down...\n\n"
+        mud.send_message(pid, shutdown_str)
+        print(shutdown_str)
         mud.handle_disconnect(pid)
     log("Shutting down", "info")
     sys.exit()
@@ -745,7 +749,9 @@ def _resetUniverse(params, mud, players_db: {}, players: {}, rooms: {},
     os.system('rm universe*.json')
     log('Universe reset', 'info')
     for pid, _ in list(players.items()):
-        mud.send_message(pid, "Game server shutting down...\n\n")
+        reset_str = "Game server shutting down...\n\n"
+        mud.send_message(pid, reset_str)
+        print(reset_str)
         mud.handle_disconnect(pid)
     log("Shutting down", "info")
     sys.exit()
@@ -758,6 +764,7 @@ def _quit(params, mud, players_db: {}, players: {}, rooms: {},
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
+    print('quit command from ' + str(id))
     mud.handle_disconnect(id)
 
 

@@ -415,7 +415,7 @@ def _modPlayerCorpseTTL(etarget, ebody, players, npcs,
     players[etarget]['corpseTTL'] += int(ebody)
 
 
-def _itemInRoom(items, id, room):
+def _item_in_room(items, id, room):
     for i in items.items():
         if i[1]['room'] == room:
             if id == i[1]['id']:
@@ -426,7 +426,7 @@ def _itemInRoom(items, id, room):
 def _spawnItem(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
     body_int = int(body[0])
-    if not _itemInRoom(items, body_int, body[1]):
+    if not _item_in_room(items, body_int, body[1]):
         items[get_free_key(items, 200000)] = {
             'id': body_int,
             'room': body[1],
@@ -575,7 +575,7 @@ def _spawnNPC(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     }
 
 
-def _actorInRoom(env, name, room):
+def _actor_in_room(env, name, room):
     for e_co in env.items():
         if room == e_co[1]['room']:
             if name in e_co[1]['name']:
@@ -586,7 +586,7 @@ def _actorInRoom(env, name, room):
 def _spawnActor(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
     body_int = int(body[0])
-    if not _actorInRoom(env, env_db[body_int]['name'], body[1]):
+    if not _actor_in_room(env, env_db[body_int]['name'], body[1]):
         env[body_int] = {
             'name': env_db[body_int]['name'],
             'vocabulary': env_db[body_int]['vocabulary'],
@@ -601,7 +601,7 @@ def _spawnActor(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
 # Function for evaluating an Event
 
 
-def evaluateEvent(
+def evaluate_event(
         etarget,
         etype,
         ebody,

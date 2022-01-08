@@ -38,7 +38,7 @@ def show_chess_board(board_name: str, game_state: [],
     """Shows the chess board
     """
     if mud.player_using_web_interface(id):
-        _show_chess_boardAsHtml(board_name, game_state, id, mud, turn)
+        _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
     mud.send_message(id, '\n')
     board_str = ''
@@ -63,8 +63,8 @@ def show_chess_board(board_name: str, game_state: [],
     mud.send_game_board(id, board_str)
 
 
-def _show_chess_boardAsHtml(board_name: str, game_state: [], id: int,
-                            mud, turn: str) -> None:
+def _show_chess_board_as_html(board_name: str, game_state: [], id: int,
+                              mud, turn: str) -> None:
     """Shows the chess board as html for the web interface
     """
     if not board_name:

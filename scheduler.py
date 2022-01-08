@@ -8,7 +8,7 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Core"
 
-from events import evaluateEvent
+from events import evaluate_event
 from random import randint
 # from copy import deepcopy
 from functions import show_timing
@@ -89,7 +89,7 @@ def run_schedule(mud, event_schedule, players: {}, npcs: {},
             mud.send_message(int(event_schedule[event]['target']),
                              str(event_schedule[event]['body']) + "\n")
         else:
-            evaluateEvent(
+            evaluate_event(
                 event_schedule[event]['target'],
                 event_schedule[event]['type'],
                 event_schedule[event]['body'],

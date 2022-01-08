@@ -375,7 +375,7 @@ def verify_password(stored_password, provided_password):
     return pwdhash == stored_password
 
 
-def _silentRemove(filename: str):
+def _silent_remove(filename: str):
     """Function to silently remove file
     """
     try:
@@ -508,19 +508,19 @@ def load_player(name: str) -> dict:
     return {}
 
 
-def _getPlayerPath():
+def _get_player_path():
     locn = Config.get('Players', 'Location')
     return str(locn) + "/"
 
 
 def _save_player(player, main_db: {}, save_password: str):
-    path = _getPlayerPath()
+    path = _get_player_path()
     dbase = load_players_db(force_lowercase=False)
     for plyr in dbase:
         if (player['name'] + ".player").lower() == plyr.lower():
             with open(path + plyr, "r") as read_file:
                 temp = json.loads(read_file.read())
-            _silentRemove(path + player['name'] + ".player")
+            _silent_remove(path + player['name'] + ".player")
             new_player = deepcopy(temp)
             new_player['pwd'] = temp['pwd']
             for key in new_player:

@@ -177,7 +177,7 @@ def _is_on_map(rooms: {}, room_id: str, environments: {}) -> bool:
     return True
 
 
-def _getAllRoomExits(rooms: {}, room_id: str) -> {}:
+def _get_all_room_exits(rooms: {}, room_id: str) -> {}:
     """combine exits with virtual exists so that we know
     all the possible directions from here
     """
@@ -192,9 +192,9 @@ def _getAllRoomExits(rooms: {}, room_id: str) -> {}:
     return exit_dict
 
 
-def _assignCoordsToSurroundingRooms(thisRoom: str, rooms: {},
-                                    rooms_on_map: [], environments: {},
-                                    other_rooms_found: []) -> bool:
+def _assign_coords_to_surrounding_rooms(thisRoom: str, rooms: {},
+                                        rooms_on_map: [], environments: {},
+                                        other_rooms_found: []) -> bool:
     """Assigns coordinates to rooms surrounding one which has coordinates
     """
     exit_dict = rooms[thisRoom]['allExits']
@@ -289,9 +289,9 @@ def _assign_relative_room_coords(rooms: {}, rooms_on_map: [],
         if not rooms[rmid]['coordsAssigned']:
             continue
         rooms_found = []
-        if _assignCoordsToSurroundingRooms(rmid, rooms,
-                                           rooms_on_map, environments,
-                                           rooms_found):
+        if _assign_coords_to_surrounding_rooms(rmid, rooms,
+                                               rooms_on_map, environments,
+                                               rooms_found):
             if rooms_found:
                 other_rooms_found += rooms_found
                 break
@@ -566,7 +566,7 @@ def assign_coordinates(rooms: {}, items_db: {},
         rooms[rmid]['coordsAssigned'] = False
         if _is_on_map(rooms, rmid, environments):
             rooms_on_map.append(rmid)
-        rooms[rmid]['allExits'] = _getAllRoomExits(rooms, rmid)
+        rooms[rmid]['allExits'] = _get_all_room_exits(rooms, rmid)
 
     # assign coordinates
     while True:
@@ -658,7 +658,7 @@ def assign_coordinates(rooms: {}, items_db: {},
     return map_area
 
 
-def _highestPointAtCoord(rooms: {}, map_area: [], x: int, y: int) -> float:
+def _highest_point_at_coord(rooms: {}, map_area: [], x: int, y: int) -> float:
     """Returns the highest elevation at the given location
     """
     highest = 0
@@ -810,11 +810,11 @@ def _get_cloud_threshold(temperature: float) -> float:
     return (10 + temperature) * 7
 
 
-def _altitudeTemperatureAdjustment(rooms: {}, map_area: [],
-                                   x: int, y: int) -> float:
+def _altitude_temperature_adjustment(rooms: {}, map_area: [],
+                                     x: int, y: int) -> float:
     """Temperature decreases with altitude
     """
-    return _highestPointAtCoord(rooms, map_area, x, y) * 2.0 / 255.0
+    return _highest_point_at_coord(rooms, map_area, x, y) * 2.0 / 255.0
 
 
 def _terrain_temperature_adjustment(temperature: float, rooms: {},
@@ -877,8 +877,8 @@ def plot_clouds(rooms: {}, map_area: [], clouds: {},
         line_str = ''
         for x_coord in range(0, map_width - 1):
             map_temp = clouds[x_coord][y_coord] - \
-                (_altitudeTemperatureAdjustment(rooms, map_area,
-                                                x_coord, y_coord) * 7)
+                (_altitude_temperature_adjustment(rooms, map_area,
+                                                  x_coord, y_coord) * 7)
             map_temp = _terrain_temperature_adjustment(
                 map_temp, rooms, map_area, x_coord, y_coord)
             line_char = '.'
@@ -948,7 +948,8 @@ def get_temperature_at_coords(coords: [], rooms: {}, map_area: [],
 
     # Adjust for altitude
     curr_temp = \
-        curr_temp - _altitudeTemperatureAdjustment(rooms, map_area, x_co, y_co)
+        curr_temp - _altitude_temperature_adjustment(rooms, map_area,
+                                                     x_co, y_co)
 
     # Adjust for terrain
     curr_temp = \
