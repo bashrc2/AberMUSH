@@ -127,7 +127,7 @@ def _get_encumberance_from_weight(id, players: {}, items_db: {}) -> int:
         str_index = 20 + (strength % 10)
         multiplier = int((strength - 20) / 10)
         thresholds = encumberance[str(str_index)]
-        for idx in range(len(thresholds)):
+        for idx, _ in enumerate(thresholds):
             thresholds[idx] = int(thresholds[idx] * (multiplier*4))
 
     # multiplier for creature size
@@ -142,7 +142,7 @@ def _get_encumberance_from_weight(id, players: {}, items_db: {}) -> int:
     elif size == 6:
         mult = 16
 
-    for idx in range(len(thresholds)):
+    for idx, _ in enumerate(thresholds):
         if total_weight < int(thresholds[idx] * mult):
             return idx
     return 2

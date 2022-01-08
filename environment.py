@@ -116,7 +116,7 @@ def find_room_collisions(rooms: {}) -> None:
         room_dict[ctr] = rmid
         ctr += 1
     ctr = 0
-    for index1 in range(len(rooms)):
+    for index1, _ in enumerate(rooms):
         rmid = room_dict[index1]
         if not rooms[rmid].get('coords'):
             continue
@@ -599,7 +599,7 @@ def assign_coordinates(rooms: {}, items_db: {},
     start_east = 0
     end_east = 0
     trim_coords = []
-    for idx in range(len(occupied)):
+    for idx, _ in enumerate(occupied):
         if state == 0:
             if not occupied[idx]:
                 state = 1
