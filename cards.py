@@ -568,6 +568,8 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
                     else:
                         print('playing card too short: ' +
                               utf8_card_filename)
+        else:
+            print('card file not found: ' + utf8_card_filename)
         if not loaded_card:
             for line_ctr in range(9):
                 lines[line_ctr].append(card_background_color_start)
