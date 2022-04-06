@@ -563,6 +563,8 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
                     if len(card_lines) >= 9:
                         loaded_card = True
                         for line_ctr in range(9):
+                            card_lines[line_ctr] = \
+                                card_lines[line_ctr].replace('\n', '')
                             lines[line_ctr].append(' ' +
                                                    card_lines[line_ctr])
                     else:
