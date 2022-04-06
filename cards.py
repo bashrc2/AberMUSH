@@ -507,7 +507,6 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
     hand_str = items[game_item_id]['gameState']['hands'][player_name]
     hand = hand_str.split()
     lines = [[] for i in range(9)]
-    card_color = "\u001b[38;5;240m"
     card_descriptions = ''
     html_str = '<table id="cards"><tr>'
 
@@ -536,9 +535,13 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
         card_background_color_start = \
             '\u001b[0m\u001b[0m\u001b[38;5;0m\u001b[48;5;15m'
         card_background_color_end = '\u001b[38;5;7m\u001b[49m'
+        card_color = "\u001b[38;5;240m"
         if suit == '♥' or suit == '♦':
-            suit_color = "\u001b[31m" + card_background_color_start
+            suit_color = \
+                "\u001b[0m\u001b[0m\u001b[38;5;1m\u001b[48;5;15m" + \
+                card_background_color_start
             rank_color = suit_color
+            card_color = "\u001b[38;5;7m\u001b[49m"
         if rank == '10':
             space = ''
         else:
