@@ -513,14 +513,14 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
     for card_str in hand:
         if len(card_str) < 2:
             continue
-        rank_color = "\u001b[38;5;250m"
+        rank_color = "\u001b[38;5;0m"
         if card_str[1] != '0':
             rank = card_str[0].upper()
             suit = card_str[1]
         else:
             rank = card_str[0] + card_str[1]
             suit = card_str[2]
-        suit_color = "\u001b[38;5;245m"
+        suit_color = "\u001b[38;5;0m"
 
         desc = _get_card_description(pack, rank, suit)
         card_descriptions += desc.strip()
@@ -535,7 +535,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
         card_background_color_start = \
             '\u001b[0m\u001b[0m\u001b[38;5;0m\u001b[48;5;15m'
         card_background_color_end = '\u001b[38;5;7m\u001b[49m'
-        card_color = "\u001b[38;5;240m"
+        card_color = "\u001b[38;5;0m"
         if suit == '♥' or suit == '♦':
             suit_color = \
                 "\u001b[0m\u001b[0m\u001b[38;5;1m\u001b[48;5;15m"
@@ -567,7 +567,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             lines[line_ctr].append(card_background_color_end)
 
     html_str += '</tr></table>'
-    card_color = "\u001b[38;5;240m"
+    card_color = "\u001b[38;5;0m"
     board_str = card_color + '\n'
 
     graphical_cards = True
