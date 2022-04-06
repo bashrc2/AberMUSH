@@ -554,7 +554,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
         # try to load a utf8 art card from file
         utf8_card_filename = \
             'cardpacks_utf8/' + pack.lower() + '/' + \
-            desc.replace(' ', '_').lower() + '.utfans'
+            desc.replace(' ', '_').lower() + '.utf8ans'
         loaded_card = False
         if os.path.isfile(utf8_card_filename):
             with open(utf8_card_filename, 'r') as fp_card:
@@ -563,15 +563,8 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
                     if len(card_lines) >= 9:
                         loaded_card = True
                         for line_ctr in range(9):
-                            if len(card_lines[line_ctr]) > 16:
-                                print('playing card too wide: ' +
-                                      utf8_card_filename)
-                                loaded_card = False
-                                break
-                        if loaded_card:
-                            for line_ctr in range(9):
-                                lines[line_ctr].append(' ' +
-                                                       card_lines[line_ctr])
+                            lines[line_ctr].append(' ' +
+                                                   card_lines[line_ctr])
                     else:
                         print('playing card too short: ' +
                               utf8_card_filename)
