@@ -565,6 +565,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
 
         for line_ctr in range(9):
             lines[line_ctr].append(card_background_color_end)
+        lines[8].append(card_background_color_end)
 
     html_str += '</tr></table>'
     board_str = card_color + '\n'
