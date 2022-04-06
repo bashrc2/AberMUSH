@@ -533,13 +533,20 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             desc.replace(' ', '_').lower() + '.jpg" />'
         html_str += '</td>'
 
+        card_background_color_start = \
+            '\u001b[0m\u001b[0m\u001b[38;5;0m\u001b[48;5;15m'
+        card_background_color_end = '\u001b[38;5;7m\u001b[49m'
         if suit == '♥' or suit == '♦':
-            suit_color = "\u001b[31m"
+            suit_color = "\u001b[31m" + card_background_color_start
             rank_color = suit_color
         if rank == '10':
             space = ''
         else:
             space = ' '
+
+        for line_ctr in range(9):
+            lines[line_ctr].append(card_background_color_start)
+
         lines[0].append('┌─────────┐')
         lines[1].append('│{}{}{}{}       │'.format(rank_color, rank,
                                                    card_color, space))
@@ -552,6 +559,9 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
         lines[7].append('│       {}{}{}{}│'.format(space, rank_color,
                                                    rank, card_color))
         lines[8].append('└─────────┘')
+
+        for line_ctr in range(9):
+            lines[line_ctr].append(card_background_color_end)
 
     html_str += '</tr></table>'
     board_str = card_color + '\n'
