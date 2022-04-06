@@ -10,6 +10,7 @@ __module_group__ = "Tabletop Games"
 # Some functions based on:
 # https://rosettacode.org/wiki/Poker_hand_analyser#Python
 
+import os
 from collections import namedtuple
 from itertools import product
 from random import randrange
@@ -548,23 +549,51 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             space = ' '
 
         for line_ctr in range(9):
-            lines[line_ctr].append(' ' + card_background_color_start)
+            lines[line_ctr].append(' ')
 
-        lines[0].append('┌─────────┐')
-        lines[1].append('│{}{}{}{}       │'.format(rank_color, rank,
-                                                   card_color, space))
-        lines[2].append('│         │')
-        lines[3].append('│         │')
-        lines[4].append('│    {}{}{}    │'.format(suit_color, suit,
-                                                  card_color))
-        lines[5].append('│         │')
-        lines[6].append('│         │')
-        lines[7].append('│       {}{}{}{}│'.format(space, rank_color,
-                                                   rank, card_color))
-        lines[8].append('└─────────┘')
+        # try to load a utf8 art card from file
+        utf8_card_filename = \
+            'cardpacks_utf8/' + pack.lower() + '/' + \
+            desc.replace(' ', '_').lower() + '.utfans'
+        loaded_card = False
+        if os.path.isfile(utf8_card_filename):
+            with open(utf8_card_filename, 'r') as fp_card:
+                card_lines = fp_card.readlines()
+                if card_lines:
+                    if len(card_lines) >= 9:
+                        loaded_card = True
+                        for line_ctr in range(9):
+                            if len(card_lines[line_ctr]) > 16:
+                                print('playing card too wide: ' +
+                                      utf8_card_filename)
+                                loaded_card = False
+                                break
+                        if loaded_card:
+                            for line_ctr in range(9):
+                                lines[line_ctr].append(' ' +
+                                                       card_lines[line_ctr])
+                    else:
+                        print('playing card too short: ' +
+                              utf8_card_filename)
+        if not loaded_card:
+            for line_ctr in range(9):
+                lines[line_ctr].append(card_background_color_start)
 
-        for line_ctr in range(9):
-            lines[line_ctr].append(card_background_color_end)
+            lines[0].append('┌─────────┐')
+            lines[1].append('│{}{}{}{}       │'.format(rank_color, rank,
+                                                       card_color, space))
+            lines[2].append('│         │')
+            lines[3].append('│         │')
+            lines[4].append('│    {}{}{}    │'.format(suit_color, suit,
+                                                      card_color))
+            lines[5].append('│         │')
+            lines[6].append('│         │')
+            lines[7].append('│       {}{}{}{}│'.format(space, rank_color,
+                                                       rank, card_color))
+            lines[8].append('└─────────┘')
+
+            for line_ctr in range(9):
+                lines[line_ctr].append(card_background_color_end)
 
     html_str += '</tr></table>'
     card_color = "\u001b[38;5;0m"
