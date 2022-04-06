@@ -538,10 +538,10 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
         card_color = "\u001b[38;5;240m"
         if suit == '♥' or suit == '♦':
             suit_color = \
-                "\u001b[0m\u001b[0m\u001b[38;5;1m\u001b[48;5;15m" + \
-                card_background_color_start
+                "\u001b[0m\u001b[0m\u001b[38;5;1m\u001b[48;5;15m"
             rank_color = suit_color
-            card_color = "\u001b[38;5;7m\u001b[49m"
+            card_color = "\u001b[38;5;7m\u001b[49m" + \
+                card_background_color_start
         if rank == '10':
             space = ''
         else:
