@@ -503,18 +503,27 @@ class MudServer(object):
         # KeyError will be raised if there is no client with the given
         # id in the map
         except KeyError as ex:
-            print("Failed to send data. Player ID " + str(clid) +
-                  ": " + str(ex))
+            err_str = "Failed to send data."
+            if str(clid).isdigit():
+                err_str += " Player ID " + str(clid)
+            err_str += ": " + str(ex)
+            print(err_str)
             return False
         except BlockingIOError as ex:
-            print("Failed to send data. Player ID " + str(clid) +
-                  ": " + str(ex))
+            err_str = "Failed to send data."
+            if str(clid).isdigit():
+                err_str += " Player ID " + str(clid)
+            err_str += ": " + str(ex)
+            print(err_str)
             return False
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as ex:
-            print("Failed to send data. Player ID " + str(clid) +
-                  ": " + str(ex) + '. Disconnecting.')
+            err_str = "Failed to send data."
+            if str(clid).isdigit():
+                err_str += " Player ID " + str(clid)
+            err_str += ": " + str(ex) + '. Disconnecting.'
+            print(err_str)
             self.handle_disconnect(clid)
             return False
         return True
