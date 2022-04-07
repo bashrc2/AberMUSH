@@ -238,14 +238,23 @@ def _parse_card(card_description: str) -> str:
     if not detected_suit:
         return None
     face_names = {
+        "2": "2",
         "two": "2",
+        "3": "3",
         "three": "3",
+        "4": "4",
         "four": "4",
+        "5": "5",
         "five": "5",
+        "6": "6",
         "six": "6",
+        "7": "7",
         "seven": "7",
+        "8": "8",
         "eight": "8",
+        "9": "9",
         "nine": "9",
+        "10": "10",
         "ten": "10",
         "jack": "j",
         "queen": "q",
