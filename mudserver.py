@@ -641,13 +641,16 @@ class MudServer(object):
     def handle_disconnect(self, clid: int) -> None:
         """Disconnect
         """
-        player_left = False
-        try:
-            # remove the client from the clients map
-            del self._clients[clid]
-            player_left = True
-        except BaseException:
-            print('Unable to remove client ' + str(clid))
+        player_left = True
+        if self._clients.get(clid):
+            player_left = False
+            try:
+                # remove the client from the clients map
+                del self._clients[clid]
+                player_left = True
+            except BaseException:
+                print('Unable to remove client ' + str(clid))
+                pass
 
         if player_left:
             # add a 'player left' occurence to the new events list, with the
