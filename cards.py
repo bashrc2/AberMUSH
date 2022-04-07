@@ -552,9 +552,11 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             lines[line_ctr].append(' ')
 
         # try to load a utf8 art card from file
+        utf8_pack = 'classic'
+        utf8_desc = _get_card_description(utf8_pack, rank, suit)
         utf8_card_filename = \
-            'cardpacks_utf8/' + pack.lower() + '/' + \
-            desc.replace('\n', '').replace(' ', '_').lower() + '.utf8ans'
+            'cardpacks_utf8/' + utf8_pack + '/' + \
+            utf8_desc.replace('\n', '').replace(' ', '_').lower() + '.utf8ans'
         loaded_card = False
         if os.path.isfile(utf8_card_filename):
             with open(utf8_card_filename, 'r') as fp_card:
