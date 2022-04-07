@@ -509,12 +509,11 @@ class MudServer(object):
         # If there is a connection problem with the client (e.g. they have
         # disconnected) a socket error will be raised
         except socket.error as ex:
-            err_str = "Failed to send data."
             if str(clid).isdigit():
+                err_str = "Failed to send data."
                 err_str += " Player ID " + str(clid)
-            err_str += ": " + str(ex) + '. Disconnecting.'
-            print(err_str)
-            if str(clid).isdigit():
+                err_str += ": " + str(ex) + '. Disconnecting.'
+                print(err_str)
                 self.handle_disconnect(clid)
             return False
         return True
