@@ -257,6 +257,7 @@ def _parse_card(card_description: str) -> str:
         "10": "10",
         "ten": "10",
         "jack": "j",
+        "knave": "j",
         "queen": "q",
         "king": "k",
         "ace": "a"
