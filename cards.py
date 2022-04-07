@@ -563,6 +563,8 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
 
         # try to load a utf8 art card from file
         utf8_pack = 'classic'
+        if pack != 'cloisters' and pack != 'set1':
+            utf8_pack = pack
         utf8_desc = _get_card_description(utf8_pack, rank, suit)
         utf8_card_filename = \
             'cardpacks_utf8/' + utf8_pack + '/' + \
