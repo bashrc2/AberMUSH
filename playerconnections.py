@@ -256,6 +256,8 @@ def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
                     plyr, "<f232><b11>You are being disconnected " +
                     "due to inactivity. Bye!****DISCONNECT****\n")
             name_str = str(players[plyr]['name'])
+            if str(plyr).isdigit():
+                name_str += ' ID ' + str(plyr)
             log("Character " + name_str +
                 " is being disconnected due to inactivity.", "warning")
             p_str = str(plyr)
