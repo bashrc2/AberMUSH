@@ -3846,7 +3846,9 @@
         "short_description": "The stones are mostly from the last great plague to hit Tranoch some two hundred and thirty years ago. Each worn stone bears a name or two in silent remembrance. Each name gradually vanishing, worn away by old man time himself.",
         "long_description": "The stones are mostly from the last great plague to hit Tranoch some two hundred and thirty years ago. Each worn stone bears a name or two in silent remembrance. Each name gradually vanishing, worn away by old man time himself.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["behind","yes","Behind the gravestone there is just empty space"]
+	],
         "takeFail": "This is much too heavy to take",
         "clo_head": 0,
         "clo_neck": 0,
@@ -46070,7 +46072,9 @@
         "short_description": "The honeycombs are swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycombs",
         "long_description": "The honeycombs is swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycombs",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","You could look behind it, but the bees would not be happy|You try to look behind, but angry buzzing dissuades you"]
+	],
         "takeFail": "Carrying an angry swarm of bees is probably not a great idea.",
         "moveTimes": [],
         "clo_head": 0,
@@ -46603,7 +46607,9 @@
         "short_description": "wall calendar",
         "long_description": "An old and faded calendar hangs from the lab wall. The days of the month contain hastily scribbled illegible handwriting. One entry which you can vaguely discern is headed 'initial coin offering', followed by some mathematical calculation you don't understand.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","Behind the wall calendar is, of course, the wall"]
+	],
         "takeFail": "The calendar is so fragile that if you tried to take it then it would disintegrate.",
         "moveTimes": [],
         "clo_head": 0,
@@ -46691,7 +46697,9 @@
         "short_description": "A modest feast bench has been set out here.",
         "long_description": "A modest feast bench has been set out here. It has a couple of shelves for fruit and confectionaries.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["under","true","You eagerly search under the bench, expecting to find more loot. But alas this is not the case"]
+	],
         "takeFail": "The feast bench is much too large to carry.",
         "moveTimes": [["dayofmonth",1,31],["dayofmonth",3,21],["dayofmonth",5,1],["dayofmonth",6,21],["dayofmonth",7,31],["dayofmonth",9,21],["dayofmonth",10,31],["dayofmonth",12,21]],
         "clo_head": 0,
@@ -46867,7 +46875,11 @@
         "short_description": "The barnacle encrusted remains of a ship, long ago wrecked and partially buried in the sand",
         "long_description": "The barnacle encrusted remains of a ship, long ago wrecked and partially buried in the sand",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["above","true","You can't see above the side of the shipwreck from here"],
+	    ["under","true","You consider excavating the sand under the shipwreck, but it would be too much work. Presumably its underside is not in good condition"],
+	    ["behind","true","You can't see behind it from here"]
+	],
         "takeFail": "The shipwreck is much too big to take.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53366,7 +53378,9 @@
         "short_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat.",
         "long_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","Behind the painting you only see some dust"]
+	],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53455,6 +53469,7 @@
         "long_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones.",
         "hidden": 0,
         "conditional": [
+	    ["behind","true","Behind the statue plinth carved in small formal-looking letters is the inscription 'alis grave nil'"],
             ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings"],
             ["morning","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones","1500a"],
             ["night","yes","The eyes of the large statue of an angel watch over the gravestones. Its plinth is partially concealed by moss and ivy","1500b"]
@@ -53546,7 +53561,9 @@
         "short_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures.",
         "long_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","The plaque is fastened to the wall, so you can't look behind it"]
+	],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53634,7 +53651,9 @@
         "short_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear.",
         "long_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+	    ["under","true","You try to lift up the floor mosaic to look underneath it, but then realize that this is silly"]
+	],
         "takeFail": "You'd need to dig up the floor to do that",
         "clo_head": 0,
         "clo_neck": 0,
@@ -53903,7 +53922,9 @@
         "short_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position.",
         "long_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position.",
         "hidden": 1,
-        "conditional": [],
+        "conditional": [
+	    ["behind","true","There isn't anything behind the small iron lever"]
+	],
         "takeFail": "The lever is somehow attached to the floor",
         "moveTimes": [],
         "clo_head": 0,
