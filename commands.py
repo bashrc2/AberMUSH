@@ -7713,8 +7713,8 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
                           map_area, character_class_db, spells_db,
                           sentiment_db, guilds_db, clouds, races_db,
                           item_history, markets, cultures_db)
-    except Exception as e:
-        switcher["sendCommandError"](e.message + ' ' + e.args,
+    except Exception as ex:
+        switcher["sendCommandError"](str(ex),
                                      mud, players_db, players, rooms,
                                      npcs_db, npcs, items_db, items,
                                      env_db, env, eventDB, event_schedule,
