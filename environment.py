@@ -974,8 +974,12 @@ def get_rain_at_coords(coords: [], map_area: [], clouds: {}) -> bool:
         return False
     x_coord = coords[1] - map_area[1][0]
     y_coord = coords[0] - map_area[0][0]
-    if clouds[x_coord][y_coord] > RAIN_THRESHOLD:
-        return True
+    try:
+        if clouds[x_coord][y_coord] > RAIN_THRESHOLD:
+            return True
+    except BaseException:
+        print('Rain map coords out of range ' +
+              str(x_coord) + ', ' + str(y_coord))
     return False
 
 
