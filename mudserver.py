@@ -531,6 +531,8 @@ class MudServer(object):
         # player's id number
         self._new_events.append((self._EVENT_NEW_PLAYER, self._nextid))
 
+        # TODO
+
         # add 1 to 'nextid' so that the next client to connect will get a
         # unique id number
         self._nextid += 1

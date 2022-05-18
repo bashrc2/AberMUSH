@@ -7714,8 +7714,8 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
                           sentiment_db, guilds_db, clouds, races_db,
                           item_history, markets, cultures_db)
     except Exception as e:
-        # print(str(e))
-        switcher["sendCommandError"](e, mud, players_db, players, rooms,
+        switcher["sendCommandError"](e.message + ' ' + e.args,
+                                     mud, players_db, players, rooms,
                                      npcs_db, npcs, items_db, items,
                                      env_db, env, eventDB, event_schedule,
                                      id, fights, corpses, blocklist,
