@@ -3847,8 +3847,8 @@
         "long_description": "The stones are mostly from the last great plague to hit Tranoch some two hundred and thirty years ago. Each worn stone bears a name or two in silent remembrance. Each name gradually vanishing, worn away by old man time himself.",
         "hidden": 0,
         "conditional": [
-	    ["behind","yes","Behind the gravestone there is just empty space"]
-	],
+            ["behind","yes","Behind the gravestone there is just empty space"]
+        ],
         "takeFail": "This is much too heavy to take",
         "clo_head": 0,
         "clo_neck": 0,
@@ -4366,8 +4366,8 @@
         "long_description": "This painting looks like a portrait of a once legendary adventurer.",
         "hidden": 0,
         "conditional": [
-	    ["behind","yes","Behind the painting you find a small paper note, which reads 'Not For Sale'"]
-	],
+            ["behind","yes","Behind the painting you find a small paper note, which reads 'Not For Sale'"]
+        ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -4456,8 +4456,8 @@
         "long_description": "A modest footstool. Useful in all manner of situations",
         "hidden": 0,
         "conditional": [
-	    ["under","true","There's nothing under the footstool which would interest you"]
-	],
+            ["under","true","There's nothing under the footstool which would interest you"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -4544,9 +4544,9 @@
         "long_description": "A rocking chair creaks sadly to itself in the corner.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the chair"],
-	    ["under","true","You don't see anything under the chair"]
-	],
+            ["behind","true","You don't see anything behind the chair"],
+            ["under","true","You don't see anything under the chair"]
+        ],
         "takeFail": "It would be too big to carry.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6295,8 +6295,8 @@
         "long_description": "A stone altar stands in the centre of the room, surrounded by a magic circle woven into the carpets.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","There's nothing very interesting behind the stone altar"]
-	],
+            ["behind","true","There's nothing very interesting behind the stone altar"]
+        ],
         "takeFail": "It's much too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6473,8 +6473,8 @@
         "long_description": "A clothes chest sits here. The chest is closed.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","There isn't anything under the clothes chest, except for some dust"]
-	],
+            ["under","true","There isn't anything under the clothes chest, except for some dust"]
+        ],
         "takeFail": "The chest is far too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6563,9 +6563,9 @@
         "long_description": "A stout oak table stands next to the bed. It has an ornate chess board on it, with pieces representing opposing tribes from earlier centuries.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the table"],
-	    ["under","true","You don't see anything under the table"]
-	],
+            ["behind","true","You don't see anything behind the table"],
+            ["under","true","You don't see anything under the table"]
+        ],
         "takeFail": "The oak table is too heavy to be moved by you alone.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6655,8 +6655,8 @@
         "long_description": "A very high quality mirror, with a beautiful frame of carved wood.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","There isn't anything behind the mirror"]
-	],
+            ["behind","true","There isn't anything behind the mirror"]
+        ],
         "takeFail": "It's fixed to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -6745,8 +6745,8 @@
         "long_description": "The four poster bed is made from beautiful oak with silk bedding and regal red drapes.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
-	],
+            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+        ],
         "takeFail": "Even with considerable effort, you fail to move the bed. It's exceptionally heavy.",
         "clo_head": 0,
         "clo_neck": 0,
@@ -7275,7 +7275,7 @@
         "hidden": 0,
         "conditional": [
             ["hold","You are holding a strong wooden bucket with a metal handle"],
-	    ["under","true","You examine the base of the bucket, and find no holes"]
+            ["under","true","You examine the base of the bucket, and find no holes"]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8855,9 +8855,9 @@
         "long_description": "The desk is strewn with papers and junk.",
         "hidden": 0,
         "conditional": [
-	    ["behind","yes","You don't find anything behind the desk"],
-	    ["under","yes","You don't find anything under the desk"]
-	],
+            ["behind","yes","You don't find anything behind the desk"],
+            ["under","yes","You don't find anything under the desk"]
+        ],
         "takeFail": "It's too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -9034,8 +9034,8 @@
         "long_description": "An early keyboard instrument.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","You don't find anything under the clavichord"]
-	],
+            ["under","true","You don't find anything under the clavichord"]
+        ],
         "takeFail": "It's too large and heavy.",
         "moveTimes": [],
         "clo_head": 0,
@@ -9300,8 +9300,8 @@
         "long_description": "A cabinet made from glass stands here, the door is open.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","There isn't anything behind the cabinet. If there was it would show through the glass"]
-	],
+            ["behind","true","There isn't anything behind the cabinet. If there was it would show through the glass"]
+        ],
         "takeFail": "It's too heavy.",
         "moveTimes": [],
         "clo_head": 0,
@@ -9478,9 +9478,9 @@
         "long_description": "Most refreshing for visitors to sink into.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","There's nothing under the couch"],
-	    ["behind","true","If there was anything behind the couch, it's gone now"]
-	],
+            ["under","true","There's nothing under the couch"],
+            ["behind","true","If there was anything behind the couch, it's gone now"]
+        ],
         "takeFail": "It's too large to carry.",
         "moveTimes": [],
         "clo_head": 0,
@@ -16368,9 +16368,9 @@
         "long_description": "A rough wooden coffin has been left lying underneath the table. It is open.|It is a rough wooden box, 6 feet long and 3 feet wide. It is open.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the coffin"],
-	    ["under","true","Expecting to discover some deviously concealed object you peer under the coffin. But, alas, there is nothing here to be found"]
-	],
+            ["behind","true","You don't see anything behind the coffin"],
+            ["under","true","Expecting to discover some deviously concealed object you peer under the coffin. But, alas, there is nothing here to be found"]
+        ],
         "takeFail": "It's too big to carry around.",
         "moveTimes": [],
         "clo_head": 0,
@@ -16547,9 +16547,9 @@
         "long_description": "There is a large table in the middle of the room.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the table"],
-	    ["under","true","You don't see anything under the table"]
-	],
+            ["behind","true","You don't see anything behind the table"],
+            ["under","true","You don't see anything under the table"]
+        ],
         "takeFail": "It's too big and unwieldy to take.",
         "moveTimes": [],
         "clo_head": 0,
@@ -36248,9 +36248,9 @@
         "long_description": "Mystic symbols are inlaid into its top, along with a chess board.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the table"],
-	    ["under","true","You don't see anything under the table"]
-	],
+            ["behind","true","You don't see anything behind the table"],
+            ["under","true","You don't see anything under the table"]
+        ],
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -39671,9 +39671,9 @@
         "long_description": "Solid, but a little uncomfortable.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the bench"],
-	    ["under","true","You don't see anything under the bench"]
-	],
+            ["behind","true","You don't see anything behind the bench"],
+            ["under","true","You don't see anything under the bench"]
+        ],
         "takeFail": "It's much too big and heavy.",
         "moveTimes": [],
         "clo_head": 0,
@@ -39762,9 +39762,9 @@
         "long_description": "Good solid tables. Only slight evidence of ale spillage. There is a pack of cards and a Morris board here.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the table"],
-	    ["under","true","Against your better judgement you rummage around under the table. There are ale stains on the floor, but otherwise you find nothing of interest"]
-	],
+            ["behind","true","You don't see anything behind the table"],
+            ["under","true","Against your better judgement you rummage around under the table. There are ale stains on the floor, but otherwise you find nothing of interest"]
+        ],
         "takeFail": "You try to take the table, but only look foolish because it's too large to carry.",
         "moveTimes": [],
         "clo_head": 0,
@@ -40911,9 +40911,9 @@
         "long_description": "It is a strange hole. It seems almost well, unattached.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything noteworthy behind the hole"],
-	    ["under","true","You don't see anything worthy of comment under the hole"]
-	],
+            ["behind","true","You don't see anything noteworthy behind the hole"],
+            ["under","true","You don't see anything worthy of comment under the hole"]
+        ],
         "takeFail": "You can't get a hold of it.",
         "moveTimes": [],
         "clo_head": 0,
@@ -46073,8 +46073,8 @@
         "long_description": "The honeycombs is swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycombs",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You could look behind it, but the bees would not be happy|You try to look behind, but angry buzzing dissuades you"]
-	],
+            ["behind","true","You could look behind it, but the bees would not be happy|You try to look behind, but angry buzzing dissuades you"]
+        ],
         "takeFail": "Carrying an angry swarm of bees is probably not a great idea.",
         "moveTimes": [],
         "clo_head": 0,
@@ -46251,9 +46251,9 @@
         "long_description": "A wooden tavern table built from solid planks. There is a pack of cards and a Nine Men's Morris board here.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything interesting behind the table"],
-	    ["under","true","You eagerly rummage around under the table, then realize that this is a rather silly thing to be doing"]
-	],
+            ["behind","true","You don't see anything interesting behind the table"],
+            ["under","true","You eagerly rummage around under the table, then realize that this is a rather silly thing to be doing"]
+        ],
         "takeFail": "Stealing the table from this seedy locale would not be a wise move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -46608,8 +46608,8 @@
         "long_description": "An old and faded calendar hangs from the lab wall. The days of the month contain hastily scribbled illegible handwriting. One entry which you can vaguely discern is headed 'initial coin offering', followed by some mathematical calculation you don't understand.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","Behind the wall calendar is, of course, the wall"]
-	],
+            ["behind","true","Behind the wall calendar is, of course, the wall"]
+        ],
         "takeFail": "The calendar is so fragile that if you tried to take it then it would disintegrate.",
         "moveTimes": [],
         "clo_head": 0,
@@ -46698,8 +46698,8 @@
         "long_description": "A modest feast bench has been set out here. It has a couple of shelves for fruit and confectionaries.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","You eagerly search under the bench, expecting to find more loot. But alas this is not the case"]
-	],
+            ["under","true","You eagerly search under the bench, expecting to find more loot. But alas this is not the case"]
+        ],
         "takeFail": "The feast bench is much too large to carry.",
         "moveTimes": [["dayofmonth",1,31],["dayofmonth",3,21],["dayofmonth",5,1],["dayofmonth",6,21],["dayofmonth",7,31],["dayofmonth",9,21],["dayofmonth",10,31],["dayofmonth",12,21]],
         "clo_head": 0,
@@ -46876,10 +46876,10 @@
         "long_description": "The barnacle encrusted remains of a ship, long ago wrecked and partially buried in the sand",
         "hidden": 0,
         "conditional": [
-	    ["above","true","You can't see above the side of the shipwreck from here"],
-	    ["under","true","You consider excavating the sand under the shipwreck, but it would be too much work. Presumably its underside is not in good condition"],
-	    ["behind","true","You can't see behind it from here"]
-	],
+            ["above","true","You can't see above the side of the shipwreck from here"],
+            ["under","true","You consider excavating the sand under the shipwreck, but it would be too much work. Presumably its underside is not in good condition"],
+            ["behind","true","You can't see behind it from here"]
+        ],
         "takeFail": "The shipwreck is much too big to take.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53379,8 +53379,8 @@
         "long_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","Behind the painting you only see some dust"]
-	],
+            ["behind","true","Behind the painting you only see some dust"]
+        ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53469,7 +53469,7 @@
         "long_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","Behind the statue plinth carved in small formal-looking letters is the inscription 'alis grave nil'"],
+            ["behind","true","Behind the statue plinth carved in small formal-looking letters is the inscription 'alis grave nil'"],
             ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings"],
             ["morning","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones","1500a"],
             ["night","yes","The eyes of the large statue of an angel watch over the gravestones. Its plinth is partially concealed by moss and ivy","1500b"]
@@ -53562,8 +53562,8 @@
         "long_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","The plaque is fastened to the wall, so you can't look behind it"]
-	],
+            ["behind","true","The plaque is fastened to the wall, so you can't look behind it"]
+        ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53652,8 +53652,8 @@
         "long_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","You try to lift up the floor mosaic to look underneath it, but then realize that this is silly"]
-	],
+            ["under","true","You try to lift up the floor mosaic to look underneath it, but then realize that this is silly"]
+        ],
         "takeFail": "You'd need to dig up the floor to do that",
         "clo_head": 0,
         "clo_neck": 0,
@@ -53741,9 +53741,9 @@
         "long_description": "A humble wooden bench has been placed here to allow the faithful to pray.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","In the narrow gap behind the prayer bench you see a small iron lever"],
-	    ["under","true","You don't see anything under the bench"]
-	],
+            ["behind","true","In the narrow gap behind the prayer bench you see a small iron lever"],
+            ["under","true","You don't see anything under the bench"]
+        ],
         "takeFail": "It's much too big and heavy.",
         "moveTimes": [],
         "clo_head": 0,
@@ -53831,10 +53831,10 @@
         "short_description": "An ornate iron incense stand, having three legs supporting a tray into which burners can be placed.",
         "long_description": "An ornate iron incense stand, having three legs supporting a tray into which burners can be placed.",
         "hidden": 0,
-	"takeFail": "You try to take the incense stand, but its feet are embedded into the floor",
+        "takeFail": "You try to take the incense stand, but its feet are embedded into the floor",
         "conditional": [
-	    ["behind","true","You don't see anything behind the incense stand"],
-	    ["under","true","You don't see anything under the incense stand"],
+            ["behind","true","You don't see anything behind the incense stand"],
+            ["under","true","You don't see anything under the incense stand"],
             ["morning","yes","Clouds of aromatic smoke rise lazily from an ornate iron incense stand. It has three supporting legs and a tray on which the burners are placed.","1504b"]
         ],
         "clo_head": 0,
@@ -53923,8 +53923,8 @@
         "long_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position.",
         "hidden": 1,
         "conditional": [
-	    ["behind","true","There isn't anything behind the small iron lever"]
-	],
+            ["behind","true","There isn't anything behind the small iron lever"]
+        ],
         "takeFail": "The lever is somehow attached to the floor",
         "moveTimes": [],
         "clo_head": 0,
@@ -54277,9 +54277,9 @@
         "long_description": "A modest table made from roughly sawn timber, with a chess board on it.",
         "hidden": 0,
         "conditional": [
-	    ["behind","true","You don't see anything behind the table"],
-	    ["under","true","You don't see anything under the table"]
-	],
+            ["behind","true","You don't see anything behind the table"],
+            ["under","true","You don't see anything under the table"]
+        ],
         "takeFail": "The modest table is too heavy to be moved by you alone.",
         "moveTimes": [],
         "clo_head": 0,
@@ -54369,8 +54369,8 @@
         "long_description": "A large wooden chest.",
         "hidden": 0,
         "conditional": [
-	    ["under","true","There isn't anything under the wooden chest"]
-	],
+            ["under","true","There isn't anything under the wooden chest"]
+        ],
         "takeFail": "The chest is far too heavy to move.",
         "moveTimes": [],
         "clo_head": 0,
@@ -54532,12 +54532,189 @@
         "open_description": "You open the lid of the wooden barrel",
         "open_failed_description": "",
         "close_description": "You close the lid of the wooden barrel",
-        "contains": ["1391","959","960"],
+        "contains": ["1391","959"],
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
         "exit": "",
         "lightSource": 0,
         "article": "a"
+    },
+    "1512": {
+        "name": "wall ledge",
+        "short_description": "Recessed into the north wall of the storeroom is a ledge, upon which items may be placed",
+        "long_description": "Recessed into the north wall of the storeroom is a ledge, upon which items may be placed",
+        "hidden": 0,
+        "conditional": [
+            ["above","true","Looking above the ledge you notice that there is a small trapdoor set into the ceiling, as if objects might be lowered down into the storeroom through it"]
+        ],
+        "takeFail": "Trying to take the ledge doesn't make any sense",
+        "clo_head": 0,
+        "clo_neck": 0,
+        "clo_larm": 0,
+        "clo_rarm": 0,
+        "clo_lhand": 0,
+        "clo_gloves": 0,
+        "clo_lfinger": 0,
+        "clo_rhand": 0,
+        "clo_rfinger": 0,
+        "clo_waist": 0,
+        "clo_rear": 0,
+        "clo_lear": 0,
+        "clo_lwrist": 0,
+        "clo_rwrist": 0,
+        "clo_chest": 0,
+        "clo_back": 0,
+        "clo_lleg": 0,
+        "clo_rleg": 0,
+        "clo_feet": 0,
+        "imp_head": 0,
+        "imp_neck": 0,
+        "imp_larm": 0,
+        "imp_rarm": 0,
+        "imp_lhand": 0,
+        "imp_lfinger": 0,
+        "imp_rhand": 0,
+        "imp_rfinger": 0,
+        "imp_waist": 0,
+        "imp_rear": 0,
+        "imp_lear": 0,
+        "imp_chest": 0,
+        "imp_back": 0,
+        "imp_lleg": 0,
+        "imp_rleg": 0,
+        "imp_feet": 0,
+        "mod_str": 0,
+        "mod_exp": 0,
+        "mod_per": 0,
+        "mod_endu": 0,
+        "mod_cha": 0,
+        "mod_int": 0,
+        "mod_agi": 0,
+        "mod_luc": 0,
+        "mod_cool": 0,
+        "weight": 0,
+        "edible": 0,
+        "climbThrough": "",
+        "armorClass": 0,
+        "damage": "",
+        "damageChart": [],
+        "range": [0, 0],
+        "cost": "0",
+        "heave": "",
+        "jumpTo": "",
+        "game": "",
+        "gameState": {},
+        "state": "container open always",
+        "visibleWhenWearing": [],
+        "climbWhenWearing": [],
+        "respawnInRegion": [],
+        "type": "",
+        "bothHands": 0,
+        "rof": 0,
+        "useTimes": 10,
+        "writeWithItems": [],
+        "written": "",
+        "language": "",
+        "culture": "",
+        "written_description": "",
+        "open_description": "",
+        "open_failed_description": "",
+        "close_description": "",
+        "contains": ["960"],
+        "lockedWithItem": 0,
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
+        "lightSource": 0,
+        "article": "a"
+    },
+    "1513": {
+        "name": "trapdoor",
+        "short_description": "The small trapdoor is made of wooden planks, and set into the ceiling of the storeroom. It is closed.",
+        "long_description": "The small trapdoor is made of wooden planks, and set into the ceiling of the storeroom. It is closed.",
+        "hidden": 1,
+        "conditional": [],
+        "takeFail": "You can't",
+        "moveTimes": [],
+        "clo_head": 0,
+        "clo_neck": 0,
+        "clo_larm": 0,
+        "clo_rarm": 0,
+        "clo_lhand": 0,
+        "clo_gloves": 0,
+        "clo_lfinger": 0,
+        "clo_rhand": 0,
+        "clo_rfinger": 0,
+        "clo_waist": 0,
+        "clo_rear": 0,
+        "clo_lear": 0,
+        "clo_lwrist": 0,
+        "clo_rwrist": 0,
+        "clo_chest": 0,
+        "clo_back": 0,
+        "clo_lleg": 0,
+        "clo_rleg": 0,
+        "clo_feet": 0,
+        "imp_head": 0,
+        "imp_neck": 0,
+        "imp_larm": 0,
+        "imp_rarm": 0,
+        "imp_lhand": 0,
+        "imp_lfinger": 0,
+        "imp_rhand": 0,
+        "imp_rfinger": 0,
+        "imp_waist": 0,
+        "imp_rear": 0,
+        "imp_lear": 0,
+        "imp_chest": 0,
+        "imp_back": 0,
+        "imp_lleg": 0,
+        "imp_rleg": 0,
+        "imp_feet": 0,
+        "mod_str": 0,
+        "mod_exp": 0,
+        "mod_per": 0,
+        "mod_endu": 0,
+        "mod_cha": 0,
+        "mod_int": 0,
+        "mod_agi": 0,
+        "mod_luc": 0,
+        "mod_cool": 0,
+        "weight": 0,
+        "edible": 0,
+        "climbThrough": "",
+        "armorClass": 0,
+        "damage": "",
+        "damageChart": [],
+        "range": [0, 0],
+        "cost": "0",
+        "heave": "",
+        "jumpTo": "",
+        "game": "",
+        "gameState": {},
+        "state": "closed",
+        "visibleWhenWearing": [],
+        "climbWhenWearing": [],
+        "respawnInRegion": [],
+        "type": "",
+        "bothHands": 0,
+        "rof": 0,
+        "useTimes": 0,
+        "writeWithItems": [],
+        "written": "",
+        "language": "",
+        "culture": "",
+        "written_description": "",
+        "open_description": "",
+        "open_failed_description": "",
+        "close_description": "",
+        "contains": [],
+        "lockedWithItem": 0,
+        "exitName": "",
+        "linkedItem": 0,
+        "exit": "",
+        "lightSource": 0,
+        "article": "the"
     }
 }
