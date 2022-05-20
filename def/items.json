@@ -54546,9 +54546,9 @@
         "long_description": "Recessed into the north wall of the storeroom is a ledge, upon which items may be placed",
         "hidden": 0,
         "conditional": [
-            ["above","true","Looking above the ledge you notice that there is a small trapdoor set into the ceiling, as if objects might be lowered down into the storeroom through it"]
+            ["above","true","Looking above the ledge you notice that there is a small trapdoor set into the ceiling, as if objects might be lowered down into the storeroom through it."]
         ],
-        "takeFail": "Trying to take the ledge doesn't make any sense",
+        "takeFail": "Trying to take the ledge doesn't make any sense.",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -54635,7 +54635,7 @@
         "long_description": "The small trapdoor is made of wooden planks, and set into the ceiling of the storeroom. It is closed.",
         "hidden": 1,
         "conditional": [],
-        "takeFail": "You can't",
+        "takeFail": "You can't.",
         "moveTimes": [],
         "clo_head": 0,
         "clo_neck": 0,
