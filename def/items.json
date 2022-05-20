@@ -29514,7 +29514,7 @@
     "961": {
         "name": "small door",
         "short_description": "There is a door to the south.",
-        "long_description": "A small door leads south out of the chamber into a low passage.",
+        "long_description": "A small but sturdy looking door leads south out of the chamber into a low passage. It was obviously built for creatures not much taller than a dwarf.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "You try to remove the hinges, but can't.",
