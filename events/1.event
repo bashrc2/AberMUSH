@@ -323,8 +323,6 @@
 0|spawnItem|936;$rid=938$;0;0
 0|spawnItem|937;$rid=1059$;0;0
 0|spawnItem|939;$rid=1329$;0;0
-0|spawnItem|959;$rid=963$;0;0
-0|spawnItem|960;$rid=963$;0;0
 0|spawnItem|961;$rid=963$;0;0
 0|spawnItem|962;$rid=964$;0;0
 0|spawnItem|970;$rid=971$;0;0
@@ -483,7 +481,7 @@
 0|spawnItem|1385;$rid=287$;0;0
 0|spawnItem|1386;$rid=195$;0;0
 0|spawnItem|1387;$rid=333$;0;0
-0|spawnItem|1391;$rid=963$;0;0
+0|spawnItem|1511;$rid=963$;0;0
 0|spawnItem|1397;$rid=978$;0;0
 0|spawnItem|1394;$rid=978$;0;0
 0|spawnItem|1393;$rid=1079$;0;0

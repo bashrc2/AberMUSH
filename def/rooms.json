@@ -8683,7 +8683,7 @@
     },
     "$rid=963$": {
         "name": "The Dwarven Storeroom",
-        "description": "You stand in a small, low ceiling chamber.",
+        "description": "You stand in a small, low ceiling chamber. It is packed with boxes and barrels.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
