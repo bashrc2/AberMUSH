@@ -54631,8 +54631,8 @@
     },
     "1513": {
         "name": "trapdoor",
-        "short_description": "The small trapdoor is made of narrow wooden planks crudely lashed together, and set into the ceiling of the storeroom. It is closed.",
-        "long_description": "The small trapdoor is made of narrow wooden planks crudely lashed together, and set into the ceiling of the storeroom. It is closed.",
+        "short_description": "The small trapdoor is made of narrow wooden planks crudely lashed together, and set into the ceiling of the storeroom.",
+        "long_description": "The small trapdoor is made of narrow wooden planks crudely lashed together, and set into the ceiling of the storeroom.",
         "hidden": 1,
         "conditional": [],
         "takeFail": "You can't.",
