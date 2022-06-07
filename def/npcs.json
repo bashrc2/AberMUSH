@@ -351,16 +351,16 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["follow","me"],"Scurries behind you","image:weaselfollow","familiar","follow"],
-	    [["scout"],"Begins scouting","image:weaselroam","familiar","scout","any"],
-	    [["scout","north"],"Begins scouting to the north","image:weaselscout","familiar","scout","north"],
-	    [["scout","south"],"Begins scouting to the south","image:weaselscout","familiar","scout","south"],
-	    [["scout","east"],"Begins scouting to the east","image:weaselscout","familiar","scout","east"],
-	    [["scout","west"],"Begins scouting to the east","image:weaselscout","familiar","scout","west"],
-	    [["scout","up"],"Begins scouting upwards","image:weaselscout","familiar","scout","up"],
-	    [["scout","down"],"Begins scouting downwards","image:weaselscout","familiar","scout","down"],
-	    [["hide","hidden"],"Scrambles down a hole","image:weaselhide","familiar","hide"],
-	    [["tell","say","describe","see"],"Pops up its head and looks around","familiar","see"],
+            [["follow","me"],"Scurries behind you","image:weaselfollow","familiar","follow"],
+            [["scout"],"Begins scouting","image:weaselroam","familiar","scout","any"],
+            [["scout","north"],"Begins scouting to the north","image:weaselscout","familiar","scout","north"],
+            [["scout","south"],"Begins scouting to the south","image:weaselscout","familiar","scout","south"],
+            [["scout","east"],"Begins scouting to the east","image:weaselscout","familiar","scout","east"],
+            [["scout","west"],"Begins scouting to the east","image:weaselscout","familiar","scout","west"],
+            [["scout","up"],"Begins scouting upwards","image:weaselscout","familiar","scout","up"],
+            [["scout","down"],"Begins scouting downwards","image:weaselscout","familiar","scout","down"],
+            [["hide","hidden"],"Scrambles down a hole","image:weaselhide","familiar","hide"],
+            [["tell","say","describe","see"],"Pops up its head and looks around","familiar","see"],
             [["attack","kill","bite"],"Eyes you suspiciously as if you are up to no good"],
             [["scratch","itch"],"Scratches itself"],
             [["dance","party","fun","excit"],"Scurries arround in a series of little springy jumps","image:weaselroam"],
@@ -370,7 +370,7 @@
         "bodyType": "",
         "moveDelay" : "30000",
         "moveType" : "",
-	"moveTimes": [],
+        "moveTimes": [],
         "vocabulary" : "Eeeek!|Eeek-eeeek!|Squeeek!",
         "talkDelay" : "600",
         "randomFactor" : "50",
@@ -818,7 +818,7 @@
         "conv" : [
             [["soup","eat","have","please","affinity>=0"],"# njalmir ladels out a bowl of soup from the cauldron","give","1424"],
             [["soup","eat","have","please","affinity<0"],"# njalmir looks indifferent"]
-	],
+        ],
         "path" : ["$rid=121$"],
         "bodyType": "",
         "moveDelay" : "300",
@@ -1042,13 +1042,13 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["fur"], "I'm only a fake fur trapper|Fur as in furry|What?"],
-	    [["cruel"], "Yes, I agree|Er...yes|Heck yeah|I hadn't thought of that|You may be right"],
-	    [["trap"], "My traps are never very successful|I keep trying to trap things and they keep getting away|I make the world's least successful traps"],
-	    [["who","?"], "I have no idea who|Who?|What?|Oh|Aaaah"],
-	    [["what","?"], "That's a great question|What indeed|I don't know|No idea"],
-	    [["rubble","?"], "I seem to be standing next to a pile of rubble, but have no idea how this happened|Rubble, you say?|Rubble trouble|Well, this is a fine mess"]
-	],
+            [["fur"], "I'm only a fake fur trapper|Fur as in furry|What?"],
+            [["cruel"], "Yes, I agree|Er...yes|Heck yeah|I hadn't thought of that|You may be right"],
+            [["trap"], "My traps are never very successful|I keep trying to trap things and they keep getting away|I make the world's least successful traps"],
+            [["who","?"], "I have no idea who|Who?|What?|Oh|Aaaah"],
+            [["what","?"], "That's a great question|What indeed|I don't know|No idea"],
+            [["rubble","?"], "I seem to be standing next to a pile of rubble, but have no idea how this happened|Rubble, you say?|Rubble trouble|Well, this is a fine mess"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -1171,7 +1171,7 @@
             [["affinity<0","language=cant","help"],"I'm not inclined to assist one such as yourself"],
             [["affinity>=0","language=cant","help"],"I have no advice for you"],
             [["language=cant","what","who","where","when"],"I don't know anything about that"],
-	    [["family","poem","riddle","tale"],"I am wandering eternally. Oh God, to whom are given my brothers’ horses and their land?|I have gazed on uncultivated land from the mound of Gorwynion. Long is the course of the sun; longer my remembrances|The walls remember the great invasion. Cynddylan was slain defending Tranoch, a desolate town.|I had brothers whom invaders took from me. My misfortune caused it|Ice covers Maes Maoddyn: because of the destruction of the well-nurtured one, there is thick snow on the grave of Erinfedd.|In the time when they were fair, the daughters of Cyndrwyn were loved: Heledd, Gwladus and Gwenddwyn. I had pleasant sisters. I lost them all totally"]
+            [["family","poem","riddle","tale"],"I am wandering eternally. Oh God, to whom are given my brothers’ horses and their land?|I have gazed on uncultivated land from the mound of Gorwynion. Long is the course of the sun; longer my remembrances|The walls remember the great invasion. Cynddylan was slain defending Tranoch, a desolate town.|I had brothers whom invaders took from me. My misfortune caused it|Ice covers Maes Maoddyn: because of the destruction of the well-nurtured one, there is thick snow on the grave of Erinfedd.|In the time when they were fair, the daughters of Cyndrwyn were loved: Heledd, Gwladus and Gwenddwyn. I had pleasant sisters. I lost them all totally"]
         ],
         "path" : ["$rid=434$","$rid=433$","$rid=435$","$rid=422$"],
         "bodyType": "",
@@ -1282,16 +1282,16 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["follow","me"],"perches on your shoulder","image:ravenfollow","familiar","follow"],
-	    [["scout"],"flies off","image:ravenscout","familiar","scout","any"],
-	    [["scout","north"],"flies off","image:ravenscout","familiar","scout","north"],
-	    [["scout","south"],"flies off","image:ravenscout","familiar","scout","south"],
-	    [["scout","east"],"flies off","image:ravenscouteast","familiar","scout","east"],
-	    [["scout","west"],"flies off","image:ravenscout","familiar","scout","west"],
-	    [["scout","up"],"flies off","image:ravenscout","familiar","scout","up"],
-	    [["scout","down"],"flies off","image:ravenscout","familiar","scout","down"],
-	    [["hide","hidden"],"blends into the shadows","familiar","hide"],
-	    [["tell","say","describe","see","sight"],"locates a vantage point with a clear line of sight|finds a perch from which to view the area|uses its accute sense of sight|swivels its head a few times to scan the enivonment","familiar","see"],
+            [["follow","me"],"perches on your shoulder","image:ravenfollow","familiar","follow"],
+            [["scout"],"flies off","image:ravenscout","familiar","scout","any"],
+            [["scout","north"],"flies off","image:ravenscout","familiar","scout","north"],
+            [["scout","south"],"flies off","image:ravenscout","familiar","scout","south"],
+            [["scout","east"],"flies off","image:ravenscouteast","familiar","scout","east"],
+            [["scout","west"],"flies off","image:ravenscout","familiar","scout","west"],
+            [["scout","up"],"flies off","image:ravenscout","familiar","scout","up"],
+            [["scout","down"],"flies off","image:ravenscout","familiar","scout","down"],
+            [["hide","hidden"],"blends into the shadows","familiar","hide"],
+            [["tell","say","describe","see","sight"],"locates a vantage point with a clear line of sight|finds a perch from which to view the area|uses its accute sense of sight|swivels its head a few times to scan the enivonment","familiar","see"],
             [["help"],"eyes you suspiciously","image:raveneye"],
             [["you"],"preens their feathers","image:ravenpreen"],
             [["magic","spell"],"flutters their wings","image:ravenwings"],
@@ -1523,22 +1523,22 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["follow","me"],"Follows behind","familiar","follow"],
-	    [["scout"],"Begins roaming","familiar","scout","any"],
-	    [["scout","north"],"Begins roaming","familiar","scout","north"],
-	    [["scout","south"],"Begins roaming","familiar","scout","south"],
-	    [["scout","east"],"Begins roaming","familiar","scout","east"],
-	    [["scout","west"],"Begins roaming","familiar","scout","west"],
-	    [["scout","up"],"Begins roaming","familiar","scout","up"],
-	    [["scout","down"],"Begins roaming","familiar","scout","down"],
-	    [["hide","hidden"],"Scurries away into a corner","familiar","hide"],
-	    [["tell","say","describe","see","sight"],"The imp notices a few things","familiar","see"],
+            [["follow","me"],"Follows behind","familiar","follow"],
+            [["scout"],"Begins roaming","familiar","scout","any"],
+            [["scout","north"],"Begins roaming","familiar","scout","north"],
+            [["scout","south"],"Begins roaming","familiar","scout","south"],
+            [["scout","east"],"Begins roaming","familiar","scout","east"],
+            [["scout","west"],"Begins roaming","familiar","scout","west"],
+            [["scout","up"],"Begins roaming","familiar","scout","up"],
+            [["scout","down"],"Begins roaming","familiar","scout","down"],
+            [["hide","hidden"],"Scurries away into a corner","familiar","hide"],
+            [["tell","say","describe","see","sight"],"The imp notices a few things","familiar","see"],
             [["help"],"Watches you curiously"],
             [["attack"],"Sits with its wings folded"],
             [["you"],"Sits and wiggles its feet"],
             [["magic","spell"],"Prods cautiously at an object"],
             [["say","speak"],"Grins"]
-	],
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "5",
@@ -2515,8 +2515,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
-	],
+            [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2629,8 +2629,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
-	],
+            [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2743,8 +2743,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
-	],
+            [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -2867,9 +2867,9 @@
             [["serve","ale","?"], "Yes, of course|Oh, yes"],
             [["serve","wine","?"], "We don't serve wine in this establishment, only ale|Ale only, I'm afraid|It's ale or nothing"],
             [["have","order","buy","sell","purchase","trade","like","weapon","dagger","knife","please"],"This weapon may come in handy on your adventures","buy","169","1367"],
-	    [["game","cards","chess","morris","games"],"You might find some games on the tables|There are some games on the tables"],
-	    [["rules","law"],"Rules? There are no rules here|Rules are made to be broken|Rules are nice in principle|You will struggle to locate a law abiding fellow around these parts|Piracy is the main rule around here"],
-	    [["abermush","abermud","mud","mush"], "I might get around to playing it, but I'm too busy|I've vaguely heard of it|Don't do much gaming myself. Too busy|I don't have time for games|Isn't that some ancient thing nobody plays anymore?|Nobody cares about MUDs anymore"],
+            [["game","cards","chess","morris","games"],"You might find some games on the tables|There are some games on the tables"],
+            [["rules","law"],"Rules? There are no rules here|Rules are made to be broken|Rules are nice in principle|You will struggle to locate a law abiding fellow around these parts|Piracy is the main rule around here"],
+            [["abermush","abermud","mud","mush"], "I might get around to playing it, but I'm too busy|I've vaguely heard of it|Don't do much gaming myself. Too busy|I don't have time for games|Isn't that some ancient thing nobody plays anymore?|Nobody cares about MUDs anymore"],
             [["have","order","like","beer","ale","drink","please","affinity>=0","region=tranoch"],"Free as in beer","image:givedrink","state:beer given","give","114"],
             [["state:beer given","have","order","like","beer","ale","drink","please","affinity>=0","region=tranoch"],"Have another one then","give","114"]
         ],
@@ -2986,23 +2986,23 @@
         "culture": "",
         "conv" : [
             [["wizard","universe","server"],"I used to rule this universe, but after I retired it all went to rack and ruin. Not my fault!|Once I ruled this universe, but after a while I decided it just wasn't worth it. Now under new management things are getting shabby|When I ruled this universe things were kept in good order|Any universe is only as good as its management, and now I'm retired you can see the results for yourself"],
-	    [["diabolic","diabolical"],"For sure|Oh, there is plenty of that to go around|It's just the way it is"],
-	    [["anarchy"],"Anarchy by name. Anarchy by nature|Anarchy is the force which animates our universe|I am Anarchy|Anarchy is the spirit of all true adventurers|Anarchy is the force eternally at work in our world|Without anarchy there is no true order"],
-	    [["aberystwyth","swansea"],"It's a fine place|It's a great town"],
-	    [["abermud","abermush","game"],"Never heard of it|Aber-what?|Abeeeeer...|I don't think I've heard of that|Mud or Mush?"],
-	    [["birfle"],"Birfle likes to think of themselves as an enrepreneur. A 'self-made man'. Scam artist, more like|Don't buy anything from Birfle. Whatever he's selling will be fake|Apparently Birfle had some sort of cryptocurrency scam going. When it all went south he did a runner. Nobody has seen him since|People like Birfle were part of the decline of this city. Hucksters with fancy schemes stealing people's money"],
-	    [["island"],"The island was where Birfle created his libertarian paradise. But it didn't work out well|Birfle set up a base on the island and tried to turn it into a tax haven"],
-	    [["viking"],"The vikings are kind of boring, to be honest. Best avoided"],
-	    [["mines","mining","gold"],"The dwarves do a lot of mining. Some say they're building yet another fortress|There might be some gold remaining in the mines. I'm not sure|The gold rush has been over for a long time"],
-	    [["tranoch"],"Tranoch has been economically going downhill for a while. Apparently the investors pulled out after a scandal involving 'toxic assets', but I care little about the financial details|Tranoch isn't not what it used to be. Becoming a ghost town. Nobody invests here now|Tranoch went bust after the investors pulled out. After that it became a ghost town"],
-	    [["greet","hello"],"# Takes a sip of his ale|# Ignores you|# Scratches his beard|# Looks out of the window|# Taps his fingers on the bench"],
-	    [["magic", "spell"],"Sure, I can do some spells|It is alleged that I may possess some magical skills"],
-	    [[" hat"],"My hat looks fancy, but it's really just a cheap knock-off|I've had this hat for a while"],
-	    [["drink","beer"],"I don't booze all that much"],
-	    [["dragon"],"The dragon may or may not exist"],
-	    [["chess"],"Sorry, I'm not much of a chess player"],
-	    [["treasure","sword"],"Adventurers are always chasing more loot"],
-	    [["tavern","inn"],"I sometimes come here|I'm not exactly a regular drinker"]
+            [["diabolic","diabolical"],"For sure|Oh, there is plenty of that to go around|It's just the way it is"],
+            [["anarchy"],"Anarchy by name. Anarchy by nature|Anarchy is the force which animates our universe|I am Anarchy|Anarchy is the spirit of all true adventurers|Anarchy is the force eternally at work in our world|Without anarchy there is no true order"],
+            [["aberystwyth","swansea"],"It's a fine place|It's a great town"],
+            [["abermud","abermush","game"],"Never heard of it|Aber-what?|Abeeeeer...|I don't think I've heard of that|Mud or Mush?"],
+            [["birfle"],"Birfle likes to think of themselves as an enrepreneur. A 'self-made man'. Scam artist, more like|Don't buy anything from Birfle. Whatever he's selling will be fake|Apparently Birfle had some sort of cryptocurrency scam going. When it all went south he did a runner. Nobody has seen him since|People like Birfle were part of the decline of this city. Hucksters with fancy schemes stealing people's money"],
+            [["island"],"The island was where Birfle created his libertarian paradise. But it didn't work out well|Birfle set up a base on the island and tried to turn it into a tax haven"],
+            [["viking"],"The vikings are kind of boring, to be honest. Best avoided"],
+            [["mines","mining","gold"],"The dwarves do a lot of mining. Some say they're building yet another fortress|There might be some gold remaining in the mines. I'm not sure|The gold rush has been over for a long time"],
+            [["tranoch"],"Tranoch has been economically going downhill for a while. Apparently the investors pulled out after a scandal involving 'toxic assets', but I care little about the financial details|Tranoch isn't not what it used to be. Becoming a ghost town. Nobody invests here now|Tranoch went bust after the investors pulled out. After that it became a ghost town"],
+            [["greet","hello"],"# Takes a sip of his ale|# Ignores you|# Scratches his beard|# Looks out of the window|# Taps his fingers on the bench"],
+            [["magic", "spell"],"Sure, I can do some spells|It is alleged that I may possess some magical skills"],
+            [[" hat"],"My hat looks fancy, but it's really just a cheap knock-off|I've had this hat for a while"],
+            [["drink","beer"],"I don't booze all that much"],
+            [["dragon"],"The dragon may or may not exist"],
+            [["chess"],"Sorry, I'm not much of a chess player"],
+            [["treasure","sword"],"Adventurers are always chasing more loot"],
+            [["tavern","inn"],"I sometimes come here|I'm not exactly a regular drinker"]
         ],
         "path" : ["$rid=432$","$rid=1290$"],
         "bodyType": "",
@@ -3119,8 +3119,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Withdraws its eye stalks"]
-	],
+            [["a","e","i"],"# Withdraws its eye stalks"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -3458,13 +3458,13 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# In an unsteady voice he says \"So many to remember, and so much of it is sad. Alas even I can remember them all no longer.\""]
-	],
+            [["a","e","i"],"# In an unsteady voice he says \"So many to remember, and so much of it is sad. Alas even I can remember them all no longer.\""]
+        ],
         "path" : ["$rid=645$"],
         "bodyType": "",
         "moveDelay" : "36000",
         "moveType" : "",
-	"moveTimes": [["hour",9,17],["day","monday","wednesday","friday","sunday"],["inactive",1386]],
+        "moveTimes": [["hour",9,17],["day","monday","wednesday","friday","sunday"],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
@@ -3585,7 +3585,7 @@
         "bodyType": "",
         "moveDelay" : "30000",
         "moveType" : "",
-	"moveTimes": [["hour",9,17],["day","monday","tuesday","wednesday","thursday","friday"],["inactive",1386]],
+        "moveTimes": [["hour",9,17],["day","monday","tuesday","wednesday","thursday","friday"],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
@@ -3693,8 +3693,8 @@
         "language": ["elvish"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u"],"To be sure!|# Frowns"]
-	],
+            [["a","e","i","u"],"To be sure!|# Frowns"]
+        ],
         "path" : ["$rid=986$","$rid=982$","$rid=978$","$rid=985$"],
         "bodyType": "",
         "moveDelay" : "20",
@@ -3922,8 +3922,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u"], "# Remains silent|# Does not respond|# Nods"]
-	],
+            [["a","e","i","u"], "# Remains silent|# Does not respond|# Nods"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4032,9 +4032,9 @@
         "speakLanguage": "common",
         "language": ["common"],
         "culture": "",
-	"conv" : [
-	    [["a","e","i","u"], "# Remains silent|# Continues praying|# Does not respond|# Moves slightly but continues to pray|# Nods"]
-	],
+        "conv" : [
+            [["a","e","i","u"], "# Remains silent|# Continues praying|# Does not respond|# Moves slightly but continues to pray|# Nods"]
+        ],
         "path" : ["$rid=821$"],
         "bodyType": "",
         "moveDelay" : "30000",
@@ -4146,9 +4146,9 @@
         "speakLanguage": "common",
         "language": ["common"],
         "culture": "",
-	"conv" : [
-	    [["a","e","i","u"], "# Remains silent|# Continues meditating|# Does not respond|# Rocks slowly as they meditate|# Looks serene"]
-	],
+        "conv" : [
+            [["a","e","i","u"], "# Remains silent|# Continues meditating|# Does not respond|# Rocks slowly as they meditate|# Looks serene"]
+        ],
         "path" : ["$rid=821$"],
         "bodyType": "",
         "moveDelay" : "30000",
@@ -4261,8 +4261,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Says nothing"]
-	],
+            [["a","e","i"],"# Says nothing"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4378,8 +4378,8 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u","p"],"To be sure|You can be sure of it|Agreed|Oh indeed|Well, of course|Yes|Ah, yes|# nods|# nodding"]
-	],
+            [["a","e","i","u","p"],"To be sure|You can be sure of it|Agreed|Oh indeed|Well, of course|Yes|Ah, yes|# nods|# nodding"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4489,8 +4489,8 @@
         "language": ["elvish"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate|# Roars, and the walls tremble"]
-	],
+            [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate|# Roars, and the walls tremble"]
+        ],
         "path" : ["$rid=1062$","$rid=1061$","$rid=1060$","$rid=1059$"],
         "bodyType": "",
         "moveDelay" : "10",
@@ -4606,8 +4606,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Looks in your direction"]
-	],
+            [["a","e","i"],"# Looks in your direction"]
+        ],
         "path" : ["$rid=889$","$rid=890$","$rid=886$","$rid=1147$","$rid=1148$"],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4720,8 +4720,8 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Looks annoyed|# Looks irritated"]
-	],
+            [["a","e","i"],"# Looks annoyed|# Looks irritated"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4834,8 +4834,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Continues chewing"]
-	],
+            [["a","e","i"],"# Continues chewing"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -4948,8 +4948,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Continues chewing"]
-	],
+            [["a","e","i"],"# Continues chewing"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -5062,8 +5062,8 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"Are you sure?|# Looks skeptical|# Shakes their head"]
-	],
+            [["a","e","i"],"Are you sure?|# Looks skeptical|# Shakes their head"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -5176,8 +5176,8 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"# Glares at you|# Looks angry"]
-	],
+            [["a","e","i"],"# Glares at you|# Looks angry"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "300",
@@ -5290,21 +5290,21 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["follow","me"],"Follows obediently","image:wolffollow","familiar","follow"],
-	    [["scout"],"Begins hunting around","image:wolfscout","familiar","scout","any"],
-	    [["scout","north"],"Begins hunting around","image:wolfscout","familiar","scout","north"],
-	    [["scout","south"],"Begins hunting around","image:wolfscout","familiar","scout","south"],
-	    [["scout","east"],"Begins hunting around","image:wolfscout","familiar","scout","east"],
-	    [["scout","west"],"Begins hunting around","image:wolfscout","familiar","scout","west"],
-	    [["scout","up"],"Begins hunting around","image:wolfscout","familiar","scout","up"],
-	    [["scout","down"],"Begins hunting around","image:wolfscout","familiar","scout","down"],
-	    [["hide","hidden"],"Stealthily conceals itself","image:wolfhide","familiar","hide"],
-	    [["tell","say","describe","see","sight"],"The wolf watches carefully","image:wolfsee","familiar","see"],
+            [["follow","me"],"Follows obediently","image:wolffollow","familiar","follow"],
+            [["scout"],"Begins hunting around","image:wolfscout","familiar","scout","any"],
+            [["scout","north"],"Begins hunting around","image:wolfscout","familiar","scout","north"],
+            [["scout","south"],"Begins hunting around","image:wolfscout","familiar","scout","south"],
+            [["scout","east"],"Begins hunting around","image:wolfscout","familiar","scout","east"],
+            [["scout","west"],"Begins hunting around","image:wolfscout","familiar","scout","west"],
+            [["scout","up"],"Begins hunting around","image:wolfscout","familiar","scout","up"],
+            [["scout","down"],"Begins hunting around","image:wolfscout","familiar","scout","down"],
+            [["hide","hidden"],"Stealthily conceals itself","image:wolfhide","familiar","hide"],
+            [["tell","say","describe","see","sight"],"The wolf watches carefully","image:wolfsee","familiar","see"],
             [["help"],"Watches you carefully","image:wolfsee"],
             [["you"],"Sits and pants"],
             [["magic","spell"],"Wags its tail"],
             [["say","speak"],"Growls"]
-	],
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "5",
@@ -5414,8 +5414,8 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u"],"# Remains motionless"]
-	],
+            [["a","e","i","u"],"# Remains motionless"]
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "3000",
@@ -5646,22 +5646,22 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["follow","me"],"follows casually along|reluctantly follows you","image:catfollow","familiar","follow"],
-	    [["scout"],"begins hunting|starts prowling","image:catprowl","familiar","scout","any"],
-	    [["scout","north"],"begins hunting|starts prowling","image:catprowl","familiar","scout","north"],
-	    [["scout","south"],"begins hunting|starts prowling","image:catprowl","familiar","scout","south"],
-	    [["scout","east"],"begins hunting|starts prowling","image:catscout","familiar","scout","east"],
-	    [["scout","west"],"begins hunting|starts prowling","image:catprowl","familiar","scout","west"],
-	    [["scout","up"],"begins hunting|starts prowling","image:catprowl","familiar","scout","up"],
-	    [["scout","down"],"begins hunting|starts prowling","image:catprowl","familiar","scout","down"],
-	    [["hide","hidden"],"finds a dark corner and disappears into it","image:cathide","familiar","hide"],
-	    [["tell","say","describe","see"],"glances casually around","familiar","see"],
+            [["follow","me"],"follows casually along|reluctantly follows you","image:catfollow","familiar","follow"],
+            [["scout"],"begins hunting|starts prowling","image:catprowl","familiar","scout","any"],
+            [["scout","north"],"begins hunting|starts prowling","image:catprowl","familiar","scout","north"],
+            [["scout","south"],"begins hunting|starts prowling","image:catprowl","familiar","scout","south"],
+            [["scout","east"],"begins hunting|starts prowling","image:catscout","familiar","scout","east"],
+            [["scout","west"],"begins hunting|starts prowling","image:catprowl","familiar","scout","west"],
+            [["scout","up"],"begins hunting|starts prowling","image:catprowl","familiar","scout","up"],
+            [["scout","down"],"begins hunting|starts prowling","image:catprowl","familiar","scout","down"],
+            [["hide","hidden"],"finds a dark corner and disappears into it","image:cathide","familiar","hide"],
+            [["tell","say","describe","see"],"glances casually around","familiar","see"],
             [["help"],"watches you curiously|purrs|yawns|sits with their feet tucked under","image:cathelp"],
             [["attack"],"sits with their paws outstretched|twitches their ears back"],
             [["you"],"sits and licks one of their paws|twitches their whiskers"],
             [["magic","spell"],"sniffs at an object|pricks up their ears"],
             [["say","speak"],"meows|yawns|growls","image:catalert"]
-	],
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "5",
@@ -7012,8 +7012,8 @@
         "culture": "",
         "conv" : [
             [["buy","sell","purchase","fish"],"A fair trade","sell","1484|1485|1486|1487|1488|1489|1490|1491|1492|1493|1494|1495|1497|1498"],
-	    [["a","e","i"],"Fair day to ye|Greetings"]
-	],
+            [["a","e","i"],"Fair day to ye|Greetings"]
+        ],
         "path" : ["$rid=417$","$rid=419$"],
         "bodyType": "",
         "moveDelay" : "4500",
@@ -7913,8 +7913,8 @@
         "language": ["common","druidic"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u"], "# Remains silent|# Does not respond|# The priest turns slowly to look at you but his face is obscured in shadow. Then he turns away again"]
-	],
+            [["a","e","i","u"], "# Remains silent|# Does not respond|# The priest turns slowly to look at you but his face is obscured in shadow. Then he turns away again"]
+        ],
         "path" : ["$rid=1130$"],
         "bodyType": "",
         "moveDelay" : "300",
@@ -8027,13 +8027,13 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"The goose glares at you, then continues pecking the ground|The goose flaps its wings|The goose pecks at the ground|The goose looks at you quizzically|The goose honks at an annoyingly loud volume"]
+            [["a","e","i"],"The goose glares at you, then continues pecking the ground|The goose flaps its wings|The goose pecks at the ground|The goose looks at you quizzically|The goose honks at an annoyingly loud volume"]
         ],
         "path" : ["$rid=234$","$rid=236$","$rid=239$"],
         "bodyType": "",
         "moveDelay" : "30000",
         "moveType" : "patrol",
-	"moveTimes": [["hour",8,22],["inactive",1386]],
+        "moveTimes": [["hour",8,22],["inactive",1386]],
         "vocabulary" : "Honk!|HONK HONK!|HONK!",
         "talkDelay" : "1200",
         "randomFactor" : "50",
@@ -8137,9 +8137,9 @@
         "speakLanguage": "druidic",
         "language": ["druidic","draconic","common"],
         "culture": "",
-	"conv" : [
-	    [["a","e","i","u"], "# Looks at you quizically"]
-	],
+        "conv" : [
+            [["a","e","i","u"], "# Looks at you quizically"]
+        ],
         "path" : ["$rid=844$"],
         "bodyType": "",
         "moveDelay" : "30000",
@@ -8251,12 +8251,12 @@
         "speakLanguage": "druidic",
         "language": ["druidic","draconic","common"],
         "culture": "",
-	"conv" : [
-	    [["weather","season"],"Seasons and generations shall pass"],
-	    [["house","village"],"Many houses stand. I see the future and the past"],
-	    [["attack","fight","combat"],"You cannot fight me, for I do not belong to your realm"],
-	    [["who"],"# The eyes of the ancester spirit fix upon you"]
-	],
+        "conv" : [
+            [["weather","season"],"Seasons and generations shall pass"],
+            [["house","village"],"Many houses stand. I see the future and the past"],
+            [["attack","fight","combat"],"You cannot fight me, for I do not belong to your realm"],
+            [["who"],"# The eyes of the ancester spirit fix upon you"]
+        ],
         "path" : ["$rid=1398$"],
         "bodyType": "",
         "moveDelay" : "300",
@@ -8482,7 +8482,7 @@
         "language": [],
         "culture": "",
         "conv" : [
-	    [["a","e","i","u"],"# The seal notices you and then goes back to sleep|# The seal is sleeping and ignores you"]
+            [["a","e","i","u"],"# The seal notices you and then goes back to sleep|# The seal is sleeping and ignores you"]
         ],
         "path" : ["$rid=1403$","$rid=1402$","$rid=588$"],
         "bodyType": "",
@@ -8613,12 +8613,12 @@
             [["you"],"looks disinterested|pricks up its ears|rolls its head to one side"],
             [["magic","spell"],"hold out one paw in mid air"],
             [["say","speak"],"howls|yaps|growls|barks"]
-	],
+        ],
         "path" : ["$rid=1305$"],
         "bodyType": "",
         "moveDelay" : "2000",
         "moveType" : "",
-	"moveTimes": [],
+        "moveTimes": [],
         "vocabulary" : "",
         "talkDelay" : "300",
         "randomFactor" : "100",
@@ -8951,7 +8951,7 @@
         "language": ["common","druidic"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","o","u"],"# caws loudly|# caws"]
+            [["a","e","i","o","u"],"# caws loudly|# caws"]
         ],
         "path" : ["$rid=232$","$rid=236$","$rid=651$"],
         "bodyType": "",
@@ -9065,7 +9065,7 @@
         "language": ["common","druidic"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","o","u"],"# pauses to look at you|# ignores you"]
+            [["a","e","i","o","u"],"# pauses to look at you|# ignores you"]
         ],
         "path" : ["$rid=15$","$rid=234$","$rid=239$","$rid=420$","$rid=825$","$rid=878$","$rid=1401$"],
         "bodyType": "",
@@ -9182,13 +9182,13 @@
         "language": ["common","druidic"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","o","u"],"# dives down out of view|# squeaks"]
+            [["a","e","i","o","u"],"# dives down out of view|# squeaks"]
         ],
         "path" : ["$rid=1046$","$rid=1177$","$rid=1247$","$rid=359$","$rid=383$","$rid=654$","$rid=766$","$rid=768$","$rid=1106$","$rid=1138$","$rid=1140$","$rid=1143$","$rid=1145$"],
         "bodyType": "",
         "moveDelay" : "3000",
         "moveType" : "",
-	"moveTimes": [["hour",9,17],["inactive",1386]],
+        "moveTimes": [["hour",9,17],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "600",
         "randomFactor" : "50",
@@ -9296,7 +9296,7 @@
         "language": ["common","druidic"],
         "culture": "",
         "conv" : [
-	    [["a","e","i","o","u"],"# watches you"]
+            [["a","e","i","o","u"],"# watches you"]
         ],
         "path" : ["$rid=1033$"],
         "bodyType": "",
@@ -9410,19 +9410,19 @@
         "language": ["common", "druidic"],
         "culture": "",
         "conv" : [
-	    [["follow","me"],"follows cautiously","image:harefollow","familiar","follow"],
-	    [["scout"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","any"],
-	    [["scout","north"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","north"],
-	    [["scout","south"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","south"],
-	    [["scout","east"],"begins wandering|starts wandering","image:harescout","familiar","scout","east"],
-	    [["scout","west"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","west"],
-	    [["scout","up"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","up"],
-	    [["scout","down"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","down"],
-	    [["hide","hidden"],"finds a dark corner and lays down","image:harehide","familiar","hide"],
-	    [["tell","say","describe","see"],"looks quickly around","image:haresee","familiar","see"],
+            [["follow","me"],"follows cautiously","image:harefollow","familiar","follow"],
+            [["scout"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","any"],
+            [["scout","north"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","north"],
+            [["scout","south"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","south"],
+            [["scout","east"],"begins wandering|starts wandering","image:harescout","familiar","scout","east"],
+            [["scout","west"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","west"],
+            [["scout","up"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","up"],
+            [["scout","down"],"begins wandering|starts wandering","image:hareprowl","familiar","scout","down"],
+            [["hide","hidden"],"finds a dark corner and lays down","image:harehide","familiar","hide"],
+            [["tell","say","describe","see"],"looks quickly around","image:haresee","familiar","see"],
             [["magic","spell"],"looks alert|twitches its whiskers","image:harealert"],
             [["say","speak"],"twitches its ears","image:harealert"]
-	],
+        ],
         "path" : [],
         "bodyType": "",
         "moveDelay" : "5",
@@ -9535,13 +9535,13 @@
         "language": ["druidic"],
         "culture": "",
         "conv" : [
-	    [["a","e","i"],"Rummages around and ignores you|Looks up"]
+            [["a","e","i"],"Rummages around and ignores you|Looks up"]
         ],
         "path" : ["$rid=357$","$rid=384$","$rid=301$","$rid=349$"],
         "bodyType": "",
         "moveDelay" : "30000",
         "moveType" : "patrol",
-	"moveTimes": [["hour",22,8],["inactive",1386]],
+        "moveTimes": [["hour",22,8],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "1200",
         "randomFactor" : "50",
@@ -9766,7 +9766,7 @@
         "bodyType": "",
         "moveDelay" : "40000",
         "moveType" : "patrol",
-	"moveTimes": [["hour",22,8],["inactive",1386]],
+        "moveTimes": [["hour",22,8],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "1200",
         "randomFactor" : "50",
@@ -9880,7 +9880,7 @@
         "bodyType": "",
         "moveDelay" : "50000",
         "moveType" : "random",
-	"moveTimes": [["hour",22,7],["inactive",1386]],
+        "moveTimes": [["hour",22,7],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "1200",
         "randomFactor" : "80",
@@ -10108,7 +10108,7 @@
         "bodyType": "",
         "moveDelay" : "50000",
         "moveType" : "random",
-	"moveTimes": [["hour",22,7],["inactive",1386]],
+        "moveTimes": [["hour",22,7],["inactive",1386]],
         "vocabulary" : "",
         "talkDelay" : "1200",
         "randomFactor" : "80",
@@ -10331,8 +10331,8 @@
         "language": ["draconic"],
         "culture": "",
         "conv" : [
-	          [["a","e","i","u"],"# Tastes the air with its forked tongue"]
-	      ],
+            [["a","e","i","u"],"# Tastes the air with its forked tongue"]
+        ],
         "path" : ["$rid=923$"],
         "bodyType": "",
         "moveDelay" : "10",
