@@ -54772,7 +54772,7 @@
         "edible": 0,
         "climbThrough": "",
         "armorClass": 0,
-        "damage": "4d8",
+        "damage": "6d8",
         "damageChart": [],
         "range": [0, 0],
         "cost": "0",
