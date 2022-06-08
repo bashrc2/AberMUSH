@@ -8348,13 +8348,13 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
-        "maxPlayers": 1,
+        "maxPlayers": 5,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Troglodyte Lair",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -8382,11 +8382,12 @@
     },
     "$rid=923$": {
         "exits": {
+            "north": "$rid=1421$",
             "west": "$rid=1055$",
             "down": "$rid=920$"
         },
         "name": "The Damp Cave",
-        "description": "You stand in a large cave. Water drips incessantly down from the roof. The floor is slippery with thick layers of algae and strange pale mosses. A narrow crack leads west. To the east a narrow passage angles sharply upwards out of sight.",
+        "description": "You stand in a large cave. Water drips incessantly down from the roof. The floor is slippery with thick layers of algae and strange pale mosses. A narrow crack leads west and a hallway leads further into the cave to the north. To the east a narrow passage angles sharply upwards out of sight.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -8399,7 +8400,79 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "",
+        "region": "Troglodyte Lair",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1421$": {
+        "exits": {
+            "south": "$rid=923$",
+            "north": "$rid=1422$",
+            "east": "$rid=1423$"
+        },
+        "name": "The Cavern Hall",
+        "description": "You are in a dark and narrow cavern hallway with a high ceiling overhead populated by dripping stalactites. The air is stale and muggy, and slimy algae grows in long streaks down the walls.",
+        "roomTeleport": "",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Troglodyte Lair",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1422$": {
+        "exits": {
+            "south": "$rid=1421$"
+        },
+        "name": "Cavern Chamber",
+        "description": "It is very dark here. Your footsteps echo throughout what seems to be a large chamber of the cave.",
+        "roomTeleport": "",
+        "conditional": [
+            ["hold","lightsource","You are in a wide area of the cave with a floor of loose pebbles and sand. In the gloomy light many ring-shaped nests constructed from piled up sand and slime are visible, each containing broken shells. Large stalagmites cast long shadows among the nests","1422_light"]
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Troglodyte Lair",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1423$": {
+        "exits": {
+            "west": "$rid=1421$"
+        },
+        "name": "Dark Cave Chamber",
+        "description": "It is very dark here. Your footsteps echo throughout what seems to be a large chamber of the cave.",
+        "roomTeleport": "",
+        "conditional": [
+            ["hold","lightsource","This area of the cave appears to have been inhabited. Chewed bones and other litter are strewn around on the floor.","1423_light"]
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": -1,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Troglodyte Lair",
         "terrainDifficulty": 0,
         "coords": []
     },
