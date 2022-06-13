@@ -384,7 +384,7 @@ def _combat_race_resistance(id: int, players: {},
 def _combatDamageFromWeapon(id, players: {},
                             items_db: {}, weapon_type: str,
                             character_class_db: {},
-                            is_critical: bool) -> (int, str):
+                            is_critical: bool, thrown: bool) -> (int, str):
     """find the weapon being used and return its damage value
     """
     weapon_locations = (
@@ -425,6 +425,12 @@ def _combatDamageFromWeapon(id, players: {},
                     score += items_db[item_id]['damageChart'][chart_index]
                 else:
                     score += items_db[item_id]['damageChart'][-1]
+        # did we throw it?
+        if thrown:
+            # is this weapon throwable?
+            if 'thrown' in items_db[item_id]['type']:
+                # increased damage from thrown weapons
+                score += 2
         if score > max_damage:
             max_damage = score
             damage_roll_best = damage_roll
@@ -1158,7 +1164,7 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                     _combatDamageFromWeapon(s1id, players,
                                             items_db, weapon_type,
                                             character_class_db,
-                                            is_critical)
+                                            is_critical, thrown)
                 # eg "1d8 = 5"
                 damage_value_desc = damage_roll + ' = ' + str(damage_value)
                 if is_critical:
@@ -1371,7 +1377,7 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                     _combatDamageFromWeapon(s1id, players,
                                             items_db, weapon_type,
                                             character_class_db,
-                                            is_critical)
+                                            is_critical, thrown)
                 # eg "1d8 = 5"
                 damage_value_desc = damage_roll + ' = ' + str(damage_value)
                 if is_critical:
@@ -1561,7 +1567,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
                 _combatDamageFromWeapon(s1id, npcs,
                                         items_db, weapon_type,
                                         character_class_db,
-                                        is_critical)
+                                        is_critical, thrown)
             # eg "1d8 = 5"
             damage_value_desc = damage_roll + ' = ' + str(damage_value)
             if is_critical:
