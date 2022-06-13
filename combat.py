@@ -81,7 +81,7 @@ def _drop_throwables(players: {}, id, items_db: {},
         players[id]['wei'] = player_inventory_weight(id, players, items_db)
 
         # remove from clothing
-        players[id][hand] = "0"
+        players[id][hand] = 0
 
         # Create item on the floor in the same room as the player
         items[get_free_key(items)] = {
