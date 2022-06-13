@@ -42,6 +42,19 @@ defenseClothing = (
     'clo_gloves')
 
 
+def holding_throwable(players: {}, id, items_db: {}) -> bool:
+    """Is the given player holding a throwable weapon?
+    """
+    hand_locations = ('clo_lhand', 'clo_rhand')
+    for hand in hand_locations:
+        item_id = int(players[id][hand])
+        if item_id <= 0:
+            continue
+        if 'thrown' in items_db[item_id]['type']:
+            return True
+    return False
+
+
 def remove_prepared_spell(players: {}, id, spell_name: str):
     """Remove a prepared spell
     """

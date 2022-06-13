@@ -54,6 +54,7 @@ from combat import stop_attack
 from combat import get_attacking_target
 from combat import player_begins_attack
 from combat import is_player_fighting
+from combat import holding_throwable
 from chess import show_chess_board
 from chess import initial_chess_board
 from chess import move_chess_piece
@@ -1131,6 +1132,11 @@ def _help(params, mud, players_db: {}, players: {}, rooms: {},
                      '                         - ' +
                      'Attack target ' +
                      "specified, e.g. 'attack knight'")
+    mud.send_message(id,
+                     '  <f220>throw [weapon] at [target]<f255>' +
+                     '              - ' +
+                     'Throw a weapon at a target, ' +
+                     "e.g. 'throw dagger at zombie'")
     mud.send_message(id,
                      '  <f220>shove<f255>' +
                      '                                   - ' +
@@ -3627,19 +3633,39 @@ def _begin_throw_attack(params, mud, players_db: {}, players: {}, rooms: {},
                         sentiment_db: {}, guilds_db: {}, clouds: {},
                         races_db: {}, item_history: {}, markets: {},
                         cultures_db: {}):
+    """Throw a weapon
+    """
     if ' at ' in params:
+        weapon_name = params.split(' at ', 1)[0]
         params = params.split(' at ', 1)[1]
-    if params.startswith('at '):
+        players[id]['throwing'] = "yes"
+        players[id]['throwing'] = weapon_name
+        _wield(weapon_name, mud, players_db, players, rooms,
+               npcs_db, npcs, items_db, items,
+               env_db, env, eventDB, event_schedule,
+               id, fights, corpses, blocklist,
+               map_area, character_class_db, spells_db,
+               sentiment_db, guilds_db, clouds, races_db,
+               item_history, markets, cultures_db)
+    elif params.startswith('at '):
         params = params.split('at ', 1)[1]
-    players[id]['throwing'] = 1
-    _begin_attack(params, mud, players_db, players, rooms,
-                  npcs_db, npcs, items_db, items,
-                  env_db, env, eventDB, event_schedule,
-                  id, fights, corpses, blocklist,
-                  map_area, character_class_db, spells_db,
-                  sentiment_db, guilds_db, clouds,
-                  races_db, item_history, markets,
-                  cultures_db)
+        players[id]['throwing'] = "yes"
+    else:
+        if players[id].get('throwing'):
+            del players[id]['throwing']
+        mud.send_message(id, 'Throw at?\n')
+        return
+    if holding_throwable(players, id, items_db):
+        _begin_attack(params, mud, players_db, players, rooms,
+                      npcs_db, npcs, items_db, items,
+                      env_db, env, eventDB, event_schedule,
+                      id, fights, corpses, blocklist,
+                      map_area, character_class_db, spells_db,
+                      sentiment_db, guilds_db, clouds,
+                      races_db, item_history, markets,
+                      cultures_db)
+    else:
+        mud.send_message(id, "You aren't holding anything throwable.\n")
 
 
 def _item_in_inventory(players: {}, id, item_name: str, items_db: {}):
