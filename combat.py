@@ -853,7 +853,8 @@ def _get_weapon_held(id: int, players: {}, items_db: {}) -> (int, str, int):
 
 
 def _get_attack_description(animalType: str, weapon_type: str,
-                            attack_db: {}, is_critical: bool) -> (str, str):
+                            attack_db: {}, is_critical: bool,
+                            thrown: bool) -> (str, str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -881,6 +882,10 @@ def _get_attack_description(animalType: str, weapon_type: str,
             attack_type_list = attack_type.split('|')
             for attack_type_str in attack_type_list:
                 if not weapon_type.startswith(attack_type_str):
+                    continue
+                if thrown and 'thrown' not in attack_type_str:
+                    continue
+                if not thrown and 'thrown' in attack_type_str:
                     continue
                 if not is_critical:
                     # first person - you attack a player or npc
@@ -1078,9 +1083,12 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                                 character_class_db,
                                 dodge_modifier)
         if hit:
+            # TODO is the weapon thrown?
+            thrown = False
+
             attack_description_first, attack_description_second = \
                 _get_attack_description("", weapon_type, attack_db,
-                                        is_critical)
+                                        is_critical, thrown)
 
             if rounds_of_fire < 1:
                 rounds_of_fire = 1
@@ -1278,9 +1286,12 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                                 character_class_db,
                                 dodge_modifier)
         if hit:
+            # TODO is the weapon thrown?
+            thrown = False
+
             attack_description_first, _ = \
                 _get_attack_description("", weapon_type, attack_db,
-                                        is_critical)
+                                        is_critical, thrown)
 
             if rounds_of_fire < 1:
                 rounds_of_fire = 1
@@ -1456,9 +1467,13 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
                             target_armor_class, character_class_db,
                             dodge_modifier)
     if hit:
+        # TODO is the weapon thrown?
+        thrown = False
+
         _, attack_description_second = \
             _get_attack_description(npcs[s1id]['animalType'],
-                                    weapon_type, attack_db, is_critical)
+                                    weapon_type, attack_db,
+                                    is_critical, thrown)
 
         if rounds_of_fire < 1:
             rounds_of_fire = 1

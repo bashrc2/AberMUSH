@@ -1,297 +1,333 @@
 {
     "animal bird": {
-	"first": [
+        "first": [
             "claw",
             "peck",
             "viciously peck",
             "savagely peck"
-	],
-	"second": [
+        ],
+        "second": [
             "clawed",
             "pecked",
             "viciously pecked",
             "savagely pecked"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "claw",
             "peck",
             "viciously peck",
             "savagely peck"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             "clawed",
             "pecked",
             "viciously pecked",
             "savagely pecked"
-	]
+        ]
     },
     "animal cat|weasel|otter|dog|hare|rabbit|rat": {
-	"first": [
+        "first": [
             "claw",
             "scratch",
             "bite",
             "viciously bite",
             "savagely chew"
-	],
-	"second": [
+        ],
+        "second": [
             "clawed",
             "scratched",
             "bit",
             "viciously bit",
             "savagely chewed"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "claw",
             "scratch",
             "bite",
             "viciously bite",
             "savagely chew"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             ["clawed", "It leaves scratch marks on your arm|It leaves scratch marks on your leg|It leaves scratch marks on your shoulder|It leaves scratch marks on your neck"],
             ["scratched", "It leaves claw marks on your arm|It leaves claw marks on your leg|It leaves claw marks on your shoulder|It leaves claw marks on your neck"],
             ["bit", "It leaves bite marks on your arm|It leaves bite marks on your leg|It leaves bite marks on your shoulder|It leaves bite marks on your neck"],
             ["viciously bit", "It leaves bite marks on your arm|It leaves bite marks on your leg|It leaves bite marks on your shoulder|It leaves bite marks on your neck"],
             ["savagely chewed", "It leaves gnaw marks on your arm|It leaves gnaw marks on your leg|It leaves gnaw marks on your shoulder|It leaves gnaw marks on your neck"]
-	]
+        ]
     },
     "animal cow|pig|goat|sheep|stag": {
-	"first": [
+        "first": [
             "headbutt",
             "trample"
-	],
-	"second": [
+        ],
+        "second": [
             "headbutted",
             "trampled"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "headbutt",
             "trample"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             ["headbutted", "You stumble"],
             "trampled"
-	]
+        ]
     },
     "animal dragon": {
-	"first": [
-	    "breathe fire on"
-	],
-	"second": [
-	    "breathed fire on"
-	],
-	"critical first": [
-	    "breathe fire on"
-	],
-	"critical second": [
-	    "breathed fire on"
-	]
+        "first": [
+            "breathe fire on"
+        ],
+        "second": [
+            "breathed fire on"
+        ],
+        "critical first": [
+            "breathe fire on"
+        ],
+        "critical second": [
+            "breathed fire on"
+        ]
     },
     "animal snake|insect": {
-	"first": [
+        "first": [
             "bite",
             "viciously bite"
-	],
-	"second": [
+        ],
+        "second": [
             "took a bite at",
             "viciously bit into"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "bite",
             "viciously bite"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             ["took a bite at", "Its venom stings|Its fangs scratch your arm|Its fangs scratch your leg|Its fangs scratch your chest|Its fangs scratch your neck|Its fangs scratch your shoulder"],
             ["viciously bit into", "Its venom stings|Its fangs scratch your arm|Its fangs scratch your leg|Its fangs scratch your chest|Its fangs scratch your neck|Its fangs scratch your shoulder"]
-	]
+        ]
     },
     "acid": {
-	"first": [
-	    "corrode",
-	    "spray"
-	],
-	"second": [
-	    "corroded",
-	    "sprayed"
-	],
-	"critical first": [
-	    "splash"
-	],
-	"critical second": [
-	    "splashed"
-	]
+        "first": [
+            "corrode",
+            "spray"
+        ],
+        "second": [
+            "corroded",
+            "sprayed"
+        ],
+        "critical first": [
+            "splash"
+        ],
+        "critical second": [
+            "splashed"
+        ]
     },
     "bludg": {
-	"first": [
+        "first": [
             "strike at",
             "swing at",
             "swing clumsily at",
             "swing wildly at",
             "strike a blow on"
-	],
-	"second": [
+        ],
+        "second": [
             "struck at",
             "swung at",
             "swung clumsily at",
             "swung wildly at",
             "struck a blow on"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "deliver a crushing blow on",
             "deliver a mighty blow on",
             "smashes"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             "delivered a crushing blow on",
             "delivered a mighty blow on",
             "smashed"
-	]
+        ]
+    },
+    "bludgeoning thrown": {
+        "first": [
+            "threw at",
+            "hurled at"
+        ],
+        "second": [
+            "threw at",
+            "hurled at"
+        ],
+        "critical first": [
+            "threw at",
+            "hurled at"
+        ],
+        "critical second": [
+            "threw at",
+            "hurled at"
+        ]
     },
     "cold": {
-	"first": [
-	    "freeze",
-	    "chill"
-	],
-	"second": [
-	    "froze",
-	    "chilled"
-	],
-	"critical first": [
-	    "freeze",
-	    "chill"
-	],
-	"critical second": [
-	    "froze",
-	    "chilled"
-	]
+        "first": [
+            "freeze",
+            "chill"
+        ],
+        "second": [
+            "froze",
+            "chilled"
+        ],
+        "critical first": [
+            "freeze",
+            "chill"
+        ],
+        "critical second": [
+            "froze",
+            "chilled"
+        ]
     },
     "fire": {
-	"first": [
+        "first": [
             "cast a ball a of flame at",
             "cast a fireball at",
             "cast a burning sphere at"
-	],
-	"second": [
+        ],
+        "second": [
             "casted a ball a of flame at",
             "casted a fireball at",
             "casted a burning sphere at"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "cast an exploding ball a of flame at",
             "cast an exploding fireball at",
             "cast an exploding burning sphere at"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             "casted an exploding ball a of flame at",
             "casted an exploding fireball at",
             "casted an exploding burning sphere at"
-	]
+        ]
     },
     "force": {
-	"first": [
-	    "point at",
-	    "wave at"
-	],
-	"second": [
-	    "pointed at",
-	    "waved at"
-	],
-	"critical first": [
-	    "point at",
-	    "wave at"
-	],
-	"critical second": [
-	    "pointed at",
-	    "waved at"
-	]
+        "first": [
+            "point at",
+            "wave at"
+        ],
+        "second": [
+            "pointed at",
+            "waved at"
+        ],
+        "critical first": [
+            "point at",
+            "wave at"
+        ],
+        "critical second": [
+            "pointed at",
+            "waved at"
+        ]
     },
     "lightning": {
-	"first": [
+        "first": [
             "cast a bolt of lightning at",
             "cast a lightning bolt at"
-	],
-	"second": [
+        ],
+        "second": [
             "casted a bolt of lightning at",
             "casted a lightning bolt at"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "cast a bolt of lightning at",
             "cast a lightning bolt at"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             "casted a bolt of lightning at",
             "casted a lightning bolt at"
-	]
+        ]
     },
     "necro": {
-	"first": [
-	    "whither",
-	    "chill"
-	],
-	"second": [
-	    "whithered",
-	    "chilled"
-	],
-	"critical first": [
-	    "whither",
-	    "chill"
-	],
-	"critical second": [
-	    "whithered",
-	    "chilled"
-	]
+        "first": [
+            "whither",
+            "chill"
+        ],
+        "second": [
+            "whithered",
+            "chilled"
+        ],
+        "critical first": [
+            "whither",
+            "chill"
+        ],
+        "critical second": [
+            "whithered",
+            "chilled"
+        ]
     },
     "pierc": {
-	"first": [
-	    "stab at",
-	    "hack at"
-	],
-	"second": [
-	    "stabbed at",
-	    "hacked at"
-	],
-	"critical first": [
-	    "brutally stab at",
-	    "brutally hack at"
-	],
-	"critical second": [
-	    "brutally stabbed at",
-	    "brutally hacked at"
-	]
+        "first": [
+            "stab at",
+            "hack at"
+        ],
+        "second": [
+            "stabbed at",
+            "hacked at"
+        ],
+        "critical first": [
+            "brutally stab at",
+            "brutally hack at"
+        ],
+        "critical second": [
+            "brutally stabbed at",
+            "brutally hacked at"
+        ]
     },
     "impale": {
-	"first": [
-	    "stab at",
-	    "jab at",
-	    "lunge at"
-	],
-	"second": [
-	    "stabbed at",
-	    "jabbed at",
-	    "lunged at"
-	],
-	"critical first": [
-	    "brutally stab at",
-	    "brutally jab at",
-	    "brutally lunge at"
-	],
-	"critical second": [
-	    "brutally stabbed at",
-	    "brutally jabbed at",
-	    "brutally lunged at"
-	]
+        "first": [
+            "stab at",
+            "jab at",
+            "lunge at"
+        ],
+        "second": [
+            "stabbed at",
+            "jabbed at",
+            "lunged at"
+        ],
+        "critical first": [
+            "brutally stab at",
+            "brutally jab at",
+            "brutally lunge at"
+        ],
+        "critical second": [
+            "brutally stabbed at",
+            "brutally jabbed at",
+            "brutally lunged at"
+        ]
+    },
+    "impale thrown": {
+        "first": [
+            "threw at",
+            "hurled at"
+        ],
+        "second": [
+            "threw at",
+            "hurled at"
+        ],
+        "critical first": [
+            "threw at",
+            "hurled at"
+        ],
+        "critical second": [
+            "threw at",
+            "hurled at"
+        ]
     },
     "pole": {
-	"first": [
-	    "stab at",
-	    "jab at",
-	    "lunge at",
-	    "hook",
+        "first": [
+            "stab at",
+            "jab at",
+            "lunge at",
+            "hook",
             "chop at",
-	    "hammer",
-	    "smash"
-	],
-	"second": [
+            "hammer",
+            "smash"
+        ],
+        "second": [
             "stabbed at",
             "jabbed at",
             "lunged at",
@@ -299,17 +335,17 @@
             "chopped at",
             "hammered",
             "smashed"
-	],
-	"critical first": [
-	    "brutally stab at",
-	    "brutally jab at",
-	    "brutally lunge at",
-	    "brutally hook",
+        ],
+        "critical first": [
+            "brutally stab at",
+            "brutally jab at",
+            "brutally lunge at",
+            "brutally hook",
             "brutally chop at",
-	    "brutally hammer",
-	    "brutally smash"
-	],
-	"critical second": [
+            "brutally hammer",
+            "brutally smash"
+        ],
+        "critical second": [
             "brutally stabbed at",
             "brutally jabbed at",
             "brutally lunged at",
@@ -317,60 +353,60 @@
             "brutally chopped at",
             "brutally hammered",
             "brutally smashed"
-	]
+        ]
     },
     "poison": {
-	"first": [
-	    "poison"
-	],
-	"second": [
-	    "poisoned"
-	],
-	"critical first": [
-	    "poison"
-	],
-	"critical second": [
-	    "poisoned"
-	]
+        "first": [
+            "poison"
+        ],
+        "second": [
+            "poisoned"
+        ],
+        "critical first": [
+            "poison"
+        ],
+        "critical second": [
+            "poisoned"
+        ]
     },
     "psy": {
-	"first": [
-	    "psychically blast",
-	    "psychically deplete"
-	],
-	"second": [
-	    "psychically blasted",
-	    "psychically depleted"
-	],
-	"critical first": [
-	    "psychically blast",
-	    "psychically deplete"
-	],
-	"critical second": [
-	    "psychically blasted",
-	    "psychically depleted"
-	]
+        "first": [
+            "psychically blast",
+            "psychically deplete"
+        ],
+        "second": [
+            "psychically blasted",
+            "psychically depleted"
+        ],
+        "critical first": [
+            "psychically blast",
+            "psychically deplete"
+        ],
+        "critical second": [
+            "psychically blasted",
+            "psychically depleted"
+        ]
     },
     "radiant": {
-	"first": [
-	    "sear",
-	    "scorch"
-	],
-	"second": [
-	    "seared",
-	    "scorched"
-	],
-	"critical first": [
-	    "sear",
-	    "scorch"
-	],
-	"critical second": [
-	    "seared",
-	    "scorched"
-	]
+        "first": [
+            "sear",
+            "scorch"
+        ],
+        "second": [
+            "seared",
+            "scorched"
+        ],
+        "critical first": [
+            "sear",
+            "scorch"
+        ],
+        "critical second": [
+            "seared",
+            "scorched"
+        ]
     },
     "slash": {
-	"first": [
+        "first": [
             "cut at",
             "cut savagely into",
             "slash at",
@@ -380,8 +416,8 @@
             "slash savagely at",
             "swipe clumsily at",
             "slash clumsily at"
-	],
-	"second": [
+        ],
+        "second": [
             "cut at",
             "cut savagely into",
             "slashed at",
@@ -391,104 +427,122 @@
             "slashed savagely at",
             "swiped clumsily at",
             "slashed clumsily at"
-	],
-	"critical first": [
+        ],
+        "critical first": [
             "brutally cut at",
             "cut brutally into",
             "brutally slash at",
             "brutally swipe at",
             "swipe brutally at",
             "slash brutally at"
-	],
-	"critical second": [
+        ],
+        "critical second": [
             "brutally cut at",
             "cut brutally into",
             "brutally slashed at",
             "brutally swiped at",
             "swiped brutally at",
             "slashed brutally at"
-	]
+        ]
+    },
+    "slashing thrown": {
+        "first": [
+            "threw at",
+            "hurled at"
+        ],
+        "second": [
+            "threw at",
+            "hurled at"
+        ],
+        "critical first": [
+            "threw at",
+            "hurled at"
+        ],
+        "critical second": [
+            "threw at",
+            "hurled at"
+        ]
     },
     "thunder": {
-	"first": [
-	    "cast a thunderbolt at",
-	    "cast a bolt of thunder at"
-	],
-	"second": [
+        "first": [
+            "cast a thunderbolt at",
+            "cast a bolt of thunder at"
+        ],
+        "second": [
             "casted a thunderbolt at",
             "casted a bolt of thunder at"
-	],
-	"critical first": [
-	    ["cast a thunderbolt at", "It explodes on impact"],
-	    ["cast a bolt of thunder at", "It explodes on impact"]
-	],
-	"critical second": [
+        ],
+        "critical first": [
+            ["cast a thunderbolt at", "It explodes on impact"],
+            ["cast a bolt of thunder at", "It explodes on impact"]
+        ],
+        "critical second": [
             ["casted a thunderbolt at", "It explodes on impact"],
             ["casted a bolt of thunder at", "It explodes on impact"]
-	]
+        ]
     },
     "ranged bow|ranged shortbow|ranged longbow": {
-	"first": [
-	    "fire an arrow at",
-	    "release an arrow at"
-	],
-	"second": [
-	    "fired an arrow at",
-	    "released an arrow at"
-	],
-	"critical first": [
-	    ["fire an arrow at", "The force of impact causes them to stagger"],
-	    "release an arrow at"
-	],
-	"critical second": [
-	    ["fired an arrow at", "The force of impact causes you to stagger"],
-	    "released an arrow at"
-	]
+        "first": [
+            "fire an arrow at",
+            "release an arrow at"
+        ],
+        "second": [
+            "fired an arrow at",
+            "released an arrow at"
+        ],
+        "critical first": [
+            ["fire an arrow at", "The force of impact causes them to stagger"],
+            "release an arrow at"
+        ],
+        "critical second": [
+            ["fired an arrow at", "The force of impact causes you to stagger"],
+            "released an arrow at"
+        ]
     },
     "ranged crossbow": {
-	"first": [
-	    "fire a bolt at",
-	    "release a bolt at"
-	],
-	"second": [
-	    "fired a bolt at",
-	    "released a bolt at"
-	],
-	"critical first": [
-	    ["fire a bolt at", "The force of impact causes them to stagger"],
-	    "release a heavy bolt at"
-	],
-	"critical second": [
-	    ["fired a heavy bolt at", "The force of impact causes you to stagger"],
-	    "released a heavy bolt at"
-	]
+        "first": [
+            "fire a bolt at",
+            "release a bolt at"
+        ],
+        "second": [
+            "fired a bolt at",
+            "released a bolt at"
+        ],
+        "critical first": [
+            ["fire a bolt at", "The force of impact causes them to stagger"],
+            "release a heavy bolt at"
+        ],
+        "critical second": [
+            ["fired a heavy bolt at", "The force of impact causes you to stagger"],
+            "released a heavy bolt at"
+        ]
     },
     "ranged sling": {
-	"first": [
-	    "sling a rock at"
-	],
-	"second": [
-	    "slung a rock at"
-	],
-	"critical first": [
-	    ["launch a rock at", "The force of impact causes them to stagger"]
-	],
-	"critical second": [
-	    ["launched a rock at", "The force of impact causes you to stagger"]
-	]
+        "first": [
+            "sling a rock at"
+        ],
+        "second": [
+            "slung a rock at"
+        ],
+        "critical first": [
+            ["launch a rock at", "The force of impact causes them to stagger"]
+        ],
+        "critical second": [
+            ["launched a rock at", "The force of impact causes you to stagger"]
+        ]
     },
     "ranged dart": {
-	"first": [
-	    "blow a dart at"
-	],
-	"second": [
-	    "blew a dart at"
-	],
-	"critical first": [
-	    "blow a dart at"
-	],
-	"critical second": [
-	    "blew a dart at"
-	]
+        "first": [
+            "blow a dart at"
+        ],
+        "second": [
+            "blew a dart at"
+        ],
+        "critical first": [
+            "blow a dart at"
+        ],
+        "critical second": [
+            "blew a dart at"
+        ]
     }
 }
