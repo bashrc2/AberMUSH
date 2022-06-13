@@ -10326,7 +10326,7 @@
     },
     "1145": {
         "name": "the troglodyte",
-        "inv" : ["960"],
+        "inv" : ["1516"],
         "speakLanguage": "draconic",
         "language": ["draconic"],
         "culture": "",
@@ -10402,7 +10402,7 @@
         "clo_neck" : "0",
         "clo_larm" : "0",
         "clo_rarm" : "0",
-        "clo_lhand" : "960",
+        "clo_lhand" : "1516",
         "clo_gloves": "0",
         "clo_lfinger": "0",
         "clo_rhand" : "0",
