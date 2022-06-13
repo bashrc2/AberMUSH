@@ -8411,9 +8411,11 @@
             "east": "$rid=1423$"
         },
         "name": "The Cavern Hall",
-        "description": "You are in a dark and narrow cavern hallway with a high ceiling overhead populated by dripping stalactites. The air is stale and muggy, and slimy algae grows in long streaks down the walls.",
+        "description": "You are in a dark and narrow space within the cavern, and can hear the periodic drip from stalactites overhead. The air is stale and muggy, and the walls feel slippery.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+            ["hold","lightsource","You are in a dark and narrow cavern hallway with a high ceiling overhead populated by dripping stalactites. The air is stale and muggy, and slimy algae grows in long streaks down the walls","1421_light"]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",

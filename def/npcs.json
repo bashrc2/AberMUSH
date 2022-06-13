@@ -10333,7 +10333,7 @@
         "conv" : [
             [["a","e","i","u"],"# Tastes the air with its forked tongue"]
         ],
-        "path" : ["$rid=923$","$rid=920$"],
+        "path" : ["$rid=923$","$rid=920$","$rid=1421$","$rid=1422$","$rid=1423$"],
         "bodyType": "",
         "moveDelay" : "10",
         "moveType" : "follow",
