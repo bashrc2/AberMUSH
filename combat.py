@@ -58,7 +58,7 @@ def holding_throwable(players: {}, id, items_db: {}) -> bool:
 
 
 def _drop_throwables(players: {}, id, items_db: {},
-                     items: {}, rooms: {}) -> bool:
+                     items: {}) -> bool:
     """A player drops a weapon which was thrown
     """
     hand_locations = ('clo_rhand', 'clo_lhand')
@@ -66,32 +66,33 @@ def _drop_throwables(players: {}, id, items_db: {},
         item_id = int(players[id][hand])
         if item_id <= 0:
             continue
-        if 'thrown' in items_db[item_id]['type']:
-            # drop
-            inventory_copy = deepcopy(players[id]['inv'])
-            for i in inventory_copy:
-                if int(i) == item_id:
-                    # Remove first matching item from inventory
-                    players[id]['inv'].remove(i)
-                    update_player_attributes(id, players, items_db,
-                                             item_id, -1)
-                    break
+        if 'thrown' not in items_db[item_id]['type']:
+            continue
+        # drop
+        inventory_copy = deepcopy(players[id]['inv'])
+        for i in inventory_copy:
+            if int(i) == item_id:
+                # Remove first matching item from inventory
+                players[id]['inv'].remove(i)
+                update_player_attributes(id, players, items_db,
+                                         item_id, -1)
+                break
 
-            players[id]['wei'] = player_inventory_weight(id, players, items_db)
+        players[id]['wei'] = player_inventory_weight(id, players, items_db)
 
-            # remove from clothing
-            players[id][hand] = "0"
+        # remove from clothing
+        players[id][hand] = "0"
 
-            # Create item on the floor in the same room as the player
-            items[get_free_key(items)] = {
-                'id': item_id,
-                'room': players[id]['room'],
-                'whenDropped': int(time.time()),
-                'lifespan': 900000000,
-                'owner': id
-            }
+        # Create item on the floor in the same room as the player
+        items[get_free_key(items)] = {
+            'id': item_id,
+            'room': players[id]['room'],
+            'whenDropped': int(time.time()),
+            'lifespan': 900000000,
+            'owner': id
+        }
 
-            return True
+        return True
     return False
 
 
@@ -1241,7 +1242,7 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
 
         # player drops anything thrown
         if thrown:
-            _drop_throwables(players, s1id, items_db, items, rooms)
+            _drop_throwables(players, s1id, items_db, items)
 
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
@@ -1434,7 +1435,7 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
 
         # player drops anything thrown
         if thrown:
-            _drop_throwables(players, s1id, items_db, items, rooms)
+            _drop_throwables(players, s1id, items_db, items)
 
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
@@ -1631,7 +1632,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
 
     # npc drops anything thrown
     if thrown:
-        _drop_throwables(npcs, s1id, items_db, items, items, rooms)
+        _drop_throwables(npcs, s1id, items_db, items, items)
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
