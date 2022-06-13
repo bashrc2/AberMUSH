@@ -3664,6 +3664,8 @@ def _begin_throw_attack(params, mud, players_db: {}, players: {}, rooms: {},
             del players[id]['throwing']
         mud.send_message(id, 'Throw at?\n')
         return
+    if params.startswith('the '):
+        params = params.replace('the ', '', 1)
     if holding_throwable(players, id, items_db):
         _begin_attack(params, mud, players_db, players, rooms,
                       npcs_db, npcs, items_db, items,
