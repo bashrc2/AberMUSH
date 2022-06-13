@@ -10325,7 +10325,7 @@
         "lookDescription": "The white stag is gazing calmly. By the light of the moon its fur appears to glow."
     },
     "1145": {
-        "name": "the troglodyte",
+        "name": "the troglodyte guard",
         "inv" : ["1516"],
         "speakLanguage": "draconic",
         "language": ["draconic"],
@@ -10436,6 +10436,6 @@
         "imp_feet" : "0",
         "inDescription": "arrives",
         "outDescription": "departs",
-        "lookDescription": "the troglodyte is an angry-looking lizard creature"
+        "lookDescription": "the troglodyte guard is an angry-looking lizard creature, assigned to defend the lair"
     }
 }
