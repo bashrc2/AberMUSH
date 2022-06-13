@@ -449,7 +449,7 @@ def _combat_armor_class(id, players: {},
         if item_id <= 0:
             continue
 
-        armor_class += items_db[item_id]['armor_class']
+        armor_class += items_db[item_id]['armorClass']
     if armor_class < 10:
         armor_class += 10
 
