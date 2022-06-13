@@ -771,3 +771,11 @@ def parse_cost(cost_str: str) -> (int, str):
         return None, None
     qty = int(cost_str.replace(denomination, ''))
     return qty, denomination
+
+
+def item_in_room(items: {}, id, room):
+    for i in items.items():
+        if i[1]['room'] == room:
+            if id == i[1]['id']:
+                return True
+    return False

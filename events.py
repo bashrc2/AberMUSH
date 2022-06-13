@@ -11,6 +11,7 @@ __module_group__ = "Core"
 from functions import str2bool
 from functions import get_free_key
 from functions import size_from_description
+from functions import item_in_room
 
 import time
 
@@ -415,18 +416,10 @@ def _modPlayerCorpseTTL(etarget, ebody, players, npcs,
     players[etarget]['corpseTTL'] += int(ebody)
 
 
-def _item_in_room(items, id, room):
-    for i in items.items():
-        if i[1]['room'] == room:
-            if id == i[1]['id']:
-                return True
-    return False
-
-
 def _spawnItem(etarget, ebody, players, npcs, items, env, npcs_db, env_db):
     body = ebody.split(';')
     body_int = int(body[0])
-    if not _item_in_room(items, body_int, body[1]):
+    if not item_in_room(items, body_int, body[1]):
         items[get_free_key(items, 200000)] = {
             'id': body_int,
             'room': body[1],

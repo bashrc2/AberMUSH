@@ -18,6 +18,7 @@ from functions import decrease_affinity_between_players
 from functions import deepcopy
 from functions import player_is_prone
 from functions import set_player_prone
+from functions import item_in_room
 from random import randint
 # from copy import deepcopy
 from environment import get_temperature_at_coords
@@ -80,13 +81,15 @@ def _drop_throwables(players: {}, id, items_db: {},
             players[id][hand] = 0
 
             # Create item on the floor in the same room as the player
-            items[get_free_key(items)] = {
-                'id': item_id,
-                'room': players[id]['room'],
-                'whenDropped': int(time.time()),
-                'lifespan': 900000000,
-                'owner': id
-            }
+            room_id = players[id]['room']
+            if not item_in_room(items, item_id, room_id):
+                items[get_free_key(items)] = {
+                    'id': item_id,
+                    'room': room_id,
+                    'whenDropped': int(time.time()),
+                    'lifespan': 900000000,
+                    'owner': id
+                }
 
             return True
     return False
