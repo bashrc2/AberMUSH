@@ -8,6 +8,8 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "DnD Mechanics"
 
+from functions import update_player_attributes
+from functions import get_free_key
 from functions import player_inventory_weight
 from functions import stow_hands
 from functions import prepare_spells
@@ -45,12 +47,50 @@ defenseClothing = (
 def holding_throwable(players: {}, id, items_db: {}) -> bool:
     """Is the given player holding a throwable weapon?
     """
-    hand_locations = ('clo_lhand', 'clo_rhand')
+    hand_locations = ('clo_rhand', 'clo_lhand')
     for hand in hand_locations:
         item_id = int(players[id][hand])
         if item_id <= 0:
             continue
         if 'thrown' in items_db[item_id]['type']:
+            return True
+    return False
+
+
+def _drop_throwables(players: {}, id, items_db: {},
+                     items: {}, rooms: {}) -> bool:
+    """A player drops a weapon which was thrown
+    """
+    hand_locations = ('clo_rhand', 'clo_lhand')
+    for hand in hand_locations:
+        item_id = int(players[id][hand])
+        if item_id <= 0:
+            continue
+        if 'thrown' in items_db[item_id]['type']:
+            # drop
+            inventory_copy = deepcopy(players[id]['inv'])
+            for i in inventory_copy:
+                if int(i) == item_id:
+                    # Remove first matching item from inventory
+                    players[id]['inv'].remove(i)
+                    update_player_attributes(id, players, items_db,
+                                             item_id, -1)
+                    break
+
+            players[id]['wei'] = player_inventory_weight(id, players, items_db)
+
+            # remove from clothing
+            players[id][hand] = "0"
+
+            # Create item on the floor in the same room as the player
+            items[get_free_key(items)] = {
+                'id': item_id,
+                'room': players[id]['room'],
+                'whenDropped': int(time.time()),
+                'lifespan': 900000000,
+                'owner': id
+            }
+
             return True
     return False
 
@@ -980,7 +1020,8 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                                 map_area: [],
                                 clouds: {}, races_db: {},
                                 character_class_db: {},
-                                guilds: {}, attack_db: {}):
+                                guilds: {}, attack_db: {},
+                                items: {}):
     """A fight between two players
     """
     s1id = fights[fid]['s1id']
@@ -1095,10 +1136,14 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                                 target_armor_class,
                                 character_class_db,
                                 dodge_modifier)
-        if hit:
-            # TODO is the weapon thrown?
-            thrown = False
 
+        # is the weapon thrown?
+        thrown = False
+        if fights[fid].get('throwing'):
+            thrown = True
+            del fights[fid]['throwing']
+
+        if hit:
             attack_description_first, attack_description_second = \
                 _get_attack_description("", weapon_type, attack_db,
                                         is_critical, thrown)
@@ -1187,6 +1232,11 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 s2id, '<f32><u>' +
                 players[s1id]['name'] +
                 '<r> missed while trying to hit you!\n')
+
+        # player drops anything thrown
+        if thrown:
+            _drop_throwables(players, s1id, items_db, items, rooms)
+
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
         mud.send_message(
@@ -1210,7 +1260,7 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                                        max_terrain_difficulty,
                                        map_area: [], clouds: {}, races_db: {},
                                        character_class_db: {}, guilds: {},
-                                       attack_db: {}):
+                                       attack_db: {}, items: {}):
     """Fight between a player and an NPC
     """
     s1id = fights[fid]['s1id']
@@ -1298,10 +1348,14 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                                 target_armor_class,
                                 character_class_db,
                                 dodge_modifier)
-        if hit:
-            # TODO is the weapon thrown?
-            thrown = False
 
+        # is the weapon thrown?
+        thrown = False
+        if fights[fid].get('throwing'):
+            thrown = True
+            del fights[fid]['throwing']
+
+        if hit:
             attack_description_first, _ = \
                 _get_attack_description("", weapon_type, attack_db,
                                         is_critical, thrown)
@@ -1371,6 +1425,11 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
             ]
             descr = random_desc(desc)
             mud.send_message(s1id, descr + '\n')
+
+        # player drops anything thrown
+        if thrown:
+            _drop_throwables(players, s1id, items_db, items, rooms)
+
         players[s1id]['lastCombatAction'] = int(time.time())
     else:
         mud.send_message(
@@ -1479,10 +1538,14 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         _combat_attack_roll(s1id, npcs, weapon_type,
                             target_armor_class, character_class_db,
                             dodge_modifier)
-    if hit:
-        # TODO is the weapon thrown?
-        thrown = False
 
+    # is the weapon thrown?
+    thrown = False
+    if fights[fid].get('throwing'):
+        thrown = True
+        del fights[fid]['throwing']
+
+    if hit:
         _, attack_description_second = \
             _get_attack_description(npcs[s1id]['animalType'],
                                     weapon_type, attack_db,
@@ -1559,6 +1622,10 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         ]
         descr = random_desc(desc)
         mud.send_message(s2id, descr + '\n')
+
+    # npc drops anything thrown
+    if thrown:
+        _drop_throwables(npcs, s1id, items_db, items, items, rooms)
     npcs[s1id]['lastCombatAction'] = int(time.time())
 
 
@@ -1589,7 +1656,7 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                                         max_terrain_difficulty,
                                         map_area, clouds, races_db,
                                         character_class_db,
-                                        guilds, attack_db)
+                                        guilds, attack_db, items)
         # PC -> NPC
         elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
             _run_fights_between_player_and_npc(mud, players, npcs, fights,
@@ -1598,7 +1665,7 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                                                map_area,
                                                clouds, races_db,
                                                character_class_db,
-                                               guilds, attack_db)
+                                               guilds, attack_db, items)
         # NPC -> PC
         elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
             _run_fights_between_npc_and_player(mud, players, npcs, fights,
@@ -1774,7 +1841,8 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 target_found = False
                 continue
 
-            fights[len(fights)] = {
+            fight_index = len(fights)
+            fights[fight_index] = {
                 's1': id,
                 's2': players[pid]['name'],
                 's1id': attacker_id,
@@ -1801,6 +1869,11 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
 
             _npc_update_luck(id, npcs, items, items_db)
             _npc_wields_weapon(mud, pid, id, npcs, items, items_db)
+
+            thrown = False
+            if holding_throwable(npcs, id, items_db):
+                thrown = True
+            fights[fight_index]['thrown'] = thrown
 
             mud.send_message(
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
@@ -1848,6 +1921,12 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
 
             _npc_update_luck(id, npcs, items, items_db)
             _npc_wields_weapon(mud, nid, id, npcs, items, items_db)
+
+            thrown = False
+            if holding_throwable(npcs, id, items_db):
+                thrown = True
+            fights[fight_index]['thrown'] = thrown
+
             break
 
     return target_found
@@ -1881,8 +1960,10 @@ def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
                         has_affinity = True
             if not has_affinity:
                 if randint(0, 1000) > 995:
-                    # TODO does the npc have a throwable weapon?
+                    # does the npc have a throwable weapon?
                     thrown = False
+                    if holding_throwable(npcs, nid, items_db):
+                        thrown = True
                     _npc_begins_attack(npcs, nid, players[pid]['name'],
                                        players, fights, mud, items,
                                        items_db, races_db, thrown)
