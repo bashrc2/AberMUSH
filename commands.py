@@ -3642,6 +3642,8 @@ def _begin_throw_attack(params, mud, players_db: {}, players: {}, rooms: {},
         params = params.replace('the ', '', 1)
     if params.startswith('a '):
         params = params.replace('a ', '', 1)
+    if params.startswith('an '):
+        params = params.replace('an ', '', 1)
     if ' at ' in params:
         weapon_name = params.split(' at ', 1)[0]
         params = params.split(' at ', 1)[1]
