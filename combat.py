@@ -69,30 +69,26 @@ def _drop_throwables(players: {}, id, items_db: {},
         if 'thrown' not in items_db[item_id]['type']:
             continue
         # drop
-        inventory_copy = deepcopy(players[id]['inv'])
-        for i in inventory_copy:
-            if int(i) == item_id:
-                # Remove first matching item from inventory
-                players[id]['inv'].remove(i)
-                update_player_attributes(id, players, items_db,
-                                         item_id, -1)
-                break
+        if item_id in players[id]['inv']:
+            players[id]['inv'].remove(item_id)
+            update_player_attributes(id, players, items_db,
+                                     item_id, -1)
+            players[id]['wei'] = \
+                player_inventory_weight(id, players, items_db)
 
-        players[id]['wei'] = player_inventory_weight(id, players, items_db)
+            # remove from clothing
+            players[id][hand] = 0
 
-        # remove from clothing
-        players[id][hand] = 0
+            # Create item on the floor in the same room as the player
+            items[get_free_key(items)] = {
+                'id': item_id,
+                'room': players[id]['room'],
+                'whenDropped': int(time.time()),
+                'lifespan': 900000000,
+                'owner': id
+            }
 
-        # Create item on the floor in the same room as the player
-        items[get_free_key(items)] = {
-            'id': item_id,
-            'room': players[id]['room'],
-            'whenDropped': int(time.time()),
-            'lifespan': 900000000,
-            'owner': id
-        }
-
-        return True
+            return True
     return False
 
 
