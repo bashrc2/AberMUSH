@@ -42,11 +42,11 @@ defenseClothing = (
     'clo_gloves')
 
 
-def remove_prepared_spell(players, id, spellName):
+def remove_prepared_spell(players: {}, id, spell_name: str):
     """Remove a prepared spell
     """
-    del players[id]['preparedSpells'][spellName]
-    del players[id]['spellSlots'][spellName]
+    del players[id]['preparedSpells'][spell_name]
+    del players[id]['spellSlots'][spell_name]
 
 
 def _player_is_available(id, players: {}, items_db: {}, rooms: {},
@@ -379,7 +379,7 @@ def _combatDamageFromWeapon(id, players: {},
 
 
 def _combat_armor_class(id, players: {},
-                        races_db: {}, attackWeaponType: str,
+                        races_db: {}, attack_weapon_type: str,
                         items_db: {}) -> int:
     """Returns the armor class for the given player
     when attacked by the given weapon type
@@ -395,7 +395,7 @@ def _combat_armor_class(id, players: {},
         armor_class += 10
 
     race_armor = _combat_race_resistance(id, players, races_db,
-                                         attackWeaponType)
+                                         attack_weapon_type)
     if armor_class < race_armor:
         armor_class = race_armor
 
@@ -602,8 +602,8 @@ def _npc_update_luck(nid, npcs: {}, items: {}, items_db: {}) -> None:
     npcs[nid]['luc'] = luck
 
 
-def _npc_wields_weapon(mud, id: int, nid, npcs: {}, items: {},
-                       items_db: {}) -> bool:
+def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
+                       items: {}, items_db: {}) -> bool:
     """what is the best weapon which the NPC is carrying?
     """
     item_id = 0
@@ -852,7 +852,7 @@ def _get_weapon_held(id: int, players: {}, items_db: {}) -> (int, str, int):
     return 0, "fists", 1
 
 
-def _get_attack_description(animalType: str, weapon_type: str,
+def _get_attack_description(animal_type: str, weapon_type: str,
                             attack_db: {}, is_critical: bool,
                             thrown: bool) -> (str, str):
     """Describes an attack with a given type of weapon. This
@@ -861,7 +861,7 @@ def _get_attack_description(animalType: str, weapon_type: str,
     """
     weapon_type = weapon_type.lower()
 
-    if not animalType:
+    if not animal_type:
         attack_strings = [
             "swing a fist at",
             "punch",
@@ -877,7 +877,7 @@ def _get_attack_description(animalType: str, weapon_type: str,
         ]
         attack_description_second = random_desc(attack_strings)
         for attack_type, attack_desc in attack_db.items():
-            if animalType.startswith('animal '):
+            if animal_type.startswith('animal '):
                 continue
             attack_type_list = attack_type.split('|')
             for attack_type_str in attack_type_list:
@@ -925,7 +925,7 @@ def _get_attack_description(animalType: str, weapon_type: str,
             an_type = an_type.replace('animal ', '')
             animal_type_list = an_type.split('|')
             for animal_type_str in animal_type_list:
-                if not animalType.startswith(animal_type_str):
+                if not animal_type.startswith(animal_type_str):
                     continue
                 if not is_critical:
                     # first person -  you attack a player or npc
@@ -1552,7 +1552,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
 def is_player_fighting(id, players: {}, fights: {}) -> bool:
     """Returns true if the player is fighting
     """
-    for (fid, pl) in list(fights.items()):
+    for (fid, _) in list(fights.items()):
         if fights[fid]['s1type'] == 'pc':
             if fights[fid]['s1'] == players[id]['name']:
                 return True
@@ -1645,7 +1645,7 @@ def stop_attack(players: {}, id, npcs: {}, fights: {}):
 
 def player_begins_attack(players: {}, id, target: str,
                          npcs: {}, fights: {}, mud, races_db: {},
-                         item_history: {}) -> bool:
+                         item_history: {}, thrown: bool) -> bool:
     """Player begins an attack on another player or npc
     """
     target_found = False
@@ -1673,14 +1673,19 @@ def player_begins_attack(players: {}, id, target: str,
                 's2id': victim_id,
                 's1type': 'pc',
                 's2type': 'pc',
-                'retaliated': 0
+                'retaliated': 0,
+                'thrown': thrown
             }
 
             _combat_update_max_hit_points(id, players, races_db)
             _combat_update_max_hit_points(pid, players, races_db)
 
-            mud.send_message(
-                id, '<f214>Attacking <r><f255>' + target + '!\n')
+            if not thrown:
+                mud.send_message(
+                    id, '<f214>Attacking <r><f255>' + target + '!\n')
+            else:
+                mud.send_message(
+                    id, '<f214>Throwing at <r><f255>' + target + '!\n')
 
     if not target_found:
         for nid, _ in list(npcs.items()):
@@ -1716,14 +1721,19 @@ def player_begins_attack(players: {}, id, target: str,
                 's2id': victim_id,
                 's1type': 'pc',
                 's2type': 'npc',
-                'retaliated': 0
+                'retaliated': 0,
+                'thrown': thrown
             }
 
             _combat_update_max_hit_points(id, players, races_db)
             _combat_update_max_hit_points(nid, npcs, races_db)
 
-            mud.send_message(
-                id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+            if not thrown:
+                mud.send_message(
+                    id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+            else:
+                mud.send_message(
+                    id, 'Throwing at <u><f21>' + npcs[nid]['name'] + '<r>!\n')
             break
 
     if not target_found:
@@ -1734,7 +1744,7 @@ def player_begins_attack(players: {}, id, target: str,
 
 def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                        fights: {}, mud, items: {}, items_db: {},
-                       races_db: {}) -> bool:
+                       races_db: {}, thrown: bool) -> bool:
     """npc begins an attack on a player or another npc
     """
     target_found = False
@@ -1758,7 +1768,8 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 's2id': victim_id,
                 's1type': 'npc',
                 's2type': 'pc',
-                'retaliated': 0
+                'retaliated': 0,
+                'thrown': thrown
             }
             fights[len(fights)] = {
                 's1': players[pid]['name'],
@@ -1857,6 +1868,8 @@ def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
                         has_affinity = True
             if not has_affinity:
                 if randint(0, 1000) > 995:
+                    # TODO does the npc have a throwable weapon?
+                    thrown = False
                     _npc_begins_attack(npcs, nid, players[pid]['name'],
                                        players, fights, mud, items,
-                                       items_db, races_db)
+                                       items_db, races_db, thrown)

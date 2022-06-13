@@ -3563,6 +3563,11 @@ def _begin_attack(params, mud, players_db: {}, players: {}, rooms: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {},
                   races_db: {}, item_history: {}, markets: {},
                   cultures_db: {}):
+    thrown = False
+    if players[id].get('throwing'):
+        del players[id]['throwing']
+        thrown = True
+
     if players[id]['frozenStart'] != 0:
         desc = players[id]['frozenDescription']
         mud.send_message(
@@ -3589,7 +3594,8 @@ def _begin_attack(params, mud, players_db: {}, players: {}, rooms: {},
 
         if not is_attacking(players, id, fights):
             player_begins_attack(players, id, target,
-                                 npcs, fights, mud, races_db, item_history)
+                                 npcs, fights, mud, races_db,
+                                 item_history, thrown)
         else:
             currentTarget = get_attacking_target(players, id, fights)
             if not isinstance(currentTarget, int):
@@ -3611,6 +3617,29 @@ def _begin_attack(params, mud, players_db: {}, players: {}, rooms: {},
             id,
             'Right now, you do not feel like you can force ' +
             'yourself to attack anyone or anything.\n')
+
+
+def _begin_throw_attack(params, mud, players_db: {}, players: {}, rooms: {},
+                        npcs_db: {}, npcs: {}, items_db: {}, items: {},
+                        env_db: {}, env: {}, eventDB: {}, event_schedule,
+                        id: int, fights: {}, corpses: {}, blocklist,
+                        map_area: [], character_class_db: {}, spells_db: {},
+                        sentiment_db: {}, guilds_db: {}, clouds: {},
+                        races_db: {}, item_history: {}, markets: {},
+                        cultures_db: {}):
+    if ' at ' in params:
+        params = params.split(' at ', 1)[1]
+    if params.startswith('at '):
+        params = params.split('at ', 1)[1]
+    players[id]['throwing'] = 1
+    _begin_attack(params, mud, players_db, players, rooms,
+                  npcs_db, npcs, items_db, items,
+                  env_db, env, eventDB, event_schedule,
+                  id, fights, corpses, blocklist,
+                  map_area, character_class_db, spells_db,
+                  sentiment_db, guilds_db, clouds,
+                  races_db, item_history, markets,
+                  cultures_db)
 
 
 def _item_in_inventory(players: {}, id, item_name: str, items_db: {}):
@@ -7576,6 +7605,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "smug": _smug,
         "relieved": _relieved,
         "relief": _relieved,
+        "throw": _begin_throw_attack,
         "attack": _begin_attack,
         "shoot": _begin_attack,
         "take": _take,
