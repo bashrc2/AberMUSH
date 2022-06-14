@@ -1044,6 +1044,12 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
     s1id = fights[fid]['s1id']
     s2id = fights[fid]['s2id']
 
+    # is the weapon thrown?
+    thrown = 0
+    if fights[fid].get('thrown'):
+        thrown = fights[fid]['thrown']
+        del fights[fid]['thrown']
+
     # In the same room?
     if players[s1id]['room'] != players[s2id]['room']:
         return
@@ -1153,12 +1159,6 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                                 target_armor_class,
                                 character_class_db,
                                 dodge_modifier)
-
-        # is the weapon thrown?
-        thrown = 0
-        if fights[fid].get('throwing'):
-            thrown = fights[fid]['throwing']
-            del fights[fid]['throwing']
 
         if hit:
             attack_description_first, attack_description_second = \
@@ -1283,6 +1283,12 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
     s1id = fights[fid]['s1id']
     s2id = fights[fid]['s2id']
 
+    # is the weapon thrown?
+    thrown = 0
+    if fights[fid].get('thrown'):
+        thrown = fights[fid]['thrown']
+        del fights[fid]['thrown']
+
     # In the same room?
     if players[s1id]['room'] != npcs[s2id]['room']:
         return
@@ -1365,12 +1371,6 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                                 target_armor_class,
                                 character_class_db,
                                 dodge_modifier)
-
-        # is the weapon thrown?
-        thrown = 0
-        if fights[fid].get('throwing'):
-            thrown = fights[fid]['throwing']
-            del fights[fid]['throwing']
 
         if hit:
             attack_description_first, _ = \
@@ -1476,6 +1476,12 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
     s1id = fights[fid]['s1id']
     s2id = fights[fid]['s2id']
 
+    # is the weapon thrown?
+    thrown = 0
+    if fights[fid].get('thrown'):
+        thrown = fights[fid]['thrown']
+        del fights[fid]['thrown']
+
     # In the same room?
     if npcs[s1id]['room'] != players[s2id]['room']:
         return
@@ -1555,12 +1561,6 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         _combat_attack_roll(s1id, npcs, weapon_type,
                             target_armor_class, character_class_db,
                             dodge_modifier)
-
-    # is the weapon thrown?
-    thrown = 0
-    if fights[fid].get('throwing'):
-        thrown = fights[fid]['throwing']
-        del fights[fid]['throwing']
 
     if hit:
         _, attack_description_second = \
