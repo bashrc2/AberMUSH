@@ -3666,7 +3666,7 @@ def _begin_throw_attack(params, mud, players_db: {}, players: {}, rooms: {},
         return
     if params.startswith('the '):
         params = params.replace('the ', '', 1)
-    if holding_throwable(players, id, items_db):
+    if holding_throwable(players, id, items_db) > 0:
         _begin_attack(params, mud, players_db, players, rooms,
                       npcs_db, npcs, items_db, items,
                       env_db, env, eventDB, event_schedule,

@@ -45,7 +45,7 @@ defenseClothing = (
     'clo_gloves')
 
 
-def holding_throwable(players: {}, id, items_db: {}) -> bool:
+def holding_throwable(players: {}, id, items_db: {}) -> int:
     """Is the given player holding a throwable weapon?
     """
     hand_locations = ('clo_rhand', 'clo_lhand')
@@ -54,14 +54,15 @@ def holding_throwable(players: {}, id, items_db: {}) -> bool:
         if item_id <= 0:
             continue
         if 'thrown' in items_db[item_id]['type']:
-            return True
-    return False
+            return item_id
+    return 0
 
 
 def _drop_throwables(players: {}, id, items_db: {},
                      items: {}) -> bool:
     """A player drops a weapon which was thrown
     """
+    print('Dropping throwables')
     hand_locations = ('clo_rhand', 'clo_lhand')
     for hand in hand_locations:
         item_id = int(players[id][hand])
@@ -70,8 +71,10 @@ def _drop_throwables(players: {}, id, items_db: {},
         if 'thrown' not in items_db[item_id]['type']:
             continue
         # drop
+        print('dropping')
         if item_id in players[id]['inv']:
             players[id]['inv'].remove(item_id)
+            print('Dropping item inventory ' + str(players[id]['inv']))
             update_player_attributes(id, players, items_db,
                                      item_id, -1)
             players[id]['wei'] = \
@@ -83,6 +86,8 @@ def _drop_throwables(players: {}, id, items_db: {},
             # Create item on the floor in the same room as the player
             room_id = players[id]['room']
             if not item_in_room(items, item_id, room_id):
+                print('Dropping item in room ' +
+                      str(item_id) + ' ' + str(room_id))
                 items[get_free_key(items)] = {
                     'id': item_id,
                     'room': room_id,
@@ -90,8 +95,14 @@ def _drop_throwables(players: {}, id, items_db: {},
                     'lifespan': 900000000,
                     'owner': id
                 }
+            else:
+                print('Dropping item not in room ' +
+                      str(item_id) + ' ' + str(room_id))
 
             return True
+        else:
+            print('Dropping item not in inventory')
+    print('No throwables dropped')
     return False
 
 
@@ -384,7 +395,7 @@ def _combat_race_resistance(id: int, players: {},
 def _combatDamageFromWeapon(id, players: {},
                             items_db: {}, weapon_type: str,
                             character_class_db: {},
-                            is_critical: bool, thrown: bool) -> (int, str):
+                            is_critical: bool, thrown: int) -> (int, str):
     """find the weapon being used and return its damage value
     """
     weapon_locations = (
@@ -426,7 +437,7 @@ def _combatDamageFromWeapon(id, players: {},
                 else:
                     score += items_db[item_id]['damageChart'][-1]
         # did we throw it?
-        if thrown:
+        if thrown > 0:
             # is this weapon throwable?
             if 'thrown' in items_db[item_id]['type']:
                 # increased damage from thrown weapons
@@ -913,7 +924,7 @@ def _get_weapon_held(id: int, players: {}, items_db: {}) -> (int, str, int):
 
 def _get_attack_description(animal_type: str, weapon_type: str,
                             attack_db: {}, is_critical: bool,
-                            thrown: bool) -> (str, str):
+                            thrown: int) -> (str, str):
     """Describes an attack with a given type of weapon. This
        Returns both the first person and second person
        perspective descriptions
@@ -942,9 +953,9 @@ def _get_attack_description(animal_type: str, weapon_type: str,
             for attack_type_str in attack_type_list:
                 if not weapon_type.startswith(attack_type_str):
                     continue
-                if thrown and 'thrown' not in attack_type_str:
+                if thrown > 0 and 'thrown' not in attack_type_str:
                     continue
-                if not thrown and 'thrown' in attack_type_str:
+                if thrown <= 0 and 'thrown' in attack_type_str:
                     continue
                 if not is_critical:
                     # first person - you attack a player or npc
@@ -1144,9 +1155,9 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                                 dodge_modifier)
 
         # is the weapon thrown?
-        thrown = False
+        thrown = 0
         if fights[fid].get('throwing'):
-            thrown = True
+            thrown = fights[fid]['throwing']
             del fights[fid]['throwing']
 
         if hit:
@@ -1240,7 +1251,7 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 '<r> missed while trying to hit you!\n')
 
         # player drops anything thrown
-        if thrown:
+        if thrown > 0:
             _drop_throwables(players, s1id, items_db, items)
 
         players[s1id]['lastCombatAction'] = int(time.time())
@@ -1356,9 +1367,9 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                                 dodge_modifier)
 
         # is the weapon thrown?
-        thrown = False
+        thrown = 0
         if fights[fid].get('throwing'):
-            thrown = True
+            thrown = fights[fid]['throwing']
             del fights[fid]['throwing']
 
         if hit:
@@ -1433,7 +1444,7 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
             mud.send_message(s1id, descr + '\n')
 
         # player drops anything thrown
-        if thrown:
+        if thrown > 0:
             _drop_throwables(players, s1id, items_db, items)
 
         players[s1id]['lastCombatAction'] = int(time.time())
@@ -1546,9 +1557,9 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
                             dodge_modifier)
 
     # is the weapon thrown?
-    thrown = False
+    thrown = 0
     if fights[fid].get('throwing'):
-        thrown = True
+        thrown = fights[fid]['throwing']
         del fights[fid]['throwing']
 
     if hit:
@@ -1731,7 +1742,7 @@ def stop_attack(players: {}, id, npcs: {}, fights: {}):
 
 def player_begins_attack(players: {}, id, target: str,
                          npcs: {}, fights: {}, mud, races_db: {},
-                         item_history: {}, thrown: bool) -> bool:
+                         item_history: {}, thrown: int) -> bool:
     """Player begins an attack on another player or npc
     """
     target_found = False
@@ -1766,7 +1777,7 @@ def player_begins_attack(players: {}, id, target: str,
             _combat_update_max_hit_points(id, players, races_db)
             _combat_update_max_hit_points(pid, players, races_db)
 
-            if not thrown:
+            if thrown == 0:
                 mud.send_message(
                     id, '<f214>Attacking <r><f255>' + target + '!\n')
             else:
@@ -1814,7 +1825,7 @@ def player_begins_attack(players: {}, id, target: str,
             _combat_update_max_hit_points(id, players, races_db)
             _combat_update_max_hit_points(nid, npcs, races_db)
 
-            if not thrown:
+            if thrown == 0:
                 mud.send_message(
                     id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
             else:
@@ -1830,7 +1841,7 @@ def player_begins_attack(players: {}, id, target: str,
 
 def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                        fights: {}, mud, items: {}, items_db: {},
-                       races_db: {}, thrown: bool) -> bool:
+                       races_db: {}, thrown: int) -> bool:
     """npc begins an attack on a player or another npc
     """
     target_found = False
@@ -1876,10 +1887,8 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
             _npc_update_luck(id, npcs, items, items_db)
             _npc_wields_weapon(mud, pid, id, npcs, items, items_db)
 
-            thrown = False
-            if holding_throwable(npcs, id, items_db):
-                thrown = True
-            fights[fight_index]['thrown'] = thrown
+            fights[fight_index]['thrown'] = \
+                holding_throwable(npcs, id, items_db)
 
             mud.send_message(
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
@@ -1928,10 +1937,8 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
             _npc_update_luck(id, npcs, items, items_db)
             _npc_wields_weapon(mud, nid, id, npcs, items, items_db)
 
-            thrown = False
-            if holding_throwable(npcs, id, items_db):
-                thrown = True
-            fights[fight_index]['thrown'] = thrown
+            fights[fight_index]['thrown'] = \
+                holding_throwable(npcs, id, items_db)
 
             break
 
@@ -1967,9 +1974,8 @@ def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
             if not has_affinity:
                 if randint(0, 1000) > 995:
                     # does the npc have a throwable weapon?
-                    thrown = False
-                    if holding_throwable(npcs, nid, items_db):
-                        thrown = True
+                    thrown = \
+                        holding_throwable(npcs, nid, items_db)
                     _npc_begins_attack(npcs, nid, players[pid]['name'],
                                        players, fights, mud, items,
                                        items_db, races_db, thrown)
