@@ -407,6 +407,7 @@ def _combatDamageFromWeapon(id, players: {},
     # bare knuckle fight
     damage_roll_best = '1d3'
     max_damage = 1
+    max_modifier = 0
 
     for wpn in weapon_locations:
         item_id = int(players[id][wpn])
@@ -436,16 +437,18 @@ def _combatDamageFromWeapon(id, players: {},
                     score += items_db[item_id]['damageChart'][chart_index]
                 else:
                     score += items_db[item_id]['damageChart'][-1]
+        modifier = 0
         # did we throw it?
         if thrown > 0:
             # is this weapon throwable?
             if 'thrown' in items_db[item_id]['type']:
                 # increased damage from thrown weapons
-                score += 2
+                modifier = 2
         if score > max_damage:
             max_damage = score
             damage_roll_best = damage_roll
-    return max_damage, damage_roll_best
+            max_modifier = modifier
+    return max_damage, damage_roll_best, max_modifier
 
 
 def _combat_armor_class(id, players: {},
@@ -1171,13 +1174,18 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
             for _ in range(rounds_of_fire):
                 if players[s1id]['hp'] <= 0:
                     break
-                damage_value, damage_roll = \
+                damage_value, damage_roll, damage_modifier = \
                     _combatDamageFromWeapon(s1id, players,
                                             items_db, weapon_type,
                                             character_class_db,
                                             is_critical, thrown)
                 # eg "1d8 = 5"
-                damage_value_desc = damage_roll + ' = ' + str(damage_value)
+                if damage_modifier == 0:
+                    damage_value_desc = damage_roll + ' = ' + str(damage_value)
+                else:
+                    damage_value_desc = \
+                        damage_roll + ' + ' + str(damage_modifier) + \
+                        ' = ' + str(damage_value)
                 if is_critical:
                     damage_value_desc = '2 x ' + damage_value_desc
 
@@ -1384,13 +1392,19 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                 if players[s1id]['hp'] <= 0:
                     break
 
-                damage_value, damage_roll = \
+                damage_value, damage_roll, damage_modifier = \
                     _combatDamageFromWeapon(s1id, players,
                                             items_db, weapon_type,
                                             character_class_db,
                                             is_critical, thrown)
                 # eg "1d8 = 5"
-                damage_value_desc = damage_roll + ' = ' + str(damage_value)
+                if damage_modifier == 0:
+                    damage_value_desc = \
+                        damage_roll + ' = ' + str(damage_value)
+                else:
+                    damage_value_desc = \
+                        damage_roll + ' + ' + str(damage_modifier) + \
+                        ' = ' + str(damage_value)
                 if is_critical:
                     damage_value_desc = '2 x ' + damage_value_desc
 
@@ -1574,13 +1588,18 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         for _ in range(rounds_of_fire):
             if npcs[s1id]['hp'] <= 0:
                 break
-            damage_value, damage_roll = \
+            damage_value, damage_roll, damage_modifier = \
                 _combatDamageFromWeapon(s1id, npcs,
                                         items_db, weapon_type,
                                         character_class_db,
                                         is_critical, thrown)
             # eg "1d8 = 5"
-            damage_value_desc = damage_roll + ' = ' + str(damage_value)
+            if damage_modifier == 0:
+                damage_value_desc = damage_roll + ' = ' + str(damage_value)
+            else:
+                damage_value_desc = \
+                    damage_roll + ' + ' + str(damage_modifier) + \
+                    ' = ' + str(damage_value)
             if is_critical:
                 damage_value_desc = '2 x ' + damage_value_desc
 
