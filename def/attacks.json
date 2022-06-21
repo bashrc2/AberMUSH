@@ -25,6 +25,28 @@
             "savagely pecked"
         ]
     },
+    "animal bat": {
+        "first": [
+            "bit",
+            "viciously bit",
+            "savagely bit"
+        ],
+        "second": [
+            "bit",
+            "viciously bit",
+            "savagely bit"
+        ],
+        "critical first": [
+            "bit",
+            "viciously bit",
+            "savagely bit"
+        ],
+        "critical second": [
+            "bit",
+            "viciously bit",
+            "savagely bit"
+        ]
+    },
     "animal cat|weasel|otter|dog|hare|rabbit|rat": {
         "first": [
             "claw",

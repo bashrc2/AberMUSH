@@ -449,7 +449,7 @@ def _remove_inactive_entity(nid, npcs: {}, nid2, npcs_db: {},
     if this_npc['room'] == purgatory_room:
         if npc_active:
             if this_npc.get('lastRoom'):
-                # recover from puratory
+                # recover from purgatory
                 this_npc['room'] = this_npc['lastRoom']
                 return True
         return False
