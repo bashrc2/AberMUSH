@@ -10,7 +10,7 @@
     "warrior": {
         "hitDie": "d10",
         "startingMoney": "5d6",
-        "inv": [ 1366, 981 ],
+        "inv": [ 1366, 981, 1517 ],
         "extraLanguage": [],
         "archetype": ["champion","archer"],
         "1": [ "Fighting Style", "Second Wind" ],
@@ -37,7 +37,7 @@
     "rogue": {
         "hitDie": "d8",
         "startingMoney": "4d6",
-        "inv": [ 1393, 1398, 1074 ],
+        "inv": [ 1393, 1398, 1074, 1519 ],
         "extraLanguage": ["cant"],
         "archetype": ["fast hands", "second story work", "supreme sneak", "use magic device", "thief's reflexes"],
         "1": [ "Expertise", "Sneak Attack" ],
@@ -64,7 +64,7 @@
     "ranger": {
         "hitDie": "d10",
         "startingMoney": "5d6",
-        "inv": [ 1394, 1397 ],
+        "inv": [ 1394, 1397, 1520 ],
         "extraLanguage": [],
         "archetype": ["Colossus Slayer", "Giant Killer", "Horde Breaker", "Escape the Horde", "Multiattack Defense", "Volley", "Whirlwind Attack", "Evasion", "Stand against the Tide", "Uncanny Dodge"],
         "1": [ "Favored Enemy", "Natural Explorer" ],
@@ -91,7 +91,7 @@
     "sorcerer": {
         "hitDie": "d6",
         "startingMoney": "2d6",
-        "inv": [ 1157,702 ],
+        "inv": [ 1157, 702, 1518 ],
         "extraLanguage": [],
         "archetype": [],
         "1": [ "Spellcasting", "Sorcerous Origin", ["Spell",4,2,2] ],
@@ -118,7 +118,7 @@
     "witch": {
         "hitDie": "d6",
         "startingMoney": "2d6",
-        "inv": [ 197,702,1410 ],
+        "inv": [ 197, 702, 1410, 1519 ],
         "extraLanguage": [],
         "archetype": [],
         "1": [ "Spellcasting", "Arcane Recovery", "Cantrips (3)", ["Spell", 2]],
