@@ -24,3 +24,6 @@ if [ -d /etc/systemd/system ]; then
     sudo systemctl enable abermush
     sudo systemctl restart abermush
 fi
+if [ ! -f /usr/bin/update-abermush ]; then
+    sudo cp /opt/abermush/update-abermush /sr/bin/update-abermush
+fi
