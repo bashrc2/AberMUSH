@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /opt/abermush || exit 1
+git stash
+git pull
+rm universe*.json
+chown -R abermush:abermush /opt/abermush
+systemctl restart abermush
