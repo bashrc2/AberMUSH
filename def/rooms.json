@@ -9108,7 +9108,10 @@
         "name": "Hidden Hut",
         "description": "You are inside a low wooden hut, carefully concealed by greenery and rocks, to provide a quiet, restful shelter. The only exit is east. To judge from the bed in the corner, the occupant of the hut has been here recently.",
         "roomTeleport": "",
-        "conditional": [],
+        "conditional": [
+            ["hour","<8","You are inside a low wooden hut, carefully concealed by greenery and rocks, to provide a quiet, restful shelter. The only exit is east"],
+            ["hour",">12","You are inside a low wooden hut, carefully concealed by greenery and rocks, to provide a quiet, restful shelter. The only exit is east"]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
