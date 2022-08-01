@@ -3844,7 +3844,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id, 'You are currently in possession of:<r>\n')
     for i in list(players[id]['inv']):
         if int(players[id]['clo_lhand']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3852,7 +3852,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_lleg']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3860,7 +3860,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_rleg']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3869,7 +3869,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
 
         if players[id].get('clo_gloves'):
             if int(players[id]['clo_gloves']) == int(i):
-                mud.send_message(id, ' * ' +
+                mud.send_message(id, '<r> * ' +
                                  items_db[int(i)]['article'] +
                                  ' <b234>' +
                                  items_db[int(i)]['name'] +
@@ -3877,7 +3877,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
                 continue
 
         if int(players[id]['clo_rhand']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3885,7 +3885,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_lfinger']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3893,7 +3893,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_rfinger']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3901,7 +3901,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_waist']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3909,7 +3909,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_lear']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3917,7 +3917,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
             continue
 
         if int(players[id]['clo_rear']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
@@ -3936,14 +3936,14 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
            int(players[id]['clo_chest']) == int(i) or \
            int(players[id]['clo_back']) == int(i) or \
            int(players[id]['clo_feet']) == int(i):
-            mud.send_message(id, ' * ' +
+            mud.send_message(id, '<r> * ' +
                              items_db[int(i)]['article'] +
                              ' <b234>' +
                              items_db[int(i)]['name'] +
                              '<r> (worn)')
             continue
 
-        mud.send_message(id, ' * ' +
+        mud.send_message(id, '<r> * ' +
                          items_db[int(i)]['article'] +
                          ' <b234>' +
                          items_db[int(i)]['name'])
