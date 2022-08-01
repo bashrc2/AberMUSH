@@ -1,4 +1,4 @@
-![AberMUSH](docs/banner.jpg)
+![AberMUSH](docs/title.png)
 
 <blockquote>"It is said that the First Age of the world was the age of dwarves and dragons, when the black sword was forged, the Second Age was the age of war, where magicians and warriors fought for power. The Third Age will be the age of power for the magic is strong again."</blockquote>
 
