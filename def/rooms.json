@@ -3652,7 +3652,8 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "out": "$rid=433$"
+            "out": "$rid=433$",
+            "up": "$rid=1424$"
         }
     },
     "$rid=433$": {
@@ -14631,5 +14632,153 @@
         "region": "",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1424$": {
+        "name": "Narrow stairway",
+        "description": "You are on a narrow wooden stairway which leads around a corner and upwards to the second floor of the inn. The boards under your feet are creaky and worn by the boots of many passing adventurers",
+        "roomTeleport": "",
+        "conditional": [
+            ["hour","<8","You are on a narrow wooden stairway illuminated by a single wall-mounted candle, which leads around a corner and upwards to the second floor of the inn. The boards under your feet are creaky and worn by the boots of many passing adventurers","1424b"],
+            ["hour",">20","You are on a narrow wooden stairway illuminated by a single wall-mounted candle, which leads around a corner and upwards to the second floor of the inn. The boards under your feet are creaky and worn by the boots of many passing adventurers","1424b"]
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 1,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+            "up": "",
+            "down": "$rid=432$"
+        }
+    },
+    "$rid=1425$": {
+        "name": "Hatchet inn lodging rooms",
+        "description": "You are at the top of some stairs in a small landing area. Lodging room doors are on each side around you",
+        "roomTeleport": "",
+        "conditional": [
+            ["hour","<8","You are at the top of some stairs in a small landing area. Candle light casts long shadows across the lodging room doors which are on each side around you"],
+            ["hour",">20","You are at the top of some stairs in a small landing area. Candle light casts long shadows across the lodging room doors which are on each side around you"]
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 4,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {
+            "north": "$rid=1426$",
+            "south": "$rid=1427$",
+            "east": "$rid=1428$",
+            "west": "$rid=1429$"
+        },
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+            "down": "$rid=1424$"
+        }
+    },
+    "$rid=1426$": {
+        "name": "Hatchet inn room 1",
+        "description": "You are in room 1 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "roomTeleport": "",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {
+            "south": "$rid=1425$"
+        },
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+        }
+    },
+    "$rid=1428$": {
+        "name": "Hatchet inn room 2",
+        "description": "You are in room 2 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "roomTeleport": "",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {
+            "west": "$rid=1425$"
+        },
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+        }
+    },
+    "$rid=1427$": {
+        "name": "Hatchet inn room 3",
+        "description": "You are in room 3 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "roomTeleport": "",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {
+            "north": "$rid=1425$"
+        },
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+        }
+    },
+    "$rid=1429$": {
+        "name": "Hatchet inn room 4",
+        "description": "You are in room 4 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "roomTeleport": "",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {
+            "east": "$rid=1425$"
+        },
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+        }
     }
 }
