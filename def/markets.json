@@ -1,65 +1,68 @@
 {
     "armourer|armoury|weapons store|arms store": {
-	"guild": "Armourers and Brasiers",
-	"trades": [
-	    "sword", "shield", "spear", "dagger", "halberd", "poleaxe",
-	    "flail", "mace", "spear", "quarterstaff", "pike", "trident",
-	    "shirt", "helmet", "plate", "splint", "hide armor", "gorget",
-	    "padded armor", "leather armor", "scale mail", "chainmail",
-	    "greaves"
-	]
+	      "guild": "Armourers and Brasiers",
+	      "trades": [
+	          "sword", "shield", "spear", "dagger", "halberd", "poleaxe",
+	          "flail", "mace", "spear", "quarterstaff", "pike", "trident",
+	          "shirt", "helmet", "plate", "splint", "hide armor", "gorget",
+	          "padded armor", "leather armor", "scale mail", "chainmail",
+	          "greaves"
+	      ]
     },
     "archery store": {
-	"guild": "Bowyers",
-	"trades": [
-	    "shortbow", "longbow", "crossbow", "arrows", "bolts"
-	]
+	      "guild": "Bowyers",
+	      "trades": [
+	          "shortbow", "longbow", "crossbow", "arrows", "bolts"
+	      ]
     },
     "tailor's shop|clothier": {
-	"guild": "Clothworkers",
-	"trades": [
-	    "jacket", "dress", "skirt", "gloves", "kilt", "cloak", "robe"
-	]
+	      "guild": "Clothworkers",
+	      "trades": [
+	          "jacket", "dress", "skirt", "gloves", "kilt", "cloak", "robe"
+	      ]
     },
     "shoe shop|cobbler's": {
-	"guild": "Cordwainers",
-	"trades": [
-	    "shoes", "boots"
-	]
+	      "guild": "Cordwainers",
+	      "trades": [
+	          "shoes", "boots"
+	      ]
     },
     "hatmaker": {
-	"guild": "Curriers",
-	"trades": [
-	    "red hat", "wizard hat", "witch hat", "liripipe"
-	]
+	      "guild": "Curriers",
+	      "trades": [
+	          "red hat", "wizard hat", "witch hat", "liripipe"
+	      ]
     },
     "jeweler's|jewelry": {
-	"guild": "Goldsmiths",
-	"trades": [
-	    "earring", "necklace", "red ring", "pendant", "amulet", "bracelet"
-	]
+	      "guild": "Goldsmiths",
+        "buys": [
+            "gold ingot", "bronze ingot", "silver ingot", "copper ingot"
+        ],
+	      "trades": [
+	          "earring", "necklace", "red ring", "pendant", "amulet", "bracelet"
+	      ]
     },
     "costermonger|fishmonger": {
-	"guild": "Fishmongers",
-	"trades": [
-	    "carp", "pike fish", "minnow", "tench", "trout", "chub", "cod fish", "haddock", "turbot", "sturgeon", "dogfish", "pollack", "sea bass", "mullet"
-	]
+	      "guild": "Fishmongers",
+	      "trades": [
+	          "carp", "pike fish", "minnow", "tench", "trout", "chub", "cod fish", "haddock", "turbot", "sturgeon", "dogfish", "pollack", "sea bass", "mullet"
+	      ]
     },
     "fisher|fishing": {
-	"guild": "Fishmongers",
-	"trades": [
-	    "fishing rod", "fly fishing rod"
-	]
+	      "guild": "Fishmongers",
+	      "trades": [
+	          "fishing rod", "fly fishing rod"
+	      ]
     },
     "bakery|baker's shop": {
-	"guild": "Bakers",
-	"sells": [
-	    "bread"
-	]
+	      "guild": "Bakers",
+	      "sells": [
+	          "bread"
+	      ]
     },
     "barbers": {
-	"guild": "Barbers",
-	"sells": [
-	]
+	      "guild": "Barbers",
+	      "sells": [
+	      ]
     }
 }
