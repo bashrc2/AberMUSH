@@ -14784,11 +14784,11 @@
     },
     "$rid=1430$": {
         "name": "Seadog's stairs",
-        "description": "You are on a rickety wooden stairway which leads up to the lodging rooms. The boards under your feet are creaky and worn by the boots of countless weary sailors.",
+        "description": "You are on a rickety wooden stairway which leads up to the sleeping quarters. The boards under your feet are creaky and worn by the boots of countless weary sailors.",
         "roomTeleport": "",
         "conditional": [
-            ["hour","<8","You are on a rickety wooden stairway illuminated by candles which leads up to the lodging rooms. The boards under your feet are creaky and worn by the boots of countless weary sailors."],
-            ["hour",">20","You are on a rickety wooden stairway illuminated by candles which leads up to the lodging rooms. The boards under your feet are creaky and worn by the boots of countless weary sailors."]
+            ["hour","<8","You are on a rickety wooden stairway illuminated by candles which leads up to the sleeping quarters. The boards under your feet are creaky and worn by the boots of countless weary sailors."],
+            ["hour",">20","You are on a rickety wooden stairway illuminated by candles which leads up to the sleeping quarters. The boards under your feet are creaky and worn by the boots of countless weary sailors."]
         ],
         "trap": {},
         "eventOnEnter": "",
