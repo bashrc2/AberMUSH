@@ -12630,7 +12630,8 @@
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
-            "out": "$rid=1282$"
+            "out": "$rid=1282$",
+            "up": "$rid=1430$"
         }
     },
     "$rid=1292$": {
@@ -14780,5 +14781,149 @@
         "coords": [],
         "exits": {
         }
+    },
+    "$rid=1430$": {
+        "name": "Seadog's stairs",
+        "description": "You are on a rickety wooden stairway which leads up to the lodging rooms. The boards under your feet are creaky and worn by the boots of countless weary sailors.",
+        "roomTeleport": "",
+        "conditional": [
+            ["hour","<8","You are on a rickety wooden stairway illuminated by candles which leads up to the lodging rooms. The boards under your feet are creaky and worn by the boots of countless weary sailors."],
+            ["hour",">20","You are on a rickety wooden stairway illuminated by candles which leads up to the lodging rooms. The boards under your feet are creaky and worn by the boots of countless weary sailors."]
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 1,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+            "up": "$rid=1431$",
+            "down": "$rid=1290$"
+        }
+    },
+    "$rid=1431$": {
+        "name": "Seadog's sleeping quarters",
+        "description": "On land as on water, the sleeping quarters of the Seadog inn are a single large communal room containing bunk beds and hammocks. Ropes fastened along the length of the room allow wet clothing to be dried. A snoozing Jolly Rodger flag dangles from one of the clothes lines.",
+        "roomTeleport": "",
+        "conditional": [],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 10,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": [],
+        "exits": {
+            "down": "$rid=1430$",
+            "north": "$rid=1432$",
+            "west": "$rid=1433$",
+            "south": "$rid=1434$",
+            "east": "$rid=1435$"
+        }
+    },
+    "$rid=1432$": {
+        "exits": {
+            "down": "$rid=1431$"
+        },
+        "name": "Seadog's Bunk Bed",
+        "description": "You are in a bunk bed in the sleeping quarters of the Seadog inn.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1433$": {
+        "exits": {
+            "down": "$rid=1431$"
+        },
+        "name": "Seadog's Bunk Bed",
+        "description": "You are in a bunk bed in the sleeping quarters of the Seadog inn.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1434$": {
+        "exits": {
+            "down": "$rid=1431$"
+        },
+        "name": "Seadog's Hammock",
+        "description": "You are in a hammock in the sleeping quarters of the Seadog inn.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1435$": {
+        "exits": {
+            "down": "$rid=1431$"
+        },
+        "name": "Seadog's Hammock",
+        "description": "You are in a hammock in the sleeping quarters of the Seadog inn.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }
