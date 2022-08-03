@@ -14691,7 +14691,7 @@
     },
     "$rid=1426$": {
         "name": "Hatchet inn room 1",
-        "description": "You are in room 1 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "description": "You are in room 1 of the Hatchet inn. It is small with wooden floor boards and minimal furnishing. Enough for a weary traveller's overnight stay. Overhead are large oak roof beams.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
