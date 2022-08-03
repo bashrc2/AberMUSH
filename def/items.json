@@ -56645,8 +56645,8 @@
     },
     "1536": {
         "name": "small stool",
-        "short_description": "A low, three legged wooden stool.",
-        "long_description": "A low, three legged wooden stool.",
+        "short_description": "A low, four legged wooden stool.",
+        "long_description": "A low, four legged wooden stool.",
         "hidden": 0,
         "conditional": [
             ["behind","true","You don't see anything behind the stool"],
