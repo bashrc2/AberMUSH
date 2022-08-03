@@ -14691,7 +14691,7 @@
     },
     "$rid=1426$": {
         "name": "Hatchet inn room 1",
-        "description": "You are in room 1 of the Hatchet inn. It is small with wooden floor boards and minimal furnishing. Enough for a weary traveller's overnight stay. Overhead are large oak roof beams.",
+        "description": "You are in lodging room 1 of the Hatchet inn. It is small with wooden floor boards and minimal furnishing. Enough for a weary traveller's overnight stay. Overhead are large oak roof beams.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -14714,7 +14714,7 @@
     },
     "$rid=1428$": {
         "name": "Hatchet inn room 2",
-        "description": "You are in room 2 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "description": "You are in lodging room 2 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -14737,7 +14737,7 @@
     },
     "$rid=1427$": {
         "name": "Hatchet inn room 3",
-        "description": "You are in room 3 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "description": "You are in lodging room 3 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -14760,7 +14760,7 @@
     },
     "$rid=1429$": {
         "name": "Hatchet inn room 4",
-        "description": "You are in room 4 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
+        "description": "You are in lodging room 4 of the Hatchet inn. It is small and basic, but with just enough space for an adventurer to sleep and stash some loot.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
