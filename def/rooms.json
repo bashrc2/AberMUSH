@@ -14810,7 +14810,7 @@
     },
     "$rid=1431$": {
         "name": "Seadog's sleeping quarters",
-        "description": "On land as on water, the sleeping quarters of the Seadog inn are a single large communal room containing bunk beds and hammocks. Ropes fastened along the length of the room allow wet clothing to be dried. A snoozing Jolly Rodger flag dangles from one of the clothes lines.",
+        "description": "On land as on water, the sleeping quarters of the Seadog Inn are a single large communal room containing bunk beds and hammocks. Ropes fastened along the length of the room allow wet clothing to be dried. A snoozing Jolly Rodger flag dangles from one of the clothes lines.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -14839,7 +14839,7 @@
             "down": "$rid=1431$"
         },
         "name": "Seadog's Bunk Bed",
-        "description": "You are in a bunk bed in the sleeping quarters of the Seadog inn.",
+        "description": "You are in a bunk bed in the sleeping quarters of the Seadog Inn.",
         "roomTeleport": "",
         "conditional": [
         ],
@@ -14862,7 +14862,7 @@
             "down": "$rid=1431$"
         },
         "name": "Seadog's Bunk Bed",
-        "description": "You are in a bunk bed in the sleeping quarters of the Seadog inn.",
+        "description": "You are in a bunk bed in the sleeping quarters of the Seadog Inn.",
         "roomTeleport": "",
         "conditional": [
         ],
@@ -14885,7 +14885,7 @@
             "down": "$rid=1431$"
         },
         "name": "Seadog's Hammock",
-        "description": "You are in a hammock in the sleeping quarters of the Seadog inn.",
+        "description": "You are in a hammock in the sleeping quarters of the Seadog Inn.",
         "roomTeleport": "",
         "conditional": [
         ],
@@ -14908,7 +14908,7 @@
             "down": "$rid=1431$"
         },
         "name": "Seadog's Hammock",
-        "description": "You are in a hammock in the sleeping quarters of the Seadog inn.",
+        "description": "You are in a hammock in the sleeping quarters of the Seadog Inn.",
         "roomTeleport": "",
         "conditional": [
         ],
