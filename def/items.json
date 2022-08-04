@@ -57456,8 +57456,8 @@
     },
     "1545": {
         "name": "nautical chart",
-        "short_description": "There is a nautical chart on the wall, showing the coastline of Tranoch with various dotted sailing routes leading out from docks to places which are beyond the edge of the map.",
-        "long_description": "There is a nautical chart on the wall, showing the coastline of Tranoch with various dotted sailing routes leading out from docks to places which are beyond the edge of the map.",
+        "short_description": "There is a nautical chart on the wall, showing the coastline of Tranoch with various dotted sailing routes leading out eastwards from the docks to places which are beyond the edge of the map.",
+        "long_description": "There is a nautical chart on the wall, showing the coastline of Tranoch with various dotted sailing routes leading out eastwards from the docks to places which are beyond the edge of the map.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "It's fixed to the wall.",
