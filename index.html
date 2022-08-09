@@ -4,150 +4,150 @@
 <meta  name="description" content="Multi User Dungeon based upon AberMUD" />
 <meta  name="keywords" content="MUD, MUSH, Game, AberMUD, Multi User Dungeon, fantasy, ANSI graphics, RPG, Role Playing Game, Python, GPL, Aberystwyth, Wales" />
 <style>
-  @charset "UTF-8";
-  :root {
-      --main-background-color: black;
-      --title-text-color: lightgrey;
-      --main-text-color: white;
-      --chess-text-color: white;
-      --inputbox-color: #111;
-      --button-text-color: yellow;
-      --main-font-size: 20px;
-      --chess-font-size: 30px;
-      --input-font-size: 28px;
-      --title-font-size: 40px;
-      --button-font-size: 30px;
-      --image-font-size: 1vw;
-      --text-padding: 32px;
-  }
-  @font-face {
-      font-family: 'Catwalzhari';
-      font-style: normal;
-      font-weight: normal;
-      font-display: block;
-      src: url('./fonts/Catwalzhari.ttf') format('truetype');
-  }
-  @font-face {
-      font-family: 'Octavius';
-      font-style: normal;
-      font-weight: normal;
-      font-display: block;
-      src: url('./fonts/Octavius.woff2') format('woff2');
-  }
-  body, html {
-      font-family: 'Octavius';
-      font-size: var(--main-font-size);
-      background-color: var(--main-background-color);
-      color: var(--main-text-color);
-  }
-  blockquote {
-      color: orange;
-  }
-  #roomtitle {
-      font-family: 'Catwalzhari';
-      font-size: var(--title-font-size);
-      color: var(--title-text-color);
-      float: left;
-  }
-  #roomimage {
-      font-family: monospace;
-      font-size: var(--image-font-size);
-  }
-  #roomdescription {
-      font-family: 'Octavius';
-      font-size: var(--main-font-size);
-      padding: var(--text-padding) var(--text-padding);
-      color: var(--main-text-color);
-      line-height: 200%;
-  }
-  #initialText {
-      font-family: 'Octavius';
-      font-size: var(--main-font-size);
-      padding: var(--text-padding) var(--text-padding);
-      color: var(--main-text-color);
-      line-height: 200%;
-  }
-  textarea {
-      font-family: 'Octavius';
-      font-size: var(--input-font-size);
-      width: 92%;
-      background-color: var(--inputbox-color);
-      color: var(--main-text-color);
-      padding: 16px 16px;
-      border: 0;
-      margin-left: 3%;
-  }
-  input[type=button] {
-      font-family: 'Catwalzhari';
-      font-size: var(--button-font-size);
-      background-color: var(--inputbox-color);
-      color: var(--button-text-color);
-      float: right;
-      margin: 3% 3%;
-  }
-  #maintable {
-      width: 100%;
-      background-color: var(--main-background-color);
-  }
-  #cards img {
-      width: 90%;
-  }
-  #chess {
-      width: 80%;
-      padding: 0;
-      border: 0;
-      cellspacing: 0;
-      cellpadding: 0;
-  }
-  #chess img {
-      width: 100%;
-  }
-  .textentrycol {
-      width: 50%;
-  }
-  .parent {
-      position: relative;
-      top: 0;
-      left: 0;
-      padding: 0 0;
-      margin: 0 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-  }
-  table,
-  td,
-  th {
-      border-color: transparent;
-      padding: 0;
-      cellspacing: 0;
-      cellpadding: 0;
-  }
-  td img {vertical-align: bottom;}
-  .coord {
-      font-family: 'Octavius';
-      font-size: var(--chess-font-size);
-      color: var(--chess-text-color);
-      text-align: center;
-      padding: 20px 20px;
-  }
-  .board {
-      position: relative;
-      top: 0;
-      left: 0;
-  }
-  .boardpiece {
-      position: absolute;
-      top: 0%;
-      left: 0%;
-  }
-  .morrisboard {
-      position: relative;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-  }
+ @charset "UTF-8";
+ :root {
+     --main-background-color: black;
+     --title-text-color: lightgrey;
+     --main-text-color: white;
+     --chess-text-color: white;
+     --inputbox-color: #111;
+     --button-text-color: yellow;
+     --main-font-size: 20px;
+     --chess-font-size: 30px;
+     --input-font-size: 28px;
+     --title-font-size: 40px;
+     --button-font-size: 30px;
+     --image-font-size: 1vw;
+     --text-padding: 32px;
+ }
+ @font-face {
+     font-family: 'Catwalzhari';
+     font-style: normal;
+     font-weight: normal;
+     font-display: block;
+     src: url('./fonts/Catwalzhari.ttf') format('truetype');
+ }
+ @font-face {
+     font-family: 'Octavius';
+     font-style: normal;
+     font-weight: normal;
+     font-display: block;
+     src: url('./fonts/Octavius.woff2') format('woff2');
+ }
+ body, html {
+     font-family: 'Octavius';
+     font-size: var(--main-font-size);
+     background-color: var(--main-background-color);
+     color: var(--main-text-color);
+ }
+ blockquote {
+     color: orange;
+ }
+ #roomtitle {
+     font-family: 'Catwalzhari';
+     font-size: var(--title-font-size);
+     color: var(--title-text-color);
+     float: left;
+ }
+ #roomimage {
+     font-family: monospace;
+     font-size: var(--image-font-size);
+ }
+ #roomdescription {
+     font-family: 'Octavius';
+     font-size: var(--main-font-size);
+     padding: var(--text-padding) var(--text-padding);
+     color: var(--main-text-color);
+     line-height: 200%;
+ }
+ #initialText {
+     font-family: 'Octavius';
+     font-size: var(--main-font-size);
+     padding: var(--text-padding) var(--text-padding);
+     color: var(--main-text-color);
+     line-height: 200%;
+ }
+ textarea {
+     font-family: 'Octavius';
+     font-size: var(--input-font-size);
+     width: 92%;
+     background-color: var(--inputbox-color);
+     color: var(--main-text-color);
+     padding: 16px 16px;
+     border: 0;
+     margin-left: 3%;
+ }
+ input[type=button] {
+     font-family: 'Catwalzhari';
+     font-size: var(--button-font-size);
+     background-color: var(--inputbox-color);
+     color: var(--button-text-color);
+     float: right;
+     margin: 3% 3%;
+ }
+ #maintable {
+     width: 100%;
+     background-color: var(--main-background-color);
+ }
+ #cards img {
+     width: 90%;
+ }
+ #chess {
+     width: 80%;
+     padding: 0;
+     border: 0;
+     cellspacing: 0;
+     cellpadding: 0;
+ }
+ #chess img {
+     width: 100%;
+ }
+ .textentrycol {
+     width: 50%;
+ }
+ .parent {
+     position: relative;
+     top: 0;
+     left: 0;
+     padding: 0 0;
+     margin: 0 0;
+     width: 100%;
+     height: 100%;
+     display: block;
+ }
+ table,
+ td,
+ th {
+     border-color: transparent;
+     padding: 0;
+     cellspacing: 0;
+     cellpadding: 0;
+ }
+ td img {vertical-align: bottom;}
+ .coord {
+     font-family: 'Octavius';
+     font-size: var(--chess-font-size);
+     color: var(--chess-text-color);
+     text-align: center;
+     padding: 20px 20px;
+ }
+ .board {
+     position: relative;
+     top: 0;
+     left: 0;
+ }
+ .boardpiece {
+     position: absolute;
+     top: 0%;
+     left: 0%;
+ }
+ .morrisboard {
+     position: relative;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+ }
 </style>
 
 <title>AberMUSH</title>
@@ -155,255 +155,255 @@
 <script src="ansi_up.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 
-  var ansi_up = new AnsiUp;
+ var ansi_up = new AnsiUp;
 
-  function initial_layout()
-  {
-      document.myform.inputtext.value = ""
+ function initial_layout()
+ {
+     document.myform.inputtext.value = ""
 
-      // buttons not initially visible
-      document.myform.connectButton.style.visibility = "visible";
-      document.myform.connectButton.disabled = false;
-      document.myform.disconnectButton.style.visibility = "hidden";
-      document.myform.disconnectButton.disabled = true;
-      document.myform.clearButton.style.visibility = "hidden";
+     // buttons not initially visible
+     document.myform.connectButton.style.visibility = "visible";
+     document.myform.connectButton.disabled = false;
+     document.myform.disconnectButton.style.visibility = "hidden";
+     document.myform.disconnectButton.disabled = true;
+     document.myform.clearButton.style.visibility = "hidden";
 
-      // hide input box
-      document.myform.inputtext.style.visibility = "hidden";
+     // hide input box
+     document.myform.inputtext.style.visibility = "hidden";
 
-      var inputbox = document.getElementById("inputtext");
-      inputbox.focus();
-  }
+     var inputbox = document.getElementById("inputtext");
+     inputbox.focus();
+ }
 
-  function init()
-  {
-      initial_layout();
+ function init()
+ {
+     initial_layout();
 
-      var inputbox = document.getElementById("inputtext");
-      inputbox.addEventListener("keydown", function (e) {
-	  if (e.keyCode === 13) {  // "Enter"
-	      doSend( document.myform.inputtext.value );
-	  }
-      });
-  }
+     var inputbox = document.getElementById("inputtext");
+     inputbox.addEventListener("keydown", function (e) {
+         if (e.keyCode === 13) {  // "Enter"
+             doSend( document.myform.inputtext.value );
+         }
+     });
+ }
 
-  function doConnect()
-  {
-      var cdiv = document.getElementById("roomdescription");
-      cdiv.innerHTML = "";
-      var cdiv = document.getElementById("roomimage");
-      cdiv.innerHTML = "";
-      var cdiv = document.getElementById("roomtitle");
-      cdiv.innerHTML = "";
-      websocket = new WebSocket("ws://localhost:6221/");
-      websocket.onopen = function(evt) { onOpen(evt) };
-      websocket.onclose = function(evt) { onClose(evt) };
-      websocket.onmessage = function(evt) { onMessage(evt) };
-      websocket.onerror = function(evt) { onError(evt) };
+ function doConnect()
+ {
+     var cdiv = document.getElementById("roomdescription");
+     cdiv.innerHTML = "";
+     var cdiv = document.getElementById("roomimage");
+     cdiv.innerHTML = "";
+     var cdiv = document.getElementById("roomtitle");
+     cdiv.innerHTML = "";
+     websocket = new WebSocket("ws://localhost:6221/");
+     websocket.onopen = function(evt) { onOpen(evt) };
+     websocket.onclose = function(evt) { onClose(evt) };
+     websocket.onmessage = function(evt) { onMessage(evt) };
+     websocket.onerror = function(evt) { onError(evt) };
 
-      // make buttons visible
-      document.myform.connectButton.style.visibility = "hidden";
-      document.myform.disconnectButton.style.visibility = "visible";
-      document.myform.clearButton.style.visibility = "visible";
+     // make buttons visible
+     document.myform.connectButton.style.visibility = "hidden";
+     document.myform.disconnectButton.style.visibility = "visible";
+     document.myform.clearButton.style.visibility = "visible";
 
-      // make input box visible
-      document.myform.inputtext.style.visibility = "visible";
+     // make input box visible
+     document.myform.inputtext.style.visibility = "visible";
 
-      document.getElementById("inputtext").focus();
-  }
+     document.getElementById("inputtext").focus();
+ }
 
-  function onOpen(evt)
-  {
-      writeToScreen("connected");
-      document.myform.connectButton.disabled = true;
-      document.myform.disconnectButton.disabled = false;
-  }
+ function onOpen(evt)
+ {
+     writeToScreen("connected");
+     document.myform.connectButton.disabled = true;
+     document.myform.disconnectButton.disabled = false;
+ }
 
-  function onClose(evt)
-  {
-      writeToScreen("disconnected");
-      initial_layout();
-  }
+ function onClose(evt)
+ {
+     writeToScreen("disconnected");
+     initial_layout();
+ }
 
-  function onMessage(evt)
-  {
-      writeToScreen(evt.data);
-  }
+ function onMessage(evt)
+ {
+     writeToScreen(evt.data);
+ }
 
-  function onError(evt)
-  {
-      writeToScreen("error: " + evt.data);
+ function onError(evt)
+ {
+     writeToScreen("error: " + evt.data);
 
-      websocket.close();
+     websocket.close();
 
-      document.myform.connectButton.disabled = false;
-      document.myform.disconnectButton.disabled = true;
+     document.myform.connectButton.disabled = false;
+     document.myform.disconnectButton.disabled = true;
 
-  }
+ }
 
-  function doSend(message)
-  {
-      writeToScreen(message);
-      websocket.send(message);
-      document.myform.inputtext.value = "";
-      document.getElementById("inputtext").focus();
-  }
+ function doSend(message)
+ {
+     writeToScreen(message);
+     websocket.send(message);
+     document.myform.inputtext.value = "";
+     document.getElementById("inputtext").focus();
+ }
 
-  function writeToScreen(message)
-  {
-      // ignore silent messages which are used to check
-      // that the client is still active
-      if (message == "\x00") return;
+ function writeToScreen(message)
+ {
+     // ignore silent messages which are used to check
+     // that the client is still active
+     if (message == "\x00") return;
 
-      var clearRoomText = false;
-      destination = "roomdescription";
-      if (message.includes("****TITLE****")) {
-	  clearAll()
-	  destination = "roomtitle";
-	  message = message.replace("****TITLE****", "");
-	  message = message.replace("You arrive at ", "");
-	  message = message.replace("You row to ", "");
-      }
-      if (message.includes("****DISCONNECT****")) {
-	  message = message.replace("****DISCONNECT****", "");
-	  initial_layout();
-      }
-      if (message.includes("****CLEAR****")) {
-	  message = message.replace("****CLEAR****", "");
-	  clearRoomText = true;
-	  var cdiv = document.getElementById(destination);
-	  cdiv.innerHTML = "";
-      }
-      if (message.includes("****IMAGE****")) {
-	  destination = "roomimage";
-	  message = message.replace("****IMAGE****", "");
-	  clearRoomText = true;
-	  var cdiv = document.getElementById("roomdescription");
-	  cdiv.innerHTML = "";
-      }
-      var cdiv = document.getElementById(destination);
-      if (destination == "roomtitle" || destination == "roomimage") {
-	  cdiv.innerHTML = "";
-      }
+     var clearRoomText = false;
+     destination = "roomdescription";
+     if (message.includes("****TITLE****")) {
+         clearAll()
+         destination = "roomtitle";
+         message = message.replace("****TITLE****", "");
+         message = message.replace("You arrive at ", "");
+         message = message.replace("You row to ", "");
+     }
+     if (message.includes("****DISCONNECT****")) {
+         message = message.replace("****DISCONNECT****", "");
+         initial_layout();
+     }
+     if (message.includes("****CLEAR****")) {
+         message = message.replace("****CLEAR****", "");
+         clearRoomText = true;
+         var cdiv = document.getElementById(destination);
+         cdiv.innerHTML = "";
+     }
+     if (message.includes("****IMAGE****")) {
+         destination = "roomimage";
+         message = message.replace("****IMAGE****", "");
+         clearRoomText = true;
+         var cdiv = document.getElementById("roomdescription");
+         cdiv.innerHTML = "";
+     }
+     var cdiv = document.getElementById(destination);
+     if (destination == "roomtitle" || destination == "roomimage") {
+         cdiv.innerHTML = "";
+     }
 
-      if (destination != "roomtitle") {
-	  if (message.includes('<img class=')) {
-	      // playing card or chess images
-	      msgStr = message;
-	  }
-	  else {	      
-	      // split the message into lines
-	      var lines = message.split('\n');
-	      msgStr = "";
-	      var maxLines = lines.length;
-	      if (destination == "roomimage") {
-		  if (maxLines > 40) maxLines = 40;
-	      }
-	      for (var i = 0; i < maxLines; i++) {
-		  msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
-	      }
-	  }
-      }
-      else {
-	  msgStr = ansi_up.ansi_to_html(message.replace('\n', ''));
-      }
+     if (destination != "roomtitle") {
+         if (message.includes('<img class=')) {
+             // playing card or chess images
+             msgStr = message;
+         }
+         else {
+             // split the message into lines
+             var lines = message.split('\n');
+             msgStr = "";
+             var maxLines = lines.length;
+             if (destination == "roomimage") {
+                 if (maxLines > 40) maxLines = 40;
+             }
+             for (var i = 0; i < maxLines; i++) {
+                 msgStr += ansi_up.ansi_to_html(lines[i]) + "<br>";
+             }
+         }
+     }
+     else {
+         msgStr = ansi_up.ansi_to_html(message.replace('\n', ''));
+     }
 
-      if (destination == "roomdescription") {
-	  while (msgStr.includes("<br><br><br>")) {
-	      msgStr = msgStr.replace("<br><br><br>", "<br><br>");
-	  }
-      }
+     if (destination == "roomdescription") {
+         while (msgStr.includes("<br><br><br>")) {
+             msgStr = msgStr.replace("<br><br><br>", "<br><br>");
+         }
+     }
 
-      cdiv.innerHTML += msgStr;
+     cdiv.innerHTML += msgStr;
 
-      document.getElementById("inputtext").focus();
-      window.scrollTo(0,document.body.scrollHeight);
-  }
+     document.getElementById("inputtext").focus();
+     window.scrollTo(0,document.body.scrollHeight);
+ }
 
-  window.addEventListener("load", init, false);
+ window.addEventListener("load", init, false);
 
-  if(typeof(String.prototype.trim) === "undefined")
-  {
-      String.prototype.trim = function()
-      {
-          return String(this).replace(/^\s+|\s+$/g, '');
-      };
-  }
+ if(typeof(String.prototype.trim) === "undefined")
+ {
+     String.prototype.trim = function()
+     {
+         return String(this).replace(/^\s+|\s+$/g, '');
+     };
+ }
 
-  function clearAll() {
-      var cdiv = document.getElementById("roomdescription");
-      cdiv.innerHTML = "";
-      var cdiv = document.getElementById("roomimage");
-      cdiv.innerHTML = "";
-      var cdiv = document.getElementById("roomtitle");
-      cdiv.innerHTML = "";
-  }
+ function clearAll() {
+     var cdiv = document.getElementById("roomdescription");
+     cdiv.innerHTML = "";
+     var cdiv = document.getElementById("roomimage");
+     cdiv.innerHTML = "";
+     var cdiv = document.getElementById("roomtitle");
+     cdiv.innerHTML = "";
+ }
 
-  function clearText() {
-      var cdiv = document.getElementById("roomdescription");
-      cdiv.innerHTML = "";
-  }
+ function clearText() {
+     var cdiv = document.getElementById("roomdescription");
+     cdiv.innerHTML = "";
+ }
 
-  function doDisconnect() {
-      websocket.close();
-      initial_layout();
-  }
+ function doDisconnect() {
+     websocket.close();
+     initial_layout();
+ }
 
-  </script>
+</script>
 
 <div id="output"></div>
 
 <form name="myform">
-  <table id="maintable">
-    <tr>
-      <td class="textentrycol">
-	<table id="texttable">
-	  <tr>
-	    <td>
-	      <div id="roomtitle" name="roomtitle" contenteditable="true">
-		A B E R M U S H
-	      </div>
-	      <br>
-	      <input type="button" name="connectButton" value="Connect" onClick="doConnect();">	      
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>
-	      <div id="roomdescription" name="roomdescription" contenteditable="true">
-		<blockquote>"It is said that the First Age of the world was the age of dwarves and dragons, when the black sword was forged, the Second Age was the age of war, where magicians and warriors fought for power. The Third Age will be the age of power for the magic is strong again."</blockquote>
-		<center><img src="index.jpg" style="width:100%" /></center>
-		<p>AberMUSH is a text based role playing game with UTF-8 ANSI graphics, set in the AberMUD 5 universe. Explore, battle and adventure in a fantasy version of medieval Wales. Experience DnD style combat, gambling disputes, excessive ale consumption and puzzling mysteries in the once magnificent but now fallen city of Tranoch, with dynamic scenery, tides, wildlife and weather effects.</p>
-		<p>There are additional games within the MUSH, such as cards and chess.</p>
-		<p>Source code: https://gitlab.com/bashrc2/AberMUSH</p>
-	      </div>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>
-	      <textarea name="inputtext" id="inputtext" autofocus></textarea>
-	      <br>
-	      <input type="button" name="clearButton" value="Clear" onClick="clearText();">
-	      <input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
-	    </td>
-	  </tr>
-	</table>
-      </td>
-      <td class="textentrycol">
-	<div id="roomimage" name="roomimage" contenteditable="true">
-          <div id="initialText" name="initialText">
-            <p>Somewhere in the forgotten past of Wales there was a wizard named Anarchy. The wizard ruled the realm anarchically - as anarcho-wizards have a tendency to. But when the dwarven miners of the northern mountains broke through into the underworld they inadvertently released an arcane demon who had been shackled there since the First Age of the world. The demon laid waste to the land, reanimating its minions to sieze the mighty city of Tranoch.</p>
-            <p>The wizards and witches were once rival druidic sects of the Second Age. But now they must form a new alliance to banish the demon and restore the embattled city to its former glory.</p>
-          </div>
+    <table id="maintable">
+        <tr>
+            <td class="textentrycol">
+                <table id="texttable">
+                    <tr>
+                        <td>
+                            <div id="roomtitle" name="roomtitle" contenteditable="true">
+                                A B E R M U S H
+                            </div>
+                            <br>
+                            <input type="button" name="connectButton" value="Connect" onClick="doConnect();">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="roomdescription" name="roomdescription" contenteditable="true">
+                                <blockquote>"It is said that the First Age of the world was the age of dwarves and dragons, when the black sword was forged, the Second Age was the age of war, where magicians and warriors fought for power. The Third Age will be the age of power for the magic is strong again."</blockquote>
+                                <center><img src="index.jpg" style="width:100%" /></center>
+                                <p>AberMUSH is a text based role playing game with UTF-8 ANSI graphics, set in the AberMUD 5 universe. Explore, battle and adventure in a fantasy version of medieval Wales. Experience DnD style combat, gambling disputes, excessive ale consumption and puzzling mysteries in the once magnificent but now fallen city of Tranoch, with dynamic scenery, tides, wildlife and weather effects.</p>
+                                <p>There are additional games within the MUSH, such as cards and chess.</p>
+                                <p>Source code: https://gitlab.com/bashrc2/AberMUSH</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea name="inputtext" id="inputtext" autofocus></textarea>
+                            <br>
+                            <input type="button" name="clearButton" value="Clear" onClick="clearText();">
+                            <input type="button" name="disconnectButton" value="Disconnect" onClick="doDisconnect();">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="textentrycol">
+                <div id="roomimage" name="roomimage" contenteditable="true">
+                    <div id="initialText" name="initialText">
+                        <p>Somewhere in the forgotten past of Wales there was a wizard named Anarchy. The wizard ruled the realm anarchically - as anarcho-wizards have a tendency to. But when the dwarven miners of the northern mountains broke through into the underworld they inadvertently released an arcane demon who had been shackled there since the First Age of the world. The demon laid waste to the land, reanimating its minions to sieze the mighty city of Tranoch.</p>
+                        <p>The wizards and witches were once rival druidic sects of the Second Age. But now they must form a new alliance to banish the demon and restore the embattled city to its former glory.</p>
+                    </div>
 
-	  <center><img src="index2.jpg" style="width:70%" /></center>
-	</div>
-      </td>
-    </tr>
-  </table>
+                    <center><img src="index2.jpg" style="width:70%" /></center>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </form>
 </html>
