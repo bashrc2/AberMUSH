@@ -12262,7 +12262,7 @@
     },
     "$rid=1247$": {
         "name": "The Sandy Beach",
-        "description": "You are on a short section of gently shelving beach. To the north the beach swings around following the edge of a river mouth. To the south it gives way to jagged, slippery rocks. Gazing west, you can look up the hill, past the village to the mighty snowcapped mountains beyond.",
+        "description": "You are on a short section of gently shelving beach. To the north the beach swings around following the edge of a river mouth. To the south it gives way to jagged, slippery rocks. Gazing west, you can look up the hill, past the village to the mighty snow-capped mountains beyond.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -12274,7 +12274,7 @@
         "onWater": 0,
         "roomType": "",
         "virtualExits": {},
-        "tideOutDescription" : "You are on a short section of gently shelving beach with the tide out. To the north the beach swings around following the edge of a river mouth. To the south it gives way to jagged, slippery rocks. Gazing west, you can look up the hill, past the village to the mighty snowcapped mountains beyond.",
+        "tideOutDescription" : "You are on a short section of gently shelving beach with the tide out. To the north the beach swings around following the edge of a river mouth. To the south it gives way to jagged, slippery rocks. Gazing west, you can look up the hill, past the village to the mighty snow-capped mountains beyond.",
         "region": "",
         "terrainDifficulty": 0,
         "coords": [],
