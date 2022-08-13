@@ -7236,11 +7236,16 @@ def _put_item(params, mud, players_db: {}, players: {}, rooms: {},
 
     target = []
     inon = ' in '
+    has_my = False
     if ' in ' in params:
         target = params.split(' in ')
+        if target[1].startswith('my '):
+            has_my = True
     else:
         if ' into ' in params:
             target = params.split(' into ')
+            if target[1].startswith('my '):
+                has_my = True
         else:
             if ' onto ' in params:
                 target = params.split(' onto ')
@@ -7252,6 +7257,17 @@ def _put_item(params, mud, players_db: {}, players: {}, rooms: {},
                 else:
                     inon = ' within '
                     target = params.split(' within ')
+
+    if has_my:
+        # "slide X into my pocket"
+        _take(target[0], mud, players_db, players, rooms,
+              npcs_db, npcs, items_db, items,
+              env_db, env, eventDB, event_schedule,
+              id, fights, corpses, blocklist,
+              map_area, character_class_db, spells_db,
+              sentiment_db, guilds_db, clouds, races_db,
+              item_history, markets, cultures_db)
+        return
 
     if len(target) != 2:
         return
@@ -7650,6 +7666,8 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "take": _take,
         "get": _take,
         "put": _put_item,
+        "slip": _put_item,
+        "slide": _put_item,
         "give": _item_give,
         "gift": _item_give,
         "drop": _drop,
