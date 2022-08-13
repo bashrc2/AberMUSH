@@ -428,7 +428,8 @@ def _test_functions() -> None:
         'serveforever',
         'do_GET',
         'do_POST',
-        'do_HEAD'
+        'do_HEAD',
+        '_begin_throw_attack'
     ]
     exclude_imports = [
         'link',
