@@ -4084,6 +4084,18 @@ def _wield(params, mud, players_db: {}, players: {}, rooms: {},
                 players[id]['frozenDescription']) + '\n\n')
         return
 
+    if params.startswith('up '):
+        # "pick up X"
+        params = params.split('up ', 1)[1]
+        _take(params, mud, players_db, players, rooms,
+              npcs_db, npcs, items_db, items,
+              env_db, env, eventDB, event_schedule,
+              id, fights, corpses, blocklist,
+              map_area, character_class_db, spells_db,
+              sentiment_db, guilds_db, clouds, races_db,
+              item_history, markets, cultures_db)
+        return
+
     if len(params) < 1:
         mud.send_message(id, 'Specify an item from your inventory.\n\n')
         return
@@ -7665,6 +7677,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "shoot": _begin_attack,
         "take": _take,
         "get": _take,
+        "grab": _take,
         "put": _put_item,
         "slip": _put_item,
         "slide": _put_item,
