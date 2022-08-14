@@ -4241,6 +4241,31 @@ def _stow(params, mud, players_db: {}, players: {}, rooms: {},
         del players[id]['isFishing']
 
 
+def _punch(params, mud, players_db: {}, players: {}, rooms: {},
+           npcs_db: {}, npcs: {}, items_db: {}, items: {},
+           env_db: {}, env: {}, eventDB: {}, event_schedule,
+           id, fights: {}, corpses: {}, blocklist,
+           map_area: [], character_class_db: {}, spells_db: {},
+           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+           item_history: {}, markets: {}, cultures_db: {}):
+    # stow any held weapons
+    _stow(params, mud, players_db, players, rooms,
+          npcs_db, npcs, items_db, items,
+          env_db, env, eventDB, event_schedule,
+          id, fights, corpses, blocklist,
+          map_area, character_class_db, spells_db,
+          sentiment_db, guilds_db, clouds, races_db,
+          item_history, markets, cultures_db)
+    # attack with no held weapons
+    _begin_attack(params, mud, players_db, players, rooms,
+                  npcs_db, npcs, items_db, items,
+                  env_db, env, eventDB, event_schedule,
+                  id, fights, corpses, blocklist,
+                  map_area, character_class_db, spells_db,
+                  sentiment_db, guilds_db, clouds, races_db,
+                  item_history, markets, cultures_db)
+
+
 def _wear_clothing(item_id, players: {}, id, clothing_type,
                    mud, items_db: {}) -> bool:
     clothing_param = 'clo_' + clothing_type
@@ -7675,6 +7700,13 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "hurl": _begin_throw_attack,
         "attack": _begin_attack,
         "shoot": _begin_attack,
+        "wallop": _begin_attack,
+        "thump": _punch,
+        "slug": _punch,
+        "biff": _punch,
+        "clout": _punch,
+        "punch": _punch,
+        "whack": _punch,
         "take": _take,
         "collect": _take,
         "obtain": _take,

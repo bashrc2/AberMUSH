@@ -429,7 +429,8 @@ def _test_functions() -> None:
         'do_GET',
         'do_POST',
         'do_HEAD',
-        '_begin_throw_attack'
+        '_begin_throw_attack',
+        '_punch'
     ]
     exclude_imports = [
         'link',
