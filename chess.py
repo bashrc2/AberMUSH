@@ -41,7 +41,7 @@ def show_chess_board(board_name: str, game_state: [],
         _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
     mud.send_message(id, '<r>\n')
-    board_square = '<f255><f15>·'
+    board_square = '<f255><f15>░'
     board_square_empty = '<r><f255> '
     board_str = ''
     i = 0
