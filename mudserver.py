@@ -432,7 +432,7 @@ class MudServer(object):
             if clid.client_type == self._CLIENT_TELNET:
                 time.sleep(1)
 
-    def send_game_board(self, to_id, message) -> None:
+    def send_game_board(self, to_id, message: str) -> None:
         """Sends the ANSI game board in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -449,7 +449,8 @@ class MudServer(object):
                 for line_str in message_lines:
                     msg_str = line_str + '\n'
                     if clid.client_type == self._CLIENT_TELNET:
-                        clid.socket.sendall(bytearray(msg_str, 'utf-8'))
+#                        clid.socket.sendall(bytearray(msg_str, 'utf-8'))
+                        clid.socket.send_message(cmsg(msg_str))
                     elif clid.client_type == self._CLIENT_WEBSOCKET:
                         clid.socket.send_message(msg_str)
                     time.sleep(0.03)

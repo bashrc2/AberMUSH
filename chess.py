@@ -8,7 +8,6 @@ __status__ = "Production"
 __module_group__ = "Tabletop Games"
 
 import re
-from cmsg import cmsg
 
 initial = [
     'rnbqkbnr',
@@ -42,8 +41,8 @@ def show_chess_board(board_name: str, game_state: [],
         _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
     mud.send_message(id, '<r>\n')
-    board_square = cmsg('<f255><f15>') + '·'
-    board_square_empty = cmsg('<r><f255>') + ' '
+    board_square = '<f255><f15>·'
+    board_square_empty = '<r><f255> '
     board_str = ''
     i = 0
     if turn == 'white':
@@ -61,7 +60,7 @@ def show_chess_board(board_name: str, game_state: [],
                 x_coord += 1
             board_str += board_row_str + '\n'
             i += 1
-        board_str += cmsg('<r>') + '\n   a b c d e f g h \n\n'
+        board_str += '<r>\n   a b c d e f g h \n\n'
     else:
         for row in game_state:
             board_row_str = ''
@@ -78,7 +77,7 @@ def show_chess_board(board_name: str, game_state: [],
             board_str = \
                 ' ' + str(8 - i) + ' ' + board_row_str + '\n' + board_str
             i += 1
-        board_str += cmsg('<r>') + '\n   h g f e d c b a \n\n'
+        board_str += '<r>\n   h g f e d c b a \n\n'
     mud.send_game_board(id, board_str)
 
 
