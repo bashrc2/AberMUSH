@@ -42,7 +42,8 @@ def show_chess_board(board_name: str, game_state: [],
         _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
     mud.send_message(id, '<r>\n')
-    board_square = cmsg('<f15>') + ' '
+    board_square = cmsg('<f255><f15>') + ' '
+    board_square_empty = cmsg('<r><f255>') + ' '
     board_str = ''
     i = 0
     if turn == 'white':
@@ -51,7 +52,7 @@ def show_chess_board(board_name: str, game_state: [],
             x_coord = 0
             for pic in row:
                 piece_str = uni_pieces[pic]
-                square_str = cmsg('<r>') + ' '
+                square_str = board_square_empty
                 if (x_coord + (i % 2)) % 2 == 0:
                     square_str = board_square
                 if pic == '.':
@@ -67,7 +68,7 @@ def show_chess_board(board_name: str, game_state: [],
             x_coord = 0
             for pic in row:
                 piece_str = uni_pieces[pic]
-                square_str = cmsg('<r>') + ' '
+                square_str = board_square_empty
                 if (x_coord + (i % 2)) % 2 == 0:
                     square_str = board_square
                 if pic == '.':
