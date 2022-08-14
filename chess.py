@@ -41,7 +41,7 @@ def show_chess_board(board_name: str, game_state: [],
         _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
     mud.send_message(id, '<r>\n')
-    board_square = '░'
+    board_square = '\u001b[38;5;15m '
     board_str = ''
     i = 0
     if turn == 'white':
@@ -50,7 +50,7 @@ def show_chess_board(board_name: str, game_state: [],
             x_coord = 0
             for pic in row:
                 piece_str = uni_pieces[pic]
-                square_str = ' '
+                square_str = '\u001b[0m '
                 if (x_coord + (i % 2)) % 2 == 0:
                     square_str = board_square
                 if pic == '.':
@@ -59,14 +59,14 @@ def show_chess_board(board_name: str, game_state: [],
                 x_coord += 1
             board_str += board_row_str + '\n'
             i += 1
-        board_str += '\n   a b c d e f g h \n\n'
+        board_str += '\u001b[0m\n   a b c d e f g h \n\n'
     else:
         for row in game_state:
             board_row_str = ''
             x_coord = 0
             for pic in row:
                 piece_str = uni_pieces[pic]
-                square_str = ' '
+                square_str = '\u001b[0m '
                 if (x_coord + (i % 2)) % 2 == 0:
                     square_str = board_square
                 if pic == '.':
@@ -76,7 +76,7 @@ def show_chess_board(board_name: str, game_state: [],
             board_str = \
                 ' ' + str(8 - i) + ' ' + board_row_str + '\n' + board_str
             i += 1
-        board_str += '\n   h g f e d c b a \n\n'
+        board_str += '\u001b[0m\n   h g f e d c b a \n\n'
     mud.send_game_board(id, board_str)
 
 
