@@ -450,7 +450,7 @@ class MudServer(object):
                     msg_str = line_str + '\n'
                     if clid.client_type == self._CLIENT_TELNET:
 #                        clid.socket.sendall(bytearray(msg_str, 'utf-8'))
-                        self.send_message(cmsg(msg_str))
+                        self.send_message(to_id, cmsg(msg_str))
                     elif clid.client_type == self._CLIENT_WEBSOCKET:
                         clid.socket.send_message(msg_str)
                     time.sleep(0.03)
