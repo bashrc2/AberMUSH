@@ -4249,13 +4249,22 @@ def _punch(params, mud, players_db: {}, players: {}, rooms: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
     # stow any held weapons
-    _stow(params, mud, players_db, players, rooms,
+    _stow('', mud, players_db, players, rooms,
           npcs_db, npcs, items_db, items,
           env_db, env, eventDB, event_schedule,
           id, fights, corpses, blocklist,
           map_area, character_class_db, spells_db,
           sentiment_db, guilds_db, clouds, races_db,
           item_history, markets, cultures_db)
+    params = params.replace(' at ', ' ')
+    if ' on ' in params:
+        params = params.split(' on ')[0]
+    if ' in ' in params:
+        params = params.split(' in ')[0]
+    if ' about ' in params:
+        params = params.split(' about ')[0]
+    if ' around ' in params:
+        params = params.split(' around ')[0]
     # attack with no held weapons
     _begin_attack(params, mud, players_db, players, rooms,
                   npcs_db, npcs, items_db, items,
