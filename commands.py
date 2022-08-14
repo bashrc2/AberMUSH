@@ -1461,7 +1461,7 @@ def _help_chess(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id,
                      '<f220>chess reset<f255>' +
                      '                             - ' +
-                     'Rests the game')
+                     'Resets the game')
     mud.send_message(id,
                      '<f220>chess move [coords]<f255>' +
                      '                     - ' +
