@@ -55,11 +55,11 @@ def show_chess_board(board_name: str, game_state: [],
                     square_str = board_square
                 if pic == '.':
                     piece_str = square_str
-                board_row_str += square_str + piece_str
+                board_row_str += piece_str + square_str
                 x_coord += 1
             board_str += board_row_str + '\n'
             i += 1
-        board_str += '\n    a b c d e f g h \n\n'
+        board_str += '\n   a b c d e f g h \n\n'
     else:
         for row in game_state:
             board_row_str = ''
