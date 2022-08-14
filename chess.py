@@ -50,6 +50,7 @@ def show_chess_board(board_name: str, game_state: [],
             for pic in row:
                 piece_str = uni_pieces[pic]
                 if pic == '.':
+                    piece_str = ' '
                     if (x_coord + (i % 2)) % 2 == 0:
                         piece_str = '	░'
                 board_row_str += ' ' + piece_str
@@ -64,6 +65,7 @@ def show_chess_board(board_name: str, game_state: [],
             for pic in row:
                 piece_str = uni_pieces[pic]
                 if pic == '.':
+                    piece_str = ' '
                     if (x_coord + (i % 2)) % 2 == 0:
                         piece_str = '	░'
                 board_row_str = ' ' + piece_str + board_row_str
