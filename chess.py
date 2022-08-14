@@ -47,7 +47,7 @@ def show_chess_board(board_name: str, game_state: [],
     i = 0
     if turn == 'white':
         for row in game_state:
-            board_row_str = ' ' + str(8 - i) + ' '
+            board_row_str = ' ' + str(8 - i) + ' ' + board_square
             x_coord = 0
             for pic in row:
                 piece_str = uni_pieces[pic]
@@ -58,12 +58,12 @@ def show_chess_board(board_name: str, game_state: [],
                     piece_str = square_str
                 board_row_str += piece_str + square_str
                 x_coord += 1
-            board_str += board_row_str + '\n'
+            board_str += board_row_str + board_square + '\n'
             i += 1
-        board_str += '<r>\n   a b c d e f g h \n\n'
+        board_str += '<r>\n    a b c d e f g h \n\n'
     else:
         for row in game_state:
-            board_row_str = ''
+            board_row_str = board_square
             x_coord = 0
             for pic in row:
                 piece_str = uni_pieces[pic]
@@ -75,9 +75,10 @@ def show_chess_board(board_name: str, game_state: [],
                 board_row_str = piece_str + square_str + board_row_str
                 x_coord += 1
             board_str = \
-                ' ' + str(8 - i) + ' ' + board_row_str + '\n' + board_str
+                ' ' + str(8 - i) + ' ' + board_row_str + \
+                board_square + '\n' + board_str
             i += 1
-        board_str += '<r>\n   h g f e d c b a \n\n'
+        board_str += '<r>\n    h g f e d c b a \n\n'
     mud.send_game_board(id, board_str)
 
 
