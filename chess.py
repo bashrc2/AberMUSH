@@ -40,7 +40,7 @@ def show_chess_board(board_name: str, game_state: [],
     if mud.player_using_web_interface(id):
         _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
-    mud.send_message(id, '\n')
+    mud.send_message(id, '<r>\n')
     board_square = '░'
     board_str = ''
     i = 0
