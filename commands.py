@@ -684,13 +684,13 @@ def _unblock(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
         mud.send_message(id, "That's not in the blocklist.\n")
 
 
-def _kick(params, mud, players_db: {}, players: {}, rooms: {},
-          npcs_db: {}, npcs: {}, items_db: {}, items: {},
-          env_db: {}, env: {}, eventDB: {}, event_schedule,
-          id: int, fights: {}, corpses: {}, blocklist,
-          map_area: [], character_class_db: {}, spells_db: {},
-          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+def _kick_out(params, mud, players_db: {}, players: {}, rooms: {},
+              npcs_db: {}, npcs: {}, items_db: {}, items: {},
+              env_db: {}, env: {}, eventDB: {}, event_schedule,
+              id: int, fights: {}, corpses: {}, blocklist,
+              map_area: [], character_class_db: {}, spells_db: {},
+              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+              item_history: {}, markets: {}, cultures_db: {}):
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -710,6 +710,46 @@ def _kick(params, mud, players_db: {}, players: {}, rooms: {},
             return
 
     mud.send_message(id, "There are no players with that name.\n\n")
+
+
+def _kick(params, mud, players_db: {}, players: {}, rooms: {},
+          npcs_db: {}, npcs: {}, items_db: {}, items: {},
+          env_db: {}, env: {}, eventDB: {}, event_schedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          map_area: [], character_class_db: {}, spells_db: {},
+          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+          item_history: {}, markets: {}, cultures_db: {}):
+    kickout = False
+    if ' out ' in params:
+        params = params.replace(' out ', ' ')
+        kickout = True
+    if ' off ' in params:
+        params = params.replace(' off ', ' ')
+        kickout = True
+    if params.endswidth(' out'):
+        params = params.replace(' out', '')
+        kickout = True
+    if params.endswidth(' off'):
+        params = params.replace(' off', '')
+        kickout = True
+    # kick as in remove from the server
+    if kickout:
+        _kick_out(params, mud, players_db, players, rooms,
+                  npcs_db, npcs, items_db, items,
+                  env_db, env, eventDB, event_schedule,
+                  id, fights, corpses, blocklist,
+                  map_area, character_class_db, spells_db,
+                  sentiment_db, guilds_db, clouds, races_db,
+                  item_history, markets, cultures_db)
+        return
+    # kick as in stick the boot in (unarmed attack)
+    _punch(params, mud, players_db, players, rooms,
+           npcs_db, npcs, items_db, items,
+           env_db, env, eventDB, event_schedule,
+           id, fights, corpses, blocklist,
+           map_area, character_class_db, spells_db,
+           sentiment_db, guilds_db, clouds, races_db,
+           item_history, markets, cultures_db)
 
 
 def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
@@ -1128,7 +1168,7 @@ def _help(params, mud, players_db: {}, players: {}, rooms: {},
                      '                          - ' +
                      'Try to jump onto something')
     mud.send_message(id,
-                     '  <f220>attack [target]<f255>' +
+                     '  <f220>attack/punch/kick [target]<f255>' +
                      '                         - ' +
                      'Attack target ' +
                      "specified, e.g. 'attack knight'")
@@ -1345,7 +1385,7 @@ def _help_witch(params, mud, players_db: {}, players: {}, rooms: {},
                      '                         - ' +
                      'Summons a player to your location')
     mud.send_message(id,
-                     '<f220>kick/remove [target]<f255>' +
+                     '<f220>kick out/remove [target]<f255>' +
                      '                    - ' +
                      'Remove a player from the game')
     mud.send_message(id,
@@ -7783,6 +7823,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "eat": _eat,
         "drink": _eat,
         "kick": _kick,
+        "headbutt": _punch,
         "change": _change_setting,
         "blocklist": _show_blocklist,
         "block": _block,

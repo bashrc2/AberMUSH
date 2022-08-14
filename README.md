@@ -68,7 +68,7 @@ go [exit]                               - Moves through the exit specified
 climb though/onto [exit]                - Try to climb through or onto an exit
 move/roll/heave [target]                - Try to move or roll a heavy object
 jump to [exit]                          - Try to jump onto something
-attack [target]                         - Attack another player or NPC
+attack/punch/kick [target]              - Attack another player or NPC
 throw [weapon] at [target]              - Throw a weapon at another player or NPC
 shove                                   - Try to knock down a target during an attack
 prone                                   - Lie down
@@ -162,7 +162,7 @@ freeze [target]                    - Prevents a player from moving or attacking
 unfreeze [target]                  - Allows a player to move or attack
 teleport [room]                    - Teleport to a room
 summon [target]                    - Summons a player to your location
-kick/remove [target]               - Remove a player from the game
+kick out/remove [target]           - Remove a player from the game
 blocklist                          - Show the current blocklist
 block [word or phrase]             - Adds a word or phrase to the blocklist
 unblock [word or phrase]           - Removes a word or phrase to the blocklist
