@@ -71,12 +71,12 @@ def show_chess_board(board_name: str, game_state: [],
                     square_str = board_square
                 if pic == '.':
                     piece_str = square_str
-                board_row_str = square_str + piece_str + board_row_str
+                board_row_str = piece_str + square_str + board_row_str
                 x_coord += 1
             board_str = \
                 ' ' + str(8 - i) + ' ' + board_row_str + '\n' + board_str
             i += 1
-        board_str += '\n    h g f e d c b a \n\n'
+        board_str += '\n   h g f e d c b a \n\n'
     mud.send_game_board(id, board_str)
 
 
