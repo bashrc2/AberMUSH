@@ -41,6 +41,7 @@ def show_chess_board(board_name: str, game_state: [],
         _show_chess_board_as_html(board_name, game_state, id, mud, turn)
         return
     mud.send_message(id, '\n')
+    board_square = '░░'
     board_str = ''
     i = 0
     if turn == 'white':
@@ -52,7 +53,7 @@ def show_chess_board(board_name: str, game_state: [],
                 if pic == '.':
                     piece_str = ' '
                     if (x_coord + (i % 2)) % 2 == 0:
-                        piece_str = '░'
+                        piece_str = board_square
                 board_row_str += ' ' + piece_str
                 x_coord += 1
             board_str += board_row_str + '\n'
@@ -67,7 +68,7 @@ def show_chess_board(board_name: str, game_state: [],
                 if pic == '.':
                     piece_str = ' '
                     if (x_coord + (i % 2)) % 2 == 0:
-                        piece_str = '░'
+                        piece_str = board_square
                 board_row_str = ' ' + piece_str + board_row_str
                 x_coord += 1
             board_str = \
