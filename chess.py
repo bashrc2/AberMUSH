@@ -45,11 +45,13 @@ def show_chess_board(board_name: str, game_state: [],
     board_square_empty = '<r><f255> '
     board_str = '   '
 
-    # top border
+    # top and bottom border
+    border_line = '   '
     for x_coord in range(0, 18):
-        board_str += board_square
-    board_str += '\n'
+        border_line += board_square
+    border_line = border_line + '\n'
 
+    board_str += border_line
     i = 0
     if turn == 'white':
         for row in game_state:
@@ -67,10 +69,8 @@ def show_chess_board(board_name: str, game_state: [],
             board_str += board_row_str + board_square + '\n'
             i += 1
         # bottom border
-        board_str += '   '
-        for x_coord in range(0, 18):
-            board_str += board_square
-        board_str += '\n<r>    a b c d e f g h \n\n'
+        board_str += border_line
+        board_str += '<r>    a b c d e f g h \n\n'
     else:
         for row in game_state:
             board_row_str = ''
@@ -88,11 +88,8 @@ def show_chess_board(board_name: str, game_state: [],
                 ' ' + str(8 - i) + ' ' + board_square + board_row_str + \
                 board_square + '\n' + board_str
             i += 1
-        # bottom border
-        board_str += '   '
-        for x_coord in range(0, 18):
-            board_str += board_square
         board_str += '\n<r>    h g f e d c b a \n\n'
+        board_str = border_line + board_str
     mud.send_game_board(id, board_str)
 
 
