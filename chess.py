@@ -46,16 +46,28 @@ def show_chess_board(board_name: str, game_state: [],
     if turn == 'white':
         for row in game_state:
             board_row_str = ' ' + str(8 - i) + ' '
+            x_coord = 0
             for pic in row:
-                board_row_str += ' ' + uni_pieces[pic]
+                piece_str = uni_pieces[pic]
+                if pic == '.':
+                    if (x_coord + (i % 2)) % 2 == 0:
+                        piece_str = '	░'
+                board_row_str += ' ' + piece_str
+                x_coord += 1
             board_str += board_row_str + '\n'
             i += 1
         board_str += '\n    a b c d e f g h \n\n'
     else:
         for row in game_state:
             board_row_str = ''
+            x_coord = 0
             for pic in row:
-                board_row_str = ' ' + uni_pieces[pic] + board_row_str
+                piece_str = uni_pieces[pic]
+                if pic == '.':
+                    if (x_coord + (i % 2)) % 2 == 0:
+                        piece_str = '	░'
+                board_row_str = ' ' + piece_str + board_row_str
+                x_coord += 1
             board_str = \
                 ' ' + str(8 - i) + ' ' + board_row_str + '\n' + board_str
             i += 1
