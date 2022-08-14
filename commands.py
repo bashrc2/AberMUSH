@@ -1168,8 +1168,8 @@ def _help(params, mud, players_db: {}, players: {}, rooms: {},
                      '                          - ' +
                      'Try to jump onto something')
     mud.send_message(id,
-                     '  <f220>attack/punch/kick [target]<f255>' +
-                     '                         - ' +
+                     '  <f220>attack/punch/kick/headbutt [target]<f255>' +
+                     '     - ' +
                      'Attack target ' +
                      "specified, e.g. 'attack knight'")
     mud.send_message(id,
@@ -7823,6 +7823,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "eat": _eat,
         "drink": _eat,
         "kick": _kick,
+        "headbut": _punch,
         "headbutt": _punch,
         "change": _change_setting,
         "blocklist": _show_blocklist,
