@@ -43,7 +43,7 @@ def show_chess_board(board_name: str, game_state: [],
     mud.send_message(id, '<r>\n')
     board_square = '<f255><f15>░'
     board_square_empty = '<r><f255> '
-    board_str = '   '
+    board_str = ''
 
     # top and bottom border
     border_line = '   '
