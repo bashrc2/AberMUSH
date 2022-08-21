@@ -1553,6 +1553,21 @@ def _help_cards(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
+def _get_spell_damage(damage_roll: str) -> int:
+    """
+    """
+    if isinstance(damage_roll, int):
+        return randint(1, damage_roll + 1)
+    if 'd' not in damage_roll:
+        return randint(1, int(damage_roll) + 1)
+    die = int(damage_roll.split('d')[1])
+    no_of_rolls = int(damage_roll.split('d')[0])
+    damage = 0
+    for _ in range(no_of_rolls):
+        damage += randint(1, die + 1)
+    return damage
+
+
 def _cast_spell_on_player(mud, spell_name: str, players: {}, id, npcs: {},
                           p, spell_details: {}):
     if npcs[p]['room'] != players[id]['room']:
@@ -1596,14 +1611,15 @@ def _cast_spell_on_player(mud, spell_name: str, players: {}, id, npcs: {},
             npcs[p]['affinity'][player_name] = 1
 
     if spell_details['action'].startswith('attack'):
-        if len(spell_details['damageType']
-               ) == 0 or spell_details['damageType'] == 'str':
-            npcs[p]['hp'] = npcs[p]['hp'] - randint(1, spell_details['damage'])
+        if len(spell_details['damageType']) == 0 or \
+           spell_details['damageType'] == 'str':
+            damage = _get_spell_damage(spell_details['damage'])
+            npcs[p]['hp'] = npcs[p]['hp'] - damage
         else:
             damage_type = spell_details['damageType']
             if npcs[p].get(damage_type):
-                npcs[p][damage_type] = npcs[p][damage_type] - \
-                    randint(1, spell_details['damage'])
+                damage = _get_spell_damage(spell_details['damage'])
+                npcs[p][damage_type] = npcs[p][damage_type] - damage
                 if npcs[p][damage_type] < 0:
                     npcs[p][damage_type] = 0
 
