@@ -1554,7 +1554,7 @@ def _help_cards(params, mud, players_db: {}, players: {}, rooms: {},
 
 
 def _get_spell_damage(damage_roll: str) -> int:
-    """
+    """Amount of damage caused by a spell
     """
     if isinstance(damage_roll, int):
         return randint(1, damage_roll + 1)
