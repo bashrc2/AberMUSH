@@ -649,10 +649,10 @@
     },
     "$rid=57$": {
         "name": "The Temple Steps",
-        "description": "You stand half-way up the steps to the temple. From your position you can see the entrie monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather.",
+        "description": "You stand half-way up the steps to the temple. From your position you can see the entire monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather.",
         "roomTeleport": "",
         "conditional": [
-            ["rain","yes","You stand in the rain half-way up the steps to the temple. From your position you can see the entrie monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather."]
+            ["rain","yes","You stand in the rain half-way up the steps to the temple. From your position you can see the entire monastery and the lands surrounding it. At the head of the stairs is the great door of the temple, and below you lies the courtyard where the monks would gather."]
         ],
         "trap": {},
         "eventOnEnter": "",
