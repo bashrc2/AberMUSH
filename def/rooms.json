@@ -125,7 +125,7 @@
         "roomTeleport": "",
         "conditional": [
             ["rain","yes","The deep blue waters extend south and west as far as you can see. To the north they splash and eddy around the rocks at the foot of the steep valley sides. An arc of golden sand to the east marks the mouth of a river pouring the foaming mountain waters down into the lake. It is raining."]
-	],
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -151,7 +151,7 @@
         "roomTeleport": "",
         "conditional": [
             ["rain","yes","The water grows rougher as a wide river pours down a narrow green valley from the east. The waves spread out and are soon lost as ripples rolling north and southwards across the lake. Away to the west through a haze of falling rain a huge spire of black rock towers up from out of the dark blue waters."]
-	],
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -176,7 +176,7 @@
         "roomTeleport": "",
         "conditional": [
             ["rain","yes","The deep blue waters lap gently against the sheer valley sides to the south and east. The walls are dark and seem volcanic in origin - perhaps the lake is filling the crater of an old volcano. Scanning the wide blue waters through the rain you can only speculate on how huge the volcano must have been."]
-	],
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -201,7 +201,7 @@
         "roomTeleport": "",
         "conditional": [
             ["rain","yes","You are floating in the middle of a wide channel between the southern end of the valley and a huge rocky crag which rises spearlike from the deep blue waters of the lake. It is raining."]
-	],
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -226,7 +226,7 @@
         "roomTeleport": "",
         "conditional": [
             ["rain","yes","The deep blue waters extend for miles to the north and east, filling a huge bowl-shaped depression in the mountains. To the south and west the sheer rocky walls rise steeply up out of the water. It is raining."]
-	],
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -255,7 +255,7 @@
         "roomTeleport": "",
         "conditional": [
             ["rain","yes","The lake becomes a foaming channel as it is forced between the narrowing valley walls and a huge black crag to the east. As you pick your way cautiously between the rocks you catch a glimpse of a narrow waterway leading eastwards through the loose rocks at the base of the crag. Either side of the crag the lake opens out into a wide blue watery expanse. It is raining."]
-	],
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -275,8 +275,8 @@
         "description": "Sheer black cliffs rise steeply up out of the water confining the lake to the valley floor. The cliffs reflect darkly in the waters casting a gloomy shadow across the glinting ripples. Away to the southeast a huge rocky crag rises darkly out of the waters.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","Sheer black cliffs rise steeply up out of the water confining the lake to the valley floor. The cliffs reflect darkly in the waters casting a gloomy shadow across the glinting ripples. Away to the southeast a huge rain-soaked rocky crag rises darkly out of the waters."]
-	],
+            ["rain","yes","Sheer black cliffs rise steeply up out of the water confining the lake to the valley floor. The cliffs reflect darkly in the waters casting a gloomy shadow across the glinting ripples. Away to the southeast a huge rain-soaked rocky crag rises darkly out of the waters."]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -300,8 +300,8 @@
         "description": "The water laps gently around the boat, the ripples gently spreading out behind you. Beneath the boat the water slaps and gurgles gently. To the north the valley narrows as the cliffs converge inwards from the east and west. Up ahead of you a huge rocky crag looms darkly out of the water.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","The water laps gently around the boat, the ripples gently spreading out behind you. Beneath the boat the water slaps and gurgles gently. To the north the valley narrows as the cliffs converge inwards from the east and west. Up ahead of you a huge rainswept rocky crag looms darkly out of the water."]
-	],
+            ["rain","yes","The water laps gently around the boat, the ripples gently spreading out behind you. Beneath the boat the water slaps and gurgles gently. To the north the valley narrows as the cliffs converge inwards from the east and west. Up ahead of you a huge rainswept rocky crag looms darkly out of the water."]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -326,8 +326,8 @@
         "description": "The water laps gently against the dam wall, splashing and gurgling. Long low waves wash gently down the valley rippling along the sandy shores.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","The water laps gently against the dam wall, splashing and gurgling. Long low waves wash gently down the valley rippling along the sandy shores as rain falls."]
-	],
+            ["rain","yes","The water laps gently against the dam wall, splashing and gurgling. Long low waves wash gently down the valley rippling along the sandy shores as rain falls."]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -10960,8 +10960,8 @@
         "description": "You are standing within the walled graveyard. To the south a path leads out of the graveyard down towards the church. To the north, over the churchyard wall is a deep rocky gorge. Looking futher north across the gorge, you can see a wide tract of forest, and far to the northwest, a small village by the coast.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are standing within the walled graveyard. To the south a path leads out of the graveyard down towards the church. To the north, over the churchyard wall is a deep rocky gorge. Looking futher north across the gorge through the rain, you can see a wide tract of forest, and far to the northwest, a small village by the coast."]
-	],
+            ["rain","yes","You are standing within the walled graveyard. To the south a path leads out of the graveyard down towards the church. To the north, over the churchyard wall is a deep rocky gorge. Looking futher north across the gorge through the rain, you can see a wide tract of forest, and far to the northwest, a small village by the coast."]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -10985,8 +10985,8 @@
         "description": "You are standing at the southern end of the graveyard, following a path which leads north, beside a stone wall. To the south is the churchyard, and the old church itself.",
         "roomTeleport": "",
         "conditional": [
-	    ["rain","yes","You are standing in the rain at the southern end of the graveyard, following a path which leads north, beside a stone wall. To the south is the churchyard, and the old church itself."]
-	],
+            ["rain","yes","You are standing in the rain at the southern end of the graveyard, following a path which leads north, beside a stone wall. To the south is the churchyard, and the old church itself."]
+        ],
         "trap": {},
         "eventOnEnter": "",
         "eventOnLeave": "",
@@ -14590,7 +14590,7 @@
     },
     "$rid=1419$": {
         "exits": {
-	    "north": "$rid=1420$"
+            "north": "$rid=1420$"
         },
         "name": "Creepy Corridor",
         "description": "You are in a cold narrow corridor. The stone floor is damp and the walls are stained with streaks of dripping water. The only light source is a small arched window at the eastern end",
@@ -14613,7 +14613,7 @@
     },
     "$rid=1420$": {
         "exits": {
-	    "south": "$rid=1419$"
+            "south": "$rid=1419$"
         },
         "name": "The Sanctuary",
         "description": "The sanctuary is a small, austere-looking room with minimal furnishings. Illuminated by candles mounted on the walls, this is a place for the persecuted seeking refuge or for quiet contemplation. There is a narrow corridor to the south",
