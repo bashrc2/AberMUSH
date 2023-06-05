@@ -1560,7 +1560,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Temple Of Remembrance",
+        "region": "Temple Of Ceridwen",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -1586,7 +1586,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Temple Of Remembrance",
+        "region": "Temple Of Ceridwen",
         "terrainDifficulty": 0,
         "coords": []
     },
@@ -5395,7 +5395,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Temple Of Remembrance",
+        "region": "Temple Of Ceridwen",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5404,7 +5404,7 @@
         }
     },
     "$rid=645$": {
-        "name": "The Temple Of Remembrance",
+        "name": "The Temple Of Ceridwen",
         "description": "The wind sighs gently around you, brushing off the battered and ancient stones skipping lightly around the mighty pillars, and through the arches of the vast hall. The slowly cracking and powdering stones each bear myriad names, slowly fading into unreadability, each one another of man's clutchs at immortality. Every name fading, soon to be forgotten, another nameless face that once was. There is a kind of deep solemness about the temple, and almost museum like",
         "roomTeleport": "",
         "conditional": [],
@@ -5418,7 +5418,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Temple Of Remembrance",
+        "region": "Temple Of Ceridwen",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5427,7 +5427,7 @@
     },
     "$rid=647$": {
         "name": "The Temple Gate",
-        "description": "The gates of the Temple Of Remembrance loom over you, huge forbidding pieces of ironwork, now rusted forever open. Inside, through the gates, all is still and quiet. Weeds grow around the temple, flaunting its claim to permanence, and showing that one day even the temple will fall and be forgotten. Thick bushes grow along the path which leads back northwards through the courtyard out onto the road.",
+        "description": "The gates of the Temple Of Ceridwen loom over you, huge forbidding pieces of ironwork, now rusted forever open. Inside, through the gates, all is still and quiet. Weeds grow around the temple, flaunting its claim to permanence, and showing that one day even the temple will fall and be forgotten. Thick bushes grow along the path which leads back northwards through the courtyard out onto the road.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -5440,7 +5440,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Temple Of Remembrance",
+        "region": "Temple Of Ceridwen",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
@@ -5450,7 +5450,7 @@
     },
     "$rid=649$": {
         "name": "The Temple Courtyard",
-        "description": "Weeds and bushes march steadily southwards, down the crumbling stone path to the Temple Of Remembrance. The path is already well on the road to ruin, and the temple is starting to fall. In another thousand years perhaps, the wind will dance through the trees and bushes, and it alone will remember the temple.",
+        "description": "Weeds and bushes march steadily southwards, down the crumbling stone path to the Temple Of Ceridwen. The path is already well on the road to ruin, and the temple is starting to fall. In another thousand years perhaps, the wind will dance through the trees and bushes, and it alone will remember the temple.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
@@ -5463,7 +5463,7 @@
         "roomType": "",
         "virtualExits": {},
         "tideOutDescription" : "",
-        "region": "Temple Of Remembrance",
+        "region": "Temple Of Ceridwen",
         "terrainDifficulty": 0,
         "coords": [],
         "exits": {
