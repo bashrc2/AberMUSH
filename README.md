@@ -897,13 +897,13 @@ These are 8 bit ANSI images, created using climage. They're derived from CC0 lic
 To install:
 
 ``` bash
-sudo pip3 install climage
+sudo apt install catimg
 ```
 
 To convert an image:
 
 ``` bash
-climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]
+catimg -w 60 myimage.jpg > images/rooms/[rid]
 ```
 
 The numbers should correspond to room ID or item ID.
@@ -911,7 +911,7 @@ The numbers should correspond to room ID or item ID.
 You can also add a night time version of the image by appending _night to the filename.
 
 ``` bash
-climage --unicode --truecolor --cols 60 myimage.jpg > images/rooms/[rid]_night
+catimg -w 60 myimage.jpg > images/rooms/[rid]_night
 ```
 
 
