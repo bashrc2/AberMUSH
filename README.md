@@ -903,7 +903,7 @@ sudo apt install catimg
 To convert an image:
 
 ``` bash
-catimg -w 60 myimage.jpg > images/rooms/[rid]
+catimg -w 120 myimage.jpg > images/rooms/[rid]
 ```
 
 The numbers should correspond to room ID or item ID.
@@ -911,7 +911,7 @@ The numbers should correspond to room ID or item ID.
 You can also add a night time version of the image by appending _night to the filename.
 
 ``` bash
-catimg -w 60 myimage.jpg > images/rooms/[rid]_night
+catimg -w 120 myimage.jpg > images/rooms/[rid]_night
 ```
 
 
