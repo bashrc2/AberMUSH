@@ -963,7 +963,7 @@
     "35": {
         "name": "ornate door",
         "short_description": "An ornate door stands closed, and through it you can see a very strange room.",
-        "long_description": "A door here stands closed. On it you can read the inscription 'To gain enlightenment, the body must be trained to discipline the mind.' ",
+        "long_description": "A door here stands closed. On it you can read the inscription 'From change inspiration flows' ",
         "hidden": 0,
         "conditional": [],
         "takeFail": "The door is much too big and heavy to remove.",
@@ -1135,7 +1135,7 @@
         "article": "a"
     },
     "40": {
-        "name": "zen scroll",
+        "name": "sacred scroll",
         "short_description": "A scroll lies here, with some strange characters scripted onto it.",
         "long_description": "A parchment, with fine Calligraphic characters telling something in the secret language of the monks.",
         "hidden": 0,
@@ -13343,7 +13343,7 @@
     "426": {
         "name": "barrels",
         "short_description": "A collection of old barrels",
-        "long_description": "The barrels look old and uninteresting.|A collection of old barrels.",
+        "long_description": "The barrels look old and uninteresting. They are most likely used to store ale and other supplies for the inn|A collection of aged wooden barrels, used to store alcoholic beverages and other provisions for the inn.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "Lugging barrels around would be too cumbersome",
