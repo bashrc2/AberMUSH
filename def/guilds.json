@@ -1,217 +1,222 @@
 {
     "Apothecaries": {
-	"description": "",
-	"roles": ["gravedigger","physician"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["gravedigger","physician"],
+	      "affinity": {}
     },
     "Armourers and Brasiers": {
-	"description": "Armour-makers and workers in brass",
-	"roles": ["cutler","compasssmith","pewterer","clockmaker","gilder","fewtrer","pointer","linen-armorer","mirrorer","knifesmith","locksmith","redsmith","scythesmith","swordsmith","spooner","spurrer","tinker","tinsmith","weaponsmith","lancier","bladesmith","armorsmith","poleturner","grinder"],
-	"affinity": {}
+	      "description": "Armour-makers and workers in brass",
+	      "roles": ["cutler","compasssmith","pewterer","clockmaker","gilder","fewtrer","pointer","linen-armorer","mirrorer","knifesmith","locksmith","redsmith","scythesmith","swordsmith","spooner","spurrer","tinker","tinsmith","weaponsmith","lancier","bladesmith","armorsmith","poleturner","grinder"],
+	      "affinity": {}
     },
     "Bakers": {
-	"description": "",
-	"roles": ["baker","miller"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["baker","miller"],
+	      "affinity": {}
     },
     "Barbers": {
-	"description": "Barbers, surgeons and dentists",
-	"roles": ["barber","surgeon"],
-	"affinity": {}
+	      "description": "Barbers, surgeons and dentists",
+	      "roles": ["barber","surgeon"],
+	      "affinity": {}
     },
     "Basketmakers": {
-	"description": "",
-	"roles": ["basketmaker"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["basketmaker"],
+	      "affinity": {}
     },
     "Blacksmiths": {
-	"description": "",
-	"roles": ["smelter","foundryman","blacksmith","striker","accoutrement maker","bellmaker","chainmaker","leadworker","wiredrawer","nailmaker","bog iron hunter","bellfounder","miner","charcoalburner","brightsmith","bronzefounder","buckle maker","coppersmith"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["smelter","foundryman","blacksmith","striker","accoutrement maker","bellmaker","chainmaker","leadworker","wiredrawer","nailmaker","bog iron hunter","bellfounder","miner","charcoalburner","brightsmith","bronzefounder","buckle maker","coppersmith"],
+	      "affinity": {}
     },
     "Bowyers": {
-	"description": "Longbow makers",
-	"roles": ["bowyer"],
-	"affinity": {}
+	      "description": "Longbow makers",
+	      "roles": ["bowyer"],
+	      "affinity": {}
     },
     "Brewers": {
-	"description": "",
-	"roles": ["brewer","cooper","beerbrewer","drycooper","taverner"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["brewer","cooper","beerbrewer","drycooper","taverner"],
+	      "affinity": {}
     },
     "Broderers": {
         "description": "Embroiderers",
-	"roles": ["embroiderer","lacemaker","tapestrymaker","tapicer"],
-	"affinity": {}
+	      "roles": ["embroiderer","lacemaker","tapestrymaker","tapicer"],
+	      "affinity": {}
     },
     "Butchers": {
         "description": "",
-	"roles": ["butcher","oilmaker"],
-	"affinity": {}
+	      "roles": ["butcher","oilmaker"],
+	      "affinity": {}
     },
     "Carpenters": {
-	"description": "Carpentry",
-	"roles": ["carpenter","woodcarver","woodcutter","woodturner","joiner","cabinetmaker","shipwright","furniture maker","arkwright","turner","luthier","lutemaker","brushbinder","sawyer"],
-	"affinity": {}
+	      "description": "Carpentry",
+	      "roles": ["carpenter","woodcarver","woodcutter","woodturner","joiner","cabinetmaker","shipwright","furniture maker","arkwright","turner","luthier","lutemaker","brushbinder","sawyer"],
+	      "affinity": {}
     },
     "Chandlers": {
-	"description": "Candle makers",
-	"roles": ["waxchandler","lanternmaker","lampwright","chandler","tallowchandler"],
-	"affinity": {}
+	      "description": "Candle makers",
+	      "roles": ["waxchandler","lanternmaker","lampwright","chandler","tallowchandler"],
+	      "affinity": {}
     },
     "Clergy": {
-	"description": "",
-	"roles": ["abbess","abbot","almoner","anchorite","archbishop","beadle","beguine","bishop","canon","cantor","cardinal","cathar perfect","chantry priest","chaplain","clark","clerk","colporteur","curate","friar","hermit","monk","nun","ostiary","palmer","pardoner","pilgrim","pope","priest","primate","sacristan","sexton","summoner","theologian"],
-	"affinity": {}	
+	      "description": "",
+	      "roles": ["abbess","abbot","almoner","anchorite","archbishop","beadle","beguine","bishop","canon","cantor","cardinal","cathar perfect","chantry priest","chaplain","clark","clerk","colporteur","curate","friar","hermit","monk","nun","ostiary","palmer","pardoner","pilgrim","pope","priest","primate","sacristan","sexton","summoner","theologian"],
+	      "affinity": {}	
     },
     "Clothworkers": {
-	"description": "",
-	"roles": ["tailor","sailmaker","seamstress","draper","silkmaid","silk-dresser","silk-maker","silk-carder","spinner","quilter","clothier","threadmaker","linener","linenspinner","tasseler"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["tailor","sailmaker","seamstress","draper","silkmaid","silk-dresser","silk-maker","silk-carder","spinner","quilter","clothier","threadmaker","linener","linenspinner","tasseler"],
+	      "affinity": {}
     },
     "Cordwainers": {
-	"description": "Workers in fine leather",
-	"roles": ["broderer","glover","cardmaker","cobbler"],
-	"affinity": {}
+	      "description": "Workers in fine leather",
+	      "roles": ["broderer","glover","cardmaker","cobbler"],
+	      "affinity": {}
     },
     "Curriers": {
-	"description": "Dressers of tanned leather",
-	"roles": ["purse maker","hatmaker","hatter","tanner"],
-	"affinity": {}
+	      "description": "Dressers of tanned leather",
+	      "roles": ["purse maker","hatmaker","hatter","tanner"],
+	      "affinity": {}
     },
     "Cutlers": {
-	"description": "",
-	"roles": ["cutler"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["cutler"],
+	      "affinity": {}
     },
     "Dyers": {
-	"description": "Dying and bleaching",
-	"roles": ["silk-dyer","dyer","bleacher"],
-	"affinity": {}
+	      "description": "Dying and bleaching",
+	      "roles": ["silk-dyer","dyer","bleacher"],
+	      "affinity": {}
     },
     "Farriers": {
-	"description": "Shoers of horses",
-	"roles": ["farrier","ostler"],
-	"affinity": {}
+	      "description": "Shoers of horses",
+	      "roles": ["farrier","ostler"],
+	      "affinity": {}
     },
     "Fishmongers": {
-	"description": "Sellers of fish",
-	"roles": ["fishmonger"],
-	"affinity": {}
+	      "description": "Sellers of fish",
+	      "roles": ["fishmonger"],
+	      "affinity": {}
     },
     "Fletchers": {
-	"description": "Arrow makers",
-	"roles": ["fletcher","arrowsmith"],
-	"affinity": {}
+	      "description": "Arrow makers",
+	      "roles": ["fletcher","arrowsmith"],
+	      "affinity": {}
     },
     "Girdlers": {
-	"description": "Girdles and belts as clothing",
-	"roles": ["corsetier"],
-	"affinity": {}
+	      "description": "Girdles and belts as clothing",
+	      "roles": ["corsetier"],
+	      "affinity": {}
     },
     "Glassmakers": {
-	"description": "",
-	"roles": ["glassblower","glazier"],
-	"affinity": {}
+	      "description": "Makers of glassware",
+	      "roles": ["glassblower","glazier"],
+	      "affinity": {}
     },
     "Goldsmiths": {
-	"description": "",
-	"roles": ["minter","mintmaster","moneyer","coiner","jeweler","gemcutter","balancemaker","purser","goldbeater","silversmith"],
-	"affinity": {}
+	      "description": "Minters and jewelers",
+	      "roles": ["minter","mintmaster","moneyer","coiner","jeweler","gemcutter","balancemaker","purser","goldbeater","silversmith"],
+	      "affinity": {}
     },
     "Loriners": {
-	"description": "Stirrups and other harness for horses",
-	"roles": ["harness maker"],
-	"affinity": {}
+	      "description": "Stirrups and other harness for horses",
+	      "roles": ["harness maker"],
+	      "affinity": {}
     },
     "Masons": {
-	"description": "",
-	"roles": ["mason","architect","stonecarver","stonecutter","stonemason","builder","bricker","bricklayer","roofer","quarryman","engraver","drywaller","plasterer","tile-burner","tile-theeker","tile maker","knapper","thacker"],
-	"affinity": {}
+	      "description": "Builders and architects",
+	      "roles": ["mason","architect","stonecarver","stonecutter","stonemason","builder","bricker","bricklayer","roofer","quarryman","engraver","drywaller","plasterer","tile-burner","tile-theeker","tile maker","knapper","thacker"],
+	      "affinity": {}
     },
     "Mercers": {
-	"description": "General merchants",
-	"roles": ["silk-mercer","costermonger"],
-	"affinity": {}
+	      "description": "General merchants",
+	      "roles": ["silk-mercer","costermonger"],
+	      "affinity": {}
     },
     "Needlemakers": {
-	"description": "",
-	"roles": ["pinmaker","buttonmaker","needlemaker"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["pinmaker","buttonmaker","needlemaker"],
+	      "affinity": {}
     },
     "Pattenmakers": {
-	"description": "Makers of wooden clog-style footwear",
-	"roles": ["pattenmaker"],
-	"affinity": {}
+	      "description": "Makers of wooden clog-style footwear",
+	      "roles": ["pattenmaker"],
+	      "affinity": {}
     },
     "Plaisterers": {
-	"description": "Plasterers",
-	"roles": ["alabasterer"],
-	"affinity": {}
+	      "description": "Plasterers",
+	      "roles": ["alabasterer"],
+	      "affinity": {}
     },
     "Plumbers": {
-	"description": "",
-	"roles": ["plumber"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["plumber"],
+	      "affinity": {}
     },
     "Poulters": {
-	"description": "",
-	"roles": ["poulter","gamekeeper"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["poulter","gamekeeper"],
+	      "affinity": {}
     },
     "Potters": {
-	"description": "",
-	"roles": ["pot mender","potter"],
-	"affinity": {}	
+	      "description": "",
+	      "roles": ["pot mender","potter"],
+	      "affinity": {}	
     },
     "Saddlers": {
-	"description": "",
-	"roles": ["saddler","malemaker"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["saddler","malemaker"],
+	      "affinity": {}
     },
     "Salters": {
-	"description": "",
-	"roles": ["salter","saltboiler"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["salter","saltboiler"],
+	      "affinity": {}
     },
     "Scriveners": {
-	"description": "Writers of court letters and legal documents",
-	"roles": ["calligrapher","canvasser","cartographer","mailer","mapmaker","papermaker","parchmenter","blockcutter","typefounder","bookbinder","bookprinter","librarian","printer"],
-	"affinity": {}
+	      "description": "Writers of court letters and legal documents",
+	      "roles": ["calligrapher","canvasser","cartographer","mailer","mapmaker","papermaker","parchmenter","blockcutter","typefounder","bookbinder","bookprinter","librarian","printer"],
+	      "affinity": {}
     },
     "Skinners": {
-	"description": "",
-	"roles": ["furrier"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["furrier"],
+	      "affinity": {}
     },
     "Upholders": {
-	"description": "Upholsterers",
-	"roles": ["upholder"],
-	"affinity": {}
+	      "description": "Upholsterers",
+	      "roles": ["upholder"],
+	      "affinity": {}
     },
     "Vintners": {
-	"description": "Wine makers",
-	"roles": ["vintner","beekeeper"],
-	"affinity": {}
+	      "description": "Wine makers",
+	      "roles": ["vintner","beekeeper"],
+	      "affinity": {}
     },
     "Weavers": {
-	"description": "",
-	"roles": ["basketmaker","weaver","webber","rugweaver","roper","ropemaker","rugmaker"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["basketmaker","weaver","webber","rugweaver","roper","ropemaker","rugmaker"],
+	      "affinity": {}
     },
     "Wheelwrights": {
-	"description": "",
-	"roles": ["wheeler","wheelwright","cartwright"],
-	"affinity": {}
+	      "description": "",
+	      "roles": ["wheeler","wheelwright","cartwright"],
+	      "affinity": {}
     },
     "Woolmen": {
-	"description": "Winders and packers of wool",
-	"roles": ["fabricshearer","feltmaker","carder","combmaker"],
-	"affinity": {}
+	      "description": "Winders and packers of wool",
+	      "roles": ["fabricshearer","feltmaker","carder","combmaker"],
+	      "affinity": {}
     },
     "Merchants": {
-	"description": "Buyers and sellers",
-	"roles": ["trader","financier","exporter"],
-	"affinity": {}
+	      "description": "Buyers and sellers",
+	      "roles": ["trader","financier","exporter"],
+	      "affinity": {}
+    },
+    "Ratcatchers": {
+        "description": "Sanitation and pest control",
+        "roles": ["ratcatcher","gongfarmer","nightsoilman"],
+        "affinity": {}
     }
 }
