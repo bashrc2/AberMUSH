@@ -676,7 +676,7 @@ def _npc_update_luck(nid, npcs: {}, items: {}, items_db: {}) -> None:
 
 
 def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
-                       items: {}, items_db: {}) -> bool:
+                       items: {}, items_db: {}, rooms: {}) -> bool:
     """what is the best weapon which the NPC is carrying?
     """
     item_id = 0
@@ -716,6 +716,8 @@ def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
             if items_db[items[iid]['id']]['clo_rhand'] == 0:
                 continue
             if items_db[items[iid]['id']]['mod_str'] <= max_damage:
+                continue
+            if _confined_space(nid, npcs, items_db, items[iid]['id'], rooms):
                 continue
             item_name = items_db[items[iid]['id']]['name']
             if _item_in_npc_inventory(npcs, nid, item_name, items_db):
@@ -880,6 +882,18 @@ def _can_use_weapon(id: int, players: {}, items_db: {}, item_id: int) -> bool:
                     return True
             return False
     return True
+
+
+def _confined_space(id: int, players: {}, items_db: {},
+                    item_id: int, rooms: {}) -> bool:
+    """Is the given player in a confined space?
+    """
+    if item_id > 0:
+        if items_db[item_id]['bothHands'] != 0:
+            room_id = players[id]['room']
+            if rooms[room_id]['maxPlayers'] < 3:
+                return True
+    return False
 
 
 def _get_weapon_held(id: int, players: {}, items_db: {}) -> (int, str, int):
@@ -1131,6 +1145,18 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
+        if _confined_space(s1id, players, items_db, weapon_id, rooms):
+            stow_hands(s1id, players, items_db, mud)
+            mud.send_message(
+                s2id, '<f32>' +
+                players[s1id]['name'] +
+                '<r> stows ' +
+                items_db[weapon_id]['article'] +
+                ' <b234>' +
+                items_db[weapon_id]['name'] + '\n\n')
+            players[s1id]['lastCombatAction'] = int(time.time())
+            return
+
         # A dodge value used to adjust agility of the target player
         # This is proportional to their luck, which can be modified by
         # various items
@@ -1358,6 +1384,11 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
             players[s1id]['lastCombatAction'] = int(time.time())
             return
 
+        if _confined_space(s1id, players, items_db, weapon_id, rooms):
+            stow_hands(s1id, players, items_db, mud)
+            players[s1id]['lastCombatAction'] = int(time.time())
+            return
+
         # A dodge value used to adjust agility of the target player
         # This is proportional to their luck, which can be modified by
         # various items
@@ -1541,7 +1572,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         return
 
     _npc_update_luck(s1id, npcs, items, items_db)
-    if _npc_wields_weapon(mud, s2id, s1id, npcs, items, items_db):
+    if _npc_wields_weapon(mud, s2id, s1id, npcs, items, items_db, rooms):
         npcs[s1id]['lastCombatAction'] = int(time.time())
         return
 
@@ -1861,7 +1892,7 @@ def player_begins_attack(players: {}, id, target: str,
 
 def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                        fights: {}, mud, items: {}, items_db: {},
-                       races_db: {}, thrown: int) -> bool:
+                       races_db: {}, thrown: int, rooms: {}) -> bool:
     """npc begins an attack on a player or another npc
     """
     target_found = False
@@ -1905,7 +1936,7 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
             _combat_update_max_hit_points(id, npcs, races_db)
 
             _npc_update_luck(id, npcs, items, items_db)
-            _npc_wields_weapon(mud, pid, id, npcs, items, items_db)
+            _npc_wields_weapon(mud, pid, id, npcs, items, items_db, rooms)
 
             fights[fight_index]['thrown'] = \
                 holding_throwable(npcs, id, items_db)
@@ -1955,7 +1986,7 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
             _combat_update_max_hit_points(id, npcs, races_db)
 
             _npc_update_luck(id, npcs, items, items_db)
-            _npc_wields_weapon(mud, nid, id, npcs, items, items_db)
+            _npc_wields_weapon(mud, nid, id, npcs, items, items_db, rooms)
 
             fights[fight_index]['thrown'] = \
                 holding_throwable(npcs, id, items_db)
@@ -1966,7 +1997,8 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
 
 
 def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
-                   items: {}, items_db: {}, races_db: {}):
+                   items: {}, items_db: {}, races_db: {},
+                   rooms: {}):
     """Aggressive npcs start fights
     """
     for nid, _ in list(npcs.items()):
@@ -1998,4 +2030,4 @@ def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
                         holding_throwable(npcs, nid, items_db)
                     _npc_begins_attack(npcs, nid, players[pid]['name'],
                                        players, fights, mud, items,
-                                       items_db, races_db, thrown)
+                                       items_db, races_db, thrown, rooms)

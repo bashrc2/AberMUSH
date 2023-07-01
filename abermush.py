@@ -676,7 +676,7 @@ while True:
 
     # Aggressive NPCs may attack players
     npc_aggression(npcs, players, fights, mud, items_in_world,
-                   items_db, races_db)
+                   items_db, races_db, rooms)
 
     previous_timing = \
         show_timing(previous_timing, "update npc attacks")

@@ -433,8 +433,8 @@ class MudServer(object):
                 time.sleep(1)
 
     def send_game_board(self, to_id, message: str) -> None:
-        """Sends the ANSI game board in the 'message' parameter to the player with
-        the id number given in the 'to' parameter. The text will be
+        """Sends the ANSI game board in the 'message' parameter to the player
+        with the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
         """
         if '\n' not in message:
