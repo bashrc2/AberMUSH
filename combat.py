@@ -889,7 +889,7 @@ def _confined_space(id: int, players: {}, items_db: {},
     """Is the given player in a confined space?
     """
     if item_id > 0:
-        if items_db[item_id]['bothHands'] != 0:
+        if items_db[item_id]['bothHands'] > 0:
             room_id = players[id]['room']
             if rooms[room_id]['maxPlayers'] < 3:
                 return True
