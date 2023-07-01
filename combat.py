@@ -375,7 +375,7 @@ def _combat_race_resistance(id: int, players: {},
     resistance = 0
     resist_param = 'resist_' + weapon_type.lower()
 
-    if weapon_type.endswith('bow'):
+    if weapon_type.endswith('bow') or weapon_type == 'pole':
         resist_param = 'resist_piercing'
 
     if weapon_type.endswith('sling') or \
