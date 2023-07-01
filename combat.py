@@ -867,6 +867,7 @@ def _armor_agility(id: int, players: {}, items_db: {}) -> int:
 
 def _can_use_weapon(id: int, players: {}, items_db: {}, item_id: int) -> bool:
     """Can the given player use the given weapon?
+    eg. use of a weapon requires some other item to be in the inventory
     """
     if item_id == 0:
         return True
