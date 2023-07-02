@@ -2,6 +2,7 @@
     "1": {
         "name": "Dark Forest",
         "color": 2,
+        "keywords": ["dark woods"],
         "travelDistance": 1,
         "htmlcolor": "#00B300"
     },
@@ -57,7 +58,7 @@
         "name": "Hills",
         "color": 6,
         "travelDistance": 1,
-        "keywords": ["mound"],
+        "keywords": ["mound", "hill"],
         "htmlcolor": "#00A0A0"
     },
     "10": {
@@ -78,12 +79,13 @@
         "name": "Road",
         "color": 7,
         "travelDistance": 1,
-        "keywords": ["street"],
+        "keywords": ["street", "road"],
         "htmlcolor": "#C0C0C0"
     },
     "13": {
         "name": "Valley",
         "color": 2,
+        "keywords": ["valley", "fissure"],
         "travelDistance": 1,
         "htmlcolor": "#00B300"
     },
@@ -117,6 +119,7 @@
         "name": "Dwarven city",
         "travelDistance": 1,
         "color": 7,
+        "keywords": ["dwarven"],
         "htmlcolor": "#C0C0C0"
     },
     "19": {
@@ -150,6 +153,7 @@
         "name": "Sewer",
         "travelDistance": 1,
         "color": 1,
+        "keywords": ["sewer", "rusty ladder"],
         "htmlcolor": "#A00000"
     },
     "24": {
@@ -180,6 +184,7 @@
         "name": "Underworld",
         "travelDistance": 1,
         "color": 8,
+        "keywords": ["underground"],
         "htmlcolor": "#808080"
     },
     "30": {
@@ -388,12 +393,14 @@
         "name": "Blackstone Dungeon",
         "travelDistance": 1,
         "color": 7,
+        "keywords": ["dungeon"],
         "htmlcolor": "#C0C0C0"
     },
     "67": {
         "name": "Cliff",
         "travelDistance": 1,
         "color": 3,
+        "keywords": ["cliff"],
         "htmlcolor": "#A0A000"
     },
     "68": {
@@ -413,6 +420,7 @@
         "name": "Quarry",
         "travelDistance": 1,
         "color": 3,
+        "keywords": ["quarry"],
         "htmlcolor": "#A0A000"
     },
     "71": {
