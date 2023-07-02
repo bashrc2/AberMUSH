@@ -2,512 +2,512 @@
     "1": {
         "name": "Dark Forest",
         "color": 2,
-	"travelDistance": 1,
+        "travelDistance": 1,
         "htmlcolor": "#00B300"
     },
     "2": {
         "name": "Constructed underground",
         "color": 8,
-	"travelDistance": 1,
-	"keywords": ["shaft", "mine", "tunnel", "passage"],
+        "travelDistance": 1,
+        "keywords": ["shaft", "mine", "tunnel", "passage"],
         "htmlcolor": "#808080"
     },
     "3": {
         "name": "Natural underground",
         "color": 8,
-	"travelDistance": 1,
-	"keywords": ["cave", "rockfall", "fissure", "stalag", "grotto", "crack", "tight"],
+        "travelDistance": 1,
+        "keywords": ["cave", "rockfall", "fissure", "stalag", "grotto", "crack", "tight"],
         "htmlcolor": "#808080"
     },
     "4": {
         "name": "Forest",
         "color": 2,
-	"travelDistance": 1,
-	"keywords": ["copse", "wooded", "woodland", "woods", "bushes", "trees", "pine", "pining", "woodpile", "lumberjack"],
+        "travelDistance": 1,
+        "keywords": ["copse", "wooded", "woodland", "woods", "bushes", "trees", "pine", "pining", "woodpile", "lumberjack"],
         "htmlcolor": "#00B300"
     },
     "5": {
         "name": "Beach",
         "color": 11,
-	"travelDistance": 1,
-	"keywords": ["seal", "shipwreck", "coast", "sandbank"],
+        "travelDistance": 1,
+        "keywords": ["seal", "shipwreck", "coast", "sandbank"],
         "htmlcolor": "#FFFF00"
     },
     "6": {
         "name": "Desert",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 11,
         "htmlcolor": "#FFFF00"
     },
     "7": {
         "name": "Grasslands",
         "color": 2,
-	"travelDistance": 1,
-	"keywords": ["grass"],
+        "travelDistance": 1,
+        "keywords": ["grass"],
         "htmlcolor": "#00B300"
     },
     "8": {
         "name": "Urban",
         "color": "7",
-	"travelDistance": 1,
-	"keywords": ["town", "shop", "street", "bedroom", "kitchen", "hallway", "stair", "room", "hall", "building", "house", "gate", "yard", "attic", "gallery", "bath", "maiden", "lab", "couch", "bucket", "bed", "wall", "plinth", "corridor", "market", "smithy", "clock", "ladder", "corner", "soler", "window", "arched", "place", "landing", "pit"],
+        "travelDistance": 1,
+        "keywords": ["town", "shop", "street", "bedroom", "kitchen", "hallway", "stair", "room", "hall", "building", "house", "gate", "yard", "attic", "gallery", "bath", "maiden", "lab", "couch", "bucket", "bed", "wall", "plinth", "corridor", "market", "smithy", "clock", "ladder", "corner", "soler", "window", "arched", "place", "landing", "pit"],
         "htmlcolor": "#C0C0C0"
     },
     "9": {
         "name": "Hills",
         "color": 6,
-	"travelDistance": 1,
-	"keywords": ["mound"],
+        "travelDistance": 1,
+        "keywords": ["mound"],
         "htmlcolor": "#00A0A0"
     },
     "10": {
         "name": "River",
         "color": 12,
-	"travelDistance": 1,
-	"keywords": ["banks", "stream", "waterfall", "falls", "spring", "riverbank"],
+        "travelDistance": 1,
+        "keywords": ["banks", "stream", "waterfall", "falls", "spring", "riverbank"],
         "htmlcolor": "#0000FF"
     },
     "11": {
         "name": "Path",
         "color": 7,
-	"travelDistance": 1,
-	"keywords": ["track", "trail", "clearing", "lane"],
+        "travelDistance": 1,
+        "keywords": ["track", "trail", "clearing", "lane"],
         "htmlcolor": "#C0C0C0"
     },
     "12": {
         "name": "Road",
         "color": 7,
-	"travelDistance": 1,
-	"keywords": ["street"],
+        "travelDistance": 1,
+        "keywords": ["street"],
         "htmlcolor": "#C0C0C0"
     },
     "13": {
         "name": "Valley",
         "color": 2,
-	"travelDistance": 1,
+        "travelDistance": 1,
         "htmlcolor": "#00B300"
     },
     "14": {
         "name": "Mountain",
         "color": 3,
-	"travelDistance": 1,
-	"keywords": ["mountains", "climb", "canyon", "steep", "slope", "descent"],
+        "travelDistance": 1,
+        "keywords": ["mountains", "climb", "canyon", "steep", "slope", "descent"],
         "htmlcolor": "#A0A000"
     },
     "15": {
         "name": "Swamp",
         "color": 5,
-	"travelDistance": 1,
-	"keywords": ["marsh"],
+        "travelDistance": 1,
+        "keywords": ["marsh"],
         "htmlcolor": "#A000A0"
     },
     "16": {
         "name": "Tundra",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 15,
         "htmlcolor": "#FFFFFF"
     },
     "17": {
         "name": "Jungle",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 10,
         "htmlcolor": "#00FF00"
     },
     "18": {
         "name": "Dwarven city",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "19": {
         "name": "Human city",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "20": {
         "name": "Sea",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 4,
-	"keywords": ["straits"],
+        "keywords": ["straits"],
         "htmlcolor": "#0000A0"
     },
     "21": {
         "name": "Garden",
         "color": 10,
-	"travelDistance": 1,
-	"keywords": ["fruit", "apple", "pear", "lawn", "hut", "shed", "fountain"],
+        "travelDistance": 1,
+        "keywords": ["fruit", "apple", "pear", "lawn", "hut", "shed", "fountain"],
         "htmlcolor": "#00FF00"
     },
     "22": {
         "name": "Freshwater",
         "color": 4,
-	"travelDistance": 1,
-	"keywords": ["crannog", "lake"],
+        "travelDistance": 1,
+        "keywords": ["crannog", "lake"],
         "htmlcolor": "#0000A0"
     },
     "23": {
         "name": "Sewer",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 1,
         "htmlcolor": "#A00000"
     },
     "24": {
         "name": "Deep Ocean",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "25": {
         "name": "Reef",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "26": {
         "name": "Vast Ocean",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "27": {
         "name": "Polar",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 15,
         "htmlcolor": "#FFFFFF"
     },
     "28": {
         "name": "Underworld",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 8,
         "htmlcolor": "#808080"
     },
     "30": {
         "name": "Docks",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["harbor", "harbour", "cove", "quay", "fjord"],
+        "keywords": ["harbor", "harbour", "cove", "quay", "fjord"],
         "htmlcolor": "#C0C0C0"
     },
     "31": {
         "name": "Warren",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 1,
         "htmlcolor": "#A00000"
     },
     "32": {
         "name": "Crag",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 3,
-	"keywords": ["crevasse", "pass", "ridge", "ravine", "ledge", "narrow", "leap"],
+        "keywords": ["crevasse", "pass", "ridge", "ravine", "ledge", "narrow", "leap"],
         "htmlcolor": "#A0A000"
     },
     "33": {
         "name": "Acropolis",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 9,
         "htmlcolor": "#FF0000"
     },
     "35": {
         "name": "Tainted Underground",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 1,
         "htmlcolor": "#A00000"
     },
     "36": {
         "name": "Underground Lake",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 8,
         "htmlcolor": "#808080"
     },
     "37": {
         "name": "Ruins",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 1,
-	"keywords": ["monolith", "circle"],
+        "keywords": ["monolith", "circle"],
         "htmlcolor": "#A00000"
     },
     "38": {
         "name": "Bridge",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 11,
-	"keywords": ["causeway"],
+        "keywords": ["causeway"],
         "htmlcolor": "#FFFF00"
     },
     "39": {
         "name": "Tainted Water",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 1,
         "htmlcolor": "#A00000"
     },
     "41": {
         "name": "Farm",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["sheep", "cow", "pigsty", "field", "pasture"],
+        "keywords": ["sheep", "cow", "pigsty", "field", "pasture"],
         "htmlcolor": "#C0C0C0"
     },
     "42": {
         "name": "Academia",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["library", "study"],
+        "keywords": ["library", "study"],
         "htmlcolor": "#C0C0C0"
     },
     "44": {
         "name": "Forestal Council",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 10,
         "htmlcolor": "#00FF00"
     },
     "45": {
         "name": "Fortress",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["castle"],
+        "keywords": ["castle"],
         "htmlcolor": "#C0C0C0"
     },
     "46": {
         "name": "Graveyard",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 8,
         "htmlcolor": "#808080"
     },
     "47": {
         "name": "Village",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "48": {
         "name": "Transportation",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "49": {
         "name": "Pond",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 4,
         "htmlcolor": "#0000A0"
     },
     "50": {
         "name": "Living Mountain",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 3,
         "htmlcolor": "#A0A000"
     },
     "51": {
         "name": "Boat",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["ship", "deck"],
+        "keywords": ["ship", "deck"],
         "htmlcolor": "#C0C0C0"
     },
     "52": {
         "name": "Rashirmir",
         "color": 7,
-	"travelDistance": 1,
+        "travelDistance": 1,
         "htmlcolor": "#C0C0C0"
     },
     "53": {
         "name": "Dark Forest Council",
         "color": 2,
-	"travelDistance": 1,
+        "travelDistance": 1,
         "htmlcolor": "#00B300"
     },
     "54": {
         "name": "Church",
         "color": 7,
-	"travelDistance": 1,
-	"keywords": ["altar", "church", "chapel", "bells"],
+        "travelDistance": 1,
+        "keywords": ["altar", "church", "chapel", "bells"],
         "htmlcolor": "#C0C0C0"
     },
     "56": {
         "name": "Magma flow",
         "color": 9,
-	"travelDistance": 1,
-	"keywords": ["magma", "lava"],
+        "travelDistance": 1,
+        "keywords": ["magma", "lava"],
         "htmlcolor": "#FF0000"
     },
     "57": {
         "name": "Temple",
         "color": 7,
-	"travelDistance": 1,
-	"keywords": ["monk", "monastry", "priest"],
+        "travelDistance": 1,
+        "keywords": ["monk", "monastry", "priest"],
         "htmlcolor": "#C0C0C0"
     },
     "58": {
         "name": "Blackened Lands",
         "color": 8,
-	"travelDistance": 1,
+        "travelDistance": 1,
         "htmlcolor": "#808080"
     },
     "59": {
         "name": "Volcano",
         "color": 9,
-	"travelDistance": 1,
-	"keywords": ["crater", "vent", "volcanic"],
+        "travelDistance": 1,
+        "keywords": ["crater", "vent", "volcanic"],
         "htmlcolor": "#FF0000"
     },
     "60": {
         "name": "Twisted Forest",
         "color": 5,
-	"travelDistance": 1,
+        "travelDistance": 1,
         "htmlcolor": "#A000A0"
     },
     "61": {
         "name": "Plane of Tempests",
         "color": 9,
-	"travelDistance": 1,
-	"collisions": false,
-	"keywords": ["neverland", "void", "purgatory", "planes", "hidden"],
+        "travelDistance": 1,
+        "collisions": false,
+        "keywords": ["neverland", "void", "purgatory", "planes", "hidden"],
         "htmlcolor": "#FF0000"
     },
     "62": {
         "name": "Blackstone Keep",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "63": {
         "name": "Catacombs",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 8,
-	"keywords": ["chamber", "crypt", "sarcophagus", "cell"],
+        "keywords": ["chamber", "crypt", "sarcophagus", "cell"],
         "htmlcolor": "#808080"
     },
     "64": {
         "name": "Wetlands Village",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": [],
+        "keywords": [],
         "htmlcolor": "#C0C0C0"
     },
     "65": {
         "name": "Blackstone Dungeon",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "67": {
         "name": "Cliff",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 3,
         "htmlcolor": "#A0A000"
     },
     "68": {
         "name": "Sheltered dell",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "69": {
         "name": "Tent",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["pavillion"],
+        "keywords": ["pavillion"],
         "htmlcolor": "#C0C0C0"
     },
     "70": {
         "name": "Quarry",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 3,
         "htmlcolor": "#A0A000"
     },
     "71": {
         "name": "Garrison",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["barracks", "guard"],
+        "keywords": ["barracks", "guard"],
         "htmlcolor": "#C0C0C0"
     },
     "72": {
         "name": "Pyramid",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 3,
         "htmlcolor": "#A0A000"
     },
     "73": {
         "name": "Bog",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 5,
         "htmlcolor": "#A000A0"
     },
     "74": {
         "name": "Blighted",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 5,
         "htmlcolor": "#A000A0"
     },
     "75": {
         "name": "Villa",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
         "htmlcolor": "#C0C0C0"
     },
     "76": {
         "name": "Frozen Bog",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 5,
         "htmlcolor": "#A000A0"
     },
     "77": {
         "name": "Rocky Shore",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 3,
-	"keywords": ["rocks", "jagged"],
+        "keywords": ["rocks", "jagged"],
         "htmlcolor": "#A0A000"
     },
     "78": {
         "name": "Scrubland",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 2,
-	"keywords": ["moor", "wasteland"],
+        "keywords": ["moor", "wasteland"],
         "htmlcolor": "#00B300"
     },
     "79": {
         "name": "Tower",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["watchtower", "tower"],
+        "keywords": ["watchtower", "tower"],
         "htmlcolor": "#C0C0C0"
     },
     "81": {
         "name": "Twisted Forest Council",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 5,
         "htmlcolor": "#A000A0"
     },
     "82": {
         "name": "Arctic",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 15,
-	"keywords": ["ice", "icy", "snow", "blizzard"],
+        "keywords": ["ice", "icy", "snow", "blizzard"],
         "htmlcolor": "#FFFFFF"
     },
     "83": {
         "name": "Orc stronghold",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 9,
         "htmlcolor": "#FF0000"
     },
     "84": {
         "name": "Goblin Village",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 9,
         "htmlcolor": "#FF0000"
     },
     "85": {
         "name": "Tavern",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 7,
-	"keywords": ["inn", "cellars", "cellar"],
+        "keywords": ["inn", "cellars", "cellar"],
         "htmlcolor": "#C0C0C0"
     },
     "86": {
         "name": "Ocean Dome",
-	"travelDistance": 1,
+        "travelDistance": 1,
         "color": 11,
         "htmlcolor": "#FFFF00"
     }
