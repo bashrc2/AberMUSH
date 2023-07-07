@@ -66,7 +66,7 @@ move/roll/heave [target]                - Try to move or roll a heavy object
 jump to [exit]                          - Try to jump onto something
 attack/punch/kick/headbutt [target]     - Attack another player or NPC
 throw [weapon] at [target]              - Throw a weapon at another player or NPC
-shove                                   - Try to knock down a target during an attack
+shove/trip                              - Try to knock down a target during an attack
 prone                                   - Lie down
 stand                                   - Stand up
 check inventory                         - Check the contents of your inventory

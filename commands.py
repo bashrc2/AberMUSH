@@ -1225,7 +1225,7 @@ def _help(params, mud, players_db: {}, players: {}, rooms: {},
                      'Throw a weapon at a target, ' +
                      "e.g. 'throw dagger at zombie'")
     mud.send_message(id,
-                     '  <f220>shove<f255>' +
+                     '  <f220>shove/trip<f255>' +
                      '                                   - ' +
                      'Try to knock a target over ' +
                      'during an attack')
