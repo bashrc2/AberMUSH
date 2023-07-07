@@ -200,6 +200,53 @@ def _shove(params, mud, players_db: {}, players: {}, rooms: {},
     players[id]['shove'] = 1
 
 
+def _trip(params, mud, players_db: {}, players: {}, rooms: {},
+          npcs_db: {}, npcs: {}, items_db: {}, items: {},
+          env_db: {}, env: {}, eventDB: {}, event_schedule,
+          id: int, fights: {}, corpses: {}, blocklist,
+          map_area: [], character_class_db: {}, spells_db: {},
+          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+          item_history: {}, markets: {}, cultures_db: {}):
+    if players[id]['frozenStart'] != 0:
+        mud.send_message(
+            id, random_desc(
+                players[id]['frozenDescription']) + '\n\n')
+        return
+
+    if player_is_trapped(id, players, rooms):
+        describe_trapped_player(mud, id, players, rooms)
+        return
+
+    if player_is_prone(id, players):
+        mud.send_message(id, random_desc('You stand up<r>\n\n'))
+        set_player_prone(id, players, False)
+        return
+
+    if not is_player_fighting(id, players, fights):
+        mud.send_message(
+            id,
+            random_desc('You try to trip your opponent, ' +
+                        'but to your surprise ' +
+                        'discover that you are not in combat ' +
+                        'with anyone.') +
+            '\n\n')
+        return
+
+    if players[id]['canGo'] != 1:
+        mud.send_message(
+            id, random_desc(
+                "You try to trip your opponent, " +
+                "but don't seem to be able to move") +
+            '\n\n')
+        return
+
+    mud.send_message(
+        id, random_desc(
+            "You get ready to trip your opponent...") +
+        '\n')
+    players[id]['shove'] = 1
+
+
 def _dodge(params, mud, players_db: {}, players: {}, rooms: {},
            npcs_db: {}, npcs: {}, items_db: {}, items: {},
            env_db: {}, env: {}, eventDB: {}, event_schedule,
@@ -7901,6 +7948,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "morris": _morris_game,
         "dodge": _dodge,
         "shove": _shove,
+        "trip": _trip,
         "prone": _pose_prone,
         "stand": _stand,
         "buy": _buy,
