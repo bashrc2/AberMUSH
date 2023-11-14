@@ -711,6 +711,10 @@ def _test_language_path2() -> None:
     new_filename = language_path(filename, 'de', False)
     assert new_filename == '/de/filename.json'
 
+    new_filename = language_path(filename, None, False)
+    print('new_filename: ' + str(new_filename))
+    assert new_filename == filename
+
 
 def run_all_tests():
     print('Running tests...')
