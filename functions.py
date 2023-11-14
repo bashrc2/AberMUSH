@@ -779,3 +779,29 @@ def item_in_room(items: {}, id, room):
             if id == i[1]['id']:
                 return True
     return False
+
+
+def language_path(filename: str, language: str,
+                  check: bool) -> str:
+    """returns a language specific version of the given filename
+    """
+    if not language:
+        return filename
+    if len(language) < 2:
+        return filename
+    language = language.lower()
+    if '/' + language + '/' in filename:
+        return filename
+    if '/' in filename:
+        file_str = filename.split('/')[-1]
+        new_filename = filename.replace('/' + file_str,
+                                        '/' + language + '/' + file_str)
+    else:
+        new_filename = '/' + language + '/' + filename
+
+    if check:
+        if os.path.isfile(new_filename):
+            filename = new_filename
+    else:
+        filename = new_filename
+    return filename

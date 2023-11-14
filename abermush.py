@@ -28,6 +28,7 @@ from functions import verify_password
 from functions import load_blocklist
 from functions import set_race
 from functions import str2bool
+from functions import language_path
 
 from commands import run_command
 from combat import npc_aggression
@@ -94,6 +95,9 @@ parser.add_argument("--tests", type=str2bool, nargs='?',
 parser.add_argument('--mapLevel', dest='mapLevel', type=int,
                     default=None,
                     help='Shows a vertical map level as a CSV')
+parser.add_argument('--language', dest='language', type=str,
+                    default=None,
+                    help='Language used')
 parser.add_argument("--mmp", type=str2bool, nargs='?',
                     const=True, default=False,
                     help="Map in MMP XML format")
@@ -170,7 +174,10 @@ if 'true' in Config.get('Web', 'tlsEnabled').lower():
 
 log("Loading sentiment...", "info")
 
-with open(str(Config.get('Sentiment', 'Definition')), "r") as fp_read:
+sentiment_filename_json = str(Config.get('Sentiment', 'Definition'))
+sentiment_filename_json = language_path(sentiment_filename_json,
+                                        args.language, True)
+with open(sentiment_filename_json, "r") as fp_read:
     sentiment_db = json.loads(fp_read.read())
 
 count_str = str(len(sentiment_db))
@@ -179,7 +186,10 @@ log("Sentiment loaded: " + count_str, "info")
 log("Loading cultures...", "info")
 
 cultures_db = None
-with open(str(Config.get('Cultures', 'Definition')), "r") as fp_read:
+cultures_filename_json = str(Config.get('Cultures', 'Definition'))
+cultures_filename_json = language_path(cultures_filename_json,
+                                       args.language, True)
+with open(cultures_filename_json, "r") as fp_read:
     cultures_db = json.loads(fp_read.read())
 
 count_str = str(len(cultures_db))
@@ -195,7 +205,10 @@ if os.path.isfile("universe.json"):
     for rm in rooms:
         rooms[rm]['coords'] = []
 else:
-    with open(str(Config.get('Rooms', 'Definition')), "r") as fp_read:
+    rooms_filename_json = str(Config.get('Rooms', 'Definition'))
+    rooms_filename_json = language_path(rooms_filename_json,
+                                        args.language, True)
+    with open(rooms_filename_json, "r") as fp_read:
         rooms = json.loads(fp_read.read())
 
 for room_id, rm in rooms.items():
@@ -208,7 +221,10 @@ count_str = str(len(rooms))
 log("Rooms loaded: " + count_str, "info")
 
 log("Loading environments...", "info")
-with open(str(Config.get('Environments', 'Definition')), "r") as fp_read:
+environments_filename_json = str(Config.get('Environments', 'Definition'))
+environments_filename_json = language_path(environments_filename_json,
+                                           args.language, True)
+with open(environments_filename_json, "r") as fp_read:
     environments = json.loads(fp_read.read())
 percent_assigned = str(assign_environment_to_rooms(environments, rooms))
 log(percent_assigned + '% of rooms have environments assigned', "info")
@@ -234,7 +250,10 @@ if os.path.isfile("universe_itemsdb.json"):
         print('WARN: unable to load universe_itemsdb.json')
 
 if not items_db:
-    with open(str(Config.get('Items', 'Definition')), "r") as fp_read:
+    items_filename_json = str(Config.get('Items', 'Definition'))
+    items_filename_json = language_path(items_filename_json,
+                                        args.language, True)
+    with open(items_filename_json, "r") as fp_read:
         items_db = json.loads(fp_read.read())
 
 output_dict = {}
@@ -244,7 +263,10 @@ for key, value in items_db.items():
 items_db = output_dict
 
 item_history = {}
-with open(str(Config.get('ItemHistory', 'Definition')), "r") as fp_read:
+item_history_filename_json = str(Config.get('ItemHistory', 'Definition'))
+item_history_filename_json = language_path(item_history_filename_json,
+                                           args.language, True)
+with open(item_history_filename_json, "r") as fp_read:
     item_history = json.loads(fp_read.read())
 item_ctr = assign_items_history(items_db, item_history)
 item_ctr_str = str(item_ctr)
@@ -350,7 +372,10 @@ if os.path.isfile("universe_actorsdb.json"):
         print('WARN: unable to load universe_actorsdb.json')
 
 if not env_db:
-    with open(str(Config.get('Actors', 'Definition')), "r") as read_file:
+    actors_filename_json = str(Config.get('Actors', 'Definition'))
+    actors_filename_json = language_path(actors_filename_json,
+                                         args.language, True)
+    with open(actors_filename_json, "r") as read_file:
         env_db = json.loads(read_file.read())
 
 output_dict = {}
@@ -396,7 +421,10 @@ if os.path.isfile("universe_npcsdb.json"):
         print('WARN: unable to load universe_npcsdb.json')
 
 if not npcs_db:
-    with open(str(Config.get('NPCs', 'Definition')), "r") as fp_read:
+    npcs_filename_json = str(Config.get('NPCs', 'Definition'))
+    npcs_filename_json = language_path(npcs_filename_json,
+                                       args.language, True)
+    with open(npcs_filename_json, "r") as fp_read:
         npcs_db = json.loads(fp_read.read())
 
 output_dict = {}
@@ -460,31 +488,46 @@ for k in npcs_db:
 count_str = str(len(npcs_db))
 log("NPCs loaded: " + count_str, "info")
 
-with open(str(Config.get('Races', 'Definition')), "r") as fp_read:
+races_filename_json = str(Config.get('Races', 'Definition'))
+races_filename_json = language_path(races_filename_json,
+                                    args.language, True)
+with open(races_filename_json, "r") as fp_read:
     races_db = json.loads(fp_read.read())
 
 count_str = str(len(races_db))
 log("Races loaded: " + count_str, "info")
 
-with open(str(Config.get('CharacterClass', 'Definition')), "r") as fp_read:
+character_class_filename_json = str(Config.get('CharacterClass', 'Definition'))
+character_class_filename_json = language_path(character_class_filename_json,
+                                              args.language, True)
+with open(character_class_filename_json, "r") as fp_read:
     character_class_db = json.loads(fp_read.read())
 
 count_str = str(len(character_class_db))
 log("Character Classes loaded: " + count_str, "info")
 
-with open(str(Config.get('Spells', 'Definition')), "r") as fp_read:
+spells_filename_json = str(Config.get('Spells', 'Definition'))
+spells_filename_json = language_path(spells_filename_json,
+                                     args.language, True)
+with open(spells_filename_json, "r") as fp_read:
     spells_db = json.loads(fp_read.read())
 
 count_str = str(len(spells_db))
 log("Spells loaded: " + count_str, "info")
 
-with open(str(Config.get('Guilds', 'Definition')), "r") as fp_read:
+guilds_filename_json = str(Config.get('Guilds', 'Definition'))
+guilds_filename_json = language_path(guilds_filename_json,
+                                     args.language, True)
+with open(guilds_filename_json, "r") as fp_read:
     guilds_db = json.loads(fp_read.read())
 
 count_str = str(len(guilds_db))
 log("Guilds loaded: " + count_str, "info")
 
-with open(str(Config.get('Attacks', 'Definition')), "r") as fp_read:
+attacks_filename_json = str(Config.get('Attacks', 'Definition'))
+attacks_filename_json = language_path(attacks_filename_json,
+                                      args.language, True)
+with open(attacks_filename_json, "r") as fp_read:
     attack_db = json.loads(fp_read.read())
 
 count_str = str(len(attack_db))
@@ -586,7 +629,10 @@ if load_blocklist("blocked.txt", blocklist):
 
 terminal_mode = {}
 
-with open(str(Config.get('Markets', 'Definition')), "r") as fp_read:
+markets_filename_json = str(Config.get('Markets', 'Definition'))
+markets_filename_json = language_path(markets_filename_json,
+                                      args.language, True)
+with open(markets_filename_json, "r") as fp_read:
     markets = json.loads(fp_read.read())
     no_of_markets = str(assign_markets(markets, rooms, items_db, cultures_db))
     markets_str = str(no_of_markets)
@@ -1001,8 +1047,13 @@ while True:
                 break
 
             # Load the player template from a file
-            with open(str(Config.get('Players', 'Location')) +
-                      "/player.template", "r") as fp_read:
+            player_template_filename_json = \
+                str(Config.get('Players', 'Location')) + \
+                "/player.template"
+            player_template_filename_json = \
+                language_path(player_template_filename_json,
+                              args.language, True)
+            with open(player_template_filename_json, "r") as fp_read:
                 template = json.loads(fp_read.read())
 
             set_race(template, races_db, selected_race)

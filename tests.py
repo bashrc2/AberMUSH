@@ -12,6 +12,7 @@ import os
 import json
 import configparser
 from markets import money_purchase
+from functions import language_path
 
 
 def get_func_call_args(name: str, lines: [], start_line_ctr: int) -> []:
@@ -243,6 +244,7 @@ def _test_functions() -> None:
         '_stow',
         '_bio',
         '_eat',
+        '_trip',
         '_step_over',
         '_jump',
         '_deal',
@@ -697,8 +699,22 @@ def _test_purchase_with_money() -> None:
     assert players[id]["sp"] == 10
 
 
+def _test_language_path2() -> None:
+    print('language path')
+    filename = '/some/filename.json'
+    new_filename = language_path(filename, 'de', False)
+    if new_filename != '/some/de/filename.json':
+        print('filename: ' + new_filename)
+    assert new_filename == '/some/de/filename.json'
+
+    filename = 'filename.json'
+    new_filename = language_path(filename, 'de', False)
+    assert new_filename == '/de/filename.json'
+
+
 def run_all_tests():
     print('Running tests...')
+    _test_language_path2()
     _test_functions()
     _test_duplicate_exits()
     _test_purchase_with_money()
