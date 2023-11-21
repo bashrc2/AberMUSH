@@ -15,7 +15,7 @@ import datetime
 
 class threadWithTrace(threading.Thread):
     def __init__(self, *args, **keywords):
-        self.start_time = datetime.datetime.utcnow()
+        self.start_time = datetime.datetime.now()
         self.is_started = False
         tries = 0
         while tries < 3:
@@ -76,7 +76,7 @@ def removeDormantThreads(baseDir: str, threads_list: [], debug: bool) -> None:
         return
 
     dormant_threads = []
-    curr_time = datetime.datetime.utcnow()
+    curr_time = datetime.datetime.now()
     changed = False
 
     # which threads are dormant?
