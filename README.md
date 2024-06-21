@@ -19,7 +19,7 @@ telnet [hostname] 35123
 Use UTF-8 terminal encoding.
 
 ## Running the Server
-```diff
+``` diff
 - IMPORTANT - Python >= 3.6.7 is required (Ubuntu >= 18.04 LTS)!
 ```
 1. Update your system `sudo apt update && sudo apt upgrade`
@@ -28,19 +28,15 @@ Use UTF-8 terminal encoding.
 
 If you want to add a firewall which only allows logins via ssh or telnet:
 
-`sudo cp /opt/abermush/firewall.nft /etc/firewall.conf`
-
-`sudo apt -y install nftables`
-
-`sudo nft -f /etc/firewall.conf`
-
-`sudo echo '#!/bin/sh' > /etc/network/if-up.d/firewall`
-
-`sudo echo 'nft flush ruleset' >> /etc/network/if-up.d/firewall`
-
-`sudo echo 'nft -f /etc/firewall.conf' >> /etc/network/if-up.d/firewall`
-
-`sudo chmod +x /etc/network/if-up.d/firewall`
+``` bash
+sudo cp /opt/abermush/firewall.nft /etc/firewall.conf
+sudo apt -y install nftables
+sudo nft -f /etc/firewall.conf
+sudo echo '#!/bin/sh' > /etc/network/if-up.d/firewall
+sudo echo 'nft flush ruleset' >> /etc/network/if-up.d/firewall
+sudo echo 'nft -f /etc/firewall.conf' >> /etc/network/if-up.d/firewall
+sudo chmod +x /etc/network/if-up.d/firewall
+```
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
 
