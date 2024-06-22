@@ -632,10 +632,9 @@ def load_blocklist(filename, blocklist):
 
 
 def save_blocklist(filename, blocklist):
-    blockfile = open(filename, "w")
-    for blockedstr in blocklist:
-        blockfile.write(blockedstr + '\n')
-    blockfile.close()
+    with open(filename, "w", encoding='utf-8') as blockfile:
+        for blockedstr in blocklist:
+            blockfile.write(blockedstr + '\n')
 
 
 def set_race(template, races_db, name):
