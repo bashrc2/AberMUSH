@@ -680,13 +680,13 @@ def prepare_spells(mud, id, players):
                 players[id]['prepareSpellProgress'] + 1
 
 
-def is_wearing(id, players: {}, itemList: []) -> bool:
+def is_wearing(id, players: {}, item_list: []) -> bool:
     """Given a list of possible item IDs is the player wearing any of them?
     """
-    if not itemList:
+    if not item_list:
         return False
 
-    for item_id in itemList:
+    for item_id in item_list:
         if not str(item_id).isdigit():
             print('is_wearing: ' + str(item_id) + ' is not a digit')
             continue
