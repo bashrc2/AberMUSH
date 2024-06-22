@@ -528,7 +528,7 @@ def _send_combat_image(mud, id, players: {}, race: str,
     combat_image_filename = 'images/combat/' + race + '_' + weapon_type
     if not os.path.isfile(combat_image_filename):
         return
-    with open(combat_image_filename, 'r') as fp_img:
+    with open(combat_image_filename, 'r', encoding='utf-8') as fp_img:
         mud.send_image(id, '\n' + fp_img.read())
 
 

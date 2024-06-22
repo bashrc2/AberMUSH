@@ -428,11 +428,10 @@ def map_level_as_csv(rooms: {}, level: int):
         map_str += line_str.strip() + '\n'
 
     filename = 'map_level_' + str(level) + '.csv'
-    csv_file = open(filename, 'w+')
-    if csv_file:
-        csv_file.write(map_str)
-        csv_file.close()
-        print('Map level ' + str(level) + ' saved')
+    with open(filename, 'w+', encoding='utf-8') as csv_file:
+        if csv_file:
+            csv_file.write(map_str)
+            print('Map level ' + str(level) + ' saved')
 
 
 def _remove_coordinate_gaps(rooms: {}) -> None:

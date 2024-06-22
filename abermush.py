@@ -177,7 +177,7 @@ log("Loading sentiment...", "info")
 sentiment_filename_json = str(Config.get('Sentiment', 'Definition'))
 sentiment_filename_json = language_path(sentiment_filename_json,
                                         args.language, True)
-with open(sentiment_filename_json, "r") as fp_read:
+with open(sentiment_filename_json, "r", encoding='utf-8') as fp_read:
     sentiment_db = json.loads(fp_read.read())
 
 count_str = str(len(sentiment_db))
@@ -189,7 +189,7 @@ cultures_db = None
 cultures_filename_json = str(Config.get('Cultures', 'Definition'))
 cultures_filename_json = language_path(cultures_filename_json,
                                        args.language, True)
-with open(cultures_filename_json, "r") as fp_read:
+with open(cultures_filename_json, "r", encoding='utf-8') as fp_read:
     cultures_db = json.loads(fp_read.read())
 
 count_str = str(len(cultures_db))
@@ -199,7 +199,7 @@ log("Loading rooms...", "info")
 
 # Loading rooms
 if os.path.isfile("universe.json"):
-    with open("universe.json", "r") as fp_read:
+    with open("universe.json", "r", encoding='utf-8') as fp_read:
         rooms = json.loads(fp_read.read())
     # Clear room coordinates
     for rm in rooms:
@@ -208,7 +208,7 @@ else:
     rooms_filename_json = str(Config.get('Rooms', 'Definition'))
     rooms_filename_json = language_path(rooms_filename_json,
                                         args.language, True)
-    with open(rooms_filename_json, "r") as fp_read:
+    with open(rooms_filename_json, "r", encoding='utf-8') as fp_read:
         rooms = json.loads(fp_read.read())
 
 for room_id, rm in rooms.items():
@@ -224,7 +224,7 @@ log("Loading environments...", "info")
 environments_filename_json = str(Config.get('Environments', 'Definition'))
 environments_filename_json = language_path(environments_filename_json,
                                            args.language, True)
-with open(environments_filename_json, "r") as fp_read:
+with open(environments_filename_json, "r", encoding='utf-8') as fp_read:
     environments = json.loads(fp_read.read())
 percent_assigned = str(assign_environment_to_rooms(environments, rooms))
 log(percent_assigned + '% of rooms have environments assigned', "info")
@@ -237,14 +237,14 @@ log("Terrain difficulty calculated. max=" + max_terrain_difficulty_str, "info")
 # Loading Items
 if os.path.isfile("universe_items.json"):
     try:
-        with open("universe_items.json", "r") as fp_read:
+        with open("universe_items.json", "r", encoding='utf-8') as fp_read:
             items_in_world = json.loads(fp_read.read())
     except BaseException:
         print('WARN: unable to load universe_items.json')
 
 if os.path.isfile("universe_itemsdb.json"):
     try:
-        with open("universe_itemsdb.json", "r") as fp_read:
+        with open("universe_itemsdb.json", "r", encoding='utf-8') as fp_read:
             items_db = json.loads(fp_read.read())
     except BaseException:
         print('WARN: unable to load universe_itemsdb.json')
@@ -253,7 +253,7 @@ if not items_db:
     items_filename_json = str(Config.get('Items', 'Definition'))
     items_filename_json = language_path(items_filename_json,
                                         args.language, True)
-    with open(items_filename_json, "r") as fp_read:
+    with open(items_filename_json, "r", encoding='utf-8') as fp_read:
         items_db = json.loads(fp_read.read())
 
 output_dict = {}
@@ -266,7 +266,7 @@ item_history = {}
 item_history_filename_json = str(Config.get('ItemHistory', 'Definition'))
 item_history_filename_json = language_path(item_history_filename_json,
                                            args.language, True)
-with open(item_history_filename_json, "r") as fp_read:
+with open(item_history_filename_json, "r", encoding='utf-8') as fp_read:
     item_history = json.loads(fp_read.read())
 item_ctr = assign_items_history(items_db, item_history)
 item_ctr_str = str(item_ctr)
@@ -326,14 +326,13 @@ files = glob.glob(str(Config.get('Events', 'Location')) + "/*.event")
 counter = 0
 for file in files:
     counter += 1
-    f = open(file, 'r')
-    # print(file)
-    lines = [line.rstrip() for line in f.readlines()[2:]]
-    for fileLine in lines[1:]:
-        if len(fileLine) > 0:
-            scripted_events_db.append([lines[0]] + fileLine.split('|'))
-            # print(lines)
-            f.close()
+    with open(file, 'r', encoding='utf-8') as f:
+        # print(file)
+        lines = [line.rstrip() for line in f.readlines()[2:]]
+        for fileLine in lines[1:]:
+            if len(fileLine) > 0:
+                scripted_events_db.append([lines[0]] + fileLine.split('|'))
+                # print(lines)
 
 count_str = str(counter)
 log("Scripted Events loaded: " + count_str, "info")
@@ -366,7 +365,8 @@ if os.path.isfile("universe_actors.json"):
 
 if os.path.isfile("universe_actorsdb.json"):
     try:
-        with open("universe_actorsdb.json", "r") as read_file:
+        with open("universe_actorsdb.json", "r",
+                  encoding='utf-8') as read_file:
             env_db = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_actorsdb.json')
@@ -375,7 +375,7 @@ if not env_db:
     actors_filename_json = str(Config.get('Actors', 'Definition'))
     actors_filename_json = language_path(actors_filename_json,
                                          args.language, True)
-    with open(actors_filename_json, "r") as read_file:
+    with open(actors_filename_json, "r", encoding='utf-8') as read_file:
         env_db = json.loads(read_file.read())
 
 output_dict = {}
@@ -410,12 +410,12 @@ log("Environment Actors loaded: " + count_str, "info")
 
 log("Loading NPCs...", "info")
 # if os.path.isfile("universe_npcs.json"):
-#     with open("universe_npcs.json", "r") as fp_read:
+#     with open("universe_npcs.json", "r", encoding='utf-8') as fp_read:
 #         npcs = json.loads(fp_read.read())
 
 if os.path.isfile("universe_npcsdb.json"):
     try:
-        with open("universe_npcsdb.json", "r") as fp_read:
+        with open("universe_npcsdb.json", "r", encoding='utf-8') as fp_read:
             npcs_db = json.loads(fp_read.read())
     except BaseException:
         print('WARN: unable to load universe_npcsdb.json')
@@ -424,7 +424,7 @@ if not npcs_db:
     npcs_filename_json = str(Config.get('NPCs', 'Definition'))
     npcs_filename_json = language_path(npcs_filename_json,
                                        args.language, True)
-    with open(npcs_filename_json, "r") as fp_read:
+    with open(npcs_filename_json, "r", encoding='utf-8') as fp_read:
         npcs_db = json.loads(fp_read.read())
 
 output_dict = {}
@@ -491,7 +491,7 @@ log("NPCs loaded: " + count_str, "info")
 races_filename_json = str(Config.get('Races', 'Definition'))
 races_filename_json = language_path(races_filename_json,
                                     args.language, True)
-with open(races_filename_json, "r") as fp_read:
+with open(races_filename_json, "r", encoding='utf-8') as fp_read:
     races_db = json.loads(fp_read.read())
 
 count_str = str(len(races_db))
@@ -500,7 +500,7 @@ log("Races loaded: " + count_str, "info")
 character_class_filename_json = str(Config.get('CharacterClass', 'Definition'))
 character_class_filename_json = language_path(character_class_filename_json,
                                               args.language, True)
-with open(character_class_filename_json, "r") as fp_read:
+with open(character_class_filename_json, "r", encoding='utf-8') as fp_read:
     character_class_db = json.loads(fp_read.read())
 
 count_str = str(len(character_class_db))
@@ -509,7 +509,7 @@ log("Character Classes loaded: " + count_str, "info")
 spells_filename_json = str(Config.get('Spells', 'Definition'))
 spells_filename_json = language_path(spells_filename_json,
                                      args.language, True)
-with open(spells_filename_json, "r") as fp_read:
+with open(spells_filename_json, "r", encoding='utf-8') as fp_read:
     spells_db = json.loads(fp_read.read())
 
 count_str = str(len(spells_db))
@@ -518,7 +518,7 @@ log("Spells loaded: " + count_str, "info")
 guilds_filename_json = str(Config.get('Guilds', 'Definition'))
 guilds_filename_json = language_path(guilds_filename_json,
                                      args.language, True)
-with open(guilds_filename_json, "r") as fp_read:
+with open(guilds_filename_json, "r", encoding='utf-8') as fp_read:
     guilds_db = json.loads(fp_read.read())
 
 count_str = str(len(guilds_db))
@@ -527,7 +527,7 @@ log("Guilds loaded: " + count_str, "info")
 attacks_filename_json = str(Config.get('Attacks', 'Definition'))
 attacks_filename_json = language_path(attacks_filename_json,
                                       args.language, True)
-with open(attacks_filename_json, "r") as fp_read:
+with open(attacks_filename_json, "r", encoding='utf-8') as fp_read:
     attack_db = json.loads(fp_read.read())
 
 count_str = str(len(attack_db))
@@ -632,7 +632,7 @@ terminal_mode = {}
 markets_filename_json = str(Config.get('Markets', 'Definition'))
 markets_filename_json = language_path(markets_filename_json,
                                       args.language, True)
-with open(markets_filename_json, "r") as fp_read:
+with open(markets_filename_json, "r", encoding='utf-8') as fp_read:
     markets = json.loads(fp_read.read())
     no_of_markets = str(assign_markets(markets, rooms, items_db, cultures_db))
     markets_str = str(no_of_markets)
@@ -1053,7 +1053,8 @@ while True:
             player_template_filename_json = \
                 language_path(player_template_filename_json,
                               args.language, True)
-            with open(player_template_filename_json, "r") as fp_read:
+            with open(player_template_filename_json, "r",
+                      encoding='utf-8') as fp_read:
                 template = json.loads(fp_read.read())
 
             set_race(template, races_db, selected_race)
@@ -1085,7 +1086,7 @@ while True:
                         if lang not in template['language']:
                             template['language'].append(lang)
                 template['language'].append('cant')
-                with open("witches", "w") as fp_witches:
+                with open("witches", "w", encoding='utf-8') as fp_witches:
                     fp_witches.write(template['name'])
 
             # populate initial inventory from character class
@@ -1107,7 +1108,8 @@ while True:
             # Save template into a new player file
             # print(template)
             with open(str(Config.get('Players', 'Location')) + "/" +
-                      template['name'] + ".player", 'w') as fp_player:
+                      template['name'] + ".player", 'w',
+                      encoding='utf-8') as fp_player:
                 fp_player.write(json.dumps(template))
 
             # Reload PlayersDB to include this newly created player

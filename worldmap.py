@@ -90,5 +90,5 @@ def export_mmp(rooms: {}, environments: {}, filename: str) -> None:
     See https://wiki.mudlet.org/w/Standards:MMP
     """
     xml_str = _get_mmp(rooms, environments)
-    with open(filename, "w+") as fp_mmp:
+    with open(filename, "w+", encoding='utf-8') as fp_mmp:
         fp_mmp.write(xml_str)

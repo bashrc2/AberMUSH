@@ -318,14 +318,12 @@ def _is_witch(id: int, players: {}) -> bool:
     if not os.path.isfile("witches"):
         return False
 
-    witchesfile = open("witches", "r")
+    with open("witches", "r", encoding='utf-8') as witchesfile:
+        for line in witchesfile:
+            witch_name = line.strip()
+            if witch_name == name:
+                return True
 
-    for line in witchesfile:
-        witch_name = line.strip()
-        if witch_name == name:
-            return True
-
-    witchesfile.close()
     return False
 
 
@@ -338,7 +336,7 @@ def _disable_registrations(mud, id: int, players: {}) -> None:
     if os.path.isfile(".disableRegistrations"):
         mud.send_message(id, "New registrations are already closed.\n\n")
         return
-    with open(".disableRegistrations", 'w') as fp_dis:
+    with open(".disableRegistrations", 'w', encoding='utf-8') as fp_dis:
         fp_dis.write('')
     mud.send_message(id, "New player registrations are now closed.\n\n")
 
@@ -3116,7 +3114,7 @@ def _show_room_image(mud, id, room_id, rooms: {}, players: {},
             outdoors = False
     if not os.path.isfile(room_image_filename):
         return
-    with open(room_image_filename, 'r') as fp_room:
+    with open(room_image_filename, 'r', encoding='utf-8') as fp_room:
         room_image_str = fp_room.read()
         mud.send_image(id, '\n' + _room_illumination(room_image_str, outdoors))
 
@@ -3130,7 +3128,7 @@ def _show_spell_image(mud, id, spellId, players: {}) -> None:
     spell_image_filename = 'images/spells/' + spellId
     if not os.path.isfile(spell_image_filename):
         return
-    with open(spell_image_filename, 'r') as fp_spell:
+    with open(spell_image_filename, 'r', encoding='utf-8') as fp_spell:
         mud.send_image(id, '\n' + fp_spell.read())
 
 
@@ -3167,7 +3165,7 @@ def _show_item_image(mud, id, item_id, room_id, rooms: {}, players: {},
             outdoors = False
     if not os.path.isfile(item_image_filename):
         return
-    with open(item_image_filename, 'r') as fp_item:
+    with open(item_image_filename, 'r', encoding='utf-8') as fp_item:
         item_image_str = fp_item.read()
         mud.send_image(id, '\n' + _room_illumination(item_image_str, outdoors))
 
@@ -3181,7 +3179,7 @@ def _show_npc_image(mud, id, npc_name, players: {}) -> None:
     npc_image_filename = 'images/npcs/' + npc_name.replace(' ', '_')
     if not os.path.isfile(npc_image_filename):
         return
-    with open(npc_image_filename, 'r') as fp_npc:
+    with open(npc_image_filename, 'r', encoding='utf-8') as fp_npc:
         mud.send_image(id, '\n' + fp_npc.read())
 
 

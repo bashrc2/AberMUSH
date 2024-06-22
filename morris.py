@@ -310,7 +310,7 @@ def _board_location_indexes(board_name: str) -> {}:
     index = 0
     locations = {}
     # read the locations file
-    with open(locations_filename, "r") as fp_loc:
+    with open(locations_filename, "r", encoding='utf-8') as fp_loc:
         lines = fp_loc.readlines()
         for horizontal in lines:
             if ' ' not in horizontal:

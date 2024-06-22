@@ -396,7 +396,8 @@ def load_players_db(force_lowercase=True):
          if os.path.splitext(i)[1] == ".player"]
     for fil in player_files:
         print('Player: ' + fil)
-        with open(os.path.join(location, fil)) as file_object:
+        with open(os.path.join(location, fil), 'r',
+                  encoding='utf-8') as file_object:
             db1[fil] = json.loads(file_object.read())
 
             # add any missing fields
@@ -426,9 +427,9 @@ def log(content, type):
     print(str(time.strftime("%d/%m/%Y") + " " +
               time.strftime("%I:%M:%S") + " [" + type + "] " + content))
     if os.path.exists(logfile):
-        log1 = open(logfile, 'a')
+        log1 = open(logfile, 'a', encoding='utf-8')
     else:
-        log1 = open(logfile, 'w')
+        log1 = open(logfile, 'w', encoding='utf-8')
     log1.write(str(time.strftime("%d/%m/%Y") + " " +
                    time.strftime("%I:%M:%S") +
                    " [" + type + "] " + content) + '\n')
@@ -501,7 +502,8 @@ def add_to_scheduler(event_id, target_id, scheduler, database):
 def load_player(name: str) -> dict:
     location = str(Config.get('Players', 'Location'))
     try:
-        with open(os.path.join(location, name + ".player"), "r") as read_file:
+        with open(os.path.join(location, name + ".player"), "r",
+                  encoding='utf-8') as read_file:
             return json.loads(read_file.read())
     except BaseException:
         pass
@@ -518,7 +520,7 @@ def _save_player(player, main_db: {}, save_password: str):
     dbase = load_players_db(force_lowercase=False)
     for plyr in dbase:
         if (player['name'] + ".player").lower() == plyr.lower():
-            with open(path + plyr, "r") as read_file:
+            with open(path + plyr, "r", encoding='utf-8') as read_file:
                 temp = json.loads(read_file.read())
             _silent_remove(path + player['name'] + ".player")
             new_player = deepcopy(temp)
@@ -528,7 +530,8 @@ def _save_player(player, main_db: {}, save_password: str):
                     if player.get(key):
                         new_player[key] = player[key]
 
-            with open(path + player['name'] + ".player", 'w') as fp_pla:
+            with open(path + player['name'] + ".player", 'w',
+                      encoding='utf-8') as fp_pla:
                 fp_pla.write(json.dumps(new_player))
             load_players_db()
 
@@ -548,43 +551,43 @@ def save_universe(rooms: {}, npcs_db: {}, npcs: {},
     # save rooms
     if os.path.isfile('universe.json'):
         os.rename('universe.json', 'universe2.json')
-    with open("universe.json", 'w') as fp_uni:
+    with open("universe.json", 'w', encoding='utf-8') as fp_uni:
         fp_uni.write(json.dumps(rooms))
 
     # save items
     if os.path.isfile('universe_items.json'):
         os.rename('universe_items.json', 'universe_items2.json')
-    with open("universe_items.json", 'w') as fp_items:
+    with open("universe_items.json", 'w', encoding='utf-8') as fp_items:
         fp_items.write(json.dumps(items))
 
     # save items_db
     if os.path.isfile('universe_itemsdb.json'):
         os.rename('universe_itemsdb.json', 'universe_itemsdb2.json')
-    with open("universe_itemsdb.json", 'w') as fp_items:
+    with open("universe_itemsdb.json", 'w', encoding='utf-8') as fp_items:
         fp_items.write(json.dumps(items_db))
 
     # save environment actors
     if os.path.isfile('universe_actorsdb.json'):
         os.rename('universe_actorsdb.json', 'universe_actorsdb2.json')
-    with open("universe_actorsdb.json", 'w') as fp_actors:
+    with open("universe_actorsdb.json", 'w', encoding='utf-8') as fp_actors:
         fp_actors.write(json.dumps(env_db))
 
     # save environment actors
     if os.path.isfile('universe_actors.json'):
         os.rename('universe_actors.json', 'universe_actors2.json')
-    with open("universe_actors.json", 'w') as fp_actors:
+    with open("universe_actors.json", 'w', encoding='utf-8') as fp_actors:
         fp_actors.write(json.dumps(env))
 
     # save npcs
     if os.path.isfile('universe_npcs.json'):
         os.rename('universe_npcs.json', 'universe_npcs2.json')
-    with open("universe_npcs.json", 'w') as fp_npcs:
+    with open("universe_npcs.json", 'w', encoding='utf-8') as fp_npcs:
         fp_npcs.write(json.dumps(npcs))
 
     # save npcs_db
     if os.path.isfile('universe_npcsdb.json'):
         os.rename('universe_npcsdb.json', 'universe_npcsdb2.json')
-    with open("universe_npcsdb.json", 'w') as fp_npcs:
+    with open("universe_npcsdb.json", 'w', encoding='utf-8') as fp_npcs:
         fp_npcs.write(json.dumps(npcs_db))
 
 
@@ -613,21 +616,19 @@ def load_blocklist(filename, blocklist):
 
     blocklist.clear()
 
-    blockfile = open(filename, "r")
+    with open(filename, "r", encoding='utf-8') as blockfile:
+        for line in blockfile:
+            blockedstr = line.lower().strip()
+            if ',' in blockedstr:
+                blockedlst = blockedstr.lower().strip().split(',')
+                for blockedstr2 in blockedlst:
+                    blockedstr2 = blockedstr2.lower().strip()
+                    if blockedstr2 not in blocklist:
+                        blocklist.append(blockedstr2)
+            else:
+                if blockedstr not in blocklist:
+                    blocklist.append(blockedstr)
 
-    for line in blockfile:
-        blockedstr = line.lower().strip()
-        if ',' in blockedstr:
-            blockedlst = blockedstr.lower().strip().split(',')
-            for blockedstr2 in blockedlst:
-                blockedstr2 = blockedstr2.lower().strip()
-                if blockedstr2 not in blocklist:
-                    blocklist.append(blockedstr2)
-        else:
-            if blockedstr not in blocklist:
-                blocklist.append(blockedstr)
-
-    blockfile.close()
     return True
 
 

@@ -92,10 +92,10 @@ def _test_functions() -> None:
                 'functions': []
             }
             source_str = ''
-            with open(source_file, "r") as fp_src:
+            with open(source_file, "r", encoding='utf-8') as fp_src:
                 source_str = fp_src.read()
                 modules[mod_name]['source'] = source_str
-            with open(source_file, "r") as fp_src:
+            with open(source_file, "r", encoding='utf-8') as fp_src:
                 lines = fp_src.readlines()
                 modules[mod_name]['lines'] = lines
                 for line in lines:
@@ -579,7 +579,7 @@ def _test_functions() -> None:
         call_graph_str += '  }\n'
         cluster_ctr += 1
     call_graph_str += '\n}\n'
-    with open('abermush_modules.dot', 'w+') as fp_call:
+    with open('abermush_modules.dot', 'w+', encoding='utf-8') as fp_call:
         fp_call.write(call_graph_str)
         print('Modules call graph saved to abermush_modules.dot')
         print('Plot using: ' +
@@ -637,7 +637,7 @@ def _test_functions() -> None:
                     '" [color=' + mod_color + '];\n'
 
     call_graph_str += '\n}\n'
-    with open('abermush.dot', 'w+') as fp_call:
+    with open('abermush.dot', 'w+', encoding='utf-8') as fp_call:
         fp_call.write(call_graph_str)
         print('Call graph saved to abermush.dot')
         print('Plot using: ' +
@@ -651,7 +651,8 @@ def _test_duplicate_exits():
     Config = configparser.ConfigParser()
     Config.read('config.ini')
     rooms = {}
-    with open(str(Config.get('Rooms', 'Definition')), "r") as read_file:
+    with open(str(Config.get('Rooms', 'Definition')), "r",
+              encoding='utf-8') as read_file:
         rooms = json.loads(read_file.read())
 
     for room_id, item in rooms.items():

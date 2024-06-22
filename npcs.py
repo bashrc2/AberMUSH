@@ -1467,7 +1467,7 @@ def npc_conversation(mud, npcs: {}, npcs_db: {}, players: {},
         if image_name:
             image_filename = 'images/events/' + image_name
             if os.path.isfile(image_filename):
-                with open(image_filename, 'r') as fp_image:
+                with open(image_filename, 'r', encoding='utf-8') as fp_image:
                     mud.send_image(id, '\n' + fp_image.read())
 
         if len(conversation_new_state) > 0:
