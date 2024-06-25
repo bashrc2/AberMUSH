@@ -56562,7 +56562,7 @@
         "conditional": [
             ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
         ],
-        "takeFail": "To deter looters, it's bolted to the floor",
+        "takeFail": "To deter looters, or drunken revellers, it's bolted to the floor",
         "clo_head": 0,
         "clo_neck": 0,
         "clo_larm": 0,
@@ -56609,7 +56609,7 @@
         "mod_cool": 0,
         "weight": 0,
         "edible": 0,
-        "climbThrough": "",
+        "climbThrough": "You wearily slump down on the bed",
         "armorClass": 0,
         "damage": "",
         "damageChart": [],
@@ -56639,7 +56639,7 @@
         "lockedWithItem": 0,
         "exitName": "",
         "linkedItem": 0,
-        "exit": "",
+        "exit": "$rid=1436$",
         "lightSource": 0,
         "article": "a"
     },
