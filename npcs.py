@@ -544,26 +544,14 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                         rnd = randint(0, vocabulary_len - 1)
                 for pid, plyr in players.items():
                     if this_npc['room'] == plyr['room']:
-                        if vocabulary_len > 1:
-                            # mud.send_message(pid,
-                            # this_npc['vocabulary'][rnd])
-                            msg = '<f220>' + this_npc['name'] + \
-                                '<r> says: <f86>' + \
-                                this_npc['vocabulary'][rnd] + "\n\n"
-                            mud.send_message(pid, msg)
-                            this_npc['randomizer'] = \
-                                randint(0, this_npc['randomFactor'])
-                            this_npc['lastSaid'] = rnd
-                            this_npc['timeTalked'] = now
-                        else:
-                            # mud.send_message(pid, this_npc['vocabulary'][0])
-                            msg = '<f220>' + this_npc['name'] + \
-                                '<r> says: <f86>' + \
-                                this_npc['vocabulary'][0] + "\n\n"
-                            mud.send_message(pid, msg)
-                            this_npc['randomizer'] = \
-                                randint(0, this_npc['randomFactor'])
-                            this_npc['timeTalked'] = now
+                        msg = '<f220>' + this_npc['name'] + \
+                            '<r> says: <f86>' + \
+                            this_npc['vocabulary'][rnd] + "\n\n"
+                        mud.send_message(pid, msg)
+                        this_npc['randomizer'] = \
+                            randint(0, this_npc['randomFactor'])
+                        this_npc['lastSaid'] = rnd
+                        this_npc['timeTalked'] = now
 
         # Iterate through fights and see if anyone is attacking an NPC -
         # if so, attack him too if not in combat (TODO: and isAggressive =
