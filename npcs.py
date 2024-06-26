@@ -173,8 +173,7 @@ def _entity_is_active(id, players: {}, rooms: {},
                 if not (curr_hour < sun_rise_time - 1 or
                         curr_hour > sun_rise_time):
                     return False
-
-        if time_range_type in ('sunset', 'dusk'):
+        elif time_range_type in ('sunset', 'dusk'):
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if 'true' in time_range_start.lower() or \
                'y' in time_range_start.lower():
@@ -185,8 +184,7 @@ def _entity_is_active(id, players: {}, rooms: {},
                 if not (curr_hour < sun_set_time or
                         curr_hour > sun_set_time + 1):
                     return False
-
-        if time_range_type == 'rain':
+        elif time_range_type == 'rain':
             rm = players[id]['room']
             coords = rooms[rm]['coords']
             if 'true' in time_range_start.lower() or \
@@ -196,8 +194,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if get_rain_at_coords(coords, map_area, clouds):
                     return False
-
-        if time_range_type == 'rainday':
+        elif time_range_type == 'rainday':
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if curr_hour < sun_rise_time or \
@@ -212,8 +209,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if get_rain_at_coords(coords, map_area, clouds):
                     return False
-
-        if time_range_type == 'rainnight':
+        elif time_range_type == 'rainnight':
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if curr_hour >= sun_rise_time and \
@@ -228,8 +224,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if get_rain_at_coords(coords, map_area, clouds):
                     return False
-
-        if time_range_type == 'rainmorning':
+        elif time_range_type == 'rainmorning':
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             if curr_hour < sun_rise_time or \
                curr_hour > 12:
@@ -243,8 +238,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if get_rain_at_coords(coords, map_area, clouds):
                     return False
-
-        if time_range_type == 'rainafternoon':
+        elif time_range_type == 'rainafternoon':
             if curr_hour < 12 or curr_hour > 17:
                 return False
             rmid = players[id]['room']
@@ -256,8 +250,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if get_rain_at_coords(coords, map_area, clouds):
                     return False
-
-        if time_range_type == 'rainevening':
+        elif time_range_type == 'rainevening':
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if curr_hour < 17 or \
                curr_hour > sun_set_time:
@@ -271,10 +264,8 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if get_rain_at_coords(coords, map_area, clouds):
                     return False
-
-        # hour of day
-        if time_range_type.startswith('hour'):
-            curr_hour = datetime.datetime.today().hour
+        elif time_range_type.startswith('hour'):
+            # hour of day
             start_hour = int(time_range_start)
             end_hour = int(time_range_end)
             if end_hour >= start_hour:
@@ -283,9 +274,8 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if curr_hour > end_hour and curr_hour < start_hour:
                     return False
-
-        # between months
-        if time_range_type.startswith('month'):
+        elif time_range_type.startswith('month'):
+            # between months
             curr_month = int(datetime.datetime.today().strftime("%m"))
             start_month = int(time_range_start)
             end_month = int(time_range_end)
@@ -295,9 +285,8 @@ def _entity_is_active(id, players: {}, rooms: {},
             else:
                 if curr_month > end_month and curr_month < start_month:
                     return False
-
-        # a particular day of a month
-        if time_range_type.startswith('dayofmonth'):
+        elif time_range_type.startswith('dayofmonth'):
+            # a particular day of a month
             curr_month = int(datetime.datetime.today().strftime("%m"))
             curr_day_of_month = int(datetime.datetime.today().strftime("%d"))
             month = int(time_range_start)
@@ -305,9 +294,8 @@ def _entity_is_active(id, players: {}, rooms: {},
             matching_days = True
             if curr_month == month and curr_day_of_month == monthday:
                 days_are_matched = True
-
-        # between days of year
-        if time_range_type == 'daysofyear':
+        elif time_range_type == 'daysofyear':
+            # between days of year
             curr_day_of_year = int(datetime.datetime.today().strftime("%j"))
             start_day = int(time_range_start)
             end_day = int(time_range_end)
@@ -505,6 +493,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
     curr_time = datetime.datetime.today()
     curr_hour = curr_time.hour
     sun = get_solar()
+    now = int(time.time())
 
     for nid, this_npc in npcs.items():
         # is the NPC a familiar?
@@ -528,7 +517,6 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
 
         # Check if any player is in the same room, then send a random
         # message to them
-        now = int(time.time())
         vocabulary_len = len(this_npc['vocabulary'])
         if vocabulary_len > 0:
             if now > \
@@ -599,7 +587,6 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                 is_in_fight = True
 
         # NPC moves to the next location
-        now = int(time.time())
         if is_in_fight is False and \
            len(this_npc['path']) > 0:
             _move_npcs(npcs, players, mud, now, nid)
