@@ -730,8 +730,8 @@ def show_timing(previous_timing, comment_str: str):
     """Shows the length of time since the previous benchmark
     """
     curr_time = time.time()
-    time_diff = int((curr_time - previous_timing) * 1000)
-    print('TIMING: ' + comment_str + ' = ' + str(time_diff) + 'mS')
+    # time_diff = int((curr_time - previous_timing) * 1000)
+    # print('TIMING: ' + comment_str + ' = ' + str(time_diff) + 'mS')
     return curr_time
 
 
