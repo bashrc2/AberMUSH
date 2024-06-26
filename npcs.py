@@ -538,13 +538,13 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                this_npc['timeTalked'] + \
                this_npc['talkDelay'] + \
                this_npc['randomizer']:
-                rnd = randint(0, len(this_npc['vocabulary']) - 1)
+                rnd = randint(0, vocabulary_len - 1)
                 if vocabulary_len > 1:
                     while rnd is this_npc['lastSaid']:
-                        rnd = randint(0, len(this_npc['vocabulary']) - 1)
+                        rnd = randint(0, vocabulary_len - 1)
                 for pid, plyr in players.items():
                     if this_npc['room'] == plyr['room']:
-                        if len(this_npc['vocabulary']) > 1:
+                        if vocabulary_len > 1:
                             # mud.send_message(pid,
                             # this_npc['vocabulary'][rnd])
                             msg = '<f220>' + this_npc['name'] + \
