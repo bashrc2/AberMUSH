@@ -88,7 +88,9 @@ def get_solar():
 
 def _entity_is_active(id, players: {}, rooms: {},
                       move_times: [], map_area: [], clouds: {},
-                      curr_time, curr_hour, sun) -> bool:
+                      curr_time, curr_hour, sun,
+                      curr_day_of_week: int,
+                      curr_month_number: int) -> bool:
     if len(move_times) == 0:
         return True
 
@@ -101,9 +103,9 @@ def _entity_is_active(id, players: {}, rooms: {},
         if len(time_range) >= 2:
             time_range_type = time_range[0].lower()
             if time_range_type in ('day', 'weekday', 'dayofweek', 'dow'):
-                curr_day_of_week = datetime.datetime.today().weekday()
                 dow_matched = False
-                for dow in range(1, len(time_range)):
+                time_range_len = len(time_range)
+                for dow in range(1, time_range_len):
                     day_of_week = time_range[dow].lower()
                     if day_of_week.startswith('m') and curr_day_of_week == 0:
                         dow_matched = True
@@ -130,8 +132,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
                 continue
             elif time_range_type == 'season':
-                curr_month_number = \
-                    int(datetime.datetime.today().strftime("%m"))
                 season_matched = False
                 for season_index in range(1, len(time_range)):
                     season_name = time_range[season_index].lower()
@@ -456,6 +456,9 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
     curr_time = datetime.datetime.today()
     curr_hour = curr_time.hour
     sun = get_solar()
+    curr_day_of_week = datetime.datetime.today().weekday()
+    curr_month_number = \
+        int(datetime.datetime.today().strftime("%m"))
 
     for item, item_obj in items.items():
         item_id = item_obj['id']
@@ -470,7 +473,9 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
             _entity_is_active(item_id, items, rooms,
                               item_obj2['moveTimes'],
                               map_area, clouds,
-                              curr_time, curr_hour, sun)
+                              curr_time, curr_hour, sun,
+                              curr_day_of_week,
+                              curr_month_number)
         # Remove if not active
         if not item_active:
             _remove_inactive_entity(item, items, item_id, items_db,
@@ -484,13 +489,16 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
     """Updates all NPCs
     """
 
-    # TODO probably slow
-    fights_copy = deepcopy(fights)
-
     curr_time = datetime.datetime.today()
     curr_hour = curr_time.hour
     sun = get_solar()
     now = int(time.time())
+    curr_day_of_week = datetime.datetime.today().weekday()
+    curr_month_number = \
+        int(datetime.datetime.today().strftime("%m"))
+
+    removed_fights = []
+    add_fights = []
 
     for nid, this_npc in npcs.items():
         # is the NPC a familiar?
@@ -507,7 +515,9 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                 _entity_is_active(nid, npcs, rooms,
                                   this_npc['moveTimes'],
                                   map_area, clouds,
-                                  curr_time, curr_hour, sun)
+                                  curr_time, curr_hour, sun,
+                                  curr_day_of_week,
+                                  curr_month_number)
             if not npc_active:
                 _remove_inactive_entity(nid, npcs, nid, npcs, npc_active)
                 continue
@@ -524,16 +534,17 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                 if vocabulary_len > 1:
                     while rnd is this_npc['lastSaid']:
                         rnd = randint(0, vocabulary_len - 1)
-                for pid, plyr in players.items():
-                    if this_npc['room'] == plyr['room']:
-                        msg = '<f220>' + this_npc['name'] + \
-                            '<r> says: <f86>' + \
-                            this_npc['vocabulary'][rnd] + "\n\n"
-                        mud.send_message(pid, msg)
-                        this_npc['randomizer'] = \
-                            randint(0, this_npc['randomFactor'])
-                        this_npc['lastSaid'] = rnd
-                        this_npc['timeTalked'] = now
+                if this_npc['vocabulary'][rnd]:
+                    for pid, plyr in players.items():
+                        if this_npc['room'] == plyr['room']:
+                            msg = '<f220>' + this_npc['name'] + \
+                                '<r> says: <f86>' + \
+                                this_npc['vocabulary'][rnd] + "\n\n"
+                            mud.send_message(pid, msg)
+                            this_npc['randomizer'] = \
+                                randint(0, this_npc['randomFactor'])
+                            this_npc['lastSaid'] = rnd
+                            this_npc['timeTalked'] = now
 
         # Iterate through fights and see if anyone is attacking an NPC -
         # if so, attack him too if not in combat (TODO: and isAggressive =
@@ -552,7 +563,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                     int(time.time())
                 fght['retaliated'] = 1
                 npcs[fght['s2id']]['isInCombat'] = 1
-                fights[len(fights)] = {
+                new_fight = {
                     's1': npcs[fght['s2id']]['name'],
                     's2': players[fght['s1id']]['name'],
                     's1id': nid,
@@ -561,6 +572,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                     's2type': 'pc',
                     'retaliated': 1
                 }
+                add_fights.append(new_fight)
                 is_in_fight = True
             elif (fght['s2id'] == nid and
                   npcs[fght['s2id']]['isInCombat'] == 1 and
@@ -572,7 +584,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                     int(time.time())
                 fght['retaliated'] = 1
                 npcs[fght['s2id']]['isInCombat'] = 1
-                fights[len(fights)] = {
+                new_fight = {
                     's1': npcs[fght['s2id']]['name'],
                     's2': players[fght['s1id']]['name'],
                     's1id': nid,
@@ -581,6 +593,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                     's2type': 'npc',
                     'retaliated': 1
                 }
+                add_fights.append(new_fight)
                 is_in_fight = True
 
         # NPC moves to the next location
@@ -603,7 +616,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                 if plyr['familiar'] == int(nid):
                     plyr['familiar'] -= 1
 
-            for fight, fght in fights_copy.items():
+            for fight, fght in fights.items():
                 if ((fght['s1type'] == 'npc' and
                      fght['s1id'] == nid) or
                     (fght['s2type'] == 'npc' and
@@ -621,7 +634,8 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                     elif fght['s2type'] == 'npc':
                         fid = fght['s2id']
                         npcs[fid]['isInCombat'] = 0
-                    del fights[fight]
+                    if fight not in removed_fights:
+                        removed_fights.append(fight)
                     corpse_name = str(this_npc['name'] + "'s corpse")
                     if not corpse_exists(corpses,
                                          this_npc['room'],
@@ -679,6 +693,12 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                             "<r>'s lifeless body collapsed to the floor, " +
                             "it had dropped the following items: " +
                             "<f220>{}".format(', '.join(dropped_items)) + "\n")
+
+    for fight in removed_fights:
+        del fights[fight]
+
+    for fight in add_fights:
+        fights[len(fights)] = fight
 
 
 def _conversation_state(word: str, conversation_states: {},

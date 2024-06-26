@@ -600,7 +600,11 @@ days_since_epoch = (datetime.datetime.today() -
 day_mins = (curr_hour * 60) + curr_min
 random.seed((days_since_epoch * 1440) + day_mins)
 last_weather_update = int(time.time())
+last_mobile_items_update = last_weather_update
+last_npcs_update = last_weather_update
 weather_update_interval = 120
+mobile_items_update_interval = 4
+npcs_update_interval = 2
 fishing_update_interval = 120
 last_fishing_update = int(time.time())
 clouds = {}
@@ -784,19 +788,24 @@ while True:
         show_timing(previous_timing, "update fights")
 
     # Some items can appear only at certain times
-    run_mobile_items(items_db, items_in_world, event_schedule,
-                     scripted_events_db, rooms, map_area, clouds)
+    if now >= last_mobile_items_update + mobile_items_update_interval:
+        run_mobile_items(items_db, items_in_world, event_schedule,
+                         scripted_events_db, rooms, map_area, clouds)
+        last_mobile_items_update = now
 
-    previous_timing = \
-        show_timing(previous_timing, "update mobile items")
+        previous_timing = \
+            show_timing(previous_timing, "update mobile items")
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
-    run_npcs(mud, npcs, players, fights, corpses, scripted_events_db, items_db,
-             npcs_template, rooms, map_area, clouds, event_schedule)
+    if now >= last_npcs_update + npcs_update_interval:
+        run_npcs(mud, npcs, players, fights, corpses, scripted_events_db,
+                 items_db, npcs_template, rooms, map_area, clouds,
+                 event_schedule)
+        last_npcs_update = now
 
-    previous_timing = \
-        show_timing(previous_timing, "update npcs")
+        previous_timing = \
+            show_timing(previous_timing, "update npcs")
 
     run_environment(mud, players, env)
 
