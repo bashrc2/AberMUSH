@@ -10,6 +10,8 @@ __module_group__ = "NPCs"
 
 import os
 import datetime
+import time
+from random import randint
 from suntime import Sun
 from functions import add_to_scheduler
 from functions import message_to_room_players
@@ -22,7 +24,6 @@ from functions import get_sentiment
 from functions import random_desc
 from functions import deepcopy
 from functions import parse_cost
-from random import randint
 # from copy import deepcopy
 from familiar import get_familiar_modes
 from familiar import familiar_default_mode
@@ -32,17 +33,15 @@ from familiar import familiar_sight
 from environment import get_rain_at_coords
 from environment import get_room_culture
 
-import time
-
 
 def corpse_exists(corpses: {}, room: str, name: str) -> bool:
     """Returns true if a corpse with the given name exists in the given room
     """
     corpses_copy = deepcopy(corpses)
-    for cor, _ in corpses_copy.items():
-        if corpses_copy[cor]['room'] == room:
-            if corpses_copy[cor]['name'] == name:
-                return True
+    for _, cor_obj in corpses_copy.items():
+        if cor_obj['room'] == room and \
+           cor_obj['name'] == name:
+            return True
     return False
 
 
@@ -68,19 +67,18 @@ def _get_leader_room_index(npcs: {}, players: {}, mud,
         leader_name = move_type.split(':')[1]
         if len(leader_name) > 0:
             # is the leader an NPC
-            for lid, _ in list(npcs.items()):
-                leader_npc = npcs[lid]
+            for _, leader_npc in npcs.items():
                 if leader_npc['name'] == leader_name:
                     if leader_npc['room'] != npcs[nid]['room']:
                         # follower NPCs are in the same guild
                         npcs[nid]['guild'] = leader_npc['guild']
                         return leader_npc['room']
             # is the leader a player
-            for pid, _ in list(players.items()):
-                if players[pid]['name'] == leader_name:
-                    if players[pid]['room'] != npcs[nid]['room']:
-                        npcs[nid]['guild'] = players[pid]['guild']
-                        return players[pid]['room']
+            for _, plyr in players.items():
+                if plyr['name'] == leader_name:
+                    if plyr['room'] != npcs[nid]['room']:
+                        npcs[nid]['guild'] = plyr['guild']
+                        return plyr['room']
     return ''
 
 
@@ -464,8 +462,7 @@ def _remove_inactive_entity(nid, npcs: {}, nid2, npcs_db: {},
 def npc_respawns(npcs: {}) -> None:
     """Respawns inactive NPCs
     """
-    for nid, _ in list(npcs.items()):
-        this_npc = npcs[nid]
+    for nid, this_npc in npcs.items():
         if not this_npc['whenDied']:
             continue
         if int(time.time()) >= this_npc['whenDied'] + this_npc['respawn']:
@@ -484,21 +481,23 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
                      rooms: {}, map_area, clouds: {}) -> None:
     """Updates all NPCs
     """
-    for item, _ in list(items.items()):
-        item_id = items[item]['id']
+    for item, item_obj in items.items():
+        item_id = item_obj['id']
+        item_obj2 = items_db[item_id]
         # only non-takeable items
-        if items_db[item_id]['weight'] > 0:
+        if item_obj2['weight'] > 0:
             continue
-        if not items_db[item_id].get('moveTimes'):
+        if not item_obj2.get('moveTimes'):
             continue
         # Active now?
         item_active = \
             _entity_is_active(item_id, items, rooms,
-                              items_db[item_id]['moveTimes'],
+                              item_obj2['moveTimes'],
                               map_area, clouds)
         # Remove if not active
-        _remove_inactive_entity(item, items, item_id, items_db, item_active)
         if not item_active:
+            _remove_inactive_entity(item, items, item_id, items_db,
+                                    item_active)
             continue
 
 
@@ -508,13 +507,15 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
     """Updates all NPCs
     """
 
-    for nid, _ in list(npcs.items()):
+    # TODO probably slow
+    fights_copy = deepcopy(fights)
+
+    for nid, this_npc in npcs.items():
         # is the NPC a familiar?
         npc_is_familiar = False
-        this_npc = npcs[nid]
         if len(this_npc['familiarOf']) > 0:
-            for pid, _ in list(players.items()):
-                if this_npc['familiarOf'] == players[pid]['name']:
+            for pid, plyr in players.items():
+                if this_npc['familiarOf'] == plyr['name']:
                     npc_is_familiar = True
                     break
 
@@ -539,8 +540,8 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                 rnd = randint(0, len(this_npc['vocabulary']) - 1)
                 while rnd is this_npc['lastSaid']:
                     rnd = randint(0, len(this_npc['vocabulary']) - 1)
-                for pid, _ in list(players.items()):
-                    if this_npc['room'] == players[pid]['room']:
+                for pid, plyr in players.items():
+                    if this_npc['room'] == plyr['room']:
                         if len(this_npc['vocabulary']) > 1:
                             # mud.send_message(pid,
                             # this_npc['vocabulary'][rnd])
@@ -566,44 +567,44 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
         # if so, attack him too if not in combat (TODO: and isAggressive =
         # true)
         is_in_fight = False
-        for fid, _ in list(fights.items()):
-            if fights[fid]['s2id'] == nid and \
-               npcs[fights[fid]['s2id']]['isInCombat'] == 1 and \
-               fights[fid]['s2type'] == 'npc' and \
-               fights[fid]['s1type'] == 'pc' and \
-               fights[fid]['retaliated'] == 0:
+        for fid, fght in fights.items():
+            if fght['s2id'] == nid and \
+               npcs[fght['s2id']]['isInCombat'] == 1 and \
+               fght['s2type'] == 'npc' and \
+               fght['s1type'] == 'pc' and \
+               fght['retaliated'] == 0:
                 # print('player is attacking npc')
                 # BETA: set las combat action to now when attacking a
                 # player
-                npcs[fights[fid]['s2id']]['lastCombatAction'] = \
+                npcs[fght['s2id']]['lastCombatAction'] = \
                     int(time.time())
-                fights[fid]['retaliated'] = 1
-                npcs[fights[fid]['s2id']]['isInCombat'] = 1
+                fght['retaliated'] = 1
+                npcs[fght['s2id']]['isInCombat'] = 1
                 fights[len(fights)] = {
-                    's1': npcs[fights[fid]['s2id']]['name'],
-                    's2': players[fights[fid]['s1id']]['name'],
+                    's1': npcs[fght['s2id']]['name'],
+                    's2': players[fght['s1id']]['name'],
                     's1id': nid,
-                    's2id': fights[fid]['s1id'],
+                    's2id': fght['s1id'],
                     's1type': 'npc',
                     's2type': 'pc',
                     'retaliated': 1
                 }
                 is_in_fight = True
-            elif (fights[fid]['s2id'] == nid and
-                  npcs[fights[fid]['s2id']]['isInCombat'] == 1 and
-                  fights[fid]['s1type'] == 'npc' and
-                  fights[fid]['retaliated'] == 0):
+            elif (fght['s2id'] == nid and
+                  npcs[fght['s2id']]['isInCombat'] == 1 and
+                  fght['s1type'] == 'npc' and
+                  fght['retaliated'] == 0):
                 # print('npc is attacking npc')
                 # BETA: set last combat action to now when attacking a player
-                npcs[fights[fid]['s2id']]['lastCombatAction'] = \
+                npcs[fght['s2id']]['lastCombatAction'] = \
                     int(time.time())
-                fights[fid]['retaliated'] = 1
-                npcs[fights[fid]['s2id']]['isInCombat'] = 1
+                fght['retaliated'] = 1
+                npcs[fght['s2id']]['isInCombat'] = 1
                 fights[len(fights)] = {
-                    's1': npcs[fights[fid]['s2id']]['name'],
-                    's2': players[fights[fid]['s1id']]['name'],
+                    's1': npcs[fght['s2id']]['name'],
+                    's2': players[fght['s1id']]['name'],
                     's1id': nid,
-                    's2id': fights[fid]['s1id'],
+                    's2id': fght['s1id'],
                     's1type': 'npc',
                     's2type': 'npc',
                     'retaliated': 1
@@ -625,30 +626,29 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
             this_npc['whenDied'] = int(time.time())
 
             # if the NPC is a familiar detach it from player
-            for plyr in players:
-                if players[plyr]['name'] is None:
+            for _, plyr in players.items():
+                if plyr['name'] is None:
                     continue
-                if players[plyr]['familiar'] == int(nid):
-                    players[plyr]['familiar'] -= 1
+                if plyr['familiar'] == int(nid):
+                    plyr['familiar'] -= 1
 
-            fights_copy = deepcopy(fights)
-            for fight, _ in fights_copy.items():
-                if ((fights_copy[fight]['s1type'] == 'npc' and
-                     fights_copy[fight]['s1id'] == nid) or
-                    (fights_copy[fight]['s2type'] == 'npc' and
-                     fights_copy[fight]['s2id'] == nid)):
+            for fight, fght in fights_copy.items():
+                if ((fght['s1type'] == 'npc' and
+                     fght['s1id'] == nid) or
+                    (fght['s2type'] == 'npc' and
+                     fght['s2id'] == nid)):
                     # clear the combat flag
-                    if fights_copy[fight]['s1type'] == 'pc':
-                        fid = fights_copy[fight]['s1id']
+                    if fght['s1type'] == 'pc':
+                        fid = fght['s1id']
                         players[fid]['isInCombat'] = 0
-                    elif fights_copy[fight]['s1type'] == 'npc':
-                        fid = fights_copy[fight]['s1id']
+                    elif fght['s1type'] == 'npc':
+                        fid = fght['s1id']
                         npcs[fid]['isInCombat'] = 0
-                    if fights_copy[fight]['s2type'] == 'pc':
-                        fid = fights_copy[fight]['s2id']
+                    if fght['s2type'] == 'pc':
+                        fid = fght['s2id']
                         players[fid]['isInCombat'] = 0
-                    elif fights_copy[fight]['s2type'] == 'npc':
-                        fid = fights_copy[fight]['s2id']
+                    elif fght['s2type'] == 'npc':
+                        fid = fght['s2id']
                         npcs[fid]['isInCombat'] = 0
                     del fights[fight]
                     corpse_name = str(this_npc['name'] + "'s corpse")
@@ -665,10 +665,10 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                         }
 
             # inform players about the death of an npc
-            for pid, _ in list(players.items()):
-                if players[pid]['authenticated'] is not None:
-                    if players[pid]['authenticated'] is not None and \
-                       players[pid]['room'] == this_npc['room']:
+            for pid, plyr in players.items():
+                if plyr['authenticated'] is not None:
+                    if plyr['authenticated'] is not None and \
+                       plyr['room'] == this_npc['room']:
                         mud.send_message(
                             pid,
                             "<f220>{}<r> ".format(this_npc['name']) +
@@ -681,7 +681,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
             dropped_items = []
             for i in this_npc['inv']:
                 if not str(i).isdigit():
-                    for pid, _ in list(players.items()):
+                    for pid, _ in players.items():
                         mud.send_message(
                             pid, 'NPC drops item: ' +
                             str(i) + ' is not an item number\n')
@@ -698,10 +698,10 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
             # Inform other players in the room what items got dropped on NPC
             # death
             if len(dropped_items) > 0:
-                for plyr in players:
-                    if players[plyr]['name'] is None:
+                for _, plyr in players.items():
+                    if plyr['name'] is None:
                         continue
-                    if players[plyr]['room'] == this_npc['lastRoom']:
+                    if plyr['room'] == this_npc['lastRoom']:
                         mud.send_message(
                             plyr, "Right before <f220>" +
                             str(this_npc['name']) +
@@ -881,7 +881,7 @@ def _conversation_condition(word: str, conversation_states: {},
     return True, True, match_ctr + 1
 
 
-def _conversation_word_count(message: str, wordsList: [], npcs: {},
+def _conversation_word_count(message: str, words_list: [], npcs: {},
                              nid, conversation_states: {},
                              players: {}, rooms: {}, id,
                              cultures_db: {}) -> int:
@@ -889,7 +889,7 @@ def _conversation_word_count(message: str, wordsList: [], npcs: {},
        This is a 'bag of words/conditions' type of approach.
     """
     match_ctr = 0
-    for possible_word in wordsList:
+    for possible_word in words_list:
         if possible_word.lower().startswith('image:'):
             continue
 
@@ -922,15 +922,15 @@ def _conversation_word_count(message: str, wordsList: [], npcs: {},
 
 
 def _conversation_give(best_match: str, best_match_action: str,
-                       thingGivenIDstr: str, players: {}, id,
+                       thing_given_id_str: str, players: {}, id,
                        mud, npcs: {}, nid: int, items_db: {},
                        puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives something to you
     """
     if best_match_action in ('give', 'gift'):
         this_npc = npcs[nid]
-        if len(thingGivenIDstr) > 0:
-            item_id = int(thingGivenIDstr)
+        if len(thing_given_id_str) > 0:
+            item_id = int(thing_given_id_str)
             if item_id not in list(players[id]['inv']):
                 players[id]['inv'].append(str(item_id))
                 update_player_attributes(id, players, items_db, item_id, 1)
