@@ -877,7 +877,8 @@ while True:
         if players[id]['exAttribute0'] == 1000:
             players[id]['idleStart'] = int(time.time())
             # First step of char creation
-            mud.send_message(id, "<f220>\nBy what name do you wish to be known?\n\n")
+            known_str = "<f220>\nBy what name do you wish to be known?\n\n"
+            mud.send_message(id, known_str)
             for c in mud._clients:
                 # print(str(mud._clients[c].address))
                 pass

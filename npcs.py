@@ -87,7 +87,8 @@ def get_solar():
 
 
 def _entity_is_active(id, players: {}, rooms: {},
-                      move_times: [], map_area: [], clouds: {}) -> bool:
+                      move_times: [], map_area: [], clouds: {},
+                      curr_time, curr_hour, sun) -> bool:
     if len(move_times) == 0:
         return True
 
@@ -99,28 +100,32 @@ def _entity_is_active(id, players: {}, rooms: {},
     for time_range in move_times:
         if len(time_range) >= 2:
             time_range_type = time_range[0].lower()
-            if time_range_type == 'day' or \
-               time_range_type == 'weekday' or \
-               time_range_type == 'dayofweek' or \
-               time_range_type == 'dow':
+            if time_range_type in ('day', 'weekday', 'dayofweek', 'dow'):
                 curr_day_of_week = datetime.datetime.today().weekday()
                 dow_matched = False
                 for dow in range(1, len(time_range)):
                     day_of_week = time_range[dow].lower()
                     if day_of_week.startswith('m') and curr_day_of_week == 0:
                         dow_matched = True
+                        break
                     if day_of_week.startswith('tu') and curr_day_of_week == 1:
                         dow_matched = True
+                        break
                     if day_of_week.startswith('w') and curr_day_of_week == 2:
                         dow_matched = True
+                        break
                     if day_of_week.startswith('th') and curr_day_of_week == 3:
                         dow_matched = True
+                        break
                     if day_of_week.startswith('f') and curr_day_of_week == 4:
                         dow_matched = True
+                        break
                     if day_of_week.startswith('sa') and curr_day_of_week == 5:
                         dow_matched = True
+                        break
                     if day_of_week.startswith('su') and curr_day_of_week == 6:
                         dow_matched = True
+                        break
                 if not dow_matched:
                     return False
                 continue
@@ -133,15 +138,19 @@ def _entity_is_active(id, players: {}, rooms: {},
                     if season_name == 'spring':
                         if curr_month_number > 1 and curr_month_number <= 4:
                             season_matched = True
-                    elif season_name == 'summer':
+                            break
+                    if season_name == 'summer':
                         if curr_month_number > 4 and curr_month_number <= 9:
                             season_matched = True
-                    elif season_name == 'autumn':
+                            break
+                    if season_name == 'autumn':
                         if curr_month_number > 9 and curr_month_number <= 10:
                             season_matched = True
-                    elif season_name == 'winter':
+                            break
+                    if season_name == 'winter':
                         if curr_month_number > 10 or curr_month_number <= 1:
                             season_matched = True
+                            break
                 if not season_matched:
                     return False
                 continue
@@ -154,9 +163,6 @@ def _entity_is_active(id, players: {}, rooms: {},
 
         # sunrise
         if time_range_type in ('sunrise', 'dawn'):
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
-            sun = get_solar()
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             if 'true' in time_range_start.lower() or \
                'y' in time_range_start.lower():
@@ -169,9 +175,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
 
         if time_range_type in ('sunset', 'dusk'):
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
-            sun = get_solar()
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if 'true' in time_range_start.lower() or \
                'y' in time_range_start.lower():
@@ -195,9 +198,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
 
         if time_range_type == 'rainday':
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
-            sun = get_solar()
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if curr_hour < sun_rise_time or \
@@ -214,9 +214,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
 
         if time_range_type == 'rainnight':
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
-            sun = get_solar()
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if curr_hour >= sun_rise_time and \
@@ -233,9 +230,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
 
         if time_range_type == 'rainmorning':
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
-            sun = get_solar()
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             if curr_hour < sun_rise_time or \
                curr_hour > 12:
@@ -251,8 +245,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
 
         if time_range_type == 'rainafternoon':
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
             if curr_hour < 12 or curr_hour > 17:
                 return False
             rmid = players[id]['room']
@@ -266,9 +258,6 @@ def _entity_is_active(id, players: {}, rooms: {},
                     return False
 
         if time_range_type == 'rainevening':
-            curr_time = datetime.datetime.today()
-            curr_hour = curr_time.hour
-            sun = get_solar()
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if curr_hour < 17 or \
                curr_hour > sun_set_time:
@@ -479,6 +468,10 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
                      rooms: {}, map_area, clouds: {}) -> None:
     """Updates all NPCs
     """
+    curr_time = datetime.datetime.today()
+    curr_hour = curr_time.hour
+    sun = get_solar()
+
     for item, item_obj in items.items():
         item_id = item_obj['id']
         item_obj2 = items_db[item_id]
@@ -491,7 +484,8 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
         item_active = \
             _entity_is_active(item_id, items, rooms,
                               item_obj2['moveTimes'],
-                              map_area, clouds)
+                              map_area, clouds,
+                              curr_time, curr_hour, sun)
         # Remove if not active
         if not item_active:
             _remove_inactive_entity(item, items, item_id, items_db,
@@ -508,6 +502,10 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
     # TODO probably slow
     fights_copy = deepcopy(fights)
 
+    curr_time = datetime.datetime.today()
+    curr_hour = curr_time.hour
+    sun = get_solar()
+
     for nid, this_npc in npcs.items():
         # is the NPC a familiar?
         npc_is_familiar = False
@@ -522,7 +520,8 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
             npc_active = \
                 _entity_is_active(nid, npcs, rooms,
                                   this_npc['moveTimes'],
-                                  map_area, clouds)
+                                  map_area, clouds,
+                                  curr_time, curr_hour, sun)
             if not npc_active:
                 _remove_inactive_entity(nid, npcs, nid, npcs, npc_active)
                 continue
