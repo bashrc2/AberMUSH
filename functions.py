@@ -32,7 +32,7 @@ WEAR_LOCATION = (
 _dispatcher = {}
 
 
-def _copy_list(list_to_copy: [], dispatch):
+def _copy_list(list_to_copy: [], dispatch) -> []:
     """Copy a list
     """
     ret = list_to_copy.copy()
@@ -43,7 +43,7 @@ def _copy_list(list_to_copy: [], dispatch):
     return ret
 
 
-def _copy_dict(d, dispatch):
+def _copy_dict(d, dispatch) -> {}:
     """Copy a dict
     """
     ret = d.copy()
