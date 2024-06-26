@@ -136,15 +136,15 @@ def _entity_is_active(id, players: {}, rooms: {},
                 for season_index in range(1, len(time_range)):
                     season_name = time_range[season_index].lower()
                     if season_name == 'spring':
-                        if curr_month_number > 1 and curr_month_number <= 4:
+                        if curr_month_number in range(2, 5):
                             season_matched = True
                             break
                     if season_name == 'summer':
-                        if curr_month_number > 4 and curr_month_number <= 9:
+                        if curr_month_number in range(5, 10):
                             season_matched = True
                             break
                     if season_name == 'autumn':
-                        if curr_month_number > 9 and curr_month_number <= 10:
+                        if curr_month_number in range(10, 11):
                             season_matched = True
                             break
                     if season_name == 'winter':
@@ -166,8 +166,8 @@ def _entity_is_active(id, players: {}, rooms: {},
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             if 'true' in time_range_start.lower() or \
                'y' in time_range_start.lower():
-                if not (curr_hour >= sun_rise_time - 1 and
-                        curr_hour <= sun_rise_time):
+                if not (curr_hour in range(sun_rise_time - 1,
+                                           sun_rise_time + 1)):
                     return False
             else:
                 if not (curr_hour < sun_rise_time - 1 or
@@ -177,8 +177,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if 'true' in time_range_start.lower() or \
                'y' in time_range_start.lower():
-                if not (curr_hour >= sun_set_time and
-                        curr_hour <= sun_set_time + 1):
+                if not (curr_hour in range(sun_set_time, sun_set_time + 2)):
                     return False
             else:
                 if not (curr_hour < sun_set_time or
@@ -197,8 +196,7 @@ def _entity_is_active(id, players: {}, rooms: {},
         elif time_range_type == 'rainday':
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
-            if curr_hour < sun_rise_time or \
-               curr_hour > sun_set_time:
+            if curr_hour < sun_rise_time or curr_hour > sun_set_time:
                 return False
             rmid = players[id]['room']
             coords = rooms[rmid]['coords']
@@ -212,8 +210,7 @@ def _entity_is_active(id, players: {}, rooms: {},
         elif time_range_type == 'rainnight':
             sun_rise_time = sun.get_local_sunrise_time(curr_time).hour
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
-            if curr_hour >= sun_rise_time and \
-               curr_hour <= sun_set_time:
+            if curr_hour in range(sun_rise_time, sun_set_time + 1):
                 return False
             rmid = players[id]['room']
             coords = rooms[rmid]['coords']
@@ -272,7 +269,7 @@ def _entity_is_active(id, players: {}, rooms: {},
                 if curr_hour < start_hour or curr_hour > end_hour:
                     return False
             else:
-                if curr_hour > end_hour and curr_hour < start_hour:
+                if curr_hour in range(end_hour + 1, start_hour):
                     return False
         elif time_range_type.startswith('month'):
             # between months
@@ -283,7 +280,7 @@ def _entity_is_active(id, players: {}, rooms: {},
                 if curr_month < start_month or curr_month > end_month:
                     return False
             else:
-                if curr_month > end_month and curr_month < start_month:
+                if curr_month in range(end_month + 1, start_month):
                     return False
         elif time_range_type.startswith('dayofmonth'):
             # a particular day of a month
@@ -303,7 +300,7 @@ def _entity_is_active(id, players: {}, rooms: {},
                 if curr_day_of_year < start_day or curr_day_of_year > end_day:
                     return False
             else:
-                if curr_day_of_year > end_day and curr_day_of_year < start_day:
+                if curr_day_of_year in range(end_day + 1, start_day):
                     return False
 
     # if we are matching a set of days, where any matched?
