@@ -711,11 +711,11 @@ while True:
 
     # update player list
     player_list = []
-    for p in players:
-        if players[p]['name'] is not None and \
-           players[p]['authenticated'] is not None:
-            if players[p]['name'] not in player_list:
-                player_list.append(players[p]['name'])
+    for _, plyr in players.items():
+        if plyr['name'] is not None and \
+           plyr['authenticated'] is not None:
+            if plyr['name'] not in player_list:
+                player_list.append(plyr['name'])
 
     previous_timing = \
         show_timing(previous_timing, "update player list")
