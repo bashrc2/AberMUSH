@@ -648,11 +648,11 @@ while True:
     now = int(time.time())
     if now >= last_room_teleport + room_teleport_interval:
         last_room_teleport = now
-        for plyr in players:
-            rm = players[plyr]['room']
+        for _, plyr in players.items():
+            rm = plyr['room']
             if rm:
                 if rooms[rm].get('roomTeleport'):
-                    players[plyr]['room'] = rooms[rm]['roomTeleport']
+                    plyr['room'] = rooms[rm]['roomTeleport']
 
     previous_timing = \
         show_timing(previous_timing, "teleport every N seconds")
