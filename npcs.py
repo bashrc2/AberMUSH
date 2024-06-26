@@ -525,8 +525,8 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                 _entity_is_active(nid, npcs, rooms,
                                   this_npc['moveTimes'],
                                   map_area, clouds)
-            _remove_inactive_entity(nid, npcs, nid, npcs, npc_active)
             if not npc_active:
+                _remove_inactive_entity(nid, npcs, nid, npcs, npc_active)
                 continue
 
         # Check if any player is in the same room, then send a random
