@@ -153,8 +153,7 @@ def _entity_is_active(id, players: {}, rooms: {},
         time_range_end = time_range[2]
 
         # sunrise
-        if time_range_type == 'sunrise' or \
-           time_range_type == 'dawn':
+        if time_range_type in ('sunrise', 'dawn'):
             curr_time = datetime.datetime.today()
             curr_hour = curr_time.hour
             sun = get_solar()
@@ -169,8 +168,7 @@ def _entity_is_active(id, players: {}, rooms: {},
                         curr_hour > sun_rise_time):
                     return False
 
-        if time_range_type == 'sunset' or \
-           time_range_type == 'dusk':
+        if time_range_type in ('sunset', 'dusk'):
             curr_time = datetime.datetime.today()
             curr_hour = curr_time.hour
             sun = get_solar()
