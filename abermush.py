@@ -819,11 +819,6 @@ while True:
     previous_timing = \
         show_timing(previous_timing, "schedule")
 
-    npcs_template = deepcopy(npcs)
-
-    previous_timing = \
-        show_timing(previous_timing, "copy npcs")
-
     run_messages(mud, channels, players)
 
     previous_timing = \

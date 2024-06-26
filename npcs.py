@@ -471,7 +471,7 @@ def npc_respawns(npcs: {}) -> None:
         if int(time.time()) >= this_npc['whenDied'] + this_npc['respawn']:
             if len(this_npc['familiarOf']) == 0:
                 this_npc['whenDied'] = None
-                # this_npc['room'] = npcsTemplate[nid]['room']
+                # this_npc['room'] = npcs_template[nid]['room']
                 this_npc['room'] = this_npc['lastRoom']
                 hp_str = str(this_npc['hp'])
                 log("respawning " + this_npc['name'] +
@@ -503,7 +503,7 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
 
 
 def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
-             items_db: {}, npcsTemplate, rooms: {}, map_area, clouds: {},
+             items_db: {}, npcs_template, rooms: {}, map_area, clouds: {},
              event_schedule) -> None:
     """Updates all NPCs
     """
@@ -675,7 +675,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
                             "<f88>has been killed.\n")
                         this_npc['lastRoom'] = this_npc['room']
                         this_npc['room'] = None
-                        this_npc['hp'] = npcsTemplate[nid]['hp']
+                        this_npc['hp'] = npcs_template[nid]['hp']
 
             # Drop NPC loot on the floor
             dropped_items = []
