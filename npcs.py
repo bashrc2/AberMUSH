@@ -532,14 +532,16 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
         # Check if any player is in the same room, then send a random
         # message to them
         now = int(time.time())
-        if this_npc['vocabulary']:
+        vocabulary_len = len(this_npc['vocabulary'])
+        if vocabulary_len > 0:
             if now > \
                this_npc['timeTalked'] + \
                this_npc['talkDelay'] + \
                this_npc['randomizer']:
                 rnd = randint(0, len(this_npc['vocabulary']) - 1)
-                while rnd is this_npc['lastSaid']:
-                    rnd = randint(0, len(this_npc['vocabulary']) - 1)
+                if vocabulary_len > 1:
+                    while rnd is this_npc['lastSaid']:
+                        rnd = randint(0, len(this_npc['vocabulary']) - 1)
                 for pid, plyr in players.items():
                     if this_npc['room'] == plyr['room']:
                         if len(this_npc['vocabulary']) > 1:
