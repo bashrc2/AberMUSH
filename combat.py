@@ -255,10 +255,14 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
     if randint(1, player1_strength) > randint(1, player2_strength):
         players2[s2id]['prone'] = 1
         desc = (
+            'They stumble and fall',
             'They stumble and fall to the ground',
             'They come crashing to the ground',
+            'They become unsteady and fall',
+            'They fall over',
             'They fall heavily to the ground',
             'They topple and fall to the ground',
+            'They topple over',
             'They stagger and fall backwards',
             'They lose balance and fall backwards'
         )
@@ -267,7 +271,9 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
         return True
     desc = (
         'They remain standing',
+        'They remain sturdy',
         'They remain in place',
+        'They resist being shoved',
         'They stand firm',
         'They push back and remain standing',
         'They remain steady'
