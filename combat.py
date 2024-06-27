@@ -2019,37 +2019,36 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
 
 
 def npc_aggression(npcs: {}, players: {}, fights: {}, mud,
-                   items: {}, items_db: {}, races_db: {},
-                   rooms: {}):
+                   items: {}, items_db: {}, races_db: {}, rooms: {}):
     """Aggressive npcs start fights
     """
-    for nid, _ in list(npcs.items()):
-        if not npcs[nid].get('isAggressive'):
+    for nid, npc1 in npcs.items():
+        if not npc1.get('isAggressive'):
             continue
-        if not npcs[nid]['isAggressive']:
+        if not npc1['isAggressive']:
             continue
         # dead npcs don't attack
-        if npcs[nid]['whenDied']:
+        if npc1['whenDied']:
             continue
-        if npcs[nid]['frozenStart'] > 0:
+        if npc1['frozenStart'] > 0:
             continue
         # already attacking?
         if is_attacking(npcs, nid, fights):
             continue
         # are there players in the same room?
-        for pid, _ in players.items():
-            if players[pid]['room'] != npcs[nid]['room']:
+        for _, plyr in players.items():
+            if plyr['room'] != npc1['room']:
                 continue
             has_affinity = False
-            if npcs[nid].get('affinity'):
-                if npcs[nid]['affinity'].get(players[pid]['name']):
-                    if npcs[nid]['affinity'][players[pid]['name']] > 0:
+            if npc1.get('affinity'):
+                if npc1['affinity'].get(plyr['name']):
+                    if npc1['affinity'][plyr['name']] > 0:
                         has_affinity = True
             if not has_affinity:
                 if randint(0, 1000) > 995:
                     # does the npc have a throwable weapon?
                     thrown = \
                         holding_throwable(npcs, nid, items_db)
-                    _npc_begins_attack(npcs, nid, players[pid]['name'],
+                    _npc_begins_attack(npcs, nid, plyr['name'],
                                        players, fights, mud, items,
                                        items_db, races_db, thrown, rooms)
