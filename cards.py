@@ -547,7 +547,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             '\u001b[0m\u001b[0m\u001b[38;5;0m\u001b[48;5;15m'
         card_background_color_end = '\u001b[38;5;7m\u001b[49m'
         card_color = "\u001b[38;5;0m"
-        if suit == '♥' or suit == '♦':
+        if suit in ('♥', '♦'):
             suit_color = \
                 "\u001b[0m\u001b[0m\u001b[38;5;1m\u001b[48;5;15m"
             rank_color = suit_color
@@ -563,7 +563,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
 
         # try to load a utf8 art card from file
         utf8_pack = 'classic'
-        if pack != 'cloisters' and pack != 'set1':
+        if pack not in ('cloisters', 'set1'):
             utf8_pack = pack
         utf8_desc = _get_card_description(utf8_pack, rank, suit)
         utf8_card_filename = \
@@ -621,7 +621,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             for line_row_str in lines:
                 line_str = ''
                 for sline in line_row_str:
-                    line_str += sline
+                    line_str = line_str + sline
                 board_str += line_str + '\n'
     else:
         board_str += card_descriptions
