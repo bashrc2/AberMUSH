@@ -5770,29 +5770,29 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
 
                 # Does the player have any follower NPCs or familiars?
                 followers_msg = ""
-                for nid, _ in list(npcs.items()):
-                    if ((npcs[nid]['follow'] == players[id]['name'] or
-                        npcs[nid]['familiarOf'] == players[id]['name']) and
-                       npcs[nid]['familiarMode'] == 'follow'):
+                for nid, npc1 in npcs.items():
+                    if ((npc1['follow'] == players[id]['name'] or
+                        npc1['familiarOf'] == players[id]['name']) and
+                       npc1['familiarMode'] == 'follow'):
                         # is the npc in the same room as the player?
-                        if npcs[nid]['room'] == players[id]['room']:
+                        if npc1['room'] == players[id]['room']:
                             # is the player within the permitted npc path?
                             rm_ex = rmid['exits'][ex]
-                            if rm_ex in list(npcs[nid]['path']) or \
-                               npcs[nid]['familiarOf'] == players[id]['name']:
+                            if rm_ex in list(npc1['path']) or \
+                               npc1['familiarOf'] == players[id]['name']:
                                 foll_room_id = rmid['exits'][ex]
                                 max_pl_size = \
                                     rooms[foll_room_id]['maxPlayerSize']
                                 if max_pl_size < 0 or \
-                                   npcs[nid]['siz'] <= \
+                                   npc1['siz'] <= \
                                    rooms[foll_room_id]['maxPlayerSize']:
-                                    npcs[nid]['room'] = foll_room_id
-                                    npitem = npcs[nid]
+                                    npc1['room'] = foll_room_id
+                                    npitem = npc1
                                     desc = \
                                         random_desc(npitem['inDescription'])
                                     followers_msg = \
                                         followers_msg + '<f32>' + \
-                                        npcs[nid]['name'] + '<r> ' + \
+                                        npc1['name'] + '<r> ' + \
                                         desc + '.\n\n'
                                     desc = \
                                         random_desc(npitem['outDescription'])
@@ -5807,16 +5807,16 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
                                 else:
                                     # The room height is too small
                                     # for the follower
-                                    npcs[nid]['follow'] = ""
+                                    npc1['follow'] = ""
                             else:
                                 # not within the npc path, stop following
                                 # print(npcs[nid]['name'] +
                                 # ' stops following (out of path)\n')
-                                npcs[nid]['follow'] = ""
+                                npc1['follow'] = ""
                         else:
                             # stop following
                             # print(npcs[nid]['name'] + ' stops following\n')
-                            npcs[nid]['follow'] = ""
+                            npc1['follow'] = ""
 
                 # update the player's current room to the one the exit leads to
                 if rooms[players[id]['room']]['onWater'] == 1:
@@ -6081,31 +6081,31 @@ def _conjure_item(params, mud, players_db: {}, players: {}, rooms: {},
 
     # Check if item is in player's inventory
     for item in players[id]['inv']:
-        for iid, _ in list(items_db.items()):
+        for iid, itemobj in items_db.items():
             if str(iid) == item:
-                if item_name in items_db[iid]['name'].lower():
+                if item_name in itemobj['name'].lower():
                     mud.send_message(id, "You have " +
-                                     items_db[iid]['article'] + " " +
-                                     items_db[iid]['name'] +
+                                     itemobj['article'] + " " +
+                                     itemobj['name'] +
                                      " in your inventory already.\n\n")
                     return False
     # Check if it is in the room
-    for item, _ in list(items.items()):
-        if items[item]['room'] == players[id]['room']:
+    for item, itemobj in items.items():
+        if itemobj['room'] == players[id]['room']:
             if item_name in items_db[items[item]['id']]['name'].lower():
                 mud.send_message(id, "It's already here.\n\n")
                 return False
 
     item_id = -1
-    for item, _ in list(items.items()):
-        if item_name == items_db[items[item]['id']]['name'].lower():
-            item_id = items[item]['id']
+    for _, itemobj in items.items():
+        if item_name == items_db[itemobj['id']]['name'].lower():
+            item_id = itemobj['id']
             break
 
     if item_id == -1:
-        for item, _ in list(items.items()):
-            if item_name in items_db[items[item]['id']]['name'].lower():
-                item_id = items[item]['id']
+        for _, itemobj in items.items():
+            if item_name in items_db[itemobj['id']]['name'].lower():
+                item_id = itemobj['id']
                 break
 
     if item_id != -1:
@@ -6201,10 +6201,10 @@ def _conjure_npc(params, mud, players_db: {}, players: {}, rooms: {},
         return False
 
     # Check if NPC is in the room
-    for nid, _ in list(npcs.items()):
-        if npcs[nid]['room'] == players[id]['room']:
-            if npc_name.lower() in npcs[nid]['name'].lower():
-                mud.send_message(id, npcs[nid]['name'] +
+    for _, npc1 in npcs.items():
+        if npc1['room'] == players[id]['room']:
+            if npc_name.lower() in npc1['name'].lower():
+                mud.send_message(id, npc1['name'] +
                                  " is already here.\n\n")
                 return False
 
@@ -6462,11 +6462,11 @@ def _destroy_item(params, mud, players_db: {}, players: {}, rooms: {},
     item_id = -1
     found_item = None
     destroyed_name = ''
-    for item, _ in list(items.items()):
-        if items[item]['room'] == players[id]['room']:
-            if item_name in items_db[items[item]['id']]['name']:
-                destroyed_name = items_db[items[item]['id']]['name']
-                item_id = items[item]['id']
+    for item, itemobj in items.items():
+        if itemobj['room'] == players[id]['room']:
+            if item_name in items_db[itemobj['id']]['name']:
+                destroyed_name = items_db[itemobj['id']]['name']
+                item_id = itemobj['id']
                 found_item = item
                 break
     if item_id == -1:
@@ -6497,10 +6497,10 @@ def _destroy_npc(params, mud, players_db: {}, players: {}, rooms: {},
     # Check if NPC is in the room
     npc_id = -1
     destroyed_name = ''
-    for nid, _ in list(npcs.items()):
-        if npcs[nid]['room'] == players[id]['room']:
-            if npc_name.lower() in npcs[nid]['name'].lower():
-                destroyed_name = npcs[nid]['name']
+    for nid, npc1 in npcs.items():
+        if npc1['room'] == players[id]['room']:
+            if npc_name.lower() in npc1['name'].lower():
+                destroyed_name = npc1['name']
                 npc_id = nid
                 break
 
@@ -6743,9 +6743,9 @@ def _drop(params, mud, players_db: {}, players: {}, rooms: {},
 
     # Check if item is in player's inventory
     for item in players[id]['inv']:
-        for iid, _ in list(items_db.items()):
+        for iid, itemobj in items_db.items():
             if str(iid) == str(item):
-                if items_db[iid]['name'].lower() == target:
+                if itemobj['name'].lower() == target:
                     item_id = iid
                     item_in_inventory = True
                     item_in_db = True
@@ -6756,9 +6756,9 @@ def _drop(params, mud, players_db: {}, players: {}, rooms: {},
     if not item_in_inventory:
         # Try a fuzzy match
         for item in players[id]['inv']:
-            for iid, _ in list(items_db.items()):
+            for iid, itemobj in items_db.items():
                 if str(iid) == str(item):
-                    if target in items_db[iid]['name'].lower():
+                    if target in itemobj['name'].lower():
                         item_id = iid
                         item_in_inventory = True
                         item_in_db = True
@@ -7118,25 +7118,26 @@ def _open_item(params, mud, players_db: {}, players: {}, rooms: {},
         target = target.replace('the ', '')
 
     items_in_world_copy = deepcopy(items)
-    for (iid, pl) in list(items_in_world_copy.items()):
-        if items_in_world_copy[iid]['room'] == players[id]['room']:
-            if target in items_db[items[iid]['id']]['name'].lower():
-                if items_db[items[iid]['id']]['state'] == 'closed':
-                    _open_item_door(params, mud, players_db, players, rooms,
-                                    npcs_db, npcs, items_db, items,
-                                    env_db, env,
-                                    eventDB, event_schedule, id, fights,
-                                    corpses, target, items_in_world_copy,
-                                    iid)
-                    return
-                idx = items[iid]['id']
-                if items_db[idx]['state'].startswith('container closed'):
-                    _open_item_container(params, mud, players_db, players,
-                                         rooms, npcs_db, npcs, items_db,
-                                         items, env_db, env, eventDB,
-                                         event_schedule, id, fights, corpses,
-                                         target, items_in_world_copy, iid)
-                    return
+    for iid, pl in items_in_world_copy.items():
+        if pl['room'] != players[id]['room']:
+            continue
+        if target in items_db[items[iid]['id']]['name'].lower():
+            if items_db[items[iid]['id']]['state'] == 'closed':
+                _open_item_door(params, mud, players_db, players, rooms,
+                                npcs_db, npcs, items_db, items,
+                                env_db, env,
+                                eventDB, event_schedule, id, fights,
+                                corpses, target, items_in_world_copy,
+                                iid)
+                return
+            idx = items[iid]['id']
+            if items_db[idx]['state'].startswith('container closed'):
+                _open_item_container(params, mud, players_db, players,
+                                     rooms, npcs_db, npcs, items_db,
+                                     items, env_db, env, eventDB,
+                                     event_schedule, id, fights, corpses,
+                                     target, items_in_world_copy, iid)
+                return
     mud.send_message(id, "You can't open it.\n\n")
 
 
@@ -7154,8 +7155,8 @@ def _pull_lever(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     items_in_world_copy = deepcopy(items)
-    for iid, _ in list(items_in_world_copy.items()):
-        if items_in_world_copy[iid]['room'] == players[id]['room']:
+    for iid, itemobj in items_in_world_copy.items():
+        if itemobj['room'] == players[id]['room']:
             if target in items_db[items[iid]['id']]['name'].lower():
                 if items_db[items[iid]['id']]['state'] == 'lever up':
                     _lever_down(params, mud, players_db, players, rooms,
@@ -7184,23 +7185,24 @@ def _push_lever(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     items_in_world_copy = deepcopy(items)
-    for iid, _ in list(items_in_world_copy.items()):
-        if items_in_world_copy[iid]['room'] == players[id]['room']:
-            if target in items_db[items[iid]['id']]['name'].lower():
-                if not items_db[items[iid]['id']]['state']:
-                    _heave(params, mud, players_db, players, rooms,
-                           npcs_db, npcs, items_db, items, env_db, env,
-                           eventDB, event_schedule, id, fights,
-                           corpses, blocklist, map_area, character_class_db,
-                           spells_db, sentiment_db, guilds_db, clouds,
-                           races_db, item_history, markets, cultures_db)
-                    return
-                if items_db[items[iid]['id']]['state'] == 'lever down':
-                    _lever_up(params, mud, players_db, players, rooms, npcs_db,
-                              npcs, items_db, items, env_db, env, eventDB,
-                              event_schedule, id, fights, corpses, target,
-                              items_in_world_copy, iid)
-                    return
+    for iid, itemobj in items_in_world_copy.items():
+        if itemobj['room'] != players[id]['room']:
+            continue
+        if target in items_db[items[iid]['id']]['name'].lower():
+            if not items_db[items[iid]['id']]['state']:
+                _heave(params, mud, players_db, players, rooms,
+                       npcs_db, npcs, items_db, items, env_db, env,
+                       eventDB, event_schedule, id, fights,
+                       corpses, blocklist, map_area, character_class_db,
+                       spells_db, sentiment_db, guilds_db, clouds,
+                       races_db, item_history, markets, cultures_db)
+                return
+            if items_db[items[iid]['id']]['state'] == 'lever down':
+                _lever_up(params, mud, players_db, players, rooms, npcs_db,
+                          npcs, items_db, items, env_db, env, eventDB,
+                          event_schedule, id, fights, corpses, target,
+                          items_in_world_copy, iid)
+                return
     mud.send_message(id, 'Nothing happens.\n\n')
 
 
