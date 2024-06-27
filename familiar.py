@@ -20,7 +20,7 @@ def get_familiar_modes():
     return FAMILIAR_MODES
 
 
-def get_familiar_name(players: {}, id, npcs: {}):
+def get_familiar_name(players: {}, id, npcs: {}) -> str:
     """Returns the name of the familiar of the given player
     """
     plyr = players[id]
@@ -208,7 +208,7 @@ def familiar_hide(nid, npcs, npcs_db):
     npcs_db[nid]['familiarMode'] = "hide"
 
 
-def familiar_is_hidden(players: {}, id, npcs: {}):
+def familiar_is_hidden(players: {}, id, npcs: {}) -> bool:
     """Returns true if the familiar of the player is hidden
     TODO: currently unused
     """
@@ -222,7 +222,7 @@ def familiar_is_hidden(players: {}, id, npcs: {}):
 
 
 def _familiar_scout_any_direction(familiar_size: int, start_room_id,
-                                  room_exits: {}, rooms: {}):
+                                  room_exits: {}, rooms: {}) -> []:
     """Scout in any direction
     """
     new_path = [start_room_id]
@@ -239,7 +239,7 @@ def _familiar_scout_any_direction(familiar_size: int, start_room_id,
 
 def _familiar_scout_in_direction(mud, players: {}, id, start_room_id,
                                  room_exits: {},
-                                 direction, rooms: {}):
+                                 direction, rooms: {}) -> []:
     """Scout in the given direction
     """
     new_path = []
