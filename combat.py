@@ -62,28 +62,29 @@ def _drop_throwables(players: {}, id, items_db: {},
     """A player drops a weapon which was thrown
     """
     print('Dropping throwables')
+    plyr = players[id]
     hand_locations = ('clo_rhand', 'clo_lhand')
     for hand in hand_locations:
-        item_id = int(players[id][hand])
+        item_id = int(plyr[hand])
         if item_id <= 0:
             continue
         if 'thrown' not in items_db[item_id]['type']:
             continue
         # drop
         print('dropping')
-        if item_id in players[id]['inv']:
-            players[id]['inv'].remove(item_id)
-            print('Dropping item inventory ' + str(players[id]['inv']))
+        if item_id in plyr['inv']:
+            plyr['inv'].remove(item_id)
+            print('Dropping item inventory ' + str(plyr['inv']))
             update_player_attributes(id, players, items_db,
                                      item_id, -1)
-            players[id]['wei'] = \
+            plyr['wei'] = \
                 player_inventory_weight(id, players, items_db)
 
             # remove from clothing
-            players[id][hand] = 0
+            plyr[hand] = 0
 
             # Create item on the floor in the same room as the player
-            room_id = players[id]['room']
+            room_id = plyr['room']
             if not item_in_room(items, item_id, room_id):
                 print('Dropping item in room ' +
                       str(item_id) + ' ' + str(room_id))
@@ -118,18 +119,19 @@ def _player_is_available(id, players: {}, items_db: {}, rooms: {},
     """Returns True if the player is available.
     Availability is encumbered by weight, temperature and terrain
     """
-    curr_room = players[id]['room']
+    plyr = players[id]
+    curr_room = plyr['room']
     weight_difficulty = \
         int(_get_encumberance_from_weight(id, players, items_db) * 2)
     temperature_difficulty = \
         _get_temperature_difficulty(curr_room, rooms, map_area, clouds)
     terrain_difficulty = \
-        int(rooms[players[id]['room']]['terrainDifficulty'] * 10 /
+        int(rooms[plyr['room']]['terrainDifficulty'] * 10 /
             max_terrain_difficulty)
 
     # Agility of NPC
     modifier = \
-        10 - players[id]['agi'] - \
+        10 - plyr['agi'] - \
         _armor_agility(id, players, items_db) + terrain_difficulty + \
         temperature_difficulty + weight_difficulty
     if modifier < 6:
@@ -137,7 +139,7 @@ def _player_is_available(id, players: {}, items_db: {}, rooms: {},
     elif modifier > 25:
         modifier = 25
 
-    if int(time.time()) < players[id]['lastCombatAction'] + modifier:
+    if int(time.time()) < plyr['lastCombatAction'] + modifier:
         return False
     return True
 
@@ -147,7 +149,8 @@ def _get_encumberance_from_weight(id, players: {}, items_db: {}) -> int:
     """
     total_weight = player_inventory_weight(id, players, items_db)
 
-    strength = int(players[id]['str'])
+    plyr = players[id]
+    strength = int(plyr['str'])
     if strength < 1:
         strength = 1
 
@@ -194,7 +197,7 @@ def _get_encumberance_from_weight(id, players: {}, items_db: {}) -> int:
             thresholds[idx] = int(thresholds[idx] * (multiplier*4))
 
     # multiplier for creature size
-    size = int(players[id]['siz'])
+    size = int(plyr['siz'])
     mult = 1
     if size == 3:
         mult = 2
@@ -1074,6 +1077,8 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
     """
     s1id = fights[fid]['s1id']
     s2id = fights[fid]['s2id']
+    plyr1 = players[s1id]
+    plyr2 = players[s2id]
 
     # is the weapon thrown?
     thrown = 0
@@ -1082,18 +1087,18 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
         del fights[fid]['thrown']
 
     # In the same room?
-    if players[s1id]['room'] != players[s2id]['room']:
+    if plyr1['room'] != plyr2['room']:
         return
 
     # is the player frozen?
-    if players[s1id]['frozenStart'] > 0 or players[s1id]['canAttack'] == 0:
-        descr = random_desc(players[s1id]['frozenDescription'])
+    if plyr1['frozenStart'] > 0 or plyr1['canAttack'] == 0:
+        descr = random_desc(plyr1['frozenDescription'])
         mud.send_message(s2id, descr + '\n')
-        players[s1id]['lastCombatAction'] = int(time.time())
+        plyr1['lastCombatAction'] = int(time.time())
         return
 
     if player_is_trapped(s1id, players, rooms):
-        players[s1id]['lastCombatAction'] = int(time.time())
+        plyr1['lastCombatAction'] = int(time.time())
         return
 
     if not _player_is_available(s1id, players, items_db, rooms,
@@ -1102,18 +1107,18 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
         return
 
     # if the player is dodging then miss a turn
-    if players[s1id].get('dodge'):
-        if players[s1id]['dodge'] == 1:
-            players[s1id]['lastCombatAction'] = int(time.time())
+    if plyr1.get('dodge'):
+        if plyr1['dodge'] == 1:
+            plyr1['lastCombatAction'] = int(time.time())
             return
 
-    if players[s2id]['isAttackable'] == 1:
-        players[s1id]['isInCombat'] = 1
-        players[s2id]['isInCombat'] = 1
+    if plyr2['isAttackable'] == 1:
+        plyr1['isInCombat'] = 1
+        plyr2['isInCombat'] = 1
 
         if player_is_prone(s1id, players):
             # on the ground, so can't attack and misses the turn
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr1['lastCombatAction'] = int(time.time())
             # stand up for the next turn
             set_player_prone(s1id, players, False)
             descr = random_desc(
@@ -1122,16 +1127,16 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 'gets back on their feet|' +
                 'stands back up again'
             )
-            mud.send_message(s2id, '<f32>' + players[s1id]['name'] + ' ' +
+            mud.send_message(s2id, '<f32>' + plyr1['name'] + ' ' +
                              descr + '<r>.\n')
             return
 
         # attempt to shove
-        if players[s1id].get('shove'):
-            if players[s1id]['shove'] == 1:
+        if plyr1.get('shove'):
+            if plyr1['shove'] == 1:
                 if _player_shoves(mud, s1id, players, s2id, players, races_db):
-                    players[s2id]['lastCombatAction'] = int(time.time())
-                players[s1id]['lastCombatAction'] = int(time.time())
+                    plyr2['lastCombatAction'] = int(time.time())
+                plyr1['lastCombatAction'] = int(time.time())
                 return
 
         _two_handed_weapon(s1id, players, items_db)
@@ -1144,39 +1149,39 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 items_db[lock_item_id]['name'].lower() + '.\n')
             mud.send_message(
                 s2id, '<f32>' +
-                players[s1id]['name'] +
+                plyr1['name'] +
                 '<r> takes aim, but finds they have no ' +
                 items_db[lock_item_id]['name'].lower() + '.\n')
             stow_hands(s1id, players, items_db, mud)
             mud.send_message(
                 s2id, '<f32>' +
-                players[s1id]['name'] +
+                plyr1['name'] +
                 '<r> stows ' +
                 items_db[weapon_id]['article'] +
                 ' <b234>' +
                 items_db[weapon_id]['name'] + '\n\n')
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr1['lastCombatAction'] = int(time.time())
             return
 
         if _confined_space(s1id, players, items_db, weapon_id, rooms):
             stow_hands(s1id, players, items_db, mud)
             mud.send_message(
                 s2id, '<f32>' +
-                players[s1id]['name'] +
+                plyr1['name'] +
                 '<r> stows ' +
                 items_db[weapon_id]['article'] +
                 ' <b234>' +
                 items_db[weapon_id]['name'] + '\n\n')
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr1['lastCombatAction'] = int(time.time())
             return
 
         # A dodge value used to adjust agility of the target player
         # This is proportional to their luck, which can be modified by
         # various items
         dodge_modifier = 0
-        if players[s2id].get('dodge'):
-            if players[s2id]['dodge'] == 1:
-                dodge_modifier = randint(0, players[s2id]['luc'])
+        if plyr2.get('dodge'):
+            if plyr2['dodge'] == 1:
+                dodge_modifier = randint(0, plyr2['luc'])
                 desc = (
                     'You dodge',
                     'You swerve to avoid being hit',
@@ -1187,10 +1192,10 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 mud.send_message(s2id,
                                  '<f32>' + dodge_description + '<r>.\n')
                 mud.send_message(
-                    s1id, '<f32>' + players[s2id]['name'] +
+                    s1id, '<f32>' + plyr2['name'] +
                     '<r> tries to ' +
                     dodge_description.replace('You ', '') + '.\n')
-                players[s2id]['dodge'] = 0
+                plyr2['dodge'] = 0
 
         target_armor_class = \
             _combat_armor_class(s2id, players,
@@ -1212,7 +1217,7 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 rounds_of_fire = 1
 
             for _ in range(rounds_of_fire):
-                if players[s1id]['hp'] <= 0:
+                if plyr1['hp'] <= 0:
                     break
                 damage_value, damage_roll, damage_modifier = \
                     _combat_damage_from_weapon(s1id, players,
@@ -1229,18 +1234,18 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 if is_critical:
                     damage_value_desc = '2 x ' + damage_value_desc
 
-                if int(players[s2id]['hpMax']) < 999:
-                    players[s2id]['hp'] = \
-                        int(players[s2id]['hp']) - damage_value
-                    if players[s2id]['hp'] < 0:
-                        players[s2id]['hp'] = 0
+                if int(plyr2['hpMax']) < 999:
+                    plyr2['hp'] = \
+                        int(plyr2['hp']) - damage_value
+                    if plyr2['hp'] < 0:
+                        plyr2['hp'] = 0
 
                 decrease_affinity_between_players(
                     players, s2id, players, s1id, guilds)
                 decrease_affinity_between_players(
                     players, s1id, players, s2id, guilds)
                 _send_combat_image(mud, s1id, players,
-                                   players[s1id]['race'], weapon_type)
+                                   plyr1['race'], weapon_type)
 
                 attack_text = 'attack'
                 final_text = ''
@@ -1253,16 +1258,16 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                             random_desc(attack_description_first[1]) + '\n'
                 mud.send_message(
                     s1id, 'You ' + attack_text + ' <f32><u>' +
-                    players[s2id]['name'] +
+                    plyr2['name'] +
                     '<r> for <f15><b2> * ' +
                     damage_value_desc +
                     ' *<r> points of damage.\n' +
                     final_text +
-                    players[s2id]['name'] + ' is ' +
+                    plyr2['name'] + ' is ' +
                     health_of_player(s2id, players) + '\n')
 
                 _send_combat_image(mud, s2id, players,
-                                   players[s1id]['race'], weapon_type)
+                                   plyr1['race'], weapon_type)
 
                 health_description = health_of_player(s2id, players)
                 if 'dead' in health_description:
@@ -1283,32 +1288,32 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                             '\n'
                 mud.send_message(
                     s2id, '<f32>' +
-                    players[s1id]['name'] +
+                    plyr1['name'] +
                     '<r> has ' + attack_text + ' you for <f15><b88> * ' +
                     damage_value_desc +
                     ' *<r> points of damage.\n' + final_text +
                     health_description + '\n')
         else:
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr1['lastCombatAction'] = int(time.time())
             mud.send_message(
                 s1id, 'You miss trying to hit <f32><u>' +
-                players[s2id]['name'] + '\n')
+                plyr2['name'] + '\n')
             mud.send_message(
                 s2id, '<f32><u>' +
-                players[s1id]['name'] +
+                plyr1['name'] +
                 '<r> missed while trying to hit you!\n')
 
         # player drops anything thrown
         if thrown > 0:
             _drop_throwables(players, s1id, items_db, items)
 
-        players[s1id]['lastCombatAction'] = int(time.time())
+        plyr1['lastCombatAction'] = int(time.time())
     else:
         mud.send_message(
             s1id,
             '<f225>Suddenly you stop. It wouldn`t be a good ' +
             'idea to attack <f32>' +
-            players[s2id]['name'] + ' at this time.\n')
+            plyr2['name'] + ' at this time.\n')
         fights_copy = deepcopy(fights)
         for fight, _ in fights_copy.items():
             if fights_copy[fight]['s1id'] == s1id and \
@@ -1316,8 +1321,8 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                fights_copy[fight]['s2id'] == s2id and \
                fights_copy[fight]['s2type'] == 'pc':
                 del fights[fight]
-                players[s1id]['isInCombat'] = 0
-                players[s2id]['isInCombat'] = 0
+                plyr1['isInCombat'] = 0
+                plyr2['isInCombat'] = 0
 
 
 def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
@@ -1330,6 +1335,8 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
     """
     s1id = fights[fid]['s1id']
     s2id = fights[fid]['s2id']
+    plyr = players[s1id]
+    npc1 = npcs[s2id]
 
     # is the weapon thrown?
     thrown = 0
@@ -1338,19 +1345,19 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
         del fights[fid]['thrown']
 
     # In the same room?
-    if players[s1id]['room'] != npcs[s2id]['room']:
+    if plyr['room'] != npc1['room']:
         return
 
     # is the player frozen?
-    if players[s1id]['frozenStart'] > 0 or \
-       players[s1id]['canAttack'] == 0:
-        descr = random_desc(players[s1id]['frozenDescription'])
+    if plyr['frozenStart'] > 0 or \
+       plyr['canAttack'] == 0:
+        descr = random_desc(plyr['frozenDescription'])
         mud.send_message(s2id, descr + '\n')
-        players[s1id]['lastCombatAction'] = int(time.time())
+        plyr['lastCombatAction'] = int(time.time())
         return
 
     if player_is_trapped(s1id, players, rooms):
-        players[s1id]['lastCombatAction'] = int(time.time())
+        plyr['lastCombatAction'] = int(time.time())
         return
 
     if not _player_is_available(s1id, players, items_db, rooms,
@@ -1359,28 +1366,28 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
         return
 
     # if the player is dodging then miss a turn
-    if players[s1id].get('dodge'):
-        if players[s1id]['dodge'] == 1:
-            players[s1id]['lastCombatAction'] = int(time.time())
+    if plyr.get('dodge'):
+        if plyr['dodge'] == 1:
+            plyr['lastCombatAction'] = int(time.time())
             return
 
-    if npcs[s2id]['isAttackable'] == 1:
-        players[s1id]['isInCombat'] = 1
-        npcs[s2id]['isInCombat'] = 1
+    if npc1['isAttackable'] == 1:
+        plyr['isInCombat'] = 1
+        npc1['isInCombat'] = 1
 
         if player_is_prone(s1id, players):
             # on the ground, so can't attack and misses the turn
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr['lastCombatAction'] = int(time.time())
             # stand up for the next turn
             set_player_prone(s1id, players, False)
             return
 
         # attempt to shove
-        if players[s1id].get('shove'):
-            if players[s1id]['shove'] == 1:
+        if plyr.get('shove'):
+            if plyr['shove'] == 1:
                 if _player_shoves(mud, s1id, players, s2id, npcs, races_db):
-                    npcs[s2id]['lastCombatAction'] = int(time.time())
-                players[s1id]['lastCombatAction'] = int(time.time())
+                    npc1['lastCombatAction'] = int(time.time())
+                plyr['lastCombatAction'] = int(time.time())
                 return
 
         _two_handed_weapon(s1id, players, items_db)
@@ -1394,25 +1401,25 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                 items_db[lock_item_id]['name'].lower() +
                 '.\n')
             stow_hands(s1id, players, items_db, mud)
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr['lastCombatAction'] = int(time.time())
             return
 
         if _confined_space(s1id, players, items_db, weapon_id, rooms):
             stow_hands(s1id, players, items_db, mud)
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr['lastCombatAction'] = int(time.time())
             return
 
         # A dodge value used to adjust agility of the target player
         # This is proportional to their luck, which can be modified by
         # various items
         dodge_modifier = 0
-        if npcs[s2id].get('dodge'):
-            if npcs[s2id]['dodge'] == 1:
-                dodge_modifier = randint(0, npcs[s2id]['luc'])
+        if npc1.get('dodge'):
+            if npc1['dodge'] == 1:
+                dodge_modifier = randint(0, npc1['luc'])
                 mud.send_message(
-                    s1id, '<f32>' + npcs[s2id]['name'] +
+                    s1id, '<f32>' + npc1['name'] +
                     '<r> tries to dodge.\n')
-                npcs[s2id]['dodge'] = 0
+                npc1['dodge'] = 0
 
         target_armor_class = \
             _combat_armor_class(s2id, npcs,
@@ -1434,7 +1441,7 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                 rounds_of_fire = 1
 
             for _ in range(rounds_of_fire):
-                if players[s1id]['hp'] <= 0:
+                if plyr['hp'] <= 0:
                     break
 
                 damage_value, damage_roll, damage_modifier = \
@@ -1455,17 +1462,17 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
 
                 _npc_wears_armor(s2id, npcs, items_db)
 
-                if int(npcs[s2id]['hpMax']) < 999:
-                    npcs[s2id]['hp'] = int(npcs[s2id]['hp']) - damage_value
-                    if int(npcs[s2id]['hp']) < 0:
-                        npcs[s2id]['hp'] = 0
+                if int(npc1['hpMax']) < 999:
+                    npc1['hp'] = int(npc1['hp']) - damage_value
+                    if int(npc1['hp']) < 0:
+                        npc1['hp'] = 0
 
                 decrease_affinity_between_players(npcs, s2id, players,
                                                   s1id, guilds)
                 decrease_affinity_between_players(players, s1id, npcs,
                                                   s2id, guilds)
                 _send_combat_image(mud, s1id, players,
-                                   players[s1id]['race'], weapon_type)
+                                   plyr['race'], weapon_type)
                 attack_text = 'attack'
                 final_text = ''
                 if isinstance(attack_description_first, str):
@@ -1478,25 +1485,25 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                 mud.send_message(
                     s1id,
                     'You ' + attack_text + ' <f220>' +
-                    npcs[s2id]['name'] +
+                    npc1['name'] +
                     '<r> for <b2><f15> * ' +
                     damage_value_desc +
                     ' * <r> points of damage\n' + final_text +
-                    npcs[s2id]['name'] + ' is ' +
+                    npc1['name'] + ' is ' +
                     health_of_player(s2id, npcs) + '\n')
         else:
-            players[s1id]['lastCombatAction'] = int(time.time())
+            plyr['lastCombatAction'] = int(time.time())
             desc = [
-                'You miss <f220>' + npcs[s2id]['name'] + '<r> completely!',
+                'You miss <f220>' + npc1['name'] + '<r> completely!',
                 'You hopelessly fail to hit <f220>' +
-                npcs[s2id]['name'] + '<r>',
-                'You fail to hit <f220>' + npcs[s2id]['name'] + '<r>',
-                'You utterly fail to hit <f220>' + npcs[s2id]['name'] + '<r>',
+                npc1['name'] + '<r>',
+                'You fail to hit <f220>' + npc1['name'] + '<r>',
+                'You utterly fail to hit <f220>' + npc1['name'] + '<r>',
                 'You completely fail to hit <f220>' +
-                npcs[s2id]['name'] + '<r>',
-                'You widely miss <f220>' + npcs[s2id]['name'] + '<r>',
-                'You miss <f220>' + npcs[s2id]['name'] + '<r> by miles!',
-                'You miss <f220>' + npcs[s2id]['name'] +
+                npc1['name'] + '<r>',
+                'You widely miss <f220>' + npc1['name'] + '<r>',
+                'You miss <f220>' + npc1['name'] + '<r> by miles!',
+                'You miss <f220>' + npc1['name'] +
                 '<r> by a wide margin'
             ]
             descr = random_desc(desc)
@@ -1506,13 +1513,13 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
         if thrown > 0:
             _drop_throwables(players, s1id, items_db, items)
 
-        players[s1id]['lastCombatAction'] = int(time.time())
+        plyr['lastCombatAction'] = int(time.time())
     else:
         mud.send_message(
             s1id,
             '<f225>Suddenly you stop. It wouldn`t be a good ' +
             'idea to attack <u><f21>' +
-            npcs[s2id]['name'] + '<r> at this time.\n')
+            npc1['name'] + '<r> at this time.\n')
         fights_copy = deepcopy(fights)
         for fight, _ in fights_copy.items():
             if fights_copy[fight]['s1id'] == s1id and \
@@ -1520,8 +1527,8 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                fights_copy[fight]['s2id'] == s2id and \
                fights_copy[fight]['s2type'] == 'npc':
                 del fights[fight]
-                players[s1id]['isInCombat'] = 0
-                npcs[s2id]['isInCombat'] = 0
+                plyr['isInCombat'] = 0
+                npc1['isInCombat'] = 0
 
 
 def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
@@ -1534,6 +1541,9 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
     """
     s1id = fights[fid]['s1id']
     s2id = fights[fid]['s2id']
+    plyr = players[s2id]
+    npc1 = npcs[s1id]
+    npc1_name = npc1['name']
 
     # is the weapon thrown?
     thrown = 0
@@ -1542,16 +1552,16 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         del fights[fid]['thrown']
 
     # In the same room?
-    if npcs[s1id]['room'] != players[s2id]['room']:
+    if npc1['room'] != plyr['room']:
         return
 
     # is the player frozen?
-    if npcs[s1id]['frozenStart'] > 0:
+    if npc1['frozenStart'] > 0:
         mud.send_message(
             s2id, '<f220>' +
-            npcs[s1id]['name'] +
+            npc1_name +
             "<r> tries to attack but can't move\n")
-        npcs[s1id]['lastCombatAction'] = int(time.time())
+        npc1['lastCombatAction'] = int(time.time())
         return
 
     if not _player_is_available(s1id, npcs, items_db, rooms,
@@ -1560,17 +1570,17 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
         return
 
     # if the npc is dodging then miss a turn
-    if npcs[s1id].get('dodge'):
-        if npcs[s1id]['dodge'] == 1:
-            npcs[s1id]['lastCombatAction'] = int(time.time())
+    if npc1.get('dodge'):
+        if npc1['dodge'] == 1:
+            npc1['lastCombatAction'] = int(time.time())
             return
 
-    npcs[s1id]['isInCombat'] = 1
-    players[s2id]['isInCombat'] = 1
+    npc1['isInCombat'] = 1
+    plyr['isInCombat'] = 1
 
     if player_is_prone(s1id, npcs):
         # on the ground, so can't attack and misses the turn
-        npcs[s1id]['lastCombatAction'] = int(time.time())
+        npc1['lastCombatAction'] = int(time.time())
         # stand up for the next turn
         set_player_prone(s1id, npcs, False)
         desc = (
@@ -1580,13 +1590,13 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
             'stands back up again'
         )
         descr = random_desc(desc)
-        mud.send_message(s2id, '<f32>' + npcs[s1id]['name'] + ' ' +
+        mud.send_message(s2id, '<f32>' + npc1_name + ' ' +
                          descr + '<r>.\n')
         return
 
     _npc_update_luck(s1id, npcs, items, items_db)
     if _npc_wields_weapon(mud, s2id, s1id, npcs, items, items_db, rooms):
-        npcs[s1id]['lastCombatAction'] = int(time.time())
+        npc1['lastCombatAction'] = int(time.time())
         return
 
     _two_handed_weapon(s1id, npcs, items_db)
@@ -1597,9 +1607,9 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
     # This is proportional to their luck, which can be modified by
     # various items
     dodge_modifier = 0
-    if players[s2id].get('dodge'):
-        if players[s2id]['dodge'] == 1:
-            dodge_modifier = randint(0, players[s2id]['luc'])
+    if plyr.get('dodge'):
+        if plyr['dodge'] == 1:
+            dodge_modifier = randint(0, plyr['luc'])
             desc = (
                 'You dodge',
                 'You swerve to avoid being hit',
@@ -1609,7 +1619,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
             dodge_description = random_desc(desc)
             mud.send_message(s2id,
                              '<f32>' + dodge_description + '<r>.\n')
-            players[s2id]['dodge'] = 0
+            plyr['dodge'] = 0
 
     target_armor_class = \
         _combat_armor_class(s2id, players,
@@ -1623,7 +1633,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
 
     if hit:
         _, attack_description_second = \
-            _get_attack_description(npcs[s1id]['animalType'],
+            _get_attack_description(npc1['animalType'],
                                     weapon_type, attack_db,
                                     is_critical, thrown)
 
@@ -1631,7 +1641,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
             rounds_of_fire = 1
 
         for _ in range(rounds_of_fire):
-            if npcs[s1id]['hp'] <= 0:
+            if npc1['hp'] <= 0:
                 break
             damage_value, damage_roll, damage_modifier = \
                 _combat_damage_from_weapon(s1id, npcs,
@@ -1648,21 +1658,21 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
             if is_critical:
                 damage_value_desc = '2 x ' + damage_value_desc
 
-            if int(players[s2id]['hpMax']) < 999:
-                players[s2id]['hp'] = int(players[s2id]['hp']) - damage_value
-                if int(players[s2id]['hp']) < 0:
-                    players[s2id]['hp'] = 0
+            if int(plyr['hpMax']) < 999:
+                plyr['hp'] = int(plyr['hp']) - damage_value
+                if int(plyr['hp']) < 0:
+                    plyr['hp'] = 0
 
             decrease_affinity_between_players(npcs, s1id, players,
                                               s2id, guilds)
             decrease_affinity_between_players(players, s2id, npcs,
                                               s1id, guilds)
-            if not npcs[s1id]['animalType']:
+            if not npc1['animalType']:
                 _send_combat_image(mud, s2id, players,
-                                   npcs[s1id]['race'], weapon_type)
+                                   npc1['race'], weapon_type)
             else:
                 _send_combat_image(mud, s2id, players,
-                                   npcs[s1id]['animalType'], weapon_type)
+                                   npc1['animalType'], weapon_type)
 
             health_description = health_of_player(s2id, players)
             if 'dead' in health_description:
@@ -1683,23 +1693,23 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
                         '\n'
             mud.send_message(
                 s2id, '<f220>' +
-                npcs[s1id]['name'] + '<r> has ' +
+                npc1_name + '<r> has ' +
                 attack_text +
                 ' you for <f15><b88> * ' +
                 damage_value_desc + ' * <r> points of ' +
                 'damage.\n' + final_text +
                 health_description + '\n')
     else:
-        npcs[s1id]['lastCombatAction'] = int(time.time())
+        npc1['lastCombatAction'] = int(time.time())
         desc = [
-            '<f220>' + npcs[s1id]['name'] + '<r> missed you completely!',
-            '<f220>' + npcs[s1id]['name'] + '<r> hopelessly fails to hit you',
-            '<f220>' + npcs[s1id]['name'] + '<r> failed to hit you',
-            '<f220>' + npcs[s1id]['name'] + '<r> utterly failed to hit you',
-            '<f220>' + npcs[s1id]['name'] + '<r> completely failed to hit you',
-            '<f220>' + npcs[s1id]['name'] + '<r> misses you widely',
-            '<f220>' + npcs[s1id]['name'] + '<r> missed you by miles!',
-            '<f220>' + npcs[s1id]['name'] + '<r> missed you by a wide margin'
+            '<f220>' + npc1_name + '<r> missed you completely!',
+            '<f220>' + npc1_name + '<r> hopelessly fails to hit you',
+            '<f220>' + npc1_name + '<r> failed to hit you',
+            '<f220>' + npc1_name + '<r> utterly failed to hit you',
+            '<f220>' + npc1_name + '<r> completely failed to hit you',
+            '<f220>' + npc1_name + '<r> misses you widely',
+            '<f220>' + npc1_name + '<r> missed you by miles!',
+            '<f220>' + npc1_name + '<r> missed you by a wide margin'
         ]
         descr = random_desc(desc)
         mud.send_message(s2id, descr + '\n')
@@ -1707,7 +1717,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
     # npc drops anything thrown
     if thrown:
         _drop_throwables(npcs, s1id, items_db, items, items)
-    npcs[s1id]['lastCombatAction'] = int(time.time())
+    npc1['lastCombatAction'] = int(time.time())
 
 
 def is_player_fighting(id, players: {}, fights: {}) -> bool:
