@@ -470,13 +470,13 @@ def _get_card_description(pack: str, rank: str, suit: str) -> str:
         if pack == 'set1':
             return str(rank_str) + ' of swords\n'
         return str(rank_str) + ' of hearts\n'
-    elif suit == '♦':
+    if suit == '♦':
         if pack == 'cloisters':
             return str(rank_str) + ' of horns\n'
         if pack == 'set1':
             return str(rank_str) + ' of coins\n'
         return str(rank_str) + ' of diamonds\n'
-    elif suit == '♣':
+    if suit == '♣':
         if pack == 'cloisters':
             return str(rank_str) + ' of loops\n'
         return str(rank_str) + ' of clubs\n'
