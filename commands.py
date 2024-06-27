@@ -3561,20 +3561,44 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                         for i in playerinv:
                             this_item_id = int(i)
                             items_db_entry = items_db[this_item_id]
-                            if param in items_db_entry['name'].lower():
-                                item_language = items_db_entry['language']
-                                room_id = players[id]['room']
-                                _show_item_image(mud, id, this_item_id,
-                                                 room_id, rooms, players,
-                                                 items, items_db,
-                                                 clouds, map_area, None)
-                                if len(item_language) == 0:
+                            if param not in items_db_entry['name'].lower():
+                                continue
+                            item_language = items_db_entry['language']
+                            room_id = players[id]['room']
+                            _show_item_image(mud, id, this_item_id,
+                                             room_id, rooms, players,
+                                             items, items_db,
+                                             clouds, map_area, None)
+                            if len(item_language) == 0:
+                                cond_desc = []
+                                if items_db_entry.get('conditional'):
+                                    cond_desc = \
+                                        items_db_entry['conditional']
+                                desc = \
+                                    _conditional_item_desc(this_item_id,
+                                                           cond_desc,
+                                                           id,
+                                                           players,
+                                                           items,
+                                                           items_db,
+                                                           clouds,
+                                                           map_area,
+                                                           rooms, None)
+                                message += random_desc(desc)
+                                message += \
+                                    _describe_container_contents(
+                                        mud, id, items_db, this_item_id,
+                                        True)
+                            else:
+                                player_langs = players[id]['language']
+                                if item_language in player_langs:
                                     cond_desc = []
                                     if items_db_entry.get('conditional'):
                                         cond_desc = \
                                             items_db_entry['conditional']
+                                    this_id = this_item_id
                                     desc = \
-                                        _conditional_item_desc(this_item_id,
+                                        _conditional_item_desc(this_id,
                                                                cond_desc,
                                                                id,
                                                                players,
@@ -3586,39 +3610,16 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                                     message += random_desc(desc)
                                     message += \
                                         _describe_container_contents(
-                                            mud, id, items_db, this_item_id,
-                                            True)
+                                            mud, id, items_db,
+                                            this_item_id, True)
                                 else:
-                                    player_langs = players[id]['language']
-                                    if item_language in player_langs:
-                                        cond_desc = []
-                                        if items_db_entry.get('conditional'):
-                                            cond_desc = \
-                                                items_db_entry['conditional']
-                                        this_id = this_item_id
-                                        desc = \
-                                            _conditional_item_desc(this_id,
-                                                                   cond_desc,
-                                                                   id,
-                                                                   players,
-                                                                   items,
-                                                                   items_db,
-                                                                   clouds,
-                                                                   map_area,
-                                                                   rooms, None)
-                                        message += random_desc(desc)
-                                        message += \
-                                            _describe_container_contents(
-                                                mud, id, items_db,
-                                                this_item_id, True)
-                                    else:
-                                        message += \
-                                            "It's written in " + item_language
+                                    message += \
+                                        "It's written in " + item_language
 
-                                item_name = \
-                                    items_db_entry['article'] + " " + \
-                                    items_db_entry['name']
-                                break
+                            item_name = \
+                                items_db_entry['article'] + " " + \
+                                items_db_entry['name']
+                            break
 
             if len(message) > 0:
                 mud.send_message(id, "****CLEAR****It's " + item_name + ".")
