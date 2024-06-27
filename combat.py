@@ -697,132 +697,122 @@ def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
     item_id = 0
     max_protection = 0
     max_damage = 0
-    if int(npcs[nid]['canWield']) != 0:
-        for i in npcs[nid]['inv']:
-            if items_db[int(i)]['clo_rhand'] > 0:
-                if items_db[int(i)]['mod_str'] > max_damage:
-                    max_damage = items_db[int(i)]['mod_str']
+    npc1 = npcs[nid]
+    if int(npc1['canWield']) != 0:
+        for i in npc1['inv']:
+            itemobj = items_db[int(i)]
+            if itemobj['clo_rhand'] > 0:
+                if itemobj['mod_str'] > max_damage:
+                    max_damage = itemobj['mod_str']
                     item_id = int(i)
-            elif items_db[int(i)]['clo_lhand'] > 0:
-                if items_db[int(i)]['mod_str'] > max_damage:
-                    max_damage = items_db[int(i)]['mod_str']
+            elif itemobj['clo_lhand'] > 0:
+                if itemobj['mod_str'] > max_damage:
+                    max_damage = itemobj['mod_str']
                     item_id = int(i)
 
     put_on_armor = False
-    if int(npcs[nid]['canWear']) != 0:
-        for i in npcs[nid]['inv']:
-            if items_db[int(i)]['clo_chest'] < 1:
+    if int(npc1['canWear']) != 0:
+        for i in npc1['inv']:
+            itemobj = items_db[int(i)]
+            if itemobj['clo_chest'] < 1:
                 continue
-            if items_db[int(i)]['mod_endu'] > max_protection:
-                max_protection = items_db[int(i)]['mod_endu']
+            if itemobj['mod_endu'] > max_protection:
+                max_protection = itemobj['mod_endu']
                 item_id = int(i)
                 put_on_armor = True
 
     # search for any weapons on the floor
     picked_up_weapon = False
     item_weapon_index = 0
-    if int(npcs[nid]['canWield']) != 0:
+    if int(npc1['canWield']) != 0:
         items_in_world_copy = deepcopy(items)
         for iid, itemobj in items_in_world_copy.items():
-            if itemobj['room'] != npcs[nid]['room']:
+            if itemobj['room'] != npc1['room']:
                 continue
             itemobj2 = items[iid]
-            if items_db[itemobj2['id']]['weight'] == 0:
+            itemobj2_id = itemobj2['id']
+            if items_db[itemobj2_id]['weight'] == 0:
                 continue
-            if items_db[itemobj2['id']]['clo_rhand'] == 0:
+            if items_db[itemobj2_id]['clo_rhand'] == 0:
                 continue
-            if items_db[itemobj2['id']]['mod_str'] <= max_damage:
+            if items_db[itemobj2_id]['mod_str'] <= max_damage:
                 continue
-            if _confined_space(nid, npcs, items_db, itemobj2['id'], rooms):
+            if _confined_space(nid, npcs, items_db, itemobj2_id, rooms):
                 continue
-            item_name = items_db[itemobj2['id']]['name']
+            item_name = items_db[itemobj2_id]['name']
             if _item_in_npc_inventory(npcs, nid, item_name, items_db):
                 continue
-            max_damage = items_db[itemobj2['id']]['mod_str']
-            item_id = int(itemobj2['id'])
+            max_damage = items_db[itemobj2_id]['mod_str']
+            item_id = int(itemobj2_id)
             item_weapon_index = iid
             picked_up_weapon = True
 
     # Search for any armor on the floor
     picked_up_armor = False
     item_armor_index = 0
-    if int(npcs[nid]['canWear']) != 0:
+    if int(npc1['canWear']) != 0:
         for iid, itemobj in items_in_world_copy.items():
-            if itemobj['room'] != npcs[nid]['room']:
+            if itemobj['room'] != npc1['room']:
                 continue
             itemobj2 = items[iid]
-            if items_db[itemobj2['id']]['weight'] == 0:
+            itemobj2_id = itemobj2['id']
+            if items_db[itemobj2_id]['weight'] == 0:
                 continue
-            if items_db[itemobj2['id']]['clo_chest'] == 0:
+            if items_db[itemobj2_id]['clo_chest'] == 0:
                 continue
-            if items_db[itemobj2['id']]['mod_endu'] <= max_protection:
+            if items_db[itemobj2_id]['mod_endu'] <= max_protection:
                 continue
-            item_name = items_db[itemobj2['id']]['name']
+            item_name = items_db[itemobj2_id]['name']
             if _item_in_npc_inventory(npcs, nid, item_name, items_db):
                 continue
             max_protection = \
-                items_db[itemobj2['id']]['mod_endu']
-            item_id = int(itemobj2['id'])
+                items_db[itemobj2_id]['mod_endu']
+            item_id = int(itemobj2_id)
             item_armor_index = iid
             picked_up_armor = True
 
     if item_id > 0:
         if put_on_armor:
-            if npcs[nid]['clo_chest'] != item_id:
-                npcs[nid]['clo_chest'] = item_id
+            if npc1['clo_chest'] != item_id:
+                npc1['clo_chest'] = item_id
                 mud.send_message(
-                    id,
-                    '<f220>' +
-                    npcs[nid]['name'] +
+                    id, '<f220>' + npc1['name'] +
                     '<r> puts on ' +
                     items_db[item_id]['article'] +
-                    ' ' +
-                    items_db[item_id]['name'] +
-                    '\n')
+                    ' ' + items_db[item_id]['name'] + '\n')
                 return True
             return False
 
         if picked_up_armor:
-            if npcs[nid]['clo_chest'] != item_id:
-                npcs[nid]['inv'].append(str(item_id))
-                npcs[nid]['clo_chest'] = item_id
+            if npc1['clo_chest'] != item_id:
+                npc1['inv'].append(str(item_id))
+                npc1['clo_chest'] = item_id
                 del items[item_armor_index]
                 mud.send_message(
-                    id,
-                    '<f220>' +
-                    npcs[nid]['name'] +
+                    id, '<f220>' + npc1['name'] +
                     '<r> picks up and wears ' +
                     items_db[item_id]['article'] +
-                    ' ' +
-                    items_db[item_id]['name'] +
-                    '\n')
+                    ' ' + items_db[item_id]['name'] + '\n')
                 return True
             return False
 
-        if npcs[nid]['clo_rhand'] != item_id:
+        if npc1['clo_rhand'] != item_id:
             # Transfer weapon to hand
-            npcs[nid]['clo_rhand'] = item_id
-            npcs[nid]['clo_lhand'] = 0
+            npc1['clo_rhand'] = item_id
+            npc1['clo_lhand'] = 0
             if picked_up_weapon:
-                npcs[nid]['inv'].append(str(item_id))
+                npc1['inv'].append(str(item_id))
                 del items[item_weapon_index]
                 mud.send_message(
-                    id,
-                    '<f220>' +
-                    npcs[nid]['name'] +
+                    id, '<f220>' + npc1['name'] +
                     '<r> picks up ' +
                     items_db[item_id]['article'] +
-                    ' ' +
-                    items_db[item_id]['name'] +
-                    '\n')
+                    ' ' + items_db[item_id]['name'] + '\n')
             else:
                 mud.send_message(
-                    id,
-                    '<f220>' +
-                    npcs[nid]['name'] +
+                    id, '<f220>' + npc1['name'] +
                     '<r> has drawn their ' +
-                    items_db[item_id]['name'] +
-                    '\n')
+                    items_db[item_id]['name'] + '\n')
             return True
 
     return False
