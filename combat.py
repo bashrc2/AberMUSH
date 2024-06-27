@@ -312,10 +312,11 @@ def _combat_update_max_hit_points(id, players: {}, races_db: {}) -> None:
 def health_of_player(pid: int, players: {}) -> str:
     """Returns a description of health status
     """
-    hp_val = players[pid]['hp']
+    plyr = players[pid]
+    hp_val = plyr['hp']
     hp_max = 11
-    if players[pid].get('hpMax'):
-        hp_max = players[pid]['hpMax']
+    if plyr.get('hpMax'):
+        hp_max = plyr['hpMax']
     health_percent = int(hp_val * 100 / hp_max)
     health_msg = 'in full health'
     if health_percent < 100:
@@ -373,8 +374,7 @@ def _combat_ability_modifier(score: int) -> int:
     )
 
     for ability_range in ability_table:
-        if score >= ability_range[0] and \
-           score <= ability_range[1]:
+        if score in range(ability_range[0], ability_range[1] + 1):
             return ability_range[2]
     return 0
 
