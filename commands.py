@@ -446,27 +446,28 @@ def _summon(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
         if _is_witch(id, players):
             target_player = params[0:].strip().lower()
             if len(target_player) != 0:
-                for plyr in players:
-                    if players[plyr]['name'].strip().lower() == target_player:
-                        if players[plyr]['room'] != players[id]['room']:
-                            pnam = players[plyr]['name']
-                            desc = '<f32>{}<r> suddenly vanishes.'.format(pnam)
-                            message_to_room_players(mud, players, plyr,
-                                                    desc + "\n")
-                            players[plyr]['room'] = players[id]['room']
-                            rmid = players[plyr]['room']
-                            mud.send_message(id, "You summon " +
-                                             players[plyr]['name'] + "\n\n")
-                            mud.send_message(plyr,
-                                             "A mist surrounds you. When it " +
-                                             "clears you find that you " +
-                                             "are now in " +
-                                             rooms[rmid]['name'] + "\n\n")
-                        else:
-                            mud.send_message(
-                                id, players[plyr]['name'] +
-                                " is already here.\n\n")
-                        return
+                for plyr_id, plyr in players.items():
+                    if plyr['name'].strip().lower() != target_player:
+                        continue
+                    if plyr['room'] != players[id]['room']:
+                        pnam = plyr['name']
+                        desc = '<f32>{}<r> suddenly vanishes.'.format(pnam)
+                        message_to_room_players(mud, players, plyr_id,
+                                                desc + "\n")
+                        plyr['room'] = players[id]['room']
+                        rmid = plyr['room']
+                        mud.send_message(id, "You summon " +
+                                         plyr['name'] + "\n\n")
+                        mud.send_message(plyr_id,
+                                         "A mist surrounds you. When it " +
+                                         "clears you find that you " +
+                                         "are now in " +
+                                         rooms[rmid]['name'] + "\n\n")
+                    else:
+                        mud.send_message(
+                            id, plyr['name'] +
+                            " is already here.\n\n")
+                    return
         else:
             mud.send_message(id, "You don't have enough powers for that.\n\n")
 
@@ -487,19 +488,20 @@ def _mute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
         return
     target = params.partition(' ')[0]
     if len(target) != 0:
-        for plyr in players:
-            if players[plyr]['name'] == target:
-                if not _is_witch(plyr, players):
-                    players[plyr]['canSay'] = 0
-                    players[plyr]['canAttack'] = 0
-                    players[plyr]['canDirectMessage'] = 0
-                    mud.send_message(
-                        id, "You have muted " + target + "\n\n")
-                else:
-                    mud.send_message(
-                        id, "You try to mute " + target +
-                        " but their power is too strong.\n\n")
-                return
+        for plyr_id, plyr in players.items():
+            if plyr['name'] != target:
+                continue
+            if not _is_witch(plyr_id, players):
+                plyr['canSay'] = 0
+                plyr['canAttack'] = 0
+                plyr['canDirectMessage'] = 0
+                mud.send_message(
+                    id, "You have muted " + target + "\n\n")
+            else:
+                mud.send_message(
+                    id, "You try to mute " + target +
+                    " but their power is too strong.\n\n")
+            return
 
 
 def _unmute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
@@ -519,15 +521,16 @@ def _unmute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
     target = params.partition(' ')[0]
     if len(target) != 0:
         if target.lower() != 'guest':
-            for plyr in players:
-                if players[plyr]['name'] == target:
-                    if not _is_witch(plyr, players):
-                        players[plyr]['canSay'] = 1
-                        players[plyr]['canAttack'] = 1
-                        players[plyr]['canDirectMessage'] = 1
-                        mud.send_message(
-                            id, "You have unmuted " + target + "\n\n")
-                    return
+            for plyr_id, plyr in players.items():
+                if plyr['name'] != target:
+                    continue
+                if not _is_witch(plyr_id, players):
+                    plyr['canSay'] = 1
+                    plyr['canAttack'] = 1
+                    plyr['canDirectMessage'] = 1
+                    mud.send_message(
+                        id, "You have unmuted " + target + "\n\n")
+                return
 
 
 def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
@@ -541,26 +544,26 @@ def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             target = params.partition(' ')[0]
             if len(target) != 0:
                 # freeze players
-                for plyr in players:
-                    if players[plyr]['whenDied']:
+                for plyr_id, plyr in players.items():
+                    if plyr['whenDied']:
                         mud.send_message(
                             id,
                             "Freezing a player while dead is pointless\n\n")
                         continue
-                    if players[plyr]['frozenStart'] > 0:
+                    if plyr['frozenStart'] > 0:
                         mud.send_message(
                             id, "They are already frozen\n\n")
                         continue
-                    if target in players[plyr]['name']:
-                        if not _is_witch(plyr, players):
+                    if target in plyr['name']:
+                        if not _is_witch(plyr_id, players):
                             # remove from any fights
                             for fight, _ in fights.items():
                                 if plyr in (fights[fight]['s1id'],
                                             fights[fight]['s2id']):
                                     del fights[fight]
-                                    players[plyr]['isInCombat'] = 0
-                            players[plyr]['canGo'] = 0
-                            players[plyr]['canAttack'] = 0
+                                    plyr['isInCombat'] = 0
+                            plyr['canGo'] = 0
+                            plyr['canAttack'] = 0
                             mud.send_message(
                                 id, "You have frozen " + target + "\n\n")
                         else:
@@ -578,24 +581,25 @@ def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                         mud.send_message(
                             id, "They are already frozen\n\n")
                         continue
-                    if target in npcs[plyr]['name']:
-                        if not _is_witch(plyr, npcs):
-                            # remove from any fights
-                            for fight, _ in fights.items():
-                                if plyr in (fights[fight]['s1id'],
-                                            fights[fight]['s2id']):
-                                    del fights[fight]
-                                    npcs[plyr]['isInCombat'] = 0
+                    if target not in npcs[plyr]['name']:
+                        continue
+                    if not _is_witch(plyr, npcs):
+                        # remove from any fights
+                        for fight, _ in fights.items():
+                            if plyr in (fights[fight]['s1id'],
+                                        fights[fight]['s2id']):
+                                del fights[fight]
+                                npcs[plyr]['isInCombat'] = 0
 
-                            npcs[plyr]['canGo'] = 0
-                            npcs[plyr]['canAttack'] = 0
-                            mud.send_message(
-                                id, "You have frozen " + target + "\n\n")
-                        else:
-                            mud.send_message(
-                                id, "You try to freeze " + target +
-                                " but their power is too strong.\n\n")
-                        return
+                        npcs[plyr]['canGo'] = 0
+                        npcs[plyr]['canAttack'] = 0
+                        mud.send_message(
+                            id, "You have frozen " + target + "\n\n")
+                    else:
+                        mud.send_message(
+                            id, "You try to freeze " + target +
+                            " but their power is too strong.\n\n")
+                    return
 
 
 def _unfreeze(params, mud, players_db: {}, players: {}, rooms: {},
@@ -611,12 +615,12 @@ def _unfreeze(params, mud, players_db: {}, players: {}, rooms: {},
             if len(target) != 0:
                 if target.lower() != 'guest':
                     # unfreeze players
-                    for plyr in players:
-                        if target in players[plyr]['name']:
-                            if not _is_witch(plyr, players):
-                                players[plyr]['canGo'] = 1
-                                players[plyr]['canAttack'] = 1
-                                players[plyr]['frozenStart'] = 0
+                    for plyr_id, plyr in players.items():
+                        if target in plyr['name']:
+                            if not _is_witch(plyr_id, players):
+                                plyr['canGo'] = 1
+                                plyr['canAttack'] = 1
+                                plyr['frozenStart'] = 0
                                 mud.send_message(
                                     id, "You have unfrozen " + target + "\n\n")
                             return
@@ -864,25 +868,25 @@ def _who(params, mud, players_db: {}, players: {}, rooms: {},
     counter = 1
     if players[id]['permissionLevel'] == 0:
         is_witch = _is_witch(id, players)
-        for plyr in players:
-            if players[plyr]['name'] is None:
+        for plyr_id, plyr in players.items():
+            if plyr['name'] is None:
                 continue
 
             if not is_witch:
-                name = players[plyr]['name']
+                name = plyr['name']
             else:
-                if not _is_witch(plyr, players):
-                    if players[plyr]['canSay'] == 1:
-                        name = players[plyr]['name']
+                if not _is_witch(plyr_id, players):
+                    if plyr['canSay'] == 1:
+                        name = plyr['name']
                     else:
-                        name = players[plyr]['name'] + " (muted)"
+                        name = plyr['name'] + " (muted)"
                 else:
-                    name = "<f32>" + players[plyr]['name'] + "<r>"
+                    name = "<f32>" + plyr['name'] + "<r>"
 
-            if players[plyr]['room'] is None:
+            if plyr['room'] is None:
                 room = "None"
             else:
-                rmid = rooms[players[plyr]['room']]
+                rmid = rooms[plyr['room']]
                 room = "<f230>" + rmid['name']
 
             mud.send_message(id, str(counter) + ". " + name + " is in " + room)
@@ -912,9 +916,9 @@ def _tell(params, mud, players_db: {}, players: {}, rooms: {},
     message = params.replace(target, "")[1:]
     if len(target) != 0 and len(message) != 0:
         cant_str = thieves_cant(message)
-        for plyr in players:
-            if players[plyr]['authenticated'] is not None and \
-               players[plyr]['name'].lower() == target.lower():
+        for plyr_id, plyr in players.items():
+            if plyr['authenticated'] is not None and \
+               plyr['name'].lower() == target.lower():
                 # print("sending a tell")
                 if players[id]['name'].lower() == target.lower():
                     mud.send_message(
@@ -932,24 +936,24 @@ def _tell(params, mud, players_db: {}, players: {}, rooms: {},
                             break
 
                     if not self_only:
-                        lang_list = players[plyr]['language']
+                        lang_list = plyr['language']
                         if players[id]['speakLanguage'] in lang_list:
                             add_to_scheduler(
                                 "0|msg|<f90>From " +
                                 players[id]['name'] +
                                 ": " + message +
-                                '\n', plyr, event_schedule,
+                                '\n', plyr_id, event_schedule,
                                 eventDB)
                             sentiment_score = \
                                 get_sentiment(message, sentiment_db) + \
                                 get_guild_sentiment(players, id, players,
-                                                    plyr, guilds_db)
+                                                    plyr_id, guilds_db)
                             if sentiment_score >= 0:
                                 increase_affinity_between_players(
-                                    players, id, players, plyr, guilds_db)
+                                    players, id, players, plyr_id, guilds_db)
                             else:
                                 decrease_affinity_between_players(
-                                    players, id, players, plyr, guilds_db)
+                                    players, id, players, plyr_id, guilds_db)
                         else:
                             if players[id]['speakLanguage'] != 'cant':
                                 add_to_scheduler(
@@ -957,20 +961,18 @@ def _tell(params, mud, players_db: {}, players: {}, rooms: {},
                                     players[id]['name'] +
                                     ": something in " +
                                     players[id]['speakLanguage'] +
-                                    '\n', plyr, event_schedule,
+                                    '\n', plyr_id, event_schedule,
                                     eventDB)
                             else:
                                 add_to_scheduler(
                                     "0|msg|<f90>From " +
                                     players[id]['name'] +
                                     ": " + cant_str +
-                                    '\n', plyr, event_schedule,
+                                    '\n', plyr_id, event_schedule,
                                     eventDB)
                     mud.send_message(
-                        id, "<f90>To " +
-                        players[plyr]['name'] +
-                        ": " + message +
-                        "\n\n")
+                        id, "<f90>To " + plyr['name'] +
+                        ": " + message + "\n\n")
                     told = True
                     break
         if not told:
@@ -1015,11 +1017,11 @@ def _whisper(params, mud, players_db: {}, players: {}, rooms: {},
     if len(target) > 0:
         if len(message) > 0:
             cant_str = thieves_cant(message)
-            for plyr in players:
-                if players[plyr]['name'] is not None and \
-                   players[plyr]['name'].lower() == target.lower():
-                    if players[plyr]['room'] == players[id]['room']:
-                        if players[plyr]['name'].lower() != \
+            for plyr_id, plyr in players.items():
+                if plyr['name'] is not None and \
+                   plyr['name'].lower() == target.lower():
+                    if plyr['room'] == players[id]['room']:
+                        if plyr['name'].lower() != \
                            players[id]['name'].lower():
 
                             # don't whisper if the string contains a blocked
@@ -1034,35 +1036,36 @@ def _whisper(params, mud, players_db: {}, players: {}, rooms: {},
                             sentiment_score = \
                                 get_sentiment(message[1:], sentiment_db) + \
                                 get_guild_sentiment(players, id, players,
-                                                    plyr, guilds_db)
+                                                    plyr_id, guilds_db)
                             if sentiment_score >= 0:
                                 increase_affinity_between_players(
-                                    players, id, players, plyr, guilds_db)
+                                    players, id, players, plyr_id, guilds_db)
                             else:
                                 decrease_affinity_between_players(
-                                    players, id, players, plyr, guilds_db)
+                                    players, id, players, plyr_id, guilds_db)
 
                             mud.send_message(
                                 id, "You whisper to <f32>" +
-                                players[plyr]['name'] + "<r>: " +
+                                plyr['name'] + "<r>: " +
                                 message[1:] + '\n')
                             if not self_only:
-                                lang_list = players[plyr]['language']
+                                lang_list = plyr['language']
                                 if players[id]['speakLanguage'] in lang_list:
                                     mud.send_message(
-                                        plyr, "<f162>" + players[id]['name'] +
+                                        plyr_id, "<f162>" +
+                                        players[id]['name'] +
                                         " whispers: " + message[1:] + '\n')
                                 else:
                                     if players[id]['speakLanguage'] != 'cant':
                                         mud.send_message(
-                                            plyr, "<f162>" +
+                                            plyr_id, "<f162>" +
                                             players[id]['name'] +
                                             " whispers something in " +
                                             players[id]['speakLanguage'] +
                                             '\n')
                                     else:
                                         mud.send_message(
-                                            plyr, "<f162>" +
+                                            plyr_id, "<f162>" +
                                             players[id]['name'] +
                                             " whispers:  " + cant_str + '\n')
                             message_sent = True
@@ -1723,15 +1726,16 @@ def _cast_spell_undirected(params, mud, players_db: {}, players: {}, rooms: {},
                 mud.send_message(id, "Magic shield active.\n\n")
 
                 # inform other players in the room
-                for pid in players:
+                for pid, plyr in players.items():
                     if pid == id:
                         continue
-                    if players[pid]['room'] == players[id]['room']:
-                        _show_spell_image(mud, pid, "magic_shield", players)
-                        msg_str = \
-                            '<f32>' + players[id]['name'] + \
-                            '<r> activates a magic shield'
-                        mud.send_message(pid, msg_str + ".\n\n")
+                    if plyr['room'] != players[id]['room']:
+                        continue
+                    _show_spell_image(mud, pid, "magic_shield", players)
+                    msg_str = \
+                        '<f32>' + players[id]['name'] + \
+                        '<r> activates a magic shield'
+                    mud.send_message(pid, msg_str + ".\n\n")
             else:
                 mud.send_message(id, "Magic shield is already active.\n\n")
             return
@@ -1806,27 +1810,27 @@ def _cast_spell(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     if len(cast_at) > 0:
-        for p in players:
-            if cast_at not in players[p]['name'].lower():
+        for pl_id, plyr in players.items():
+            if cast_at not in plyr['name'].lower():
                 continue
-            if p == id:
+            if pl_id == id:
                 mud.send_message(id, "This is not a hypnosis spell.\n\n")
                 return
             _cast_spell_on_player(
-                mud, spell_name, players, id, players, p, spell_details)
+                mud, spell_name, players, id, players, pl_id, spell_details)
             return
 
-        for p in npcs:
-            if cast_at not in npcs[p]['name'].lower():
+        for _, npc1 in npcs.items():
+            if cast_at not in npc1['name'].lower():
                 continue
 
-            if npcs[p]['familiarOf'] == players[id]['name']:
+            if npc1['familiarOf'] == players[id]['name']:
                 mud.send_message(
                     id, "You can't cast a spell on your own familiar!\n\n")
                 return
 
             _cast_spell_on_player(mud, spell_name, players, id, npcs,
-                                  p, spell_details)
+                                  pl_id, spell_details)
             return
     else:
         _cast_spell_undirected(params, mud, players_db, players, rooms,
@@ -2161,29 +2165,29 @@ def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
             taunt_second_person = taunt_first_person + 'es'
 
         is_done = False
-        for plyr in players:
-            if players[plyr]['authenticated'] is not None and \
-               target.lower() in players[plyr]['name'].lower() and \
-               players[plyr]['room'] == players[id]['room']:
+        for plyr_id, plyr in players.items():
+            if plyr['authenticated'] is not None and \
+               target.lower() in plyr['name'].lower() and \
+               plyr['room'] == players[id]['room']:
                 if target.lower() in players[id]['name'].lower():
                     mud.send_message_wrap(
                         id, '<f230>', "It'd be pointless to taunt yourself!\n")
                 else:
-                    lang_list = players[plyr]['language']
+                    lang_list = plyr['language']
                     if players[id]['speakLanguage'] in lang_list:
                         mud.send_message_wrap(
-                            plyr, '<f230>',
+                            plyr_id, '<f230>',
                             players[id]['name'] + " " +
                             taunt_second_person + " you\n")
                         decrease_affinity_between_players(
-                            players, plyr, players, id, guilds_db)
+                            players, plyr_id, players, id, guilds_db)
                     else:
                         mud.send_message_wrap(
-                            plyr, '<f230>',
+                            plyr_id, '<f230>',
                             players[id]['name'] + " says something in " +
                             players[id]['speakLanguage'] + '\n')
                     decrease_affinity_between_players(
-                        players, id, players, plyr, guilds_db)
+                        players, id, players, plyr_id, guilds_db)
                 is_done = True
                 break
         if not is_done:
@@ -2206,8 +2210,8 @@ def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
                     break
 
         if is_done:
-            for plyr in players:
-                if plyr == id:
+            for plyr_id, plyr in players.items():
+                if plyr_id == id:
                     taunt_severity = \
                         random_desc('mercilessly|severely|harshly|' +
                                     'loudly|blatantly|coarsely|' +
@@ -2217,7 +2221,7 @@ def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
                         taunt_first_person + ' ' + full_target
                     mud.send_message_wrap(id, '<f230>', descr + ".\n")
                     continue
-                if players[plyr]['room'] == players[id]['room']:
+                if plyr['room'] == players[id]['room']:
                     mud.send_message_wrap(
                         id, '<f230>',
                         players[id]['name'] + ' ' + taunt_second_person +
@@ -2566,16 +2570,16 @@ def _holding_light_source(players: {}, id, items: {}, items_db: {}) -> bool:
             return True
 
     # are there any other players in the same room holding a light source?
-    for plyr in players:
-        if plyr == id:
+    for plyr_id, plyr in players.items():
+        if plyr_id == id:
             continue
-        if players[plyr]['room'] != players[id]['room']:
+        if plyr['room'] != players[id]['room']:
             continue
-        item_id = int(players[plyr]['clo_lhand'])
+        item_id = int(plyr['clo_lhand'])
         if item_id > 0:
             if items_db[item_id]['lightSource'] != 0:
                 return True
-        item_id = int(players[plyr]['clo_rhand'])
+        item_id = int(plyr['clo_rhand'])
         if item_id > 0:
             if items_db[int(item_id)]['lightSource'] != 0:
                 return True
@@ -3411,12 +3415,13 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             message_sent = False
 
             # Go through all players in game
-            for plyr in players:
-                if players[plyr]['authenticated'] is not None:
-                    if players[plyr]['name'].lower() == param and \
-                       players[plyr]['room'] == players[id]['room']:
-                        if player_is_visible(mud, players, id, plyr, players):
-                            _bio_of_player(mud, id, plyr, players, items_db)
+            for plyr_id, plyr in players.items():
+                if plyr['authenticated'] is not None:
+                    if plyr['name'].lower() == param and \
+                       plyr['room'] == players[id]['room']:
+                        if player_is_visible(mud, players, id, plyr_id,
+                                             players):
+                            _bio_of_player(mud, id, plyr_id, players, items_db)
                             message_sent = True
 
             message = ""
@@ -5366,16 +5371,16 @@ def _chess(params, mud, players_db: {}, players: {}, rooms: {},
                 items[board_item_id]['gameState']['turn'] = 'black'
                 # send a notification to the other player
                 if items[board_item_id]['gameState'].get('player2'):
-                    for plyr in players:
-                        if plyr == id:
+                    for plyr_id, plyr in players.items():
+                        if plyr_id == id:
                             continue
-                        if players[plyr]['name'] == \
+                        if plyr['name'] == \
                            items[board_item_id]['gameState']['player2']:
-                            if players[plyr]['room'] == players[id]['room']:
+                            if plyr['room'] == players[id]['room']:
                                 turn_str = \
                                     items[board_item_id]['gameState']['turn']
                                 show_chess_board(game_board_name,
-                                                 game_state, plyr, mud,
+                                                 game_state, plyr_id, mud,
                                                  turn_str)
             else:
                 items[board_item_id]['gameState']['player2'] = \
@@ -5383,16 +5388,16 @@ def _chess(params, mud, players_db: {}, players: {}, rooms: {},
                 items[board_item_id]['gameState']['turn'] = 'white'
                 # send a notification to the other player
                 if items[board_item_id]['gameState'].get('player1'):
-                    for plyr in players:
-                        if plyr == id:
+                    for plyr_id, plyr in players.items():
+                        if plyr_id == id:
                             continue
-                        if players[plyr]['name'] == \
+                        if plyr['name'] == \
                            items[board_item_id]['gameState']['player1']:
-                            if players[plyr]['room'] == players[id]['room']:
+                            if plyr['room'] == players[id]['room']:
                                 turn_str = \
                                     items[board_item_id]['gameState']['turn']
                                 show_chess_board(game_board_name, game_state,
-                                                 plyr, mud, turn_str)
+                                                 plyr_id, mud, turn_str)
             gstate = game_state.copy()
             items[board_item_id]['gameState']['history'].append(gstate)
             show_chess_board(game_board_name, game_state, id, mud, curr_turn)
