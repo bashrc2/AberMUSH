@@ -57,8 +57,7 @@ def holding_throwable(players: {}, id, items_db: {}) -> int:
     return 0
 
 
-def _drop_throwables(players: {}, id, items_db: {},
-                     items: {}) -> bool:
+def _drop_throwables(players: {}, id, items_db: {}, items: {}) -> bool:
     """A player drops a weapon which was thrown
     """
     print('Dropping throwables')
@@ -1716,7 +1715,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
 
     # npc drops anything thrown
     if thrown:
-        _drop_throwables(npcs, s1id, items_db, items, items)
+        _drop_throwables(npcs, s1id, items_db, items)
     npc1['lastCombatAction'] = int(time.time())
 
 
