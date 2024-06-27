@@ -14948,5 +14948,74 @@
         "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1437$": {
+        "exits": {
+            "out": "$rid=1428$"
+        },
+        "name": "Hatchet inn room 2 bed",
+        "description": "You are on a grubby moth-eaten bed constructed from wood and canvas, staring at the ancient oak beams which prop up the roof. It's not exactly luxurious, but good enough for punters to sleep off the booze.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1438$": {
+        "exits": {
+            "out": "$rid=1427$"
+        },
+        "name": "Hatchet inn room 3 bed",
+        "description": "You are on an unremarkable bed constructed from wood and canvas, staring at the ancient oak beams which prop up the roof. It's not exactly luxurious, but good enough for punters to sleep off the booze.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
+    },
+    "$rid=1439$": {
+        "exits": {
+            "out": "$rid=1429$"
+        },
+        "name": "Hatchet inn room 4 bed",
+        "description": "You are on a modest bed constructed from wood and canvas, staring at the ancient oak beams which prop up the roof. It's not exactly luxurious, but good enough for punters to sleep off the booze.",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": 2,
+        "maxPlayers": 2,
+        "weather": 0,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "Tranoch",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }

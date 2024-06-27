@@ -1690,13 +1690,10 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
                         random_desc(attack_description_second[1]) + \
                         '\n'
             mud.send_message(
-                s2id, '<f220>' +
-                npc1_name + '<r> has ' +
-                attack_text +
-                ' you for <f15><b88> * ' +
+                s2id, '<f220>' + npc1_name + '<r> has ' +
+                attack_text + ' you for <f15><b88> * ' +
                 damage_value_desc + ' * <r> points of ' +
-                'damage.\n' + final_text +
-                health_description + '\n')
+                'damage.\n' + final_text + health_description + '\n')
     else:
         npc1['lastCombatAction'] = int(time.time())
         desc = [
