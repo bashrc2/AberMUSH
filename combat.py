@@ -264,6 +264,10 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
             'They topple and fall to the ground',
             'They topple over',
             'They stagger and fall backwards',
+            'They stagger and fall',
+            'They stagger and fall to the ground',
+            'They lose balance and fall',
+            'They lose balance and fall to the ground',
             'They lose balance and fall backwards'
         )
         descr = random_desc(desc)
