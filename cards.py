@@ -273,7 +273,7 @@ def _parse_card(card_description: str) -> str:
     return detected_face + detected_suit
 
 
-def _deal_cards_to_player(players: {}, dealerId, name: str, no_of_cards: int,
+def _deal_cards_to_player(players: {}, dealer_id, name: str, no_of_cards: int,
                           deck, mud, hands, rooms: {}, items: {},
                           items_db: {}) -> bool:
     """Deals a number of cards to a player
@@ -281,15 +281,15 @@ def _deal_cards_to_player(players: {}, dealerId, name: str, no_of_cards: int,
     card_player_id = None
     name = name.lower()
     for plyr in players:
-        if players[plyr]['room'] == players[dealerId]['room']:
+        if players[plyr]['room'] == players[dealer_id]['room']:
             if players[plyr]['name'].lower() == name:
                 card_player_id = plyr
                 break
     if card_player_id is None:
         if 'myself' in name or ' me' in name or ' self' in name:
-            card_player_id = dealerId
+            card_player_id = dealer_id
         else:
-            mud.send_message(dealerId, "\nThey're not in the room.\n")
+            mud.send_message(dealer_id, "\nThey're not in the room.\n")
             return False
     card_player_name = players[card_player_id]['name']
     hands[card_player_name] = ''
@@ -304,15 +304,15 @@ def _deal_cards_to_player(players: {}, dealerId, name: str, no_of_cards: int,
             ctr += 1
     if ctr > 0:
         hands[card_player_name] = hands[card_player_name]
-        if dealerId == card_player_id:
-            mud.send_message(dealerId, '\nYou deal ' + str(ctr) +
+        if dealer_id == card_player_id:
+            mud.send_message(dealer_id, '\nYou deal ' + str(ctr) +
                              ' cards to yourself.\n')
         else:
-            mud.send_message(dealerId,
+            mud.send_message(dealer_id,
                              '\nYou deal ' + str(ctr) +
                              ' cards to ' + card_player_name + '.\n')
             mud.send_message(card_player_id,
-                             '\n' + players[dealerId]['name'] + ' deals ' +
+                             '\n' + players[dealer_id]['name'] + ' deals ' +
                              str(ctr) + ' cards to you.\n')
         return True
     return False
@@ -367,14 +367,14 @@ def _get_number_from_text(text: str) -> int:
     return None
 
 
-def deal_to_players(players: {}, dealerId, description: str,
+def deal_to_players(players: {}, dealer_id, description: str,
                     mud, rooms: {}, items: {}, items_db: {}) -> None:
     """Deal cards to players
     """
     game_item_id = \
-        _card_game_in_room(players, dealerId, rooms, items, items_db)
+        _card_game_in_room(players, dealer_id, rooms, items, items_db)
     if not game_item_id:
-        mud.send_message(dealerId,
+        mud.send_message(dealer_id,
                          '\nThere are no playing cards here.\n')
         return
 
@@ -383,22 +383,22 @@ def deal_to_players(players: {}, dealerId, description: str,
         no_of_cards = 5
 
     description = description.lower().replace('.', ' ').replace(',', ' ') + ' '
-    description = description.replace('myself', players[dealerId]['name'])
+    description = description.replace('myself', players[dealer_id]['name'])
     description = description.replace(' me ', ' ' +
-                                      players[dealerId]['name'] + ' ')
+                                      players[dealer_id]['name'] + ' ')
     description = description.replace(' self ', ' ' +
-                                      players[dealerId]['name'] + ' ')
+                                      players[dealer_id]['name'] + ' ')
 
     player_count = 0
     for plyr in players:
-        if players[plyr]['room'] != players[dealerId]['room']:
+        if players[plyr]['room'] != players[dealer_id]['room']:
             continue
         if players[plyr]['name'].lower() not in description:
             continue
         player_count += 1
 
     if player_count == 0:
-        mud.send_message(dealerId, '\nName some players to deal to.\n')
+        mud.send_message(dealer_id, '\nName some players to deal to.\n')
         return
 
     # initialise the deck
@@ -410,11 +410,11 @@ def deal_to_players(players: {}, dealerId, description: str,
 
     hands = {}
     for pid in players:
-        if players[pid]['room'] != players[dealerId]['room']:
+        if players[pid]['room'] != players[dealer_id]['room']:
             continue
         if players[pid]['name'].lower() not in description:
             continue
-        if _deal_cards_to_player(players, dealerId, players[pid]['name'],
+        if _deal_cards_to_player(players, dealer_id, players[pid]['name'],
                                  no_of_cards, deck, mud, hands,
                                  rooms, items, items_db):
             items[game_item_id]['gameState']['hands'] = hands
