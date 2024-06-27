@@ -673,10 +673,12 @@ def _item_in_npc_inventory(npcs, id: int, item_name: str,
                            items_db: {}) -> bool:
     """Is an item in the NPC's inventory?
     """
-    if len(list(npcs[id]['inv'])) > 0:
+    npc1 = npcs[id]
+    if len(list(npc1['inv'])) > 0:
         item_name_lower = item_name.lower()
-        for idx in list(npcs[id]['inv']):
-            if items_db[int(idx)]['name'].lower() == item_name_lower:
+        for idx in list(npc1['inv']):
+            itemobj = items_db[int(idx)]
+            if itemobj['name'].lower() == item_name_lower:
                 return True
     return False
 
@@ -686,7 +688,8 @@ def _npc_update_luck(nid, npcs: {}, items: {}, items_db: {}) -> None:
     """
     luck = 0
     for i in npcs[nid]['inv']:
-        luck = luck + items_db[int(i)]['mod_luc']
+        itemobj = items_db[int(i)]
+        luck = luck + itemobj['mod_luc']
     npcs[nid]['luc'] = luck
 
 
@@ -1717,12 +1720,12 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
 def is_player_fighting(id, players: {}, fights: {}) -> bool:
     """Returns true if the player is fighting
     """
-    for (fid, _) in list(fights.items()):
-        if fights[fid]['s1type'] == 'pc':
-            if fights[fid]['s1'] == players[id]['name']:
+    for _, fght in fights.items():
+        if fght['s1type'] == 'pc':
+            if fght['s1'] == players[id]['name']:
                 return True
-        if fights[fid]['s2type'] == 'pc':
-            if fights[fid]['s2'] == players[id]['name']:
+        if fght['s2type'] == 'pc':
+            if fght['s2'] == players[id]['name']:
                 return True
     return False
 
