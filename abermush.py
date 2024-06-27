@@ -758,9 +758,9 @@ while True:
         send_to_channel("Server", "system", "Saving server state...", channels)
         # State Save logic Start
         players_were_saved = False
-        for (pid, pl) in list(players.items()):
-            if players[pid]['authenticated'] is not None:
-                save_state(players[pid], players_db, False)
+        for _, pl in players.items():
+            if pl['authenticated'] is not None:
+                save_state(pl, players_db, False)
                 players_were_saved = True
         if players_were_saved:
             players_db = load_players_db()
@@ -980,7 +980,7 @@ while True:
             mud.send_message(id, "<f220>\nSelect your character race:\n\n")
             ctr = 0
             types_str = '  '
-            for (name, p) in list(races_db.items()):
+            for name, p in races_db.items():
                 if ctr > 0:
                     types_str = types_str + ', <f220>' + name + '<r>'
                 else:
@@ -1014,8 +1014,8 @@ while True:
                     id, "<f220>\nSelect your character class:\n\n")
                 ctr = 0
                 class_str = '  '
-                for (name, p) in list(character_class_db.items()):
-                    if name == 'witch' or name == 'ghost':
+                for name, p in character_class_db.items():
+                    if name in ('witch', 'ghost'):
                         continue
                     if ctr > 0:
                         class_str = class_str + ', <f220>' + name + '<r>'
