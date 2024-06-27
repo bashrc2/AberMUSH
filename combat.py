@@ -26,7 +26,7 @@ from environment import get_temperature_at_coords
 from proficiencies import damage_proficiency
 from traps import player_is_trapped
 
-defenseClothing = (
+defense_clothing = (
     'clo_chest',
     'clo_head',
     'clo_neck',
@@ -473,7 +473,7 @@ def _combat_armor_class(id, players: {},
     when attacked by the given weapon type
     """
     armor_class = 0
-    for clth in defenseClothing:
+    for clth in defense_clothing:
         item_id = int(players[id][clth])
         if item_id <= 0:
             continue
@@ -831,14 +831,16 @@ def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
 def _npc_wears_armor(id: int, npcs: {}, items_db: {}) -> None:
     """An NPC puts on armor
     """
-    if len(npcs[id]['inv']) == 0:
+    npc1 = npcs[id]
+
+    if len(npc1['inv']) == 0:
         return
 
-    for clth in defenseClothing:
+    for clth in defense_clothing:
         item_id = 0
         # what is the best defense which the NPC is carrying?
         max_defense = 0
-        for idx in npcs[id]['inv']:
+        for idx in npc1['inv']:
             if items_db[int(idx)][clth] < 1:
                 continue
             if items_db[int(idx)]['mod_str'] != 0:
@@ -848,15 +850,16 @@ def _npc_wears_armor(id: int, npcs: {}, items_db: {}) -> None:
                 item_id = int(idx)
         if item_id > 0:
             # Wear the armor
-            npcs[id][clth] = item_id
+            npc1[clth] = item_id
 
 
 def _two_handed_weapon(id: int, players: {}, items_db: {}) -> None:
     """ If carrying a two handed weapon then make sure
     that the other hand is empty
     """
-    item_idleft = players[id]['clo_lhand']
-    item_idright = players[id]['clo_rhand']
+    plyr = players[id]
+    item_idleft = plyr['clo_lhand']
+    item_idright = plyr['clo_rhand']
     # items on both hands
     if item_idleft == 0 or item_idright == 0:
         return
@@ -865,9 +868,9 @@ def _two_handed_weapon(id: int, players: {}, items_db: {}) -> None:
        items_db[item_idright]['bothHands'] == 0:
         return
     if items_db[item_idright]['bothHands'] == 1:
-        players[id]['clo_lhand'] = 0
+        plyr['clo_lhand'] = 0
     else:
-        players[id]['clo_rhand'] = 0
+        plyr['clo_rhand'] = 0
 
 
 def _armor_agility(id: int, players: {}, items_db: {}) -> int:
@@ -875,7 +878,7 @@ def _armor_agility(id: int, players: {}, items_db: {}) -> int:
     """
     agility = 0
 
-    for clth in defenseClothing:
+    for clth in defense_clothing:
         item_id = int(players[id][clth])
         if item_id > 0:
             agility = agility + int(items_db[item_id]['mod_agi'])
