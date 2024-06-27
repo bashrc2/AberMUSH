@@ -318,15 +318,16 @@ def _deal_cards_to_player(players: {}, dealer_id, name: str, no_of_cards: int,
     return False
 
 
-def _card_game_in_room(players: {}, id, rooms: {}, items: {}, items_db: {}):
+def _card_game_in_room(players: {}, id, rooms: {}, items: {},
+                       items_db: {}) -> int:
     """Returns the item ID if there is a card game in the room
     """
     rid = players[id]['room']
-    for i in items:
-        if items[i]['room'] != rid:
+    for item_id, itemobj in items.items():
+        if itemobj['room'] != rid:
             continue
-        if 'cards' in items_db[items[i]['id']]['game'].lower():
-            return i
+        if 'cards' in items_db[itemobj['id']]['game'].lower():
+            return item_id
     return None
 
 
@@ -335,12 +336,12 @@ def _card_game_pack(players: {}, pid, rooms: {},
     """Returns the card pack name to use
     """
     rid = players[pid]['room']
-    for idx in items:
-        if items[idx]['room'] != rid:
+    for _, itemobj in items.items():
+        if itemobj['room'] != rid:
             continue
-        if 'cards' in items_db[items[idx]['id']]['game'].lower():
-            if items_db[items[idx]['id']].get('cardPack'):
-                return items_db[items[idx]['id']]['cardPack']
+        if 'cards' in items_db[itemobj['id']]['game'].lower():
+            if items_db[itemobj['id']].get('cardPack'):
+                return items_db[itemobj['id']]['cardPack']
     return None
 
 
