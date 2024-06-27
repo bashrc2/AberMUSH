@@ -1736,9 +1736,9 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                attack_db: {}):
     """Handles fights
     """
-    for fid, _ in list(fights.items()):
+    for fid, fght in fights.items():
         # PC -> PC
-        if fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'pc':
+        if fght['s1type'] == 'pc' and fght['s2type'] == 'pc':
             _run_fights_between_players(mud, players, npcs, fights, fid,
                                         items_db, rooms,
                                         max_terrain_difficulty,
@@ -1746,7 +1746,7 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                                         character_class_db,
                                         guilds, attack_db, items)
         # PC -> NPC
-        elif fights[fid]['s1type'] == 'pc' and fights[fid]['s2type'] == 'npc':
+        elif fght['s1type'] == 'pc' and fght['s2type'] == 'npc':
             _run_fights_between_player_and_npc(mud, players, npcs, fights,
                                                fid, items_db, rooms,
                                                max_terrain_difficulty,
@@ -1755,7 +1755,7 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                                                character_class_db,
                                                guilds, attack_db, items)
         # NPC -> PC
-        elif fights[fid]['s1type'] == 'npc' and fights[fid]['s2type'] == 'pc':
+        elif fght['s1type'] == 'npc' and fght['s2type'] == 'pc':
             _run_fights_between_npc_and_player(mud, players, npcs, fights,
                                                fid, items, items_db, rooms,
                                                max_terrain_difficulty,
@@ -1763,16 +1763,16 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                                                character_class_db, guilds,
                                                attack_db)
         # NPC -> NPC
-        # elif fights[fid]['s1type'] == 'npc' and \
-        #    fights[fid]['s2type'] == 'npc':
+        # elif fght['s1type'] == 'npc' and \
+        #    fght['s2type'] == 'npc':
         #     test = 1
 
 
 def is_attacking(players: {}, id, fights: {}) -> bool:
     """Returns true if the given player is attacking
     """
-    for fight, _ in fights.items():
-        if fights[fight]['s1'] == players[id]['name']:
+    for _, fght in fights.items():
+        if fght['s1'] == players[id]['name']:
             return True
     return False
 
@@ -1780,9 +1780,9 @@ def is_attacking(players: {}, id, fights: {}) -> bool:
 def get_attacking_target(players: {}, id, fights: {}):
     """Return the player or npc which is the target of an attack
     """
-    for fight, _ in fights.items():
-        if fights[fight]['s1'] == players[id]['name']:
-            return fights[fight]['s2']
+    for _, fght in fights.items():
+        if fght['s1'] == players[id]['name']:
+            return fght['s2']
     return None
 
 
@@ -1790,11 +1790,11 @@ def stop_attack(players: {}, id, npcs: {}, fights: {}):
     """Stops any fights for the given player
     """
     fights_copy = deepcopy(fights)
-    for fight, _ in fights_copy.items():
-        s1type = fights_copy[fight]['s1type']
-        s1id = fights_copy[fight]['s1id']
-        s2type = fights_copy[fight]['s2type']
-        s2id = fights_copy[fight]['s2id']
+    for fight, fght in fights_copy.items():
+        s1type = fght['s1type']
+        s1id = fght['s1id']
+        s2type = fght['s2type']
+        s2id = fght['s2id']
         if s1type == 'pc' and s1id == id:
             del fights[fight]
             players[id]['isInCombat'] = 0
@@ -1824,13 +1824,13 @@ def player_begins_attack(players: {}, id, target: str,
             'might not be the most productive way of using your time.\n')
         return target_found
 
-    for pid, _ in players.items():
-        if players[pid]['authenticated'] and \
-           players[pid]['name'].lower() == target.lower():
+    for pid, plyr in players.items():
+        if plyr['authenticated'] and \
+           plyr['name'].lower() == target.lower():
             target_found = True
             victim_id = pid
             attacker_id = id
-            if players[pid]['room'] != players[id]['room']:
+            if plyr['room'] != players[id]['room']:
                 target_found = False
                 continue
 
@@ -1856,17 +1856,17 @@ def player_begins_attack(players: {}, id, target: str,
                     id, '<f214>Throwing at <r><f255>' + target + '!\n')
 
     if not target_found:
-        for nid, _ in list(npcs.items()):
-            if target.lower() not in npcs[nid]['name'].lower():
+        for nid, npc1 in npcs.items():
+            if target.lower() not in npc1['name'].lower():
                 continue
             victim_id = nid
             attacker_id = id
             # found target npc
-            if npcs[nid]['room'] != players[id]['room']:
+            if npc1['room'] != players[id]['room']:
                 continue
 
             # check for familiar
-            if npcs[nid]['familiarOf'] == players[id]['name']:
+            if npc1['familiarOf'] == players[id]['name']:
                 desc = (
                     "You can't attack your own familiar",
                     "You consider attacking " +
@@ -1877,7 +1877,7 @@ def player_begins_attack(players: {}, id, target: str,
                 mud.send_message(id, descr + "\n\n")
                 return False
 
-            if npcs[nid]['isAttackable'] == 0:
+            if npc1['isAttackable'] == 0:
                 mud.send_message(id, "You can't attack them\n\n")
                 return False
 
@@ -1898,10 +1898,10 @@ def player_begins_attack(players: {}, id, target: str,
 
             if thrown == 0:
                 mud.send_message(
-                    id, 'Attacking <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+                    id, 'Attacking <u><f21>' + npc1['name'] + '<r>!\n')
             else:
                 mud.send_message(
-                    id, 'Throwing at <u><f21>' + npcs[nid]['name'] + '<r>!\n')
+                    id, 'Throwing at <u><f21>' + npc1['name'] + '<r>!\n')
             break
 
     if not target_found:
