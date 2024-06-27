@@ -20,43 +20,46 @@ def get_familiar_modes():
     return FAMILIAR_MODES
 
 
-def get_familiar_name(players, id, npcs):
+def get_familiar_name(players: {}, id, npcs: {}):
     """Returns the name of the familiar of the given player
     """
-    if players[id]['familiar'] != -1:
-        for nid, _ in list(npcs.items()):
-            if npcs[nid]['familiarOf'] == players[id]['name']:
-                return npcs[nid]['name']
+    plyr = players[id]
+    if plyr['familiar'] != -1:
+        for _, npc1 in list(npcs.items()):
+            if npc1['familiarOf'] == plyr['name']:
+                return npc1['name']
     return ''
 
 
-def familiar_recall(mud, players, id, npcs, npcs_db):
+def familiar_recall(mud, players: {}, id, npcs: {}, npcs_db: {}):
     """Move any familiar to the player's location
     """
+    plyr = players[id]
+
     # remove any existing familiars
     removals = []
-    for nid, item in list(npcs.items()):
-        if item['familiarOf'] == players[id]['name']:
+    for nid, item in npcs.items():
+        if item['familiarOf'] == plyr['name']:
             removals.append(nid)
 
     for index in removals:
         del npcs[index]
 
     # By default player has no familiar
-    players[id]['familiar'] = -1
+    plyr['familiar'] = -1
 
     # Find familiar and set its room to that of the player
-    for nid, item in list(npcs_db.items()):
-        if item['familiarOf'] == players[id]['name']:
-            players[id]['familiar'] = int(nid)
+    for nid, item in npcs_db.items():
+        if item['familiarOf'] == plyr['name']:
+            plyr['familiar'] = int(nid)
             if not npcs.get(nid):
                 npcs[nid] = deepcopy(npcs_db[nid])
-            npcs[nid]['room'] = players[id]['room']
+            npcs[nid]['room'] = plyr['room']
             mud.send_message(id, "Your familiar is recalled.\n\n")
             break
 
 
-def familiar_default_mode(nid, npcs, npcs_db):
+def familiar_default_mode(nid, npcs: {}, npcs_db: {}):
     npcs[nid]['familiarMode'] = "follow"
     npcs_db[nid]['familiarMode'] = "follow"
     npcs[nid]['moveType'] = ""
@@ -65,8 +68,9 @@ def familiar_default_mode(nid, npcs, npcs_db):
     npcs_db[nid]['path'] = []
 
 
-def familiar_sight(mud, nid, npcs, npcs_db, rooms, players, id,
-                   items, items_db):
+def familiar_sight(mud, nid, npcs: {}, npcs_db: {}, rooms: {},
+                   players: {}, id,
+                   items: {}, items_db: {}):
     """familiar reports what it sees
     """
     start_room_id = npcs[nid]['room']
@@ -85,14 +89,14 @@ def familiar_sight(mud, nid, npcs, npcs_db, rooms, players, id,
     creatures_count = 0
     creatures_friendly = 0
     creatures_races = []
-    for plyr in players:
-        if players[plyr]['name'] is None:
+    for _, plyr in players.items():
+        if plyr['name'] is None:
             continue
-        if players[plyr]['room'] == npcs[nid]['room']:
+        if plyr['room'] == npcs[nid]['room']:
             creatures_count = creatures_count+1
-            if players[plyr]['race'] not in creatures_races:
-                creatures_races.append(players[plyr]['race'])
-            for name, value in players[plyr]['affinity'].items():
+            if plyr['race'] not in creatures_races:
+                creatures_races.append(plyr['race'])
+            for name, value in plyr['affinity'].items():
                 if npcs[nid]['familiarOf'] == name:
                     if value >= 0:
                         creatures_friendly = creatures_friendly + 1
