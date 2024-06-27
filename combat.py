@@ -8,6 +8,9 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "DnD Mechanics"
 
+import os
+import time
+from random import randint
 from functions import update_player_attributes
 from functions import get_free_key
 from functions import player_inventory_weight
@@ -19,13 +22,9 @@ from functions import deepcopy
 from functions import player_is_prone
 from functions import set_player_prone
 from functions import item_in_room
-from random import randint
-# from copy import deepcopy
 from environment import get_temperature_at_coords
 from proficiencies import damage_proficiency
 from traps import player_is_trapped
-import os
-import time
 
 defenseClothing = (
     'clo_chest',
@@ -216,10 +215,12 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
                    races_db: {}) -> bool:
     """One player attempts to shove another
     """
-    player1_size = players1[id]['siz']
-    player2_size = players2[s2id]['siz']
-    if players2[s2id].get('race'):
-        race = players2[s2id]['race'].lower()
+    plyr1 = players1[id]
+    plyr2 = players2[s2id]
+    player1_size = plyr1['siz']
+    player2_size = plyr2['siz']
+    if plyr2.get('race'):
+        race = plyr2['race'].lower()
         if races_db.get(race):
             if races_db[race].get('siz'):
                 player2_size = races_db[race]['siz']
@@ -229,31 +230,31 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
         else:
             descr = random_desc("They're too small to shove")
         mud.send_message(id, descr + '.\n')
-        players1[id]['shove'] = 0
+        plyr1['shove'] = 0
         return False
 
-    player1_strength = players1[id]['str']
-    player2_strength = players2[s2id]['str']
-    if players2[s2id].get('race'):
-        race = players2[s2id]['race'].lower()
+    player1_strength = plyr1['str']
+    player2_strength = plyr2['str']
+    if plyr2.get('race'):
+        race = plyr2['race'].lower()
         if races_db.get(race):
             if races_db[race].get('str'):
                 player2_strength = races_db[race]['str']
 
-    players1[id]['shove'] = 0
+    plyr1['shove'] = 0
 
     if player_is_prone(s2id, players2):
         mud.send_message(
             id,
-            'You attempt to shove ' + players2[s2id]['name'] +
+            'You attempt to shove ' + plyr2['name'] +
             ', but they are already prone.\n')
         return False
 
-    descr = random_desc('You shove ' + players2[s2id]['name'])
+    descr = random_desc('You shove ' + plyr2['name'])
     mud.send_message(id, descr + '.\n')
 
     if randint(1, player1_strength) > randint(1, player2_strength):
-        players2[s2id]['prone'] = 1
+        plyr2['prone'] = 1
         desc = (
             'They stumble and fall',
             'They stumble and fall to the ground',
