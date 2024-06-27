@@ -280,10 +280,10 @@ def _deal_cards_to_player(players: {}, dealer_id, name: str, no_of_cards: int,
     """
     card_player_id = None
     name = name.lower()
-    for plyr in players:
-        if players[plyr]['room'] == players[dealer_id]['room']:
-            if players[plyr]['name'].lower() == name:
-                card_player_id = plyr
+    for plyr_id, plyr in players.items():
+        if plyr['room'] == players[dealer_id]['room']:
+            if plyr['name'].lower() == name:
+                card_player_id = plyr_id
                 break
     if card_player_id is None:
         if 'myself' in name or ' me' in name or ' self' in name:
@@ -390,10 +390,10 @@ def deal_to_players(players: {}, dealer_id, description: str,
                                       players[dealer_id]['name'] + ' ')
 
     player_count = 0
-    for plyr in players:
-        if players[plyr]['room'] != players[dealer_id]['room']:
+    for _, plyr in players.items():
+        if plyr['room'] != players[dealer_id]['room']:
             continue
-        if players[plyr]['name'].lower() not in description:
+        if plyr['name'].lower() not in description:
             continue
         player_count += 1
 
@@ -409,12 +409,12 @@ def deal_to_players(players: {}, dealer_id, description: str,
         items[game_item_id]['gameState'] = {}
 
     hands = {}
-    for pid in players:
-        if players[pid]['room'] != players[dealer_id]['room']:
+    for pid, plyr in players.items():
+        if plyr['room'] != players[dealer_id]['room']:
             continue
-        if players[pid]['name'].lower() not in description:
+        if plyr['name'].lower() not in description:
             continue
-        if _deal_cards_to_player(players, dealer_id, players[pid]['name'],
+        if _deal_cards_to_player(players, dealer_id, plyr['name'],
                                  no_of_cards, deck, mud, hands,
                                  rooms, items, items_db):
             items[game_item_id]['gameState']['hands'] = hands
@@ -637,16 +637,16 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
         return
 
     # show your hand to other players
-    for p in players:
-        if players[p]['room'] != players[id]['room']:
+    for plyr_id, plyr in players.items():
+        if plyr['room'] != players[id]['room']:
             continue
-        if id == p:
+        if id == plyr_id:
             continue
-        if items[game_item_id]['gameState']['hands'].get(players[p]['name']):
-            mud.send_message(p, '\n' + players[id]['name'] +
+        if items[game_item_id]['gameState']['hands'].get(plyr['name']):
+            mud.send_message(plyr_id, '\n' + players[id]['name'] +
                              ' shows their hand.\n' + board_str)
             if ranked_str:
-                mud.send_message(p, players[id]['name'] + ' has ' +
+                mud.send_message(plyr_id, players[id]['name'] + ' has ' +
                                  str(ranked_str[0]) + '.\n\n')
 
 
@@ -702,14 +702,14 @@ def swap_card(card_description: str, players: {}, id, mud, rooms: {},
         hand_str.replace(card_str, next_card)
 
     # tell other players that a card was swapped
-    for plyr in players:
-        if players[plyr]['room'] != players[id]['room']:
+    for plyr_id, plyr in players.items():
+        if plyr['room'] != players[id]['room']:
             continue
-        if plyr == id:
+        if plyr_id == id:
             continue
-        other_player_name = players[plyr]['name']
+        other_player_name = plyr['name']
         if items[game_item_id]['gameState']['hands'].get(other_player_name):
-            mud.send_message(plyr, '\n' + player_name + ' swaps a card.\n')
+            mud.send_message(plyr_id, '\n' + player_name + ' swaps a card.\n')
     mud.send_message(id, '\nYou swap a card.\n')
     hand_of_cards_show(players, id, mud, rooms, items, items_db)
 
@@ -723,12 +723,12 @@ def shuffle_cards(players: {}, pid, mud, rooms: {},
 
     mud.send_message(pid, '\nYou shuffle the cards.\n')
 
-    for plyr in players:
-        if players[plyr]['room'] != players[pid]['room']:
+    for plyr_id, plyr in players.items():
+        if plyr['room'] != players[pid]['room']:
             continue
-        if plyr == pid:
+        if plyr_id == pid:
             continue
-        mud.send_message(plyr,
+        mud.send_message(plyr_id,
                          '\n' + players[pid]['name'] + ' shuffles cards.\n')
 
 
@@ -750,38 +750,38 @@ def call_cards(players: {}, pid, mud, rooms: {},
 
     mud.send_message(pid, '\nYou call.\n')
     items[game_item_id]['gameState']['called'] = 1
-    for plyr in players:
-        if players[plyr]['room'] != players[pid]['room']:
+    for plyr_id, plyr in players.items():
+        if plyr['room'] != players[pid]['room']:
             continue
-        if plyr == pid:
+        if plyr_id == pid:
             continue
-        pname = players[plyr]['name']
+        pname = plyr['name']
         if items[game_item_id]['gameState']['hands'].get(pname):
-            mud.send_message(plyr, '\n' + player_name + ' calls.\n')
+            mud.send_message(plyr_id, '\n' + player_name + ' calls.\n')
 
     result_str = ''
-    for plyr in players:
-        if players[plyr]['room'] != players[pid]['room']:
+    for _, plyr in players.items():
+        if plyr['room'] != players[pid]['room']:
             continue
-        pname = players[plyr]['name']
+        pname = plyr['name']
         if items[game_item_id]['gameState']['hands'].get(pname):
             hand_str = \
                 items[game_item_id]['gameState']['hands'][pname]
             ranked_str = _card_rank(hand_str)
             if ranked_str:
-                result_str += '<f0><f32>' + players[plyr]['name'] + \
+                result_str += '<f0><f32>' + plyr['name'] + \
                     '<r> has ' + str(ranked_str[0]) + '.\n'
             else:
-                result_str += '<f0><f32>' + players[plyr]['name'] + \
+                result_str += '<f0><f32>' + plyr['name'] + \
                     '<r> has nothing.\n'
 
     if len(result_str) == 0:
         mud.send_message(pid, '\nNo hands have been dealt.\n')
         return
 
-    for plyr in players:
-        if players[plyr]['room'] != players[pid]['room']:
+    for plyr_id, plyr in players.items():
+        if plyr['room'] != players[pid]['room']:
             continue
-        pname = players[plyr]['name']
+        pname = plyr['name']
         if items[game_item_id]['gameState']['hands'].get(pname):
-            mud.send_message(plyr, '\n' + result_str)
+            mud.send_message(plyr_id, '\n' + result_str)
