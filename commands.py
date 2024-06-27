@@ -746,8 +746,8 @@ def _kick_out(params, mud, players_db: {}, players: {}, rooms: {},
         mud.send_message(id, "Who?\n\n")
         return
 
-    for pid, _ in list(players.items()):
-        if players[pid]['name'] == player_name:
+    for pid, plyr in players.items():
+        if plyr['name'] == player_name:
             remove_str = "Removing player " + player_name + "\n\n"
             mud.send_message(id, remove_str)
             print(remove_str)
@@ -813,7 +813,7 @@ def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
                   env_db, env, guilds_db)
     mud.send_message(id, "\n\nUniverse saved.\n\n")
     log("Universe saved", "info")
-    for pid, _ in list(players.items()):
+    for pid, _ in players.items():
         shutdown_str = "Game server shutting down...\n\n"
         mud.send_message(pid, shutdown_str)
         print(shutdown_str)
@@ -834,7 +834,7 @@ def _resetUniverse(params, mud, players_db: {}, players: {}, rooms: {},
         return
     os.system('rm universe*.json')
     log('Universe reset', 'info')
-    for pid, _ in list(players.items()):
+    for pid, _ in players.items():
         reset_str = "Game server shutting down...\n\n"
         mud.send_message(pid, reset_str)
         print(reset_str)
@@ -974,10 +974,10 @@ def _tell(params, mud, players_db: {}, players: {}, rooms: {},
                     told = True
                     break
         if not told:
-            for nid, _ in list(npcs.items()):
-                if (npcs[nid]['room'] == players[id]['room']) or \
-                   npcs[nid]['familiarOf'] == players[id]['name']:
-                    if target.lower() in npcs[nid]['name'].lower():
+            for nid, npc1 in npcs.items():
+                if (npc1['room'] == players[id]['room']) or \
+                   npc1['familiarOf'] == players[id]['name']:
+                    if target.lower() in npc1['name'].lower():
                         message_lower = message.lower()
                         npc_conversation(mud, npcs, npcs_db, players,
                                          items, items_db, rooms, id,
@@ -2250,51 +2250,52 @@ def _say(params, mud, players_db: {}, players: {}, rooms: {},
 
         # go through every player in the game
         cant_str = thieves_cant(params)
-        for pid, _ in list(players.items()):
+        for pid, plyr1 in players.items():
             # if they're in the same room as the player
-            if players[pid]['room'] == players[id]['room']:
-                # can the other player see this player?
-                if not player_is_visible(mud, pid, players, id, players):
-                    continue
-                if self_only is False or pid == id:
-                    lang_list = players[pid]['language']
-                    if players[id]['speakLanguage'] in lang_list:
-                        sentiment_score = \
-                            get_sentiment(params, sentiment_db) + \
-                            get_guild_sentiment(players, id, players,
-                                                pid, guilds_db)
+            if plyr1['room'] != players[id]['room']:
+                continue
+            # can the other player see this player?
+            if not player_is_visible(mud, pid, players, id, players):
+                continue
+            if self_only is False or pid == id:
+                lang_list = plyr1['language']
+                if players[id]['speakLanguage'] in lang_list:
+                    sentiment_score = \
+                        get_sentiment(params, sentiment_db) + \
+                        get_guild_sentiment(players, id, players,
+                                            pid, guilds_db)
 
-                        if sentiment_score >= 0:
-                            increase_affinity_between_players(
-                                players, id, players, pid, guilds_db)
-                            increase_affinity_between_players(
-                                players, pid, players, id, guilds_db)
-                        else:
-                            decrease_affinity_between_players(
-                                players, id, players, pid, guilds_db)
-                            decrease_affinity_between_players(
-                                players, pid, players, id, guilds_db)
+                    if sentiment_score >= 0:
+                        increase_affinity_between_players(
+                            players, id, players, pid, guilds_db)
+                        increase_affinity_between_players(
+                            players, pid, players, id, guilds_db)
+                    else:
+                        decrease_affinity_between_players(
+                            players, id, players, pid, guilds_db)
+                        decrease_affinity_between_players(
+                            players, pid, players, id, guilds_db)
 
-                        # send them a message telling them what the player said
-                        pname = players[id]['name']
+                    # send them a message telling them what the player said
+                    pname = players[id]['name']
+                    desc = \
+                        '<f220>{}<r> says: <f159>{}'.format(pname, params)
+                    mud.send_message_wrap(
+                        pid, '<f230>', desc + "\n\n")
+                else:
+                    pname = players[id]['name']
+                    if players[id]['speakLanguage'] != 'cant':
+                        plang = players[id]['speakLanguage']
                         desc = \
-                            '<f220>{}<r> says: <f159>{}'.format(pname, params)
+                            '<f220>{}<r> says '.format(pname) + \
+                            'something in <f159>{}<r>'.format(plang)
                         mud.send_message_wrap(
                             pid, '<f230>', desc + "\n\n")
                     else:
-                        pname = players[id]['name']
-                        if players[id]['speakLanguage'] != 'cant':
-                            plang = players[id]['speakLanguage']
-                            desc = \
-                                '<f220>{}<r> says '.format(pname) + \
-                                'something in <f159>{}<r>'.format(plang)
-                            mud.send_message_wrap(
-                                pid, '<f230>', desc + "\n\n")
-                        else:
-                            mud.send_message_wrap(
-                                pid, '<f230>',
-                                '<f220>{}<r> says: '.format(pname) +
-                                '<f159>{}'.format(cant_str) + "\n\n")
+                        mud.send_message_wrap(
+                            pid, '<f230>',
+                            '<f220>{}<r> says: '.format(pname) +
+                            '<f159>{}'.format(cant_str) + "\n\n")
     else:
         mud.send_message_wrap(
             id, '<f230>',
@@ -2306,19 +2307,20 @@ def _emote(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, emoteDescription: str):
     if players[id]['canSay'] == 1:
         # go through every player in the game
-        for pid, _ in list(players.items()):
+        for pid, plyr in players.items():
             # if they're in the same room as the player
-            if players[pid]['room'] == players[id]['room']:
-                # can the other player see this player?
-                if not player_is_visible(mud, pid, players, id, players):
-                    continue
+            if plyr['room'] != players[id]['room']:
+                continue
+            # can the other player see this player?
+            if not player_is_visible(mud, pid, players, id, players):
+                continue
 
-                # send them a message telling them what the player did
-                pname = players[id]['name']
-                desc = \
-                    '<f220>{}<r> {}<f159>'.format(pname, emoteDescription)
-                mud.send_message_wrap(
-                    pid, '<f230>', desc + "\n\n")
+            # send them a message telling them what the player did
+            pname = players[id]['name']
+            desc = \
+                '<f220>{}<r> {}<f159>'.format(pname, emoteDescription)
+            mud.send_message_wrap(
+                pid, '<f230>', desc + "\n\n")
     else:
         mud.send_message_wrap(
             id, '<f230>',
@@ -2927,18 +2929,18 @@ def _conditional_item_image(item_id,
     return str(item_id)
 
 
-def _players_in_room(target_room, players, npcs):
+def _players_in_room(target_room: str, players: {}, npcs: {}):
     """Returns the number of players in the given room.
        This includes NPCs.
     """
     players_ctr = 0
-    for pid, _ in list(players.items()):
+    for _, plyr in players.items():
         # if they're in the same room as the player
-        if players[pid]['room'] == target_room:
+        if plyr['room'] == target_room:
             players_ctr += 1
 
-    for nid, _ in list(npcs.items()):
-        if npcs[nid]['room'] == target_room:
+    for _, npc1 in npcs.items():
+        if npc1['room'] == target_room:
             players_ctr += 1
 
     return players_ctr
@@ -3294,45 +3296,46 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             itemshere = []
 
             # go through every player in the game
-            for pid, _ in list(players.items()):
+            for pid, plyr1 in players.items():
                 # if they're in the same room as the player
-                if players[pid]['room'] == players[id]['room']:
-                    # ... and they have a name to be shown
-                    if players[pid]['name'] is not None and \
-                       players[pid]['name'] is not players[id]['name']:
-                        if player_is_visible(mud, id, players, pid, players):
-                            # add their name to the list
-                            if players[pid]['prefix'] == "None":
-                                playershere.append(players[pid]['name'])
-                            else:
-                                playershere.append(
-                                    "[" + players[pid]['prefix'] + "] " +
-                                    players[pid]['name'])
+                if plyr1['room'] != players[id]['room']:
+                    continue
+                # ... and they have a name to be shown
+                if plyr1['name'] is not None and \
+                   plyr1['name'] is not players[id]['name']:
+                    if player_is_visible(mud, id, players, pid, players):
+                        # add their name to the list
+                        if plyr1['prefix'] == "None":
+                            playershere.append(plyr1['name'])
+                        else:
+                            playershere.append(
+                                "[" + plyr1['prefix'] + "] " +
+                                plyr1['name'])
 
             # Show corpses in the room
-            for corpse, _ in list(corpses.items()):
-                if corpses[corpse]['room'] == players[id]['room']:
-                    playershere.append(corpses[corpse]['name'])
+            for _, crp in corpses.items():
+                if crp['room'] == players[id]['room']:
+                    playershere.append(crp['name'])
 
             # Show NPCs in the room
-            for nid in npcs:
-                if npcs[nid]['room'] == players[id]['room']:
-                    # Don't show hidden familiars
-                    if (npcs[nid]['familiarMode'] != 'hide' or
-                        (len(npcs[nid]['familiarOf']) > 0 and
-                         npcs[nid]['familiarOf'] == players[id]['name'])):
-                        if player_is_visible(mud, id, players, nid, npcs):
-                            playershere.append(npcs[nid]['name'])
+            for nid, npc1 in npcs.items():
+                if npc1['room'] != players[id]['room']:
+                    continue
+                # Don't show hidden familiars
+                if (npc1['familiarMode'] != 'hide' or
+                    (len(npc1['familiarOf']) > 0 and
+                     npc1['familiarOf'] == players[id]['name'])):
+                    if player_is_visible(mud, id, players, nid, npcs):
+                        playershere.append(npc1['name'])
 
             # Show items in the room
-            for item, _ in list(items.items()):
+            for item, itemobj in items.items():
                 if _item_in_player_room(players, id, items, item):
-                    if _item_is_visible(id, players, items[item]['id'],
-                                        items_db):
-                        if items_db[items[item]['id']]['hidden'] == 0:
+                    if _item_is_visible(id, players, itemobj['id'], items_db):
+                        if items_db[itemobj['id']]['hidden'] == 0:
                             itemshere.append(
-                                items_db[items[item]['id']]['article'] + ' ' +
-                                items_db[items[item]['id']]['name'])
+                                items_db[itemobj['id']]['article'] + ' ' +
+                                items_db[itemobj['id']]['name'])
 
             # send player a message containing the list of players in the room
             if len(playershere) > 0:
@@ -3856,32 +3859,34 @@ def _describe_thing(params, mud, players_db: {}, players: {}, rooms: {},
             return
 
         # change the description of an item in the room
-        for item, _ in list(items.items()):
-            if items[item]['room'] == players[id]['room']:
-                idx = items[item]['id']
-                if thing_described in items_db[idx]['name'].lower():
-                    items_db[idx]['long_description'] = thing_description
-                    mud.send_message(id, 'New description set for ' +
-                                     items_db[idx]['article'] +
-                                     ' ' + items_db[idx]['name'] +
-                                     '.\n\n')
-                    save_universe(
-                        rooms, npcs_db, npcs, items_db,
-                        items, env_db, env, guilds_db)
-                    return
+        for item, itemobj in items.items():
+            if itemobj['room'] != players[id]['room']:
+                continue
+            idx = itemobj['id']
+            if thing_described in items_db[idx]['name'].lower():
+                items_db[idx]['long_description'] = thing_description
+                mud.send_message(id, 'New description set for ' +
+                                 items_db[idx]['article'] +
+                                 ' ' + items_db[idx]['name'] +
+                                 '.\n\n')
+                save_universe(
+                    rooms, npcs_db, npcs, items_db,
+                    items, env_db, env, guilds_db)
+                return
 
         # Change the description of an NPC in the room
-        for nid, _ in list(npcs.items()):
-            if npcs[nid]['room'] == players[id]['room']:
-                if thing_described in npcs[nid]['name'].lower():
-                    npcs[nid]['lookDescription'] = thing_description
-                    mud.send_message(
-                        id, 'New description set for ' +
-                        npcs[nid]['name'] + '.\n\n')
-                    save_universe(
-                        rooms, npcs_db, npcs, items_db,
-                        items, env_db, env, guilds_db)
-                    return
+        for nid, npc1 in npcs.items():
+            if npc1['room'] != players[id]['room']:
+                continue
+            if thing_described in npc1['name'].lower():
+                npc1['lookDescription'] = thing_description
+                mud.send_message(
+                    id, 'New description set for ' +
+                    npc1['name'] + '.\n\n')
+                save_universe(
+                    rooms, npcs_db, npcs, items_db,
+                    items, env_db, env, guilds_db)
+                return
 
     if len(description_strings) == 3:
         if description_strings[0].lower() != 'name':
@@ -3897,33 +3902,35 @@ def _describe_thing(params, mud, players_db: {}, players: {}, rooms: {},
             return
 
         # change the name of an item in the room
-        for item, _ in list(items.items()):
-            if items[item]['room'] == players[id]['room']:
-                idx = items[item]['id']
-                if thing_described in items_db[idx]['name'].lower():
-                    items_db[idx]['name'] = thing_name
-                    mud.send_message(id, 'New description set for ' +
-                                     items_db[idx]['article'] +
-                                     ' ' +
-                                     items_db[idx]['name'] +
-                                     '.\n\n')
-                    save_universe(
-                        rooms, npcs_db, npcs, items_db,
-                        items, env_db, env, guilds_db)
-                    return
+        for item, itemobj in items.items():
+            if itemobj['room'] != players[id]['room']:
+                continue
+            idx = itemobj['id']
+            if thing_described in items_db[idx]['name'].lower():
+                items_db[idx]['name'] = thing_name
+                mud.send_message(id, 'New description set for ' +
+                                 items_db[idx]['article'] +
+                                 ' ' +
+                                 items_db[idx]['name'] +
+                                 '.\n\n')
+                save_universe(
+                    rooms, npcs_db, npcs, items_db,
+                    items, env_db, env, guilds_db)
+                return
 
         # Change the name of an NPC in the room
-        for nid, _ in list(npcs.items()):
-            if npcs[nid]['room'] == players[id]['room']:
-                if thing_described in npcs[nid]['name'].lower():
-                    npcs[nid]['name'] = thing_name
-                    mud.send_message(
-                        id, 'New description set for ' +
-                        npcs[nid]['name'] + '.\n\n')
-                    save_universe(
-                        rooms, npcs_db, npcs, items_db,
-                        items, env_db, env, guilds_db)
-                    return
+        for nid, npc1 in npcs.items():
+            if npc1['room'] != players[id]['room']:
+                continue
+            if thing_described in npc1['name'].lower():
+                npc1['name'] = thing_name
+                mud.send_message(
+                    id, 'New description set for ' +
+                    npc1['name'] + '.\n\n')
+                save_universe(
+                    rooms, npcs_db, npcs, items_db,
+                    items, env_db, env, guilds_db)
+                return
 
 
 def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
@@ -4470,12 +4477,12 @@ def _players_move_together(id, rm, mud,
     """In boats when one player rows the rest move with them
     """
     # go through all the players in the game
-    for pid, _ in list(players.items()):
+    for pid, plyr in players.items():
         # if player is in the same room and isn't the player
         # sending the command
-        if players[pid]['room'] == players[id]['room'] and \
+        if plyr['room'] == players[id]['room'] and \
            pid != id:
-            players[pid]['room'] = rm
+            plyr['room'] = rm
 
             desc = 'You row to <f106>{}'.format(rooms[rm]['name'])
             mud.send_message(pid, desc + "\n\n")
@@ -4673,8 +4680,8 @@ def _bio(params, mud, players_db: {}, players: {}, rooms: {},
 
     # go through all the players in the game
     if players[id]['authenticated'] is not None:
-        for pid, _ in list(players.items()):
-            if players[pid]['name'] == params:
+        for pid, plyr in players.items():
+            if plyr['name'] == params:
                 _bio_of_player(mud, id, pid, players, items_db)
                 return
 
@@ -4810,97 +4817,98 @@ def _climb_base(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     fail_msg = None
-    for item, _ in list(items.items()):
-        if items[item]['room'] == players[id]['room']:
-            item_id = items[item]['id']
+    for item, itemobj in items.items():
+        if itemobj['room'] != players[id]['room']:
+            continue
+        item_id = itemobj['id']
 
-            # can the player see the item?
-            if not _item_is_visible(id, players, item_id, items_db):
+        # can the player see the item?
+        if not _item_is_visible(id, players, item_id, items_db):
+            continue
+
+        # item fields needed for climbing
+        if items_db[item_id].get('climbFail'):
+            fail_msg = items_db[item_id]['climbFail']
+        if not items_db[item_id].get('climbThrough'):
+            continue
+        if not items_db[item_id].get('exit'):
+            continue
+
+        # if this is a door is it open?
+        if items_db[item_id].get('state'):
+            if 'open' not in items_db[item_id]['state']:
+                mud.send_message(id, items_db[item_id]['name'] +
+                                 " is closed.\n\n")
                 continue
 
-            # item fields needed for climbing
-            if items_db[item_id].get('climbFail'):
-                fail_msg = items_db[item_id]['climbFail']
-            if not items_db[item_id].get('climbThrough'):
-                continue
-            if not items_db[item_id].get('exit'):
-                continue
-
-            # if this is a door is it open?
-            if items_db[item_id].get('state'):
-                if 'open' not in items_db[item_id]['state']:
-                    mud.send_message(id, items_db[item_id]['name'] +
-                                     " is closed.\n\n")
-                    continue
-
-            # is the player too big?
-            target_room = items_db[item_id]['exit']
-            if rooms[target_room]['maxPlayerSize'] > -1:
-                if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
-                    mud.send_message(id, "You're too big.\n\n")
-                    return
-
-            # are there too many players in the room?
-            if rooms[target_room]['maxPlayers'] > -1:
-                if _players_in_room(target_room, players, npcs) >= \
-                   rooms[target_room]['maxPlayers']:
-                    if not sit:
-                        mud.send_message(id, "It's too crowded.\n\n")
-                    else:
-                        mud.send_message(id,
-                                         "It's already fully occupied.\n\n")
-                    return
-
-            if not _item_is_climbable(id, players, item_id, items_db):
-                if fail_msg:
-                    mud.send_message_wrap(id, '<f220>',
-                                          random_desc(fail_msg) + ".\n\n")
-                else:
-                    if not sit:
-                        fail_msg = 'You try to climb, but totally fail'
-                    else:
-                        fail_msg = 'You try to sit, but totally fail'
-                    mud.send_message(id, random_desc(fail_msg) + ".\n\n")
+        # is the player too big?
+        target_room = items_db[item_id]['exit']
+        if rooms[target_room]['maxPlayerSize'] > -1:
+            if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
+                mud.send_message(id, "You're too big.\n\n")
                 return
 
-            if 'isFishing' in players[id]:
-                del players[id]['isFishing']
+        # are there too many players in the room?
+        if rooms[target_room]['maxPlayers'] > -1:
+            if _players_in_room(target_room, players, npcs) >= \
+               rooms[target_room]['maxPlayers']:
+                if not sit:
+                    mud.send_message(id, "It's too crowded.\n\n")
+                else:
+                    mud.send_message(id,
+                                     "It's already fully occupied.\n\n")
+                return
 
-            desc = \
-                random_desc(players[id]['outDescription'])
-            message_to_room_players(mud, players, id, '<f32>' +
-                                    players[id]['name'] + '<r> ' +
-                                    desc + '\n')
-
-            # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] != "":
-                ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
-                add_to_scheduler(ev_leave, id, event_schedule, eventDB)
-            # update the player's current room to the one the exit leads to
-            players[id]['room'] = target_room
-            # climbing message
-            desc = \
-                random_desc(items_db[item_id]['climbThrough'])
-            mud.send_message_wrap(id, '<f230>', desc + "\n\n")
-            time.sleep(3)
-            # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] != "":
-                ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
-                add_to_scheduler(ev_enter, id, event_schedule, eventDB)
-            # message to other players
-            desc = random_desc(players[id]['inDescription'])
-            message_to_room_players(mud, players, id, '<f32>' +
-                                    players[id]['name'] + '<r> ' +
-                                    desc + "\n\n")
-            # look after climbing
-            _look('', mud, players_db, players, rooms,
-                  npcs_db, npcs, items_db, items,
-                  env_db, env, eventDB, event_schedule,
-                  id, fights, corpses, blocklist,
-                  map_area, character_class_db, spells_db,
-                  sentiment_db, guilds_db, clouds, races_db,
-                  item_history, markets, cultures_db)
+        if not _item_is_climbable(id, players, item_id, items_db):
+            if fail_msg:
+                mud.send_message_wrap(id, '<f220>',
+                                      random_desc(fail_msg) + ".\n\n")
+            else:
+                if not sit:
+                    fail_msg = 'You try to climb, but totally fail'
+                else:
+                    fail_msg = 'You try to sit, but totally fail'
+                mud.send_message(id, random_desc(fail_msg) + ".\n\n")
             return
+
+        if 'isFishing' in players[id]:
+            del players[id]['isFishing']
+
+        desc = \
+            random_desc(players[id]['outDescription'])
+        message_to_room_players(mud, players, id, '<f32>' +
+                                players[id]['name'] + '<r> ' +
+                                desc + '\n')
+
+        # Trigger old room eventOnLeave for the player
+        if rooms[players[id]['room']]['eventOnLeave'] != "":
+            ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
+            add_to_scheduler(ev_leave, id, event_schedule, eventDB)
+        # update the player's current room to the one the exit leads to
+        players[id]['room'] = target_room
+        # climbing message
+        desc = \
+            random_desc(items_db[item_id]['climbThrough'])
+        mud.send_message_wrap(id, '<f230>', desc + "\n\n")
+        time.sleep(3)
+        # trigger new room eventOnEnter for the player
+        if rooms[players[id]['room']]['eventOnEnter'] != "":
+            ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
+            add_to_scheduler(ev_enter, id, event_schedule, eventDB)
+        # message to other players
+        desc = random_desc(players[id]['inDescription'])
+        message_to_room_players(mud, players, id, '<f32>' +
+                                players[id]['name'] + '<r> ' +
+                                desc + "\n\n")
+        # look after climbing
+        _look('', mud, players_db, players, rooms,
+              npcs_db, npcs, items_db, items,
+              env_db, env, eventDB, event_schedule,
+              id, fights, corpses, blocklist,
+              map_area, character_class_db, spells_db,
+              sentiment_db, guilds_db, clouds, races_db,
+              item_history, markets, cultures_db)
+        return
     if fail_msg:
         fail_msg_str = random_desc(fail_msg)
         mud.send_message_wrap(id, '<f220>', fail_msg_str + ".\n\n")
@@ -4963,64 +4971,65 @@ def _heave(params, mud, players_db: {}, players: {}, rooms: {},
     if target.startswith('the '):
         target = target.replace('the ', '')
 
-    for item, _ in list(items.items()):
-        if items[item]['room'] == players[id]['room']:
-            item_id = items[item]['id']
-            if not _item_is_visible(id, players, item_id, items_db):
+    for item, itemobj in items.items():
+        if itemobj['room'] != players[id]['room']:
+            continue
+        item_id = itemobj['id']
+        if not _item_is_visible(id, players, item_id, items_db):
+            continue
+        if not items_db[item_id].get('heave'):
+            continue
+        if not items_db[item_id].get('exit'):
+            continue
+        if target not in items_db[item_id]['name']:
+            continue
+        if items_db[item_id].get('state'):
+            if 'open' not in items_db[item_id]['state']:
+                mud.send_message(id, items_db[item_id]['name'] +
+                                 " is closed.\n\n")
                 continue
-            if not items_db[item_id].get('heave'):
-                continue
-            if not items_db[item_id].get('exit'):
-                continue
-            if target not in items_db[item_id]['name']:
-                continue
-            if items_db[item_id].get('state'):
-                if 'open' not in items_db[item_id]['state']:
-                    mud.send_message(id, items_db[item_id]['name'] +
-                                     " is closed.\n\n")
-                    continue
-            target_room = items_db[item_id]['exit']
-            if rooms[target_room]['maxPlayerSize'] > -1:
-                if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
-                    mud.send_message(id, "You're too big.\n\n")
-                    return
-            if rooms[target_room]['maxPlayers'] > -1:
-                if _players_in_room(target_room, players, npcs) >= \
-                   rooms[target_room]['maxPlayers']:
-                    mud.send_message(id, "It's too crowded.\n\n")
-                    return
-            desc = random_desc(players[id]['outDescription'])
-            message_to_room_players(mud, players, id, '<f32>' +
-                                    players[id]['name'] + '<r> ' +
-                                    desc + '\n')
-            # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] != "":
-                ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
-                add_to_scheduler(ev_leave, id, event_schedule, eventDB)
-            # update the player's current room to the one the exit leads to
-            players[id]['room'] = target_room
-            # heave message
-            desc = random_desc(items_db[item_id]['heave'])
-            mud.send_message_wrap(id, '<f220>', desc + "\n\n")
-            # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] != "":
-                ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
-                add_to_scheduler(ev_enter, id, event_schedule, eventDB)
-            # message to other players
-            desc = random_desc(players[id]['inDescription'])
-            message_to_room_players(mud, players, id, '<f32>' +
-                                    players[id]['name'] + '<r> ' +
-                                    desc + "\n\n")
-            time.sleep(3)
-            # look after climbing
-            _look('', mud, players_db, players, rooms,
-                  npcs_db, npcs, items_db, items,
-                  env_db, env, eventDB, event_schedule, id,
-                  fights, corpses, blocklist,
-                  map_area, character_class_db, spells_db,
-                  sentiment_db, guilds_db, clouds, races_db,
-                  item_history, markets, cultures_db)
-            return
+        target_room = items_db[item_id]['exit']
+        if rooms[target_room]['maxPlayerSize'] > -1:
+            if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
+                mud.send_message(id, "You're too big.\n\n")
+                return
+        if rooms[target_room]['maxPlayers'] > -1:
+            if _players_in_room(target_room, players, npcs) >= \
+               rooms[target_room]['maxPlayers']:
+                mud.send_message(id, "It's too crowded.\n\n")
+                return
+        desc = random_desc(players[id]['outDescription'])
+        message_to_room_players(mud, players, id, '<f32>' +
+                                players[id]['name'] + '<r> ' +
+                                desc + '\n')
+        # Trigger old room eventOnLeave for the player
+        if rooms[players[id]['room']]['eventOnLeave'] != "":
+            ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
+            add_to_scheduler(ev_leave, id, event_schedule, eventDB)
+        # update the player's current room to the one the exit leads to
+        players[id]['room'] = target_room
+        # heave message
+        desc = random_desc(items_db[item_id]['heave'])
+        mud.send_message_wrap(id, '<f220>', desc + "\n\n")
+        # trigger new room eventOnEnter for the player
+        if rooms[players[id]['room']]['eventOnEnter'] != "":
+            ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
+            add_to_scheduler(ev_enter, id, event_schedule, eventDB)
+        # message to other players
+        desc = random_desc(players[id]['inDescription'])
+        message_to_room_players(mud, players, id, '<f32>' +
+                                players[id]['name'] + '<r> ' +
+                                desc + "\n\n")
+        time.sleep(3)
+        # look after climbing
+        _look('', mud, players_db, players, rooms,
+              npcs_db, npcs, items_db, items,
+              env_db, env, eventDB, event_schedule, id,
+              fights, corpses, blocklist,
+              map_area, character_class_db, spells_db,
+              sentiment_db, guilds_db, clouds, races_db,
+              item_history, markets, cultures_db)
+        return
     mud.send_message(id, "Nothing happens.\n\n")
 
 
@@ -5055,70 +5064,71 @@ def _jump(params, mud, players_db: {}, players: {}, rooms: {},
         mud.send_message(id, random_desc(desc) + "\n\n")
         return
     words = params.lower().replace('.', '').split(' ')
-    for item, _ in list(items.items()):
-        if items[item]['room'] == players[id]['room']:
-            item_id = items[item]['id']
-            if not _item_is_visible(id, players, item_id, items_db):
+    for item, itemobj in items.items():
+        if itemobj['room'] != players[id]['room']:
+            continue
+        item_id = itemobj['id']
+        if not _item_is_visible(id, players, item_id, items_db):
+            continue
+        if not items_db[item_id].get('jumpTo'):
+            continue
+        if not items_db[item_id].get('exit'):
+            continue
+        word_matched = False
+        for wrd in words:
+            if wrd in items_db[item_id]['name'].lower():
+                word_matched = True
+                break
+        if not word_matched:
+            continue
+        if items_db[item_id].get('state'):
+            if 'open' not in items_db[item_id]['state']:
+                mud.send_message(id, items_db[item_id]['name'] +
+                                 " is closed.\n\n")
                 continue
-            if not items_db[item_id].get('jumpTo'):
-                continue
-            if not items_db[item_id].get('exit'):
-                continue
-            word_matched = False
-            for wrd in words:
-                if wrd in items_db[item_id]['name'].lower():
-                    word_matched = True
-                    break
-            if not word_matched:
-                continue
-            if items_db[item_id].get('state'):
-                if 'open' not in items_db[item_id]['state']:
-                    mud.send_message(id, items_db[item_id]['name'] +
-                                     " is closed.\n\n")
-                    continue
-            target_room = items_db[item_id]['exit']
-            if rooms[target_room]['maxPlayerSize'] > -1:
-                if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
-                    mud.send_message(id, "You're too big.\n\n")
-                    return
-            if rooms[target_room]['maxPlayers'] > -1:
-                if _players_in_room(target_room, players, npcs) >= \
-                   rooms[target_room]['maxPlayers']:
-                    mud.send_message(id, "It's too crowded.\n\n")
-                    return
-            desc = \
-                random_desc(players[id]['outDescription'])
-            message_to_room_players(mud, players, id, '<f32>' +
-                                    players[id]['name'] + '<r> ' +
-                                    desc + '\n')
-            # Trigger old room eventOnLeave for the player
-            if rooms[players[id]['room']]['eventOnLeave'] != "":
-                ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
-                add_to_scheduler(ev_leave, id, event_schedule, eventDB)
-            # update the player's current room to the one the exit leads to
-            players[id]['room'] = target_room
-            # climbing message
-            desc = random_desc(items_db[item_id]['jumpTo'])
-            mud.send_message_wrap(id, '<f230>', desc + "\n\n")
-            time.sleep(3)
-            # trigger new room eventOnEnter for the player
-            if rooms[players[id]['room']]['eventOnEnter'] != "":
-                ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
-                add_to_scheduler(ev_enter, id, event_schedule, eventDB)
-            # message to other players
-            desc = random_desc(players[id]['inDescription'])
-            message_to_room_players(mud, players, id, '<f32>' +
-                                    players[id]['name'] + '<r> ' +
-                                    desc + "\n\n")
-            # look after climbing
-            _look('', mud, players_db, players,
-                  rooms, npcs_db, npcs, items_db, items,
-                  env_db, env, eventDB, event_schedule,
-                  id, fights, corpses, blocklist,
-                  map_area, character_class_db, spells_db,
-                  sentiment_db, guilds_db, clouds, races_db,
-                  item_history, markets, cultures_db)
-            return
+        target_room = items_db[item_id]['exit']
+        if rooms[target_room]['maxPlayerSize'] > -1:
+            if players[id]['siz'] > rooms[target_room]['maxPlayerSize']:
+                mud.send_message(id, "You're too big.\n\n")
+                return
+        if rooms[target_room]['maxPlayers'] > -1:
+            if _players_in_room(target_room, players, npcs) >= \
+               rooms[target_room]['maxPlayers']:
+                mud.send_message(id, "It's too crowded.\n\n")
+                return
+        desc = \
+            random_desc(players[id]['outDescription'])
+        message_to_room_players(mud, players, id, '<f32>' +
+                                players[id]['name'] + '<r> ' +
+                                desc + '\n')
+        # Trigger old room eventOnLeave for the player
+        if rooms[players[id]['room']]['eventOnLeave'] != "":
+            ev_leave = int(rooms[players[id]['room']]['eventOnLeave'])
+            add_to_scheduler(ev_leave, id, event_schedule, eventDB)
+        # update the player's current room to the one the exit leads to
+        players[id]['room'] = target_room
+        # climbing message
+        desc = random_desc(items_db[item_id]['jumpTo'])
+        mud.send_message_wrap(id, '<f230>', desc + "\n\n")
+        time.sleep(3)
+        # trigger new room eventOnEnter for the player
+        if rooms[players[id]['room']]['eventOnEnter'] != "":
+            ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
+            add_to_scheduler(ev_enter, id, event_schedule, eventDB)
+        # message to other players
+        desc = random_desc(players[id]['inDescription'])
+        message_to_room_players(mud, players, id, '<f32>' +
+                                players[id]['name'] + '<r> ' +
+                                desc + "\n\n")
+        # look after climbing
+        _look('', mud, players_db, players,
+              rooms, npcs_db, npcs, items_db, items,
+              env_db, env, eventDB, event_schedule,
+              id, fights, corpses, blocklist,
+              map_area, character_class_db, spells_db,
+              sentiment_db, guilds_db, clouds, races_db,
+              item_history, markets, cultures_db)
+        return
     desc = (
         "You jump, expecting something to happen. But it doesn't.",
         "Jumping doesn't help.",
@@ -5649,9 +5659,9 @@ def _item_sell(params, mud, players_db: {}, players: {}, rooms: {},
             mud.send_message(id, "You can't sell that here\n\n")
             return
         item_id = -1
-        for item, _ in list(items.items()):
-            if params_lower in items_db[items[item]['id']]['name'].lower():
-                item_id = items[item]['id']
+        for _, itemobj in items.items():
+            if params_lower in items_db[itemobj['id']]['name'].lower():
+                item_id = itemobj['id']
                 break
         if item_id == -1:
             mud.send_message(id, 'Error: item not found ' + params + ' \n\n')
