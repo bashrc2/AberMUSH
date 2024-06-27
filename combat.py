@@ -290,21 +290,23 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
 def _combat_update_max_hit_points(id, players: {}, races_db: {}) -> None:
     """Updates the hp_max value
     """
+    plyr = players[id]
+
     # some npcs are invincible
-    if players[id]['hpMax'] >= 999:
+    if plyr['hpMax'] >= 999:
         return
 
-    level = players[id]['lvl']
+    level = plyr['lvl']
     hit_die = '1d10'
-    if players[id].get('race'):
-        race = players[id]['race'].lower()
+    if plyr.get('race'):
+        race = plyr['race'].lower()
         if races_db.get(race):
             if races_db[race].get('hitDie'):
                 hit_die = races_db[race]['hitDie']
     hp_max = int(hit_die.split('d')[1])
     if level > 1:
         hp_max = hp_max + (int(hp_max/2) * (level - 1))
-    players[id]['hpMax'] = hp_max
+    plyr['hpMax'] = hp_max
 
 
 def health_of_player(pid: int, players: {}) -> str:
