@@ -14954,7 +14954,7 @@
             "out": "$rid=1428$"
         },
         "name": "Hatchet inn room 2 bed",
-        "description": "You are on a grubby moth-eaten bed constructed from wood and canvas, staring at the ancient oak beams which prop up the roof. It's not exactly luxurious, but good enough for punters to sleep off the booze.",
+        "description": "You are leaning back on a grubby moth-eaten bed, well used by weary travellers. You stare up at the gnarly, crudely cut oak beams from which the roof is constructed.",
         "roomTeleport": "",
         "conditional": [
         ],
@@ -14977,7 +14977,7 @@
             "out": "$rid=1427$"
         },
         "name": "Hatchet inn room 3 bed",
-        "description": "You are on an unremarkable bed constructed from wood and canvas, staring at the ancient oak beams which prop up the roof. It's not exactly luxurious, but good enough for punters to sleep off the booze.",
+        "description": "You are reclining upon an unremarkable bed constructed from wood and canvas, looking upwards at the solid oak beams of the roof.",
         "roomTeleport": "",
         "conditional": [
         ],
@@ -15000,7 +15000,7 @@
             "out": "$rid=1429$"
         },
         "name": "Hatchet inn room 4 bed",
-        "description": "You are on a modest bed constructed from wood and canvas, staring at the ancient oak beams which prop up the roof. It's not exactly luxurious, but good enough for punters to sleep off the booze.",
+        "description": "You are on a modest bed constructed from wood and canvas, looking up at the dusty oak beams which prop up the roof. It's not very luxurious, but adequate as a space to rest a while and plan your next adventure.",
         "roomTeleport": "",
         "conditional": [
         ],
