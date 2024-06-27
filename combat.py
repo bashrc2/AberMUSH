@@ -404,10 +404,10 @@ def _combat_race_resistance(id: int, players: {},
     return resistance
 
 
-def _combatDamageFromWeapon(id, players: {},
-                            items_db: {}, weapon_type: str,
-                            character_class_db: {},
-                            is_critical: bool, thrown: int) -> (int, str):
+def _combat_damage_from_weapon(id, players: {},
+                               items_db: {}, weapon_type: str,
+                               character_class_db: {},
+                               is_critical: bool, thrown: int) -> (int, str):
     """find the weapon being used and return its damage value
     """
     weapon_locations = (
@@ -1214,10 +1214,10 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 if players[s1id]['hp'] <= 0:
                     break
                 damage_value, damage_roll, damage_modifier = \
-                    _combatDamageFromWeapon(s1id, players,
-                                            items_db, weapon_type,
-                                            character_class_db,
-                                            is_critical, thrown)
+                    _combat_damage_from_weapon(s1id, players,
+                                               items_db, weapon_type,
+                                               character_class_db,
+                                               is_critical, thrown)
                 # eg "1d8 = 5"
                 if damage_modifier == 0:
                     damage_value_desc = damage_roll + ' = ' + str(damage_value)
@@ -1437,10 +1437,10 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                     break
 
                 damage_value, damage_roll, damage_modifier = \
-                    _combatDamageFromWeapon(s1id, players,
-                                            items_db, weapon_type,
-                                            character_class_db,
-                                            is_critical, thrown)
+                    _combat_damage_from_weapon(s1id, players,
+                                               items_db, weapon_type,
+                                               character_class_db,
+                                               is_critical, thrown)
                 # eg "1d8 = 5"
                 if damage_modifier == 0:
                     damage_value_desc = \
@@ -1633,10 +1633,10 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
             if npcs[s1id]['hp'] <= 0:
                 break
             damage_value, damage_roll, damage_modifier = \
-                _combatDamageFromWeapon(s1id, npcs,
-                                        items_db, weapon_type,
-                                        character_class_db,
-                                        is_critical, thrown)
+                _combat_damage_from_weapon(s1id, npcs,
+                                           items_db, weapon_type,
+                                           character_class_db,
+                                           is_critical, thrown)
             # eg "1d8 = 5"
             if damage_modifier == 0:
                 damage_value_desc = damage_roll + ' = ' + str(damage_value)
