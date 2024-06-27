@@ -723,22 +723,23 @@ def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
     item_weapon_index = 0
     if int(npcs[nid]['canWield']) != 0:
         items_in_world_copy = deepcopy(items)
-        for iid, _ in list(items_in_world_copy.items()):
-            if items_in_world_copy[iid]['room'] != npcs[nid]['room']:
+        for iid, itemobj in items_in_world_copy.items():
+            if itemobj['room'] != npcs[nid]['room']:
                 continue
-            if items_db[items[iid]['id']]['weight'] == 0:
+            itemobj2 = items[iid]
+            if items_db[itemobj2['id']]['weight'] == 0:
                 continue
-            if items_db[items[iid]['id']]['clo_rhand'] == 0:
+            if items_db[itemobj2['id']]['clo_rhand'] == 0:
                 continue
-            if items_db[items[iid]['id']]['mod_str'] <= max_damage:
+            if items_db[itemobj2['id']]['mod_str'] <= max_damage:
                 continue
-            if _confined_space(nid, npcs, items_db, items[iid]['id'], rooms):
+            if _confined_space(nid, npcs, items_db, itemobj2['id'], rooms):
                 continue
-            item_name = items_db[items[iid]['id']]['name']
+            item_name = items_db[itemobj2['id']]['name']
             if _item_in_npc_inventory(npcs, nid, item_name, items_db):
                 continue
-            max_damage = items_db[items[iid]['id']]['mod_str']
-            item_id = int(items[iid]['id'])
+            max_damage = items_db[itemobj2['id']]['mod_str']
+            item_id = int(itemobj2['id'])
             item_weapon_index = iid
             picked_up_weapon = True
 
@@ -746,21 +747,22 @@ def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
     picked_up_armor = False
     item_armor_index = 0
     if int(npcs[nid]['canWear']) != 0:
-        for iid, _ in list(items_in_world_copy.items()):
-            if items_in_world_copy[iid]['room'] != npcs[nid]['room']:
+        for iid, itemobj in items_in_world_copy.items():
+            if itemobj['room'] != npcs[nid]['room']:
                 continue
-            if items_db[items[iid]['id']]['weight'] == 0:
+            itemobj2 = items[iid]
+            if items_db[itemobj2['id']]['weight'] == 0:
                 continue
-            if items_db[items[iid]['id']]['clo_chest'] == 0:
+            if items_db[itemobj2['id']]['clo_chest'] == 0:
                 continue
-            if items_db[items[iid]['id']]['mod_endu'] <= max_protection:
+            if items_db[itemobj2['id']]['mod_endu'] <= max_protection:
                 continue
-            item_name = items_db[items[iid]['id']]['name']
+            item_name = items_db[itemobj2['id']]['name']
             if _item_in_npc_inventory(npcs, nid, item_name, items_db):
                 continue
             max_protection = \
-                items_db[items[iid]['id']]['mod_endu']
-            item_id = int(items[iid]['id'])
+                items_db[itemobj2['id']]['mod_endu']
+            item_id = int(itemobj2['id'])
             item_armor_index = iid
             picked_up_armor = True
 
@@ -1967,7 +1969,7 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
 
     if not target_found:
-        for nid, npc1 in list(npcs.items()):
+        for nid, npc1 in npcs.items():
             if target.lower() not in npc1['name'].lower():
                 continue
             if npc1['isAttackable'] == 0:
