@@ -1921,20 +1921,20 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
     if npcs[id]['name'].lower() == target.lower():
         return target_found
 
-    for pid, _ in players.items():
-        if players[pid]['authenticated'] and \
-           players[pid]['name'].lower() == target.lower():
+    for pid, plyr in players.items():
+        if plyr['authenticated'] and \
+           plyr['name'].lower() == target.lower():
             target_found = True
             victim_id = pid
             attacker_id = id
-            if players[pid]['room'] != npcs[id]['room']:
+            if plyr['room'] != npcs[id]['room']:
                 target_found = False
                 continue
 
             fight_index = len(fights)
             fights[fight_index] = {
                 's1': id,
-                's2': players[pid]['name'],
+                's2': plyr['name'],
                 's1id': attacker_id,
                 's2id': victim_id,
                 's1type': 'npc',
@@ -1943,7 +1943,7 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 'thrown': thrown
             }
             fights[len(fights)] = {
-                's1': players[pid]['name'],
+                's1': plyr['name'],
                 's2': id,
                 's1id': victim_id,
                 's2id': attacker_id,
@@ -1951,7 +1951,7 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 's2type': 'npc',
                 'retaliated': 0
             }
-            players[pid]['isInCombat'] = 1
+            plyr['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
 
             _combat_update_max_hit_points(pid, players, races_db)
@@ -1967,19 +1967,19 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 pid, '<u><f21>' + npcs[id]['name'] + '<r> attacks!\n')
 
     if not target_found:
-        for nid, _ in list(npcs.items()):
-            if target.lower() not in npcs[nid]['name'].lower():
+        for nid, npc1 in list(npcs.items()):
+            if target.lower() not in npc1['name'].lower():
                 continue
-            if npcs[nid]['isAttackable'] == 0:
+            if npc1['isAttackable'] == 0:
                 continue
             victim_id = nid
             attacker_id = id
             # found target npc
-            if npcs[nid]['room'] != npcs[id]['room']:
+            if npc1['room'] != npcs[id]['room']:
                 continue
             # target found!
             # check for familiar
-            if npcs[nid]['familiarOf'] == npcs[id]['name']:
+            if npc1['familiarOf'] == npcs[id]['name']:
                 return False
 
             target_found = True
@@ -2001,7 +2001,7 @@ def _npc_begins_attack(npcs: {}, id, target: str, players: {},
                 's2type': 'npc',
                 'retaliated': 0
             }
-            npcs[nid]['isInCombat'] = 1
+            npc1['isInCombat'] = 1
             npcs[id]['isInCombat'] = 1
 
             _combat_update_max_hit_points(nid, npcs, races_db)
