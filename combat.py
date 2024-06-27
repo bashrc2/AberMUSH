@@ -490,8 +490,8 @@ def _combat_armor_class(id, players: {},
     return armor_class
 
 
-def _combatProficiencyBonus(id, players: {}, weapon_type: str,
-                            character_class_db: {}) -> int:
+def _combat_proficiency_bonus(id, players: {}, weapon_type: str,
+                              character_class_db: {}) -> int:
     """Returns the proficiency bonus with the given weapon type
     """
     return damage_proficiency(id, players, weapon_type,
@@ -519,8 +519,8 @@ def _combat_attack_roll(id, players: {}, weapon_type: str,
         ability_modifier = _combat_ability_modifier(players[id]['str'])
 
     proficiency_bonus = \
-        _combatProficiencyBonus(id, players, weapon_type,
-                                character_class_db)
+        _combat_proficiency_bonus(id, players, weapon_type,
+                                  character_class_db)
 
     if d20 + ability_modifier + proficiency_bonus >= \
        target_armor_class + dodge_modifier:
