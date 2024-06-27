@@ -101,18 +101,19 @@ def familiar_sight(mud, nid, npcs: {}, npcs_db: {}, rooms: {},
                     if value >= 0:
                         creatures_friendly = creatures_friendly + 1
 
-    for n_co in npcs:
-        if n_co != nid:
-            if npcs[n_co]['room'] == npcs[nid]['room']:
-                creatures_count = creatures_count+1
-                if npcs[n_co].get('race'):
-                    if npcs[n_co]['race'] not in creatures_races:
-                        creatures_races.append(npcs[n_co]['race'])
-                if npcs[n_co].get('affinity'):
-                    for name, value in npcs[n_co]['affinity'].items():
-                        if npcs[nid]['familiarOf'] == name:
-                            if value >= 0:
-                                creatures_friendly = creatures_friendly + 1
+    for n_co, npc1 in npcs.items():
+        if n_co == nid:
+            continue
+        if npc1['room'] == npcs[nid]['room']:
+            creatures_count = creatures_count+1
+            if npc1.get('race'):
+                if npc1['race'] not in creatures_races:
+                    creatures_races.append(npc1['race'])
+            if npc1.get('affinity'):
+                for name, value in npc1['affinity'].items():
+                    if npcs[nid]['familiarOf'] == name:
+                        if value >= 0:
+                            creatures_friendly = creatures_friendly + 1
 
     if creatures_count > 0:
         creature_str = random_desc("creature|being|entity")
