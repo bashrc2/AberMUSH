@@ -6381,7 +6381,7 @@ def _dismiss(params, mud, players_db: {}, players: {}, rooms: {},
         players[id]['familiar'] = -1
         familiar_removed = False
         removals = []
-        for (index, details) in npcs_db.items():
+        for index, details in npcs_db.items():
             if details['familiarOf'] == players[id]['name']:
                 removals.append(index)
                 familiar_removed = True
@@ -6389,7 +6389,7 @@ def _dismiss(params, mud, players_db: {}, players: {}, rooms: {},
             del npcs_db[index]
 
         removals.clear()
-        for (index, details) in npcs.items():
+        for index, details in npcs.items():
             if details['familiarOf'] == players[id]['name']:
                 removals.append(index)
         for index in removals:
@@ -6463,12 +6463,13 @@ def _destroy_item(params, mud, players_db: {}, players: {}, rooms: {},
     found_item = None
     destroyed_name = ''
     for item, itemobj in items.items():
-        if itemobj['room'] == players[id]['room']:
-            if item_name in items_db[itemobj['id']]['name']:
-                destroyed_name = items_db[itemobj['id']]['name']
-                item_id = itemobj['id']
-                found_item = item
-                break
+        if itemobj['room'] != players[id]['room']:
+            continue
+        if item_name in items_db[itemobj['id']]['name']:
+            destroyed_name = items_db[itemobj['id']]['name']
+            item_id = itemobj['id']
+            found_item = item
+            break
     if item_id == -1:
         mud.send_message(id, "It's not here.\n\n")
         return False
@@ -6938,16 +6939,17 @@ def _lever_up(params, mud, players_db: {}, players: {}, rooms: {},
     """Pull a lever up
     """
     item_id = items[iid]['id']
-    linked_item_id = int(items_db[item_id]['linkedItem'])
-    room_id = items_db[item_id]['exit']
+    itemobj = items_db[item_id]
+    linked_item_id = int(itemobj['linkedItem'])
+    room_id = itemobj['exit']
 
-    items_db[item_id]['state'] = 'lever up'
-    items_db[item_id]['short_description'] = \
-        items_db[item_id]['short_description'].replace('down', 'up')
-    items_db[item_id]['long_description'] = \
-        items_db[item_id]['long_description'].replace('down', 'up')
-    if '|' in items_db[item_id]['exitName']:
-        exit_name = items_db[item_id]['exitName'].split('|')
+    itemobj['state'] = 'lever up'
+    itemobj['short_description'] = \
+        itemobj['short_description'].replace('down', 'up')
+    itemobj['long_description'] = \
+        itemobj['long_description'].replace('down', 'up')
+    if '|' in itemobj['exitName']:
+        exit_name = itemobj['exitName'].split('|')
 
         if linked_item_id > 0:
             desc = items_db[linked_item_id]['short_description']
@@ -6976,14 +6978,14 @@ def _lever_up(params, mud, players_db: {}, players: {}, rooms: {},
             if exit_name[1] in rooms[rmid]['exits']:
                 del rooms[rmid]['exits'][exit_name[1]]
 
-    if len(items_db[item_id]['close_description']) > 0:
+    if len(itemobj['close_description']) > 0:
         mud.send_message_wrap(id, '<f220>',
-                              items_db[item_id]['close_description'] + '\n\n')
+                              itemobj['close_description'] + '\n\n')
     else:
         mud.send_message(
             id, 'You push ' +
-            items_db[item_id]['article'] +
-            ' ' + items_db[item_id]['name'] +
+            itemobj['article'] +
+            ' ' + itemobj['name'] +
             '\n\n')
 
 
@@ -7122,23 +7124,24 @@ def _open_item(params, mud, players_db: {}, players: {}, rooms: {},
     for iid, pl in items_in_world_copy.items():
         if pl['room'] != players[id]['room']:
             continue
-        if target in items_db[items[iid]['id']]['name'].lower():
-            if items_db[items[iid]['id']]['state'] == 'closed':
-                _open_item_door(params, mud, players_db, players, rooms,
-                                npcs_db, npcs, items_db, items,
-                                env_db, env,
-                                eventDB, event_schedule, id, fights,
-                                corpses, target, items_in_world_copy,
-                                iid)
-                return
-            idx = items[iid]['id']
-            if items_db[idx]['state'].startswith('container closed'):
-                _open_item_container(params, mud, players_db, players,
-                                     rooms, npcs_db, npcs, items_db,
-                                     items, env_db, env, eventDB,
-                                     event_schedule, id, fights, corpses,
-                                     target, items_in_world_copy, iid)
-                return
+        if target not in items_db[items[iid]['id']]['name'].lower():
+            continue
+        if items_db[items[iid]['id']]['state'] == 'closed':
+            _open_item_door(params, mud, players_db, players, rooms,
+                            npcs_db, npcs, items_db, items,
+                            env_db, env,
+                            eventDB, event_schedule, id, fights,
+                            corpses, target, items_in_world_copy,
+                            iid)
+            return
+        idx = items[iid]['id']
+        if items_db[idx]['state'].startswith('container closed'):
+            _open_item_container(params, mud, players_db, players,
+                                 rooms, npcs_db, npcs, items_db,
+                                 items, env_db, env, eventDB,
+                                 event_schedule, id, fights, corpses,
+                                 target, items_in_world_copy, iid)
+            return
     mud.send_message(id, "You can't open it.\n\n")
 
 
@@ -7157,16 +7160,17 @@ def _pull_lever(params, mud, players_db: {}, players: {}, rooms: {},
 
     items_in_world_copy = deepcopy(items)
     for iid, itemobj in items_in_world_copy.items():
-        if itemobj['room'] == players[id]['room']:
-            if target in items_db[items[iid]['id']]['name'].lower():
-                if items_db[items[iid]['id']]['state'] == 'lever up':
-                    _lever_down(params, mud, players_db, players, rooms,
-                                npcs_db, npcs, items_db, items, env_db,
-                                env, eventDB, event_schedule, id, fights,
-                                corpses, target, items_in_world_copy, iid)
-                    return
-                mud.send_message(id, 'Nothing happens.\n\n')
+        if itemobj['room'] != players[id]['room']:
+            continue
+        if target in items_db[items[iid]['id']]['name'].lower():
+            if items_db[items[iid]['id']]['state'] == 'lever up':
+                _lever_down(params, mud, players_db, players, rooms,
+                            npcs_db, npcs, items_db, items, env_db,
+                            env, eventDB, event_schedule, id, fights,
+                            corpses, target, items_in_world_copy, iid)
                 return
+            mud.send_message(id, 'Nothing happens.\n\n')
+            return
     mud.send_message(id, "There's nothing to pull.\n\n")
 
 
@@ -7272,29 +7276,30 @@ def _close_item_container(params, mud, players_db: {}, players: {}, rooms: {},
                           id: int, fights: {}, corpses: {}, target,
                           items_in_world_copy: {}, iid):
     item_id = items[iid]['id']
-    if items_db[item_id]['state'].startswith('container closed'):
+    itemobj = items_db[item_id]
+    if itemobj['state'].startswith('container closed'):
         mud.send_message(id, "It's already closed\n\n")
         return
 
-    if items_db[item_id]['state'].startswith('container open '):
+    if itemobj['state'].startswith('container open '):
         mud.send_message(id, "That's not possible.\n\n")
         return
 
-    items_db[item_id]['state'] = \
-        items_db[item_id]['state'].replace('open', 'closed')
-    items_db[item_id]['short_description'] = \
-        items_db[item_id]['short_description'].replace('open', 'closed')
-    items_db[item_id]['long_description'] = \
-        items_db[item_id]['long_description'].replace('open', 'closed')
+    itemobj['state'] = \
+        itemobj['state'].replace('open', 'closed')
+    itemobj['short_description'] = \
+        itemobj['short_description'].replace('open', 'closed')
+    itemobj['long_description'] = \
+        itemobj['long_description'].replace('open', 'closed')
 
-    if len(items_db[item_id]['close_description']) > 0:
-        mud.send_message(id, items_db[item_id]['close_description'] + '\n\n')
+    if len(itemobj['close_description']) > 0:
+        mud.send_message(id, itemobj['close_description'] + '\n\n')
     else:
-        item_article = items_db[item_id]['article']
+        item_article = itemobj['article']
         if item_article == 'a':
             item_article = 'the'
         mud.send_message(id, 'You close ' + item_article +
-                         ' ' + items_db[item_id]['name'] + '.\n\n')
+                         ' ' + itemobj['name'] + '.\n\n')
 
 
 def _close_item_door(params, mud, players_db: {}, players: {}, rooms: {},
@@ -7303,18 +7308,19 @@ def _close_item_door(params, mud, players_db: {}, players: {}, rooms: {},
                      id: int, fights: {}, corpses: {}, target,
                      items_in_world_copy: {}, iid):
     item_id = items[iid]['id']
-    linked_item_id = int(items_db[item_id]['linkedItem'])
-    room_id = items_db[item_id]['exit']
-    if '|' not in items_db[item_id]['exitName']:
+    itemobj = items_db[item_id]
+    linked_item_id = int(itemobj['linkedItem'])
+    room_id = itemobj['exit']
+    if '|' not in itemobj['exitName']:
         return
 
-    exit_name = items_db[item_id]['exitName'].split('|')
+    exit_name = itemobj['exitName'].split('|')
 
-    items_db[item_id]['state'] = 'closed'
-    items_db[item_id]['short_description'] = \
-        items_db[item_id]['short_description'].replace('open', 'closed')
-    items_db[item_id]['long_description'] = \
-        items_db[item_id]['long_description'].replace('open', 'closed')
+    itemobj['state'] = 'closed'
+    itemobj['short_description'] = \
+        itemobj['short_description'].replace('open', 'closed')
+    itemobj['long_description'] = \
+        itemobj['long_description'].replace('open', 'closed')
 
     if linked_item_id > 0:
         desc = items_db[linked_item_id]['short_description']
@@ -7334,12 +7340,12 @@ def _close_item_door(params, mud, players_db: {}, players: {}, rooms: {},
         if exit_name[1] in rooms[rmid]['exits']:
             del rooms[rmid]['exits'][exit_name[1]]
 
-    if len(items_db[item_id]['close_description']) > 0:
-        mud.send_message(id, items_db[item_id]['close_description'] + '\n\n')
+    if len(itemobj['close_description']) > 0:
+        mud.send_message(id, itemobj['close_description'] + '\n\n')
     else:
         mud.send_message(id, 'You close ' +
-                         items_db[item_id]['article'] + ' ' +
-                         items_db[item_id]['name'] + '\n\n')
+                         itemobj['article'] + ' ' +
+                         itemobj['name'] + '\n\n')
 
 
 def _close_item(params, mud, players_db: {}, players: {}, rooms: {},
