@@ -686,11 +686,12 @@ def _item_in_npc_inventory(npcs, id: int, item_name: str,
 def _npc_update_luck(nid, npcs: {}, items: {}, items_db: {}) -> None:
     """Calculate the luck of an NPC based on what items they are carrying
     """
+    npc1 = npcs[nid]
     luck = 0
-    for i in npcs[nid]['inv']:
+    for i in npc1['inv']:
         itemobj = items_db[int(i)]
         luck = luck + itemobj['mod_luc']
-    npcs[nid]['luc'] = luck
+    npc1['luc'] = luck
 
 
 def _npc_wields_weapon(mud, id: int, nid: int, npcs: {},
@@ -1312,11 +1313,11 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
             'idea to attack <f32>' +
             plyr2['name'] + ' at this time.\n')
         fights_copy = deepcopy(fights)
-        for fight, _ in fights_copy.items():
-            if fights_copy[fight]['s1id'] == s1id and \
-               fights_copy[fight]['s1type'] == 'pc' and \
-               fights_copy[fight]['s2id'] == s2id and \
-               fights_copy[fight]['s2type'] == 'pc':
+        for fight, fght in fights_copy.items():
+            if fght['s1id'] == s1id and \
+               fght['s1type'] == 'pc' and \
+               fght['s2id'] == s2id and \
+               fght['s2type'] == 'pc':
                 del fights[fight]
                 plyr1['isInCombat'] = 0
                 plyr2['isInCombat'] = 0
@@ -1518,11 +1519,11 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
             'idea to attack <u><f21>' +
             npc1['name'] + '<r> at this time.\n')
         fights_copy = deepcopy(fights)
-        for fight, _ in fights_copy.items():
-            if fights_copy[fight]['s1id'] == s1id and \
-               fights_copy[fight]['s1type'] == 'pc' and \
-               fights_copy[fight]['s2id'] == s2id and \
-               fights_copy[fight]['s2type'] == 'npc':
+        for fight, fght in fights_copy.items():
+            if fght['s1id'] == s1id and \
+               fght['s1type'] == 'pc' and \
+               fght['s2id'] == s2id and \
+               fght['s2type'] == 'npc':
                 del fights[fight]
                 plyr['isInCombat'] = 0
                 npc1['isInCombat'] = 0
