@@ -6905,27 +6905,28 @@ def _open_item_container(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     item_id = items[iid]['id']
-    if items_db[item_id]['state'].startswith('container open'):
+    itemobj = items_db[item_id]
+    if itemobj['state'].startswith('container open'):
         mud.send_message(id, "It's already open\n\n")
         return
 
-    items_db[item_id]['state'] = \
-        items_db[item_id]['state'].replace('closed', 'open')
-    items_db[item_id]['short_description'] = \
-        items_db[item_id]['short_description'].replace('closed', 'open')
-    items_db[item_id]['long_description'] = \
-        items_db[item_id]['long_description'].replace('closed', 'open')
-    items_db[item_id]['long_description'] = \
-        items_db[item_id]['long_description'].replace('shut', 'open')
+    itemobj['state'] = \
+        itemobj['state'].replace('closed', 'open')
+    itemobj['short_description'] = \
+        itemobj['short_description'].replace('closed', 'open')
+    itemobj['long_description'] = \
+        itemobj['long_description'].replace('closed', 'open')
+    itemobj['long_description'] = \
+        itemobj['long_description'].replace('shut', 'open')
 
-    if len(items_db[item_id]['open_description']) > 0:
-        mud.send_message(id, items_db[item_id]['open_description'] + '\n\n')
+    if len(itemobj['open_description']) > 0:
+        mud.send_message(id, itemobj['open_description'] + '\n\n')
     else:
-        item_article = items_db[item_id]['article']
+        item_article = itemobj['article']
         if item_article == 'a':
             item_article = 'the'
         mud.send_message(id, 'You open ' + item_article +
-                         ' ' + items_db[item_id]['name'] + '.\n\n')
+                         ' ' + itemobj['name'] + '.\n\n')
     _describe_container_contents(mud, id, items_db, item_id, False)
 
 
@@ -6995,16 +6996,17 @@ def _lever_down(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     item_id = items[iid]['id']
-    linked_item_id = int(items_db[item_id]['linkedItem'])
-    room_id = items_db[item_id]['exit']
+    itemobj = items_db[item_id]
+    linked_item_id = int(itemobj['linkedItem'])
+    room_id = itemobj['exit']
 
-    items_db[item_id]['state'] = 'lever down'
-    items_db[item_id]['short_description'] = \
-        items_db[item_id]['short_description'].replace('up', 'down')
-    items_db[item_id]['long_description'] = \
-        items_db[item_id]['long_description'].replace('up', 'down')
-    if '|' in items_db[item_id]['exitName']:
-        exit_name = items_db[item_id]['exitName'].split('|')
+    itemobj['state'] = 'lever down'
+    itemobj['short_description'] = \
+        itemobj['short_description'].replace('up', 'down')
+    itemobj['long_description'] = \
+        itemobj['long_description'].replace('up', 'down')
+    if '|' in itemobj['exitName']:
+        exit_name = itemobj['exitName'].split('|')
 
         if linked_item_id > 0:
             desc = items_db[linked_item_id]['short_description']
@@ -7035,16 +7037,14 @@ def _lever_down(params, mud, players_db: {}, players: {}, rooms: {},
                 del rooms[rmid]['exits'][exit_name[1]]
             rooms[rmid]['exits'][exit_name[1]] = players[id]['room']
 
-    if len(items_db[item_id]['open_description']) > 0:
+    if len(itemobj['open_description']) > 0:
         mud.send_message_wrap(id, '<f220>',
-                              items_db[item_id]['open_description'] +
+                              itemobj['open_description'] +
                               '\n\n')
     else:
         mud.send_message(
-            id, 'You pull ' +
-            items_db[item_id]['article'] +
-            ' ' + items_db[item_id]['name'] +
-            '\n\n')
+            id, 'You pull ' + itemobj['article'] +
+            ' ' + itemobj['name'] + '\n\n')
 
 
 def _open_item_door(params, mud, players_db: {}, players: {}, rooms: {},
