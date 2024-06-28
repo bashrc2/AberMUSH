@@ -1910,40 +1910,42 @@ def _prepare_spell_at_level(params, mud, players_db: {},
                             map_area: [], character_class_db: {},
                             spells_db: {}, spell_name: {}, level: {}):
     for name, details in spells_db[level].items():
-        if name.lower() == spell_name:
-            if name.lower() not in players[id]['preparedSpells']:
-                if len(spells_db[level][name]['items']) == 0:
-                    players[id]['preparedSpells'][name] = 1
-                else:
-                    for required in spells_db[level][name]['items']:
-                        required_item_found = False
-                        for i in list(players[id]['inv']):
-                            if int(i) == required:
-                                required_item_found = True
-                                break
-                        if not required_item_found:
-                            mud.send_message(
-                                id, 'You need <b234>' +
-                                items_db[required]['article'] +
-                                ' ' + items_db[required]['name'] +
-                                '<r>\n\n')
-                            return True
-                players[id]['prepareSpell'] = spell_name
-                players[id]['prepareSpellProgress'] = 0
-                players[id]['prepareSpellTime'] = time_string_to_sec(
-                    details['prepareTime'])
-                if len(details['prepareTime']) > 0:
+        if name.lower() != spell_name:
+            continue
+        if name.lower() in players[id]['preparedSpells']:
+            continue
+        if len(spells_db[level][name]['items']) == 0:
+            players[id]['preparedSpells'][name] = 1
+        else:
+            for required in spells_db[level][name]['items']:
+                required_item_found = False
+                for i in list(players[id]['inv']):
+                    if int(i) == required:
+                        required_item_found = True
+                        break
+                if not required_item_found:
                     mud.send_message(
-                        id,
-                        'You begin preparing the spell <b234>' +
-                        spell_name + '<r>. It will take ' +
-                        details['prepareTime'] + '.\n\n')
-                else:
-                    mud.send_message(
-                        id,
-                        'You begin preparing the spell <b234>' +
-                        spell_name + '<r>.\n\n')
-                return True
+                        id, 'You need <b234>' +
+                        items_db[required]['article'] +
+                        ' ' + items_db[required]['name'] +
+                        '<r>\n\n')
+                    return True
+        players[id]['prepareSpell'] = spell_name
+        players[id]['prepareSpellProgress'] = 0
+        players[id]['prepareSpellTime'] = time_string_to_sec(
+            details['prepareTime'])
+        if len(details['prepareTime']) > 0:
+            mud.send_message(
+                id,
+                'You begin preparing the spell <b234>' +
+                spell_name + '<r>. It will take ' +
+                details['prepareTime'] + '.\n\n')
+        else:
+            mud.send_message(
+                id,
+                'You begin preparing the spell <b234>' +
+                spell_name + '<r>.\n\n')
+        return True
     return False
 
 
