@@ -2859,23 +2859,25 @@ def _conditional_item_desc(item_id: int, conditional: [],
 
     # Alternative descriptions triggered by conditions
     for possible_description in conditional:
-        if len(possible_description) >= 2:
-            cond_type = possible_description[0]
-            cond = None
-            if cond_type.startswith('wear') or cond_type.startswith('hold'):
-                cond = str(item_id)
-                alternative_description = possible_description[1]
-            elif len(possible_description) >= 3:
-                cond = possible_description[1]
-                alternative_description = possible_description[2]
-            if cond:
-                if _conditional_logic(cond_type, cond,
-                                      alternative_description,
-                                      id, players, items, items_db,
-                                      clouds, map_area, rooms,
-                                      look_modifier):
-                    item_description = alternative_description
-                    break
+        if len(possible_description) < 2:
+            continue
+        cond_type = possible_description[0]
+        cond = None
+        if cond_type.startswith('wear') or cond_type.startswith('hold'):
+            cond = str(item_id)
+            alternative_description = possible_description[1]
+        elif len(possible_description) >= 3:
+            cond = possible_description[1]
+            alternative_description = possible_description[2]
+        if not cond:
+            continue
+        if _conditional_logic(cond_type, cond,
+                              alternative_description,
+                              id, players, items, items_db,
+                              clouds, map_area, rooms,
+                              look_modifier):
+            item_description = alternative_description
+            break
 
     return item_description
 
@@ -2892,15 +2894,15 @@ def _conditional_room_image(conditional: [], id, players: {}, items: {},
         cond_type = possible_description[0]
         cond = possible_description[1]
         alternative_description = possible_description[2]
-        if _conditional_logic(cond_type, cond,
-                              alternative_description,
-                              id, players, items, items_db, clouds,
-                              map_area, rooms, None):
-            room_image_filename = \
-                'images/rooms/' + possible_description[3]
-            if os.path.isfile(room_image_filename):
-                return possible_description[3]
-            break
+        if not _conditional_logic(cond_type, cond,
+                                  alternative_description,
+                                  id, players, items, items_db, clouds,
+                                  map_area, rooms, None):
+            continue
+        room_image_filename = 'images/rooms/' + possible_description[3]
+        if os.path.isfile(room_image_filename):
+            return possible_description[3]
+        break
     return None
 
 
