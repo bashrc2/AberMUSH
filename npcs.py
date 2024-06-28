@@ -315,7 +315,7 @@ def _entity_is_active(id, players: {}, rooms: {},
     return True
 
 
-def _move_npcs(npcs, players, mud, now, nid) -> None:
+def _move_npcs(npcs: {}, players: {}, mud, now, nid: int) -> None:
     """If movement is defined for an NPC this moves it around
     """
     this_npc = npcs[nid]
@@ -330,12 +330,12 @@ def _move_npcs(npcs, players, mud, now, nid) -> None:
             if len(this_npc['follow']) == 0:
                 follow_cycle = True
                 # Look for a player to follow
-                for pid, _ in list(players.items()):
-                    if this_npc['room'] == players[pid]['room']:
+                for _, plyr in players.items():
+                    if this_npc['room'] == plyr['room']:
                         # follow by name
                         # print(this_npc['name'] + ' starts following ' +
-                        # players[pid]['name'] + '\n')
-                        this_npc['follow'] = players[pid]['name']
+                        # plyr['name'] + '\n')
+                        this_npc['follow'] = plyr['name']
                         follow_cycle = False
             if not follow_cycle:
                 return
@@ -386,16 +386,16 @@ def _move_npcs(npcs, players, mud, now, nid) -> None:
 
         rmid = this_npc['path'][npc_room_index]
         if this_npc['room'] != rmid:
-            for pid, _ in list(players.items()):
-                if this_npc['room'] == players[pid]['room']:
+            for pid, plyr in players.items():
+                if this_npc['room'] == plyr['room']:
                     mud.send_message(
                         pid, '<f220>' + this_npc['name'] + "<r> " +
                         random_desc(this_npc['outDescription']) +
                         "\n\n")
             this_npc['room'] = rmid
             this_npc['lastRoom'] = rmid
-            for pid, _ in list(players.items()):
-                if this_npc['room'] == players[pid]['room']:
+            for pid, plyr in players.items():
+                if this_npc['room'] == plyr['room']:
                     mud.send_message(
                         pid, '<f220>' + this_npc['name'] + "<r> " +
                         random_desc(this_npc['inDescription']) +
