@@ -175,7 +175,8 @@ def assign_markets(markets: {}, rooms: {}, items_db: {},
     return no_of_markets
 
 
-def buy_item(players: {}, id, item_id, items_db: {}, cost: str) -> bool:
+def buy_item(players: {}, id, item_id: int, items_db: {},
+             cost: str) -> bool:
     """Returns true if the given item was bought
     """
     if cost == '0':

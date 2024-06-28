@@ -60,7 +60,7 @@ def familiar_recall(mud, players: {}, id, npcs: {}, npcs_db: {}):
         break
 
 
-def familiar_default_mode(nid, npcs: {}, npcs_db: {}):
+def familiar_default_mode(nid: int, npcs: {}, npcs_db: {}):
     npcs[nid]['familiarMode'] = "follow"
     npcs_db[nid]['familiarMode'] = "follow"
     npcs[nid]['moveType'] = ""
@@ -69,7 +69,7 @@ def familiar_default_mode(nid, npcs: {}, npcs_db: {}):
     npcs_db[nid]['path'] = []
 
 
-def familiar_sight(mud, nid, npcs: {}, npcs_db: {}, rooms: {},
+def familiar_sight(mud, nid: int, npcs: {}, npcs_db: {}, rooms: {},
                    players: {}, id,
                    items: {}, items_db: {}):
     """familiar reports what it sees
@@ -93,28 +93,30 @@ def familiar_sight(mud, nid, npcs: {}, npcs_db: {}, rooms: {},
     for _, plyr in players.items():
         if plyr['name'] is None:
             continue
-        if plyr['room'] == npcs[nid]['room']:
-            creatures_count = creatures_count+1
-            if plyr['race'] not in creatures_races:
-                creatures_races.append(plyr['race'])
-            for name, value in plyr['affinity'].items():
-                if npcs[nid]['familiarOf'] == name:
-                    if value >= 0:
-                        creatures_friendly = creatures_friendly + 1
+        if plyr['room'] != npcs[nid]['room']:
+            continue
+        creatures_count = creatures_count+1
+        if plyr['race'] not in creatures_races:
+            creatures_races.append(plyr['race'])
+        for name, value in plyr['affinity'].items():
+            if npcs[nid]['familiarOf'] == name:
+                if value >= 0:
+                    creatures_friendly = creatures_friendly + 1
 
     for n_co, npc1 in npcs.items():
         if n_co == nid:
             continue
-        if npc1['room'] == npcs[nid]['room']:
-            creatures_count = creatures_count+1
-            if npc1.get('race'):
-                if npc1['race'] not in creatures_races:
-                    creatures_races.append(npc1['race'])
-            if npc1.get('affinity'):
-                for name, value in npc1['affinity'].items():
-                    if npcs[nid]['familiarOf'] == name:
-                        if value >= 0:
-                            creatures_friendly = creatures_friendly + 1
+        if npc1['room'] != npcs[nid]['room']:
+            continue
+        creatures_count = creatures_count+1
+        if npc1.get('race'):
+            if npc1['race'] not in creatures_races:
+                creatures_races.append(npc1['race'])
+        if npc1.get('affinity'):
+            for name, value in npc1['affinity'].items():
+                if npcs[nid]['familiarOf'] == name:
+                    if value >= 0:
+                        creatures_friendly = creatures_friendly + 1
 
     if creatures_count > 0:
         creature_str = random_desc("creature|being|entity")
@@ -202,7 +204,7 @@ def familiar_sight(mud, nid, npcs: {}, npcs_db: {}, rooms: {},
     mud.send_message(id, '\n\n')
 
 
-def familiar_hide(nid, npcs, npcs_db):
+def familiar_hide(nid: int, npcs: {}, npcs_db: {}):
     """Causes a familiar to hide
     """
     npcs[nid]['familiarMode'] = "hide"
@@ -258,7 +260,7 @@ def _familiar_scout_in_direction(mud, players: {}, id, start_room_id,
     return new_path
 
 
-def familiar_scout(mud, players: {}, id, nid, npcs: {},
+def familiar_scout(mud, players: {}, id, nid: int, npcs: {},
                    npcs_db: {}, rooms: {}, direction):
     """familiar begins scouting the surrounding rooms
     """
