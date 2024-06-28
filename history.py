@@ -31,11 +31,12 @@ def assign_item_history(key: int, item: {}, item_history: {}) -> bool:
         if not hist.get('match'):
             continue
         match_str = hist['match']
-        if match_str in item_name_lower:
-            item['itemName'] = \
-                _get_sword_name(key_str + item['long_description'],
-                                hist['names'])
-            assigned = True
+        if match_str not in item_name_lower:
+            continue
+        item['itemName'] = \
+            _get_sword_name(key_str + item['long_description'],
+                            hist['names'])
+        assigned = True
     return assigned
 
 

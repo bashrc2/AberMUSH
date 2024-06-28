@@ -68,17 +68,21 @@ def _get_leader_room_index(npcs: {}, players: {}, mud,
         if len(leader_name) > 0:
             # is the leader an NPC
             for _, leader_npc in npcs.items():
-                if leader_npc['name'] == leader_name:
-                    if leader_npc['room'] != npcs[nid]['room']:
-                        # follower NPCs are in the same guild
-                        npcs[nid]['guild'] = leader_npc['guild']
-                        return leader_npc['room']
+                if leader_npc['name'] != leader_name:
+                    continue
+                if leader_npc['room'] == npcs[nid]['room']:
+                    continue
+                # follower NPCs are in the same guild
+                npcs[nid]['guild'] = leader_npc['guild']
+                return leader_npc['room']
             # is the leader a player
             for _, plyr in players.items():
-                if plyr['name'] == leader_name:
-                    if plyr['room'] != npcs[nid]['room']:
-                        npcs[nid]['guild'] = plyr['guild']
-                        return plyr['room']
+                if plyr['name'] != leader_name:
+                    continue
+                if plyr['room'] == npcs[nid]['room']:
+                    continue
+                npcs[nid]['guild'] = plyr['guild']
+                return plyr['room']
     return ''
 
 
