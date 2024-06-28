@@ -223,14 +223,15 @@ def terminal_emulator(command: str, params: str, mud, id) -> bool:
                 "/bin/bash": "/bin/bash: VAR: No such file or directory"
             }
             for poss_shell, shell_response in possible_shells.items():
-                if poss_shell in params:
-                    shell_param = params.split(poss_shell, 1)[1].strip()
-                    shell_response = shell_response.replace('VAR', shell_param)
-                    mud.send_message(id, "\n>" + poss_shell + ' ' +
-                                     shell_param)
-                    mud.send_message(id, "\n" + shell_response)
-                    mud.send_message(id, "\n>")
-                    return True
+                if poss_shell not in params:
+                    continue
+                shell_param = params.split(poss_shell, 1)[1].strip()
+                shell_response = shell_response.replace('VAR', shell_param)
+                mud.send_message(id, "\n>" + poss_shell + ' ' +
+                                 shell_param)
+                mud.send_message(id, "\n" + shell_response)
+                mud.send_message(id, "\n>")
+                return True
         mud.send_message(id, "\n>")
         return True
 
