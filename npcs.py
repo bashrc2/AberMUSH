@@ -181,7 +181,7 @@ def _entity_is_active(id, players: {}, rooms: {},
             sun_set_time = sun.get_local_sunset_time(curr_time).hour
             if 'true' in time_range_start.lower() or \
                'y' in time_range_start.lower():
-                if not (curr_hour in range(sun_set_time, sun_set_time + 2)):
+                if curr_hour not in range(sun_set_time, sun_set_time + 2):
                     return False
             else:
                 if not (curr_hour < sun_set_time or
