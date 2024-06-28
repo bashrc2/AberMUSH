@@ -83,6 +83,7 @@ def run_environment(mud, players, env):
 def run_schedule(mud, event_schedule, players: {}, npcs: {},
                  items_in_world: {}, env, npcs_db: {}, env_db: {}):
     # Evaluate the Event Schedule
+    deleted_events = []
     for event, evnt in event_schedule.items():
         if time.time() < evnt['time']:
             continue
@@ -97,4 +98,7 @@ def run_schedule(mud, event_schedule, players: {}, npcs: {},
                 evnt['body'],
                 players, npcs, items_in_world, env,
                 npcs_db, env_db)
+        deleted_events.append(event)
+
+    for event in deleted_events:
         del event_schedule[event]
