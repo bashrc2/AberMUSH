@@ -18,7 +18,8 @@ from functions import deepcopy
 MAXIMUM_PLAYERS = 128
 
 
-def _run_new_player_connections(mud, players, players_db, fights, config):
+def _run_new_player_connections(mud, players: {}, players_db: {}, fights: {},
+                                config):
     # go through any newly connected players
     for id in mud.get_new_players():
         if len(players) >= MAXIMUM_PLAYERS:
@@ -181,7 +182,7 @@ def _run_new_player_connections(mud, players, players_db, fights, config):
         log("Player ID " + id_str + " has connected", "info")
 
 
-def _run_player_disconnections(mud, players, players_db, fights,
+def _run_player_disconnections(mud, players: {}, players_db: {}, fights: {},
                                config, terminal_mode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
@@ -228,7 +229,7 @@ def _run_player_disconnections(mud, players, players_db, fights,
         del players[id]
 
 
-def run_player_connections(mud, id, players, players_db, fights,
+def run_player_connections(mud, id, players: {}, players_db: {}, fights: {},
                            config, terminal_mode: {}):
     _run_new_player_connections(mud, players, players_db, fights, config)
     _run_player_disconnections(mud, players, players_db, fights,
