@@ -3419,10 +3419,11 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                 if plyr['authenticated'] is not None:
                     if plyr['name'].lower() == param and \
                        plyr['room'] == players[id]['room']:
-                        if player_is_visible(mud, players, id, plyr_id,
-                                             players):
-                            _bio_of_player(mud, id, plyr_id, players, items_db)
-                            message_sent = True
+                        if not player_is_visible(mud, players, id, plyr_id,
+                                                 players):
+                            continue
+                        _bio_of_player(mud, id, plyr_id, players, items_db)
+                        message_sent = True
 
             message = ""
 
@@ -3430,17 +3431,18 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             for plyr_id, plyr in npcs.items():
                 if param in plyr['name'].lower() and \
                    plyr['room'] == players[id]['room']:
-                    if player_is_visible(mud, id, players, plyr_id, npcs):
-                        if plyr['familiarMode'] != 'hide':
-                            name_lower = plyr['name'].lower()
-                            _show_npc_image(mud, id, name_lower, players)
-                            _bio_of_player(mud, id, plyr_id, npcs, items_db)
+                    if not player_is_visible(mud, id, players, plyr_id, npcs):
+                        continue
+                    if plyr['familiarMode'] != 'hide':
+                        name_lower = plyr['name'].lower()
+                        _show_npc_image(mud, id, name_lower, players)
+                        _bio_of_player(mud, id, plyr_id, npcs, items_db)
+                        message_sent = True
+                    else:
+                        if plyr['familiarOf'] == \
+                           players[id]['name']:
+                            message = "They are hiding somewhere here."
                             message_sent = True
-                        else:
-                            if plyr['familiarOf'] == \
-                               players[id]['name']:
-                                message = "They are hiding somewhere here."
-                                message_sent = True
 
             if len(message) > 0:
                 mud.send_message(id, "****CLEAR****" + message + "\n\n")
