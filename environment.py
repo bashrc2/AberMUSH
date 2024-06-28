@@ -81,15 +81,15 @@ def assign_terrain_difficulty(rooms: {}) -> int:
         'ice',
         'marsh')
     max_terrain_difficulty = 1
-    for rmid in rooms:
-        difficulty = rooms[rmid]['terrainDifficulty']
+    for _, room in rooms.items():
+        difficulty = room['terrainDifficulty']
         if difficulty == 0:
-            room_description = rooms[rmid]['description'].lower()
+            room_description = room['description'].lower()
             difficulty = 0
             for wrd in terrain_difficulty_words:
                 if wrd in room_description:
                     difficulty += 1
-            rooms[rmid]['terrainDifficulty'] = difficulty
+            room['terrainDifficulty'] = difficulty
         if difficulty > max_terrain_difficulty:
             max_terrain_difficulty = difficulty
     return max_terrain_difficulty
@@ -115,8 +115,8 @@ def find_room_collisions(rooms: {}) -> None:
     ctr = 0
     total_ctr = 0
     room_dict = {}
-    for rmid in rooms:
-        room_dict[ctr] = rmid
+    for room_id, _ in rooms.items():
+        room_dict[ctr] = room_id
         ctr += 1
     ctr = 0
     for index1, _ in enumerate(rooms):
@@ -351,17 +351,17 @@ def map_level_as_csv(rooms: {}, level: int):
     min_y = 999999
     max_y = -999999
 
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        if not rooms[rmid]['coordsAssigned']:
+        if not room['coordsAssigned']:
             continue
-        if len(rooms[rmid]['coords']) <= 2:
+        if len(room['coords']) <= 2:
             continue
-        if rooms[rmid]['coords'][2] != level:
+        if room['coords'][2] != level:
             continue
-        x_co = rooms[rmid]['coords'][1]
-        y_co = rooms[rmid]['coords'][0]
+        x_co = room['coords'][1]
+        y_co = room['coords'][0]
         if y_co < min_y:
             min_y = y_co
         if y_co > max_y:
@@ -376,25 +376,25 @@ def map_level_as_csv(rooms: {}, level: int):
     grid = [[' ' for y_co in range(h_co)] for x_co in range(w_co)]
 
     map_str = ''
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for room_id, room in rooms.items():
+        if not room.get('coords'):
             continue
-        if not rooms[rmid]['coordsAssigned']:
+        if not room['coordsAssigned']:
             continue
-        if len(rooms[rmid]['coords']) <= 2:
+        if len(room['coords']) <= 2:
             continue
-        if rooms[rmid]['coords'][2] != level:
+        if room['coords'][2] != level:
             continue
-        x_co = rooms[rmid]['coords'][1] - min_x
-        y_co = rooms[rmid]['coords'][0] - min_y
-        rid = int(rmid.replace('$', '').replace('rid=', ''))
-        grid[x_co][y_co] = str(rid) + ' ' + rooms[rmid]['name']
+        x_co = room['coords'][1] - min_x
+        y_co = room['coords'][0] - min_y
+        rid = int(room_id.replace('$', '').replace('rid=', ''))
+        grid[x_co][y_co] = str(rid) + ' ' + room['name']
 
-        exit_dict = rooms[rmid]['exits'].copy()
-        if rooms[rmid].get('virtualExits'):
-            exit_dict.update(rooms[rmid]['virtualExits'])
-        if rooms[rmid].get('tideOutExits'):
-            exit_dict.update(rooms[rmid]['tideOutExits'])
+        exit_dict = room['exits'].copy()
+        if room.get('virtualExits'):
+            exit_dict.update(room['virtualExits'])
+        if room.get('tideOutExits'):
+            exit_dict.update(room['tideOutExits'])
 
         if exit_dict.get('north'):
             if exit_dict.get('west'):
@@ -438,22 +438,22 @@ def _remove_coordinate_gaps(rooms: {}) -> None:
     """Removes gaps in the east line coordinates of rooms
     """
     max_east = 0
-    for rmid in rooms:
+    for _, room in rooms.items():
         # Room without coords
-        if not rooms[rmid].get('coords'):
+        if not room.get('coords'):
             continue
-        if not rooms[rmid]['coordsAssigned']:
+        if not room['coordsAssigned']:
             continue
-        if rooms[rmid]['coords'][1] > max_east:
-            max_east = rooms[rmid]['coords'][1]
+        if room['coords'][1] > max_east:
+            max_east = room['coords'][1]
 
     east_line = [0] * (max_east + 1)
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        if not rooms[rmid]['coordsAssigned']:
+        if not room['coordsAssigned']:
             continue
-        e_co = rooms[rmid]['coords'][1]
+        e_co = room['coords'][1]
         east_line[e_co] = 1
 
     start_east = None
@@ -471,22 +471,22 @@ def _remove_coordinate_gaps(rooms: {}) -> None:
     for g_co in gaps:
         start_east = g_co[0]
         gap_width = g_co[1]
-        for rmid in rooms:
-            if not rooms[rmid].get('coords'):
+        for _, room in rooms.items():
+            if not room.get('coords'):
                 continue
-            if not rooms[rmid]['coordsAssigned']:
+            if not room['coordsAssigned']:
                 continue
-            e_co = rooms[rmid]['coords'][1]
+            e_co = room['coords'][1]
             if e_co >= start_east:
-                rooms[rmid]['coords'][1] -= gap_width
+                room['coords'][1] -= gap_width
 
     east_line = [0] * (max_east + 1)
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        if not rooms[rmid]['coordsAssigned']:
+        if not room['coordsAssigned']:
             continue
-        e_co = rooms[rmid]['coords'][1]
+        e_co = room['coords'][1]
         east_line[e_co] = 1
 
     start_east = None
@@ -507,8 +507,8 @@ def _create_virtual_exits(rooms: {}, items_db: {},
     """If there are any doors then this Generates the
     virtual exits dicts for each room
     """
-    for rmid in rooms:
-        rooms[rmid]['virtualExits'] = {}
+    for _, room in rooms.items():
+        room['virtualExits'] = {}
 
     # get a list of door items
     door_ctr = 0
@@ -564,11 +564,11 @@ def assign_coordinates(rooms: {}, items_db: {},
 
     # create a list of rooms which are on the map
     rooms_on_map = []
-    for rmid in rooms:
-        rooms[rmid]['coordsAssigned'] = False
-        if _is_on_map(rooms, rmid, environments):
-            rooms_on_map.append(rmid)
-        rooms[rmid]['allExits'] = _get_all_room_exits(rooms, rmid)
+    for room_id, room in rooms.items():
+        room['coordsAssigned'] = False
+        if _is_on_map(rooms, room_id, environments):
+            rooms_on_map.append(room_id)
+        room['allExits'] = _get_all_room_exits(rooms, room_id)
 
     # assign coordinates
     while True:
@@ -590,11 +590,11 @@ def assign_coordinates(rooms: {}, items_db: {},
     min_east = map_area[1][0]
     max_east = map_area[1][1]
     occupied = [False] * ((max_east - min_east) + 1)
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        if len(rooms[rmid]['coords']) > 1:
-            occupied[rooms[rmid]['coords'][1] - min_east] = True
+        if len(room['coords']) > 1:
+            occupied[room['coords'][1] - min_east] = True
 
     # remove the horizontal spacing to compact the map
     state = 0
@@ -620,23 +620,23 @@ def assign_coordinates(rooms: {}, items_db: {},
         [9999999999, -9999999999]
     ]
     for i in range(max_range - 1, 0, -1):
-        for rmid in rooms:
-            if not rooms[rmid].get('coords'):
+        for _, room in rooms.items():
+            if not room.get('coords'):
                 continue
-            if len(rooms[rmid]['coords']) < 3:
+            if len(room['coords']) < 3:
                 continue
-            if rooms[rmid]['coords'][1] >= trim_coords[i][1]:
+            if room['coords'][1] >= trim_coords[i][1]:
                 adjust = (trim_coords[i][1] - trim_coords[i][0]) - 2
-                rooms[rmid]['coords'][1] -= adjust
+                room['coords'][1] -= adjust
 
     _remove_coordinate_gaps(rooms)
 
     # recalculate the map area
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        coords = rooms[rmid]['coords']
-        if len(rooms[rmid]['coords']) < 3:
+        coords = room['coords']
+        if len(room['coords']) < 3:
             continue
         # north/south extent
         if coords[0] > map_area[0][1]:
@@ -654,8 +654,8 @@ def assign_coordinates(rooms: {}, items_db: {},
         if coords[2] < map_area[2][0]:
             map_area[2][0] = coords[2]
 
-    for rmid in rooms:
-        del rooms[rmid]['allExits']
+    for _, room in rooms.items():
+        del room['allExits']
 
     return map_area
 
@@ -669,17 +669,17 @@ def _highest_point_at_coord(rooms: {}, map_area: [], x: int, y: int) -> float:
     if vertical_range < 1:
         vertical_range = 1
 
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        if len(rooms[rmid]['coords']) < 3:
+        if len(room['coords']) < 3:
             continue
-        if rooms[rmid]['coords'][0] - map_area[0][0] != y:
+        if room['coords'][0] - map_area[0][0] != y:
             continue
-        if rooms[rmid]['coords'][1] - map_area[1][0] != x:
+        if room['coords'][1] - map_area[1][0] != x:
             continue
-        if rooms[rmid]['coords'][2] > highest:
-            highest = rooms[rmid]['coords'][2]
+        if room['coords'][2] > highest:
+            highest = room['coords'][2]
 
     return (highest - map_area[2][0]) * 255 / vertical_range
 
@@ -844,17 +844,17 @@ def _terrain_temperature_adjustment(temperature: float, rooms: {},
         'sun', 'lava', 'volcan', 'molten', 'desert', 'dry'
     )
 
-    for rmid in rooms:
-        if not rooms[rmid].get('coords'):
+    for _, room in rooms.items():
+        if not room.get('coords'):
             continue
-        coords = rooms[rmid]['coords']
+        coords = room['coords']
         if len(coords) < 2:
             continue
         if coords[0] - map_area[0][0] != y:
             continue
         if coords[1] - map_area[1][0] != x:
             continue
-        room_description = rooms[rmid]['description'].lower()
+        room_description = room['description'].lower()
         for wrd in terrain_freezing_words:
             if wrd in room_description:
                 temperature = temperature * 0.1

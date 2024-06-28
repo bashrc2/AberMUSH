@@ -283,21 +283,21 @@ def trap_activation(mud, id, players: {}, rooms: {}, exit_direction):
 def run_traps(mud, rooms: {}, players: {}, npcs: {}):
     """Update the status of any traps
     """
-    for rmid in rooms:
-        if not rooms[rmid]['trap'].get('trappedPlayers'):
+    for room_id, room in rooms.items():
+        if not room['trap'].get('trappedPlayers'):
             continue
-        if len(rooms[rmid]['trap']['trappedPlayers']) == 0:
+        if len(room['trap']['trappedPlayers']) == 0:
             continue
-        if not rooms[rmid].get('trapDuration'):
+        if not room.get('trapDuration'):
             continue
-        if rooms[rmid]['trap']['trap_activationTime'] == 0:
+        if room['trap']['trap_activationTime'] == 0:
             continue
         now = int(time.time())
         if now >= \
-           rooms[rmid]['trap']['trap_activationTime'] + \
-           time_string_to_sec(rooms[rmid]['trap']['trapDuration']):
-            _describe_trap_deactivation(mud, rmid,
-                                        rooms[rmid]['trap'], players)
-            rooms[rmid]['trap']['trappedPlayers'].clear()
-            rooms[rmid]['trap']['trap_activationTime'] = 0
-            rooms[rmid]['trap']['trapDamaged'] = 0
+           room['trap']['trap_activationTime'] + \
+           time_string_to_sec(room['trap']['trapDuration']):
+            _describe_trap_deactivation(mud, room_id,
+                                        room['trap'], players)
+            room['trap']['trappedPlayers'].clear()
+            room['trap']['trap_activationTime'] = 0
+            room['trap']['trapDamaged'] = 0

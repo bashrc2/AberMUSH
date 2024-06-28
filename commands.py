@@ -377,27 +377,28 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                     rooms[curr_room]['name'] +
                     "\n\n")
                 return
-            for rmid in rooms:
-                if rooms[rmid]['name'].strip().lower() == target_location:
-                    if is_attacking(players, id, fights):
-                        stop_attack(players, id, npcs, fights)
-                    mud.send_message(
-                        id, "You teleport to " + rooms[rmid]['name'] + "\n\n")
-                    pname = players[id]['name']
-                    desc = '<f32>{}<r> suddenly vanishes.'.format(pname)
-                    message_to_room_players(mud, players, id, desc + "\n\n")
-                    players[id]['room'] = rmid
-                    desc = '<f32>{}<r> suddenly appears.'.format(pname)
+            for room_id, room in rooms.items():
+                if room['name'].strip().lower() != target_location:
+                    continue
+                if is_attacking(players, id, fights):
+                    stop_attack(players, id, npcs, fights)
+                mud.send_message(
+                    id, "You teleport to " + room['name'] + "\n\n")
+                pname = players[id]['name']
+                desc = '<f32>{}<r> suddenly vanishes.'.format(pname)
+                message_to_room_players(mud, players, id, desc + "\n\n")
+                players[id]['room'] = room_id
+                desc = '<f32>{}<r> suddenly appears.'.format(pname)
 
-                    message_to_room_players(mud, players, id, desc + "\n\n")
-                    _look('', mud, players_db, players, rooms, npcs_db, npcs,
-                          items_db, items, env_db, env, event_db,
-                          event_schedule,
-                          id, fights, corpses, blocklist, map_area,
-                          character_class_db, spells_db, sentiment_db,
-                          guilds_db, clouds, races_db, item_history, markets,
-                          cultures_db)
-                    return
+                message_to_room_players(mud, players, id, desc + "\n\n")
+                _look('', mud, players_db, players, rooms, npcs_db, npcs,
+                      items_db, items, env_db, env, event_db,
+                      event_schedule,
+                      id, fights, corpses, blocklist, map_area,
+                      character_class_db, spells_db, sentiment_db,
+                      guilds_db, clouds, races_db, item_history, markets,
+                      cultures_db)
+                return
 
             # try adding or removing "the"
             if target_location.startswith('the '):
@@ -408,13 +409,13 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             pname = players[id]['name']
             desc1 = '<f32>{}<r> suddenly vanishes.'.format(pname)
             desc2 = '<f32>{}<r> suddenly appears.'.format(pname)
-            for rmid in rooms:
-                if rooms[rmid]['name'].strip().lower() == target_location:
+            for room_id, room in rooms.items():
+                if room['name'].strip().lower() == target_location:
                     mud.send_message(
-                        id, "You teleport to " + rooms[rmid]['name'] + "\n\n")
+                        id, "You teleport to " + room['name'] + "\n\n")
                     message_to_room_players(mud, players, id,
                                             desc1 + "\n\n")
-                    players[id]['room'] = rmid
+                    players[id]['room'] = room_id
                     message_to_room_players(mud, players, id,
                                             desc2 + "\n\n")
                     _look('', mud, players_db, players, rooms, npcs_db, npcs,
@@ -6078,8 +6079,8 @@ def _conjure_room(params, mud, players_db: {}, players: {}, rooms: {},
     room_exits[room_direction] = room_id
 
     # update the room coordinates
-    for rmid in rooms:
-        rooms[rmid]['coords'] = []
+    for _, room in rooms.items():
+        room['coords'] = []
 
     log("New room: " + room_id, 'info')
     save_universe(rooms, npcs_db, npcs, items_db, items,
@@ -6583,8 +6584,8 @@ def _destroy_room(params, mud, players_db: {}, players: {}, rooms: {},
     del rooms[room_to_destroy_id]
 
     # update the map area
-    for rmid in rooms:
-        rooms[rmid]['coords'] = []
+    for _, room in rooms.items():
+        room['coords'] = []
 
     log("Room destroyed: " + room_to_destroy_id, 'info')
     save_universe(rooms, npcs_db, npcs, items_db,

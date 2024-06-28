@@ -202,8 +202,8 @@ if os.path.isfile("universe.json"):
     with open("universe.json", "r", encoding='utf-8') as fp_read:
         rooms = json.loads(fp_read.read())
     # Clear room coordinates
-    for rm in rooms:
-        rooms[rm]['coords'] = []
+    for _, rm in rooms.items():
+        rm['coords'] = []
 else:
     rooms_filename_json = str(Config.get('Rooms', 'Definition'))
     rooms_filename_json = language_path(rooms_filename_json,
