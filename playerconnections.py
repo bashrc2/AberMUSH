@@ -18,7 +18,7 @@ from functions import deepcopy
 MAXIMUM_PLAYERS = 128
 
 
-def _run_new_player_connections(mud, players, players_db, fights, Config):
+def _run_new_player_connections(mud, players, players_db, fights, config):
     # go through any newly connected players
     for id in mud.get_new_players():
         if len(players) >= MAXIMUM_PLAYERS:
@@ -148,7 +148,7 @@ def _run_new_player_connections(mud, players, players_db, fights, Config):
         }
 
         # Read in the MOTD file and send to the player
-        with open(str(Config.get('System', 'Motd')), "r",
+        with open(str(config.get('System', 'Motd')), "r",
                   encoding='utf-8') as motd_file:
             motd_lines = motd_file.readlines()
 
@@ -182,7 +182,7 @@ def _run_new_player_connections(mud, players, players_db, fights, Config):
 
 
 def _run_player_disconnections(mud, players, players_db, fights,
-                               Config, terminal_mode: {}):
+                               config, terminal_mode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
 
@@ -229,10 +229,10 @@ def _run_player_disconnections(mud, players, players_db, fights,
 
 
 def run_player_connections(mud, id, players, players_db, fights,
-                           Config, terminal_mode: {}):
-    _run_new_player_connections(mud, players, players_db, fights, Config)
+                           config, terminal_mode: {}):
+    _run_new_player_connections(mud, players, players_db, fights, config)
     _run_player_disconnections(mud, players, players_db, fights,
-                               Config, terminal_mode)
+                               config, terminal_mode)
 
 
 def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
