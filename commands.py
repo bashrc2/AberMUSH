@@ -8,6 +8,16 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Command Interface"
 
+import os
+import re
+import sys
+# from copy import deepcopy
+from functions import deepcopy
+import time
+import datetime
+import os.path
+import random
+from random import randint
 from functions import parse_cost
 from functions import player_is_prone
 from functions import set_player_prone
@@ -80,17 +90,6 @@ from markets import get_market_type
 from markets import money_purchase
 
 from familiar import get_familiar_name
-
-import os
-import re
-import sys
-# from copy import deepcopy
-from functions import deepcopy
-import time
-import datetime
-import os.path
-import random
-from random import randint
 
 
 def _get_max_weight(id, players: {}) -> int:
