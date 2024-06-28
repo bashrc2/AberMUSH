@@ -16,424 +16,424 @@ from functions import item_in_room
 import time
 
 
-def _setPlayerCulture(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCulture(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                       env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['culture'] = str(ebody)
+    if plyr_id in players:
+        players[plyr_id]['culture'] = str(ebody)
 
 
-def _setPlayerCanGo(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCanGo(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                     env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['canGo'] = int(ebody)
+    if plyr_id in players:
+        players[plyr_id]['canGo'] = int(ebody)
 
 
-def _setPlayerCanLook(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCanLook(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                       env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['canLook'] = int(ebody)
+    if plyr_id in players:
+        players[plyr_id]['canLook'] = int(ebody)
 
 
-def _setPlayerCanSay(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCanSay(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                      env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['canSay'] = int(ebody)
+    if plyr_id in players:
+        players[plyr_id]['canSay'] = int(ebody)
 
 
-def _setPlayerCanAttack(etarget, ebody, players: {}, npcs: {},
+def _setPlayerCanAttack(plyr_id: int, ebody, players: {}, npcs: {},
                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['canAttack'] = int(ebody)
+    if plyr_id in players:
+        players[plyr_id]['canAttack'] = int(ebody)
 
 
-def _setPlayerCanDirectMessage(etarget, ebody, players: {}, npcs: {},
+def _setPlayerCanDirectMessage(plyr_id: int, ebody, players: {}, npcs: {},
                                items: {}, env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['canDirectMessage'] = int(ebody)
+    if plyr_id in players:
+        players[plyr_id]['canDirectMessage'] = int(ebody)
 
 
-def _setPlayerPrefix(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerPrefix(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                      env: {}, npcs_db: {}, env_db: {}):
-    if etarget in players:
-        players[etarget]['prefix'] = str(ebody)
+    if plyr_id in players:
+        players[plyr_id]['prefix'] = str(ebody)
 
 
-def _setPlayerName(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerName(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['name'] = str(ebody)
+    players[plyr_id]['name'] = str(ebody)
 
 
-def _setPlayerRoom(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerRoom(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['room'] = str(ebody)
+    players[plyr_id]['room'] = str(ebody)
 
 
-def _setPlayerLvl(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerLvl(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['lvl'] = int(ebody)
+    players[plyr_id]['lvl'] = int(ebody)
 
 
-def _modPlayerLvl(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerLvl(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['lvl'] += int(ebody)
+    players[plyr_id]['lvl'] += int(ebody)
 
 
-def _setPlayerExp(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerExp(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['exp'] = int(ebody)
+    players[plyr_id]['exp'] = int(ebody)
 
 
-def _modPlayerExp(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerExp(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['exp'] += int(ebody)
+    players[plyr_id]['exp'] += int(ebody)
 
 
-def _setPlayerStr(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerStr(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['str'] = int(ebody)
+    players[plyr_id]['str'] = int(ebody)
 
 
-def _modPlayerStr(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerStr(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['str'] += int(ebody)
+    players[plyr_id]['str'] += int(ebody)
 
 
-def _setPlayerSiz(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerSiz(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['siz'] = int(ebody)
+    players[plyr_id]['siz'] = int(ebody)
 
 
-def _modPlayerSiz(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerSiz(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['siz'] += int(ebody)
+    players[plyr_id]['siz'] += int(ebody)
 
 
-def _setPlayerWei(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerWei(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['wei'] = int(ebody)
+    players[plyr_id]['wei'] = int(ebody)
 
 
-def _modPlayerWei(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerWei(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['wei'] += int(ebody)
+    players[plyr_id]['wei'] += int(ebody)
 
 
-def _setPlayerPer(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerPer(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['per'] = int(ebody)
+    players[plyr_id]['per'] = int(ebody)
 
 
-def _modPlayerPer(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerPer(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['per'] += int(ebody)
+    players[plyr_id]['per'] += int(ebody)
 
 
-def _setPlayerCool(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCool(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cool'] = int(ebody)
+    players[plyr_id]['cool'] = int(ebody)
 
 
-def _modPlayerCool(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerCool(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cool'] += int(ebody)
+    players[plyr_id]['cool'] += int(ebody)
 
 
-def _setPlayerEndu(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerEndu(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['endu'] = int(ebody)
+    players[plyr_id]['endu'] = int(ebody)
 
 
-def _modPlayerEndu(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerEndu(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['endu'] += int(ebody)
+    players[plyr_id]['endu'] += int(ebody)
 
 
-def _setPlayerCha(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCha(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cha'] = int(ebody)
+    players[plyr_id]['cha'] = int(ebody)
 
 
-def _modPlayerCha(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerCha(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cha'] += int(ebody)
+    players[plyr_id]['cha'] += int(ebody)
 
 
-def _setPlayerInt(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerInt(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['inte'] = int(ebody)
+    players[plyr_id]['inte'] = int(ebody)
 
 
-def _modPlayerInt(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerInt(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['inte'] += int(ebody)
+    players[plyr_id]['inte'] += int(ebody)
 
 
-def _setPlayerAgi(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerAgi(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['agi'] = int(ebody)
+    players[plyr_id]['agi'] = int(ebody)
 
 
-def _modPlayerAgi(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerAgi(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['agi'] += int(ebody)
+    players[plyr_id]['agi'] += int(ebody)
 
 
-def _setPlayerLuc(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerLuc(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['luc'] = int(ebody)
+    players[plyr_id]['luc'] = int(ebody)
 
 
-def _modPlayerLuc(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerLuc(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                   env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['luc'] += int(ebody)
+    players[plyr_id]['luc'] += int(ebody)
 
 
-def _setPlayerCred(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerCred(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cred'] = int(ebody)
+    players[plyr_id]['cred'] = int(ebody)
 
 
-def _modPlayerCred(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerCred(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                    env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cred'] += int(ebody)
+    players[plyr_id]['cred'] += int(ebody)
 
 
-def _setPlayerGoldPieces(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerGoldPieces(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                          env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['gp'] = int(ebody)
+    players[plyr_id]['gp'] = int(ebody)
 
 
-def _modPlayerGoldPieces(etarget, ebody, players: {}, npcs: {}, items: {},
+def _modPlayerGoldPieces(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                          env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['gp'] += int(ebody)
+    players[plyr_id]['gp'] += int(ebody)
 
 
-def _setPlayerSilverPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                           env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['sp'] = int(ebody)
-
-
-def _modPlayerSilverPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                           env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['sp'] += int(ebody)
-
-
-def _setPlayerCopperPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                           env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cp'] = int(ebody)
-
-
-def _modPlayerCopperPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                           env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['cp'] += int(ebody)
-
-
-def _setPlayerElectrumPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                             env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['ep'] = int(ebody)
-
-
-def _modPlayerElectrumPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                             env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['ep'] += int(ebody)
-
-
-def _setPlayerPlatinumPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                             env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['pp'] = int(ebody)
-
-
-def _modPlayerPlatinumPieces(etarget, ebody, players: {}, npcs: {}, items: {},
-                             env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['pp'] += int(ebody)
-
-
-def _setPlayerInv(etarget, ebody, players: {}, npcs: {}, items: {},
-                  env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['inv'] = str(ebody)
-
-
-def _setAuthenticated(etarget, ebody, players: {}, npcs: {}, items: {},
-                      env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['authenticated'] = str2bool(ebody)
-
-
-def _setPlayerClo_head(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_neck(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_lwrist(etarget, ebody, players: {}, npcs: {},
-                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_rwrist(etarget, ebody, players: {}, npcs: {},
-                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_larm(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_rarm(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_lhand(etarget, ebody, players: {}, npcs: {},
-                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_rhand(etarget, ebody, players: {}, npcs: {},
-                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_lfinger(etarget, ebody, players: {}, npcs: {},
-                          items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_gloves(etarget, ebody, players: {}, npcs: {},
-                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_rfinger(etarget, ebody, players: {}, npcs: {},
-                          items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_chest(etarget, ebody, players: {}, npcs: {},
-                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_lleg(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_rleg(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerClo_feet(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_head(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_larm(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_rarm(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_lhand(etarget, ebody, players: {}, npcs: {},
-                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_rhand(etarget, ebody, players: {}, npcs: {},
-                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_chest(etarget, ebody, players: {}, npcs: {},
-                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_lleg(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_rleg(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerImp_feet(etarget, ebody, players: {}, npcs: {},
-                       items: {}, env: {}, npcs_db: {}, env_db: {}):
-    return
-
-
-def _setPlayerHp(etarget, ebody, players: {}, npcs: {}, items: {}, env: {},
-                 npcs_db: {}, env_db: {}):
-    players[etarget]['hp'] = int(ebody)
-
-
-def _modPlayerHp(etarget, ebody, players: {}, npcs: {}, items: {}, env: {},
-                 npcs_db: {}, env_db: {}):
-    players[etarget]['hp'] += int(ebody)
-
-
-def _setPlayerCharge(etarget, ebody, players: {}, npcs: {}, items: {},
-                     env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['charge'] = int(ebody)
-
-
-def _modPlayerCharge(etarget, ebody, players: {}, npcs: {}, items: {},
-                     env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['charge'] += int(ebody)
-
-
-def _setPlayerIsInCombat(etarget, ebody, players: {}, npcs: {},
-                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['isInCombat'] += int(ebody)
-
-
-def _setPlayerLastCombatAction(etarget, ebody, players: {}, npcs: {},
-                               items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['lastCombatAction'] = int(ebody)
-
-
-def _modPlayerLastCombatAction(etarget, ebody, players: {}, npcs: {},
-                               items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['lastCombatAction'] += int(ebody)
-
-
-def _setPlayerIsAttackable(etarget, ebody, players: {}, npcs: {},
+def _setPlayerSilverPieces(plyr_id: int, ebody, players: {}, npcs: {},
                            items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['isAttackable'] = int(ebody)
+    players[plyr_id]['sp'] = int(ebody)
 
 
-def _setPlayerLastRoom(etarget, ebody, players: {}, npcs: {},
+def _modPlayerSilverPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                           items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['sp'] += int(ebody)
+
+
+def _setPlayerCopperPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                           items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['cp'] = int(ebody)
+
+
+def _modPlayerCopperPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                           items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['cp'] += int(ebody)
+
+
+def _setPlayerElectrumPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                             items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['ep'] = int(ebody)
+
+
+def _modPlayerElectrumPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                             items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['ep'] += int(ebody)
+
+
+def _setPlayerPlatinumPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                             items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['pp'] = int(ebody)
+
+
+def _modPlayerPlatinumPieces(plyr_id: int, ebody, players: {}, npcs: {},
+                             items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['pp'] += int(ebody)
+
+
+def _setPlayerInv(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
+                  env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['inv'] = str(ebody)
+
+
+def _setAuthenticated(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
+                      env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['authenticated'] = str2bool(ebody)
+
+
+def _setPlayerClo_head(plyr_id: int, ebody, players: {}, npcs: {},
                        items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['lastRoom'] = str(ebody)
+    return
 
 
-def _setPlayerCorpseTTL(etarget, ebody, players: {}, npcs: {},
+def _setPlayerClo_neck(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_lwrist(plyr_id: int, ebody, players: {}, npcs: {},
+                         items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_rwrist(plyr_id: int, ebody, players: {}, npcs: {},
+                         items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_larm(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_rarm(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_lhand(plyr_id: int, ebody, players: {}, npcs: {},
                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['corpseTTL'] = int(ebody)
+    return
 
 
-def _modPlayerCorpseTTL(etarget, ebody, players: {}, npcs: {},
+def _setPlayerClo_rhand(plyr_id: int, ebody, players: {}, npcs: {},
                         items: {}, env: {}, npcs_db: {}, env_db: {}):
-    players[etarget]['corpseTTL'] += int(ebody)
+    return
 
 
-def _spawnItem(etarget, ebody, players: {}, npcs: {}, items: {},
+def _setPlayerClo_lfinger(plyr_id: int, ebody, players: {}, npcs: {},
+                          items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_gloves(plyr_id: int, ebody, players: {}, npcs: {},
+                         items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_rfinger(plyr_id: int, ebody, players: {}, npcs: {},
+                          items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_chest(plyr_id: int, ebody, players: {}, npcs: {},
+                        items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_lleg(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_rleg(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerClo_feet(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_head(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_larm(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_rarm(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_lhand(plyr_id: int, ebody, players: {}, npcs: {},
+                        items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_rhand(plyr_id: int, ebody, players: {}, npcs: {},
+                        items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_chest(plyr_id: int, ebody, players: {}, npcs: {},
+                        items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_lleg(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_rleg(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerImp_feet(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    return
+
+
+def _setPlayerHp(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
+                 env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['hp'] = int(ebody)
+
+
+def _modPlayerHp(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
+                 env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['hp'] += int(ebody)
+
+
+def _setPlayerCharge(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
+                     env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['charge'] = int(ebody)
+
+
+def _modPlayerCharge(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
+                     env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['charge'] += int(ebody)
+
+
+def _setPlayerIsInCombat(plyr_id: int, ebody, players: {}, npcs: {},
+                         items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['isInCombat'] += int(ebody)
+
+
+def _setPlayerLastCombatAction(plyr_id: int, ebody, players: {}, npcs: {},
+                               items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['lastCombatAction'] = int(ebody)
+
+
+def _modPlayerLastCombatAction(plyr_id: int, ebody, players: {}, npcs: {},
+                               items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['lastCombatAction'] += int(ebody)
+
+
+def _setPlayerIsAttackable(plyr_id: int, ebody, players: {}, npcs: {},
+                           items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['isAttackable'] = int(ebody)
+
+
+def _setPlayerLastRoom(plyr_id: int, ebody, players: {}, npcs: {},
+                       items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['lastRoom'] = str(ebody)
+
+
+def _setPlayerCorpseTTL(plyr_id: int, ebody, players: {}, npcs: {},
+                        items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['corpseTTL'] = int(ebody)
+
+
+def _modPlayerCorpseTTL(plyr_id: int, ebody, players: {}, npcs: {},
+                        items: {}, env: {}, npcs_db: {}, env_db: {}):
+    players[plyr_id]['corpseTTL'] += int(ebody)
+
+
+def _spawnItem(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                env: {}, npcs_db: {}, env_db: {}):
     body = ebody.split(';')
     body_int = int(body[0])
@@ -447,7 +447,7 @@ def _spawnItem(etarget, ebody, players: {}, npcs: {}, items: {},
         }
 
 
-def _spawnNPC(etarget, ebody, players: {}, npcs: {}, items: {}, env: {},
+def _spawnNPC(plyr_id: int, ebody, players: {}, npcs: {}, items: {}, env: {},
               npcs_db: {}, env_db: {}):
     body = ebody.split(';')
 
@@ -595,7 +595,7 @@ def _actor_in_room(env, name, room):
     return False
 
 
-def _spawnActor(etarget, ebody, players: {}, npcs: {}, items: {},
+def _spawnActor(plyr_id: int, ebody, players: {}, npcs: {}, items: {},
                 env: {}, npcs_db: {}, env_db: {}):
     body = ebody.split(';')
     body_int = int(body[0])
@@ -615,7 +615,7 @@ def _spawnActor(etarget, ebody, players: {}, npcs: {}, items: {},
 
 
 def evaluate_event(
-        etarget,
+        plyr_id: int,
         etype,
         ebody,
         players,
@@ -711,4 +711,4 @@ def evaluate_event(
         "spawnNPC": _spawnNPC,
         "spawnActor": _spawnActor,
     }
-    switcher[etype](etarget, ebody, players, npcs, items, env, npcs_db, env_db)
+    switcher[etype](plyr_id, ebody, players, npcs, items, env, npcs_db, env_db)
