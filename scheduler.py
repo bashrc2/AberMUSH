@@ -28,71 +28,73 @@ def run_messages(mud, channels, players):
         show_timing(previous_timing, "copy channels")
 
     for plyr in players:
-        if players[plyr]['channels'] is not None:
-            for cha in players[plyr]['channels']:
-                # print(c)
-                for msg in chans:
-                    if chans[msg]['channel'] == cha:
-                        mud.send_message(
-                            plyr, "[<f191>" + chans[msg]['channel'] +
-                            "<r>] <f32>" + chans[msg]['sender'] +
-                            "<r>: " + chans[msg]['message'] + "\n")
-                        # del channels[m]
-            previous_timing = \
-                show_timing(previous_timing, "send message " +
-                            str(len(players[plyr]['channels'])) + ' x ' +
-                            str(len(chans)))
+        if players[plyr]['channels'] is None:
+            continue
+        for cha in players[plyr]['channels']:
+            # print(c)
+            for msg in chans:
+                if chans[msg]['channel'] != cha:
+                    continue
+                mud.send_message(
+                    plyr, "[<f191>" + chans[msg]['channel'] +
+                    "<r>] <f32>" + chans[msg]['sender'] +
+                    "<r>: " + chans[msg]['message'] + "\n")
+                # del channels[m]
+        previous_timing = \
+            show_timing(previous_timing, "send message " +
+                        str(len(players[plyr]['channels'])) + ' x ' +
+                        str(len(chans)))
 
 
 def run_environment(mud, players, env):
     # Iterate through ENV elements and see if it's time to send a message to
     # players in the same room as the ENV elements
-    for eid, _ in list(env.items()):
+    for _, envr in env.items():
         now = int(time.time())
         if now > \
-           env[eid]['timeTalked'] + \
-           env[eid]['talkDelay'] + \
-           env[eid]['randomizer']:
-            if len(env[eid]['vocabulary']) > 1:
-                rnd = randint(0, len(env[eid]['vocabulary']) - 1)
-                while rnd is env[eid]['lastSaid']:
-                    rnd = randint(0, len(env[eid]['vocabulary']) - 1)
+           envr['timeTalked'] + \
+           envr['talkDelay'] + \
+           envr['randomizer']:
+            if len(envr['vocabulary']) > 1:
+                rnd = randint(0, len(envr['vocabulary']) - 1)
+                while rnd is envr['lastSaid']:
+                    rnd = randint(0, len(envr['vocabulary']) - 1)
             else:
                 rnd = 0
 
-            for pid, _ in list(players.items()):
-                if env[eid]['room'] == players[pid]['room']:
-                    if len(env[eid]['vocabulary']) > 1:
-                        msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
-                            env[eid]['vocabulary'][rnd] + "\n\n"
+            for pid, plyr in players.items():
+                if envr['room'] == plyr['room']:
+                    if len(envr['vocabulary']) > 1:
+                        msg = '<f68>[' + envr['name'] + ']: <f69>' + \
+                            envr['vocabulary'][rnd] + "\n\n"
                         mud.send_message(pid, msg)
-                        env[eid]['lastSaid'] = rnd
-                        env[eid]['timeTalked'] = now
+                        envr['lastSaid'] = rnd
+                        envr['timeTalked'] = now
                     else:
-                        msg = '<f68>[' + env[eid]['name'] + ']: <f69>' + \
-                            env[eid]['vocabulary'][0] + "\n\n"
+                        msg = '<f68>[' + envr['name'] + ']: <f69>' + \
+                            envr['vocabulary'][0] + "\n\n"
                         mud.send_message(pid, msg)
-                        env[eid]['lastSaid'] = rnd
-                        env[eid]['timeTalked'] = now
-                        env[eid]['randomizer'] = \
-                            randint(0, env[eid]['randomFactor'])
+                        envr['lastSaid'] = rnd
+                        envr['timeTalked'] = now
+                        envr['randomizer'] = \
+                            randint(0, envr['randomFactor'])
 
 
 def run_schedule(mud, event_schedule, players: {}, npcs: {},
-                 itemsInWorld: {}, env, npcs_db: {}, env_db: {}):
+                 items_in_world: {}, env, npcs_db: {}, env_db: {}):
     # Evaluate the Event Schedule
-    for event, _ in list(event_schedule.items()):
-        if time.time() < event_schedule[event]['time']:
+    for event, evnt in event_schedule.items():
+        if time.time() < evnt['time']:
             continue
         # its time to run the event!
-        if event_schedule[event]['type'] == "msg":
-            mud.send_message(int(event_schedule[event]['target']),
-                             str(event_schedule[event]['body']) + "\n")
+        if evnt['type'] == "msg":
+            mud.send_message(int(evnt['target']),
+                             str(evnt['body']) + "\n")
         else:
             evaluate_event(
-                event_schedule[event]['target'],
-                event_schedule[event]['type'],
-                event_schedule[event]['body'],
-                players, npcs, itemsInWorld, env,
+                evnt['target'],
+                evnt['type'],
+                evnt['body'],
+                players, npcs, items_in_world, env,
                 npcs_db, env_db)
         del event_schedule[event]

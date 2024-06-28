@@ -715,13 +715,12 @@ def player_is_visible(mud, observerId: int, observers: {},
     return False
 
 
-def message_to_room_players(mud, players, id, msg):
+def message_to_room_players(mud, players: {}, id, msg: str):
     # go through all the players in the game
-    for pid, _ in list(players.items()):
+    for pid, plyr in players.items():
         # if player is in the same room and isn't the player
         # sending the command
-        if players[pid]['room'] == players[id]['room'] and \
-           pid != id:
+        if plyr['room'] == players[id]['room'] and pid != id:
             if player_is_visible(mud, pid, players, id, players):
                 mud.send_message(pid, msg)
 

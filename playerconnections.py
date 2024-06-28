@@ -182,7 +182,7 @@ def _run_new_player_connections(mud, players, players_db, fights, Config):
 
 
 def _run_player_disconnections(mud, players, players_db, fights,
-                               Config, terminalMode: {}):
+                               Config, terminal_mode: {}):
     # go through any recently disconnected players
     for id in mud.get_disconnected_players():
 
@@ -192,19 +192,19 @@ def _run_player_disconnections(mud, players, players_db, fights,
             continue
 
         id_str = str(id)
-        terminalMode[id_str] = False
+        terminal_mode[id_str] = False
         name_str = str(players[id]['name'])
         log("Player ID " + id_str + " has disconnected [" +
             name_str + "]", "info")
 
         # go through all the players in the game
-        for pid, _ in list(players.items()):
+        for pid, plyr in players.items():
             # send each player a message to tell them about the diconnected
             # player if they are in the same room
-            if players[pid]['authenticated'] is not None:
-                if players[pid]['authenticated'] is not None \
-                   and players[pid]['room'] == players[id]['room'] \
-                   and players[pid]['name'] != players[id]['name']:
+            if plyr['authenticated'] is not None:
+                if plyr['authenticated'] is not None \
+                   and plyr['room'] == players[id]['room'] \
+                   and plyr['name'] != players[id]['name']:
                     mud.send_message(
                         pid, "<f32><u>{}<r>".format(players[id]['name']) +
                         "'s body has vanished.\n\n")
@@ -229,10 +229,10 @@ def _run_player_disconnections(mud, players, players_db, fights,
 
 
 def run_player_connections(mud, id, players, players_db, fights,
-                           Config, terminalMode: {}):
+                           Config, terminal_mode: {}):
     _run_new_player_connections(mud, players, players_db, fights, Config)
     _run_player_disconnections(mud, players, players_db, fights,
-                               Config, terminalMode)
+                               Config, terminal_mode)
 
 
 def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
@@ -300,12 +300,12 @@ def initial_setup_after_login(mud, id, players: {}, loaded_json: {}) -> None:
 
     # print(players[id])
     # go through all the players in the game
-    for pid, _ in list(players.items()):
+    for pid, plyr in players.items():
         # send each player a message to tell them about the new
         # player
-        if players[pid]['authenticated'] is not None \
-           and players[pid]['room'] == players[id]['room'] \
-           and players[pid]['name'] != players[id]['name']:
+        if plyr['authenticated'] is not None \
+           and plyr['room'] == players[id]['room'] \
+           and plyr['name'] != players[id]['name']:
             mud.send_message(
                 pid, '{} '.format(players[id]['name']) +
                 'has materialised out of thin air nearby.\n\n')

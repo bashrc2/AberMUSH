@@ -50,31 +50,31 @@ def remove_corpses(corpses: {}):
 def run_deaths(mud, players: {}, npcs: {}, corpses, fights: {},
                event_schedule, scripted_events_db):
     # Handle Player Deaths
-    for pid, _ in list(players.items()):
-        if players[pid]['authenticated']:
-            if players[pid]['hp'] <= 0:
-                corpse_name = str(players[pid]['name'] + "'s corpse")
-                if not corpse_exists(corpses, players[pid]['room'],
+    for pid, plyr in players.items():
+        if plyr['authenticated']:
+            if plyr['hp'] <= 0:
+                corpse_name = str(plyr['name'] + "'s corpse")
+                if not corpse_exists(corpses, plyr['room'],
                                      corpse_name):
                     # Create player's corpse in the room
                     corpses[len(corpses)] = {
-                        'room': players[pid]['room'],
+                        'room': plyr['room'],
                         'name': corpse_name,
-                        'inv': deepcopy(players[pid]['inv']),
+                        'inv': deepcopy(plyr['inv']),
                         'died': int(time.time()),
-                        'TTL': players[pid]['corpseTTL'],
+                        'TTL': plyr['corpseTTL'],
                         'owner': 1
                     }
                 # Clear player's inventory, it stays on the corpse
-                players[pid]['clo_lhand'] = 0
-                players[pid]['clo_rhand'] = 0
-                players[pid]['inv'] = []
-                players[pid]['isInCombat'] = 0
-                players[pid]['prone'] = 1
-                players[pid]['shove'] = 0
-                players[pid]['dodge'] = 0
-                players[pid]['lastRoom'] = players[pid]['room']
-                players[pid]['room'] = '$rid=1262$'
+                plyr['clo_lhand'] = 0
+                plyr['clo_rhand'] = 0
+                plyr['inv'] = []
+                plyr['isInCombat'] = 0
+                plyr['prone'] = 1
+                plyr['shove'] = 0
+                plyr['dodge'] = 0
+                plyr['lastRoom'] = plyr['room']
+                plyr['room'] = '$rid=1262$'
                 fights_copy = deepcopy(fights)
                 for fight, _ in fights_copy.items():
                     if ((fights_copy[fight]['s1type'] == 'pc' and
@@ -94,20 +94,20 @@ def run_deaths(mud, players: {}, npcs: {}, corpses, fights: {},
                         elif fights_copy[fight]['s2type'] == 'npc':
                             fid = fights_copy[fight]['s2id']
                             npcs[fid]['isInCombat'] = 0
-                        players[pid]['isInCombat'] = 0
+                        plyr['isInCombat'] = 0
                         del fights[fight]
-                for pid2, _ in list(players.items()):
-                    if players[pid2]['authenticated'] is not None \
-                       and players[pid2]['room'] == players[pid]['lastRoom'] \
-                       and players[pid2]['name'] != players[pid]['name']:
+                for pid2, plyr2 in players.items():
+                    if plyr2['authenticated'] is not None \
+                       and plyr2['room'] == plyr['lastRoom'] \
+                       and plyr2['name'] != plyr['name']:
                         mud.send_message(
-                            pid2, '<u><f32>{}'.format(players[pid]['name']) +
+                            pid2, '<u><f32>{}'.format(plyr['name']) +
                             '<r> <f124>has been killed.\n')
-                        players[pid]['lastRoom'] = None
+                        plyr['lastRoom'] = None
                         mud.send_message(
                             pid, '<b88><f158>Oh dear! You have died!\n')
 
                 # Add Player Death event (ID:666) to event_schedule
                 add_to_scheduler(666, pid, event_schedule, scripted_events_db)
 
-                players[pid]['hp'] = 4
+                plyr['hp'] = 4
