@@ -2846,7 +2846,7 @@ def _conditional_room_desc(description: str, tideOutDescription: str,
     return room_description
 
 
-def _conditional_item_desc(item_id, conditional: [],
+def _conditional_item_desc(item_id: int, conditional: [],
                            id, players: {}, items: {},
                            items_db: {}, clouds: {}, map_area: [],
                            rooms: {}, look_modifier: str):
@@ -2901,7 +2901,7 @@ def _conditional_room_image(conditional: [], id, players: {}, items: {},
     return None
 
 
-def _conditional_item_image(item_id,
+def _conditional_item_image(item_id: int,
                             conditional: [], id, players: {}, items: {},
                             items_db: {}, clouds: {}, map_area: [],
                             rooms: {}, look_modifier: str) -> str:
