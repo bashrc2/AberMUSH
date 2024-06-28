@@ -2834,16 +2834,17 @@ def _conditional_room_desc(description: str, tideOutDescription: str,
 
     # Alternative descriptions triggered by conditions
     for possible_description in conditional:
-        if len(possible_description) >= 3:
-            cond_type = possible_description[0]
-            cond = possible_description[1]
-            alternative_description = possible_description[2]
-            if _conditional_logic(cond_type, cond,
-                                  alternative_description,
-                                  id, players, items, items_db,
-                                  clouds, map_area, rooms, None):
-                room_description = alternative_description
-                break
+        if len(possible_description) < 3:
+            continue
+        cond_type = possible_description[0]
+        cond = possible_description[1]
+        alternative_description = possible_description[2]
+        if _conditional_logic(cond_type, cond,
+                              alternative_description,
+                              id, players, items, items_db,
+                              clouds, map_area, rooms, None):
+            room_description = alternative_description
+            break
 
     return room_description
 
