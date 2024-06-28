@@ -552,20 +552,22 @@ def update_temporary_incapacitation(mud, players: {}, is_npc: bool) -> None:
        after the duration has elapsed
     """
     now = int(time.time())
-    for plyr in players:
-        this_player = players[plyr]
+    for plyr_id, plyr in players.items():
+        this_player = plyr
         if this_player['name'] is None:
             continue
-        if this_player['frozenStart'] != 0:
-            st_time = \
-                this_player['frozenStart'] + this_player['frozenDuration']
-            if now >= st_time:
-                this_player['frozenStart'] = 0
-                this_player['frozenDuration'] = 0
-                this_player['frozenDescription'] = ""
-                if not is_npc:
-                    mud.send_message(
-                        plyr, "<f220>You find that you can move again.<r>\n\n")
+        if this_player['frozenStart'] == 0:
+            continue
+        st_time = \
+            this_player['frozenStart'] + this_player['frozenDuration']
+        if now < st_time:
+            continue
+        this_player['frozenStart'] = 0
+        this_player['frozenDuration'] = 0
+        this_player['frozenDescription'] = ""
+        if not is_npc:
+            mud.send_message(
+                plyr_id, "<f220>You find that you can move again.<r>\n\n")
 
 
 def update_temporary_hit_points(mud, players: {}, is_npc: bool) -> None:
@@ -573,8 +575,8 @@ def update_temporary_hit_points(mud, players: {}, is_npc: bool) -> None:
        as the result of a spell
     """
     now = int(time.time())
-    for plyr in players:
-        this_player = players[plyr]
+    for plyr_id, plyr in players.items():
+        this_player = plyr
         if this_player['name'] is None:
             continue
         if this_player['tempHitPoints'] == 0:
@@ -590,7 +592,8 @@ def update_temporary_hit_points(mud, players: {}, is_npc: bool) -> None:
                 this_player['tempHitPointsDuration'] = 0
                 if not is_npc:
                     mud.send_message(
-                        plyr, "<f220>Your magical protection expires.<r>\n\n")
+                        plyr_id,
+                        "<f220>Your magical protection expires.<r>\n\n")
 
 
 def update_temporary_charm(mud, players: {}, is_npc: bool) -> None:
@@ -598,8 +601,8 @@ def update_temporary_charm(mud, players: {}, is_npc: bool) -> None:
        as the result of a spell
     """
     now = int(time.time())
-    for plyr in players:
-        this_player = players[plyr]
+    for plyr_id, plyr in players.items():
+        this_player = plyr
         if this_player['name'] is None:
             continue
         if this_player['tempCharm'] == 0:
@@ -621,7 +624,8 @@ def update_temporary_charm(mud, players: {}, is_npc: bool) -> None:
                 this_player['tempCharm'] = 0
                 if not is_npc:
                     mud.send_message(
-                        plyr, "<f220>A charm spell wears off.<r>\n\n")
+                        plyr_id,
+                        "<f220>A charm spell wears off.<r>\n\n")
 
 
 def update_magic_shield(mud, players: {}, is_npc: bool) -> None:
@@ -629,8 +633,8 @@ def update_magic_shield(mud, players: {}, is_npc: bool) -> None:
        as the result of a spell
     """
     now = int(time.time())
-    for plyr in players:
-        this_player = players[plyr]
+    for plyr_id, plyr in players.items():
+        this_player = plyr
         if this_player['name'] is None:
             continue
         if not this_player.get('magicShield'):
@@ -648,14 +652,15 @@ def update_magic_shield(mud, players: {}, is_npc: bool) -> None:
                 this_player['magicShield'] = 0
                 if not is_npc:
                     mud.send_message(
-                        plyr, "<f220>Your magic shield wears off.<r>\n\n")
+                        plyr_id,
+                        "<f220>Your magic shield wears off.<r>\n\n")
 
 
 def players_rest(mud, players: {}) -> None:
     """Rest restores hit points
     """
-    for plyr in players:
-        this_player = players[plyr]
+    for plyr_id, plyr in players.items():
+        this_player = plyr
         if this_player['name'] is not None and \
            this_player['authenticated'] is not None:
             if this_player['hp'] < this_player['hpMax'] + \
@@ -666,7 +671,7 @@ def players_rest(mud, players: {}) -> None:
                 this_player['hp'] = this_player['hpMax'] + \
                     this_player['tempHitPoints']
                 this_player['restRequired'] = 0
-                prepare_spells(mud, plyr, players)
+                prepare_spells(mud, plyr_id, players)
 
 
 def _item_in_npc_inventory(npcs, id: int, item_name: str,
