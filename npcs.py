@@ -48,8 +48,8 @@ def corpse_exists(corpses: {}, room: str, name: str) -> bool:
 def npcs_rest(npcs: {}) -> None:
     """Rest restores hit points of NPCs
     """
-    for plyr in npcs:
-        this_npc = npcs[plyr]
+    for _, plyr in npcs.items():
+        this_npc = plyr
         if this_npc['hp'] < this_npc['hpMax'] + this_npc['tempHitPoints']:
             if randint(0, 100) > 97:
                 this_npc['hp'] += 1
