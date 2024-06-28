@@ -571,27 +571,27 @@ def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                                 " but their power is too strong.\n\n")
                         return
                 # freeze npcs
-                for plyr in npcs:
-                    if npcs[plyr]['whenDied']:
+                for plyr_id, plyr in npcs.items:
+                    if plyr['whenDied']:
                         mud.send_message(
                             id, "Freezing while dead is pointless\n\n")
                         continue
-                    if npcs[plyr]['frozenStart'] > 0:
+                    if plyr['frozenStart'] > 0:
                         mud.send_message(
                             id, "They are already frozen\n\n")
                         continue
-                    if target not in npcs[plyr]['name']:
+                    if target not in plyr['name']:
                         continue
-                    if not _is_witch(plyr, npcs):
+                    if not _is_witch(plyr_id, npcs):
                         # remove from any fights
                         for fight, _ in fights.items():
                             if plyr in (fights[fight]['s1id'],
                                         fights[fight]['s2id']):
                                 del fights[fight]
-                                npcs[plyr]['isInCombat'] = 0
+                                plyr['isInCombat'] = 0
 
-                        npcs[plyr]['canGo'] = 0
-                        npcs[plyr]['canAttack'] = 0
+                        plyr['canGo'] = 0
+                        plyr['canAttack'] = 0
                         mud.send_message(
                             id, "You have frozen " + target + "\n\n")
                     else:
@@ -624,15 +624,16 @@ def _unfreeze(params, mud, players_db: {}, players: {}, rooms: {},
                                     id, "You have unfrozen " + target + "\n\n")
                             return
                     # unfreeze npcs
-                    for plyr in npcs:
-                        if target in npcs[plyr]['name']:
-                            if not _is_witch(plyr, npcs):
-                                npcs[plyr]['canGo'] = 1
-                                npcs[plyr]['canAttack'] = 1
-                                npcs[plyr]['frozenStart'] = 0
-                                mud.send_message(
-                                    id, "You have unfrozen " + target + "\n\n")
-                            return
+                    for plyr_id, plyr in npcs.items():
+                        if target not in plyr['name']:
+                            continue
+                        if not _is_witch(plyr_id, npcs):
+                            plyr['canGo'] = 1
+                            plyr['canAttack'] = 1
+                            plyr['frozenStart'] = 0
+                            mud.send_message(
+                                id, "You have unfrozen " + target + "\n\n")
+                        return
 
 
 def _show_blocklist(params, mud, players_db: {}, players: {}, rooms: {},
@@ -2190,21 +2191,21 @@ def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
                 is_done = True
                 break
         if not is_done:
-            for plyr in npcs:
-                if target.lower() in npcs[plyr]['name'].lower() and \
-                   npcs[plyr]['room'] == players[id]['room']:
+            for plyr_id, plyr in npcs.items():
+                if target.lower() in plyr['name'].lower() and \
+                   plyr['room'] == players[id]['room']:
                     if target.lower() in players[id]['name'].lower():
                         mud.send_message_wrap(
                             id, '<f230>',
                             "It'd be pointless to " + taunt_first_person +
                             " yourself!\n")
                     else:
-                        lang_list = npcs[plyr]['language']
+                        lang_list = plyr['language']
                         if players[id]['speakLanguage'] in lang_list:
                             decrease_affinity_between_players(
-                                npcs, plyr, players, id, guilds_db)
+                                npcs, plyr_id, players, id, guilds_db)
                     decrease_affinity_between_players(
-                        players, id, npcs, plyr, guilds_db)
+                        players, id, npcs, plyr_id, guilds_db)
                     is_done = True
                     break
 
@@ -3426,17 +3427,17 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             message = ""
 
             # Go through all NPCs in game
-            for nitem in npcs:
-                if param in npcs[nitem]['name'].lower() and \
-                   npcs[nitem]['room'] == players[id]['room']:
-                    if player_is_visible(mud, id, players, nitem, npcs):
-                        if npcs[nitem]['familiarMode'] != 'hide':
-                            name_lower = npcs[nitem]['name'].lower()
+            for plyr_id, plyr in npcs.items():
+                if param in plyr['name'].lower() and \
+                   plyr['room'] == players[id]['room']:
+                    if player_is_visible(mud, id, players, plyr_id, npcs):
+                        if plyr['familiarMode'] != 'hide':
+                            name_lower = plyr['name'].lower()
                             _show_npc_image(mud, id, name_lower, players)
-                            _bio_of_player(mud, id, nitem, npcs, items_db)
+                            _bio_of_player(mud, id, plyr_id, npcs, items_db)
                             message_sent = True
                         else:
-                            if npcs[nitem]['familiarOf'] == \
+                            if plyr['familiarOf'] == \
                                players[id]['name']:
                                 message = "They are hiding somewhere here."
                                 message_sent = True
