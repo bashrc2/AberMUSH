@@ -380,7 +380,7 @@ class MudServer(object):
         previous_timing = \
             show_timing(previous_timing, "_attempt_send")
 
-    def send_image(self, to_id, message, noDelay=False) -> None:
+    def send_image(self, to_id, message, no_delay=False) -> None:
         """Sends the ANSI image in the 'message' parameter to the player with
         the id number given in the 'to' parameter. The text will be
         printed out in the player's terminal.
@@ -428,7 +428,7 @@ class MudServer(object):
             print("Couldnt send image to Player ID " + str(to_id) +
                   ", socket error: " + str(ex))
             self.handle_disconnect(to_id)
-        if not noDelay:
+        if not no_delay:
             if clid.client_type == self._CLIENT_TELNET:
                 time.sleep(1)
 
