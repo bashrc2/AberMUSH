@@ -2967,10 +2967,10 @@ def _room_requires_light_source(players: {}, id, rooms: {}) -> bool:
 def _light_source_in_room(players: {}, id, items: {}, items_db: {}) -> bool:
     """Returns true if there is a light source in the room
     """
-    for i in items:
-        if items[i]['room'].lower() != players[id]['room']:
+    for _, itemobj in items.items():
+        if itemobj['room'].lower() != players[id]['room']:
             continue
-        if items_db[items[i]['id']]['lightSource'] != 0:
+        if items_db[itemobj['id']]['lightSource'] != 0:
             return True
     return False
 
@@ -3333,13 +3333,16 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                         playershere.append(npc1['name'])
 
             # Show items in the room
-            for item, itemobj in items.items():
-                if _item_in_player_room(players, id, items, item):
-                    if _item_is_visible(id, players, itemobj['id'], items_db):
-                        if items_db[itemobj['id']]['hidden'] == 0:
-                            itemshere.append(
-                                items_db[itemobj['id']]['article'] + ' ' +
-                                items_db[itemobj['id']]['name'])
+            for item_id, itemobj in items.items():
+                if not _item_in_player_room(players, id, items, item_id):
+                    continue
+                if not _item_is_visible(id, players, itemobj['id'],
+                                        items_db):
+                    continue
+                if items_db[itemobj['id']]['hidden'] == 0:
+                    itemshere.append(
+                        items_db[itemobj['id']]['article'] + ' ' +
+                        items_db[itemobj['id']]['name'])
 
             # send player a message containing the list of players in the room
             if len(playershere) > 0:
@@ -3452,34 +3455,44 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
 
             # Go through all Items in game
             item_counter = 0
-            for i in items:
-                if _item_in_player_room(players, id, items, i) and \
-                   param in items_db[items[i]['id']]['name'].lower():
-                    if _item_is_visible(id, players, items[i]['id'], items_db):
-                        if item_counter == 0:
-                            item_language = \
-                                items_db[items[i]['id']]['language']
-                            this_item_id = int(items[i]['id'])
-                            idx = items[i]['id']
-                            if items_db[idx].get('itemName'):
-                                message += \
-                                    'Name: ' + items_db[idx]['itemName'] + '\n'
-                            cond_desc = []
-                            if items_db[idx].get('conditional'):
-                                cond_desc = items_db[idx]['conditional']
-                            desc = \
-                                _conditional_item_desc(idx, cond_desc,
-                                                       id, players,
-                                                       items, items_db,
-                                                       clouds, map_area,
-                                                       rooms, look_modifier)
-                            message += random_desc(desc)
+            for item_id, itemobj in items.items():
+                if _item_in_player_room(players, id, items, item_id) and \
+                   param in items_db[itemobj['id']]['name'].lower():
+                    if not _item_is_visible(id, players, itemobj['id'],
+                                            items_db):
+                        continue
+                    if item_counter == 0:
+                        item_language = \
+                            items_db[itemobj['id']]['language']
+                        this_item_id = int(itemobj['id'])
+                        idx = itemobj['id']
+                        if items_db[idx].get('itemName'):
                             message += \
-                                _describe_container_contents(mud, id,
-                                                             items_db,
-                                                             items[i]['id'],
-                                                             True)
-                            if len(item_language) == 0:
+                                'Name: ' + items_db[idx]['itemName'] + '\n'
+                        cond_desc = []
+                        if items_db[idx].get('conditional'):
+                            cond_desc = items_db[idx]['conditional']
+                        desc = \
+                            _conditional_item_desc(idx, cond_desc,
+                                                   id, players,
+                                                   items, items_db,
+                                                   clouds, map_area,
+                                                   rooms, look_modifier)
+                        message += random_desc(desc)
+                        message += \
+                            _describe_container_contents(mud, id,
+                                                         items_db,
+                                                         itemobj['id'],
+                                                         True)
+                        if len(item_language) == 0:
+                            room_id = players[id]['room']
+                            _show_item_image(mud, id, idx,
+                                             room_id, rooms, players,
+                                             items, items_db,
+                                             clouds, map_area,
+                                             look_modifier)
+                        else:
+                            if item_language in players[id]['language']:
                                 room_id = players[id]['room']
                                 _show_item_image(mud, id, idx,
                                                  room_id, rooms, players,
@@ -3487,20 +3500,12 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                                                  clouds, map_area,
                                                  look_modifier)
                             else:
-                                if item_language in players[id]['language']:
-                                    room_id = players[id]['room']
-                                    _show_item_image(mud, id, idx,
-                                                     room_id, rooms, players,
-                                                     items, items_db,
-                                                     clouds, map_area,
-                                                     look_modifier)
-                                else:
-                                    message += \
-                                        "It's written in " + item_language
-                            item_name = \
-                                items_db[items[i]['id']]['article'] + \
-                                " " + items_db[items[i]['id']]['name']
-                        item_counter += 1
+                                message += \
+                                    "It's written in " + item_language
+                        item_name = \
+                            items_db[itemobj['id']]['article'] + \
+                            " " + items_db[itemobj['id']]['name']
+                    item_counter += 1
 
             # Examine items in inventory
             if len(message) == 0:
@@ -3867,7 +3872,7 @@ def _describe_thing(params, mud, players_db: {}, players: {}, rooms: {},
             return
 
         # change the description of an item in the room
-        for item, itemobj in items.items():
+        for _, itemobj in items.items():
             if itemobj['room'] != players[id]['room']:
                 continue
             idx = itemobj['id']
@@ -3910,7 +3915,7 @@ def _describe_thing(params, mud, players_db: {}, players: {}, rooms: {},
             return
 
         # change the name of an item in the room
-        for item, itemobj in items.items():
+        for _, itemobj in items.items():
             if itemobj['room'] != players[id]['room']:
                 continue
             idx = itemobj['id']
@@ -4825,7 +4830,7 @@ def _climb_base(params, mud, players_db: {}, players: {}, rooms: {},
         return
 
     fail_msg = None
-    for item, itemobj in items.items():
+    for _, itemobj in items.items():
         if itemobj['room'] != players[id]['room']:
             continue
         item_id = itemobj['id']
@@ -4979,7 +4984,7 @@ def _heave(params, mud, players_db: {}, players: {}, rooms: {},
     if target.startswith('the '):
         target = target.replace('the ', '')
 
-    for item, itemobj in items.items():
+    for _, itemobj in items.items():
         if itemobj['room'] != players[id]['room']:
             continue
         item_id = itemobj['id']
@@ -5072,7 +5077,7 @@ def _jump(params, mud, players_db: {}, players: {}, rooms: {},
         mud.send_message(id, random_desc(desc) + "\n\n")
         return
     words = params.lower().replace('.', '').split(' ')
-    for item, itemobj in items.items():
+    for _, itemobj in items.items():
         if itemobj['room'] != players[id]['room']:
             continue
         item_id = itemobj['id']
@@ -5148,29 +5153,31 @@ def _jump(params, mud, players_db: {}, players: {}, rooms: {},
     mud.send_message(id, random_desc(desc) + "\n\n")
 
 
-def _chess_board_in_room(players: {}, id, rooms: {}, items: {}, items_db: {}):
+def _chess_board_in_room(players: {}, id, rooms: {}, items: {},
+                         items_db: {}) -> int:
     """Returns the item ID if there is a chess board in the room
     """
     rid = players[id]['room']
-    for i in items:
-        if items[i]['room'] != rid:
+    for item_id, itemobj in items.items():
+        if itemobj['room'] != rid:
             continue
-        if 'chess' in items_db[items[i]['id']]['game'].lower():
-            return i
+        if 'chess' in items_db[itemobj['id']]['game'].lower():
+            return item_id
     return None
 
 
-def _chess_board_name(players: {}, id, rooms: {}, items: {}, items_db: {}):
+def _chess_board_name(players: {}, id, rooms: {}, items: {},
+                      items_db: {}) -> str:
     """Returns the name of the chess board if there is one in the room
     This then corresponds to the subdirectory within chessboards, where
     icons exist
     """
     rid = players[id]['room']
-    for i in items:
-        if items[i]['room'] != rid:
+    for _, itemobj in items.items():
+        if itemobj['room'] != rid:
             continue
-        if items_db[items[i]['id']].get('chessBoardName'):
-            return items_db[items[i]['id']]['chessBoardName']
+        if items_db[itemobj['id']].get('chessBoardName'):
+            return items_db[itemobj['id']]['chessBoardName']
     return None
 
 
@@ -6098,9 +6105,9 @@ def _conjure_item(params, mud, players_db: {}, players: {}, rooms: {},
                                      " in your inventory already.\n\n")
                     return False
     # Check if it is in the room
-    for item, itemobj in items.items():
+    for _, itemobj in items.items():
         if itemobj['room'] == players[id]['room']:
-            if item_name in items_db[items[item]['id']]['name'].lower():
+            if item_name in items_db[itemobj['id']]['name'].lower():
                 mud.send_message(id, "It's already here.\n\n")
                 return False
 
@@ -6470,13 +6477,13 @@ def _destroy_item(params, mud, players_db: {}, players: {}, rooms: {},
     item_id = -1
     found_item = None
     destroyed_name = ''
-    for item, itemobj in items.items():
+    for item_id2, itemobj in items.items():
         if itemobj['room'] != players[id]['room']:
             continue
         if item_name in items_db[itemobj['id']]['name']:
             destroyed_name = items_db[itemobj['id']]['name']
             item_id = itemobj['id']
-            found_item = item
+            found_item = item_id2
             break
     if item_id == -1:
         mud.send_message(id, "It's not here.\n\n")
@@ -7595,31 +7602,31 @@ def _take(params, mud, players_db: {}, players: {}, rooms: {},
     if target.startswith('the '):
         target = params.replace('the ', '')
 
-    for iid, itemobj in items.items():
-        iid2 = itemobj['id']
+    for item_id, itemobj in items.items():
+        item_id2 = itemobj['id']
         if itemobj['room'] != players[id]['room']:
             continue
-        if items_db[iid2]['name'].lower() != target:
+        if items_db[item_id2]['name'].lower() != target:
             continue
-        if int(items_db[iid2]['weight']) == 0:
-            if items_db[iid2].get('takeFail'):
-                desc = random_desc(items_db[iid2]['takeFail'])
+        if int(items_db[item_id2]['weight']) == 0:
+            if items_db[item_id2].get('takeFail'):
+                desc = random_desc(items_db[item_id2]['takeFail'])
                 mud.send_message_wrap(id, '<f220>', desc + "\n\n")
             else:
                 mud.send_message(id, "You can't pick that up.\n\n")
             return
-        if _item_is_visible(id, players, iid2, items_db):
+        if _item_is_visible(id, players, item_id2, items_db):
             # ID of the item to be picked up
-            item_name = items_db[iid2]['name']
+            item_name = items_db[item_id2]['name']
             item_in_db = True
-            item_index = iid2
+            item_index = item_id2
         break
 
     items_in_world_copy = deepcopy(items)
 
     if not item_in_db:
         # Try fuzzy match of the item name
-        for iid, itemobj in items_in_world_copy.items():
+        for item_id, itemobj in items_in_world_copy.items():
             if itemobj['room'] != players[id]['room']:
                 continue
             item_index = itemobj['id']
@@ -7644,7 +7651,7 @@ def _take(params, mud, players_db: {}, players: {}, rooms: {},
             break
 
     if item_in_db and item_index:
-        for iid, itemobj in items_in_world_copy.items():
+        for item_id, itemobj in items_in_world_copy.items():
             # item in same room as player
             if itemobj['room'] != players[id]['room']:
                 continue
@@ -7681,15 +7688,15 @@ def _take(params, mud, players_db: {}, players: {}, rooms: {},
                 update_player_attributes(id, players, items_db, item_index, 1)
                 # remove the item from the dict
                 if not items_db[item_index].get('respawnInRegion'):
-                    del items[iid]
+                    del items[item_id]
                 else:
                     regions_list = items_db[item_index]['respawnInRegion']
                     new_room_id = \
                         _get_random_room_in_regions(rooms, regions_list)
                     if not new_room_id:
-                        del items[iid]
+                        del items[item_id]
                     else:
-                        items[iid]['room'] = new_room_id
+                        itemobj['room'] = new_room_id
                 item_picked_up = True
                 break
             mud.send_message(id, 'You try to pick up ' + item_name +
@@ -7706,7 +7713,7 @@ def _take(params, mud, players_db: {}, players: {}, rooms: {},
             target2 = target.split(' from ')
             target = target2[0]
 
-        for iid, itemobj in items_in_world_copy.items():
+        for _, itemobj in items_in_world_copy.items():
             # is the item in the same room as the player?
             if itemobj['room'] != players[id]['room']:
                 continue
