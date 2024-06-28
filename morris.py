@@ -27,23 +27,24 @@ def get_morris_board_name(players: {}, id: int, rooms: {},
     icons exist
     """
     rid = players[id]['room']
-    for i in items:
-        if items[i]['room'] != rid:
+    for _, itemobj in items.items():
+        if itemobj['room'] != rid:
             continue
-        if items_db[items[i]['id']].get('morrisBoardName'):
-            return items_db[items[i]['id']]['morrisBoardName']
+        if items_db[itemobj['id']].get('morrisBoardName'):
+            return items_db[itemobj['id']]['morrisBoardName']
     return None
 
 
-def _morris_board_in_room(players: {}, id, rooms: {}, items: {}, items_db: {}):
+def _morris_board_in_room(players: {}, id, rooms: {}, items: {},
+                          items_db: {}) -> int:
     """Returns the item ID if there is a Morris board in the room
     """
     rid = players[id]['room']
-    for i in items:
-        if items[i]['room'] != rid:
+    for item_id, itemobj in items.items():
+        if itemobj['room'] != rid:
             continue
-        if 'morris' in items_db[items[i]['id']]['game'].lower():
-            return i
+        if 'morris' in items_db[itemobj['id']]['game'].lower():
+            return item_id
     return None
 
 
