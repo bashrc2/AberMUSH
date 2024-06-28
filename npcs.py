@@ -1268,11 +1268,11 @@ def _conversation_sell(
                     increase_affinity_between_players(npcs, nid, players,
                                                       id, guilds_db)
 
-                    itemName = \
+                    item_name = \
                         items_db[sell_id_str]['article'] + ' ' + \
                         items_db[sell_id_str]['name']
                     mud.send_message(
-                        id, "You sell " + itemName + ".\n\n")
+                        id, "You sell " + item_name + ".\n\n")
                     return True
     return False
 
