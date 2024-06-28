@@ -438,7 +438,7 @@ def _remove_inactive_entity(nid, npcs: {}, nid2, npcs_db: {},
 def npc_respawns(npcs: {}) -> None:
     """Respawns inactive NPCs
     """
-    for nid, this_npc in npcs.items():
+    for _, this_npc in npcs.items():
         if not this_npc['whenDied']:
             continue
         if int(time.time()) >= this_npc['whenDied'] + this_npc['respawn']:
@@ -724,7 +724,7 @@ def _conversation_state(word: str, conversation_states: {},
 
 
 def _conversation_condition(word: str, conversation_states: {},
-                            nid, npcs: {}, match_ctr: int,
+                            nid: int, npcs: {}, match_ctr: int,
                             players: {}, rooms: {},
                             id, cultures_db: {}) -> (bool, bool, int):
     condition_type = ''
@@ -877,7 +877,7 @@ def _conversation_condition(word: str, conversation_states: {},
 
 
 def _conversation_word_count(message: str, words_list: [], npcs: {},
-                             nid, conversation_states: {},
+                             nid: int, conversation_states: {},
                              players: {}, rooms: {}, id,
                              cultures_db: {}) -> int:
     """Returns the number of matched words in the message.
@@ -961,8 +961,7 @@ def _conversation_skill(best_match: str, best_match_action: str,
                         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives or alters a skill
     """
-    if best_match_action == 'skill' or \
-       best_match_action == 'teach':
+    if best_match_action in ('skill', 'teach'):
         this_npc = npcs[nid]
         if len(best_match_action_param0) > 0 and \
            len(best_match_action_param1) > 0:
@@ -998,11 +997,10 @@ def _conversation_skill(best_match: str, best_match_action: str,
                 id, "<f220>" + this_npc['name'] + "<r> says: " + best_match +
                 ".\n\n")
             return True
-        else:
-            mud.send_message(
-                id, "<f220>" + this_npc['name'] + "<r> looks " +
-                puzzled_str + ".\n\n")
-            return False
+        mud.send_message(
+            id, "<f220>" + this_npc['name'] + "<r> looks " +
+            puzzled_str + ".\n\n")
+        return False
     return False
 
 
@@ -1010,12 +1008,11 @@ def _conversation_experience(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        players: {}, id, mud, npcs: {}, nid, items_db: {},
+        players: {}, id, mud, npcs: {}, nid: int, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC increases your experience
     """
-    if best_match_action == 'exp' or \
-       best_match_action == 'experience':
+    if best_match_action in ('exp', 'experience'):
         if len(best_match_action_param0) > 0:
             exp_value = int(best_match_action_param0)
             players[id]['exp'] = players[id]['exp'] + exp_value
@@ -1024,11 +1021,10 @@ def _conversation_experience(
             increase_affinity_between_players(npcs, nid, players,
                                               id, guilds_db)
             return True
-        else:
-            mud.send_message(
-                id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
-                puzzled_str + ".\n\n")
-            return False
+        mud.send_message(
+            id, "<f220>" + npcs[nid]['name'] + "<r> looks " +
+            puzzled_str + ".\n\n")
+        return False
     return False
 
 
@@ -1036,14 +1032,11 @@ def _conversation_join_guild(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        players: {}, id, mud, npcs: {}, nid, items_db: {},
+        players: {}, id, mud, npcs: {}, nid: int, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC adds you to a guild
     """
-    if best_match_action == 'clan' or \
-       best_match_action == 'guild' or \
-       best_match_action == 'tribe' or \
-       best_match_action == 'house':
+    if best_match_action in ('clan', 'guild', 'tribe', 'house'):
         if len(best_match_action_param0) > 0:
             players[id]['guild'] = best_match_action_param0
             if len(best_match_action_param1) > 0:
@@ -1053,11 +1046,10 @@ def _conversation_join_guild(
             increase_affinity_between_players(npcs, nid, players,
                                               id, guilds_db)
             return True
-        else:
-            mud.send_message(
-                id, "<f220>" + npcs[nid]['name'] +
-                "<r> looks " + puzzled_str + ".\n\n")
-            return False
+        mud.send_message(
+            id, "<f220>" + npcs[nid]['name'] +
+            "<r> looks " + puzzled_str + ".\n\n")
+        return False
     return False
 
 
@@ -1066,7 +1058,7 @@ def _conversation_familiar_mode(
         best_match_action_param0: str,
         best_match_action_param1: str,
         players: {}, id, mud, npcs: {}, npcs_db: {}, rooms: {},
-        nid, items: {}, items_db: {}, puzzled_str: str) -> bool:
+        nid: int, items: {}, items_db: {}, puzzled_str: str) -> bool:
     """Switches the mode of a familiar
     """
     this_npc = npcs[nid]
@@ -1104,13 +1096,11 @@ def _conversation_familiar_mode(
 
 def _conversation_transport(
         best_match_action: str, best_match_action_param0: str,
-        mud, id, players: {}, best_match, npcs: {}, nid,
+        mud, id, players: {}, best_match, npcs: {}, nid: int,
         puzzled_str, guilds_db: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some location
     """
-    if best_match_action == 'transport' or \
-       best_match_action == 'ride' or \
-       best_match_action == 'teleport':
+    if best_match_action in ('transport', 'ride', 'teleport'):
         this_npc = npcs[nid]
         if len(best_match_action_param0) > 0:
             room_id = best_match_action_param0
@@ -1170,12 +1160,11 @@ def _conversation_taxi(
                 mud.send_message(
                     id, "You are in " + rooms[room_id]['name'] + "\n\n")
                 return True
-            else:
-                mud.send_message(
-                    id, "<f220>" + this_npc['name'] + "<r> says: Give me " +
-                    items_db[item_buy_id]['article'] + ' ' +
-                    items_db[item_buy_id]['name'] + ".\n\n")
-                return True
+            mud.send_message(
+                id, "<f220>" + this_npc['name'] + "<r> says: Give me " +
+                items_db[item_buy_id]['article'] + ' ' +
+                items_db[item_buy_id]['name'] + ".\n\n")
+            return True
         mud.send_message(
             id, "<f220>" + this_npc['name'] + "<r> looks " +
             puzzled_str + ".\n\n")
@@ -1191,8 +1180,7 @@ def _conversation_give_on_date(
     """Conversation in which an NPC gives something to you on
     a particular date of the year eg. Some festival or holiday
     """
-    if best_match_action == 'giveondate' or \
-       best_match_action == 'giftondate':
+    if best_match_action in ('giveondate', 'giftondate'):
         this_npc = npcs[nid]
         if len(best_match_action_param0) > 0:
             item_id = int(best_match_action_param0)
@@ -1238,7 +1226,7 @@ def _conversation_give_on_date(
 def _conversation_sell(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
-        npcs: {}, nid, mud, id, players: {}, items_db: {},
+        npcs: {}, nid: int, mud, id, players: {}, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which a player sells to an NPC
     """
@@ -1281,15 +1269,12 @@ def _conversation_buy_or_exchange(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        npcs: {}, nid, mud, id, players: {}, items_db: {},
+        npcs: {}, nid: int, mud, id, players: {}, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC exchanges/swaps some item
     with you or in which you buy some item from them
     """
-    if best_match_action == 'buy' or \
-       best_match_action == 'exchange' or \
-       best_match_action == 'barter' or \
-       best_match_action == 'trade':
+    if best_match_action in ('buy', 'exchange', 'barter', 'trade'):
         this_npc = npcs[nid]
         if len(best_match_action_param0) > 0 and len(
                 best_match_action_param1) > 0:
