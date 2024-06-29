@@ -1024,7 +1024,7 @@ def assign_environment_to_rooms(environments: {}, rooms: {}) -> int:
     return percent_assigned
 
 
-def get_room_culture(cultures_db: {}, rooms: {}, room_id) -> str:
+def get_room_culture(cultures_db: {}, rooms: {}, room_id: str) -> str:
     """Returns the culture for a room
     """
     if not rooms[room_id].get('region'):
@@ -1038,7 +1038,7 @@ def get_room_culture(cultures_db: {}, rooms: {}, room_id) -> str:
     return None
 
 
-def is_fishing_site(rooms: {}, rid) -> bool:
+def is_fishing_site(rooms: {}, rid: str) -> bool:
     """Is the given location a fishing site?
     """
     fishing_sites = ('river', 'lake', 'sea', 'ocean', 'pond')
