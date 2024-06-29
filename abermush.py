@@ -352,7 +352,8 @@ log("Map coordinates:" + map_area_str, "info")
 # Loading environment actors
 if os.path.isfile("universe_actors.json"):
     try:
-        with open("universe_actors.json", "r") as read_file:
+        with open("universe_actors.json", "r",
+                  encoding='utf-8') as read_file:
             env = json.loads(read_file.read())
     except BaseException:
         print('WARN: unable to load universe_actors.json')
