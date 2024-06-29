@@ -385,7 +385,7 @@ def _silent_remove(filename: str):
             raise
 
 
-def load_players_db(force_lowercase=True):
+def load_players_db(force_lowercase: bool = True):
     """Function to load all registered players from JSON files
     """
     locn = Config.get('Players', 'Location')

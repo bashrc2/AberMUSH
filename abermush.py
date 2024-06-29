@@ -307,10 +307,10 @@ items_fields_excluded = (
     "article"
 )
 
-for k in items_db:
-    for v in items_db[k]:
+for _, itemobj in items_db.items():
+    for v in itemobj:
         if v not in items_fields_excluded:
-            items_db[k][v] = int(items_db[k][v])
+            itemobj[v] = int(itemobj[v])
 
 count_str = str(len(items_db))
 log("Items loaded: " + count_str, "info")
@@ -385,12 +385,12 @@ env_fields_excluded = (
     "vocabulary"
  )
 
-for k in env_db:
+for _, envobj in env_db.items():
     if not os.path.isfile("universe_actors.json"):
-        env_db[k]['vocabulary'] = env_db[k]['vocabulary'].split('|')
-    for v in env_db[k]:
+        envobj['vocabulary'] = envobj['vocabulary'].split('|')
+    for v in envobj:
         if v not in env_fields_excluded:
-            env_db[k][v] = int(env_db[k][v])
+            envobj[v] = int(envobj[v])
 
 count_str = str(len(env_db))
 log("Environment Actors loaded: " + count_str, "info")
@@ -471,14 +471,14 @@ npcs_fields_excluded = (
     "whenDied"
 )
 
-for k in npcs_db:
-    npcs_db[k]['lastRoom'] = None
-    npcs_db[k]['whenDied'] = None
+for _, npc1 in npcs_db.items():
+    npc1['lastRoom'] = None
+    npc1['whenDied'] = None
     if not os.path.isfile("universe_npcs.json"):
-        npcs_db[k]['vocabulary'] = npcs_db[k]['vocabulary'].split('|')
-    for v in npcs_db[k]:
+        npc1['vocabulary'] = npc1['vocabulary'].split('|')
+    for v in npc1:
         if v not in npcs_fields_excluded:
-            npcs_db[k][v] = int(npcs_db[k][v])
+            npc1[v] = int(npc1[v])
 
 count_str = str(len(npcs_db))
 log("NPCs loaded: " + count_str, "info")
@@ -928,8 +928,8 @@ while True:
                         taken = True
 
                 if not taken:
-                    for p in players_db:
-                        if players_db[p]['name'].lower() == command.lower():
+                    for _, plyr in players_db.items():
+                        if plyr['name'].lower() == command.lower():
                             mud.send_message(
                                 id, "\n<f220>This character name is " +
                                 "already taken!")
