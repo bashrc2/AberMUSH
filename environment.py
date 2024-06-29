@@ -995,9 +995,9 @@ def assign_environment_to_rooms(environments: {}, rooms: {}) -> int:
     """
     assigned_rooms = 0
     no_of_rooms = 0
-    for room_id, item in rooms.items():
+    for room_id, room in rooms.items():
         no_of_rooms += 1
-        room_name = item['name'].lower()
+        room_name = room['name'].lower()
         room_words = room_name.split(' ')
         max_score = 0
         env = 0
@@ -1016,7 +1016,7 @@ def assign_environment_to_rooms(environments: {}, rooms: {}) -> int:
         if env > 0:
             assigned_rooms += 1
         else:
-            print('Environment not assigned to ' + item['name'])
+            print('Environment not assigned to ' + room['name'])
         rooms[room_id]['environmentId'] = env
     percent_assigned = 0
     if no_of_rooms > 0:
