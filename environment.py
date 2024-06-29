@@ -186,13 +186,14 @@ def _get_all_room_exits(rooms: {}, room_id: str) -> {}:
     """combine exits with virtual exists so that we know
     all the possible directions from here
     """
-    exit_dict = rooms[room_id]['exits'].copy()
+    curr_room = rooms[room_id]
+    exit_dict = curr_room['exits'].copy()
 
-    if rooms[room_id].get('virtualExits'):
-        exit_dict.update(rooms[room_id]['virtualExits'])
+    if curr_room.get('virtualExits'):
+        exit_dict.update(curr_room['virtualExits'])
 
-    if rooms[room_id].get('tideOutExits'):
-        exit_dict.update(rooms[room_id]['tideOutExits'])
+    if curr_room.get('tideOutExits'):
+        exit_dict.update(curr_room['tideOutExits'])
 
     return exit_dict
 
