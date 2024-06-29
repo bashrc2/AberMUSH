@@ -95,16 +95,16 @@ def assign_terrain_difficulty(rooms: {}) -> int:
     return max_terrain_difficulty
 
 
-def _room_at_zero_coord(rooms: {}, rm) -> bool:
+def _room_at_zero_coord(rooms: {}, room_id: str) -> bool:
     """Room is at coord 0,0,0
     """
-    if not rooms[rm].get('coords'):
+    if not rooms[room_id].get('coords'):
         return False
-    if len(rooms[rm]['coords']) < 3:
+    if len(rooms[room_id]['coords']) < 3:
         return False
-    if rooms[rm]['coords'][0] == 0 and \
-       rooms[rm]['coords'][1] == 0 and \
-       rooms[rm]['coords'][2] == 0:
+    if rooms[room_id]['coords'][0] == 0 and \
+       rooms[room_id]['coords'][1] == 0 and \
+       rooms[room_id]['coords'][2] == 0:
         return True
     return False
 

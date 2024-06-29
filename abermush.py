@@ -13,6 +13,13 @@ import json
 import ssl
 import argparse
 import sys
+import datetime
+import time
+import glob
+
+# import random generator library
+import random
+from random import randint
 
 from functions import deepcopy
 from functions import show_timing
@@ -68,24 +75,11 @@ from tests import run_all_tests
 
 from gcos import terminal_emulator
 
-import datetime
-import time
-
 # import the MUD server class
 from mudserver import MudServer
 
-# import random generator library
-import random
-from random import randint
-
-# import the deepcopy library
-# from copy import deepcopy
-
 # import config parser
 import configparser
-
-# import glob module
-import glob
 
 
 parser = argparse.ArgumentParser(description='AberMUSH Server')
