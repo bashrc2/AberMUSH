@@ -408,10 +408,6 @@ if args.debug:
             print(y, ':', env[x][y])
 
 log("Loading NPCs...", "info")
-# if os.path.isfile("universe_npcs.json"):
-#     with open("universe_npcs.json", "r", encoding='utf-8') as fp_read:
-#         npcs = json.loads(fp_read.read())
-
 if os.path.isfile("universe_npcsdb.json"):
     try:
         with open("universe_npcsdb.json", "r", encoding='utf-8') as fp_read:
