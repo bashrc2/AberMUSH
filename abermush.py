@@ -86,6 +86,9 @@ parser = argparse.ArgumentParser(description='AberMUSH Server')
 parser.add_argument("--tests", type=str2bool, nargs='?',
                     const=True, default=False,
                     help="Run unit tests")
+parser.add_argument("--debug", type=str2bool, nargs='?',
+                    const=True, default=False,
+                    help="Debug mode")
 parser.add_argument('--mapLevel', dest='mapLevel', type=int,
                     default=None,
                     help='Shows a vertical map level as a CSV')
@@ -395,13 +398,14 @@ for _, envobj in env_db.items():
 count_str = str(len(env_db))
 log("Environment Actors loaded: " + count_str, "info")
 
-# List ENV dictionary for debugging purposes
-# print(env)
-# print("Test:")
-# for x in env:
-# print (x)
-# for y in env[x]:
-# print (y,':',env[x][y])
+if args.debug:
+    # List ENV dictionary for debugging purposes
+    print(env)
+    print("Test:")
+    for x in env:
+        print(x)
+        for y in env[x]:
+            print(y, ':', env[x][y])
 
 log("Loading NPCs...", "info")
 # if os.path.isfile("universe_npcs.json"):
@@ -528,23 +532,24 @@ with open(attacks_filename_json, "r", encoding='utf-8') as fp_read:
 count_str = str(len(attack_db))
 log("Attacks loaded: " + count_str, "info")
 
-# List NPC dictionary for debugging purposes
-# print(" ")
-# print("LIVE:")
-# print(npcs_db)
-# print(" ")
-# for x in npcs_db:
-# print (x)
-# for y in npcs_db[x]:
-# print (y,':',npcs_db[x][y])
+if args.debug:
+    # List NPC dictionary for debugging purposes
+    print(" ")
+    print("LIVE:")
+    print(npcs_db)
+    print(" ")
+    for x in npcs_db:
+        print(x)
+        for y in npcs_db[x]:
+            print(y, ':', npcs_db[x][y])
 
-# List items for debugging purposes
-# print("TEST:")
-# for x in items_db:
-# print (x)
-# for y in items_db[x]:
-# print(y,':',items_db[x][y])
-# print(items_db)
+    # List items for debugging purposes
+    print("TEST:")
+    for x in items_db:
+        print(x)
+        for y in items_db[x]:
+            print(y, ':', items_db[x][y])
+    print(items_db)
 
 # Load registered players DB
 players_db = load_players_db()
@@ -572,11 +577,12 @@ last_state_save = int(time.time())
 # Deepcopy npcs fetched from a database into a master template
 npcs_template = deepcopy(npcs)
 
-# List items in world for debugging purposes
-# for x in items_in_world:
-# print (x)
-# for y in items_in_world[x]:
-# print(y,':',items_in_world[x][y])
+if args.debug:
+    # List items in world for debugging purposes
+    for x in items_in_world:
+        print(x)
+        for y in items_in_world[x]:
+            print(y, ':', items_in_world[x][y])
 
 # stores the players in the game
 players = {}
@@ -654,7 +660,7 @@ while True:
                     plyr['room'] = rooms[rm]['roomTeleport']
 
     previous_timing = \
-        show_timing(previous_timing, "teleport every N seconds")
+        show_timing(previous_timing, "teleport every N seconds", args.debug)
 
     previous_timing2 = time.time()
 
@@ -665,13 +671,13 @@ while True:
         update_temporary_hit_points(mud, npcs, True)
 
         previous_timing = \
-            show_timing(previous_timing, "update hit points")
+            show_timing(previous_timing, "update hit points", args.debug)
 
         update_temporary_incapacitation(mud, players, False)
         update_temporary_incapacitation(mud, npcs, True)
 
         previous_timing = \
-            show_timing(previous_timing, "update incapacitation")
+            show_timing(previous_timing, "update incapacitation", args.debug)
 
         update_temporary_charm(mud, players, False)
         update_temporary_charm(mud, npcs, True)
@@ -680,28 +686,28 @@ while True:
         update_magic_shield(mud, npcs, True)
 
         previous_timing = \
-            show_timing(previous_timing, "update charm")
+            show_timing(previous_timing, "update charm", args.debug)
 
         run_traps(mud, rooms, players, npcs)
 
         previous_timing = \
-            show_timing(previous_timing, "update traps")
+            show_timing(previous_timing, "update traps", args.debug)
 
     previous_timing = \
-        show_timing(previous_timing2, "various updates")
+        show_timing(previous_timing2, "various updates", args.debug)
 
     now = int(time.time())
     if now >= last_weather_update + weather_update_interval:
         last_weather_update = now
         temperature = get_temperature()
         previous_timing = \
-            show_timing(previous_timing, "get temperature")
+            show_timing(previous_timing, "get temperature", args.debug)
         # print("Temperature " + str(temperature))
         wind_direction = \
             generate_cloud(r1, rooms, map_area, clouds, cloud_grid,
                            tile_size, wind_direction)
         previous_timing = \
-            show_timing(previous_timing, "calc wind directions")
+            show_timing(previous_timing, "calc wind directions", args.debug)
         # plot_clouds(rooms, map_area, clouds, temperature)
 
     if now >= last_fishing_update + fishing_update_interval:
@@ -717,14 +723,14 @@ while True:
                 player_list.append(plyr['name'])
 
     previous_timing = \
-        show_timing(previous_timing, "update player list")
+        show_timing(previous_timing, "update player list", args.debug)
 
     # Aggressive NPCs may attack players
     npc_aggression(npcs, players, fights, mud, items_in_world,
                    items_db, races_db, rooms)
 
     previous_timing = \
-        show_timing(previous_timing, "update npc attacks")
+        show_timing(previous_timing, "update npc attacks", args.debug)
 
     # pause for 1/5 of a second on each loop, so that we don't constantly
     # use 100% CPU time
@@ -732,20 +738,20 @@ while True:
     # print(event_schedule)
 
     previous_timing = \
-        show_timing(previous_timing, "sleep")
+        show_timing(previous_timing, "sleep", args.debug)
 
     # 'update' must be called in the loop to keep the game running and give
     # us up-to-date information
     mud.update()
 
     previous_timing = \
-        show_timing(previous_timing, "update mud")
+        show_timing(previous_timing, "update mud", args.debug)
 
     if disconnect_idle_players(mud, players, allowed_player_idle, players_db):
         players_db = load_players_db()
 
     previous_timing = \
-        show_timing(previous_timing, "disconnect idle platers")
+        show_timing(previous_timing, "disconnect idle platers", args.debug)
 
     # Check if State Save is due and execute it if required
     now = int(time.time())
@@ -765,14 +771,14 @@ while True:
         last_state_save = now
 
     previous_timing = \
-        show_timing(previous_timing, "save game")
+        show_timing(previous_timing, "save game", args.debug)
 
     # Handle Player Deaths
     run_deaths(mud, players, npcs, corpses, fights,
                event_schedule, scripted_events_db)
 
     previous_timing = \
-        show_timing(previous_timing, "handle deaths")
+        show_timing(previous_timing, "handle deaths", args.debug)
 
     # Handle Fights
     run_fights(mud, players, npcs, fights, items_in_world, items_db, rooms,
@@ -780,7 +786,7 @@ while True:
                character_class_db, guilds_db, attack_db)
 
     previous_timing = \
-        show_timing(previous_timing, "update fights")
+        show_timing(previous_timing, "update fights", args.debug)
 
     # Some items can appear only at certain times
     if now >= last_mobile_items_update + mobile_items_update_interval:
@@ -789,7 +795,7 @@ while True:
         last_mobile_items_update = now
 
         previous_timing = \
-            show_timing(previous_timing, "update mobile items")
+            show_timing(previous_timing, "update mobile items", args.debug)
 
     # Iterate through NPCs, check if its time to talk, then check if anyone is
     # attacking it
@@ -800,33 +806,33 @@ while True:
         last_npcs_update = now
 
         previous_timing = \
-            show_timing(previous_timing, "update npcs")
+            show_timing(previous_timing, "update npcs", args.debug)
 
     run_environment(mud, players, env)
 
     previous_timing = \
-        show_timing(previous_timing, "update environment")
+        show_timing(previous_timing, "update environment", args.debug)
 
     remove_corpses(corpses)
 
     previous_timing = \
-        show_timing(previous_timing, "remove dead")
+        show_timing(previous_timing, "remove dead", args.debug)
 
     npc_respawns(npcs)
 
     previous_timing = \
-        show_timing(previous_timing, "respawns")
+        show_timing(previous_timing, "respawns", args.debug)
 
     run_schedule(mud, event_schedule, players, npcs, items_in_world, env,
                  npcs_db, env_db)
 
     previous_timing = \
-        show_timing(previous_timing, "schedule")
+        show_timing(previous_timing, "schedule", args.debug)
 
     run_messages(mud, channels, players)
 
     previous_timing = \
-        show_timing(previous_timing, "messages")
+        show_timing(previous_timing, "messages", args.debug)
 
     channels.clear()
 
@@ -834,7 +840,7 @@ while True:
                            Config, terminal_mode)
 
     previous_timing = \
-        show_timing(previous_timing, "player connections")
+        show_timing(previous_timing, "player connections", args.debug)
 
     # rest restores hp and allows spell learning
     now = int(time.time())
@@ -844,7 +850,7 @@ while True:
         npcs_rest(npcs)
 
     previous_timing = \
-        show_timing(previous_timing, "resting")
+        show_timing(previous_timing, "resting", args.debug)
 
     # go through any new commands sent from players
     for id, command, params in mud.get_commands():
@@ -1337,4 +1343,4 @@ while True:
                                 sentiment_db, guilds_db, clouds, races_db,
                                 item_history, markets, cultures_db)
     previous_timing = \
-        show_timing(previous_timing, "player commands")
+        show_timing(previous_timing, "player commands", args.debug)
