@@ -98,13 +98,14 @@ def assign_terrain_difficulty(rooms: {}) -> int:
 def _room_at_zero_coord(rooms: {}, room_id: str) -> bool:
     """Room is at coord 0,0,0
     """
-    if not rooms[room_id].get('coords'):
+    room = rooms[room_id]
+    if not room.get('coords'):
         return False
-    if len(rooms[room_id]['coords']) < 3:
+    if len(room['coords']) < 3:
         return False
-    if rooms[room_id]['coords'][0] == 0 and \
-       rooms[room_id]['coords'][1] == 0 and \
-       rooms[room_id]['coords'][2] == 0:
+    if room['coords'][0] == 0 and \
+       room['coords'][1] == 0 and \
+       room['coords'][2] == 0:
         return True
     return False
 
@@ -195,17 +196,17 @@ def _get_all_room_exits(rooms: {}, room_id: str) -> {}:
     return exit_dict
 
 
-def _assign_coords_to_surrounding_rooms(thisRoom: str, rooms: {},
+def _assign_coords_to_surrounding_rooms(this_room: str, rooms: {},
                                         rooms_on_map: [], environments: {},
                                         other_rooms_found: []) -> bool:
     """Assigns coordinates to rooms surrounding one which has coordinates
     """
-    exit_dict = rooms[thisRoom]['allExits']
+    exit_dict = rooms[this_room]['allExits']
     # distance moved between rooms
-    distance = _distance_between_rooms(rooms, thisRoom, environments)
+    distance = _distance_between_rooms(rooms, this_room, environments)
     directions = ('north', 'south', 'east', 'west', 'up', 'down')
     for ex, room_id in exit_dict.items():
-        if room_id == thisRoom:
+        if room_id == this_room:
             continue
         if ex not in directions:
             continue
@@ -215,9 +216,9 @@ def _assign_coords_to_surrounding_rooms(thisRoom: str, rooms: {},
         other_room = rooms[room_id]
         if other_room['coordsAssigned']:
             continue
-        if not rooms[thisRoom].get('coords'):
+        if not rooms[this_room].get('coords'):
             continue
-        other_room['coords'] = rooms[thisRoom]['coords'].copy()
+        other_room['coords'] = rooms[this_room]['coords'].copy()
         # the other room does not have coordinates assigned
         if ex == 'north':
             other_room['coords'][0] += distance
@@ -238,17 +239,17 @@ def _assign_coords_to_surrounding_rooms(thisRoom: str, rooms: {},
     return False
 
 
-def _infer_coords_from_surrounding_rooms(thisRoom: str, rooms: {},
+def _infer_coords_from_surrounding_rooms(this_room: str, rooms: {},
                                          rooms_on_map: [], environments: {},
                                          rooms_found: []) -> bool:
     """Infers the coordinates for the given room from the
     coordinates of the surrounding rooms
     """
-    exit_dict = rooms[thisRoom]['allExits']
+    exit_dict = rooms[this_room]['allExits']
     directions = ('north', 'south', 'east', 'west', 'up', 'down')
     # Search the exits for rooms which have coords
     for ex, room_id in exit_dict.items():
-        if room_id == thisRoom:
+        if room_id == this_room:
             continue
         if ex not in directions:
             continue
@@ -264,20 +265,20 @@ def _infer_coords_from_surrounding_rooms(thisRoom: str, rooms: {},
         # make this room relative to the other
         if not other_room.get('coords'):
             continue
-        rooms[thisRoom]['coords'] = other_room['coords'].copy()
+        rooms[this_room]['coords'] = other_room['coords'].copy()
         if ex == 'north':
-            rooms[thisRoom]['coords'][0] -= distance
+            rooms[this_room]['coords'][0] -= distance
         elif ex == 'south':
-            rooms[thisRoom]['coords'][0] += distance
+            rooms[this_room]['coords'][0] += distance
         elif ex == 'east':
-            rooms[thisRoom]['coords'][1] += distance
+            rooms[this_room]['coords'][1] += distance
         elif ex == 'west':
-            rooms[thisRoom]['coords'][1] -= distance
+            rooms[this_room]['coords'][1] -= distance
         elif ex == 'up':
-            rooms[thisRoom]['coords'][2] -= distance
+            rooms[this_room]['coords'][2] -= distance
         elif ex == 'down':
-            rooms[thisRoom]['coords'][2] += distance
-        rooms[thisRoom]['coordsAssigned'] = True
+            rooms[this_room]['coords'][2] += distance
+        rooms[this_room]['coordsAssigned'] = True
         return True
     return False
 

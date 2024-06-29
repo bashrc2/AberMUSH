@@ -224,7 +224,7 @@ def familiar_is_hidden(players: {}, id, npcs: {}) -> bool:
     return False
 
 
-def _familiar_scout_any_direction(familiar_size: int, start_room_id,
+def _familiar_scout_any_direction(familiar_size: int, start_room_id: int,
                                   room_exits: {}, rooms: {}) -> []:
     """Scout in any direction
     """
@@ -240,7 +240,7 @@ def _familiar_scout_any_direction(familiar_size: int, start_room_id,
     return new_path
 
 
-def _familiar_scout_in_direction(mud, players: {}, id, start_room_id,
+def _familiar_scout_in_direction(mud, players: {}, id, start_room_id: int,
                                  room_exits: {},
                                  direction, rooms: {}) -> []:
     """Scout in the given direction

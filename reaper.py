@@ -47,8 +47,8 @@ def remove_corpses(corpses: {}):
             del corpses[cor]
 
 
-def run_deaths(mud, players: {}, npcs: {}, corpses, fights: {},
-               event_schedule, scripted_events_db):
+def run_deaths(mud, players: {}, npcs: {}, corpses: {}, fights: {},
+               event_schedule, scripted_events_db: {}):
     # Handle Player Deaths
     for pid, plyr in players.items():
         if plyr['authenticated']:
