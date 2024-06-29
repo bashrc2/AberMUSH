@@ -236,14 +236,14 @@ if os.path.isfile("universe_items.json"):
     try:
         with open("universe_items.json", "r", encoding='utf-8') as fp_read:
             items_in_world = json.loads(fp_read.read())
-    except BaseException:
+    except OSError:
         print('WARN: unable to load universe_items.json')
 
 if os.path.isfile("universe_itemsdb.json"):
     try:
         with open("universe_itemsdb.json", "r", encoding='utf-8') as fp_read:
             items_db = json.loads(fp_read.read())
-    except BaseException:
+    except OSError:
         print('WARN: unable to load universe_itemsdb.json')
 
 if not items_db:
@@ -358,7 +358,7 @@ if os.path.isfile("universe_actors.json"):
         with open("universe_actors.json", "r",
                   encoding='utf-8') as read_file:
             env = json.loads(read_file.read())
-    except BaseException:
+    except OSError:
         print('WARN: unable to load universe_actors.json')
 
 if os.path.isfile("universe_actorsdb.json"):
@@ -366,7 +366,7 @@ if os.path.isfile("universe_actorsdb.json"):
         with open("universe_actorsdb.json", "r",
                   encoding='utf-8') as read_file:
             env_db = json.loads(read_file.read())
-    except BaseException:
+    except OSError:
         print('WARN: unable to load universe_actorsdb.json')
 
 if not env_db:
@@ -412,7 +412,7 @@ if os.path.isfile("universe_npcsdb.json"):
     try:
         with open("universe_npcsdb.json", "r", encoding='utf-8') as fp_read:
             npcs_db = json.loads(fp_read.read())
-    except BaseException:
+    except OSError:
         print('WARN: unable to load universe_npcsdb.json')
 
 if not npcs_db:
