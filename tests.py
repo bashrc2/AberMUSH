@@ -398,7 +398,7 @@ def _test_functions() -> None:
         '_prof_second_wind',
         '_prof_indomitable',
         '_defense_proficiency_item',
-        'weaponProficiency',
+        'weapon_proficiency',
         '_copy_list',
         '_copy_dict',
         'level_up',

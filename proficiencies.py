@@ -161,8 +161,8 @@ def _weapon_proficiency_item(prof: str, id, players: {},
     return 0
 
 
-def weaponProficiency(id, players: {}, weapon_type: str,
-                      character_class_db: {}) -> int:
+def weapon_proficiency(id, players: {}, weapon_type: str,
+                       character_class_db: {}) -> int:
     """TODO: currently unused
     """
     if not players[id].get('race'):

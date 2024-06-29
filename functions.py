@@ -817,7 +817,7 @@ def parse_cost(cost_str: str) -> (int, str):
     return qty, denomination
 
 
-def item_in_room(items: {}, id, room):
+def item_in_room(items: {}, id, room: str):
     for i in items.items():
         if i[1]['room'] == room:
             if id == i[1]['id']:
