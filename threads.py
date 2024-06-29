@@ -69,7 +69,7 @@ class threadWithTrace(threading.Thread):
                                daemon=True)
 
 
-def remove_dormant_threads(baseDir: str, threads_list: [],
+def remove_dormant_threads(base_dir: str, threads_list: [],
                            debug: bool) -> None:
     """Removes threads whose execution has completed
     """
@@ -137,7 +137,7 @@ def remove_dormant_threads(baseDir: str, threads_list: [],
         return
 
     if debug:
-        send_log_filename = baseDir + '/send.csv'
+        send_log_filename = base_dir + '/send.csv'
         try:
             with open(send_log_filename, "a+",
                       encoding='utf-8') as fp_log:

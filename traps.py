@@ -76,10 +76,11 @@ def describe_trapped_player(mud, id, players: {}, rooms: {}):
 def player_is_trapped(id, players: {}, rooms: {}):
     """Returns true if the player is trapped
     """
-    room_id = players[id]['room']
+    plyr = players[id]
+    room_id = plyr['room']
     if rooms[room_id].get('trap'):
         if rooms[room_id]['trap'].get('trappedPlayers'):
-            if players[id]['name'] in rooms[room_id]['trap']['trappedPlayers']:
+            if plyr['name'] in rooms[room_id]['trap']['trappedPlayers']:
                 return True
     return False
 
@@ -112,11 +113,12 @@ def _describe_trap_deactivation(mud, room_id, trap, players: {}):
 def _holding_cutting_weapon(id, players: {}, items_db: {}):
     """If the player is holding a cutting weapon return its item_id
     """
-    item_id = players[id]['clo_rhand']
+    plyr = players[id]
+    item_id = plyr['clo_rhand']
     if item_id > 0:
         if items_db[item_id]['type'].startswith('slashing'):
             return item_id
-    item_id = players[id]['clo_lhand']
+    item_id = plyr['clo_lhand']
     if item_id > 0:
         if items_db[item_id]['type'].startswith('slashing'):
             return item_id
