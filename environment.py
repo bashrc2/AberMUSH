@@ -101,11 +101,12 @@ def _room_at_zero_coord(rooms: {}, room_id: str) -> bool:
     room = rooms[room_id]
     if not room.get('coords'):
         return False
-    if len(room['coords']) < 3:
+    room_coord = room['coords']
+    if len(room_coord) < 3:
         return False
-    if room['coords'][0] == 0 and \
-       room['coords'][1] == 0 and \
-       room['coords'][2] == 0:
+    if room_coord[0] == 0 and \
+       room_coord[1] == 0 and \
+       room_coord[2] == 0:
         return True
     return False
 
