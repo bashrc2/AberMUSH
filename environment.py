@@ -516,12 +516,12 @@ def _create_virtual_exits(rooms: {}, items_db: {},
 
     # get a list of door items
     door_ctr = 0
-    for item_id in items_db:
-        if not items_db[item_id].get('exit'):
+    for item_id, itemobj in items_db.items():
+        if not itemobj.get('exit'):
             continue
-        if not items_db[item_id].get('exitName'):
+        if not itemobj.get('exitName'):
             continue
-        if '|' not in items_db[item_id]['exitName']:
+        if '|' not in itemobj['exitName']:
             continue
         room_id = None
         for event in scripted_events_db:
@@ -533,7 +533,7 @@ def _create_virtual_exits(rooms: {}, items_db: {},
             room_id = event_item[1]
             break
         if room_id:
-            exit_direction = items_db[item_id]['exitName'].split('|')[0]
+            exit_direction = itemobj['exitName'].split('|')[0]
             collides = False
             if rooms[room_id]['exits'].get(exit_direction):
                 print('Room ' + room_id + ' has item ' +
@@ -548,7 +548,7 @@ def _create_virtual_exits(rooms: {}, items_db: {},
                 collides = True
 
             if not collides:
-                exit_room_id = items_db[item_id]['exit']
+                exit_room_id = itemobj['exit']
                 rooms[room_id]['virtualExits'][exit_direction] = exit_room_id
                 door_ctr += 1
     print('Door items: ' + str(door_ctr))
@@ -771,11 +771,11 @@ def generate_cloud(
     dyy = 0
     if wind_direction >= 320 or wind_direction <= 40:
         dyy = 1
-    if wind_direction <= 200 and wind_direction > 160:
+    if wind_direction in range(161, 201):
         dyy = -1
-    if wind_direction < 300 and wind_direction >= 230:
+    if wind_direction in range(230, 300):
         dxx = -1
-    if wind_direction > 50 and wind_direction <= 130:
+    if wind_direction in range(51, 131):
         dxx = 1
 
     # Move clouds in the wind direction
@@ -789,8 +789,8 @@ def generate_cloud(
         old_x = x_co + dxx
         for y_co in range(0, cloud_grid_height):
             old_y = y_co + dyy
-            if old_x >= 0 and old_x <= cloud_grid_width - 1 and \
-               old_y >= 0 and old_y <= cloud_grid_height - 1:
+            if old_x in range(0, cloud_grid_width) and \
+               old_y in range(0, cloud_grid_height):
                 cloud_grid_new[x_co][y_co] = cloud_grid[old_x][old_y]
             else:
                 if old_x < 0:
@@ -1171,27 +1171,27 @@ def players_fishing(players: {}, rooms: {}, items_db: {}, mud) -> None:
             _catch_fish(players, plyr, rooms, items_db, mud)
 
 
-def _moon_position(currTime) -> int:
+def _moon_position(curr_time) -> int:
     """Returns a number representing the position of the moon
     """
-    diff = currTime - datetime.datetime(2001, 1, 1)
+    diff = curr_time - datetime.datetime(2001, 1, 1)
     days = dec(diff.days) + (dec(diff.seconds) / dec(86400))
     lunations = dec("0.20439731") + (days * dec("0.03386319269"))
     return lunations % dec(1)
 
 
-def moon_phase(currTime) -> int:
+def moon_phase(curr_time) -> int:
     """Returns a number representing the phase of the moon
     """
-    position = _moon_position(currTime)
+    position = _moon_position(curr_time)
     index = (position * dec(8)) + dec("0.5")
     index = math.floor(index)
     return int(index) & 7
 
 
-def moon_illumination(currTime) -> int:
+def moon_illumination(curr_time) -> int:
     """Returns additional illumination due to moonlight
     """
-    position = _moon_position(currTime)
+    position = _moon_position(curr_time)
     pos = int(position) & 7
     return int((5 - abs(4 - pos)) * 2)
