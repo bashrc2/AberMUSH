@@ -317,12 +317,15 @@ def _is_witch(id: int, players: {}) -> bool:
     if not os.path.isfile("witches"):
         return False
 
-    with open("witches", "r", encoding='utf-8') as witchesfile:
-        for line in witchesfile:
-            witch_name = line.strip()
-            if witch_name == name:
-                return True
-
+    witches_filename = "witches"
+    try:
+        with open(witches_filename, "r", encoding='utf-8') as witchesfile:
+            for line in witchesfile:
+                witch_name = line.strip()
+                if witch_name == name:
+                    return True
+    except OSError:
+        print('EX: _is_witch ' + witches_filename)
     return False
 
 
@@ -335,8 +338,12 @@ def _disable_registrations(mud, id: int, players: {}) -> None:
     if os.path.isfile(".disableRegistrations"):
         mud.send_message(id, "New registrations are already closed.\n\n")
         return
-    with open(".disableRegistrations", 'w', encoding='utf-8') as fp_dis:
-        fp_dis.write('')
+    filename = ".disableRegistrations"
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_dis:
+            fp_dis.write('')
+    except OSError:
+        print('EX: _disable_registrations ' + filename)
     mud.send_message(id, "New player registrations are now closed.\n\n")
 
 
@@ -3126,9 +3133,13 @@ def _show_room_image(mud, id, room_id, rooms: {}, players: {},
             outdoors = False
     if not os.path.isfile(room_image_filename):
         return
-    with open(room_image_filename, 'r', encoding='utf-8') as fp_room:
-        room_image_str = fp_room.read()
-        mud.send_image(id, '\n' + _room_illumination(room_image_str, outdoors))
+    try:
+        with open(room_image_filename, 'r', encoding='utf-8') as fp_room:
+            room_image_str = fp_room.read()
+            mud.send_image(id, '\n' +
+                           _room_illumination(room_image_str, outdoors))
+    except OSError:
+        print('EX: _show_room_image ' + room_image_filename)
 
 
 def _show_spell_image(mud, id, spellId, players: {}) -> None:
@@ -3140,8 +3151,11 @@ def _show_spell_image(mud, id, spellId, players: {}) -> None:
     spell_image_filename = 'images/spells/' + spellId
     if not os.path.isfile(spell_image_filename):
         return
-    with open(spell_image_filename, 'r', encoding='utf-8') as fp_spell:
-        mud.send_image(id, '\n' + fp_spell.read())
+    try:
+        with open(spell_image_filename, 'r', encoding='utf-8') as fp_spell:
+            mud.send_image(id, '\n' + fp_spell.read())
+    except OSError:
+        print('EX: _show_spell_image ' + spell_image_filename)
 
 
 def _show_item_image(mud, id, item_id, room_id, rooms: {}, players: {},
@@ -3177,9 +3191,13 @@ def _show_item_image(mud, id, item_id, room_id, rooms: {}, players: {},
             outdoors = False
     if not os.path.isfile(item_image_filename):
         return
-    with open(item_image_filename, 'r', encoding='utf-8') as fp_item:
-        item_image_str = fp_item.read()
-        mud.send_image(id, '\n' + _room_illumination(item_image_str, outdoors))
+    try:
+        with open(item_image_filename, 'r', encoding='utf-8') as fp_item:
+            item_image_str = fp_item.read()
+            mud.send_image(id, '\n' +
+                           _room_illumination(item_image_str, outdoors))
+    except OSError:
+        print('EX: _show_item_image ' + item_image_filename)
 
 
 def _show_npc_image(mud, id, npc_name, players: {}) -> None:
@@ -3191,8 +3209,11 @@ def _show_npc_image(mud, id, npc_name, players: {}) -> None:
     npc_image_filename = 'images/npcs/' + npc_name.replace(' ', '_')
     if not os.path.isfile(npc_image_filename):
         return
-    with open(npc_image_filename, 'r', encoding='utf-8') as fp_npc:
-        mud.send_image(id, '\n' + fp_npc.read())
+    try:
+        with open(npc_image_filename, 'r', encoding='utf-8') as fp_npc:
+            mud.send_image(id, '\n' + fp_npc.read())
+    except OSError:
+        print('EX: _show_npc_image ' + npc_image_filename)
 
 
 def _get_room_exits(mud, rooms: {}, players: {}, id) -> {}:

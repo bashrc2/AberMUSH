@@ -143,5 +143,5 @@ def removeDormantThreads(baseDir: str, threads_list: [], debug: bool) -> None:
                 fp_log.write(curr_time.strftime("%Y-%m-%dT%H:%M:%SZ") +
                              ',' + str(no_of_active_threads) +
                              ',' + str(len(threads_list)) + '\n')
-        except BaseException:
-            pass
+        except OSError:
+            print('EX: removeDormantThreads ' + send_log_filename)

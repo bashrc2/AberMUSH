@@ -311,20 +311,23 @@ def _board_location_indexes(board_name: str) -> {}:
     index = 0
     locations = {}
     # read the locations file
-    with open(locations_filename, "r", encoding='utf-8') as fp_loc:
-        lines = fp_loc.readlines()
-        for horizontal in lines:
-            if ' ' not in horizontal:
-                continue
-            coords = horizontal.strip().split(' ')
-            for locn in coords:
-                if ',' not in locn:
+    try:
+        with open(locations_filename, "r", encoding='utf-8') as fp_loc:
+            lines = fp_loc.readlines()
+            for horizontal in lines:
+                if ' ' not in horizontal:
                     continue
-                x_co = locn.split(',')[0].strip()
-                y_co = locn.split(',')[1].strip()
-                if x_co.isdigit() and y_co.isdigit():
-                    locations[index] = [int(x_co), int(y_co)]
-                    index += 1
+                coords = horizontal.strip().split(' ')
+                for locn in coords:
+                    if ',' not in locn:
+                        continue
+                    x_co = locn.split(',')[0].strip()
+                    y_co = locn.split(',')[1].strip()
+                    if x_co.isdigit() and y_co.isdigit():
+                        locations[index] = [int(x_co), int(y_co)]
+                        index += 1
+    except OSError:
+        print('EX: _board_location_indexes ' + locations_filename)
     if index != 24:
         print('Invalid morris locations file: ' + locations_filename)
         print('Indexes: ' + str(index))

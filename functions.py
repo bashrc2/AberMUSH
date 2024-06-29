@@ -396,19 +396,23 @@ def load_players_db(force_lowercase: bool = True):
          if os.path.splitext(i)[1] == ".player"]
     for fil in player_files:
         print('Player: ' + fil)
-        with open(os.path.join(location, fil), 'r',
-                  encoding='utf-8') as file_object:
-            db1[fil] = json.loads(file_object.read())
+        filename = os.path.join(location, fil)
+        try:
+            with open(filename, 'r',
+                      encoding='utf-8') as file_object:
+                db1[fil] = json.loads(file_object.read())
 
-            # add any missing fields
-            if not db1[fil].get('culture'):
-                db1[fil]['culture'] = ""
-            if 'magicShield' not in db1[fil]:
-                db1[fil]['magicShield'] = 0
-                db1[fil]['magicShieldStart'] = 0
-                db1[fil]['magicShieldDuration'] = 0
-            if 'isFishing' in db1[fil]:
-                del db1[fil]['isFishing']
+                # add any missing fields
+                if not db1[fil].get('culture'):
+                    db1[fil]['culture'] = ""
+                if 'magicShield' not in db1[fil]:
+                    db1[fil]['magicShield'] = 0
+                    db1[fil]['magicShieldStart'] = 0
+                    db1[fil]['magicShieldDuration'] = 0
+                if 'isFishing' in db1[fil]:
+                    del db1[fil]['isFishing']
+        except OSError:
+            print('EX: load_players_db ' + filename)
 
     if force_lowercase is True:
         out = {}
@@ -419,24 +423,25 @@ def load_players_db(force_lowercase: bool = True):
     return db1
 
 
-def log(content, type):
+def log(content: str, log_type: str):
     """Function used for logging messages to stdout and a disk file
     """
-    # logfile = './dum.log'
     logfile = str(Config.get('Logs', 'ServerLog'))
     print(str(time.strftime("%d/%m/%Y") + " " +
-              time.strftime("%I:%M:%S") + " [" + type + "] " + content))
+              time.strftime("%I:%M:%S") + " [" + log_type + "] " + content))
+    open_type = 'w'
     if os.path.exists(logfile):
-        log1 = open(logfile, 'a', encoding='utf-8')
-    else:
-        log1 = open(logfile, 'w', encoding='utf-8')
-    log1.write(str(time.strftime("%d/%m/%Y") + " " +
-                   time.strftime("%I:%M:%S") +
-                   " [" + type + "] " + content) + '\n')
-    log1.close()
+        open_type = 'a'
+    try:
+        with open(logfile, open_type, encoding='utf-8') as fp_log:
+            fp_log.write(str(time.strftime("%d/%m/%Y") + " " +
+                             time.strftime("%I:%M:%S") +
+                             " [" + log_type + "] " + content) + '\n')
+    except OSError:
+        print('EX: log ' + logfile)
 
 
-def get_free_key(items_dict, start=None):
+def get_free_key(items_dict: {}, start=None):
     """Function for returning a first available key value for appending a new
     element to a dictionary
     """
@@ -501,12 +506,12 @@ def add_to_scheduler(event_id, target_id, scheduler, database):
 
 def load_player(name: str) -> dict:
     location = str(Config.get('Players', 'Location'))
+    filename = os.path.join(location, name + ".player")
     try:
-        with open(os.path.join(location, name + ".player"), "r",
-                  encoding='utf-8') as read_file:
+        with open(filename, "r", encoding='utf-8') as read_file:
             return json.loads(read_file.read())
-    except BaseException:
-        pass
+    except OSError:
+        print('EX: load_player ' + filename)
     return {}
 
 
@@ -520,8 +525,12 @@ def _save_player(player, main_db: {}, save_password: str):
     dbase = load_players_db(force_lowercase=False)
     for plyr in dbase:
         if (player['name'] + ".player").lower() == plyr.lower():
-            with open(path + plyr, "r", encoding='utf-8') as read_file:
-                temp = json.loads(read_file.read())
+            filename = path + plyr
+            try:
+                with open(filename, "r", encoding='utf-8') as read_file:
+                    temp = json.loads(read_file.read())
+            except OSError:
+                print('EX: _save_player 1 ' + filename)
             _silent_remove(path + player['name'] + ".player")
             new_player = deepcopy(temp)
             new_player['pwd'] = temp['pwd']
@@ -530,9 +539,13 @@ def _save_player(player, main_db: {}, save_password: str):
                     if player.get(key):
                         new_player[key] = player[key]
 
-            with open(path + player['name'] + ".player", 'w',
-                      encoding='utf-8') as fp_pla:
-                fp_pla.write(json.dumps(new_player))
+            filename = path + player['name'] + ".player"
+            try:
+                with open(filename, 'w',
+                          encoding='utf-8') as fp_pla:
+                    fp_pla.write(json.dumps(new_player))
+            except OSError:
+                print('EX: _save_player 2 ' + filename)
             load_players_db()
 
 
@@ -549,46 +562,74 @@ def save_universe(rooms: {}, npcs_db: {}, npcs: {},
     """Saves the state of the universe
     """
     # save rooms
-    if os.path.isfile('universe.json'):
-        os.rename('universe.json', 'universe2.json')
-    with open("universe.json", 'w', encoding='utf-8') as fp_uni:
-        fp_uni.write(json.dumps(rooms))
+    filename = "universe.json"
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_uni:
+            fp_uni.write(json.dumps(rooms))
+    except OSError:
+        print('EX: save_universe 1 ' + filename)
 
     # save items
-    if os.path.isfile('universe_items.json'):
-        os.rename('universe_items.json', 'universe_items2.json')
-    with open("universe_items.json", 'w', encoding='utf-8') as fp_items:
-        fp_items.write(json.dumps(items))
+    filename = "universe_items.json"
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe_items2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_items:
+            fp_items.write(json.dumps(items))
+    except OSError:
+        print('EX: save_universe 2 ' + filename)
 
     # save items_db
-    if os.path.isfile('universe_itemsdb.json'):
-        os.rename('universe_itemsdb.json', 'universe_itemsdb2.json')
-    with open("universe_itemsdb.json", 'w', encoding='utf-8') as fp_items:
-        fp_items.write(json.dumps(items_db))
+    filename = 'universe_itemsdb.json'
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe_itemsdb2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_items:
+            fp_items.write(json.dumps(items_db))
+    except OSError:
+        print('EX: save_universe 3 ' + filename)
 
     # save environment actors
-    if os.path.isfile('universe_actorsdb.json'):
-        os.rename('universe_actorsdb.json', 'universe_actorsdb2.json')
-    with open("universe_actorsdb.json", 'w', encoding='utf-8') as fp_actors:
-        fp_actors.write(json.dumps(env_db))
+    filename = 'universe_actorsdb.json'
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe_actorsdb2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_actors:
+            fp_actors.write(json.dumps(env_db))
+    except OSError:
+        print('EX: save_universe 4 ' + filename)
 
     # save environment actors
-    if os.path.isfile('universe_actors.json'):
-        os.rename('universe_actors.json', 'universe_actors2.json')
-    with open("universe_actors.json", 'w', encoding='utf-8') as fp_actors:
-        fp_actors.write(json.dumps(env))
+    filename = 'universe_actors.json'
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe_actors2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_actors:
+            fp_actors.write(json.dumps(env))
+    except OSError:
+        print('EX: save_universe 5 ' + filename)
 
     # save npcs
-    if os.path.isfile('universe_npcs.json'):
-        os.rename('universe_npcs.json', 'universe_npcs2.json')
-    with open("universe_npcs.json", 'w', encoding='utf-8') as fp_npcs:
-        fp_npcs.write(json.dumps(npcs))
+    filename = 'universe_npcs.json'
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe_npcs2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_npcs:
+            fp_npcs.write(json.dumps(npcs))
+    except OSError:
+        print('EX: save_universe 6 ' + filename)
 
     # save npcs_db
-    if os.path.isfile('universe_npcsdb.json'):
-        os.rename('universe_npcsdb.json', 'universe_npcsdb2.json')
-    with open("universe_npcsdb.json", 'w', encoding='utf-8') as fp_npcs:
-        fp_npcs.write(json.dumps(npcs_db))
+    filename = 'universe_npcsdb.json'
+    if os.path.isfile(filename):
+        os.rename(filename, 'universe_npcsdb2.json')
+    try:
+        with open(filename, 'w', encoding='utf-8') as fp_npcs:
+            fp_npcs.write(json.dumps(npcs_db))
+    except OSError:
+        print('EX: save_universe 7 ' + filename)
 
 
 def str2bool(v) -> bool:
@@ -610,32 +651,38 @@ def send_to_channel(sender, channel, message, channels):
     # print(channels)
 
 
-def load_blocklist(filename, blocklist):
+def load_blocklist(filename: str, blocklist: []) -> None:
     if not os.path.isfile(filename):
         return False
 
     blocklist.clear()
 
-    with open(filename, "r", encoding='utf-8') as blockfile:
-        for line in blockfile:
-            blockedstr = line.lower().strip()
-            if ',' in blockedstr:
-                blockedlst = blockedstr.lower().strip().split(',')
-                for blockedstr2 in blockedlst:
-                    blockedstr2 = blockedstr2.lower().strip()
-                    if blockedstr2 not in blocklist:
-                        blocklist.append(blockedstr2)
-            else:
-                if blockedstr not in blocklist:
-                    blocklist.append(blockedstr)
+    try:
+        with open(filename, "r", encoding='utf-8') as blockfile:
+            for line in blockfile:
+                blockedstr = line.lower().strip()
+                if ',' in blockedstr:
+                    blockedlst = blockedstr.lower().strip().split(',')
+                    for blockedstr2 in blockedlst:
+                        blockedstr2 = blockedstr2.lower().strip()
+                        if blockedstr2 not in blocklist:
+                            blocklist.append(blockedstr2)
+                else:
+                    if blockedstr not in blocklist:
+                        blocklist.append(blockedstr)
+    except OSError:
+        print('EX: load_blocklist failed ' + filename)
 
     return True
 
 
-def save_blocklist(filename, blocklist):
-    with open(filename, "w", encoding='utf-8') as blockfile:
-        for blockedstr in blocklist:
-            blockfile.write(blockedstr + '\n')
+def save_blocklist(filename: str, blocklist: []) -> None:
+    try:
+        with open(filename, "w", encoding='utf-8') as blockfile:
+            for blockedstr in blocklist:
+                blockfile.write(blockedstr + '\n')
+    except OSError:
+        print('EX: save_blocklist failed ' + filename)
 
 
 def set_race(template, races_db, name):

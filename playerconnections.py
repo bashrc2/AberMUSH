@@ -149,18 +149,26 @@ def _run_new_player_connections(mud, players: {}, players_db: {}, fights: {},
         }
 
         # Read in the MOTD file and send to the player
-        with open(str(config.get('System', 'Motd')), "r",
-                  encoding='utf-8') as motd_file:
-            motd_lines = motd_file.readlines()
+        filename = str(config.get('System', 'Motd'))
+        try:
+            with open(filename, "r",
+                      encoding='utf-8') as motd_file:
+                motd_lines = motd_file.readlines()
+        except OSError:
+            print('EX: _run_new_player_connections 1 ' + filename)
 
         for file_line in motd_lines:
             line_str = file_line[:-1]
             if line_str.strip().startswith('images/'):
                 motd_image_file = line_str.strip()
                 if os.path.isfile(motd_image_file):
-                    with open(motd_image_file, 'r',
-                              encoding='utf-8') as fp_img:
-                        mud.send_image(id, '\n' + fp_img.read(), True)
+                    try:
+                        with open(motd_image_file, 'r',
+                                  encoding='utf-8') as fp_img:
+                            mud.send_image(id, '\n' + fp_img.read(), True)
+                    except OSError:
+                        print('EX: _run_new_player_connections 1 ' +
+                              motd_image_file)
             else:
                 mud.send_message(id, line_str)
 

@@ -572,19 +572,23 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
             utf8_desc.replace('\n', '').replace(' ', '_').lower() + '.utf8ans'
         loaded_card = False
         if os.path.isfile(utf8_card_filename):
-            with open(utf8_card_filename, 'r', encoding='utf-8') as fp_card:
-                card_lines = fp_card.readlines()
-                if card_lines:
-                    if len(card_lines) >= 9:
-                        loaded_card = True
-                        for line_ctr in range(9):
-                            card_lines[line_ctr] = \
-                                card_lines[line_ctr].replace('\n', '')
-                            lines[line_ctr].append(' ' +
-                                                   card_lines[line_ctr])
-                    else:
-                        print('playing card too short: ' +
-                              utf8_card_filename)
+            try:
+                with open(utf8_card_filename, 'r',
+                          encoding='utf-8') as fp_card:
+                    card_lines = fp_card.readlines()
+                    if card_lines:
+                        if len(card_lines) >= 9:
+                            loaded_card = True
+                            for line_ctr in range(9):
+                                card_lines[line_ctr] = \
+                                    card_lines[line_ctr].replace('\n', '')
+                                lines[line_ctr].append(' ' +
+                                                       card_lines[line_ctr])
+                        else:
+                            print('playing card too short: ' +
+                                  utf8_card_filename)
+            except OSError:
+                print('EX: hand_of_cards_show ' + utf8_card_filename)
         else:
             print('card file not found: ' + utf8_card_filename)
         if not loaded_card:
