@@ -98,7 +98,7 @@ def get_sentiment(text: str, sentiment_db: {}) -> int:
     return sentiment
 
 
-def get_guild_sentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
+def get_guild_sentiment(players: {}, id, npcs: {}, p: int, guilds: {}) -> int:
     """Returns the sentiment of the guild of the first player
     towards the second
     """
@@ -117,12 +117,12 @@ def get_guild_sentiment(players: {}, id, npcs: {}, p, guilds: {}) -> int:
     return int(guilds[guild_name]['affinity'][other_player_name] / 2)
 
 
-def _baseline_affinity(players, id):
+def _baseline_affinity(players: {}, id):
     """Returns the average affinity value for the player
     """
     average_affinity = 0
     ctr = 0
-    for name, value in players[id]['affinity'].items():
+    for _, value in players[id]['affinity'].items():
         average_affinity = average_affinity + value
         ctr += 1
 
@@ -135,7 +135,7 @@ def _baseline_affinity(players, id):
 
 
 def increase_affinity_between_players(players: {}, id, npcs: {},
-                                      p, guilds: {}) -> None:
+                                      p: int, guilds: {}) -> None:
     """Increases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -172,7 +172,7 @@ def increase_affinity_between_players(players: {}, id, npcs: {},
 
 
 def decrease_affinity_between_players(players: {}, id, npcs: {},
-                                      p, guilds: {}) -> None:
+                                      p: int, guilds: {}) -> None:
     """Decreases the affinity level between two players
     """
     # You can't gain affinity with low intelligence creatures
@@ -215,7 +215,7 @@ def decrease_affinity_between_players(players: {}, id, npcs: {},
                     _baseline_affinity(players, id)
 
 
-def random_desc(description_list):
+def random_desc(description_list: []) -> []:
     if isinstance(description_list, list):
         desc_list = description_list
     else:
@@ -226,46 +226,43 @@ def random_desc(description_list):
     return desc_list[randint(0, len(desc_list) - 1)]
 
 
-def levelUp(id, players, character_class_db, increment):
-    level = players[id]['lvl']
+def level_up(id, players: {}, character_class_db: {}, increment: int):
+    plyr = players[id]
+    level = plyr['lvl']
     if level < 20:
-        players[id]['exp'] = players[id]['exp'] + increment
-        if players[id]['exp'] > (level + 1) * 1000:
-            players[id]['hpMax'] = players[id]['hpMax'] + randint(1, 9)
-            players[id]['lvl'] = level + 1
+        plyr['exp'] = plyr['exp'] + increment
+        if plyr['exp'] > (level + 1) * 1000:
+            plyr['hpMax'] = plyr['hpMax'] + randint(1, 9)
+            plyr['lvl'] = level + 1
             # remove any existing spell lists
-            for prof in players[id]['proficiencies']:
+            for prof in plyr['proficiencies']:
                 if isinstance(prof, list):
-                    players[id]['proficiencies'].remove(prof)
+                    plyr['proficiencies'].remove(prof)
             # update proficiencies
-            idx = players[id]['characterClass']
-            for prof in character_class_db[idx][str(players[id]['lvl'])]:
-                if prof not in players[id]['proficiencies']:
-                    players[id]['proficiencies'].append(prof)
+            idx = plyr['characterClass']
+            for prof in character_class_db[idx][str(plyr['lvl'])]:
+                if prof not in plyr['proficiencies']:
+                    plyr['proficiencies'].append(prof)
 
 
 def stow_hands(id, players: {}, items_db: {}, mud):
     """Stows items held
     """
-    if int(players[id]['clo_rhand']) > 0:
-        item_id = int(players[id]['clo_rhand'])
+    plyr = players[id]
+    if int(plyr['clo_rhand']) > 0:
+        item_id = int(plyr['clo_rhand'])
+        itemobj = items_db[item_id]
         mud.send_message(
-            id, 'You stow <b234>' +
-            items_db[item_id]['article'] +
-            ' ' +
-            items_db[item_id]['name'] +
-            '<r>\n\n')
-        players[id]['clo_rhand'] = 0
+            id, 'You stow <b234>' + itemobj['article'] +
+            ' ' + itemobj['name'] + '<r>\n\n')
+        plyr['clo_rhand'] = 0
 
-    if int(players[id]['clo_lhand']) > 0:
-        item_id = int(players[id]['clo_lhand'])
+    if int(plyr['clo_lhand']) > 0:
+        item_id = int(plyr['clo_lhand'])
         mud.send_message(
-            id, 'You stow <b234>' +
-            items_db[item_id]['article'] +
-            ' ' +
-            items_db[item_id]['name'] +
-            '<r>\n\n')
-        players[id]['clo_lhand'] = 0
+            id, 'You stow <b234>' + itemobj['article'] +
+            ' ' + itemobj['name'] + '<r>\n\n')
+        plyr['clo_lhand'] = 0
 
 
 def size_from_description(description: str):
@@ -340,7 +337,7 @@ def update_player_attributes(id, players: {},
     items_db[item_id]['mod_exp'] = 0
 
 
-def player_inventory_weight(id, players, items_db):
+def player_inventory_weight(id, players: {}, items_db: {}):
     """Returns the total weight of a player's inventory
     """
     if len(list(players[id]['inv'])) == 0:
@@ -353,7 +350,7 @@ def player_inventory_weight(id, players, items_db):
     return weight
 
 
-def hash_password(password):
+def hash_password(password: str) -> str:
     """Hash a password for storing."""
     salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
     pwdhash = \
@@ -363,7 +360,7 @@ def hash_password(password):
     return (salt + pwdhash).decode('ascii')
 
 
-def verify_password(stored_password, provided_password):
+def verify_password(stored_password: str, provided_password: str) -> bool:
     """Verify a stored password against one provided by user"""
     salt = stored_password[:64]
     stored_password = stored_password[64:]
@@ -463,7 +460,7 @@ def get_free_key(items_dict: {}, start=None):
         return start
 
 
-def get_free_room_key(rooms):
+def get_free_room_key(rooms: {}) -> str:
     """Function for returning a first available room key value for appending a
     room element to a dictionary
     """
@@ -482,7 +479,7 @@ def get_free_room_key(rooms):
     return ''
 
 
-def add_to_scheduler(event_id, target_id, scheduler, database):
+def add_to_scheduler(event_id: int, target_id: int, scheduler, database):
     """Function for adding events to event scheduler
     """
     if isinstance(event_id, int):
@@ -685,7 +682,7 @@ def save_blocklist(filename: str, blocklist: []) -> None:
         print('EX: save_blocklist failed ' + filename)
 
 
-def set_race(template, races_db, name):
+def set_race(template: {}, races_db: {}, name: str):
     """Set the player race
     """
     template['speakLanguage'] = races_db[name]['language'][0]
@@ -704,7 +701,7 @@ def set_race(template, races_db, name):
     template['ref'] = races_db[name]['ref']
 
 
-def prepare_spells(mud, id, players):
+def prepare_spells(mud, id, players: {}):
     """Player prepares spells, called once per second
     """
     if len(players[id]['prepareSpell']) == 0:
@@ -747,17 +744,17 @@ def is_wearing(id, players: {}, item_list: []) -> bool:
     return False
 
 
-def player_is_visible(mud, observerId: int, observers: {},
-                      other_playerId: int, others: {}) -> bool:
+def player_is_visible(mud, observer_id: int, observers: {},
+                      other_player_id: int, others: {}) -> bool:
     """Is the other player visible to the observer?
     """
-    observerId = int(observerId)
-    other_playerId = int(other_playerId)
-    if not others[other_playerId].get('visibleWhenWearing'):
+    observer_id = int(observer_id)
+    other_player_id = int(other_player_id)
+    if not others[other_player_id].get('visibleWhenWearing'):
         return True
-    if others[other_playerId].get('visibleWhenWearing'):
-        if is_wearing(observerId, observers,
-                      others[other_playerId]['visibleWhenWearing']):
+    if others[other_player_id].get('visibleWhenWearing'):
+        if is_wearing(observer_id, observers,
+                      others[other_player_id]['visibleWhenWearing']):
             return True
     return False
 

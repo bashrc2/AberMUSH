@@ -401,7 +401,7 @@ def _test_functions() -> None:
         'weaponProficiency',
         '_copy_list',
         '_copy_dict',
-        'levelUp',
+        'level_up',
         'plot_clouds',
         'handleMessage',
         'handleConnected',
