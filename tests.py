@@ -370,7 +370,7 @@ def _test_functions() -> None:
         'localtrace',
         'kill',
         'clone',
-        'removeDormantThreads',
+        'remove_dormant_threads',
         '_login_headers',
         '_set_headers_head',
         '_set_headers_etag',

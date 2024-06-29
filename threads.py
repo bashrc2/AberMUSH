@@ -69,7 +69,8 @@ class threadWithTrace(threading.Thread):
                                daemon=True)
 
 
-def removeDormantThreads(baseDir: str, threads_list: [], debug: bool) -> None:
+def remove_dormant_threads(baseDir: str, threads_list: [],
+                           debug: bool) -> None:
     """Removes threads whose execution has completed
     """
     if len(threads_list) == 0:
@@ -144,4 +145,4 @@ def removeDormantThreads(baseDir: str, threads_list: [], debug: bool) -> None:
                              ',' + str(no_of_active_threads) +
                              ',' + str(len(threads_list)) + '\n')
         except OSError:
-            print('EX: removeDormantThreads ' + send_log_filename)
+            print('EX: remove_dormant_threads ' + send_log_filename)
