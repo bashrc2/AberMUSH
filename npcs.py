@@ -404,7 +404,7 @@ def _move_npcs(npcs: {}, players: {}, mud, now, nid: int) -> None:
         this_npc['lastMoved'] = now
 
 
-def _remove_inactive_entity(nid, npcs: {}, nid2, npcs_db: {},
+def _remove_inactive_entity(nid: int, npcs: {}, nid2, npcs_db: {},
                             npc_active: bool) -> bool:
     """Moves inactive NPCs to and from purgatory
     Returns true when recovering from purgatory
@@ -706,7 +706,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
 
 
 def _conversation_state(word: str, conversation_states: {},
-                        nid, npcs: {},
+                        nid: int, npcs: {},
                         match_ctr: int) -> (bool, bool, int):
     """Is the conversations with this npc in the given state?
        Returns True if the conversation is in the given state
@@ -957,7 +957,8 @@ def _conversation_give(best_match: str, best_match_action: str,
 def _conversation_skill(best_match: str, best_match_action: str,
                         best_match_action_param0: str,
                         best_match_action_param1: str,
-                        players: {}, id, mud, npcs: {}, nid, items_db: {},
+                        players: {}, id, mud, npcs: {},
+                        nid: int, items_db: {},
                         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives or alters a skill
     """
@@ -1130,7 +1131,7 @@ def _conversation_transport(
 def _conversation_taxi(
         best_match_action: str, best_match_action_param0: str,
         best_match_action_param1: str, players: {},
-        id, mud, best_match, npcs: {}, nid, items_db: {},
+        id, mud, best_match, npcs: {}, nid: int, items_db: {},
         puzzled_str: str, guilds_db: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some
     location in exchange for payment/barter
@@ -1175,7 +1176,7 @@ def _conversation_taxi(
 def _conversation_give_on_date(
         best_match_action: str, best_match_action_param0: str,
         best_match_action_param1: str, players: {},
-        id, mud, npcs: {}, nid, items_db: {}, best_match,
+        id, mud, npcs: {}, nid: int, items_db: {}, best_match,
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives something to you on
     a particular date of the year eg. Some festival or holiday
