@@ -63,26 +63,28 @@ def _get_leader_room_index(npcs: {}, players: {}, mud,
     """An NPC follows another NPC or player
     This returns the index of the room where the leader is located
     """
-    if move_type.startswith('leader:'):
-        leader_name = move_type.split(':')[1]
-        if len(leader_name) > 0:
-            # is the leader an NPC
-            for _, leader_npc in npcs.items():
-                if leader_npc['name'] != leader_name:
-                    continue
-                if leader_npc['room'] == npcs[nid]['room']:
-                    continue
-                # follower NPCs are in the same guild
-                npcs[nid]['guild'] = leader_npc['guild']
-                return leader_npc['room']
-            # is the leader a player
-            for _, plyr in players.items():
-                if plyr['name'] != leader_name:
-                    continue
-                if plyr['room'] == npcs[nid]['room']:
-                    continue
-                npcs[nid]['guild'] = plyr['guild']
-                return plyr['room']
+    if not move_type.startswith('leader:'):
+        return ''
+    leader_name = move_type.split(':')[1]
+    if len(leader_name) == 0:
+        return ''
+    # is the leader an NPC
+    for _, leader_npc in npcs.items():
+        if leader_npc['name'] != leader_name:
+            continue
+        if leader_npc['room'] == npcs[nid]['room']:
+            continue
+        # follower NPCs are in the same guild
+        npcs[nid]['guild'] = leader_npc['guild']
+        return leader_npc['room']
+    # is the leader a player
+    for _, plyr in players.items():
+        if plyr['name'] != leader_name:
+            continue
+        if plyr['room'] == npcs[nid]['room']:
+            continue
+        npcs[nid]['guild'] = plyr['guild']
+        return plyr['room']
     return ''
 
 
@@ -413,11 +415,12 @@ def _remove_inactive_entity(nid: int, npcs: {}, nid2, npcs_db: {},
     purgatory_room = "$rid=1386$"
 
     for time_range in npcs_db[nid2]['moveTimes']:
-        if len(time_range) == 2:
-            if time_range[0].startswith('inactive') or \
-               time_range[0].startswith('home'):
-                purgatory_room = "$rid=" + str(time_range[1]) + "$"
-            break
+        if len(time_range) != 2:
+            continue
+        if time_range[0].startswith('inactive') or \
+           time_range[0].startswith('home'):
+            purgatory_room = "$rid=" + str(time_range[1]) + "$"
+        break
 
     this_npc = npcs[nid]
     if this_npc['room'] == purgatory_room:
@@ -441,15 +444,18 @@ def npc_respawns(npcs: {}) -> None:
     for _, this_npc in npcs.items():
         if not this_npc['whenDied']:
             continue
-        if int(time.time()) >= this_npc['whenDied'] + this_npc['respawn']:
-            if len(this_npc['familiarOf']) == 0:
-                this_npc['whenDied'] = None
-                # this_npc['room'] = npcs_template[nid]['room']
-                this_npc['room'] = this_npc['lastRoom']
-                hp_str = str(this_npc['hp'])
-                log("respawning " + this_npc['name'] +
-                    " with " + hp_str +
-                    " hit points", "info")
+        if not (int(time.time()) >=
+                this_npc['whenDied'] + this_npc['respawn']):
+            continue
+        if len(this_npc['familiarOf']) > 0:
+            continue
+        this_npc['whenDied'] = None
+        # this_npc['room'] = npcs_template[nid]['room']
+        this_npc['room'] = this_npc['lastRoom']
+        hp_str = str(this_npc['hp'])
+        log("respawning " + this_npc['name'] +
+            " with " + hp_str +
+            " hit points", "info")
 
 
 def run_mobile_items(items_db: {}, items: {}, event_schedule,
@@ -487,12 +493,12 @@ def run_mobile_items(items_db: {}, items: {}, event_schedule,
             continue
 
 
-def run_npcs(mud, npcs: {}, players: {}, fights, corpses, scripted_events_db,
+def run_npcs(mud, npcs: {}, players: {}, fights: {}, corpses: {},
+             scripted_events_db,
              items_db: {}, npcs_template, rooms: {}, map_area, clouds: {},
              event_schedule) -> None:
     """Updates all NPCs
     """
-
     curr_time = datetime.datetime.today()
     curr_hour = curr_time.hour
     sun = get_solar()
@@ -726,7 +732,7 @@ def _conversation_state(word: str, conversation_states: {},
 def _conversation_condition(word: str, conversation_states: {},
                             nid: int, npcs: {}, match_ctr: int,
                             players: {}, rooms: {},
-                            id, cultures_db: {}) -> (bool, bool, int):
+                            id: int, cultures_db: {}) -> (bool, bool, int):
     condition_type = ''
     if '>' in word.lower():
         condition_type = '>'
@@ -878,7 +884,7 @@ def _conversation_condition(word: str, conversation_states: {},
 
 def _conversation_word_count(message: str, words_list: [], npcs: {},
                              nid: int, conversation_states: {},
-                             players: {}, rooms: {}, id,
+                             players: {}, rooms: {}, id: int,
                              cultures_db: {}) -> int:
     """Returns the number of matched words in the message.
        This is a 'bag of words/conditions' type of approach.
@@ -917,7 +923,7 @@ def _conversation_word_count(message: str, words_list: [], npcs: {},
 
 
 def _conversation_give(best_match: str, best_match_action: str,
-                       thing_given_id_str: str, players: {}, id,
+                       thing_given_id_str: str, players: {}, id: int,
                        mud, npcs: {}, nid: int, items_db: {},
                        puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives something to you
@@ -957,7 +963,7 @@ def _conversation_give(best_match: str, best_match_action: str,
 def _conversation_skill(best_match: str, best_match_action: str,
                         best_match_action_param0: str,
                         best_match_action_param1: str,
-                        players: {}, id, mud, npcs: {},
+                        players: {}, id: int, mud, npcs: {},
                         nid: int, items_db: {},
                         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives or alters a skill
@@ -1009,7 +1015,7 @@ def _conversation_experience(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        players: {}, id, mud, npcs: {}, nid: int, items_db: {},
+        players: {}, id: int, mud, npcs: {}, nid: int, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC increases your experience
     """
@@ -1033,7 +1039,7 @@ def _conversation_join_guild(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        players: {}, id, mud, npcs: {}, nid: int, items_db: {},
+        players: {}, id: int, mud, npcs: {}, nid: int, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC adds you to a guild
     """
@@ -1058,7 +1064,7 @@ def _conversation_familiar_mode(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        players: {}, id, mud, npcs: {}, npcs_db: {}, rooms: {},
+        players: {}, id: int, mud, npcs: {}, npcs_db: {}, rooms: {},
         nid: int, items: {}, items_db: {}, puzzled_str: str) -> bool:
     """Switches the mode of a familiar
     """
@@ -1097,8 +1103,8 @@ def _conversation_familiar_mode(
 
 def _conversation_transport(
         best_match_action: str, best_match_action_param0: str,
-        mud, id, players: {}, best_match, npcs: {}, nid: int,
-        puzzled_str, guilds_db: {}, rooms: {}) -> bool:
+        mud, id: int, players: {}, best_match, npcs: {}, nid: int,
+        puzzled_str: str, guilds_db: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some location
     """
     if best_match_action in ('transport', 'ride', 'teleport'):
@@ -1131,7 +1137,7 @@ def _conversation_transport(
 def _conversation_taxi(
         best_match_action: str, best_match_action_param0: str,
         best_match_action_param1: str, players: {},
-        id, mud, best_match, npcs: {}, nid: int, items_db: {},
+        id: int, mud, best_match, npcs: {}, nid: int, items_db: {},
         puzzled_str: str, guilds_db: {}, rooms: {}) -> bool:
     """Conversation in which an NPC transports you to some
     location in exchange for payment/barter
@@ -1176,7 +1182,7 @@ def _conversation_taxi(
 def _conversation_give_on_date(
         best_match_action: str, best_match_action_param0: str,
         best_match_action_param1: str, players: {},
-        id, mud, npcs: {}, nid: int, items_db: {}, best_match,
+        id: int, mud, npcs: {}, nid: int, items_db: {}, best_match,
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC gives something to you on
     a particular date of the year eg. Some festival or holiday
@@ -1227,7 +1233,7 @@ def _conversation_give_on_date(
 def _conversation_sell(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
-        npcs: {}, nid: int, mud, id, players: {}, items_db: {},
+        npcs: {}, nid: int, mud, id: int, players: {}, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which a player sells to an NPC
     """
@@ -1270,7 +1276,7 @@ def _conversation_buy_or_exchange(
         best_match: str, best_match_action: str,
         best_match_action_param0: str,
         best_match_action_param1: str,
-        npcs: {}, nid: int, mud, id, players: {}, items_db: {},
+        npcs: {}, nid: int, mud, id: int, players: {}, items_db: {},
         puzzled_str: str, guilds_db: {}) -> bool:
     """Conversation in which an NPC exchanges/swaps some item
     with you or in which you buy some item from them

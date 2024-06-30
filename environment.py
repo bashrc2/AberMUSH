@@ -1040,20 +1040,20 @@ def get_room_culture(cultures_db: {}, rooms: {}, room_id: str) -> str:
     return None
 
 
-def is_fishing_site(rooms: {}, rid: str) -> bool:
+def is_fishing_site(rooms: {}, room_id: str) -> bool:
     """Is the given location a fishing site?
     """
     fishing_sites = ('river', 'lake', 'sea', 'ocean', 'pond')
-    if rooms[rid]['weather'] != 1:
+    if rooms[room_id]['weather'] != 1:
         return False
-    room_name_lower = rooms[rid]['name'].lower()
+    room_name_lower = rooms[room_id]['name'].lower()
     for site in fishing_sites:
         if site in room_name_lower:
             return True
     return False
 
 
-def holding_fishing_rod(players: {}, id, items_db: {}) -> bool:
+def holding_fishing_rod(players: {}, id: int, items_db: {}) -> bool:
     """Is the given player holding a fishing rod?
     """
     hand_locations = ('clo_lhand', 'clo_rhand')
@@ -1065,7 +1065,7 @@ def holding_fishing_rod(players: {}, id, items_db: {}) -> bool:
     return False
 
 
-def holding_fly_fishing_rod(players: {}, id, items_db: {}) -> bool:
+def holding_fly_fishing_rod(players: {}, id: int, items_db: {}) -> bool:
     """Is the given player holding a fly fishing rod?
     """
     hand_locations = ('clo_lhand', 'clo_rhand')
@@ -1078,7 +1078,7 @@ def holding_fly_fishing_rod(players: {}, id, items_db: {}) -> bool:
     return False
 
 
-def _catch_fish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
+def _catch_fish(players: {}, id: int, rooms: {}, items_db: {}, mud) -> None:
     """The player catches a fish
     """
     if randint(1, 100) < 80:
