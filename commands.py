@@ -92,7 +92,7 @@ from markets import money_purchase
 from familiar import get_familiar_name
 
 
-def _get_max_weight(id, players: {}) -> int:
+def _get_max_weight(id: int, players: {}) -> int:
     """Returns the maximum weight which can be carried
     """
     strength = int(players[id]['str'])
@@ -449,34 +449,35 @@ def _summon(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
             item_history: {}, markets: {}, cultures_db: {}) -> None:
-    if players[id]['permissionLevel'] == 0:
-        if _is_witch(id, players):
-            target_player = params[0:].strip().lower()
-            if len(target_player) != 0:
-                for plyr_id, plyr in players.items():
-                    if plyr['name'].strip().lower() != target_player:
-                        continue
-                    if plyr['room'] != players[id]['room']:
-                        pnam = plyr['name']
-                        desc = '<f32>{}<r> suddenly vanishes.'.format(pnam)
-                        message_to_room_players(mud, players, plyr_id,
-                                                desc + "\n")
-                        plyr['room'] = players[id]['room']
-                        rmid = plyr['room']
-                        mud.send_message(id, "You summon " +
-                                         plyr['name'] + "\n\n")
-                        mud.send_message(plyr_id,
-                                         "A mist surrounds you. When it " +
-                                         "clears you find that you " +
-                                         "are now in " +
-                                         rooms[rmid]['name'] + "\n\n")
-                    else:
-                        mud.send_message(
-                            id, plyr['name'] +
-                            " is already here.\n\n")
-                    return
-        else:
-            mud.send_message(id, "You don't have enough powers for that.\n\n")
+    if players[id]['permissionLevel'] != 0:
+        return
+    if _is_witch(id, players):
+        target_player = params[0:].strip().lower()
+        if len(target_player) != 0:
+            for plyr_id, plyr in players.items():
+                if plyr['name'].strip().lower() != target_player:
+                    continue
+                if plyr['room'] != players[id]['room']:
+                    pnam = plyr['name']
+                    desc = '<f32>{}<r> suddenly vanishes.'.format(pnam)
+                    message_to_room_players(mud, players, plyr_id,
+                                            desc + "\n")
+                    plyr['room'] = players[id]['room']
+                    rmid = plyr['room']
+                    mud.send_message(id, "You summon " +
+                                     plyr['name'] + "\n\n")
+                    mud.send_message(plyr_id,
+                                     "A mist surrounds you. When it " +
+                                     "clears you find that you " +
+                                     "are now in " +
+                                     rooms[rmid]['name'] + "\n\n")
+                else:
+                    mud.send_message(
+                        id, plyr['name'] +
+                        " is already here.\n\n")
+                return
+    else:
+        mud.send_message(id, "You don't have enough powers for that.\n\n")
 
 
 def _mute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
@@ -494,21 +495,21 @@ def _mute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             id, "You aren't capable of doing that.\n\n")
         return
     target = params.partition(' ')[0]
-    if len(target) != 0:
-        for plyr_id, plyr in players.items():
-            if plyr['name'] != target:
-                continue
-            if not _is_witch(plyr_id, players):
-                plyr['canSay'] = 0
-                plyr['canAttack'] = 0
-                plyr['canDirectMessage'] = 0
-                mud.send_message(
-                    id, "You have muted " + target + "\n\n")
-            else:
-                mud.send_message(
-                    id, "You try to mute " + target +
-                    " but their power is too strong.\n\n")
-            return
+    if len(target) == 0:
+        return
+    for plyr_id, plyr in players.items():
+        if plyr['name'] != target:
+            continue
+        if not _is_witch(plyr_id, players):
+            plyr['canSay'] = 0
+            plyr['canAttack'] = 0
+            plyr['canDirectMessage'] = 0
+            mud.send_message(id, "You have muted " + target + "\n\n")
+        else:
+            mud.send_message(
+                id, "You try to mute " + target +
+                " but their power is too strong.\n\n")
+        return
 
 
 def _unmute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
@@ -526,18 +527,19 @@ def _unmute(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             id, "You aren't capable of doing that.\n\n")
         return
     target = params.partition(' ')[0]
-    if len(target) != 0:
-        if target.lower() != 'guest':
-            for plyr_id, plyr in players.items():
-                if plyr['name'] != target:
-                    continue
-                if not _is_witch(plyr_id, players):
-                    plyr['canSay'] = 1
-                    plyr['canAttack'] = 1
-                    plyr['canDirectMessage'] = 1
-                    mud.send_message(
-                        id, "You have unmuted " + target + "\n\n")
-                return
+    if len(target) == 0:
+        return
+    if target.lower() != 'guest':
+        for plyr_id, plyr in players.items():
+            if plyr['name'] != target:
+                continue
+            if not _is_witch(plyr_id, players):
+                plyr['canSay'] = 1
+                plyr['canAttack'] = 1
+                plyr['canDirectMessage'] = 1
+                mud.send_message(
+                    id, "You have unmuted " + target + "\n\n")
+            return
 
 
 def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
@@ -546,67 +548,64 @@ def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
             item_history: {}, markets: {}, cultures_db: {}):
-    if players[id]['permissionLevel'] == 0:
-        if _is_witch(id, players):
-            target = params.partition(' ')[0]
-            if len(target) != 0:
-                # freeze players
-                for plyr_id, plyr in players.items():
-                    if plyr['whenDied']:
-                        mud.send_message(
-                            id,
-                            "Freezing a player while dead is pointless\n\n")
-                        continue
-                    if plyr['frozenStart'] > 0:
-                        mud.send_message(
-                            id, "They are already frozen\n\n")
-                        continue
-                    if target in plyr['name']:
-                        if not _is_witch(plyr_id, players):
-                            # remove from any fights
-                            for fight, _ in fights.items():
-                                if plyr in (fights[fight]['s1id'],
-                                            fights[fight]['s2id']):
-                                    del fights[fight]
-                                    plyr['isInCombat'] = 0
-                            plyr['canGo'] = 0
-                            plyr['canAttack'] = 0
-                            mud.send_message(
-                                id, "You have frozen " + target + "\n\n")
-                        else:
-                            mud.send_message(
-                                id, "You try to freeze " + target +
-                                " but their power is too strong.\n\n")
-                        return
-                # freeze npcs
-                for plyr_id, plyr in npcs.items:
-                    if plyr['whenDied']:
-                        mud.send_message(
-                            id, "Freezing while dead is pointless\n\n")
-                        continue
-                    if plyr['frozenStart'] > 0:
-                        mud.send_message(
-                            id, "They are already frozen\n\n")
-                        continue
-                    if target not in plyr['name']:
-                        continue
-                    if not _is_witch(plyr_id, npcs):
-                        # remove from any fights
-                        for fight, _ in fights.items():
-                            if plyr in (fights[fight]['s1id'],
-                                        fights[fight]['s2id']):
-                                del fights[fight]
-                                plyr['isInCombat'] = 0
+    """witch can freeze a player
+    """
+    if players[id]['permissionLevel'] != 0:
+        return
+    if not _is_witch(id, players):
+        return
+    target = params.partition(' ')[0]
+    if len(target) == 0:
+        return
+    # freeze players
+    for plyr_id, plyr in players.items():
+        if plyr['whenDied']:
+            mud.send_message(
+                id, "Freezing a player while dead is pointless\n\n")
+            continue
+        if plyr['frozenStart'] > 0:
+            mud.send_message(id, "They are already frozen\n\n")
+            continue
+        if target in plyr['name']:
+            if not _is_witch(plyr_id, players):
+                # remove from any fights
+                for fight, _ in fights.items():
+                    if plyr in (fights[fight]['s1id'], fights[fight]['s2id']):
+                        del fights[fight]
+                        plyr['isInCombat'] = 0
+                plyr['canGo'] = 0
+                plyr['canAttack'] = 0
+                mud.send_message(id, "You have frozen " + target + "\n\n")
+            else:
+                mud.send_message(
+                    id, "You try to freeze " + target +
+                    " but their power is too strong.\n\n")
+            return
+    # freeze npcs
+    for plyr_id, plyr in npcs.items:
+        if plyr['whenDied']:
+            mud.send_message(id, "Freezing while dead is pointless\n\n")
+            continue
+        if plyr['frozenStart'] > 0:
+            mud.send_message(id, "They are already frozen\n\n")
+            continue
+        if target not in plyr['name']:
+            continue
+        if not _is_witch(plyr_id, npcs):
+            # remove from any fights
+            for fight, _ in fights.items():
+                if plyr in (fights[fight]['s1id'], fights[fight]['s2id']):
+                    del fights[fight]
+                    plyr['isInCombat'] = 0
 
-                        plyr['canGo'] = 0
-                        plyr['canAttack'] = 0
-                        mud.send_message(
-                            id, "You have frozen " + target + "\n\n")
-                    else:
-                        mud.send_message(
-                            id, "You try to freeze " + target +
-                            " but their power is too strong.\n\n")
-                    return
+            plyr['canGo'] = 0
+            plyr['canAttack'] = 0
+            mud.send_message(id, "You have frozen " + target + "\n\n")
+        else:
+            mud.send_message(
+                id, "You try to freeze " + target +
+                " but their power is too strong.\n\n")
+        return
 
 
 def _unfreeze(params, mud, players_db: {}, players: {}, rooms: {},
@@ -615,33 +614,35 @@ def _unfreeze(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
-    if players[id]['permissionLevel'] == 0:
-        if _is_witch(id, players):
-            target = params.partition(' ')[0]
-            if len(target) != 0:
-                if target.lower() != 'guest':
-                    # unfreeze players
-                    for plyr_id, plyr in players.items():
-                        if target in plyr['name']:
-                            if not _is_witch(plyr_id, players):
-                                plyr['canGo'] = 1
-                                plyr['canAttack'] = 1
-                                plyr['frozenStart'] = 0
-                                mud.send_message(
-                                    id, "You have unfrozen " + target + "\n\n")
-                            return
-                    # unfreeze npcs
-                    for plyr_id, plyr in npcs.items():
-                        if target not in plyr['name']:
-                            continue
-                        if not _is_witch(plyr_id, npcs):
-                            plyr['canGo'] = 1
-                            plyr['canAttack'] = 1
-                            plyr['frozenStart'] = 0
-                            mud.send_message(
-                                id, "You have unfrozen " + target + "\n\n")
-                        return
+              item_history: {}, markets: {}, cultures_db: {}) -> None:
+    """witch unfreezes a frozen player
+    """
+    if players[id]['permissionLevel'] != 0:
+        return
+    if not _is_witch(id, players):
+        return
+    target = params.partition(' ')[0]
+    if len(target) == 0:
+        return
+    # unfreeze players
+    for plyr_id, plyr in players.items():
+        if target in plyr['name']:
+            if not _is_witch(plyr_id, players):
+                plyr['canGo'] = 1
+                plyr['canAttack'] = 1
+                plyr['frozenStart'] = 0
+                mud.send_message(id, "You have unfrozen " + target + "\n\n")
+            return
+    # unfreeze npcs
+    for plyr_id, plyr in npcs.items():
+        if target not in plyr['name']:
+            continue
+        if not _is_witch(plyr_id, npcs):
+            plyr['canGo'] = 1
+            plyr['canAttack'] = 1
+            plyr['frozenStart'] = 0
+            mud.send_message(id, "You have unfrozen " + target + "\n\n")
+        return
 
 
 def _show_blocklist(params, mud, players_db: {}, players: {}, rooms: {},
@@ -651,6 +652,8 @@ def _show_blocklist(params, mud, players_db: {}, players: {}, rooms: {},
                     map_area: [], character_class_db: {}, spells_db: {},
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                     item_history: {}, markets: {}, cultures_db: {}):
+    """show the blocklist
+    """
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -671,6 +674,8 @@ def _block(params, mud, players_db: {}, players: {}, rooms: {},
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
+    """witch blocks a player
+    """
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -709,6 +714,8 @@ def _unblock(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
+    """witch removes a block on a player
+    """
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have sufficient powers to do that.\n")
         return
@@ -748,6 +755,8 @@ def _kick_out(params, mud, players_db: {}, players: {}, rooms: {},
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}):
+    """witch removes a player
+    """
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have enough powers.\n\n")
         return
@@ -776,6 +785,8 @@ def _kick(params, mud, players_db: {}, players: {}, rooms: {},
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
+    """witch removes a player
+    """
     kickout = False
     if ' out ' in params:
         params = params.replace(' out ', ' ')
@@ -816,6 +827,8 @@ def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
               item_history: {}, markets: {}, cultures_db: {}):
+    """witch shuts down the server
+    """
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -834,13 +847,13 @@ def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
     sys.exit()
 
 
-def _resetUniverse(params, mud, players_db: {}, players: {}, rooms: {},
-                   npcs_db: {}, npcs: {}, items_db: {}, items: {},
-                   env_db: {}, env: {}, event_db: {}, event_schedule,
-                   id: int, fights: {}, corpses: {}, blocklist,
-                   map_area: [], character_class_db: {}, spells_db,
-                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                   item_history: {}, markets: {}, cultures_db: {}):
+def _reset_universe(params, mud, players_db: {}, players: {}, rooms: {},
+                    npcs_db: {}, npcs: {}, items_db: {}, items: {},
+                    env_db: {}, env: {}, event_db: {}, event_schedule,
+                    id: int, fights: {}, corpses: {}, blocklist,
+                    map_area: [], character_class_db: {}, spells_db,
+                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
+                    item_history: {}, markets: {}, cultures_db: {}):
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -862,6 +875,8 @@ def _quit(params, mud, players_db: {}, players: {}, rooms: {},
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
+    """player disconnects
+    """
     print('quit command from ' + str(id))
     mud.handle_disconnect(id)
 
@@ -873,6 +888,8 @@ def _who(params, mud, players_db: {}, players: {}, rooms: {},
          map_area: [], character_class_db: {}, spells_db,
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
          item_history: {}, markets: {}, cultures_db: {}):
+    """witch lists players on the system
+    """
     counter = 1
     if players[id]['permissionLevel'] == 0:
         is_witch = _is_witch(id, players)
@@ -911,6 +928,8 @@ def _tell(params, mud, players_db: {}, players: {}, rooms: {},
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
+    """say something to a player or npc
+    """
     told = False
     target = params.partition(' ')[0]
 
@@ -1014,6 +1033,8 @@ def _whisper(params, mud, players_db: {}, players: {}, rooms: {},
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
              item_history: {}, markets: {}, cultures_db: {}):
+    """whisper to another player or npc in the same room
+    """
     target = params.partition(' ')[0]
     message = params.replace(target, "")
 
@@ -1100,6 +1121,8 @@ def _help(params, mud, players_db: {}, players: {}, rooms: {},
           map_area: [], character_class_db: {}, spells_db,
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
           item_history: {}, markets: {}, cultures_db: {}):
+    """show help
+    """
     if params.lower().startswith('card'):
         _help_cards(params, mud, players_db, players,
                     rooms, npcs_db, npcs, items_db,
@@ -1335,6 +1358,8 @@ def _help_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
+    """show help for spells
+    """
     mud.send_message(id, '\n')
     mud.send_message(id,
                      '<f220>prepare spells<f255>' +
@@ -1375,6 +1400,8 @@ def _help_emote(params, mud, players_db: {}, players: {}, rooms: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
+    """show help for emotes
+    """
     mud.send_message(id, '\n')
     mud.send_message(id, '<f220>applaud<f255>')
     mud.send_message(id, '<f220>astonished<f255>')
@@ -1404,6 +1431,8 @@ def _help_witch(params, mud, players_db: {}, players: {}, rooms: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
+    """show help for witch commands
+    """
     mud.send_message(id, '\n')
     if not _is_witch(id, players):
         mud.send_message(id, "You're not a witch.\n\n")
@@ -1518,6 +1547,8 @@ def _help_morris(params, mud, players_db: {}, players: {}, rooms,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                  item_history: {}, markets: {}, cultures_db: {}):
+    """show help for playing morris board
+    """
     mud.send_message(id, '\n')
     mud.send_message(id,
                      '<f220>morris<f255>' +
@@ -1549,6 +1580,8 @@ def _help_chess(params, mud, players_db: {}, players: {}, rooms: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
+    """show help for playing chess
+    """
     mud.send_message(id, '\n')
     mud.send_message(id,
                      '<f220>chess<f255>' +
@@ -1576,6 +1609,8 @@ def _help_cards(params, mud, players_db: {}, players: {}, rooms: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
+    """show help for playing cards
+    """
     mud.send_message(id, '\n')
     mud.send_message(id,
                      '<f220>shuffle<f255>' +
@@ -1624,8 +1659,10 @@ def _get_spell_damage(damage_roll: str) -> int:
     return damage
 
 
-def _cast_spell_on_player(mud, spell_name: str, players: {}, id, npcs: {},
-                          p, spell_details: {}):
+def _cast_spell_on_player(mud, spell_name: str, players: {}, id: int, npcs: {},
+                          p: int, spell_details: {}):
+    """cast a spell on a player or npc
+    """
     if npcs[p]['room'] != players[id]['room']:
         mud.send_message(id, "They're not here.\n\n")
         return
@@ -1711,6 +1748,8 @@ def _cast_spell_undirected(params, mud, players_db: {}, players: {}, rooms: {},
                            sentiment_db: {}, spell_name: {}, spell_details: {},
                            clouds: {}, races_db: {}, guilds_db: {},
                            item_history: {}, markets: {}, cultures_db: {}):
+    """cast an undirected spell
+    """
     spell_action = spell_details['action']
     if spell_action.startswith('familiar'):
         _show_spell_image(mud, id, spell_name.replace(' ', '_'), players)
@@ -1757,6 +1796,8 @@ def _cast_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                 item_history: {}, markets: {}, cultures_db: {}):
+    """cast a spell or cast a fishing rod
+    """
     # cast fishing rod
     if 'fishing' in params or params == 'rod' or params == 'fish':
         _start_fishing(params, mud, players_db, players, rooms,
@@ -1858,6 +1899,8 @@ def _player_affinity(params, mud, players_db: {}, players: {}, rooms: {},
                      map_area: [], character_class_db: {}, spells_db: {},
                      sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                      item_history: {}, markets: {}, cultures_db: {}):
+    """How much affinity with a player or npc
+    """
     other_player = params.lower().strip()
     if len(other_player) == 0:
         mud.send_message(id, 'With which player?\n\n')
@@ -1885,6 +1928,8 @@ def _clear_spells(params, mud, players_db: {}, players: {}, rooms: {},
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                   item_history: {}, markets: {}, cultures_db: {}):
+    """clears any prepared spells
+    """
     if len(players[id]['preparedSpells']) > 0:
         players[id]['preparedSpells'].clear()
         players[id]['spellSlots'].clear()
@@ -1901,6 +1946,8 @@ def _spells_list(params, mud, players_db: {}, players: {}, rooms: {},
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                  item_history: {}, markets: {}, cultures_db: {}):
+    """list the spares available
+    """
     if len(players[id]['preparedSpells']) > 0:
         mud.send_message(id, 'Your prepared spells:\n')
         for name, _ in players[id]['preparedSpells'].items():
@@ -1917,6 +1964,8 @@ def _prepare_spell_at_level(params, mud, players_db: {},
                             id: int, fights: {}, corpses: {}, blocklist,
                             map_area: [], character_class_db: {},
                             spells_db: {}, spell_name: {}, level: {}):
+    """prepare a spell
+    """
     for name, details in spells_db[level].items():
         if name.lower() != spell_name:
             continue
@@ -1957,7 +2006,7 @@ def _prepare_spell_at_level(params, mud, players_db: {},
     return False
 
 
-def _player_max_cantrips(players: {}, id) -> int:
+def _player_max_cantrips(players: {}, id: int) -> int:
     """Returns the maximum number of cantrips which the player can prepare
     """
     max_cantrips = 0
@@ -1972,7 +2021,7 @@ def _player_max_cantrips(players: {}, id) -> int:
     return max_cantrips
 
 
-def _get_player_max_spell_level(players: {}, id) -> int:
+def _get_player_max_spell_level(players: {}, id: int) -> int:
     """Returns the maximum spell level of the player
     """
     for prof in players[id]['proficiencies']:
@@ -1984,7 +2033,7 @@ def _get_player_max_spell_level(players: {}, id) -> int:
     return -1
 
 
-def _get_player_spell_slots_at_spell_level(players: {}, id,
+def _get_player_spell_slots_at_spell_level(players: {}, id: int,
                                            spell_level: str) -> int:
     """Returns the maximum spell slots at the given spell level
     """
@@ -1997,21 +2046,21 @@ def _get_player_spell_slots_at_spell_level(players: {}, id,
     return 0
 
 
-def _get_player_used_slots_at_spell_level(players: {}, id, spellLevel,
+def _get_player_used_slots_at_spell_level(players: {}, id: int, spell_level,
                                           spells_db: {}):
     """Returns the used spell slots at the given spell level
     """
-    if not spells_db.get(str(spellLevel)):
+    if not spells_db.get(str(spell_level)):
         return 0
 
     used_counter = 0
-    for spell_name, _ in spells_db[str(spellLevel)].items():
+    for spell_name, _ in spells_db[str(spell_level)].items():
         if spell_name in players[id]['preparedSpells']:
             used_counter += 1
     return used_counter
 
 
-def _player_prepared_cantrips(players, id, spells_db: {}) -> int:
+def _player_prepared_cantrips(players, id: int, spells_db: {}) -> int:
     """Returns the number of cantrips which the player has prepared
     """
     prepared_counter = 0
@@ -2030,6 +2079,8 @@ def _prepare_spell(params, mud, players_db: {}, players: {}, rooms: {},
                    map_area: [], character_class_db: {}, spells_db: {},
                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
                    item_history: {}, markets: {}, cultures_db: {}):
+    """prepares a spell
+    """
     spell_name = params.lower().strip()
 
     # "learn spells" or "prepare spells" shows list of spells
@@ -2128,6 +2179,8 @@ def _speak(params, mud, players_db: {}, players: {}, rooms: {},
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
+    """speak in a particular language
+    """
     lang = params.lower().strip()
     if lang not in players[id]['language']:
         mud.send_message(id, "You don't know how to speak that language\n\n")
@@ -2143,6 +2196,8 @@ def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
            item_history: {}, markets: {}, cultures_db: {}):
+    """taunt a player or npc
+    """
     if not params:
         mud.send_message_wrap(id, '<f230>', "Who shall be your victim?\n")
         return
@@ -2252,6 +2307,8 @@ def _say(params, mud, players_db: {}, players: {}, rooms: {},
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
          item_history: {}, markets: {}, cultures_db: {}):
+    """say something to a player or npc
+    """
     if players[id]['canSay'] == 1:
 
         # don't say if the string contains a blocked string
@@ -7977,7 +8034,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
         "escape": _escape_trap,
         "cut": _escape_trap,
         "slash": _escape_trap,
-        "resetuniverse": _resetUniverse,
+        "resetuniverse": _reset_universe,
         "shutdown": _shutdown,
         "inv": _check_inventory,
         "i": _check_inventory,
