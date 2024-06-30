@@ -44,7 +44,7 @@ defense_clothing = (
     'clo_gloves')
 
 
-def holding_throwable(players: {}, id, items_db: {}) -> int:
+def holding_throwable(players: {}, id: int, items_db: {}) -> int:
     """Is the given player holding a throwable weapon?
     """
     hand_locations = ('clo_rhand', 'clo_lhand')
@@ -57,7 +57,7 @@ def holding_throwable(players: {}, id, items_db: {}) -> int:
     return 0
 
 
-def _drop_throwables(players: {}, id, items_db: {}, items: {}) -> bool:
+def _drop_throwables(players: {}, id: int, items_db: {}, items: {}) -> bool:
     """A player drops a weapon which was thrown
     """
     print('Dropping throwables')
@@ -105,14 +105,14 @@ def _drop_throwables(players: {}, id, items_db: {}, items: {}) -> bool:
     return False
 
 
-def remove_prepared_spell(players: {}, id, spell_name: str):
+def remove_prepared_spell(players: {}, id: int, spell_name: str):
     """Remove a prepared spell
     """
     del players[id]['preparedSpells'][spell_name]
     del players[id]['spellSlots'][spell_name]
 
 
-def _player_is_available(id, players: {}, items_db: {}, rooms: {},
+def _player_is_available(id: int, players: {}, items_db: {}, rooms: {},
                          map_area: {}, clouds: {},
                          max_terrain_difficulty: int) -> bool:
     """Returns True if the player is available.
@@ -143,7 +143,7 @@ def _player_is_available(id, players: {}, items_db: {}, rooms: {},
     return True
 
 
-def _get_encumberance_from_weight(id, players: {}, items_db: {}) -> int:
+def _get_encumberance_from_weight(id: int, players: {}, items_db: {}) -> int:
     """Returns the light medium or heavy encumberance (0,1,2)
     """
     total_weight = player_inventory_weight(id, players, items_db)
@@ -213,7 +213,7 @@ def _get_encumberance_from_weight(id, players: {}, items_db: {}) -> int:
     return 2
 
 
-def _player_shoves(mud, id, players1: {}, s2id, players2: {},
+def _player_shoves(mud, id: int, players1: {}, s2id, players2: {},
                    races_db: {}) -> bool:
     """One player attempts to shove another
     """
@@ -290,7 +290,7 @@ def _player_shoves(mud, id, players1: {}, s2id, players2: {},
     return False
 
 
-def _combat_update_max_hit_points(id, players: {}, races_db: {}) -> None:
+def _combat_update_max_hit_points(id: int, players: {}, races_db: {}) -> None:
     """Updates the hp_max value
     """
     plyr = players[id]
@@ -407,7 +407,7 @@ def _combat_race_resistance(id: int, players: {},
     return resistance
 
 
-def _combat_damage_from_weapon(id, players: {},
+def _combat_damage_from_weapon(id: str, players: {},
                                items_db: {}, weapon_type: str,
                                character_class_db: {},
                                is_critical: bool, thrown: int) -> (int, str):
@@ -466,7 +466,7 @@ def _combat_damage_from_weapon(id, players: {},
     return max_damage, damage_roll_best, max_modifier
 
 
-def _combat_armor_class(id, players: {},
+def _combat_armor_class(id: int, players: {},
                         races_db: {}, attack_weapon_type: str,
                         items_db: {}) -> int:
     """Returns the armor class for the given player
@@ -493,7 +493,7 @@ def _combat_armor_class(id, players: {},
     return armor_class
 
 
-def _combat_proficiency_bonus(id, players: {}, weapon_type: str,
+def _combat_proficiency_bonus(id: int, players: {}, weapon_type: str,
                               character_class_db: {}) -> int:
     """Returns the proficiency bonus with the given weapon type
     """
@@ -501,7 +501,7 @@ def _combat_proficiency_bonus(id, players: {}, weapon_type: str,
                               character_class_db)
 
 
-def _combat_attack_roll(id, players: {}, weapon_type: str,
+def _combat_attack_roll(id: int, players: {}, weapon_type: str,
                         target_armor_class: int,
                         character_class_db: {},
                         dodge_modifier: int) -> (bool, bool):
@@ -531,7 +531,7 @@ def _combat_attack_roll(id, players: {}, weapon_type: str,
     return False, False
 
 
-def _send_combat_image(mud, id, players: {}, race: str,
+def _send_combat_image(mud, id: int, players: {}, race: str,
                        weapon_type: str) -> None:
     """Sends an image based on a character of a given race using a given weapon
     """
@@ -691,7 +691,7 @@ def _item_in_npc_inventory(npcs, id: int, item_name: str,
     return False
 
 
-def _npc_update_luck(nid, npcs: {}, items: {}, items_db: {}) -> None:
+def _npc_update_luck(nid: int, npcs: {}, items: {}, items_db: {}) -> None:
     """Calculate the luck of an NPC based on what items they are carrying
     """
     npc1 = npcs[nid]
@@ -1072,7 +1072,7 @@ def _get_temperature_difficulty(rm: str, rooms: {}, map_area: [],
 
 
 def _run_fights_between_players(mud, players: {}, npcs: {},
-                                fights, fid, items_db: {},
+                                fights: {}, fid: int, items_db: {},
                                 rooms: {}, max_terrain_difficulty,
                                 map_area: [],
                                 clouds: {}, races_db: {},
@@ -1331,7 +1331,8 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
                 plyr2['isInCombat'] = 0
 
 
-def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
+def _run_fights_between_player_and_npc(mud, players: {}, npcs: {},
+                                       fights: {}, fid: int,
                                        items_db: {}, rooms: {},
                                        max_terrain_difficulty,
                                        map_area: [], clouds: {}, races_db: {},
@@ -1537,7 +1538,8 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {}, fights, fid,
                 npc1['isInCombat'] = 0
 
 
-def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
+def _run_fights_between_npc_and_player(mud, players: {}, npcs: {},
+                                       fights: {}, fid: int,
                                        items: {}, items_db: {}, rooms: {},
                                        max_terrain_difficulty, map_area,
                                        clouds: {},
@@ -1723,7 +1725,7 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {}, fights, fid,
     npc1['lastCombatAction'] = int(time.time())
 
 
-def is_player_fighting(id, players: {}, fights: {}) -> bool:
+def is_player_fighting(id: int, players: {}, fights: {}) -> bool:
     """Returns true if the player is fighting
     """
     for _, fght in fights.items():
@@ -1739,7 +1741,7 @@ def is_player_fighting(id, players: {}, fights: {}) -> bool:
 def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
                rooms: {}, max_terrain_difficulty, map_area: [], clouds: {},
                races_db: {}, character_class_db: {}, guilds: {},
-               attack_db: {}):
+               attack_db: {}) -> None:
     """Handles fights
     """
     for fid, fght in fights.items():
@@ -1774,25 +1776,27 @@ def run_fights(mud, players: {}, npcs: {}, fights: {}, items: {}, items_db: {},
         #     test = 1
 
 
-def is_attacking(players: {}, id, fights: {}) -> bool:
+def is_attacking(players: {}, id: int, fights: {}) -> bool:
     """Returns true if the given player is attacking
     """
+    plyr = players[id]
     for _, fght in fights.items():
-        if fght['s1'] == players[id]['name']:
+        if fght['s1'] == plyr['name']:
             return True
     return False
 
 
-def get_attacking_target(players: {}, id, fights: {}):
+def get_attacking_target(players: {}, id: int, fights: {}):
     """Return the player or npc which is the target of an attack
     """
+    plyr = players[id]
     for _, fght in fights.items():
-        if fght['s1'] == players[id]['name']:
+        if fght['s1'] == plyr['name']:
             return fght['s2']
     return None
 
 
-def stop_attack(players: {}, id, npcs: {}, fights: {}):
+def stop_attack(players: {}, id: int, npcs: {}, fights: {}):
     """Stops any fights for the given player
     """
     fights_copy = deepcopy(fights)
@@ -1817,7 +1821,7 @@ def stop_attack(players: {}, id, npcs: {}, fights: {}):
                 npcs[s1id]['isInCombat'] = 0
 
 
-def player_begins_attack(players: {}, id, target: str,
+def player_begins_attack(players: {}, id: int, target: str,
                          npcs: {}, fights: {}, mud, races_db: {},
                          item_history: {}, thrown: int) -> bool:
     """Player begins an attack on another player or npc
@@ -1916,7 +1920,7 @@ def player_begins_attack(players: {}, id, target: str,
     return target_found
 
 
-def _npc_begins_attack(npcs: {}, id, target: str, players: {},
+def _npc_begins_attack(npcs: {}, id: int, target: str, players: {},
                        fights: {}, mud, items: {}, items_db: {},
                        races_db: {}, thrown: int, rooms: {}) -> bool:
     """npc begins an attack on a player or another npc

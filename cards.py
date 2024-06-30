@@ -273,7 +273,8 @@ def _parse_card(card_description: str) -> str:
     return detected_face + detected_suit
 
 
-def _deal_cards_to_player(players: {}, dealer_id, name: str, no_of_cards: int,
+def _deal_cards_to_player(players: {}, dealer_id: int, name: str,
+                          no_of_cards: int,
                           deck, mud, hands, rooms: {}, items: {},
                           items_db: {}) -> bool:
     """Deals a number of cards to a player
@@ -318,7 +319,7 @@ def _deal_cards_to_player(players: {}, dealer_id, name: str, no_of_cards: int,
     return False
 
 
-def _card_game_in_room(players: {}, id, rooms: {}, items: {},
+def _card_game_in_room(players: {}, id: int, rooms: {}, items: {},
                        items_db: {}) -> int:
     """Returns the item ID if there is a card game in the room
     """
@@ -331,7 +332,7 @@ def _card_game_in_room(players: {}, id, rooms: {}, items: {},
     return None
 
 
-def _card_game_pack(players: {}, pid, rooms: {},
+def _card_game_pack(players: {}, pid: int, rooms: {},
                     items: {}, items_db: {}) -> str:
     """Returns the card pack name to use
     """
@@ -368,7 +369,7 @@ def _get_number_from_text(text: str) -> int:
     return None
 
 
-def deal_to_players(players: {}, dealer_id, description: str,
+def deal_to_players(players: {}, dealer_id: int, description: str,
                     mud, rooms: {}, items: {}, items_db: {}) -> None:
     """Deal cards to players
     """
@@ -488,7 +489,7 @@ def _get_card_description(pack: str, rank: str, suit: str) -> str:
     return str(rank_str) + ' of spades\n'
 
 
-def hand_of_cards_show(players: {}, id, mud, rooms: {},
+def hand_of_cards_show(players: {}, id: int, mud, rooms: {},
                        items: {}, items_db: {}) -> None:
     """Shows the cards for the given player
     """
@@ -655,7 +656,7 @@ def hand_of_cards_show(players: {}, id, mud, rooms: {},
                                  str(ranked_str[0]) + '.\n\n')
 
 
-def swap_card(card_description: str, players: {}, id, mud, rooms: {},
+def swap_card(card_description: str, players: {}, id: int, mud, rooms: {},
               items: {}, items_db: {}) -> None:
     game_item_id = _card_game_in_room(players, id, rooms, items, items_db)
     if not game_item_id:
@@ -737,7 +738,7 @@ def shuffle_cards(players: {}, pid, mud, rooms: {},
                          '\n' + players[pid]['name'] + ' shuffles cards.\n')
 
 
-def call_cards(players: {}, pid, mud, rooms: {},
+def call_cards(players: {}, pid: int, mud, rooms: {},
                items: {}, items_db: {}) -> None:
     game_item_id = _card_game_in_room(players, pid, rooms, items, items_db)
     if not game_item_id:
