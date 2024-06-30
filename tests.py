@@ -199,7 +199,7 @@ def _test_functions() -> None:
         '_unblock',
         '_kick',
         '_shutdown',
-        '_resetUniverse',
+        '_reset_universe',
         '_quit',
         '_who',
         '_tell',

@@ -237,8 +237,8 @@ def _run_player_disconnections(mud, players: {}, players_db: {}, fights: {},
         del players[id]
 
 
-def run_player_connections(mud, id, players: {}, players_db: {}, fights: {},
-                           config, terminal_mode: {}):
+def run_player_connections(mud, id: int, players: {}, players_db: {},
+                           fights: {}, config, terminal_mode: {}):
     _run_new_player_connections(mud, players, players_db, fights, config)
     _run_player_disconnections(mud, players, players_db, fights,
                                config, terminal_mode)
@@ -278,7 +278,7 @@ def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
     return authenticated_players_disconnected
 
 
-def player_in_game(id, username: str, players: {}) -> bool:
+def player_in_game(id: int, username: str, players: {}) -> bool:
     """ is the given player already logged in?
     """
     for plyr_id, plyr in players.items():
@@ -290,7 +290,8 @@ def player_in_game(id, username: str, players: {}) -> bool:
     return False
 
 
-def initial_setup_after_login(mud, id, players: {}, loaded_json: {}) -> None:
+def initial_setup_after_login(mud, id: int, players: {},
+                              loaded_json: {}) -> None:
     """Sets up a player after login
     """
     players[id] = loaded_json.copy()
