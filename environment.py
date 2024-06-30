@@ -1168,9 +1168,9 @@ def _catch_fish(players: {}, id, rooms: {}, items_db: {}, mud) -> None:
 def players_fishing(players: {}, rooms: {}, items_db: {}, mud) -> None:
     """Updates players that are fishing
     """
-    for plyr in players:
-        if players[plyr].get('isFishing'):
-            _catch_fish(players, plyr, rooms, items_db, mud)
+    for plyr_id, plyr in players.items():
+        if plyr.get('isFishing'):
+            _catch_fish(players, plyr_id, rooms, items_db, mud)
 
 
 def _moon_position(curr_time) -> int:

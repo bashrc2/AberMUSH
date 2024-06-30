@@ -281,11 +281,11 @@ def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
 def player_in_game(id, username: str, players: {}) -> bool:
     """ is the given player already logged in?
     """
-    for plyr in players:
+    for plyr_id, plyr in players.items():
         if username is not None and \
            players[plyr]['name'] is not None and \
-           username == players[plyr]['name'] and \
-           plyr != id:
+           username == plyr['name'] and \
+           plyr_id != id:
             return True
     return False
 

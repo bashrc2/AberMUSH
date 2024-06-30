@@ -27,22 +27,22 @@ def run_messages(mud, channels, players):
     previous_timing = \
         show_timing(previous_timing, "copy channels")
 
-    for plyr in players:
-        if players[plyr]['channels'] is None:
+    for plyr_id, plyr in players.items():
+        if plyr['channels'] is None:
             continue
-        for cha in players[plyr]['channels']:
+        for cha in plyr['channels']:
             # print(c)
             for msg in chans:
                 if chans[msg]['channel'] != cha:
                     continue
                 mud.send_message(
-                    plyr, "[<f191>" + chans[msg]['channel'] +
+                    plyr_id, "[<f191>" + chans[msg]['channel'] +
                     "<r>] <f32>" + chans[msg]['sender'] +
                     "<r>: " + chans[msg]['message'] + "\n")
                 # del channels[m]
         previous_timing = \
             show_timing(previous_timing, "send message " +
-                        str(len(players[plyr]['channels'])) + ' x ' +
+                        str(len(plyr['channels'])) + ' x ' +
                         str(len(chans)))
 
 
