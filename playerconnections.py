@@ -283,7 +283,7 @@ def player_in_game(id, username: str, players: {}) -> bool:
     """
     for plyr_id, plyr in players.items():
         if username is not None and \
-           players[plyr]['name'] is not None and \
+           plyr['name'] is not None and \
            username == plyr['name'] and \
            plyr_id != id:
             return True
