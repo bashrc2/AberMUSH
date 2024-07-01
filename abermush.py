@@ -21,6 +21,9 @@ import glob
 import random
 from random import randint
 
+# import config parser
+import configparser
+
 from functions import deepcopy
 from functions import show_timing
 from functions import log
@@ -77,9 +80,6 @@ from gcos import terminal_emulator
 
 # import the MUD server class
 from mudserver import MudServer
-
-# import config parser
-import configparser
 
 
 parser = argparse.ArgumentParser(description='AberMUSH Server')
