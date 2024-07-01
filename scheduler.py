@@ -34,12 +34,13 @@ def run_messages(mud, channels: {}, players: {}):
         for cha in plyr['channels']:
             # print(c)
             for msg in chans:
-                if chans[msg]['channel'] != cha:
+                msgchan = chans[msg]
+                if msgchan['channel'] != cha:
                     continue
                 mud.send_message(
-                    plyr_id, "[<f191>" + chans[msg]['channel'] +
-                    "<r>] <f32>" + chans[msg]['sender'] +
-                    "<r>: " + chans[msg]['message'] + "\n")
+                    plyr_id, "[<f191>" + msgchan['channel'] +
+                    "<r>] <f32>" + msgchan['sender'] +
+                    "<r>: " + msgchan['message'] + "\n")
                 # del channels[m]
         previous_timing = \
             show_timing(previous_timing, "send message " +
