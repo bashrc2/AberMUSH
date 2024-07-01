@@ -835,9 +835,9 @@ def parse_cost(cost_str: str) -> (int, str):
 def item_in_room(items: {}, id: int, room: str) -> bool:
     """is the given item in the room?
     """
-    for i in items.items():
-        if i[1]['room'] == room:
-            if id == i[1]['id']:
+    for _, itemobj in items.items():
+        if itemobj['room'] == room:
+            if id == itemobj['id']:
                 return True
     return False
 
