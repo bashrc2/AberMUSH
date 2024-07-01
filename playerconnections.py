@@ -210,13 +210,14 @@ def _run_player_disconnections(mud, players: {}, players_db: {}, fights: {},
         for pid, plyr in players.items():
             # send each player a message to tell them about the diconnected
             # player if they are in the same room
-            if plyr['authenticated'] is not None:
-                if plyr['authenticated'] is not None \
-                   and plyr['room'] == players[id]['room'] \
-                   and plyr['name'] != players[id]['name']:
-                    mud.send_message(
-                        pid, "<f32><u>{}<r>".format(players[id]['name']) +
-                        "'s body has vanished.\n\n")
+            if plyr['authenticated'] is None:
+                continue
+            if plyr['authenticated'] is not None \
+               and plyr['room'] == players[id]['room'] \
+               and plyr['name'] != players[id]['name']:
+                mud.send_message(
+                    pid, "<f32><u>{}<r>".format(players[id]['name']) +
+                    "'s body has vanished.\n\n")
 
         # Code here to save player to the database after he's disconnected and
         # before removing him from players dictionary
@@ -251,30 +252,31 @@ def disconnect_idle_players(mud, players: {}, allowed_player_idle: int,
     now = int(time.time())
     players_copy = deepcopy(players)
     for plyr in players_copy:
-        if now - players_copy[plyr]['idleStart'] > allowed_player_idle:
-            if players[plyr]['authenticated'] is not None:
-                mud.send_message_wrap(
-                    plyr, "<f232><b11>",
-                    "<f232><b11>Your body starts tingling. " +
-                    "You instinctively hold your hand up to " +
-                    "your face and notice you slowly begin to " +
-                    "vanish. You are being disconnected due " +
-                    "to inactivity...****DISCONNECT****\n")
-                save_state(players[plyr], players_db, False)
-                authenticated_players_disconnected = True
-            else:
-                mud.send_message(
-                    plyr, "<f232><b11>You are being disconnected " +
-                    "due to inactivity. Bye!****DISCONNECT****\n")
-            name_str = str(players[plyr]['name'])
-            if str(plyr).isdigit():
-                name_str += ' ID ' + str(plyr)
-            log("Character " + name_str +
-                " is being disconnected due to inactivity.", "warning")
-            p_str = str(plyr)
-            log("Disconnecting client " + p_str, "warning")
-            del players[plyr]
-            mud.handle_disconnect(plyr)
+        if now - players_copy[plyr]['idleStart'] <= allowed_player_idle:
+            continue
+        if players[plyr]['authenticated'] is not None:
+            mud.send_message_wrap(
+                plyr, "<f232><b11>",
+                "<f232><b11>Your body starts tingling. " +
+                "You instinctively hold your hand up to " +
+                "your face and notice you slowly begin to " +
+                "vanish. You are being disconnected due " +
+                "to inactivity...****DISCONNECT****\n")
+            save_state(players[plyr], players_db, False)
+            authenticated_players_disconnected = True
+        else:
+            mud.send_message(
+                plyr, "<f232><b11>You are being disconnected " +
+                "due to inactivity. Bye!****DISCONNECT****\n")
+        name_str = str(players[plyr]['name'])
+        if str(plyr).isdigit():
+            name_str += ' ID ' + str(plyr)
+        log("Character " + name_str +
+            " is being disconnected due to inactivity.", "warning")
+        p_str = str(plyr)
+        log("Disconnecting client " + p_str, "warning")
+        del players[plyr]
+        mud.handle_disconnect(plyr)
     return authenticated_players_disconnected
 
 
