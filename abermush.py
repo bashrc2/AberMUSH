@@ -112,10 +112,10 @@ def _command_options() -> None:
     log("", "Loading configuration file")
 
     # load the configuration file
-    Config = configparser.ConfigParser()
-    Config.read('config.ini')
+    config = configparser.ConfigParser()
+    config.read('config.ini')
     # example of config file usage
-    # print(str(Config.get('Database', 'Hostname')))
+    # print(str(config.get('Database', 'Hostname')))
 
     # Declare rooms dictionary
     rooms = {}
@@ -160,22 +160,22 @@ def _command_options() -> None:
     channels = {}
 
     # Specify allowed player idle time
-    allowed_player_idle = int(Config.get('World', 'IdleTimeBeforeDisconnect'))
+    allowed_player_idle = int(config.get('World', 'IdleTimeBeforeDisconnect'))
 
     # websocket settings
     websocket_tls = False
     websocket_cert = None
     websocket_key = None
     websocket_ver = ssl.PROTOCOL_TLS_SERVER
-    if 'true' in Config.get('Web', 'tlsEnabled').lower():
+    if 'true' in config.get('Web', 'tlsEnabled').lower():
         websocket_tls = True
         # resolve any symbolic links with realpath
-        websocket_cert = os.path.realpath(str(Config.get('Web', 'tlsCert')))
-        websocket_key = os.path.realpath(str(Config.get('Web', 'tlsKey')))
+        websocket_cert = os.path.realpath(str(config.get('Web', 'tlsCert')))
+        websocket_key = os.path.realpath(str(config.get('Web', 'tlsKey')))
 
     log("Loading sentiment...", "info")
 
-    sentiment_filename_json = str(Config.get('Sentiment', 'Definition'))
+    sentiment_filename_json = str(config.get('Sentiment', 'Definition'))
     sentiment_filename_json = language_path(sentiment_filename_json,
                                             args.language, True)
     with open(sentiment_filename_json, "r", encoding='utf-8') as fp_read:
@@ -187,7 +187,7 @@ def _command_options() -> None:
     log("Loading cultures...", "info")
 
     cultures_db = None
-    cultures_filename_json = str(Config.get('Cultures', 'Definition'))
+    cultures_filename_json = str(config.get('Cultures', 'Definition'))
     cultures_filename_json = language_path(cultures_filename_json,
                                            args.language, True)
     with open(cultures_filename_json, "r", encoding='utf-8') as fp_read:
@@ -206,7 +206,7 @@ def _command_options() -> None:
         for _, rm in rooms.items():
             rm['coords'] = []
     else:
-        rooms_filename_json = str(Config.get('Rooms', 'Definition'))
+        rooms_filename_json = str(config.get('Rooms', 'Definition'))
         rooms_filename_json = language_path(rooms_filename_json,
                                             args.language, True)
         with open(rooms_filename_json, "r", encoding='utf-8') as fp_read:
@@ -222,7 +222,7 @@ def _command_options() -> None:
     log("Rooms loaded: " + count_str, "info")
 
     log("Loading environments...", "info")
-    environments_filename_json = str(Config.get('Environments', 'Definition'))
+    environments_filename_json = str(config.get('Environments', 'Definition'))
     environments_filename_json = language_path(environments_filename_json,
                                                args.language, True)
     with open(environments_filename_json, "r", encoding='utf-8') as fp_read:
@@ -253,7 +253,7 @@ def _command_options() -> None:
             print('WARN: unable to load universe_itemsdb.json')
 
     if not items_db:
-        items_filename_json = str(Config.get('Items', 'Definition'))
+        items_filename_json = str(config.get('Items', 'Definition'))
         items_filename_json = language_path(items_filename_json,
                                             args.language, True)
         with open(items_filename_json, "r", encoding='utf-8') as fp_read:
@@ -266,7 +266,7 @@ def _command_options() -> None:
     items_db = output_dict
 
     item_history = {}
-    item_history_filename_json = str(Config.get('ItemHistory', 'Definition'))
+    item_history_filename_json = str(config.get('ItemHistory', 'Definition'))
     item_history_filename_json = language_path(item_history_filename_json,
                                                args.language, True)
     with open(item_history_filename_json, "r", encoding='utf-8') as fp_read:
@@ -325,17 +325,17 @@ def _command_options() -> None:
     log("Items loaded: " + count_str, "info")
 
     # Load scripted event declarations from disk
-    files = glob.glob(str(Config.get('Events', 'Location')) + "/*.event")
+    files = glob.glob(str(config.get('Events', 'Location')) + "/*.event")
     counter = 0
     for file in files:
         counter += 1
         with open(file, 'r', encoding='utf-8') as f:
             # print(file)
             lines = [line.rstrip() for line in f.readlines()[2:]]
-            for fileLine in lines[1:]:
-                if len(fileLine) > 0:
-                    scripted_events_db.append([lines[0]] + fileLine.split('|'))
-                    # print(lines)
+            for file_line in lines[1:]:
+                if len(file_line) > 0:
+                    scripted_events_db.append([lines[0]] +
+                                              file_line.split('|'))
 
     count_str = str(counter)
     log("Scripted Events loaded: " + count_str, "info")
@@ -376,7 +376,7 @@ def _command_options() -> None:
             print('WARN: unable to load universe_actorsdb.json')
 
     if not env_db:
-        actors_filename_json = str(Config.get('Actors', 'Definition'))
+        actors_filename_json = str(config.get('Actors', 'Definition'))
         actors_filename_json = language_path(actors_filename_json,
                                              args.language, True)
         with open(actors_filename_json, "r", encoding='utf-8') as read_file:
@@ -423,7 +423,7 @@ def _command_options() -> None:
             print('WARN: unable to load universe_npcsdb.json')
 
     if not npcs_db:
-        npcs_filename_json = str(Config.get('NPCs', 'Definition'))
+        npcs_filename_json = str(config.get('NPCs', 'Definition'))
         npcs_filename_json = language_path(npcs_filename_json,
                                            args.language, True)
         with open(npcs_filename_json, "r", encoding='utf-8') as fp_read:
@@ -490,7 +490,7 @@ def _command_options() -> None:
     count_str = str(len(npcs_db))
     log("NPCs loaded: " + count_str, "info")
 
-    races_filename_json = str(Config.get('Races', 'Definition'))
+    races_filename_json = str(config.get('Races', 'Definition'))
     races_filename_json = language_path(races_filename_json,
                                         args.language, True)
     with open(races_filename_json, "r", encoding='utf-8') as fp_read:
@@ -500,7 +500,7 @@ def _command_options() -> None:
     log("Races loaded: " + count_str, "info")
 
     character_class_filename_json = \
-        str(Config.get('CharacterClass', 'Definition'))
+        str(config.get('CharacterClass', 'Definition'))
     character_class_filename_json = \
         language_path(character_class_filename_json,
                       args.language, True)
@@ -510,7 +510,7 @@ def _command_options() -> None:
     count_str = str(len(character_class_db))
     log("Character Classes loaded: " + count_str, "info")
 
-    spells_filename_json = str(Config.get('Spells', 'Definition'))
+    spells_filename_json = str(config.get('Spells', 'Definition'))
     spells_filename_json = language_path(spells_filename_json,
                                          args.language, True)
     with open(spells_filename_json, "r", encoding='utf-8') as fp_read:
@@ -519,7 +519,7 @@ def _command_options() -> None:
     count_str = str(len(spells_db))
     log("Spells loaded: " + count_str, "info")
 
-    guilds_filename_json = str(Config.get('Guilds', 'Definition'))
+    guilds_filename_json = str(config.get('Guilds', 'Definition'))
     guilds_filename_json = language_path(guilds_filename_json,
                                          args.language, True)
     with open(guilds_filename_json, "r", encoding='utf-8') as fp_read:
@@ -528,7 +528,7 @@ def _command_options() -> None:
     count_str = str(len(guilds_db))
     log("Guilds loaded: " + count_str, "info")
 
-    attacks_filename_json = str(Config.get('Attacks', 'Definition'))
+    attacks_filename_json = str(config.get('Attacks', 'Definition'))
     attacks_filename_json = language_path(attacks_filename_json,
                                           args.language, True)
     with open(attacks_filename_json, "r", encoding='utf-8') as fp_read:
@@ -572,7 +572,7 @@ def _command_options() -> None:
     # Declare number of seconds to elapse between State Saves
     # A State Save takes values held in memory and updates the database
     # at set intervals to achieve player state persistence
-    state_save_interval = int(Config.get('World', 'StateSaveInterval'))
+    state_save_interval = int(config.get('World', 'StateSaveInterval'))
     state_save_inter_str = str(state_save_interval)
     log("State Save interval: " + state_save_inter_str + " seconds", "info")
 
@@ -623,8 +623,8 @@ def _command_options() -> None:
     wind_direction = \
         generate_cloud(r1, rooms, map_area, clouds,
                        cloud_grid, tile_size, wind_direction)
-    wind_directionStr = str(wind_direction)
-    log("Clouds generated. Wind direction " + wind_directionStr, "info")
+    wind_direction_str = str(wind_direction)
+    log("Clouds generated. Wind direction " + wind_direction_str, "info")
 
     last_temp_hit_points_update = int(time.time())
     temp_hit_points_update_interval = 60
@@ -640,7 +640,7 @@ def _command_options() -> None:
 
     terminal_mode = {}
 
-    markets_filename_json = str(Config.get('Markets', 'Definition'))
+    markets_filename_json = str(config.get('Markets', 'Definition'))
     markets_filename_json = language_path(markets_filename_json,
                                           args.language, True)
     with open(markets_filename_json, "r", encoding='utf-8') as fp_read:
@@ -852,7 +852,7 @@ def _command_options() -> None:
         channels.clear()
 
         run_player_connections(mud, players, players_db, fights,
-                               Config, terminal_mode)
+                               config, terminal_mode)
 
         previous_timing = \
             show_timing(previous_timing, "player connections", args.debug)
@@ -905,9 +905,6 @@ def _command_options() -> None:
                 # First step of char creation
                 known_str = "<f220>\nBy what name do you wish to be known?\n\n"
                 mud.send_message(id, known_str)
-                for c in mud._clients:
-                    # print(str(mud._clients[c].address))
-                    pass
                 players[id]['exAttribute0'] = 1001
                 break
 
@@ -986,10 +983,9 @@ def _command_options() -> None:
                         "password to be?\n\n")
                     players[id]['exAttribute0'] = 1002
                     break
-                else:
-                    players[id]['idleStart'] = int(time.time())
-                    players[id]['exAttribute0'] = 1000
-                    break
+                players[id]['idleStart'] = int(time.time())
+                players[id]['exAttribute0'] = 1000
+                break
 
             if players[id]['exAttribute0'] == 1002:
                 # store the password
@@ -1000,7 +996,7 @@ def _command_options() -> None:
                 mud.send_message(id, "<f220>\nSelect your character race:\n\n")
                 ctr = 0
                 types_str = '  '
-                for name, p in races_db.items():
+                for name, _ in races_db.items():
                     if ctr > 0:
                         types_str = types_str + ', <f220>' + name + '<r>'
                     else:
@@ -1034,7 +1030,7 @@ def _command_options() -> None:
                         id, "<f220>\nSelect your character class:\n\n")
                     ctr = 0
                     class_str = '  '
-                    for name, p in character_class_db.items():
+                    for name, _ in character_class_db.items():
                         if name in ('witch', 'ghost'):
                             continue
                         if ctr > 0:
@@ -1073,7 +1069,7 @@ def _command_options() -> None:
 
                 # Load the player template from a file
                 player_template_filename_json = \
-                    str(Config.get('Players', 'Location')) + \
+                    str(config.get('Players', 'Location')) + \
                     "/player.template"
                 player_template_filename_json = \
                     language_path(player_template_filename_json,
@@ -1098,7 +1094,7 @@ def _command_options() -> None:
                 die = int(starting_money_roll.split('d')[1])
                 no_of_rolls = int(starting_money_roll.split('d')[0])
                 starting_gp = 0
-                for roll in range(no_of_rolls):
+                for _ in range(no_of_rolls):
                     starting_gp += int(randint(1, die + 1) * 10)
                 template['gp'] = starting_gp
 
@@ -1107,7 +1103,7 @@ def _command_options() -> None:
                     template['characterClass'] = 'witch'
                     # admin speaks all languages
                     template['language'] = []
-                    for race, race_stats in races_db.items():
+                    for _, race_stats in races_db.items():
                         for lang in race_stats['language']:
                             if lang not in template['language']:
                                 template['language'].append(lang)
@@ -1133,7 +1129,7 @@ def _command_options() -> None:
 
                 # Save template into a new player file
                 # print(template)
-                with open(str(Config.get('Players', 'Location')) + "/" +
+                with open(str(config.get('Players', 'Location')) + "/" +
                           template['name'] + ".player", 'w',
                           encoding='utf-8') as fp_player:
                     fp_player.write(json.dumps(template))
