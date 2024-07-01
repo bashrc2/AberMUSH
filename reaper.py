@@ -37,7 +37,8 @@ from npcs import corpse_exists
 
 
 def remove_corpses(corpses: {}):
-    # Iterate through corpses and remove ones older than their TTL
+    """Iterate through corpses and remove ones older than their TTL
+    """
     corpses_copy = deepcopy(corpses)
     curr_time = int(time.time())
     for cor, _ in corpses_copy.items():
@@ -47,7 +48,8 @@ def remove_corpses(corpses: {}):
 
 def run_deaths(mud, players: {}, npcs: {}, corpses: {}, fights: {},
                event_schedule, scripted_events_db: {}):
-    # Handle Player Deaths
+    """Handle Player Deaths
+    """
     for pid, plyr in players.items():
         if not plyr['authenticated']:
             continue
