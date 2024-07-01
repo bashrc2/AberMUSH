@@ -213,7 +213,7 @@ def _get_encumberance_from_weight(id: int, players: {}, items_db: {}) -> int:
     return 2
 
 
-def _player_shoves(mud, id: int, players1: {}, s2id, players2: {},
+def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
                    races_db: {}) -> bool:
     """One player attempts to shove another
     """
