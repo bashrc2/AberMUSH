@@ -18,8 +18,9 @@ import time
 
 
 def run_messages(mud, channels: {}, players: {}):
-    # go through channels messages queue and send messages to subscribed
-    # players
+    """go through channels messages queue and send messages to subscribed
+    players
+    """
     previous_timing = time.time()
 
     chans = deepcopy(channels)
@@ -47,8 +48,9 @@ def run_messages(mud, channels: {}, players: {}):
 
 
 def run_environment(mud, players: {}, env: {}):
-    # Iterate through ENV elements and see if it's time to send a message to
-    # players in the same room as the ENV elements
+    """Iterate through ENV elements and see if it's time to send a message to
+    players in the same room as the ENV elements
+    """
     for _, envr in env.items():
         now = int(time.time())
         expire_time = \
@@ -84,7 +86,8 @@ def run_environment(mud, players: {}, env: {}):
 
 def run_schedule(mud, event_schedule: {}, players: {}, npcs: {},
                  items_in_world: {}, env: {}, npcs_db: {}, env_db: {}):
-    # Evaluate the Event Schedule
+    """Evaluate the Event Schedule
+    """
     deleted_events = []
     for event, evnt in event_schedule.items():
         if time.time() < evnt['time']:
