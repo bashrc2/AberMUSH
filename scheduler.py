@@ -8,13 +8,12 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Core"
 
-from events import evaluate_event
+import time
 from random import randint
+from events import evaluate_event
 # from copy import deepcopy
 from functions import show_timing
 from functions import deepcopy
-
-import time
 
 
 def run_messages(mud, channels: {}, players: {}):
