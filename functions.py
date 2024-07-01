@@ -98,7 +98,8 @@ def get_sentiment(text: str, sentiment_db: {}) -> int:
     return sentiment
 
 
-def get_guild_sentiment(players: {}, id, npcs: {}, p: int, guilds: {}) -> int:
+def get_guild_sentiment(players: {}, id: int, npcs: {}, p: int,
+                        guilds: {}) -> int:
     """Returns the sentiment of the guild of the first player
     towards the second
     """
@@ -134,7 +135,7 @@ def _baseline_affinity(players: {}, id):
     return average_affinity
 
 
-def increase_affinity_between_players(players: {}, id, npcs: {},
+def increase_affinity_between_players(players: {}, id: int, npcs: {},
                                       p: int, guilds: {}) -> None:
     """Increases the affinity level between two players
     """
@@ -171,7 +172,7 @@ def increase_affinity_between_players(players: {}, id, npcs: {},
                     _baseline_affinity(players, id)
 
 
-def decrease_affinity_between_players(players: {}, id, npcs: {},
+def decrease_affinity_between_players(players: {}, id: int, npcs: {},
                                       p: int, guilds: {}) -> None:
     """Decreases the affinity level between two players
     """
@@ -216,6 +217,8 @@ def decrease_affinity_between_players(players: {}, id, npcs: {},
 
 
 def random_desc(description_list: []) -> []:
+    """return a random description
+    """
     if isinstance(description_list, list):
         desc_list = description_list
     else:
@@ -226,26 +229,30 @@ def random_desc(description_list: []) -> []:
     return desc_list[randint(0, len(desc_list) - 1)]
 
 
-def level_up(id, players: {}, character_class_db: {}, increment: int):
+def level_up(id: int, players: {}, character_class_db: {}, increment: int):
+    """Increase level according to experience
+    """
     plyr = players[id]
     level = plyr['lvl']
-    if level < 20:
-        plyr['exp'] = plyr['exp'] + increment
-        if plyr['exp'] > (level + 1) * 1000:
-            plyr['hpMax'] = plyr['hpMax'] + randint(1, 9)
-            plyr['lvl'] = level + 1
-            # remove any existing spell lists
-            for prof in plyr['proficiencies']:
-                if isinstance(prof, list):
-                    plyr['proficiencies'].remove(prof)
-            # update proficiencies
-            idx = plyr['characterClass']
-            for prof in character_class_db[idx][str(plyr['lvl'])]:
-                if prof not in plyr['proficiencies']:
-                    plyr['proficiencies'].append(prof)
+    if level >= 20:
+        return
+    plyr['exp'] = plyr['exp'] + increment
+    if plyr['exp'] <= (level + 1) * 1000:
+        return
+    plyr['hpMax'] = plyr['hpMax'] + randint(1, 9)
+    plyr['lvl'] = level + 1
+    # remove any existing spell lists
+    for prof in plyr['proficiencies']:
+        if isinstance(prof, list):
+            plyr['proficiencies'].remove(prof)
+    # update proficiencies
+    idx = plyr['characterClass']
+    for prof in character_class_db[idx][str(plyr['lvl'])]:
+        if prof not in plyr['proficiencies']:
+            plyr['proficiencies'].append(prof)
 
 
-def stow_hands(id, players: {}, items_db: {}, mud):
+def stow_hands(id: int, players: {}, items_db: {}, mud):
     """Stows items held
     """
     plyr = players[id]
@@ -326,7 +333,7 @@ def size_from_description(description: str):
     return size
 
 
-def update_player_attributes(id, players: {},
+def update_player_attributes(id: int, players: {},
                              items_db: {}, item_id: str, mult: int):
     player_attributes = ('luc', 'per', 'cha', 'int', 'cool', 'exp')
     for attr in player_attributes:
@@ -337,7 +344,7 @@ def update_player_attributes(id, players: {},
     items_db[item_id]['mod_exp'] = 0
 
 
-def player_inventory_weight(id, players: {}, items_db: {}):
+def player_inventory_weight(id: int, players: {}, items_db: {}):
     """Returns the total weight of a player's inventory
     """
     if len(list(players[id]['inv'])) == 0:
@@ -479,7 +486,7 @@ def get_free_room_key(rooms: {}) -> str:
     return ''
 
 
-def add_to_scheduler(event_id: int, target_id: int, scheduler, database):
+def add_to_scheduler(event_id: int, target_id: int, scheduler: {}, database):
     """Function for adding events to event scheduler
     """
     if isinstance(event_id, int):
@@ -502,6 +509,8 @@ def add_to_scheduler(event_id: int, target_id: int, scheduler, database):
 
 
 def load_player(name: str) -> dict:
+    """loads a player from file
+    """
     location = str(Config.get('Players', 'Location'))
     filename = os.path.join(location, name + ".player")
     try:
@@ -513,11 +522,15 @@ def load_player(name: str) -> dict:
 
 
 def _get_player_path():
+    """returns the path for players files
+    """
     locn = Config.get('Players', 'Location')
     return str(locn) + "/"
 
 
-def _save_player(player, main_db: {}, save_password: str):
+def _save_player(player: {}, main_db: {}, save_password: str):
+    """saves a player to file
+    """
     path = _get_player_path()
     dbase = load_players_db(force_lowercase=False)
     for plyr in dbase:
@@ -550,7 +563,6 @@ def save_state(player, main_db: {}, save_password: str):
     """Saves a player state
     """
     _save_player(player, main_db, save_password)
-    # main_db = load_players_db()
 
 
 def save_universe(rooms: {}, npcs_db: {}, npcs: {},
@@ -639,16 +651,16 @@ def str2bool(v) -> bool:
     return False
 
 
-def send_to_channel(sender, channel, message, channels):
-    # print("Im in!")
+def send_to_channel(sender, channel: int, message: str, channels: {}):
     channels[get_free_key(channels)] = {
         "channel": str(channel),
         "message": str(message),
         "sender": str(sender)}
-    # print(channels)
 
 
 def load_blocklist(filename: str, blocklist: []) -> None:
+    """Loads a blocklist
+    """
     if not os.path.isfile(filename):
         return False
 
@@ -674,6 +686,8 @@ def load_blocklist(filename: str, blocklist: []) -> None:
 
 
 def save_blocklist(filename: str, blocklist: []) -> None:
+    """saves a blocklist
+    """
     try:
         with open(filename, "w", encoding='utf-8') as blockfile:
             for blockedstr in blocklist:
@@ -724,7 +738,7 @@ def prepare_spells(mud, id, players: {}):
                 players[id]['prepareSpellProgress'] + 1
 
 
-def is_wearing(id, players: {}, item_list: []) -> bool:
+def is_wearing(id: int, players: {}, item_list: []) -> bool:
     """Given a list of possible item IDs is the player wearing any of them?
     """
     if not item_list:
@@ -759,8 +773,9 @@ def player_is_visible(mud, observer_id: int, observers: {},
     return False
 
 
-def message_to_room_players(mud, players: {}, id, msg: str):
-    # go through all the players in the game
+def message_to_room_players(mud, players: {}, id: int, msg: str):
+    """go through all the players in the game
+    """
     for pid, plyr in players.items():
         # if player is in the same room and isn't the player
         # sending the command
@@ -779,7 +794,7 @@ def show_timing(previous_timing, comment_str: str, debug: bool = False):
     return curr_time
 
 
-def player_is_prone(id, players: {}) -> bool:
+def player_is_prone(id: int, players: {}) -> bool:
     """Returns true if the given player is prone
     """
     if players[id].get('prone'):
@@ -788,7 +803,7 @@ def player_is_prone(id, players: {}) -> bool:
     return False
 
 
-def set_player_prone(id, players: {}, prone: bool) -> None:
+def set_player_prone(id: int, players: {}, prone: bool) -> None:
     """Sets the prone state for a player
     """
     if prone:
@@ -817,7 +832,9 @@ def parse_cost(cost_str: str) -> (int, str):
     return qty, denomination
 
 
-def item_in_room(items: {}, id, room: str):
+def item_in_room(items: {}, id: int, room: str) -> bool:
+    """is the given item in the room?
+    """
     for i in items.items():
         if i[1]['room'] == room:
             if id == i[1]['id']:
