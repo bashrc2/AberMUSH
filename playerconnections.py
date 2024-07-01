@@ -238,7 +238,7 @@ def _run_player_disconnections(mud, players: {}, players_db: {}, fights: {},
         del players[id]
 
 
-def run_player_connections(mud, id: int, players: {}, players_db: {},
+def run_player_connections(mud, players: {}, players_db: {},
                            fights: {}, config, terminal_mode: {}):
     _run_new_player_connections(mud, players, players_db, fights, config)
     _run_player_disconnections(mud, players, players_db, fights,
