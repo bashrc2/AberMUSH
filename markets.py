@@ -49,7 +49,7 @@ EXCHANGE_RATE = {
 }
 
 
-def money_purchase(id, players: {}, cost: str) -> bool:
+def money_purchase(id: int, players: {}, cost: str) -> bool:
     """Does the player have enough money to buy something at the given cost?
     """
     cost_denom = None
@@ -175,7 +175,7 @@ def assign_markets(markets: {}, rooms: {}, items_db: {},
     return no_of_markets
 
 
-def buy_item(players: {}, id, item_id: int, items_db: {},
+def buy_item(players: {}, id: int, item_id: int, items_db: {},
              cost: str) -> bool:
     """Returns true if the given item was bought
     """
