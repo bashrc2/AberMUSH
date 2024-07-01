@@ -24,7 +24,7 @@ def _proficiency_param(prof: str) -> int:
     return int(prof.split('(')[1].replace(')', '').strip())
 
 
-def _prof_fighting_style_damage(id, players: {},
+def _prof_fighting_style_damage(id: int, players: {},
                                 weapon_type: str, value: int) -> int:
     if not players[id].get('fightingStyle'):
         return 0
@@ -41,7 +41,7 @@ def _prof_fighting_style_damage(id, players: {},
     return 0
 
 
-def _damage_proficiency_item(prof: str, id, players: int,
+def _damage_proficiency_item(prof: str, id: int, players: int,
                              weapon_type: str) -> int:
     if isinstance(prof, list):
         return 0
@@ -78,7 +78,7 @@ def _damage_proficiency_item(prof: str, id, players: int,
     return 0
 
 
-def damage_proficiency(id, players: {}, weapon_type: str,
+def damage_proficiency(id: int, players: {}, weapon_type: str,
                        character_class_db: {}) -> int:
     if not players[id].get('race'):
         return 0
@@ -90,29 +90,30 @@ def damage_proficiency(id, players: {}, weapon_type: str,
 
     damage = 0
     for lvl in range(1, players[id]['lvl']):
-        if character_class_db[player_race].get(str(lvl)):
-            prof_list = character_class_db[player_race][str(lvl)]
-            for plyr in prof_list:
-                damage = damage + \
-                    _damage_proficiency_item(plyr, id, players, weapon_type)
+        if not character_class_db[player_race].get(str(lvl)):
+            continue
+        prof_list = character_class_db[player_race][str(lvl)]
+        for plyr in prof_list:
+            damage = damage + \
+                _damage_proficiency_item(plyr, id, players, weapon_type)
     return damage
 
 
-def _prof_second_wind(id, players: {}, prof_value: int) -> int:
+def _prof_second_wind(id: int, players: {}, prof_value: int) -> int:
     if players[id]['restRequired'] != 0:
         return 0
     players[id]['restRequired'] = 1
     return randint(1, 10)
 
 
-def _prof_indomitable(id, players: {}, prof_value: int) -> int:
+def _prof_indomitable(id: int, players: {}, prof_value: int) -> int:
     if players[id]['restRequired'] != 0:
         return 0
     players[id]['restRequired'] = 1
     return randint(1, 10)
 
 
-def _defense_proficiency_item(prof: str, id, players: {}) -> int:
+def _defense_proficiency_item(prof: str, id: int, players: {}) -> int:
     """TODO: currently unused
     """
     if isinstance(prof, list):
@@ -138,7 +139,7 @@ def _defense_proficiency_item(prof: str, id, players: {}) -> int:
     return 0
 
 
-def _weapon_proficiency_item(prof: str, id, players: {},
+def _weapon_proficiency_item(prof: str, id: int, players: {},
                              weapon_type: str) -> int:
     if isinstance(prof, list):
         return 0
@@ -161,7 +162,7 @@ def _weapon_proficiency_item(prof: str, id, players: {},
     return 0
 
 
-def weapon_proficiency(id, players: {}, weapon_type: str,
+def weapon_proficiency(id: int, players: {}, weapon_type: str,
                        character_class_db: {}) -> int:
     """TODO: currently unused
     """
