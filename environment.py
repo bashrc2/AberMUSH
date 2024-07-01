@@ -8,13 +8,13 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Environment Simulation"
 
+import decimal
 from random import randint
 import random
 import math
 from math import sin
 import datetime
 from functions import random_desc
-import decimal
 dec = decimal.Decimal
 
 RAIN_THRESHOLD = 230
@@ -221,19 +221,20 @@ def _assign_coords_to_surrounding_rooms(this_room: str, rooms: {},
         if not rooms[this_room].get('coords'):
             continue
         other_room['coords'] = rooms[this_room]['coords'].copy()
+        other_rm = other_room['coords']
         # the other room does not have coordinates assigned
         if ex == 'north':
-            other_room['coords'][0] += distance
+            other_rm[0] += distance
         elif ex == 'south':
-            other_room['coords'][0] -= distance
+            other_rm[0] -= distance
         elif ex == 'east':
-            other_room['coords'][1] -= distance
+            other_rm[1] -= distance
         elif ex == 'west':
-            other_room['coords'][1] += distance
+            other_rm[1] += distance
         elif ex == 'up':
-            other_room['coords'][2] += 1
+            other_rm[2] += 1
         elif ex == 'down':
-            other_room['coords'][2] -= 1
+            other_rm[2] -= 1
         other_room['coordsAssigned'] = True
         other_rooms_found.append(other_room)
     if other_rooms_found:
@@ -267,20 +268,21 @@ def _infer_coords_from_surrounding_rooms(this_room: str, rooms: {},
         # make this room relative to the other
         if not other_room.get('coords'):
             continue
-        rooms[this_room]['coords'] = other_room['coords'].copy()
+        this_rm = rooms[this_room]
+        this_rm['coords'] = other_room['coords'].copy()
         if ex == 'north':
-            rooms[this_room]['coords'][0] -= distance
+            this_rm['coords'][0] -= distance
         elif ex == 'south':
-            rooms[this_room]['coords'][0] += distance
+            this_rm['coords'][0] += distance
         elif ex == 'east':
-            rooms[this_room]['coords'][1] += distance
+            this_rm['coords'][1] += distance
         elif ex == 'west':
-            rooms[this_room]['coords'][1] -= distance
+            this_rm['coords'][1] -= distance
         elif ex == 'up':
-            rooms[this_room]['coords'][2] -= distance
+            this_rm['coords'][2] -= distance
         elif ex == 'down':
-            rooms[this_room]['coords'][2] += distance
-        rooms[this_room]['coordsAssigned'] = True
+            this_rm['coords'][2] += distance
+        this_rm['coordsAssigned'] = True
         return True
     return False
 
@@ -303,12 +305,13 @@ def _assign_relative_room_coords(rooms: {}, rooms_on_map: [],
                 break
 
     for rmid in rooms_on_map:
-        if not rooms[rmid]['coordsAssigned']:
-            if _infer_coords_from_surrounding_rooms(rmid, rooms,
-                                                    rooms_on_map, environments,
-                                                    other_rooms_found):
-                other_rooms_found += [rooms[rmid]]
-                break
+        if rooms[rmid]['coordsAssigned']:
+            continue
+        if _infer_coords_from_surrounding_rooms(rmid, rooms,
+                                                rooms_on_map, environments,
+                                                other_rooms_found):
+            other_rooms_found += [rooms[rmid]]
+            break
 
     return other_rooms_found
 
