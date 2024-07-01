@@ -144,7 +144,7 @@ class WebSocket(object):
             pass
         elif self.opcode == BINARY:
             pass
-        elif self.opcode == PONG or self.opcode == PING:
+        elif self.opcode in (PING, PONG):
             if len(self.data) > 125:
                 raise Exception('control frame length can not be > 125')
         else:
@@ -153,7 +153,7 @@ class WebSocket(object):
 
         if self.opcode == CLOSE:
             status = 1000
-            reason = u''
+            reason = ''
             length = len(self.data)
 
             if length == 0:
@@ -178,7 +178,7 @@ class WebSocket(object):
 
         if self.fin == 0:
             if self.opcode != STREAM:
-                if self.opcode == PING or self.opcode == PONG:
+                if self.opcode in (PING, PONG):
                     raise Exception('control messages can not be fragmented')
 
                 self.frag_type = self.opcode
@@ -213,7 +213,7 @@ class WebSocket(object):
                 if self.frag_type == TEXT:
                     utf_str = self.frag_decoder.decode(self.data, final=True)
                     self.frag_buffer.append(utf_str)
-                    self.data = u''.join(self.frag_buffer)
+                    self.data = ''.join(self.frag_buffer)
                 else:
                     self.frag_buffer.extend(self.data)
                     self.data = self.frag_buffer
@@ -287,7 +287,7 @@ class WebSocket(object):
             for dat in data:
                 self._parseMessage(dat)
 
-    def close(self, status=1000, reason=u''):
+    def close(self, status: int = 1000, reason: str = ''):
         """
           Send Close frame to the client. The underlying socket is only closed
           when the client acknowledges the Close frame.
@@ -309,7 +309,7 @@ class WebSocket(object):
         finally:
             self.closed = True
 
-    def _sendBuffer(self, buff, send_all=False):
+    def _sendBuffer(self, buff, send_all: bool = False):
         size = len(buff)
         tosend = size
         already_sent = 0
@@ -399,7 +399,7 @@ class WebSocket(object):
             bb2 |= length
             payload.append(bb2)
 
-        elif length >= 126 and length <= 65535:
+        elif length in range(126, 65536):
             bb2 |= 126
             payload.append(bb2)
             payload.extend(struct.pack("!H", length))
@@ -576,7 +576,7 @@ class WebSocket(object):
 
 class WebSocketServer(object):
     def __init__(self, host, port, websocketclass, parent,
-                 select_interval=0.1):
+                 select_interval: float = 0.1):
         self.websocketclass = websocketclass
         self.parent = parent
 
@@ -609,7 +609,7 @@ class WebSocketServer(object):
     def close(self):
         self.serversocket.close()
 
-        for desc, conn in self.connections.items():
+        for _, conn in self.connections.items():
             conn.close()
             self._handleClose(conn)
 
@@ -698,7 +698,7 @@ class tlsWebSocketServer(WebSocketServer):
     def __init__(self, host: str, port: int,
                  websocketclass, certfile=None,
                  keyfile=None, version=ssl.PROTOCOL_TLS_SERVER,
-                 select_interval=0.1, tls_context=None):
+                 select_interval: float = 0.1, tls_context=None):
 
         WebSocketServer.__init__(self, host, port,
                                  websocketclass, select_interval)
