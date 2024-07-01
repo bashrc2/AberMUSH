@@ -509,8 +509,8 @@ def show_morris_board(board_name: str,
                      "'s move\n")
 
 
-def take_morris_counter(takeDescription: str,
-                        players: {}, id, mud, rooms: {},
+def take_morris_counter(take_description: str,
+                        players: {}, id: int, mud, rooms: {},
                         items: {}, items_db: {}) -> None:
     """Takes an opponent counter from the board
     """
@@ -530,19 +530,19 @@ def take_morris_counter(takeDescription: str,
         board = '·' * 24
         items[game_item_id]['gameState']['morris'] = board
 
-    takeDescription = \
-        takeDescription.lower().replace('.', ' ').replace(',', ' ').strip()
-    words = takeDescription.split()
+    take_description = \
+        take_description.lower().replace('.', ' ').replace(',', ' ').strip()
+    words = take_description.split()
     board_move = []
     for wrd in words:
-        if len(wrd) == 2:
-            if wrd[1].isdigit():
-                if ord(wrd[0]) >= ord('a') and \
-                   ord(wrd[0]) <= ord('g') and \
-                   int(wrd[1]) >= 1 and \
-                   int(wrd[1]) <= 7:
-                    if wrd in VALID_MORRIS_BOARD_LOCATIONS:
-                        board_move.append(wrd)
+        if len(wrd) != 2:
+            continue
+        if not wrd[1].isdigit():
+            continue
+        if ord(wrd[0]) >= ord('a') and ord(wrd[0]) <= ord('g') and \
+           int(wrd[1]) >= 1 and int(wrd[1]) <= 7:
+            if wrd in VALID_MORRIS_BOARD_LOCATIONS:
+                board_move.append(wrd)
     if len(board_move) != 1:
         mud.send_message(id, '\nSpecify the coordinate of the ' +
                          'counter to be taken.\n')

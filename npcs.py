@@ -92,7 +92,7 @@ def get_solar():
     return Sun(52.414, 4.081)
 
 
-def _entity_is_active(id, players: {}, rooms: {},
+def _entity_is_active(id: int, players: {}, rooms: {},
                       move_times: [], map_area: [], clouds: {},
                       curr_time, curr_hour, sun,
                       curr_day_of_week: int,
