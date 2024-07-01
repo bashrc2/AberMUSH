@@ -76,23 +76,21 @@ def run_deaths(mud, players: {}, npcs: {}, corpses: {}, fights: {},
         plyr['lastRoom'] = plyr['room']
         plyr['room'] = '$rid=1262$'
         fights_copy = deepcopy(fights)
-        for fight, _ in fights_copy.items():
-            if ((fights_copy[fight]['s1type'] == 'pc' and
-                 fights_copy[fight]['s1id'] == pid) or
-                (fights_copy[fight]['s2type'] == 'pc' and
-                 fights_copy[fight]['s2id'] == pid)):
+        for fight, fght in fights_copy.items():
+            if (fght['s1type'] == 'pc' and fght['s1id'] == pid) or \
+               (fght['s2type'] == 'pc' and fght['s2id'] == pid):
                 # clear the combat flag
-                if fights_copy[fight]['s1type'] == 'pc':
-                    fid = fights_copy[fight]['s1id']
+                if fght['s1type'] == 'pc':
+                    fid = fght['s1id']
                     players[fid]['isInCombat'] = 0
-                elif fights_copy[fight]['s1type'] == 'npc':
-                    fid = fights_copy[fight]['s1id']
+                elif fght['s1type'] == 'npc':
+                    fid = fght['s1id']
                     npcs[fid]['isInCombat'] = 0
-                if fights_copy[fight]['s2type'] == 'pc':
-                    fid = fights_copy[fight]['s2id']
+                if fght['s2type'] == 'pc':
+                    fid = fght['s2id']
                     players[fid]['isInCombat'] = 0
-                elif fights_copy[fight]['s2type'] == 'npc':
-                    fid = fights_copy[fight]['s2id']
+                elif fght['s2type'] == 'npc':
+                    fid = fght['s2id']
                     npcs[fid]['isInCombat'] = 0
                 plyr['isInCombat'] = 0
                 del fights[fight]
