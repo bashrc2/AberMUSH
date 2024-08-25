@@ -14662,11 +14662,11 @@
     },
     "$rid=1425$": {
         "name": "Hatchet inn lodging rooms",
-        "description": "You are at the top of some stairs in a small landing area. Lodging room doors are on each side around you",
+        "description": "You are at the top of some stairs in a small landing area with creaky floor boards. Lodging room doors are on each side around you.",
         "roomTeleport": "",
         "conditional": [
-            ["hour","<8","You are at the top of some stairs in a small landing area. Candle light casts long shadows across the lodging room doors which are on each side around you"],
-            ["hour",">20","You are at the top of some stairs in a small landing area. Candle light casts long shadows across the lodging room doors which are on each side around you"]
+            ["hour","<8","You are at the top of some stairs in a small landing area with creaky floor boards. Candle light casts long shadows across the lodging room doors which are on each side around you"],
+            ["hour",">20","You are at the top of some stairs in a small landing area with creaky floor boards. Candle light casts long shadows across the lodging room doors which are on each side around you"]
         ],
         "trap": {},
         "eventOnEnter": "",
