@@ -365,7 +365,7 @@
             [["scratch","itch"],"Scratches itself"],
             [["dance","party","fun","excit"],"Scurries arround in a series of little springy jumps","image:weaselroam"],
             [["say","speak"],"Eeeek!","image:weaselhide"],
-            [["cottage", "remains", "ruins"], "How should I know?|Don't ask me, I only scurry here"]
+            [["cottage", "remains", "ruins"], "Nods|Cleans its whiskers|Looks up, alert|Looks baffled, then says 'how should I know?'|Don't ask me, I only scurry here"]
         ],
         "path" : ["$rid=82$"],
         "bodyType": "",
