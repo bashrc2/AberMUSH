@@ -1093,11 +1093,11 @@ def _conversation_familiar_mode(
             else:
                 mud.send_message(
                     id, this_npc['name'] + " is not your familiar.\n\n")
+                return True
         else:
             mud.send_message(
                 id, "<f220>" + this_npc['name'] +
                 "<r> looks " + puzzled_str + ".\n\n")
-            return False
     return False
 
 
