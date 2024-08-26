@@ -364,7 +364,8 @@
             [["attack","kill","bite"],"Eyes you suspiciously as if you are up to no good"],
             [["scratch","itch"],"Scratches itself"],
             [["dance","party","fun","excit"],"Scurries arround in a series of little springy jumps","image:weaselroam"],
-            [["say","speak"],"Eeeek!","image:weaselhide"]
+            [["say","speak"],"Eeeek!","image:weaselhide"],
+            [["cottage", "remains", "ruins"], "How should I know?|Don't ask me, I only scurry here"]
         ],
         "path" : ["$rid=82$"],
         "bodyType": "",
