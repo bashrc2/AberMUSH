@@ -40,7 +40,7 @@ sudo chmod +x /etc/network/if-up.d/firewall
 
 You now should be able to connect to your server on `<server IP/hostname>:35123`
 
-![AberMUSH](docs/sword.png)
+![AberMUSH](docs/cat.png)
 
 ## Player Commands
 
