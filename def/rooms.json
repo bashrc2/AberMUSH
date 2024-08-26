@@ -9064,7 +9064,7 @@
             "north": "$rid=986$"
         },
         "name": "The Treehouse",
-        "description": "You are at the southern end of the treehouse, which seems to be used by its occupant as a sleeping area. Large amounts of thick bedding ensures thats its occupant will be comfortable even in bad weather. A single doorway leads north through the branches.",
+        "description": "You are at the southern end of the treehouse, which seems to be used by its occupant as a sleeping area. Large amounts of thick bedding ensures that its occupant will be comfortable even in bad weather. A single doorway leads north through the branches.",
         "roomTeleport": "",
         "conditional": [],
         "trap": {},
