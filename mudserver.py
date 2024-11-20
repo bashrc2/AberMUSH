@@ -57,7 +57,8 @@ class MudServerWS(WebSocket):
             self._id = parent.get_next_id()
             print('Connect websocket client ' + str(self._id))
             parent.add_new_player(self._CLIENT_WEBSOCKET,
-                                  self, self.address[0])
+                                  self, self.address[0],
+                                  None, None)
         ws_clients.append(self)
         print(self.address, 'websocket connected')
 
@@ -102,12 +103,14 @@ class MudServer(object):
 
         def __init__(self, client_type: int,
                      socket, address: str, buffer: str,
-                     lastcheck):
+                     lastcheck, username: str, password: str):
             self.client_type = client_type
             self.socket = socket
             self.address = address
             self.buffer = buffer
             self.lastcheck = lastcheck
+            self.username = username
+            self.password = password
 
     _CLIENT_TELNET = 1
     _CLIENT_WEBSOCKET = 2
@@ -530,19 +533,23 @@ class MudServer(object):
         return True
 
     def add_new_player(self, client_type: int,
-                       joined_socket, address: str) -> int:
+                       joined_socket, address: str,
+                       username: str, password: str) -> int:
         """construct a new _Client object to hold info about the newly
         connected client. Use 'nextid' as the new client's id number
         """
         self._clients[self._nextid] = \
             MudServer._Client(client_type, joined_socket, address,
-                              "", time.time())
+                              "", time.time(), username, password)
 
         # add a new player occurence to the new events list with the
         # player's id number
         self._new_events.append((self._EVENT_NEW_PLAYER, self._nextid))
 
-        # TODO
+        # try to log in
+        if username and password:
+            self._new_events.append((self._EVENT_COMMAND, self._nextid,
+                                     'CONNECT', username + ' ' + password))
 
         # add 1 to 'nextid' so that the next client to connect will get a
         # unique id number
@@ -572,7 +579,8 @@ class MudServer(object):
         # and 'recv' will return immediately without waiting
         joined_socket.setblocking(False)
 
-        self.add_new_player(self._CLIENT_TELNET, joined_socket, addr[0])
+        self.add_new_player(self._CLIENT_TELNET, joined_socket, addr[0],
+                            None, None)
 
     def _check_for_disconnected(self) -> None:
         # go through all the clients

@@ -13,12 +13,6 @@ import socket
 import subprocess
 import time
 
-ssh_user_accounts = {
-    "admin": {
-        "password": "admin"
-    }
-}
-
 
 class SSHServer(paramiko.ServerInterface):
     """Implements a SSH server
@@ -32,10 +26,9 @@ class SSHServer(paramiko.ServerInterface):
         return paramiko.OPEN_FAILED_ADMINISTRATIVELY_PROHIBITED
 
     def check_auth_password(self, username, password):
-        if username in ssh_user_accounts:
-            if password == ssh_user_accounts[username]['password']:
-                return paramiko.AUTH_SUCCESSFUL
-        return paramiko.AUTH_FAILED
+        self.username = username
+        self.password = password
+        return paramiko.AUTH_SUCCESSFUL
 
     def check_channel_pty_request(self, channel: paramiko.Channel, term: bytes,
                                   width: int, height: int, pixelwidth: int,
@@ -59,11 +52,14 @@ def handle_ssh_connection(t, chan, parent, server):
     chan.sendall("Connected...\n")
     parent._id = parent.get_next_id()
     curr_id = parent._id
-    parent.add_new_player(parent._CLIENT_SSH, chan, chan)
+    parent.add_new_player(parent._CLIENT_SSH, chan, chan,
+                          server.username, server.password)
+    # clear any credentials
+    server.username = server.password = None
     while 1:
         command = chan.recv(4096)
 
-        if not t.is_active():
+        if not t.is_active() or command in (b'exit\n', b'quit\n'):
             parent.handle_disconnect(curr_id)
             chan.shutdown(2)
             chan.close()
@@ -130,8 +126,9 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
             try:
                 if started:
                     parent.handle_disconnect(curr_id)
-                chan.shutdown(2)
-                chan.close()
+                if chan:
+                    chan.shutdown(2)
+                    chan.close()
             except BaseException as exc3:
                 print('EX: ssh_listen_for_connections EOFError 2 ' +
                       str(exc3))
@@ -142,8 +139,9 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
             try:
                 if started:
                     parent.handle_disconnect(curr_id)
-                chan.shutdown(2)
-                chan.close()
+                if chan:
+                    chan.shutdown(2)
+                    chan.close()
             except BaseException as exc3:
                 print('EX: ssh_listen_for_connections OSError ' + str(exc3))
                 pass

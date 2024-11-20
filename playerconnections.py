@@ -25,6 +25,7 @@ def _run_new_player_connections(mud, players: {}, players_db: {}, fights: {},
         if len(players) >= MAXIMUM_PLAYERS:
             mud.send_message(id, "Player limit reached\n\n")
             mud.handle_disconnect(id)
+            continue
 
         # add the new player to the dictionary, noting that they've not been
         # named yet.

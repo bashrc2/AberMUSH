@@ -1171,7 +1171,7 @@ def _command_options() -> None:
                             players[id]['name'] = connect_username
                             connect_password = params.split(' ', 1)[1].strip()
                             pl = load_player(connect_username)
-                            if pl is not None:
+                            if pl:
                                 db_pass = pl['pwd']
                                 if connect_username == 'Guest':
                                     db_pass = hash_password(pl['pwd'])
@@ -1303,10 +1303,12 @@ def _command_options() -> None:
                   players[id]['authenticated'] is None):
                 pl = load_player(players[id]['name'])
                 # print(pl)
-                db_pass = pl['pwd']
+                db_pass = ''
+                if pl:
+                    db_pass = pl['pwd']
 
                 if players[id]['name'] == 'Guest':
-                    db_pass = hash_password(pl['pwd'])
+                    db_pass = hash_password(db_pass)
 
                 if terminal_mode.get(str(id)) is True:
                     taken = True
