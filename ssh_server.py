@@ -153,15 +153,16 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
 def run_ssh_server(domain: str, ssh_port: int, parent) -> None:
     """Runs an ssh server
     """
+    host_key_filename = './.ssh_rsa_mud'
     host_key = None
     try:
-        host_key = paramiko.RSAKey(filename='./rsa_mud')
+        host_key = paramiko.RSAKey(filename=host_key_filename)
     except FileNotFoundError:
         print('Generating server key')
 
     if not host_key:
         host_key = paramiko.RSAKey.generate(bits=2048)
-        host_key.write_private_key_file('./rsa_mud')
+        host_key.write_private_key_file(host_key_filename)
 
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
