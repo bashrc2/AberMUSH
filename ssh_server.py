@@ -160,7 +160,7 @@ def run_ssh_server(domain: str, ssh_port: int, parent) -> None:
     try:
         host_key = paramiko.RSAKey(filename=host_key_filename)
     except FileNotFoundError:
-        print('Generating server key')
+        print('Generating SSH server host key')
 
     if not host_key:
         host_key = paramiko.RSAKey.generate(bits=2048)
