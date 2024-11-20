@@ -406,27 +406,18 @@ class MudServer(object):
             # the message string on the socket. 'sendall' ensures that
             # all of the data is sent in one go
             linectr = len(message_lines)
-            if clid.client_type == self._CLIENT_TELNET:
+            if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 for line_str in message_lines:
                     if linectr <= 30:
                         msg_str = line_str + '\n'
                         clid.socket.sendall(bytearray(msg_str, 'utf-8'))
                         time.sleep(0.03)
                     linectr -= 1
-            elif clid.client_type == self._CLIENT_SSH:
-                for line_str in message_lines:
-                    if linectr <= 30:
-                        msg_str = line_str + '\n'
-                        clid.socket.send(bytearray(msg_str, 'utf-8'))
-                        time.sleep(0.03)
-                    linectr -= 1
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message('****IMAGE****' + message)
 
-            if clid.client_type == self._CLIENT_TELNET:
+            if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 clid.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
-            elif clid.client_type == self._CLIENT_SSH:
-                clid.socket.send(bytearray(cmsg('<b0>'), 'utf-8'))
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message(cmsg('<b0>'))
         # KeyError will be raised if there is no client with the given id in
@@ -463,10 +454,9 @@ class MudServer(object):
             if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 for line_str in message_lines:
                     msg_str = line_str + '\n'
-                    if clid.client_type == self._CLIENT_TELNET:
+                    if clid.client_type in (self._CLIENT_TELNET,
+                                            self._CLIENT_SSH):
                         clid.socket.sendall(bytearray(cmsg(msg_str), 'utf-8'))
-                    elif clid.client_type == self._CLIENT_SSH:
-                        clid.socket.send(bytearray(cmsg(msg_str), 'utf-8'))
                     elif clid.client_type == self._CLIENT_WEBSOCKET:
                         clid.socket.send_message(msg_str)
                     time.sleep(0.03)
@@ -476,10 +466,8 @@ class MudServer(object):
                 else:
                     clid.socket.send_message('****CLEAR****' + message)
 
-            if clid.client_type in self._CLIENT_TELNET:
+            if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 clid.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
-            elif clid.client_type in self._CLIENT_SSH:
-                clid.socket.send(bytearray(cmsg('<b0>'), 'utf-8'))
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message(cmsg('<b0>'))
         # KeyError will be raised if there is no client with the given
@@ -504,7 +492,10 @@ class MudServer(object):
         # for each client
         for clid in self._clients.values():
             # close the socket, disconnecting the client
-            clid.socket.shutdown()
+            if clid.client_type != self._CLIENT_SSH:
+                clid.socket.shutdown()
+            else:
+                clid.socket.shutdown(2)
             clid.socket.close()
         # stop listening for new clients
         self._listen_socket.close()
@@ -515,10 +506,8 @@ class MudServer(object):
             # to send the message string on the socket. 'sendall'
             # ensures that all of the data is sent in one go
             clid = self._clients[clid]
-            if clid.client_type == self._CLIENT_TELNET:
+            if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 clid.socket.sendall(bytearray(data, "latin1"))
-            elif clid.client_type == self._CLIENT_SSH:
-                clid.socket.send(bytearray(data, "latin1"))
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message(data)
             return True

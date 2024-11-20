@@ -56,35 +56,40 @@ def handle_ssh_connection(t, chan, parent, server):
     """
     if not chan:
         return
-    chan.send("Connected...\n")
+    chan.sendall("Connected...\n")
     parent._id = parent.get_next_id()
+    curr_id = parent._id
     parent.add_new_player(parent._CLIENT_SSH, chan, chan)
     while 1:
         command = chan.recv(4096)
         if len(command) > 0:
             print('handle_ssh_connection: ' + str(command))
 
-        if command in (b'exit\n', b'quit\n'):
-            print('Exit')
-            chan.send("Bye\n")
-            parent.handle_disconnect(parent._id)
+        if not t.is_active():
+            parent.handle_disconnect(curr_id)
+            chan.shutdown(2)
             chan.close()
             break
 
         try:
-            if parent._id >= 0:
+            if curr_id >= 0:
                 message = command.decode('utf-8').strip()
-                parent.receive_message(parent._id, message)
+                parent.receive_message(curr_id, message)
         except KeyboardInterrupt as kexc:
             print('KeyboardInterrupt: ' + str(kexc))
-            parent.handle_disconnect(parent._id)
-            chan.close()
-        except subprocess.CalledProcessError:
-            chan.send(b'Unknown command: ' + command)
-        except OSError:
-            parent.handle_disconnect(parent._id)
+            parent.handle_disconnect(curr_id)
+            chan.shutdown(2)
             chan.close()
             break
+        except subprocess.CalledProcessError:
+            chan.sendall(b'Unknown command: ' + command)
+        except OSError as kexc:
+            print('OSError: ' + str(kexc))
+            parent.handle_disconnect(curr_id)
+            chan.shutdown(2)
+            chan.close()
+            break
+    time.sleep(1)
 
 
 def ssh_listen_for_connections(sock, host_key, parent) -> None:
@@ -93,12 +98,15 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
     while 1:
         try:
             client, _ = sock.accept()
-        except BaseException:
-            continue
+        except BaseException as exc:
+            print('EX: ssh_listen_for_connections accept ' + str(exc))
+            break
 
         print('Got a connection!')
 
         chan = None
+        curr_id = parent.get_next_id()
+        started = False
         try:
             t = paramiko.Transport(client)
             t.add_server_key(host_key)
@@ -115,18 +123,29 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
                 threading.Thread(target=handle_ssh_connection,
                                  args=(t, chan, parent, server,))
             conn_handler.start()
+            started = True
 
-        except EOFError:
+        except EOFError as exc4:
+            print('EX: ssh_listen_for_connections EOFError 1 ' + str(exc4))
             try:
+                if started:
+                    parent.handle_disconnect(curr_id)
+                chan.shutdown(2)
                 chan.close()
-            except BaseException:
+            except BaseException as exc3:
+                print('EX: ssh_listen_for_connections EOFError 2 ' +
+                      str(exc3))
                 pass
             continue
         except OSError as exc2:
             print("Exit: " + str(exc2))
             try:
+                if started:
+                    parent.handle_disconnect(curr_id)
+                chan.shutdown(2)
                 chan.close()
-            except BaseException:
+            except BaseException as exc3:
+                print('EX: ssh_listen_for_connections OSError ' + str(exc3))
                 pass
             break
 
