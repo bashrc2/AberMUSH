@@ -171,9 +171,9 @@ def run_ssh_server(domain: str, ssh_port: int, parent) -> None:
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind((domain, ssh_port))
         sock.listen(100)
-        print('Listening for connection ...')
+        print('SSH server created on port ' + str(ssh_port))
     except BaseException as exc:
-        print('*** Listen/accept failed: ' + str(exc))
+        print('*** SSH server creation failed: ' + str(exc))
         return None
 
     conn_listener = \
