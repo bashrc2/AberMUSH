@@ -116,6 +116,8 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
                 print('SSH negotiation failed')
                 return
 
+            server.parent = parent
+
             chan = t.accept(20)
             conn_handler = \
                 threading.Thread(target=handle_ssh_connection,
