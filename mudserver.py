@@ -30,6 +30,7 @@ from cmsg import cmsg
 from WebSocketServer import WebSocket, WebSocketServer, tlsWebSocketServer
 from threads import threadWithTrace
 from functions import show_timing
+from ssh_server import run_ssh_server
 
 ws_clients = []
 
@@ -75,8 +76,8 @@ class MudServer(object):
     """A basic server for text-based Multi-User Dungeon (MUD) games.
 
     Once created, the server will listen for players connecting using
-    Telnet. Messages can then be sent to and from multiple connected
-    players.
+    Telnet, SSH or WebSockets. Messages can then be sent to and from
+    multiple connected players.
 
     The 'update' method should be called in a loop to keep the server
     running.
@@ -110,6 +111,7 @@ class MudServer(object):
 
     _CLIENT_TELNET = 1
     _CLIENT_WEBSOCKET = 2
+    _CLIENT_SSH = 3
 
     # Used to store different types of occurences
     _EVENT_NEW_PLAYER = 1
@@ -145,6 +147,8 @@ class MudServer(object):
     _new_events = []
 
     _WS_PORT = 6221
+    _TELNET_PORT = 35123
+    _SSH_PORT = 35124
 
     def get_next_id(self) -> int:
         """Get next id
@@ -186,6 +190,8 @@ class MudServer(object):
         new players.
         """
 
+        local_domain = "0.0.0.0"
+        run_ssh_server(local_domain, self._SSH_PORT, self)
         self.run_websocket_server(tls, cert, key, ver)
 
         self._clients = {}
@@ -205,9 +211,8 @@ class MudServer(object):
         # bind the socket to an ip address and port. Port 23 is the standard
         # telnet port which telnet clients will use, however on some
         # platforms this requires root permissions, so we use a higher
-        # arbitrary port number instead: 1234. Address 0.0.0.0 means
-        # that we will bind to all of the available network interfaces
-        self._listen_socket.bind(("0.0.0.0", 35123))
+        # arbitrary port number instead
+        self._listen_socket.bind((local_domain, self._TELNET_PORT))
 
         # set to non-blocking mode. This means that when we call
         # 'accept', it will return immediately without waiting for a
@@ -408,10 +413,20 @@ class MudServer(object):
                         clid.socket.sendall(bytearray(msg_str, 'utf-8'))
                         time.sleep(0.03)
                     linectr -= 1
+            elif clid.client_type == self._CLIENT_SSH:
+                for line_str in message_lines:
+                    if linectr <= 30:
+                        msg_str = line_str + '\n'
+                        clid.socket.send(bytearray(msg_str, 'utf-8'))
+                        time.sleep(0.03)
+                    linectr -= 1
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message('****IMAGE****' + message)
+
             if clid.client_type == self._CLIENT_TELNET:
                 clid.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
+            elif clid.client_type == self._CLIENT_SSH:
+                clid.socket.send(bytearray(cmsg('<b0>'), 'utf-8'))
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message(cmsg('<b0>'))
         # KeyError will be raised if there is no client with the given id in
@@ -429,7 +444,7 @@ class MudServer(object):
                   ", socket error: " + str(ex))
             self.handle_disconnect(to_id)
         if not no_delay:
-            if clid.client_type == self._CLIENT_TELNET:
+            if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 time.sleep(1)
 
     def send_game_board(self, to_id, message: str) -> None:
@@ -445,11 +460,13 @@ class MudServer(object):
             # the message string on the socket. 'sendall' ensures that
             # all of the data is sent in one go
             clid = self._clients[to_id]
-            if clid.client_type == self._CLIENT_TELNET:
+            if clid.client_type in (self._CLIENT_TELNET, self._CLIENT_SSH):
                 for line_str in message_lines:
                     msg_str = line_str + '\n'
                     if clid.client_type == self._CLIENT_TELNET:
                         clid.socket.sendall(bytearray(cmsg(msg_str), 'utf-8'))
+                    elif clid.client_type == self._CLIENT_SSH:
+                        clid.socket.send(bytearray(cmsg(msg_str), 'utf-8'))
                     elif clid.client_type == self._CLIENT_WEBSOCKET:
                         clid.socket.send_message(msg_str)
                     time.sleep(0.03)
@@ -458,8 +475,11 @@ class MudServer(object):
                     clid.socket.send_message('****IMAGE****' + message)
                 else:
                     clid.socket.send_message('****CLEAR****' + message)
-            if clid.client_type == self._CLIENT_TELNET:
+
+            if clid.client_type in self._CLIENT_TELNET:
                 clid.socket.sendall(bytearray(cmsg('<b0>'), 'utf-8'))
+            elif clid.client_type in self._CLIENT_SSH:
+                clid.socket.send(bytearray(cmsg('<b0>'), 'utf-8'))
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message(cmsg('<b0>'))
         # KeyError will be raised if there is no client with the given
@@ -497,6 +517,8 @@ class MudServer(object):
             clid = self._clients[clid]
             if clid.client_type == self._CLIENT_TELNET:
                 clid.socket.sendall(bytearray(data, "latin1"))
+            elif clid.client_type == self._CLIENT_SSH:
+                clid.socket.send(bytearray(data, "latin1"))
             elif clid.client_type == self._CLIENT_WEBSOCKET:
                 clid.socket.send_message(data)
             return True
