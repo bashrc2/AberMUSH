@@ -62,8 +62,6 @@ def handle_ssh_connection(t, chan, parent, server):
     parent.add_new_player(parent._CLIENT_SSH, chan, chan)
     while 1:
         command = chan.recv(4096)
-        if len(command) > 0:
-            print('handle_ssh_connection: ' + str(command))
 
         if not t.is_active():
             parent.handle_disconnect(curr_id)
