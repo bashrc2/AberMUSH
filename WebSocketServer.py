@@ -19,6 +19,7 @@ import struct
 import ssl
 import errno
 import codecs
+import time
 from collections import deque
 from select import select
 from http.server import BaseHTTPRequestHandler
@@ -329,9 +330,11 @@ class WebSocket(object):
                 # drain and try again
                 if ex.errno in [errno.EAGAIN, errno.EWOULDBLOCK]:
                     if send_all:
+                        time.sleep(1)
                         continue
                     return buff[already_sent:]
                 raise ex
+            time.sleep(1)
 
         return None
 
@@ -646,6 +649,7 @@ class WebSocketServer(object):
                         break
                     if opcode == CLOSE:
                         raise Exception('received client close')
+                    time.sleep(1)
 
             except BaseException:
                 self._handleClose(client)
@@ -691,6 +695,7 @@ class WebSocketServer(object):
     def serveforever(self):
         while True:
             self.serveonce()
+            time.sleep(1)
 
 
 class tlsWebSocketServer(WebSocketServer):
