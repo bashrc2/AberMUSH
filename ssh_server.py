@@ -44,7 +44,7 @@ class SSHServer(paramiko.ServerInterface):
         return True
 
 
-def handle_ssh_connection(t, chan, parent, server):
+def _handle_ssh_connection(t, chan, parent, server):
     """Handles an incoming ssh connection
     """
     if not chan:
@@ -86,14 +86,14 @@ def handle_ssh_connection(t, chan, parent, server):
     time.sleep(1)
 
 
-def ssh_listen_for_connections(sock, host_key, parent) -> None:
+def _ssh_listen_for_connections(sock, host_key, parent) -> None:
     """Listens for incoming ssh connections
     """
     while 1:
         try:
             client, _ = sock.accept()
         except BaseException as exc:
-            print('EX: ssh_listen_for_connections accept ' + str(exc))
+            print('EX: _ssh_listen_for_connections accept ' + str(exc))
             break
 
         print('Got a connection!')
@@ -116,13 +116,13 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
 
             chan = t.accept(20)
             conn_handler = \
-                threading.Thread(target=handle_ssh_connection,
+                threading.Thread(target=_handle_ssh_connection,
                                  args=(t, chan, parent, server,))
             conn_handler.start()
             started = True
 
         except EOFError as exc4:
-            print('EX: ssh_listen_for_connections EOFError 1 ' + str(exc4))
+            print('EX: _ssh_listen_for_connections EOFError 1 ' + str(exc4))
             try:
                 if started:
                     parent.handle_disconnect(curr_id)
@@ -130,7 +130,7 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
                     chan.shutdown(2)
                     chan.close()
             except BaseException as exc3:
-                print('EX: ssh_listen_for_connections EOFError 2 ' +
+                print('EX: _ssh_listen_for_connections EOFError 2 ' +
                       str(exc3))
                 pass
             continue
@@ -143,7 +143,7 @@ def ssh_listen_for_connections(sock, host_key, parent) -> None:
                     chan.shutdown(2)
                     chan.close()
             except BaseException as exc3:
-                print('EX: ssh_listen_for_connections OSError ' + str(exc3))
+                print('EX: _ssh_listen_for_connections OSError ' + str(exc3))
                 pass
             break
 
@@ -175,6 +175,6 @@ def run_ssh_server(domain: str, ssh_port: int, parent) -> None:
         return None
 
     conn_listener = \
-        threading.Thread(target=ssh_listen_for_connections,
+        threading.Thread(target=_ssh_listen_for_connections,
                          args=(sock, host_key, parent,))
     conn_listener.start()

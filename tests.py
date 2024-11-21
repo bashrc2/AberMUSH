@@ -432,7 +432,14 @@ def _test_functions() -> None:
         'do_POST',
         'do_HEAD',
         '_begin_throw_attack',
-        '_punch'
+        '_punch',
+        'check_channel_request',
+        'check_auth_password',
+        'check_channel_pty_request',
+        'check_channel_shell_request',
+        'check_channel_exec_request',
+        '_handle_ssh_connection',
+        '_ssh_listen_for_connections'
     ]
     exclude_imports = [
         'link',
