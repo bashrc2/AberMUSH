@@ -102,6 +102,10 @@ def _command_options() -> None:
     parser.add_argument("--mmp", type=str2bool, nargs='?',
                         const=True, default=False,
                         help="Map in MMP XML format")
+    parser.add_argument("--noweb", type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="Disable WebSockets interface. " +
+                        "i.e. command line interface only")
     args = parser.parse_args()
     if args.tests:
         run_all_tests()
@@ -597,7 +601,7 @@ def _command_options() -> None:
 
     # start the server
     mud = MudServer(websocket_tls, websocket_cert, websocket_key,
-                    websocket_ver)
+                    websocket_ver, args.noweb)
 
     # weather
     curr_hour = datetime.datetime.today().hour
