@@ -106,6 +106,9 @@ def _command_options() -> None:
                         const=True, default=False,
                         help="Disable WebSockets interface. " +
                         "i.e. command line interface only")
+    parser.add_argument("--nossh", type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="Disable SSH interface")
     args = parser.parse_args()
     if args.tests:
         run_all_tests()
@@ -601,7 +604,7 @@ def _command_options() -> None:
 
     # start the server
     mud = MudServer(websocket_tls, websocket_cert, websocket_key,
-                    websocket_ver, args.noweb)
+                    websocket_ver, args.noweb, args.nossh)
 
     # weather
     curr_hour = datetime.datetime.today().hour

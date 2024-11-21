@@ -188,13 +188,18 @@ class MudServer(object):
 
     def __init__(self, tls=False,
                  cert='./cert.pem', key='./key.pem',
-                 ver=ssl.PROTOCOL_TLS_SERVER, noweb: bool = False):
+                 ver=ssl.PROTOCOL_TLS_SERVER, noweb: bool = False,
+                 nossh: bool = False):
         """Constructs the MudServer object and starts listening for
         new players.
         """
 
         local_domain = "0.0.0.0"
-        run_ssh_server(local_domain, self._SSH_PORT, self)
+        if not nossh:
+            run_ssh_server(local_domain, self._SSH_PORT, self)
+        else:
+            print('SSH interface disabled')
+
         if not noweb:
             self.run_websocket_server(tls, cert, key, ver)
         else:
