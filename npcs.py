@@ -670,7 +670,8 @@ def run_npcs(mud, npcs: {}, players: {}, fights: {}, corpses: {},
                             "<f88>has been killed.\n")
                         this_npc['lastRoom'] = this_npc['room']
                         this_npc['room'] = None
-                        this_npc['hp'] = npcs_template[nid]['hp']
+                        if npcs_template.get(nid):
+                            this_npc['hp'] = npcs_template[nid]['hp']
 
             # Drop NPC loot on the floor
             dropped_items = []
