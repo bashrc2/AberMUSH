@@ -186,6 +186,36 @@ class MudServer(object):
         self._websocket_server_thread.start()
         print('Websocket server running')
 
+
+    def run_telnet_server(self, local_domain: str) -> None:
+        """Runs the telnet server
+        """
+        # create a new tcp socket which will be used to listen for
+        # new clients
+        self._listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # set a special option on the socket which allows the port to
+        # be used immediately without having to wait
+        self._listen_socket.setsockopt(socket.SOL_SOCKET,
+                                       socket.SO_REUSEADDR, 1)
+
+        # bind the socket to an ip address and port. Port 23 is the standard
+        # telnet port which telnet clients will use, however on some
+        # platforms this requires root permissions, so we use a higher
+        # arbitrary port number instead
+        self._listen_socket.bind((local_domain, self._TELNET_PORT))
+
+        # set to non-blocking mode. This means that when we call
+        # 'accept', it will return immediately without waiting for a
+        # connection
+        self._listen_socket.setblocking(False)
+
+        # start listening for connections on the socket
+        self._listen_socket.listen(1)
+
+        print('Telnet server created on port ' + str(self._TELNET_PORT))
+
+
     def __init__(self, tls=False,
                  cert='./cert.pem', key='./key.pem',
                  ver=ssl.PROTOCOL_TLS_SERVER, noweb: bool = False,
@@ -210,28 +240,8 @@ class MudServer(object):
         self._events = []
         self._new_events = []
 
-        # create a new tcp socket which will be used to listen for
-        # new clients
-        self._listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.run_telnet_server(local_domain)
 
-        # set a special option on the socket which allows the port to
-        # be used immediately without having to wait
-        self._listen_socket.setsockopt(socket.SOL_SOCKET,
-                                       socket.SO_REUSEADDR, 1)
-
-        # bind the socket to an ip address and port. Port 23 is the standard
-        # telnet port which telnet clients will use, however on some
-        # platforms this requires root permissions, so we use a higher
-        # arbitrary port number instead
-        self._listen_socket.bind((local_domain, self._TELNET_PORT))
-
-        # set to non-blocking mode. This means that when we call
-        # 'accept', it will return immediately without waiting for a
-        # connection
-        self._listen_socket.setblocking(False)
-
-        # start listening for connections on the socket
-        self._listen_socket.listen(1)
 
     def update(self) -> None:
         """Checks for new players, disconnected players, and new
