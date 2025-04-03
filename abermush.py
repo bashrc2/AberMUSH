@@ -657,6 +657,7 @@ def _command_options() -> None:
         log(markets_str + ' markets were created', "info")
 
     previous_timing = time.time()
+    creating_admin_account = False
 
     # main game loop. We loop forever (i.e. until the program is terminated)
     while True:
@@ -906,14 +907,15 @@ def _command_options() -> None:
                     " has aborted character creation.", "info")
                 break
 
-            if players[id]['exAttribute0'] == 1000 or \
-               not os.path.isfile("witches"):
+            if (players[id]['exAttribute0'] == 1000 or
+                (not creating_admin_account and not os.path.isfile("witches"))):
                 players[id]['idleStart'] = int(time.time())
                 # First step of char creation
                 if os.path.isfile("witches"):
                     known_str = \
                         "<f220>\nBy what name do you wish to be known?\n\n"
                 else:
+                    creating_admin_account = True
                     known_str = \
                         "<f220>\nCreating the administrator account.\n\n" + \
                         "By what name do you wish to be known?\n\n"
@@ -1094,6 +1096,7 @@ def _command_options() -> None:
                     template['language'].append('cant')
                     with open("witches", "w", encoding='utf-8') as fp_witches:
                         fp_witches.write(template['name'])
+                    creating_admin_account = False
 
                 # populate initial inventory from character class
                 template['inv'] = []
