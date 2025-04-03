@@ -3553,7 +3553,7 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                 if plyr['authenticated'] is not None:
                     if plyr['name'].lower() == param and \
                        plyr['room'] == players[id]['room']:
-                        if not player_is_visible(mud, players, id, plyr_id,
+                        if not player_is_visible(mud, id, players, plyr_id,
                                                  players):
                             continue
                         _bio_of_player(mud, id, plyr_id, players, items_db)
