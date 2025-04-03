@@ -1141,7 +1141,9 @@ def _command_options() -> None:
                     # check for logins with CONNECT username password
                     connect_str = command.strip().lower()
                     connect_command = False
+                    connect_failed = False
                     if connect_str.lower() == 'connect':
+                        connect_failed = True
                         mud.send_message(id, "Login via CONNECT\n\n")
                         if ' ' in params and params.strip():
                             connect_username = params.split(' ', 1)[0]
@@ -1173,6 +1175,7 @@ def _command_options() -> None:
                                                              "CONNECT login " +
                                                              "success\n\n")
                                             connect_command = True
+                                            connect_failed = False
                                         else:
                                             connect_msg = \
                                                 "CONNECT login failed: " + \
@@ -1184,7 +1187,7 @@ def _command_options() -> None:
                                                          "login failed\n\n")
                         command = ''
 
-                    if not connect_command:
+                    if not connect_command and not connect_failed:
                         if not terminal_mode.get(str(id)):
                             if command.strip().isdigit():
                                 mud.send_message(
@@ -1195,12 +1198,12 @@ def _command_options() -> None:
                                 command = ''
 
                             if len(command.strip()) < 2:
-                                # mud.send_message(
-                                #     id, "\n<f220>" +
-                                #     "Name must be at least two characters")
-                                # mud.send_message(id,
-                                #                  "Press ENTER to continue" +
-                                #                  "...\n\n")
+                                mud.send_message(
+                                    id, "\n<f220>" +
+                                    "Name must be at least two characters")
+                                mud.send_message(id,
+                                                 "Press ENTER to continue" +
+                                                 "...\n\n")
                                 command = ''
 
                     if command:
@@ -1208,7 +1211,9 @@ def _command_options() -> None:
 
                     # print(dbResponse)
                     ask_for_password = False
-                    if pl is not None and not connect_command:
+                    if pl is not None and \
+                       not connect_command and \
+                       not connect_failed:
                         if pl.get('name'):
                             players[id]['name'] = pl['name']
                             str_id = str(id)
@@ -1222,7 +1227,7 @@ def _command_options() -> None:
                             ask_for_password = True
 
                     if not ask_for_password:
-                        if not connect_command:
+                        if not connect_command and not connect_failed:
                             if not terminal_mode.get(str(id)):
                                 if command:
                                     mud.send_message(
