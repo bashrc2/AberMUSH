@@ -21,6 +21,14 @@ or via ssh:
 ssh [username]@[hostname] -p 35124
 ```
 
+Within */etc/ssh/sshd_config* you may need to set:
+
+```
+PermitTTY yes
+```
+
+Then restart the ssh server.
+
 If you havn't already created an account then when logging in via ssh your username and password can be anything and you can then use the *new* command to create an account. After that you can log into your account directly from ssh.
 
 Use UTF-8 terminal encoding.
