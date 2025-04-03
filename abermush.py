@@ -77,7 +77,6 @@ from markets import assign_markets
 from traps import run_traps
 from tests import run_all_tests
 
-from gcos import terminal_emulator
 
 # import the MUD server class
 from mudserver import MudServer
