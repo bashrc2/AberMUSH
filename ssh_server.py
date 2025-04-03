@@ -17,6 +17,8 @@ import time
 class SSHServer(paramiko.ServerInterface):
     """Implements a SSH server
     """
+    username = password = None
+
     def __init__(self):
         self.event = threading.Event()
 
@@ -52,8 +54,9 @@ def _handle_ssh_connection(t, chan, parent, server):
     chan.sendall("Connected...\n")
     parent._id = parent.get_next_id()
     curr_id = parent._id
-    parent.add_new_player(parent._CLIENT_SSH, chan, chan,
-                          server.username, server.password)
+    if server.username and server.password:
+        parent.add_new_player(parent._CLIENT_SSH, chan, chan,
+                              server.username, server.password)
     # clear any credentials
     server.username = server.password = None
     while 1:
