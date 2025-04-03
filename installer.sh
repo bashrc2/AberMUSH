@@ -25,5 +25,5 @@ if [ -d /etc/systemd/system ]; then
     sudo systemctl restart abermush
 fi
 if [ ! -f /usr/bin/update-abermush ]; then
-    sudo cp /opt/abermush/update-abermush /sr/bin/update-abermush
+    sudo cp /opt/abermush/update-abermush /usr/bin/update-abermush
 fi
