@@ -921,23 +921,10 @@ def _command_options() -> None:
 
                 if not taken and terminal_mode.get(str(id)) is True:
                     taken = True
-                    if terminal_emulator(command, params, mud, id):
-                        terminal_mode[str(id)] = True
-                        id_str = str(id)
-                        log("Player ID " + id_str +
-                            " logged into GCOS-3/TSS with command - " +
-                            command + ' ' + params, "info")
-                    else:
-                        if command.startswith('restart') or \
-                           command.startswith('shutdown'):
-                            terminal_mode[str(id)] = False
-                            mud.send_message(id, "\nBYE\n\n")
-                        else:
-                            mud.send_message(id, ">")
-                            id_str = str(id)
-                            log("Player ID " + id_str +
-                                " logged into GCOS-3/TSS with command - " +
-                                command + ' ' + params, "info")
+                    if command.startswith('restart') or \
+                       command.startswith('shutdown'):
+                        terminal_mode[str(id)] = False
+                        mud.send_message(id, "\nBYE\n\n")
 
                 if not taken and not terminal_mode.get(str(id)):
                     if command.strip().isdigit():
@@ -966,22 +953,6 @@ def _command_options() -> None:
                                                  "...\n\n")
                                 taken = True
                                 break
-
-                if not taken:
-                    if terminal_emulator(command, params, mud, id):
-                        terminal_mode[str(id)] = True
-                        taken = True
-                        str_id = str(id)
-                        log("Player ID " + str_id +
-                            " logged into GCOS-3/TSS with command - " +
-                            command + ' ' + params, "info")
-                    else:
-                        if terminal_mode.get(str(id)) is True:
-                            mud.send_message(id, ">")
-                            str_id = str(id)
-                            log("Player ID " + str_id +
-                                " logged into GCOS-3/TSS with command - " +
-                                command + ' ' + params, "info")
 
                 if not taken:
                     players[id]['exAttribute1'] = command.strip()
@@ -1233,17 +1204,6 @@ def _command_options() -> None:
                                 #                  "...\n\n")
                                 command = ''
 
-                        str_id = str(id)
-                        if terminal_emulator(command, params, mud, id):
-                            terminal_mode[str_id] = True
-                            log("Player ID " + str_id +
-                                " logged into GCOS-3/TSS with command - " +
-                                command + ' ' + params, "info")
-                            command = ''
-                        else:
-                            if terminal_mode.get(str_id) is True:
-                                mud.send_message(id, ">")
-
                     if command:
                         pl = load_player(command)
 
@@ -1321,28 +1281,6 @@ def _command_options() -> None:
 
                 if players[id]['name'] == 'Guest':
                     db_pass = hash_password(db_pass)
-
-                if terminal_mode.get(str(id)) is True:
-                    taken = True
-                    if not terminal_emulator(players[id]['name'], '', mud, id):
-                        if players[id]['name'].startswith('restart') or \
-                           players[id]['name'].startswith('shutdown'):
-                            terminal_mode[str(id)] = False
-                            mud.send_message(id, "\nBYE\n\n")
-                        else:
-                            mud.send_message(id, ">")
-                            str_id = str(id)
-                            log("Player ID " + str_id +
-                                " logged into GCOS-3/TSS with command - " +
-                                players[id]['name'], "info")
-                else:
-                    if terminal_emulator(players[id]['name'], '', mud, id):
-                        terminal_mode[str(id)] = True
-                        taken = True
-                        str_id = str(id)
-                        log("Player ID " + str_id +
-                            " logged into GCOS-3/TSS with command - " +
-                            players[id]['name'], "info")
 
                 player_found = player_in_game(id, players[id]['name'], players)
                 if verify_password(db_pass, command):
