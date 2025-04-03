@@ -906,10 +906,17 @@ def _command_options() -> None:
                     " has aborted character creation.", "info")
                 break
 
-            if players[id]['exAttribute0'] == 1000:
+            if players[id]['exAttribute0'] == 1000 or \
+               not os.path.isfile("witches"):
                 players[id]['idleStart'] = int(time.time())
                 # First step of char creation
-                known_str = "<f220>\nBy what name do you wish to be known?\n\n"
+                if os.path.isfile("witches"):
+                    known_str = \
+                        "<f220>\nBy what name do you wish to be known?\n\n"
+                else:
+                    known_str = \
+                        "<f220>\nCreating the administrator account.\n\n" + \
+                        "By what name do you wish to be known?\n\n"
                 mud.send_message(id, known_str)
                 players[id]['exAttribute0'] = 1001
                 break
@@ -934,11 +941,11 @@ def _command_options() -> None:
 
                     if not taken:
                         if len(command.strip()) < 2:
-                            # mud.send_message(
-                            #     id,
-                            #   "\n<f220>Name must be at least two characters")
-                            # mud.send_message(id,
-                            #                 "Press ENTER to continue...\n\n")
+                            mud.send_message(
+                                id,
+                                "\n<f220>Name must be at least two characters")
+                            mud.send_message(id,
+                                             "Press ENTER to continue...\n\n")
                             taken = True
 
                     if not taken:
@@ -1252,13 +1259,13 @@ def _command_options() -> None:
                         str_id = str(id)
                         log("Player ID " + str_id +
                             " has initiated character creation.", "info")
-                        mud.send_message(
+                        mud.send_message_wrap(
                             id,
                             "<f220>Welcome Traveller! So you have decided " +
                             "to create an account, that's awesome! Thank " +
                             "you for your interest in AberMUSH, hope you " +
                             "enjoy yourself while you're here.")
-                        mud.send_message(
+                        mud.send_message_wrap(
                             id,
                             "Note: You can type 'startover' at any time to " +
                             "restart the character creation process.\n")
