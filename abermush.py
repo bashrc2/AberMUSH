@@ -948,11 +948,11 @@ def _command_options() -> None:
 
                     if not taken:
                         if len(command.strip()) < 2:
-                            mud.send_message(
-                                id,
-                                "\n<f220>Name must be at least two characters")
-                            mud.send_message(id,
-                                             "Press ENTER to continue...\n\n")
+                            # mud.send_message(
+                            #     id,
+                            #   "\n<f220>Name must be at least two characters")
+                            # mud.send_message(id,
+                            #                 "Press ENTER to continue...\n\n")
                             taken = True
 
                     if not taken:
@@ -1225,12 +1225,12 @@ def _command_options() -> None:
                                 command = ''
 
                             if len(command.strip()) < 2:
-                                mud.send_message(
-                                    id, "\n<f220>" +
-                                    "Name must be at least two characters")
-                                mud.send_message(id,
-                                                 "Press ENTER to continue" +
-                                                 "...\n\n")
+                                # mud.send_message(
+                                #     id, "\n<f220>" +
+                                #     "Name must be at least two characters")
+                                # mud.send_message(id,
+                                #                  "Press ENTER to continue" +
+                                #                  "...\n\n")
                                 command = ''
 
                         str_id = str(id)
@@ -1265,11 +1265,12 @@ def _command_options() -> None:
                     if not ask_for_password:
                         if not connect_command:
                             if not terminal_mode.get(str(id)):
-                                mud.send_message(
-                                    id,
-                                    '<f202>User <f32>' +
-                                    command +
-                                    '<r> was not found!\n')
+                                if command:
+                                    mud.send_message(
+                                        id,
+                                        '<f202>User <f32>' +
+                                        command +
+                                        '<r> was not found!\n')
                                 mud.send_message(id,
                                                  '<f15>' +
                                                  'What is your username?\n\n')
