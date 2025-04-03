@@ -389,6 +389,15 @@ def _silent_remove(filename: str):
             raise
 
 
+def player_exists(name: str) -> bool:
+    """Does a player with the given name exist?
+    """
+    locn = Config.get('Players', 'Location')
+    location = str(locn)
+    filename = os.path.join(location, name + '.player')
+    return os.path.isfile(filename)
+
+
 def load_players_db(force_lowercase: bool = True):
     """Function to load all registered players from JSON files
     """

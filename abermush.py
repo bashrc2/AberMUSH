@@ -24,6 +24,7 @@ from random import randint
 # import config parser
 import configparser
 
+from functions import player_exists
 from functions import deepcopy
 from functions import show_timing
 from functions import log
@@ -1253,8 +1254,20 @@ def _command_options() -> None:
                                     " has requested non existent user [" +
                                     command + "]", "info")
                         else:
-                            mud.send_message(id, 'Hi <u><f32>' +
-                                             players[id]['name'] + '<r>!\n\n')
+                            if player_exists(players[id]['name']):
+                                mud.send_message(id, 'Hi <u><f32>' +
+                                                 players[id]['name'] +
+                                                 '<r>!\n\n')
+                            else:
+                                # if the given username from ssh login does not
+                                # exist then get username
+                                players[id]['exAttribute0'] = 1000
+                                mud.send_message(
+                                    id,
+                                    "<f15>What is your username?<r>\n" +
+                                    "<f246>Type '<f253>new<r><f246>' " +
+                                    "to create a character.\n\n")
+                                break
                 else:
                     # New player creation here
                     if not os.path.isfile(".disableRegistrations"):
