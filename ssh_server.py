@@ -56,8 +56,9 @@ def _handle_ssh_connection(t, chan, parent, server):
     curr_id = parent._id
     if server.username is not None and server.password is not None:
         if server.username.strip() and server.password.strip():
-            parent.add_new_player(parent._CLIENT_SSH, chan, chan,
-                                  server.username, server.password)
+            if len(server.username) > 2 and len(server.password) > 2:
+                parent.add_new_player(parent._CLIENT_SSH, chan, chan,
+                                      server.username, server.password)
     # clear any credentials
     server.username = server.password = None
     while 1:

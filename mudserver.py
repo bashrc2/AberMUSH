@@ -565,9 +565,10 @@ class MudServer(object):
         self._new_events.append((self._EVENT_NEW_PLAYER, self._nextid))
 
         # try to log in
-        if username and password:
-            self._new_events.append((self._EVENT_COMMAND, self._nextid,
-                                     'CONNECT', username + ' ' + password))
+        if username is not None and password is not None:
+            if username.strip() and password.strip():
+                self._new_events.append((self._EVENT_COMMAND, self._nextid,
+                                         'CONNECT', username + ' ' + password))
 
         # add 1 to 'nextid' so that the next client to connect will get a
         # unique id number

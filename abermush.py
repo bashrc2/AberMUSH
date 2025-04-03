@@ -1173,41 +1173,45 @@ def _command_options() -> None:
                     connect_command = False
                     if connect_str.lower() == 'connect':
                         mud.send_message(id, "Login via CONNECT\n\n")
-                        if ' ' in params:
+                        if ' ' in params and params.strip():
                             connect_username = params.split(' ', 1)[0]
-                            players[id]['name'] = connect_username
                             connect_password = params.split(' ', 1)[1].strip()
-                            pl = load_player(connect_username)
-                            if pl:
-                                db_pass = pl['pwd']
-                                if connect_username == 'Guest':
-                                    db_pass = hash_password(pl['pwd'])
-                                if verify_password(db_pass, connect_password):
-                                    if not player_in_game(id, connect_username,
-                                                          players):
-                                        players[id]['exAttribute1'] = \
-                                            connect_username
-                                        players[id]['exAttribute2'] = \
-                                            connect_password
-                                        players[id]['exAttribute0'] = None
-                                        initial_setup_after_login(mud, id,
-                                                                  players, pl)
-                                        familiar_recall(mud, players, id,
-                                                        npcs, npcs_db)
-                                        mud.send_message(id,
-                                                         "CONNECT login " +
-                                                         "success\n\n")
-                                        connect_command = True
+                            if len(connect_username) > 2 and \
+                               len(connect_password) > 2:
+                                players[id]['name'] = connect_username
+                                pl = load_player(connect_username)
+                                if pl:
+                                    db_pass = pl['pwd']
+                                    if connect_username == 'Guest':
+                                        db_pass = hash_password(pl['pwd'])
+                                    if verify_password(db_pass,
+                                                       connect_password):
+                                        if not player_in_game(id,
+                                                              connect_username,
+                                                              players):
+                                            players[id]['exAttribute1'] = \
+                                                connect_username
+                                            players[id]['exAttribute2'] = \
+                                                connect_password
+                                            players[id]['exAttribute0'] = None
+                                            initial_setup_after_login(mud, id,
+                                                                      players,
+                                                                      pl)
+                                            familiar_recall(mud, players, id,
+                                                            npcs, npcs_db)
+                                            mud.send_message(id,
+                                                             "CONNECT login " +
+                                                             "success\n\n")
+                                            connect_command = True
+                                        else:
+                                            connect_msg = \
+                                                "CONNECT login failed: " + \
+                                                "player already in game\n\n"
+                                            mud.send_message(id, connect_msg)
                                     else:
                                         mud.send_message(id,
                                                          "CONNECT " +
-                                                         "login failed: " +
-                                                         "player already in " +
-                                                         "game\n\n")
-                                else:
-                                    mud.send_message(id,
-                                                     "CONNECT " +
-                                                     "login failed\n\n")
+                                                         "login failed\n\n")
                         command = ''
 
                     if not connect_command:
