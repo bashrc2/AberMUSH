@@ -987,3 +987,5 @@ Different types of markets are defined within *def/markets.json*. If a room name
 Each room can be assigned a region, and within *def/cultures.json* the regions for each culture can be defined.
 
 Items can be assigned a culture so that if they are being sold within a market then the types of items can be culturally specific to the region.
+
+<img src="https://gitlab.com/bashrc2/AberMUSH/-/raw/main/images/banners/noai.gif" width="10%" alt="No AI Allowed"/> <img src="https://gitlab.com/bashrc2/AberMUSH/-/raw/main/images/banners/hand_coded.gif" width="10%" alt="Hand Coded"/> <img src="https://gitlab.com/bashrc2/AberMUSH/-/raw/main/images/banners/dontfeedai.gif" width="10%" alt="Don't feed the AI"/> <img src="https://gitlab.com/bashrc2/AberMUSH/-/raw/main/images/banners/writtenbyhuman.png" width="10%" alt="Written by a human not by an AI"/>
