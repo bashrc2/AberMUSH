@@ -186,7 +186,7 @@ class MudServer(object):
         self._websocket_server_thread.start()
         print('Websocket server running')
 
-    def run_telnet_server(self, local_domain: str) -> None:
+    def _run_telnet_server(self, local_domain: str) -> None:
         """Runs the telnet server
         """
         # create a new tcp socket which will be used to listen for
@@ -238,7 +238,7 @@ class MudServer(object):
         self._events = []
         self._new_events = []
 
-        self.run_telnet_server(local_domain)
+        self._run_telnet_server(local_domain)
 
     def update(self) -> None:
         """Checks for new players, disconnected players, and new

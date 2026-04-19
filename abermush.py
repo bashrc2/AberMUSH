@@ -1277,13 +1277,13 @@ def _command_options() -> None:
                         log("Player ID " + str_id +
                             " has initiated character creation.", "info")
                         mud.send_message_wrap(
-                            id,
-                            "<f220>Welcome Traveller! So you have decided " +
+                            id, '<f220>',
+                            "Welcome Traveller! So you have decided " +
                             "to create an account, that's awesome! Thank " +
                             "you for your interest in AberMUSH, hope you " +
                             "enjoy yourself while you're here.")
                         mud.send_message_wrap(
-                            id,
+                            id, '',
                             "Note: You can type 'startover' at any time to " +
                             "restart the character creation process.\n")
                         mud.send_message(
