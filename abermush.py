@@ -909,7 +909,8 @@ def _command_options() -> None:
                 break
 
             if (players[id]['exAttribute0'] == 1000 or
-                (not creating_admin_account and not os.path.isfile("witches"))):
+                (not creating_admin_account and
+                 not os.path.isfile("witches"))):
                 players[id]['idleStart'] = int(time.time())
                 # First step of char creation
                 if os.path.isfile("witches"):

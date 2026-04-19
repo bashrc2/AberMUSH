@@ -186,7 +186,6 @@ class MudServer(object):
         self._websocket_server_thread.start()
         print('Websocket server running')
 
-
     def run_telnet_server(self, local_domain: str) -> None:
         """Runs the telnet server
         """
@@ -215,7 +214,6 @@ class MudServer(object):
 
         print('Telnet server created on port ' + str(self._TELNET_PORT))
 
-
     def __init__(self, tls=False,
                  cert='./cert.pem', key='./key.pem',
                  ver=ssl.PROTOCOL_TLS_SERVER, noweb: bool = False,
@@ -241,7 +239,6 @@ class MudServer(object):
         self._new_events = []
 
         self.run_telnet_server(local_domain)
-
 
     def update(self) -> None:
         """Checks for new players, disconnected players, and new
