@@ -26,11 +26,11 @@ import time
 import sys
 import ssl
 import textwrap
-from cmsg import cmsg
-from WebSocketServer import WebSocket, WebSocketServer, tlsWebSocketServer
-from threads import threadWithTrace
-from functions import show_timing
-from ssh_server import run_ssh_server
+from src.cmsg import cmsg
+from src.WebSocketServer import WebSocket, WebSocketServer, tlsWebSocketServer
+from src.threads import threadWithTrace
+from src.functions import show_timing
+from src.ssh_server import run_ssh_server
 
 ws_clients = []
 

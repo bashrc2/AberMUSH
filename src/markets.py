@@ -7,7 +7,7 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = ""
 
-from environment import get_room_culture
+from src.environment import get_room_culture
 
 
 EXCHANGE_RATE = {

@@ -11,20 +11,20 @@ __module_group__ = "DnD Mechanics"
 import os
 import time
 from random import randint
-from functions import update_player_attributes
-from functions import get_free_key
-from functions import player_inventory_weight
-from functions import stow_hands
-from functions import prepare_spells
-from functions import random_desc
-from functions import decrease_affinity_between_players
-from functions import deepcopy
-from functions import player_is_prone
-from functions import set_player_prone
-from functions import item_in_room
-from environment import get_temperature_at_coords
-from proficiencies import damage_proficiency
-from traps import player_is_trapped
+from src.functions import update_player_attributes
+from src.functions import get_free_key
+from src.functions import player_inventory_weight
+from src.functions import stow_hands
+from src.functions import prepare_spells
+from src.functions import random_desc
+from src.functions import decrease_affinity_between_players
+from src.functions import deepcopy
+from src.functions import player_is_prone
+from src.functions import set_player_prone
+from src.functions import item_in_room
+from src.environment import get_temperature_at_coords
+from src.proficiencies import damage_proficiency
+from src.traps import player_is_trapped
 
 defense_clothing = (
     'clo_chest',

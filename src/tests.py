@@ -11,8 +11,8 @@ __module_group__ = "Unit Testing"
 import os
 import json
 import configparser
-from markets import money_purchase
-from functions import language_path
+from src.markets import money_purchase
+from src.functions import language_path
 
 
 def get_func_call_args(name: str, lines: [], start_line_ctr: int) -> []:
@@ -83,7 +83,7 @@ def _test_functions() -> None:
     modules = {}
     mod_groups = {}
 
-    for _, _, files in os.walk('.'):
+    for subdir, _, files in os.walk('.'):
         for source_file in files:
             if not source_file.endswith('.py'):
                 continue
@@ -92,10 +92,11 @@ def _test_functions() -> None:
                 'functions': []
             }
             source_str = ''
-            with open(source_file, "r", encoding='utf-8') as fp_src:
+            source_file_full = os.path.join(subdir, source_file)
+            with open(source_file_full, "r", encoding='utf-8') as fp_src:
                 source_str = fp_src.read()
                 modules[mod_name]['source'] = source_str
-            with open(source_file, "r", encoding='utf-8') as fp_src:
+            with open(source_file_full, "r", encoding='utf-8') as fp_src:
                 lines = fp_src.readlines()
                 modules[mod_name]['lines'] = lines
                 for line in lines:
@@ -128,7 +129,6 @@ def _test_functions() -> None:
                         "module": mod_name,
                         "calledInModule": []
                     }
-        break
 
     exclude_func_args = [
         'pyjsonld'
@@ -485,7 +485,8 @@ def _test_functions() -> None:
             for mod_name in properties['calledInModule']:
                 if mod_name == properties['module']:
                     continue
-                import_str = 'from ' + properties['module'] + ' import ' + name
+                import_str = \
+                    'from src.' + properties['module'] + ' import ' + name
                 if import_str not in modules[mod_name]['source']:
                     print(import_str + ' not found in ' + mod_name + '.py')
                     assert False

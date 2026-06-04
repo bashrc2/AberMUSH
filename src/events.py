@@ -8,10 +8,10 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "Core"
 
-from functions import str2bool
-from functions import get_free_key
-from functions import size_from_description
-from functions import item_in_room
+from src.functions import str2bool
+from src.functions import get_free_key
+from src.functions import size_from_description
+from src.functions import item_in_room
 
 import time
 

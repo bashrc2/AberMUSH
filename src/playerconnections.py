@@ -10,10 +10,10 @@ __module_group__ = "Core"
 
 import os
 import time
-from functions import log
-from functions import save_state
-from functions import load_players_db
-from functions import deepcopy
+from src.functions import log
+from src.functions import save_state
+from src.functions import load_players_db
+from src.functions import deepcopy
 
 MAXIMUM_PLAYERS = 128
 

@@ -8,8 +8,8 @@ __email__ = "bob@libreserver.org"
 __status__ = "Production"
 __module_group__ = "NPCs"
 
-from functions import random_desc
-from functions import deepcopy
+from src.functions import random_desc
+from src.functions import deepcopy
 # from copy import deepcopy
 
 # Movement modes for familiars

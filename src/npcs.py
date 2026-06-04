@@ -12,26 +12,26 @@ import os
 import datetime
 import time
 from random import randint
-from suntime import Sun
-from functions import add_to_scheduler
-from functions import message_to_room_players
-from functions import log
-from functions import player_inventory_weight
-from functions import update_player_attributes
-from functions import increase_affinity_between_players
-from functions import decrease_affinity_between_players
-from functions import get_sentiment
-from functions import random_desc
-from functions import deepcopy
-from functions import parse_cost
+from src.suntime import Sun
+from src.functions import add_to_scheduler
+from src.functions import message_to_room_players
+from src.functions import log
+from src.functions import player_inventory_weight
+from src.functions import update_player_attributes
+from src.functions import increase_affinity_between_players
+from src.functions import decrease_affinity_between_players
+from src.functions import get_sentiment
+from src.functions import random_desc
+from src.functions import deepcopy
+from src.functions import parse_cost
 # from copy import deepcopy
-from familiar import get_familiar_modes
-from familiar import familiar_default_mode
-from familiar import familiar_scout
-from familiar import familiar_hide
-from familiar import familiar_sight
-from environment import get_rain_at_coords
-from environment import get_room_culture
+from src.familiar import get_familiar_modes
+from src.familiar import familiar_default_mode
+from src.familiar import familiar_scout
+from src.familiar import familiar_hide
+from src.familiar import familiar_sight
+from src.environment import get_rain_at_coords
+from src.environment import get_room_culture
 
 
 def corpse_exists(corpses: {}, room: str, name: str) -> bool:

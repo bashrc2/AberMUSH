@@ -10,10 +10,10 @@ __module_group__ = "Core"
 
 import time
 from random import randint
-from events import evaluate_event
+from src.events import evaluate_event
 # from copy import deepcopy
-from functions import show_timing
-from functions import deepcopy
+from src.functions import show_timing
+from src.functions import deepcopy
 
 
 def run_messages(mud, channels: {}, players: {}):

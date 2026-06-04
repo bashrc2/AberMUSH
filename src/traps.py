@@ -10,8 +10,8 @@ __module_group__ = "DnD Mechanics"
 
 import time
 from random import randint
-from functions import random_desc
-from functions import time_string_to_sec
+from src.functions import random_desc
+from src.functions import time_string_to_sec
 
 
 def teleport_from_trap(mud, id: int, players: {}, rooms: {}):

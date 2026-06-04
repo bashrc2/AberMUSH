@@ -31,9 +31,9 @@ __module_group__ = "Core"
 #       ::::::`:::::;'  /  /   `#
 
 import time
-from functions import add_to_scheduler
-from functions import deepcopy
-from npcs import corpse_exists
+from src.functions import add_to_scheduler
+from src.functions import deepcopy
+from src.npcs import corpse_exists
 
 
 def remove_corpses(corpses: {}):

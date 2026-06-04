@@ -14,7 +14,7 @@ import random
 import math
 from math import sin
 import datetime
-from functions import random_desc
+from src.functions import random_desc
 dec = decimal.Decimal
 
 RAIN_THRESHOLD = 230

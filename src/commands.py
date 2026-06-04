@@ -12,84 +12,84 @@ import os
 import re
 import sys
 # from copy import deepcopy
-from functions import deepcopy
+from src.functions import deepcopy
 import time
 import datetime
 import os.path
 import random
 from random import randint
-from functions import parse_cost
-from functions import player_is_prone
-from functions import set_player_prone
-from functions import WEAR_LOCATION
-from functions import is_wearing
-from functions import player_is_visible
-from functions import message_to_room_players
-from functions import time_string_to_sec
-from functions import add_to_scheduler
-from functions import get_free_key
-from functions import get_free_room_key
-from functions import hash_password
-from functions import log
-from functions import save_state
-from functions import player_inventory_weight
-from functions import save_blocklist
-from functions import save_universe
-from functions import update_player_attributes
-from functions import size_from_description
-from functions import stow_hands
-from functions import random_desc
-from functions import increase_affinity_between_players
-from functions import decrease_affinity_between_players
-from functions import get_sentiment
-from functions import get_guild_sentiment
-from environment import moon_phase
-from environment import moon_illumination
-from environment import holding_fly_fishing_rod
-from environment import holding_fishing_rod
-from environment import is_fishing_site
-from environment import get_room_culture
-from environment import run_tide
-from environment import get_rain_at_coords
-from history import assign_item_history
-from traps import player_is_trapped
-from traps import describe_trapped_player
-from traps import trap_activation
-from traps import teleport_from_trap
-from traps import escape_from_trap
-from combat import remove_prepared_spell
-from combat import health_of_player
-from combat import is_attacking
-from combat import stop_attack
-from combat import get_attacking_target
-from combat import player_begins_attack
-from combat import is_player_fighting
-from combat import holding_throwable
-from chess import show_chess_board
-from chess import initial_chess_board
-from chess import move_chess_piece
-from cards import deal_to_players
-from cards import hand_of_cards_show
-from cards import swap_card
-from cards import shuffle_cards
-from cards import call_cards
-from morris import show_morris_board
-from morris import morris_move
-from morris import reset_morris_board
-from morris import take_morris_counter
-from morris import get_morris_board_name
+from src.functions import parse_cost
+from src.functions import player_is_prone
+from src.functions import set_player_prone
+from src.functions import WEAR_LOCATION
+from src.functions import is_wearing
+from src.functions import player_is_visible
+from src.functions import message_to_room_players
+from src.functions import time_string_to_sec
+from src.functions import add_to_scheduler
+from src.functions import get_free_key
+from src.functions import get_free_room_key
+from src.functions import hash_password
+from src.functions import log
+from src.functions import save_state
+from src.functions import player_inventory_weight
+from src.functions import save_blocklist
+from src.functions import save_universe
+from src.functions import update_player_attributes
+from src.functions import size_from_description
+from src.functions import stow_hands
+from src.functions import random_desc
+from src.functions import increase_affinity_between_players
+from src.functions import decrease_affinity_between_players
+from src.functions import get_sentiment
+from src.functions import get_guild_sentiment
+from src.environment import moon_phase
+from src.environment import moon_illumination
+from src.environment import holding_fly_fishing_rod
+from src.environment import holding_fishing_rod
+from src.environment import is_fishing_site
+from src.environment import get_room_culture
+from src.environment import run_tide
+from src.environment import get_rain_at_coords
+from src.history import assign_item_history
+from src.traps import player_is_trapped
+from src.traps import describe_trapped_player
+from src.traps import trap_activation
+from src.traps import teleport_from_trap
+from src.traps import escape_from_trap
+from src.combat import remove_prepared_spell
+from src.combat import health_of_player
+from src.combat import is_attacking
+from src.combat import stop_attack
+from src.combat import get_attacking_target
+from src.combat import player_begins_attack
+from src.combat import is_player_fighting
+from src.combat import holding_throwable
+from src.chess import show_chess_board
+from src.chess import initial_chess_board
+from src.chess import move_chess_piece
+from src.cards import deal_to_players
+from src.cards import hand_of_cards_show
+from src.cards import swap_card
+from src.cards import shuffle_cards
+from src.cards import call_cards
+from src.morris import show_morris_board
+from src.morris import morris_move
+from src.morris import reset_morris_board
+from src.morris import take_morris_counter
+from src.morris import get_morris_board_name
 
-from proficiencies import thieves_cant
+from src.proficiencies import thieves_cant
 
-from npcs import npc_conversation
-from npcs import get_solar
+from src.npcs import npc_conversation
+from src.npcs import get_solar
 
-from markets import buy_item
-from markets import market_buys_item_types
-from markets import get_market_type
-from markets import money_purchase
+from src.markets import buy_item
+from src.markets import market_buys_item_types
+from src.markets import get_market_type
+from src.markets import money_purchase
 
-from familiar import get_familiar_name
+from src.familiar import get_familiar_name
 
 
 def _get_max_weight(id: int, players: {}) -> int:
