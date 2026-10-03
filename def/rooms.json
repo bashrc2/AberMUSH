@@ -15017,5 +15017,28 @@
         "region": "Tranoch",
         "terrainDifficulty": 0,
         "coords": []
+    },
+    "$rid=1440$": {
+        "exits": {
+            "down": "$rid=855$"
+        },
+        "name": "Top of the lightning stone",
+        "description": "The top of the lightning stone is quite flat, providing a suitable viewing platform across the expanse of moorland",
+        "roomTeleport": "",
+        "conditional": [
+        ],
+        "trap": {},
+        "eventOnEnter": "",
+        "eventOnLeave": "",
+        "maxPlayerSize": -1,
+        "maxPlayers": 5,
+        "weather": 1,
+        "onWater": 0,
+        "roomType": "",
+        "virtualExits": {},
+        "tideOutDescription" : "",
+        "region": "moors",
+        "terrainDifficulty": 0,
+        "coords": []
     }
 }
