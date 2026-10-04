@@ -6042,13 +6042,12 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
                     desc = \
                         '****TITLE****You arrive at ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
-                    mud.send_message(id, desc + "<r>\n\n")
                 else:
                     # send the player a message telling them where they are now
                     desc = \
                         '****TITLE****You row to ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
-                    mud.send_message(id, desc + "<r>\n\n")
+                mud.send_message(id, desc + "<r>\n\n")
 
                 _look('', mud, players_db, players, rooms, npcs_db, npcs,
                       items_db, items, env_db, env, event_db, event_schedule,
