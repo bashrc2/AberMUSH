@@ -439,7 +439,7 @@
         "long_description": "A paticularly gross and ugly-looking gargoyle leers at you from a pedestal surrounded by flagstones.",
         "hidden": 0,
         "conditional": [
-            ["rain","yes","A paticularly gross and ugly-looking gargoyle, dripping with rain, leers at you from a pedestal surrounded by flagstones"]
+            ["rain","yes","A paticularly gross and ugly-looking gargoyle, dripping with rain, leers at you from a pedestal surrounded by flagstones."]
         ],
         "takeFail": "The pedestal is too tall for you to reach the gargoyle.",
         "moveTimes": [],
@@ -2452,7 +2452,7 @@
         "long_description": "A delicate crystal wand.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a delicate crystal wand"]
+            ["hold","You are holding a delicate crystal wand."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -2712,7 +2712,7 @@
         "long_description": "A small lump of chalk has been left here.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a lump of chalk"]
+            ["hold","You are holding a lump of chalk."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -3237,7 +3237,7 @@
         "long_description": "A very sharp axe.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large, crude-looking axe. Careful with that"]
+            ["hold","You are holding a large, crude-looking axe. Careful with that."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -3411,7 +3411,7 @@
         "long_description": "An old spear.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an old spear"]
+            ["hold","You are holding an old spear."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -3499,7 +3499,7 @@
         "long_description": "A yard of ale has been left here by some foolish person.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a yard of ale|You are nursing a yard of ale"]
+            ["hold","You are holding a yard of ale|You are nursing a yard of ale."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -3847,7 +3847,7 @@
         "long_description": "The stones are mostly from the last great plague to hit Tranoch some two hundred and thirty years ago. Each worn stone bears a name or two in silent remembrance. Each name gradually vanishing, worn away by old man time himself.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","Behind the gravestone there is just empty space"]
+            ["behind","yes","Behind the gravestone there is just empty space."]
         ],
         "takeFail": "This is much too heavy to take",
         "clo_head": 0,
@@ -4366,7 +4366,7 @@
         "long_description": "This painting looks like a portrait of a once legendary adventurer.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","Behind the painting you find a small paper note, which reads 'Not For Sale'"]
+            ["behind","yes","Behind the painting you find a small paper note, which reads 'Not For Sale'."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -4456,7 +4456,7 @@
         "long_description": "A modest footstool. Useful in all manner of situations",
         "hidden": 0,
         "conditional": [
-            ["under","true","There's nothing under the footstool which would interest you"]
+            ["under","true","There's nothing under the footstool which would interest you."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -4544,8 +4544,8 @@
         "long_description": "A rocking chair creaks sadly to itself in the corner.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the chair"],
-            ["under","true","You don't see anything under the chair"]
+            ["behind","true","You don't see anything behind the chair."],
+            ["under","true","You don't see anything under the chair."]
         ],
         "takeFail": "It would be too big to carry.",
         "moveTimes": [],
@@ -4635,7 +4635,7 @@
         "long_description": "A shallow and pleasant pool.",
         "hidden": 0,
         "conditional": [
-            ["rain","yes","A shallow and pleasant pool. Randrops make radiating ripples upon its surface"]
+            ["rain","yes","A shallow and pleasant pool. Randrops make radiating ripples upon its surface."]
         ],
         "takeFail": "Trying to take the pond would be silly.",
         "moveTimes": [],
@@ -4725,7 +4725,7 @@
         "long_description": "There is a small candle here.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small candle"]
+            ["hold","You are holding a small candle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -5771,7 +5771,7 @@
         "long_description": "The elaborate brass candelabrum holds many candles.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an elaborate brass candelabrum"]
+            ["hold","You are holding an elaborate brass candelabrum."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -5859,7 +5859,7 @@
         "long_description": "The athame blade is razor sharp and has a black handle inscribed with arcane markings.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an athame. It is razor sharp and has a black handle inscribed with arcane markings"]
+            ["hold","You are holding an athame. It is razor sharp and has a black handle inscribed with arcane markings."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -5947,7 +5947,7 @@
         "long_description": "A very fine looking golden goblet, with various gods and dragons carved around its exterior",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a fine golden goblet. It has various gods and dragons carved around its exterior"]
+            ["hold","You are holding a fine golden goblet. It has various gods and dragons carved around its exterior."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -6035,7 +6035,7 @@
         "long_description": "A stick of incense. Judging by the smell the owner finally had enough of it.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a stick of incense"]
+            ["hold","You are holding a stick of incense."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -6295,7 +6295,7 @@
         "long_description": "A stone altar stands in the centre of the room, surrounded by a magic circle woven into the carpets.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","There's nothing very interesting behind the stone altar"]
+            ["behind","true","There's nothing very interesting behind the stone altar."]
         ],
         "takeFail": "It's much too heavy to move.",
         "moveTimes": [],
@@ -6473,7 +6473,7 @@
         "long_description": "A clothes chest sits here. The chest is closed.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There isn't anything under the clothes chest, except for some dust"]
+            ["under","true","There isn't anything under the clothes chest, except for some dust."]
         ],
         "takeFail": "The chest is far too heavy to move.",
         "moveTimes": [],
@@ -6563,8 +6563,8 @@
         "long_description": "A stout oak table stands next to the bed. It has an ornate chess board on it, with pieces representing opposing tribes from earlier centuries.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the table"],
-            ["under","true","You don't see anything under the table"]
+            ["behind","true","You don't see anything behind the table."],
+            ["under","true","You don't see anything under the table."]
         ],
         "takeFail": "The oak table is too heavy to be moved by you alone.",
         "moveTimes": [],
@@ -6655,7 +6655,7 @@
         "long_description": "A very high quality mirror, with a beautiful frame of carved wood.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","There isn't anything behind the mirror"]
+            ["behind","true","There isn't anything behind the mirror."]
         ],
         "takeFail": "It's fixed to the wall.",
         "moveTimes": [],
@@ -6745,7 +6745,7 @@
         "long_description": "The four poster bed is made from beautiful oak with silk bedding and regal red drapes.",
         "hidden": 0,
         "conditional": [
-            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here."]
         ],
         "takeFail": "Even with considerable effort, you fail to move the bed. It's exceptionally heavy.",
         "clo_head": 0,
@@ -7186,7 +7186,7 @@
         "long_description": "Excellent for chopping down trees, and possibly useful on people too.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small ratchet. Excellent for chopping down trees"]
+            ["hold","You are holding a small ratchet. Excellent for chopping down trees."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -7274,8 +7274,8 @@
         "long_description": "The sturdy bucket is made from wood, with a metal handle.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a strong wooden bucket with a metal handle"],
-            ["under","true","You examine the base of the bucket, and find no holes"]
+            ["hold","You are holding a strong wooden bucket with a metal handle."],
+            ["under","true","You examine the base of the bucket, and find no holes."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -7977,7 +7977,7 @@
         "long_description": "A small dainty filigree key.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a filigree key"]
+            ["hold","You are holding a filigree key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8065,7 +8065,7 @@
         "long_description": "The music is old and faded, and has been repaired many times.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an old faded sheet of musical notation which has been patched back together many times"]
+            ["hold","You are holding an old faded sheet of musical notation which has been patched back together many times."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8153,7 +8153,7 @@
         "long_description": "A small beautiful flute",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small beautiful flute"]
+            ["hold","You are holding a small beautiful flute."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8415,7 +8415,7 @@
         "long_description": "A splendid and costly portrait, showing a very beautiful woman sitting in front of a clavichord. She is smiling at someone out of the picture.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a splendid and costly portrait, showing a very beautiful woman sitting in front of a clavichord. She is smiling at someone out of the picture"]
+            ["hold","You are holding a splendid and costly portrait, showing a very beautiful woman sitting in front of a clavichord. She is smiling at someone out of the picture."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8503,7 +8503,7 @@
         "long_description": "This chart shows the eastern coastline and a large island off the coast. A faint tracing shows where someone has failed to rub out all of a possible route between them.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a chart showing the eastern coastline and a large island off the coast. A faint tracing shows where someone has failed to rub out all of a possible route between them"]
+            ["hold","You are holding a chart showing the eastern coastline and a large island off the coast. A faint tracing shows where someone has failed to rub out all of a possible route between them."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8591,7 +8591,7 @@
         "long_description": "This beautifully-written note reads: 'Dear Morran, it is some time since I last had the pleasure of seeing you and Relia. I have recently acquired some items I believe you would be delighted to see, in particular a most excellent specimen of Draco Veritas, or the true dragon. I should like to invite you both to my island for a stay in which we can catch up on old times.'",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a beautifully-written note which reads: 'Dear Morran, it is some time since I last had the pleasure of seeing you and Relia. I have recently acquired some items I believe you would be delighted to see, in particular a most excellent specimen of Draco Veritas, or the true dragon. I should like to invite you both to my island for a stay in which we can catch up on old times.'"]
+            ["hold","You are holding a beautifully-written note which reads: 'Dear Morran, it is some time since I last had the pleasure of seeing you and Relia. I have recently acquired some items I believe you would be delighted to see, in particular a most excellent specimen of Draco Veritas, or the true dragon. I should like to invite you both to my island for a stay in which we can catch up on old times.'."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -8855,8 +8855,8 @@
         "long_description": "The desk is strewn with papers and junk.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","You don't find anything behind the desk"],
-            ["under","yes","You don't find anything under the desk"]
+            ["behind","yes","You don't find anything behind the desk."],
+            ["under","yes","You don't find anything under the desk."]
         ],
         "takeFail": "It's too heavy to move.",
         "moveTimes": [],
@@ -8946,7 +8946,7 @@
         "long_description": "The lyre has a wooden frame with strings attached in the middle.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a lyre, which has a wooden frame with strings attached in the middle"]
+            ["hold","You are holding a lyre, which has a wooden frame with strings attached in the middle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -9034,7 +9034,7 @@
         "long_description": "An early keyboard instrument.",
         "hidden": 0,
         "conditional": [
-            ["under","true","You don't find anything under the clavichord"]
+            ["under","true","You don't find anything under the clavichord."]
         ],
         "takeFail": "It's too large and heavy.",
         "moveTimes": [],
@@ -9300,7 +9300,7 @@
         "long_description": "A cabinet made from glass stands here, the door is open.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","There isn't anything behind the cabinet. If there was it would show through the glass"]
+            ["behind","true","There isn't anything behind the cabinet. If there was it would show through the glass."]
         ],
         "takeFail": "It's too heavy.",
         "moveTimes": [],
@@ -9390,7 +9390,7 @@
         "long_description": "A door key of some kind.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an iron key"]
+            ["hold","You are holding an iron key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -9478,8 +9478,8 @@
         "long_description": "Most refreshing for visitors to sink into.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There's nothing under the couch"],
-            ["behind","true","If there was anything behind the couch, it's gone now"]
+            ["under","true","There's nothing under the couch."],
+            ["behind","true","If there was anything behind the couch, it's gone now."]
         ],
         "takeFail": "It's too large to carry.",
         "moveTimes": [],
@@ -11062,7 +11062,7 @@
         "long_description": "Beautiful, and very brightly glowing.|A glowing orb illuminates its surroundings.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a glowing orb. It illuminates its surroundings"]
+            ["hold","You are holding a glowing orb. It illuminates its surroundings."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -11150,7 +11150,7 @@
         "long_description": "A long and fine jet black cloak.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a jet black cloak"]
+            ["wear","You are wearing a jet black cloak."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -11238,7 +11238,7 @@
         "long_description": "It is the blood-red heart of the golden dragon.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a huge ruby. It is the blood-red heart of the golden dragon"]
+            ["hold","You are holding a huge ruby. It is the blood-red heart of the golden dragon."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -11326,7 +11326,7 @@
         "long_description": "A battered book.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a battered library book"]
+            ["hold","You are holding a battered library book."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -11588,7 +11588,7 @@
         "long_description": "A black candle stands here. It is lit.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a black candle"]
+            ["hold","You are holding a black candle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -11939,7 +11939,7 @@
         "long_description": "The cloth sack is marked 'Dragon Food'. It is open.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a cloth sack marked 'Dragon Food'"]
+            ["hold","You are holding a cloth sack marked 'Dragon Food'."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12027,7 +12027,7 @@
         "long_description": "A large crystal goblet full of wine.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large crystal goblet full of wine"]
+            ["hold","You are holding a large crystal goblet full of wine."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12115,7 +12115,7 @@
         "long_description": "An enormous leather leash.|A name tag on the collar reads 'Tiddles'.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an enormous leather leash|You are holding an enormous leather leash. A name tag on the collar reads 'Tiddles'"]
+            ["hold","You are holding an enormous leather leash|You are holding an enormous leather leash. A name tag on the collar reads 'Tiddles'."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12291,7 +12291,7 @@
         "long_description": "A large lump of meat.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large lump of meat"]
+            ["hold","You are holding a large lump of meat."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12642,7 +12642,7 @@
         "long_description": "A large, heavy, carved crystal decanter, with gold fittings.|A large crystal decanter.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large crystal decanter with gold fittings"]
+            ["hold","You are holding a large crystal decanter with gold fittings."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12730,7 +12730,7 @@
         "long_description": "A large bottle of wine.|It is a bottle of fine vintage claret.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large bottle of wine|You are holding a large bottle of vintage claret"]
+            ["hold","You are holding a large bottle of wine|You are holding a large bottle of vintage claret."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12818,7 +12818,7 @@
         "long_description": "Bent from several heavy blows.|A long iron poker.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an iron poker. Careful with that"]
+            ["hold","You are holding an iron poker. Careful with that."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12906,7 +12906,7 @@
         "long_description": "Short handled, but extremely sharp and heavy. The manufacture is of noteworthy quality.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a sharp short handled axe of noteworthy quality"]
+            ["hold","You are holding a sharp short handled axe of noteworthy quality."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -12994,7 +12994,7 @@
         "long_description": "A brass lantern. Its flame throwing a flickering pattern on the ground.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a brass lantern. Its flame throws a flickering pattern on the ground"]
+            ["hold","You are holding a brass lantern. Its flame throws a flickering pattern on the ground."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -13170,7 +13170,7 @@
         "long_description": "The sands of Time have been flowing around this book for many years.|A large, dusty book.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large dusty book"]
+            ["hold","You are holding a large dusty book."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -13258,7 +13258,7 @@
         "long_description": "A large book. It is open.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large book"]
+            ["hold","You are holding a large book."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -13730,7 +13730,7 @@
         "long_description": "A large iron weight.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large iron weight"]
+            ["hold","You are holding a large iron weight."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -14080,7 +14080,7 @@
         "long_description": "A small, closed wooden box has been placed on a shelf.|It is a dilapidated old wooden tea chest. It's closed.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small wooden box|You are holding a dilapidated old wooden tea chest"]
+            ["hold","You are holding a small wooden box|You are holding a dilapidated old wooden tea chest."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -14696,7 +14696,7 @@
         "long_description": "A long, heavy, iron mace, studded at the business end, so as to inflict even more damage.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a heavy mace. An inscription on the handle reads, informatively, 'We are the Mace Men'"]
+            ["hold","You are holding a heavy mace. An inscription on the handle reads, informatively, 'We are the Mace Men'."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -14784,7 +14784,7 @@
         "long_description": "A large lump of quartz.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large lump of quartz"]
+            ["hold","You are holding a large lump of quartz."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -15312,7 +15312,7 @@
         "long_description": "It has used up all nine of its lives.|It's a dead cat.|This cat is dead",
         "hidden": 0,
         "conditional": [
-            ["hold","You are somewhat awkwardly holding a dead cat"]
+            ["hold","You are somewhat awkwardly holding a dead cat."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -15400,7 +15400,7 @@
         "long_description": "A small piece of white chalk, it has a vaguely human shape. You have a nasty feeling that this is all that remains of the last person to come this way...",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a lump of chalk with vaguely human shape. It could be the scorched remains of some poor unfortunate"]
+            ["hold","You are holding a lump of chalk with vaguely human shape. It could be the scorched remains of some poor unfortunate."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -15488,7 +15488,7 @@
         "long_description": "A small lump of chalk has been left here.|A small piece of natural white chalk.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a lump of natural white chalk"]
+            ["hold","You are holding a lump of natural white chalk."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -15576,7 +15576,7 @@
         "long_description": "It is a large, ornate, silver cross on a chain.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a large ornate silver cross"]
+            ["hold","You are holding a large ornate silver cross."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -15928,7 +15928,7 @@
         "long_description": "It is a standard bible, containing both testaments and the Book of Mormon.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bloodstained bible containing both testaments and the Book of Mormon"]
+            ["hold","You are holding a bloodstained bible containing both testaments and the Book of Mormon."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -16368,8 +16368,8 @@
         "long_description": "A rough wooden coffin has been left lying underneath the table. It is open.|It is a rough wooden box, 6 feet long and 3 feet wide. It is open.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the coffin"],
-            ["under","true","Expecting to discover some deviously concealed object you peer under the coffin. But, alas, there is nothing here to be found"]
+            ["behind","true","You don't see anything behind the coffin."],
+            ["under","true","Expecting to discover some deviously concealed object you peer under the coffin. But, alas, there is nothing here to be found."]
         ],
         "takeFail": "It's too big to carry around.",
         "moveTimes": [],
@@ -16459,7 +16459,7 @@
         "long_description": "A huge, iron key hangs up on a hook by the iron door.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a huge iron key"]
+            ["hold","You are holding a huge iron key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -16547,8 +16547,8 @@
         "long_description": "There is a large table in the middle of the room.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the table"],
-            ["under","true","You don't see anything under the table"]
+            ["behind","true","You don't see anything behind the table."],
+            ["under","true","You don't see anything under the table."]
         ],
         "takeFail": "It's too big and unwieldy to take.",
         "moveTimes": [],
@@ -16638,7 +16638,7 @@
         "long_description": "It is a large robe, coloured red to hide the stains.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a large robe, coloured red to hide the stains"]
+            ["wear","You are wearing a large robe, coloured red to hide the stains."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -16726,7 +16726,7 @@
         "long_description": "It is a small, hessian bag.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small hessian bag|You are left holding the bag, as it were"]
+            ["hold","You are holding a small hessian bag|You are left holding the bag, as it were."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -16814,7 +16814,7 @@
         "long_description": "It is razor sharp, and stained with dried blood.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a flaying knife, which is razor sharp and stained with dried blood"]
+            ["hold","You are holding a flaying knife, which is razor sharp and stained with dried blood."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -17078,7 +17078,7 @@
         "long_description": "It is very mouldy, and looks extremely unpleasant.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a mouldy loaf of bread|You are holding a mouldy loaf of bread. It looks pretty gross"]
+            ["hold","You are holding a mouldy loaf of bread|You are holding a mouldy loaf of bread. It looks pretty gross."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -17166,7 +17166,7 @@
         "long_description": "A rough wooden bowl full of water has been placed here.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a wooden bowl"]
+            ["hold","You are holding a wooden bowl."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -18218,7 +18218,7 @@
         "long_description": "A slice of roast pork is here, cooling rapidly.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a slice of roast pork"]
+            ["hold","You are holding a slice of roast pork."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -19362,7 +19362,7 @@
         "long_description": "Its a high-capacity, all-in, adventurer-style backpack.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a leather backpack|You are wearing a leather backpack. A small label on one of the strap reads 'Adventure Lifestyle Tactical Backpack'"]
+            ["wear","You are wearing a leather backpack|You are wearing a leather backpack. A small label on one of the strap reads 'Adventure Lifestyle Tactical Backpack'."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -19450,7 +19450,7 @@
         "long_description": "Its only a small map, and its badly drawn at that. It shows a diagram of a few passages and lots of doors. One is marked 'green door' and labelled with a cross.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small, badly drawn map. It shows a diagram of a few passages and lots of doors. One is marked 'green door' and labelled with a cross"]
+            ["hold","You are holding a small, badly drawn map. It shows a diagram of a few passages and lots of doors. One is marked 'green door' and labelled with a cross."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -19538,7 +19538,7 @@
         "long_description": "A long, ornamental brass key.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a long, ornamental brass key"]
+            ["hold","You are holding a long, ornamental brass key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -19626,7 +19626,7 @@
         "long_description": "An old tallow candle has been left here. It is lit.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an old tallow candle"]
+            ["hold","You are holding an old tallow candle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -19714,7 +19714,7 @@
         "long_description": "A rusty iron nail. Its quite blunt.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a rusty nail, which is quite blunt"]
+            ["hold","You are holding a rusty nail, which is quite blunt."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -19802,7 +19802,7 @@
         "long_description": "A great big hairy spider, venom drips from its large fangs.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a great big hairy spider. You consider it cute, until you realize that it has venom dripping from its large fangs"]
+            ["hold","You are holding a great big hairy spider. You consider it cute, until you realize that it has venom dripping from its large fangs."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20418,7 +20418,7 @@
         "long_description": "A pair of leather gloves.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing leather gloves"]
+            ["wear","You are wearing leather gloves."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20506,7 +20506,7 @@
         "long_description": "A double headed gold coin.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a double headed gold coin"]
+            ["hold","You are holding a double headed gold coin."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20594,7 +20594,7 @@
         "long_description": "Exquisitely crafted, the gold figurine is of an ancient ancestor goddess.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an exquisitely crafted gold figurine. It is of an ancient ancestor goddess"]
+            ["hold","You are holding an exquisitely crafted gold figurine. It is of an ancient ancestor goddess."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20682,7 +20682,7 @@
         "long_description": "A small stick of gently smoking incense.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small stick of gently smoking incense"]
+            ["hold","You are holding a small stick of gently smoking incense."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20770,7 +20770,7 @@
         "long_description": "A small lump of chalk has been left here.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small lump of chalk"]
+            ["hold","You are holding a small lump of chalk."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20858,7 +20858,7 @@
         "long_description": "A long staff carved in the likeness of a snake.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a rowan staff, carved in the likeness of a snake"]
+            ["hold","You are holding a rowan staff, carved in the likeness of a snake."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -20946,7 +20946,7 @@
         "long_description": "A small dead black beetle that has gone to meet its maker.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small dead black beetle"]
+            ["hold","You are holding a small dead black beetle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -21384,7 +21384,7 @@
         "long_description": "It is small, with a carved design incorporating a flash of lightning. On the other side is a carving of a castle.",
         "hidden": 0,
         "conditional": [
-            ["wear","The small amulet around your neck has a carved design incorporating a flash of lightning. On the other side is a carving of a castle"]
+            ["wear","The small amulet around your neck has a carved design incorporating a flash of lightning. On the other side is a carving of a castle."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -21825,7 +21825,7 @@
         "long_description": "Hardly appetising but no doubt very filling.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bowl of gruel"]
+            ["hold","You are holding a bowl of gruel."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -21913,7 +21913,7 @@
         "long_description": "Hardly appetising but no doubt very filling.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bowl of gruel|You are holding a meagre bowl of gruel"]
+            ["hold","You are holding a bowl of gruel|You are holding a meagre bowl of gruel."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -22001,7 +22001,7 @@
         "long_description": "Hardly appetising but no doubt very filling.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an unappetising bowl of gruel"]
+            ["hold","You are holding an unappetising bowl of gruel."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -22089,7 +22089,7 @@
         "long_description": "Hardly appetising but no doubt very filling.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bowl of gruel"]
+            ["hold","You are holding a bowl of gruel."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -22869,7 +22869,7 @@
         "long_description": "It contains much on magic, packed with esoteric symbols and unfamiliar legends from centuries past|And the kinsman of the fire swallowed the ship of the heart of Tranoch when the defenders of the seat incited the harmful thief of the forest against their father. And the roaring dog embers bit the sovereign within the hearth-ship|We fought with swords, before mount Aftig. We held bloody shields: we stained our spears. Showers of arrows broke the shield in three pieces. The bow sent forth the glittering steel. Gwyneth fell in the conflict, than whom there was not a greater warrior. Wide on the shores lay the scattered dead, and the wolves rejoiced over their prey",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an old grimoire. It contains much on magic, packed with esoteric symbols and unfamiliar legends from centuries past|And the kinsman of the fire swallowed the ship of the heart of Tranoch when the defenders of the seat incited the harmful thief of the forest against their father. And the roaring dog embers bit the sovereign within the hearth-ship|We fought with swords, before mount Aftig. We held bloody shields: we stained our spears. Showers of arrows broke the shield in three pieces. The bow sent forth the glittering steel. Gwyneth fell in the conflict, than whom there was not a greater warrior. Wide on the shores lay the scattered dead, and the wolves rejoiced over their prey"]
+            ["hold","You are holding an old grimoire. It contains much on magic, packed with esoteric symbols and unfamiliar legends from centuries past|And the kinsman of the fire swallowed the ship of the heart of Tranoch when the defenders of the seat incited the harmful thief of the forest against their father. And the roaring dog embers bit the sovereign within the hearth-ship|We fought with swords, before mount Aftig. We held bloody shields: we stained our spears. Showers of arrows broke the shield in three pieces. The bow sent forth the glittering steel. Gwyneth fell in the conflict, than whom there was not a greater warrior. Wide on the shores lay the scattered dead, and the wolves rejoiced over their prey."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -24267,7 +24267,7 @@
         "long_description": "A silver goblet full of water.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a silver goblet containing water"]
+            ["hold","You are holding a silver goblet containing water."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -24355,7 +24355,7 @@
         "long_description": "A fairly plain looking red ring.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a fairly plain looking red ring"]
+            ["wear","You are wearing a fairly plain looking red ring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -24443,7 +24443,7 @@
         "long_description": "A blood red rock, smooth as ice and just as chilling...",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a smooth blood red rock"]
+            ["hold","You are holding a smooth blood red rock."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -24531,7 +24531,7 @@
         "long_description": "There are extinguished torches on all walls, some of them still smoking gently.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an infinite torch, burning brightly"]
+            ["hold","You are holding an infinite torch, burning brightly."]
         ],
         "takeFail": "The torches are too high up to reach.",
         "moveTimes": [],
@@ -24621,7 +24621,7 @@
         "long_description": "A huge, mean looking, skullcrusher of a sword.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a greatsword. It's a huge, mean looking, skullcrusher of a sword"]
+            ["hold","You are holding a greatsword. It's a huge, mean looking, skullcrusher of a sword."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -25410,7 +25410,7 @@
         "long_description": "A rather rusty ice pick.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a rusty ice pick"]
+            ["hold","You are holding a rusty ice pick."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -27417,7 +27417,7 @@
         "long_description": "A small leather bag. it is closed.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small leather bag|You are left holding the small leather bag, as it were"]
+            ["hold","You are holding a small leather bag|You are left holding the small leather bag, as it were."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -27592,7 +27592,7 @@
         "long_description": "A fresh looking apple.|Looks quite edible.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an apple|You are holding an apple, which looks quite edible"]
+            ["hold","You are holding an apple|You are holding an apple, which looks quite edible."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -27680,7 +27680,7 @@
         "long_description": "An old tarnished brass telescope.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an old tarnished brass telescope"]
+            ["hold","You are holding an old tarnished brass telescope."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -27768,7 +27768,7 @@
         "long_description": "It bears the runes of High Lord Anarchy... I wouldn't touch it.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an oak staff which bears the runes of High Lord Anarchy"]
+            ["hold","You are holding an oak staff which bears the runes of High Lord Anarchy."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -27943,7 +27943,7 @@
         "long_description": "A set of fairly fresh looking sandwiches.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding some freshly made sandwiches"]
+            ["hold","You are holding some freshly made sandwiches."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -28469,7 +28469,7 @@
         "long_description": "A glowing white orb pulsates before you.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a pulsating orb"]
+            ["hold","You are holding a pulsating orb."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -28557,7 +28557,7 @@
         "long_description": "A large heavy black rod has been placed here.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a black rod, engraved with a red pentangle"]
+            ["hold","You are holding a black rod, engraved with a red pentangle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -29341,7 +29341,7 @@
         "long_description": "Short handled, but extremely sharp and heavy. The manufacture is of noteworthy quality.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a sturdy, short handled axe"]
+            ["hold","You are holding a sturdy, short handled axe."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -29429,7 +29429,7 @@
         "long_description": "Short handled, but extremely sharp and heavy. The manufacture is of noteworthy quality.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a heavy, short handled axe"]
+            ["hold","You are holding a heavy, short handled axe."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -30124,7 +30124,7 @@
         "long_description": "A small but strong shield.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small shield"]
+            ["hold","You are holding a small shield."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -30212,7 +30212,7 @@
         "long_description": "This ancient book contains the living record of those who have died. By ancient magics the book adds names itself.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a dusty tome containing the living record of those who have died. By ancient magics the book adds names itself"]
+            ["hold","You are holding a dusty tome containing the living record of those who have died. By ancient magics the book adds names itself."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -30300,7 +30300,7 @@
         "long_description": "A small, appetising hobbit pie.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small, appetising hobbit pie"]
+            ["hold","You are holding a small, appetising hobbit pie."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -30388,7 +30388,7 @@
         "long_description": "A fresh crusty loaf.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a fresh crusty loaf"]
+            ["hold","You are holding a fresh crusty loaf."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -31178,7 +31178,7 @@
         "long_description": "The hilt is carved with runes, and markings which you recognise as nature symbols.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a golden scimitar. Its hilt is carved with runes, and markings which you recognise as nature symbols"]
+            ["hold","You are holding a golden scimitar. Its hilt is carved with runes, and markings which you recognise as nature symbols."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -31439,7 +31439,7 @@
         "long_description": "A long broken branch.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a long broken branch|You are holding a piece of broken wood"]
+            ["hold","You are holding a long broken branch|You are holding a piece of broken wood."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -31527,7 +31527,7 @@
         "long_description": "An old broken branch has been dropped here.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a long broken branch|You are holding a piece of broken wood"]
+            ["hold","You are holding a long broken branch|You are holding a piece of broken wood."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -33098,7 +33098,7 @@
         "long_description": "It has a toothed edge, designed to inflict pain rather than injury.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a sharp knife with toothed edge"]
+            ["hold","You are holding a sharp knife with toothed edge."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -33186,7 +33186,7 @@
         "long_description": "A bright red wand marked with a picture of a bridge over flames.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bright red wand marked with a picture of a bridge over flames"]
+            ["hold","You are holding a bright red wand marked with a picture of a bridge over flames."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -33799,7 +33799,7 @@
         "long_description": "A small chip of phosphorescent rock.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small chip of phosphorescent rock"]
+            ["hold","You are holding a small chip of phosphorescent rock."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -33887,7 +33887,7 @@
         "long_description": "A long broken tree branch.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a broken twig"]
+            ["hold","You are holding a broken twig."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -33975,7 +33975,7 @@
         "long_description": "A small but beautiful rose has been left here, slowly wilting away.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a beautiful rose"]
+            ["hold","You are holding a beautiful rose."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -34324,7 +34324,7 @@
         "long_description": "A hefty sparkling gold cross.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a sparkling golden cross"]
+            ["hold","You are holding a sparkling golden cross."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -34845,7 +34845,7 @@
         "long_description": "The staff is carved with many runes, and its end is a hideous sharpened hooked claw.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a carved runic staff. Its end is a hideous sharpened hooked claw"]
+            ["hold","You are holding a carved runic staff. Its end is a hideous sharpened hooked claw."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -35720,7 +35720,7 @@
         "long_description": "Very grubby-looking, it wouldn't help clean anything now.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a some soap. It looks a bit grubby"]
+            ["hold","You are holding a some soap. It looks a bit grubby."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -36248,8 +36248,8 @@
         "long_description": "Mystic symbols are inlaid into its top, along with a chess board.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the table"],
-            ["under","true","You don't see anything under the table"]
+            ["behind","true","You don't see anything behind the table."],
+            ["under","true","You don't see anything under the table."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -36427,7 +36427,7 @@
         "long_description": "The pumice rock is light in weight and colour, and filled with hundreds of tiny bubble holes.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a piece of pumice rock. It is filled with hundreds of tiny bubble holes"]
+            ["hold","You are holding a piece of pumice rock. It is filled with hundreds of tiny bubble holes."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -36515,7 +36515,7 @@
         "long_description": "A jagged fragment of obsidian, which is razor sharp.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a jagged fragment of obsidian, which is quite sharp"]
+            ["hold","You are holding a jagged fragment of obsidian, which is quite sharp."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -36603,7 +36603,7 @@
         "long_description": "The crystal is obviously magical, but you are astounded to see the symbol of Haze, probably the greatest (and most evil) sorceror ever to walk the world, engraved upon its surface.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a glowing crystal. It is obviously magical, but you are astounded to see the symbol of Haze, probably the greatest (and most evil) sorceror ever to walk the world, engraved upon its surface"]
+            ["hold","You are holding a glowing crystal. It is obviously magical, but you are astounded to see the symbol of Haze, probably the greatest (and most evil) sorceror ever to walk the world, engraved upon its surface."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -37042,7 +37042,7 @@
         "long_description": "A long and rather sharp pitchfork glints in the light. It could also be a formidable weapon.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a pitchfork. Could be a useful weapon if you have nothing better"]
+            ["hold","You are holding a pitchfork. Could be a useful weapon if you have nothing better."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -38176,7 +38176,7 @@
         "long_description": "A brass lantern, typical of the style used in mines. Its light flickering gently.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a brass mining lantern"]
+            ["hold","You are holding a brass mining lantern."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -39229,7 +39229,7 @@
         "long_description": "It is battered and has seen too many years exposure to the driving salt soaked winds that howl in from the sea.",
         "hidden": 0,
         "conditional": [
-            ["rain","yes","The battered wooden sign, dripping with the rain, has seen too many years exposure to the driving salt soaked winds that howl in from the sea"]
+            ["rain","yes","The battered wooden sign, dripping with the rain, has seen too many years exposure to the driving salt soaked winds that howl in from the sea."]
         ],
         "takeFail": "It's fixed in place.",
         "moveTimes": [],
@@ -39671,8 +39671,8 @@
         "long_description": "Solid, but a little uncomfortable.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the bench"],
-            ["under","true","You don't see anything under the bench"]
+            ["behind","true","You don't see anything behind the bench."],
+            ["under","true","You don't see anything under the bench."]
         ],
         "takeFail": "It's much too big and heavy.",
         "moveTimes": [],
@@ -39762,8 +39762,8 @@
         "long_description": "Good solid tables. Only slight evidence of ale spillage. There is a pack of cards and a Morris board here.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the table"],
-            ["under","true","Against your better judgement you rummage around under the table. There are ale stains on the floor, but otherwise you find nothing of interest"]
+            ["behind","true","You don't see anything behind the table."],
+            ["under","true","Against your better judgement you rummage around under the table. There are ale stains on the floor, but otherwise you find nothing of interest."]
         ],
         "takeFail": "You try to take the table, but only look foolish because it's too large to carry.",
         "moveTimes": [],
@@ -40119,7 +40119,7 @@
         "long_description": "The tablet is an ancient piece from the philosopher-mage Theosynimus. It bears the words 'Thrice at the lich-owl's screech, cast fire into the images of the moon, listen well lest bitter experience teach, none make the path of the shadow alone.'",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a stone tablet. The tablet is an ancient piece from the philosopher-mage Theosynimus. It bears the words 'Thrice at the lich-owl's screech, cast fire into the images of the moon, listen well lest bitter experience teach, none make the path of the shadow alone"]
+            ["hold","You are holding a stone tablet. The tablet is an ancient piece from the philosopher-mage Theosynimus. It bears the words 'Thrice at the lich-owl's screech, cast fire into the images of the moon, listen well lest bitter experience teach, none make the path of the shadow alone."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -40207,7 +40207,7 @@
         "long_description": "A small piece of rock.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small piece of rock"]
+            ["hold","You are holding a small piece of rock."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -40295,7 +40295,7 @@
         "long_description": "Very heavy, not the sort of hammer to hit your fingers with, more for hitting other peoples.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a heavy hammer"]
+            ["hold","You are holding a heavy hammer."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -40383,7 +40383,7 @@
         "long_description": "A heavy pick has been put here. The pick is battered and worn, and obviously much used.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a heavy mining pick, battered and worn"]
+            ["hold","You are holding a heavy mining pick, battered and worn."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -40911,8 +40911,8 @@
         "long_description": "It is a strange hole. It seems almost well, unattached.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything noteworthy behind the hole"],
-            ["under","true","You don't see anything worthy of comment under the hole"]
+            ["behind","true","You don't see anything noteworthy behind the hole."],
+            ["under","true","You don't see anything worthy of comment under the hole."]
         ],
         "takeFail": "You can't get a hold of it.",
         "moveTimes": [],
@@ -42054,7 +42054,7 @@
         "long_description": "A sharp shortsword.|A strong stabbing weapon.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a sharp shortsword|You are holding a shortsword. Useful for stabbing"]
+            ["hold","You are holding a sharp shortsword|You are holding a shortsword. Useful for stabbing."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -42142,7 +42142,7 @@
         "long_description": "A small dagger has been dropped here.|Although small it is very sharp.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small dagger|You are holding a sharp dagger"]
+            ["hold","You are holding a small dagger|You are holding a sharp dagger."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -42406,7 +42406,7 @@
         "long_description": "An old horseshoe.|Well it didnt bring the horse any luck.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an old horseshoe|You are holding an old horseshoe. Perhaps it's lucky"]
+            ["hold","You are holding an old horseshoe|You are holding an old horseshoe. Perhaps it's lucky."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -42494,7 +42494,7 @@
         "long_description": "A huge black runesword stands upright before you, embedded in the solid stone altar.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a huge black runesword, glowing with arcane power"]
+            ["hold","You are holding a huge black runesword, glowing with arcane power."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -43452,7 +43452,7 @@
         "long_description": "The leather bracelet has a cross hatch pattern on it.",
         "hidden": 0,
         "conditional": [
-            ["wear","The leather bracelet on your wrist has a cross hatch pattern on it"]
+            ["wear","The leather bracelet on your wrist has a cross hatch pattern on it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -43540,7 +43540,7 @@
         "long_description": "The leather arm guard is ornately patterned and laced together.",
         "hidden": 0,
         "conditional": [
-            ["wear","The leather guard on your arm is ornately patterned and laced together"]
+            ["wear","The leather guard on your arm is ornately patterned and laced together."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -43628,7 +43628,7 @@
         "long_description": "A large falconry glove made from dark brown leather.",
         "hidden": 0,
         "conditional": [
-            ["wear","The falconry glove on your arm is made from dark brown leather"]
+            ["wear","The falconry glove on your arm is made from dark brown leather."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -43716,7 +43716,7 @@
         "long_description": "Shortbow.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a shortbow"]
+            ["hold","You are holding a shortbow."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -44234,7 +44234,7 @@
         "long_description": "A long wooden staff",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a long wooden staff"]
+            ["hold","You are holding a long wooden staff."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -44322,7 +44322,7 @@
         "long_description": "The staff is made from bronze, with curved prongs at the top reminiscent of a bull's horns.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding the heralds staff. Made from bronze, with curved prongs at the top reminiscent of a bull's horns"]
+            ["hold","You are holding the heralds staff. Made from bronze, with curved prongs at the top reminiscent of a bull's horns."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -44846,7 +44846,7 @@
         "long_description": "The bronze sword is polished and shines brightly. Its has a convex cutting blade.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bronze sword. The polished blade shines brightly"]
+            ["hold","You are holding a bronze sword. The polished blade shines brightly."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -44934,7 +44934,7 @@
         "long_description": "The small polished bronze dagger has an elaborately patterned grip with three sets of concentric circles either side.|The bronze dagger is carefully polished and looks like it may be primarily a status symbol for its owner. It has elaborate circular markings on the handle.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a bronze dagger. It has an elaborately patterned grip with three sets of concentric circles either side"]
+            ["hold","You are holding a bronze dagger. It has an elaborately patterned grip with three sets of concentric circles either side."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45022,7 +45022,7 @@
         "long_description": "The small wooden shield is round and made from a few joined planks with a metallic button in the middle.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small wooden shield made from a few joined planks with a metallic button in the middle"]
+            ["hold","You are holding a small wooden shield made from a few joined planks with a metallic button in the middle."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45110,7 +45110,7 @@
         "long_description": "The small shield is round and made from a interlocking wooden pieces. It is painted with blue woad spots which make it strikingly visible from a distance.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a round woad shield made from a interlocking wooden pieces. It is painted with blue woad spots which make it strikingly visible from a distance"]
+            ["hold","You are holding a round woad shield made from a interlocking wooden pieces. It is painted with blue woad spots which make it strikingly visible from a distance."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45544,7 +45544,7 @@
         "long_description": "The ring is made from brightly polished copper and has a celtic knot pattern around the outside.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing an arcane ring made from brightly polished copper.  It has a celtic knot pattern around the outside"]
+            ["wear","You are wearing an arcane ring made from brightly polished copper.  It has a celtic knot pattern around the outside."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45632,7 +45632,7 @@
         "long_description": "The carved quartz crystal dagger dazzles brightly.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a dazzling quartz crystal dagger"]
+            ["hold","You are holding a dazzling quartz crystal dagger."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45808,7 +45808,7 @@
         "long_description": "The sleaveless leather tabard is fastened with a ribbon around the waist. Standard attire for a guild artisan.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a sleaveless leather tabard. It is fastened with a ribbon around your waist. Standard attire for a guild artisan"]
+            ["wear","You are wearing a sleaveless leather tabard. It is fastened with a ribbon around your waist. Standard attire for a guild artisan."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -45896,7 +45896,7 @@
         "long_description": "A shiny pearl.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a shiny pearl"]
+            ["hold","You are holding a shiny pearl."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46073,7 +46073,7 @@
         "long_description": "The honeycombs is swarming with hundreds of bees. So many that you can hardly see their hexagonal cells underneath|Bees scurry around busily on the honeycombs",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You could look behind it, but the bees would not be happy|You try to look behind, but angry buzzing dissuades you"]
+            ["behind","true","You could look behind it, but the bees would not be happy|You try to look behind, but angry buzzing dissuades you."]
         ],
         "takeFail": "Carrying an angry swarm of bees is probably not a great idea.",
         "moveTimes": [],
@@ -46163,7 +46163,7 @@
         "long_description": "A silver pentangle on a leather neck strap",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a silver pentangle on a leather neck strap"]
+            ["wear","You are wearing a silver pentangle on a leather neck strap."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -46251,8 +46251,8 @@
         "long_description": "A wooden tavern table built from solid planks. There is a pack of cards and a Nine Men's Morris board here.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything interesting behind the table"],
-            ["under","true","You eagerly rummage around under the table, then realize that this is a rather silly thing to be doing"]
+            ["behind","true","You don't see anything interesting behind the table."],
+            ["under","true","You eagerly rummage around under the table, then realize that this is a rather silly thing to be doing."]
         ],
         "takeFail": "Stealing the table from this seedy locale would not be a wise move.",
         "moveTimes": [],
@@ -46344,7 +46344,7 @@
         "long_description": "A fresh looking pear.|Looks quite edible.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a fresh looking pear|You are holding a fresh looking pear. It looks quite edible"]
+            ["hold","You are holding a fresh looking pear|You are holding a fresh looking pear. It looks quite edible."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46432,7 +46432,7 @@
         "long_description": "Blue, and slightly fluffy",
         "hidden": 0,
         "conditional": [
-            ["hold","You are clutching a blue, slightly fluffy bathroom towel"]
+            ["hold","You are clutching a blue, slightly fluffy bathroom towel."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46520,7 +46520,7 @@
         "long_description": "An ordinary white bathroom towel. Slightly fluffy",
         "hidden": 0,
         "conditional": [
-            ["hold","You are clutching an ordinary white bathroom towel, which is slightly fluffy"]
+            ["hold","You are clutching an ordinary white bathroom towel, which is slightly fluffy."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46608,7 +46608,7 @@
         "long_description": "An old and faded calendar hangs from the lab wall. The days of the month contain hastily scribbled illegible handwriting. One entry which you can vaguely discern is headed 'initial coin offering', followed by some mathematical calculation you don't understand.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","Behind the wall calendar is, of course, the wall"]
+            ["behind","true","Behind the wall calendar is, of course, the wall."]
         ],
         "takeFail": "The calendar is so fragile that if you tried to take it then it would disintegrate.",
         "moveTimes": [],
@@ -46698,7 +46698,7 @@
         "long_description": "A modest feast bench has been set out here. It has a couple of shelves for fruit and confectionaries.",
         "hidden": 0,
         "conditional": [
-            ["under","true","You eagerly search under the bench, expecting to find more loot. But alas this is not the case"]
+            ["under","true","You eagerly search under the bench, expecting to find more loot. But alas this is not the case."]
         ],
         "takeFail": "The feast bench is much too large to carry.",
         "moveTimes": [["dayofmonth",1,31],["dayofmonth",3,21],["dayofmonth",5,1],["dayofmonth",6,21],["dayofmonth",7,31],["dayofmonth",9,21],["dayofmonth",10,31],["dayofmonth",12,21]],
@@ -46788,7 +46788,7 @@
         "long_description": "A modest wooden bowl of broth",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a modest wooden bowl of broth"]
+            ["hold","You are holding a modest wooden bowl of broth."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -46876,7 +46876,7 @@
         "long_description": "The barnacle encrusted remains of a ship, long ago wrecked and partially buried in the sand",
         "hidden": 0,
         "conditional": [
-            ["above","true","You can't see above the side of the shipwreck from here"],
+            ["above","true","You can't see above the side of the shipwreck from here."],
             ["under","true","You consider excavating the sand under the shipwreck, but it would be too much work. Presumably its underside is not in good condition"],
             ["behind","true","You can't see behind it from here"]
         ],
@@ -46968,7 +46968,7 @@
         "long_description": "A long pole with a small axe blade, hammer and spike fixed to the end of it",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a long poleaxe. It has a small blade with a hammer and spike fixed to the end of it"]
+            ["hold","You are holding a long poleaxe. It has a small blade with a hammer and spike fixed to the end of it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47056,7 +47056,7 @@
         "long_description": "A long pole with a vicious-looking metal spike and straight edged chopper on the end of it",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a halberd. It has a vicious-looking metal spike and straight edged chopper on the end of it"]
+            ["hold","You are holding a halberd. It has a vicious-looking metal spike and straight edged chopper on the end of it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47144,7 +47144,7 @@
         "long_description": "The ringmail shirt made from small iron rings is heavy but will protect against cutting weapons",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a ringmail shirt. It is made from small iron rings and is quite heavy but will protect against cutting weapons"]
+            ["wear","You are wearing a ringmail shirt. It is made from small iron rings and is quite heavy but will protect against cutting weapons."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47232,7 +47232,7 @@
         "long_description": "The chainmail vest made from small steel rings is heavy but will protect against cutting weapons",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a chainmail vest. It is made from small steel rings and is quite heavy but will protect against cutting weapons"]
+            ["wear","You are wearing a chainmail vest. It is made from small steel rings and is quite heavy but will protect against cutting weapons."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47320,7 +47320,7 @@
         "long_description": "Leather armor for your legs. They're light, and may help to avoid having your legs cut from under you in a fight",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing leather greaves"]
+            ["wear","You are wearing leather greaves."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47408,7 +47408,7 @@
         "long_description": "The splinted greaves are crudely constructed from a metallic strips bound together and fastened with buckles. They're not exactly a fashion statement, but may prevent your legs from being cut out from underneath you in combat",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing splinted greaves made from metallic strips and fastened with buckles at the back"]
+            ["wear","You are wearing splinted greaves made from metallic strips and fastened with buckles at the back."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -47496,7 +47496,7 @@
         "long_description": "Worn as light armour, the steel gorget is fastened over the shoulders with buckles",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a steel gorget around your neck, fastened over your shoulders with buckles"]
+            ["wear","You are wearing a steel gorget around your neck, fastened over your shoulders with buckles."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -47584,7 +47584,7 @@
         "long_description": "The brown leather gorget is fastened over the shoulders with buckles",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a leather gorget around your neck, fastened over your shoulders with buckles"]
+            ["wear","You are wearing a leather gorget around your neck, fastened over your shoulders with buckles."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -47672,7 +47672,7 @@
         "long_description": "The green liripipe hood has a long tail which hangs down",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a green liripipe hood with a long tail which hangs down"]
+            ["wear","You are wearing a green liripipe hood with a long tail which hangs down."]
         ],
         "clo_head": 1,
         "clo_larm": 0,
@@ -47759,7 +47759,7 @@
         "long_description": "The red liripipe hood has a long tail which hangs down",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a red liripipe hood with a long tail which hangs down"]
+            ["wear","You are wearing a red liripipe hood with a long tail which hangs down."]
         ],
         "clo_head": 1,
         "clo_larm": 0,
@@ -47846,7 +47846,7 @@
         "long_description": "The black liripipe hood has a long tail which hangs down",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a black liripipe hood with a long tail which hangs down"]
+            ["wear","You are wearing a black liripipe hood with a long tail which hangs down."]
         ],
         "clo_head": 1,
         "clo_larm": 0,
@@ -48105,7 +48105,7 @@
         "long_description": "A fallen marble statue lies fractured into several pieces on the ground, surrounded by tough windswept grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards",
         "hidden": 0,
         "conditional": [
-            ["rain","yes","A fallen marble statue lies fractured into several pieces on the rain soaked ground, surrounded by tough grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards"]
+            ["rain","yes","A fallen marble statue lies fractured into several pieces on the rain soaked ground, surrounded by tough grasses. It looks like a goddess or former ruler of the city, dressed in robes and with elaborately pleated hair. One arm is missing and its disconnected head rests at an uncanny angle defiantly looking skywards."]
         ],
         "takeFail": "The giant marble pieces are much too heavy to move",
         "climbFail": "Since the statue is already fallen, climbing onto it would not make much difference",
@@ -48196,7 +48196,7 @@
         "long_description": "A spiked iron ball connected to the handle by a chain. This vicious-looking weapon could puncture most armor at close range, and deliver crushing blows",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a flail. It is a spiked iron ball connected to the handle by a chain. This vicious-looking weapon could puncture most armor at close range, and deliver crushing blows"]
+            ["hold","You are holding a flail. It is a spiked iron ball connected to the handle by a chain. This vicious-looking weapon could puncture most armor at close range, and deliver crushing blows."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48457,7 +48457,7 @@
         "long_description": "The trident has three vicious-looking spikes on the end of a long pole",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a three pronged trident"]
+            ["hold","You are holding a three pronged trident."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48545,7 +48545,7 @@
         "long_description": "A very long pike, made from smooth polished steel",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a long steel pike"]
+            ["hold","You are holding a long steel pike."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48633,7 +48633,7 @@
         "long_description": "One-piece metal bars with finger loops. Packs a more powerful punch",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing brass knuckles. They are a one-piece metal bar with finger loops"]
+            ["wear","You are wearing brass knuckles. They are a one-piece metal bar with finger loops."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48721,7 +48721,7 @@
         "long_description": "Metal bars with finger loops for the right hand and small pyramid studs.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing studded brass knuckles. They are a metal bar with finger loops and small pyramid studs"]
+            ["wear","You are wearing studded brass knuckles. They are a metal bar with finger loops and small pyramid studs."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48809,7 +48809,7 @@
         "long_description": "A heavy clay brick, used for construction work",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a heavy clay brick"]
+            ["hold","You are holding a heavy clay brick."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48897,7 +48897,7 @@
         "long_description": "A heavy stone brick, used for construction work",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a heavy stone brick"]
+            ["hold","You are holding a heavy stone brick."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -48985,7 +48985,7 @@
         "long_description": "Curved blocks of steel with loops for each finger to go through",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing steel knuckle dusters"]
+            ["wear","You are wearing steel knuckle dusters."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49073,7 +49073,7 @@
         "long_description": "Curved blocks of brass with loops for each finger to go through",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing brass knuckle dusters"]
+            ["wear","You are wearing brass knuckle dusters."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49161,7 +49161,7 @@
         "long_description": "Thick brown leather gloves with iron studs on the knuckles",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing brown studded leather gloves"]
+            ["wear","You are wearing brown studded leather gloves."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49249,7 +49249,7 @@
         "long_description": "Thick black leather gloves with sharp steel spikes on the knuckles",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing black leather gloves with steel spikes on the knuckles"]
+            ["wear","You are wearing black leather gloves with steel spikes on the knuckles."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49511,7 +49511,7 @@
         "long_description": "A pair of black velvet gloves.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing black velvet gloves"]
+            ["wear","You are wearing black velvet gloves."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49599,7 +49599,7 @@
         "long_description": "A lightweight sleeveless coat which will protect you from bludgeoning",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing padded armor"]
+            ["wear","You are wearing padded armor."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49687,7 +49687,7 @@
         "long_description": "A studded leather coat",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing studded leather armor"]
+            ["wear","You are wearing studded leather armor."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49775,7 +49775,7 @@
         "long_description": "Made from irregularly shaped pieces of animal hide laced together with sinew",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing animal hide armor, crudely laced together with sinew"]
+            ["wear","You are wearing animal hide armor, crudely laced together with sinew."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49863,7 +49863,7 @@
         "long_description": "Armor made from overlapping oval scales of bronze",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing scale mail armor, made from overlapping oval scales of bronze"]
+            ["wear","You are wearing scale mail armor, made from overlapping oval scales of bronze."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -49951,7 +49951,7 @@
         "long_description": "Breastplate made from steel",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a steel breastplate"]
+            ["wear","You are wearing a steel breastplate."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50039,7 +50039,7 @@
         "long_description": "Combined armor with chain mail and steel plates",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing half plate armor. A combination of chain mail and steel plates"]
+            ["wear","You are wearing half plate armor. A combination of chain mail and steel plates."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50127,7 +50127,7 @@
         "long_description": "Metal strips sewn onto leather",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing splint armor, made from metal strips sewn onto leather"]
+            ["wear","You are wearing splint armor, made from metal strips sewn onto leather."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50215,7 +50215,7 @@
         "long_description": "Thick cloth skirt with tartan pattern",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a tartan kilt"]
+            ["wear","You are wearing a tartan kilt."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50303,7 +50303,7 @@
         "long_description": "An elaborate drinking bowl with silver metalwork",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a silver mazer. It looks very elaborate"]
+            ["hold","You are holding a silver mazer. It looks very elaborate."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50391,7 +50391,7 @@
         "long_description": "Drinking bowl made from maplewood with a metallic rim",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a maplewood mazer. It has a metallic rim around the edges"]
+            ["hold","You are holding a maplewood mazer. It has a metallic rim around the edges."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50825,7 +50825,7 @@
         "long_description": "A plain gold earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a plain golden earring"]
+            ["wear","You are wearing a plain golden earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -50913,7 +50913,7 @@
         "long_description": "A plain silver earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a plain silver earring"]
+            ["wear","You are wearing a plain silver earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51001,7 +51001,7 @@
         "long_description": "A sparkling diamond earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a sparkling diamond earring"]
+            ["wear","You are wearing a sparkling diamond earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51089,7 +51089,7 @@
         "long_description": "A shiny copper earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a shiny copper earring"]
+            ["wear","You are wearing a shiny copper earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51177,7 +51177,7 @@
         "long_description": "A ruby earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a ruby earring"]
+            ["wear","You are wearing a ruby earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51265,7 +51265,7 @@
         "long_description": "A spherical black earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a spherical jet earring"]
+            ["wear","You are wearing a spherical jet earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51353,7 +51353,7 @@
         "long_description": "A spherical green earring",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a spherical jade earring"]
+            ["wear","You are wearing a spherical jade earring."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51441,7 +51441,7 @@
         "long_description": "The smooth grey Adder stone is about the size of an apple, but much heavier. It has a perfectly round hole carved, or perhaps burrowed, through its center",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding an adder stone. It is smooth and grey and about the size of an apple, but much heavier. There is a perfectly round carved, or perhaps burrowed, hole through its center"]
+            ["hold","You are holding an adder stone. It is smooth and grey and about the size of an apple, but much heavier. There is a perfectly round carved, or perhaps burrowed, hole through its center."]
         ],
         "takeFail": "",
         "moveTimes": [],
@@ -51531,7 +51531,7 @@
         "long_description": "A small smooth grey stone with a hole through it hangs on a leather neck strap.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a grey hagstone pendant around your neck"]
+            ["wear","You are wearing a grey hagstone pendant around your neck."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -51619,7 +51619,7 @@
         "long_description": "A small smooth piece of jet stone with a hole through it hangs on a leather neck strap.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a black hagstone pendant around your neck"]
+            ["wear","You are wearing a black hagstone pendant around your neck."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -51707,7 +51707,7 @@
         "long_description": "A small jagged piece of bluestone with a hole through it hangs on a leather neck strap.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a jagged bluestone pendant around your neck"]
+            ["wear","You are wearing a jagged bluestone pendant around your neck."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -51795,7 +51795,7 @@
         "long_description": "A small rounded piece of clear glassy stone with a hole through it hangs on a leather neck strap.",
         "hidden": 0,
         "conditional": [
-            ["wear","You are wearing a small serpents glass pendant around your neck"]
+            ["wear","You are wearing a small serpents glass pendant around your neck."]
         ],
         "clo_head": 0,
         "clo_neck": 1,
@@ -51883,7 +51883,7 @@
         "long_description": "Wooden fishing rod with a horse hair line",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a wooden fishing rod, which has a horse hair line"]
+            ["hold","You are holding a wooden fishing rod, which has a horse hair line."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -51971,7 +51971,7 @@
         "long_description": "A repulsive mass of sludgy pond weed|A decaying globule of pond weed dredged up from the bottom of a pond",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding some sludgy pond weed|You are holding some repulsive pond weed"]
+            ["hold","You are holding some sludgy pond weed|You are holding some repulsive pond weed."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52059,7 +52059,7 @@
         "long_description": "A large fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a large carp, as if you just caught it"]
+            ["hold","You are proudly holding a large carp, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52147,7 +52147,7 @@
         "long_description": "A long green fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a long green pike fish, as if you just caught it"]
+            ["hold","You are proudly holding a long green pike fish, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52235,7 +52235,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a rainbow trout, as if you just caught it"]
+            ["hold","You are proudly holding a rainbow trout, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52323,7 +52323,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a minnow, as if you just caught it"]
+            ["hold","You are proudly holding a minnow, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52411,7 +52411,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a cod fish, as if you just caught it"]
+            ["hold","You are proudly holding a cod fish, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52499,7 +52499,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a haddock, as if you just caught it"]
+            ["hold","You are proudly holding a haddock, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52587,7 +52587,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a turbot, as if you just caught it"]
+            ["hold","You are proudly holding a turbot, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52675,7 +52675,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a sturgeon, as if you just caught it"]
+            ["hold","You are proudly holding a sturgeon, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52763,7 +52763,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a slippery dogfish, as if you just caught it"]
+            ["hold","You are proudly holding a slippery dogfish, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52851,7 +52851,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a pollack, as if you just caught it"]
+            ["hold","You are proudly holding a pollack, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -52939,7 +52939,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a sea bass, as if you just caught it"]
+            ["hold","You are proudly holding a sea bass, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -53027,7 +53027,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a mullet, as if you just caught it"]
+            ["hold","You are proudly holding a mullet, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -53115,7 +53115,7 @@
         "long_description": "Wooden fly fishing rod",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a wooden fly fishing rod"]
+            ["hold","You are holding a wooden fly fishing rod."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -53203,7 +53203,7 @@
         "long_description": "A type of fish",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a chub fish, as if you just caught it"]
+            ["hold","You are proudly holding a chub fish, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -53291,7 +53291,7 @@
         "long_description": "A type of fish.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are proudly holding a tench, as if you just caught it"]
+            ["hold","You are proudly holding a tench, as if you just caught it."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -53379,7 +53379,7 @@
         "long_description": "A decoratively framed painting hangs on the wall. It depicts a legendary hobbit reeling in an infeasibly large codfish from the side of a fishing boat.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","Behind the painting you only see some dust"]
+            ["behind","true","Behind the painting you only see some dust."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -53469,10 +53469,10 @@
         "long_description": "The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","Behind the statue plinth carved in small formal-looking letters is the inscription 'alis grave nil'"],
-            ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings"],
-            ["morning","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones","1500a"],
-            ["night","yes","The eyes of the large statue of an angel watch over the gravestones. Its plinth is partially concealed by moss and ivy","1500b"]
+            ["behind","true","Behind the statue plinth carved in small formal-looking letters is the inscription 'alis grave nil'."],
+            ["rain","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones. Rain drips from its nose and the lower edges of its wings."],
+            ["morning","yes","The large statue of an angel, its plinth partially concealed by moss and ivy, watches over the gravestones.","1500a"],
+            ["night","yes","The eyes of the large statue of an angel watch over the gravestones. Its plinth is partially concealed by moss and ivy.","1500b"]
         ],
         "takeFail": "You try to take the angel statue, but it's far too big and heavy",
         "clo_head": 0,
@@ -53562,7 +53562,7 @@
         "long_description": "The wall plaque depicts the Green Man, carved in hazel wood. His face is covered by leaf and branch-like structures.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","The plaque is fastened to the wall, so you can't look behind it"]
+            ["behind","true","The plaque is fastened to the wall, so you can't look behind it."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -53652,7 +53652,7 @@
         "long_description": "On the damp floor of the crypt is a large mosaic. It is partially damaged, but you can make out figures of wolf-headed warriors carrying swords encircling the central figure of a giant bear.",
         "hidden": 0,
         "conditional": [
-            ["under","true","You try to lift up the floor mosaic to look underneath it, but then realize that this is silly"]
+            ["under","true","You try to lift up the floor mosaic to look underneath it, but then realize that this is silly."]
         ],
         "takeFail": "You'd need to dig up the floor to do that",
         "clo_head": 0,
@@ -53741,7 +53741,7 @@
         "long_description": "A humble wooden bench has been placed here to allow the faithful to pray.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","In the narrow gap behind the prayer bench you see a small iron lever"],
+            ["behind","true","In the narrow gap behind the prayer bench you see a small iron lever."],
             ["under","true","You don't see anything under the bench"]
         ],
         "takeFail": "It's much too big and heavy.",
@@ -53833,8 +53833,8 @@
         "hidden": 0,
         "takeFail": "You try to take the incense stand, but its feet are embedded into the floor",
         "conditional": [
-            ["behind","true","You don't see anything behind the incense stand"],
-            ["under","true","You don't see anything under the incense stand"],
+            ["behind","true","You don't see anything behind the incense stand."],
+            ["under","true","You don't see anything under the incense stand."],
             ["morning","yes","Clouds of aromatic smoke rise lazily from an ornate iron incense stand. It has three supporting legs and a tray on which the burners are placed.","1504b"]
         ],
         "clo_head": 0,
@@ -53923,7 +53923,7 @@
         "long_description": "A small iron lever is concealed out of view behind the prayer bench. It is in the up position.",
         "hidden": 1,
         "conditional": [
-            ["behind","true","There isn't anything behind the small iron lever"]
+            ["behind","true","There isn't anything behind the small iron lever."]
         ],
         "takeFail": "The lever is somehow attached to the floor",
         "moveTimes": [],
@@ -54277,8 +54277,8 @@
         "long_description": "A modest table made from roughly sawn timber, with a chess board on it.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the table"],
-            ["under","true","You don't see anything under the table"]
+            ["behind","true","You don't see anything behind the table."],
+            ["under","true","You don't see anything under the table."]
         ],
         "takeFail": "The modest table is too heavy to be moved by you alone.",
         "moveTimes": [],
@@ -54369,7 +54369,7 @@
         "long_description": "A large wooden chest.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There isn't anything under the wooden chest"]
+            ["under","true","There isn't anything under the wooden chest."]
         ],
         "takeFail": "The chest is far too heavy to move.",
         "moveTimes": [],
@@ -54897,7 +54897,7 @@
         "long_description": "A light spear",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a javelin"]
+            ["hold","You are holding a javelin."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -55591,7 +55591,7 @@
         "long_description": "A small bronze key with the number 1 inscribed upon it.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small bronze key"]
+            ["hold","You are holding a small bronze key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -55768,7 +55768,7 @@
         "long_description": "A small bronze key with the number 2 inscribed upon it.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small bronze key"]
+            ["hold","You are holding a small bronze key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -55856,7 +55856,7 @@
         "long_description": "A small bronze key with the number 3 inscribed upon it.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small bronze key"]
+            ["hold","You are holding a small bronze key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -55944,7 +55944,7 @@
         "long_description": "A small bronze key with the number 4 inscribed upon it.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a small bronze key"]
+            ["hold","You are holding a small bronze key."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -56560,7 +56560,7 @@
         "long_description": "The inn bed is very basic and slightly moth-eaten, but good enough to sleep on.",
         "hidden": 0,
         "conditional": [
-            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here."]
         ],
         "takeFail": "To deter looters, or drunken revellers, it's bolted to the floor",
         "clo_head": 0,
@@ -56649,8 +56649,8 @@
         "long_description": "A low, four legged wooden stool.",
         "hidden": 0,
         "conditional": [
-            ["behind","true","You don't see anything behind the stool"],
-            ["under","true","You don't see anything under the stool"]
+            ["behind","true","You don't see anything behind the stool."],
+            ["under","true","You don't see anything under the stool."]
         ],
         "takeFail": "",
         "moveTimes": [],
@@ -56740,7 +56740,7 @@
         "long_description": "A painting hanging on the wall depicts someone in a rowing boat at sea, encircled by merfolk.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","The painting is signed on the back, but the signature of the artist is illegible"]
+            ["behind","yes","The painting is signed on the back, but the signature of the artist is illegible."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -56830,7 +56830,7 @@
         "long_description": "A painting hanging on the wall depicts a ranger swinging a lure as a falcon swoops down upon it.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","The painting just has old brown paper on the reverse side"]
+            ["behind","yes","The painting just has old brown paper on the reverse side."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -56920,7 +56920,7 @@
         "long_description": "A painting hanging on the wall depicts a king having his crown pushed off by a peasant woman.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","The painting just has old brown paper on the reverse side"]
+            ["behind","yes","The painting just has old brown paper on the reverse side."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -57010,7 +57010,7 @@
         "long_description": "A painting hanging on the wall depicts a goblin rider on horseback wearing a feathered hat and carrying a dagger.",
         "hidden": 0,
         "conditional": [
-            ["behind","yes","The painting just has old brown paper on the reverse side"]
+            ["behind","yes","The painting just has old brown paper on the reverse side."]
         ],
         "takeFail": "It's securely fastened to the wall.",
         "moveTimes": [],
@@ -57100,7 +57100,7 @@
         "long_description": "It's your basic no-frills treasure chest. Somewhere for travellers to store their belongings. It is closed.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There isn't anything under the treasure chest, except for some dust"]
+            ["under","true","There isn't anything under the treasure chest, except for some dust."]
         ],
         "takeFail": "The treasure chest is far too heavy to move.",
         "moveTimes": [],
@@ -57190,7 +57190,7 @@
         "long_description": "It's the kind of wooden treasure chest which norse bandits use to carry away loot. Carved with figures of various gods around its sides. It is closed.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There isn't anything under the treasure chest, except for some dust"]
+            ["under","true","There isn't anything under the treasure chest, except for some dust."]
         ],
         "takeFail": "The treasure chest is far too heavy to move on your own.",
         "moveTimes": [],
@@ -57280,7 +57280,7 @@
         "long_description": "A big chest for lodgers to store their belongings in. It is closed.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There isn't anything under the clothes chest, except for some dust"]
+            ["under","true","There isn't anything under the clothes chest, except for some dust."]
         ],
         "takeFail": "The clothes chest is far too heavy to move on your own.",
         "moveTimes": [],
@@ -57370,7 +57370,7 @@
         "long_description": "An ornate clothes chest for lodgers to store their belongings in, with a dragon emblem carved on its lid. It is closed.",
         "hidden": 0,
         "conditional": [
-            ["under","true","There isn't anything under the clothes chest, except for some dust"]
+            ["under","true","There isn't anything under the clothes chest, except for some dust."]
         ],
         "takeFail": "The clothes chest is far too heavy to move on your own.",
         "moveTimes": [],
@@ -57547,7 +57547,7 @@
         "long_description": "A sharp chopping blade.|A strong chopping weapon.",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a sharp falchion|You are holding a falchion. Useful for chopping"]
+            ["hold","You are holding a sharp falchion|You are holding a falchion. Useful for chopping."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
@@ -57635,7 +57635,7 @@
         "long_description": "The inn bed is very basic and slightly moth-eaten, but good enough to sleep on.",
         "hidden": 0,
         "conditional": [
-            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here."]
         ],
         "takeFail": "To deter looters, or drunken revellers, it's bolted to the floor",
         "clo_head": 0,
@@ -57724,7 +57724,7 @@
         "long_description": "The inn bed is very basic and slightly moth-eaten, but good enough to sleep on.",
         "hidden": 0,
         "conditional": [
-            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here."]
         ],
         "takeFail": "To deter looters, or drunken revellers, it's bolted to the floor",
         "clo_head": 0,
@@ -57813,7 +57813,7 @@
         "long_description": "The inn bed is very modest and slightly grubby, but good enough to sleep on.",
         "hidden": 0,
         "conditional": [
-            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here"]
+            ["under","true","Under the bed there is a lot of dust, which makes you cough. Other than that, there's nothing concealed here."]
         ],
         "takeFail": "To deter looters, or drunken revellers, it's bolted to the floor",
         "clo_head": 0,
@@ -58077,7 +58077,10 @@
         "short_description": "On the flat top of the lightning stone is a much smaller elongated chalk stone, etched with many elaborate spiral patterns.",
         "long_description": "On the flat top of the lightning stone is a much smaller elongated chalk stone, etched with many elaborate spiral patterns.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+            ["under", "true", "You try to lift the altar stone to look underneath, but it's just too heavy."],
+            ["behind", "true", "You look behind the altar stone but see nothing of interest.|You look behind the alter stone but see nothing special."]
+        ],
         "takeFail": "It's much too big and heavy to lift",
         "moveTimes": [],
         "clo_head": 0,
@@ -58166,7 +58169,7 @@
         "long_description": "A spear with a small triangular flint point bound to its shaft with sinew",
         "hidden": 0,
         "conditional": [
-            ["hold","You are holding a stone spear"]
+            ["hold","You are holding a stone spear. It is made from a small triangular flint point bound to its shaft with sinew."]
         ],
         "clo_head": 0,
         "clo_neck": 0,
