@@ -11848,8 +11848,8 @@
     },
     "345": {
         "name": "monolith",
-        "short_description": "A huge stone of ancient origin. Narrow steps are cut into the stone.",
-        "long_description": "A huge stone of ancient origin. Narrow steps are cut into the stone.",
+        "short_description": "A huge stone of ancient origin. Footholds cut into the stone ascend upwards.",
+        "long_description": "A huge stone of ancient origin. Footholds cut into the stone ascend upwards.",
         "hidden": 0,
         "conditional": [],
         "takeFail": "Wuh?",
