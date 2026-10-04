@@ -2941,11 +2941,11 @@
     },
     "$rid=345$": {
         "name": "The Monolith",
-        "description": "You stand atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A narrow set of steps descend the monolith.",
+        "description": "You stand atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A set of small footholds lead down one side of the monolith.",
         "roomTeleport": "",
         "conditional": [
-            ["rain","yes","You stand in the rain atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A narrow set of steps descend the monolith."],
-            ["season","winter","You stand atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A narrow set of steps descend the monolith.","345_winter"]
+            ["rain","yes","You stand in the rain atop the monolith, looking out across the forests. Far to your south you can see the trees giving way to barren moorland. A set of small footholds lead down one side of the monolith."],
+            ["season","autumn","You stand atop the monolith, looking out across the forests. Far to your south you can see the autumn trees thinning out towards barren moorland. A set of small footholds lead down one side of the monolith."]
         ],
         "trap": {},
         "eventOnEnter": "",
