@@ -3765,7 +3765,8 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                             break
 
             if len(message) > 0:
-                mud.send_message(id, "****CLEAR****It's " + item_name + ".")
+                item_name2 = item_name.title()
+                mud.send_message(id, "****CLEAR****" + item_name2 + ".<r>\n")
                 mud.send_message_wrap(id, '', message + "<r>\n\n")
                 message_sent = True
                 if item_counter > 1:
