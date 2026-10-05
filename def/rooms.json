@@ -8,7 +8,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
@@ -83,7 +83,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayers": 1,
         "weather": 0,
         "onWater": 0,
         "roomType": "",
@@ -943,7 +943,7 @@
         "eventOnEnter": "",
         "eventOnLeave": "",
         "maxPlayerSize": -1,
-        "maxPlayers": -1,
+        "maxPlayers": 4,
         "weather": 1,
         "onWater": 0,
         "roomType": "",
@@ -954,6 +954,12 @@
         "coords": [],
         "exits": {
             "down": "$rid=104$"
+        },
+        "fallTo": {
+            "room": "$rid=104$",
+            "you": "You slide off the top of the woodpile back down to the ground.",
+            "other": "They slide off the top of the woodpile back down to the ground.",
+            "height": 5
         }
     },
     "$rid=100$": {
@@ -2245,7 +2251,13 @@
         "tideOutDescription" : "",
         "region": "Morran's Quarters",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=279$",
+            "you": "You fall down the spiral stairs.",
+            "other": "They fall down the spiral stairs.",
+            "height": 3
+        }
     },
     "$rid=277$": {
         "exits": {
@@ -4396,7 +4408,13 @@
         "tideOutDescription" : "",
         "region": "",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=537$",
+            "you": "You tumble off the rock bridge into the watery darkness below.",
+            "other": "They tumble off the rock bridge into the watery darkness below.",
+            "height": 3
+        }
     },
     "$rid=534$": {
         "name": "The Water Cave",
@@ -5795,6 +5813,12 @@
         "exits": {
             "west": "$rid=668$",
             "down": "$rid=1190$"
+        },
+        "fallTo": {
+            "room": "$rid=1190$",
+            "you": "You tumble off the narrow ledge down onto jagged rocks.",
+            "other": "They tumble off the narrow ledge down onto jagged rocks.",
+            "height": 2
         }
     },
     "$rid=668$": {
@@ -11827,7 +11851,13 @@
         "tideOutDescription" : "You are clambering across steep jagged rocks. The sharp slanted edges make climbing difficult. To the north the rocks become slippery and treacherous, while to the south they drop a sheer twenty feet down into a wide water filled channel which churns and froths at a terrific rate, east from a narrow but very deep gorge. The sheer cliff walls make it impossible to reach the gorge entry from upon the rocks.",
         "region": "",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1362$",
+            "you": "You plunge over the sheer drop towards the channel below.",
+            "other": "They plunge over the sheer drop towards the channel below.",
+            "height": 6
+        }
     },
     "$rid=1191$": {
         "exits": {
@@ -11984,6 +12014,12 @@
         "exits": {
             "east": "$rid=1208$",
             "up": "$rid=1265$"
+        },
+        "fallTo": {
+            "room": "$rid=1209$",
+            "you": "You plunge into the intense heat of the lava stream.",
+            "other": "They plunge into the intense heat of the lava stream.",
+            "height": 90000
         }
     },
     "$rid=1212$": {
@@ -12121,7 +12157,13 @@
         "tideOutDescription" : "",
         "region": "",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1228$",
+            "you": "You fall down the staircase.",
+            "other": "They fall down the staircase.",
+            "height": 3
+        }
     },
     "$rid=1228$": {
         "exits": {
@@ -13173,6 +13215,12 @@
             "north": "$rid=1334$",
             "south": "$rid=1323$",
             "down": "$rid=1330$"
+        },
+        "fallTo": {
+            "room": "$rid=1323$",
+            "you": "You roll down the gentle slope of the burial mound.",
+            "other": "They roll down the gentle slope of the burial mound.",
+            "height": 2
         }
     },
     "$rid=1334$": {
@@ -14282,7 +14330,13 @@
         "tideOutDescription" : "",
         "region": "Shipwreck",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1402$",
+            "you": "You slide down the deck and fall over the side.",
+            "other": "They slide down the deck and fall over the side.",
+            "height": 3
+        }
     },
     "$rid=1405$": {
         "exits": {
@@ -14378,7 +14432,13 @@
         "tideOutDescription" : "",
         "region": "Wolf's Castle",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1370$",
+            "you": "You roll out of the bunk bed.",
+            "other": "They roll out of the bunk bed.",
+            "height": 1
+        }
     },
     "$rid=1409$": {
         "exits": {
@@ -14424,7 +14484,13 @@
         "tideOutDescription" : "",
         "region": "",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=53$",
+            "you": "You fall out of the fountain bowl.",
+            "other": "They fall out of the fountain bowl.",
+            "height": 1
+        }
     },
     "$rid=1411$": {
         "exits": {
@@ -14447,7 +14513,13 @@
         "tideOutDescription" : "",
         "region": "ruins",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1176$",
+            "you": "You slide off the smooth rock.",
+            "other": "They slide off the smooth rock.",
+            "height": 1
+        }
     },
     "$rid=1412$": {
         "exits": {
@@ -14879,7 +14951,13 @@
         "tideOutDescription" : "",
         "region": "Tranoch",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1431$",
+            "you": "You roll out of the bunk bed.",
+            "other": "They roll out of the bunk bed.",
+            "height": 1
+        }
     },
     "$rid=1433$": {
         "exits": {
@@ -14902,7 +14980,13 @@
         "tideOutDescription" : "",
         "region": "Tranoch",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1431$",
+            "you": "You roll out of the bunk bed.",
+            "other": "They roll out of the bunk bed.",
+            "height": 1
+        }
     },
     "$rid=1434$": {
         "exits": {
@@ -14925,7 +15009,13 @@
         "tideOutDescription" : "",
         "region": "Tranoch",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1431$",
+            "you": "You roll out of the hammock.",
+            "other": "They roll out of the hammock.",
+            "height": 1
+        }
     },
     "$rid=1435$": {
         "exits": {
@@ -14948,7 +15038,13 @@
         "tideOutDescription" : "",
         "region": "Tranoch",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=1431$",
+            "you": "You roll out of the hammock.",
+            "other": "They roll out of the hammock.",
+            "height": 1
+        }
     },
     "$rid=1436$": {
         "exits": {
