@@ -1731,6 +1731,12 @@
         "coords": [],
         "exits": {
             "down": "$rid=168$"
+        },
+        "fallTo": {
+            "room": "$rid=168$",
+            "you": "You tumble down the side of the western tower. Birds flock and chatter in excited anticipation of fresh carrion.",
+            "other": "They tumble down the side of the western tower. Birds flock and chatter in excited anticipation of fresh carrion.",
+            "height": 30
         }
     },
     "$rid=168$": {
@@ -2164,7 +2170,13 @@
         "tideOutDescription" : "You are standing at the top of the small tower. The parapet is a little low, but you can see in all directions over it. To the north is the town of Tranoch. The sea appears calm to the west. Your view south is limited by the woodland, but moorland can be glimpsed beyond it. To the east, the mountains rear.",
         "region": "Morran's Quarters",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=290$",
+            "you": "You fall down the side of the tower.",
+            "other": "You fall down the side of the tower.",
+            "height": 15
+        }
     },
     "$rid=270$": {
         "exits": {
@@ -2217,7 +2229,7 @@
             "up": "$rid=267$",
             "down": "$rid=279$"
         },
-        "name": "Upper Landing ",
+        "name": "Upper Landing",
         "description": "You are halfway up a flight of spiral stairs. It is dry and dusty, and there is a sense of long abandonment in the air. There is a musty door to the east.",
         "roomTeleport": "",
         "conditional": [],
@@ -9223,6 +9235,12 @@
         "coords": [],
         "exits": {
             "down": "$rid=1383$"
+        },
+        "fallTo": {
+            "room": "$rid=1383$",
+            "you": "You fall from the watchtower.",
+            "other": "They fall from the watchtower.",
+            "height": 30
         }
     },
     "$rid=1001$": {
