@@ -245,13 +245,21 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
 
     player1_strength = plyr1['str']
     player2_strength = plyr2['str']
-    # use race strength, so that for example a human is unlikely to be
-    # able to push over an ogre or giant
-    if plyr2_is_npc and plyr2.get('race'):
-        race = plyr2['race'].lower()
-        if races_db.get(race):
-            if races_db[race].get('str'):
-                player2_strength = races_db[race]['str']
+    if plyr1.get('race') and plyr2.get('race'):
+        # Are the players of different races?
+        # If the races are the same then just use the current strength values
+        if plyr1['race'] != plyr2['race']:
+            # For combat between different races use race strength, so that
+            # for example a human is unlikely to be able to push over an
+            # ogre or giant
+            race1 = plyr1['race'].lower()
+            if races_db.get(race1):
+                if races_db[race1].get('str'):
+                    player1_strength = races_db[race1]['str']
+            race2 = plyr2['race'].lower()
+            if races_db.get(race2):
+                if races_db[race2].get('str'):
+                    player2_strength = races_db[race2]['str']
 
     plyr1['shove'] = 0
 
