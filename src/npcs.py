@@ -317,7 +317,7 @@ def _entity_is_active(id: int, players: {}, rooms: {},
     return True
 
 
-def _move_npcs(npcs: {}, players: {}, mud, now, nid: int) -> None:
+def _move_npcs(npcs: {}, players: {}, mud, now, nid: int, fights: {}) -> None:
     """If movement is defined for an NPC this moves it around
     """
     this_npc = npcs[nid]
@@ -402,6 +402,35 @@ def _move_npcs(npcs: {}, players: {}, mud, now, nid: int) -> None:
                         pid, '<f220>' + this_npc['name'] + "<r> " +
                         random_desc(this_npc['inDescription']) +
                         "\n\n")
+        # if the npc was in combat and changes room then change its status
+        # to no longer fighting
+        if this_npc['isInCombat'] == 1 and this_npc['room'] != rmid:
+            this_npc['isInCombat'] = 0
+            fights_copy = deepcopy(fights)
+            for fight, fght in fights_copy.items():
+                remove_fight = False
+                if fght['s1id'] == nid and fght['s1type'] == 'npc':
+                    remove_fight = True
+                    if fght['s2type'] == 'pc':
+                        pid = fght['s2id']
+                        players[pid]['isInCombat'] = 0
+                if fght['s1id'] == nid and fght['s1type'] == 'npc':
+                    remove_fight = True
+                    if fght['s2type'] == 'npc':
+                        nid2 = fght['s2id']
+                        npcs[nid2]['isInCombat'] = 0
+                if fght['s2id'] == nid and fght['s2type'] == 'npc':
+                    remove_fight = True
+                    if fght['s1type'] == 'pc':
+                        pid = fght['s1id']
+                        players[pid]['isInCombat'] = 0
+                if fght['s2id'] == nid and fght['s2type'] == 'npc':
+                    remove_fight = True
+                    if fght['s1type'] == 'npc':
+                        nid2 = fght['s1id']
+                        npcs[nid2]['isInCombat'] = 0
+                if remove_fight:
+                    del fights[fight]
         this_npc['randomizer'] = randint(0, this_npc['randomFactor'])
         this_npc['lastMoved'] = now
 
@@ -609,7 +638,7 @@ def run_npcs(mud, npcs: {}, players: {}, fights: {}, corpses: {},
         # NPC moves to the next location
         if is_in_fight is False and \
            len(this_npc['path']) > 0:
-            _move_npcs(npcs, players, mud, now, nid)
+            _move_npcs(npcs, players, mud, now, nid, fights)
 
         # Check if NPC is still alive, if not, remove from room and
         # create a corpse, set isInCombat to 0, set whenDied to now
