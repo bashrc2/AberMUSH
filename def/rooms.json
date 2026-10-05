@@ -2962,6 +2962,11 @@
         "coords": [],
         "exits": {
             "down": "$rid=346$"
+        },
+        "fallTo": {
+            "room": "$rid=346$",
+            "you": "You fall off the edge of the monolith and tumble down to the forest clearing below.",
+            "other": "They fall off the edge of the monolith and tumble down to the forest clearing below."
         }
     },
     "$rid=346$": {
@@ -15039,6 +15044,11 @@
         "tideOutDescription" : "",
         "region": "moors",
         "terrainDifficulty": 0,
-        "coords": []
+        "coords": [],
+        "fallTo": {
+            "room": "$rid=855$",
+            "you": "You tumble over the edge of the lightning stone into the heather below.",
+            "other": "They tumble over the edge of the lightning stone into the heather below."
+        }
     }
 }

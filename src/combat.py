@@ -214,7 +214,8 @@ def _get_encumberance_from_weight(id: int, players: {}, items_db: {}) -> int:
 
 
 def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
-                   races_db: {}) -> bool:
+                   races_db: {}, rooms: {},
+                   fights: {}, fid: int) -> bool:
     """One player attempts to shove another
     """
     plyr1 = players1[id]
@@ -257,6 +258,20 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
 
     if randint(1, player1_strength) > randint(1, player2_strength):
         plyr2['prone'] = 1
+        # is it possible to fall out of this room?
+        room_id = plyr2['room']
+        room_obj = rooms[room_id]
+        if room_obj.get('fallTo'):
+            descr = random_desc(room_obj['fallTo']['other'])
+            mud.send_message(id, descr + '\n')
+            # combat ends
+            del fights[fid]
+            plyr1['isInCombat'] = 0
+            plyr2['isInCombat'] = 0
+            # move player to other room
+            plyr2['room'] = room_obj['fallTo']['room']
+            return True
+        # fall to the ground
         desc = (
             'They stumble and fall',
             'They stumble and fall to the ground',
@@ -273,8 +288,8 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
             'They lose balance and fall to the ground',
             'They lose balance and fall backwards'
         )
-        descr = random_desc(desc)
-        mud.send_message(id, descr + '.\n')
+        descr = random_desc(desc) + '.'
+        mud.send_message(id, descr + '\n')
         return True
     desc = (
         'They remain standing',
@@ -1140,7 +1155,8 @@ def _run_fights_between_players(mud, players: {}, npcs: {},
         # attempt to shove
         if plyr1.get('shove'):
             if plyr1['shove'] == 1:
-                if _player_shoves(mud, s1id, players, s2id, players, races_db):
+                if _player_shoves(mud, s1id, players, s2id, players,
+                                  races_db, rooms, fights, fid):
                     plyr2['lastCombatAction'] = int(time.time())
                 plyr1['lastCombatAction'] = int(time.time())
                 return
@@ -1392,7 +1408,8 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {},
         # attempt to shove
         if plyr.get('shove'):
             if plyr['shove'] == 1:
-                if _player_shoves(mud, s1id, players, s2id, npcs, races_db):
+                if _player_shoves(mud, s1id, players, s2id, npcs,
+                                  races_db, rooms, fights, fid):
                     npc1['lastCombatAction'] = int(time.time())
                 plyr['lastCombatAction'] = int(time.time())
                 return
