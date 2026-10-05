@@ -510,11 +510,14 @@ def _combat_damage_from_weapon(id: str, players: {},
         else:
             # see https://andregarzia.com/
             # 2021/12/in-defense-of-the-damage-chart.html
+            # damage is not the value of a die roll.
+            # The dice roll informs you of a position in a damage chart
             for _ in range(no_of_rolls):
                 chart_index = randint(0, die)
                 if chart_index < len(items_db[item_id]['damageChart']):
                     score += items_db[item_id]['damageChart'][chart_index]
                 else:
+                    # use the last entry in the damage chart
                     score += items_db[item_id]['damageChart'][-1]
         modifier = 0
         # did we throw it?
