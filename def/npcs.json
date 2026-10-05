@@ -4607,11 +4607,11 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Looks in your direction"]
+            [["a","e","i"],"# Looks in your direction|# Sniffs the air|# Glances curiously at you|# Turns to look at you"]
         ],
         "path" : ["$rid=889$","$rid=890$","$rid=886$","$rid=1147$","$rid=1148$"],
         "bodyType": "",
-        "moveDelay" : "300",
+        "moveDelay" : "250",
         "moveType" : "patrol",
         "moveTimes": [["season","spring","summer","autumn"],["inactive",1386]],
         "vocabulary" : "",
