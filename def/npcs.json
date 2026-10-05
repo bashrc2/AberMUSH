@@ -4599,8 +4599,8 @@
     },
     "877": {
         "inDescription": "pads up towards you, sniffing the air",
-        "outDescription": "ambles off",
-        "lookDescription": "watches you cautiously from a distance",
+        "outDescription": "ambles off|wanders off|turns and disappears into the undergrowth",
+        "lookDescription": "watches you cautiously from a distance|glances at you|sniffs the air",
         "name": "the bear",
         "inv" : [],
         "speakLanguage": "common",
