@@ -213,6 +213,43 @@ def _get_encumberance_from_weight(id: int, players: {}, items_db: {}) -> int:
     return 2
 
 
+def health_of_player(pid: int, players: {}) -> str:
+    """Returns a description of health status
+    """
+    plyr = players[pid]
+    hp_val = plyr['hp']
+    hp_max = 11
+    if plyr.get('hpMax'):
+        hp_max = plyr['hpMax']
+    health_percent = int(hp_val * 100 / hp_max)
+    health_msg = 'in full health'
+    if health_percent < 100:
+        if health_percent >= 99:
+            health_msg = 'lightly wounded'
+        elif health_percent >= 84:
+            health_msg = 'moderately wounded'
+        elif health_percent >= 70:
+            health_msg = 'considerably wounded'
+        elif health_percent >= 56:
+            health_msg = 'quite wounded'
+        elif health_percent >= 42:
+            health_msg = 'badly wounded'
+        elif health_percent >= 28:
+            health_msg = 'extremely wounded'
+        elif health_percent >= 14:
+            health_msg = 'critically wounded'
+        elif health_percent > 0:
+            health_msg = 'close to death'
+        else:
+            health_msg = 'dead'
+        # add color for critical health
+        if health_percent < 50:
+            health_msg = '<f15><b88>' + health_msg + '<r>'
+        elif health_percent < 70:
+            health_msg = '<f15><b166>' + health_msg + '<r>'
+    return health_msg
+
+
 def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
                    races_db: {}, rooms: {},
                    fights: {}, fid: int) -> bool:
@@ -294,6 +331,25 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
             plyr2['isInCombat'] = 0
             # move player to other room
             plyr2['room'] = room_obj['fallTo']['room']
+            # damage from the fall
+            height_metres = int(room_obj['fallTo']['height'])
+            height_rolls = int(height_metres / 3)
+            damage_value = 0
+            for _ in range(height_rolls):
+                damage_value += randint(1, 7)
+            # Report damage to the other player
+            if damage_value > 0:
+                damage_value_desc = \
+                    str(height_rolls) + 'd6 = ' + str(damage_value)
+                if int(plyr2['hpMax']) < 999:
+                    if not plyr2_is_npc:
+                        mud.send_message(
+                            s2id, '<f15><b2> * ' + damage_value_desc +
+                            ' *<r> points of damage.\nYou are ' +
+                            health_of_player(s2id, players2) + '\n')
+                    plyr2['hp'] = int(plyr2['hp']) - damage_value
+                    if plyr2['hp'] < 0:
+                        plyr2['hp'] = 0
             return True
         # fall to the ground
         desc = (
@@ -355,43 +411,6 @@ def _combat_update_max_hit_points(id: int, players: {}, races_db: {}) -> None:
     if level > 1:
         hp_max = hp_max + (int(hp_max/2) * (level - 1))
     plyr['hpMax'] = hp_max
-
-
-def health_of_player(pid: int, players: {}) -> str:
-    """Returns a description of health status
-    """
-    plyr = players[pid]
-    hp_val = plyr['hp']
-    hp_max = 11
-    if plyr.get('hpMax'):
-        hp_max = plyr['hpMax']
-    health_percent = int(hp_val * 100 / hp_max)
-    health_msg = 'in full health'
-    if health_percent < 100:
-        if health_percent >= 99:
-            health_msg = 'lightly wounded'
-        elif health_percent >= 84:
-            health_msg = 'moderately wounded'
-        elif health_percent >= 70:
-            health_msg = 'considerably wounded'
-        elif health_percent >= 56:
-            health_msg = 'quite wounded'
-        elif health_percent >= 42:
-            health_msg = 'badly wounded'
-        elif health_percent >= 28:
-            health_msg = 'extremely wounded'
-        elif health_percent >= 14:
-            health_msg = 'critically wounded'
-        elif health_percent > 0:
-            health_msg = 'close to death'
-        else:
-            health_msg = 'dead'
-        # add color for critical health
-        if health_percent < 50:
-            health_msg = '<f15><b88>' + health_msg + '<r>'
-        elif health_percent < 70:
-            health_msg = '<f15><b166>' + health_msg + '<r>'
-    return health_msg
 
 
 def _combat_ability_modifier(score: int) -> int:

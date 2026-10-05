@@ -2966,7 +2966,8 @@
         "fallTo": {
             "room": "$rid=346$",
             "you": "You fall off the edge of the monolith and tumble down to the forest clearing below.",
-            "other": "They fall off the edge of the monolith and tumble down to the forest clearing below."
+            "other": "They fall off the edge of the monolith and tumble down to the forest clearing below.",
+            "height": 9
         }
     },
     "$rid=346$": {
@@ -15048,7 +15049,8 @@
         "fallTo": {
             "room": "$rid=855$",
             "you": "You tumble over the edge of the lightning stone into the heather below.",
-            "other": "They tumble over the edge of the lightning stone into the heather below."
+            "other": "They tumble over the edge of the lightning stone into the heather below.",
+            "height": 8
         }
     }
 }
