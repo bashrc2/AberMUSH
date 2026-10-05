@@ -220,6 +220,13 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
     """
     plyr1 = players1[id]
     plyr2 = players2[s2id]
+
+    # is the other player an NPC?
+    plyr2_is_npc = False
+    if players2 != players1:
+        plyr2_is_npc = True
+
+    # is the other player too big to shove?
     player1_size = plyr1['siz']
     player2_size = plyr2['siz']
     if plyr2.get('race'):
@@ -238,7 +245,9 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
 
     player1_strength = plyr1['str']
     player2_strength = plyr2['str']
-    if plyr2.get('race'):
+    # use race strength, so that for example a human is unlikely to be
+    # able to push over an ogre or giant
+    if plyr2_is_npc and plyr2.get('race'):
         race = plyr2['race'].lower()
         if races_db.get(race):
             if races_db[race].get('str'):
@@ -256,6 +265,10 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
     descr = random_desc('You shove ' + plyr2['name'])
     mud.send_message(id, descr + '.\n')
 
+    if not plyr2_is_npc:
+        descr = random_desc('You are shoved by ' + plyr1['name'])
+        mud.send_message(s2id, descr + '.\n')
+
     if randint(1, player1_strength) > randint(1, player2_strength):
         plyr2['prone'] = 1
         # is it possible to fall out of this room?
@@ -264,6 +277,9 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
         if room_obj.get('fallTo'):
             descr = random_desc(room_obj['fallTo']['other'])
             mud.send_message(id, descr + '\n')
+            if not plyr2_is_npc:
+                descr = random_desc(room_obj['fallTo']['you'])
+                mud.send_message(s2id, descr + '\n')
             # combat ends
             del fights[fid]
             plyr1['isInCombat'] = 0
@@ -290,6 +306,9 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
         )
         descr = random_desc(desc) + '.'
         mud.send_message(id, descr + '\n')
+        if not plyr2_is_npc:
+            descr = descr.replace('They ', 'You ')
+            mud.send_message(s2id, descr + '\n')
         return True
     desc = (
         'They remain standing',
@@ -302,6 +321,9 @@ def _player_shoves(mud, id: int, players1: {}, s2id: int, players2: {},
     )
     descr = random_desc(desc)
     mud.send_message(id, descr + '.\n')
+    if not plyr2_is_npc:
+        descr = descr.replace('They ', 'You ')
+        mud.send_message(s2id, descr + '\n')
     return False
 
 
