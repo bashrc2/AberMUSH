@@ -27152,7 +27152,10 @@
         "short_description": "The bushes are thick and almost imprenetrable.",
         "long_description": "The bushes are thick and almost imprenetrable.",
         "hidden": 0,
-        "conditional": [],
+        "conditional": [
+            ["under","true","You don't see anything under the bush."],
+            ["behind","true","You don't see anything behind the bush."]
+        ],
         "takeFail": "It's too big and untidy.",
         "moveTimes": [],
         "clo_head": 0,
