@@ -718,7 +718,7 @@ You can play dirty by trying to knock your opponent over with the command:
 shove
 ```
 
-If you are close to a cliffe edge you may be able to shove your opponent over.
+If you are close to a cliffe edge or on top of a castle wall you may be able to shove your opponent over.
 
 The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
 
