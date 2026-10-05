@@ -712,6 +712,14 @@ examine [player]
 
 To start a fight you can then use the `attack` or `throw` commands. If you throw a weapon the damage it does may be higher but it may also then be picked up by any other player or NPC and used against you.
 
+You can play dirty by trying to knock your opponent over with the command:
+
+``` text
+shove
+```
+
+If you are close to a cliffe edge you may be able to shove your opponent over.
+
 The `mod_str` parameter within an item which is a weapon defines how much damage it can inflict during combat. `mod_endu` defines how much protection a wearable item will provide against attacks.
 
 There is a limit to how much weight you can carry and carrying or wearing a lot of heavy items will reduce your agility.
