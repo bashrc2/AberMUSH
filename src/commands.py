@@ -3397,17 +3397,16 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             # If no arguments are given, then look around and describe
             # surroundings
 
-            if title_str:
-                mud.send_message_wrap(id, '<f230>',
-                                      '****CLEAR****<f230>' + title_str)
-            else:
-                mud.send_message_wrap(id, '<f230>', '****CLEAR****')
+            player_room_id = players[id]['room']
+            if not title_str:
+                title_str = rooms[player_room_id]['name']
+            mud.send_message_wrap(id, '<f230>',
+                                  '****CLEAR****<f230>' + title_str)
 
             # store the player's current room
-            rm_item = rooms[players[id]['room']]
+            rm_item = rooms[player_room_id]
 
             # send the player back the description of their current room
-            player_room_id = players[id]['room']
             _show_room_image(mud, id, player_room_id,
                              rooms, players, items,
                              items_db, clouds, map_area)
@@ -3450,7 +3449,6 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                                             "outline of a pressure " +
                                             "plate is visible on " +
                                             "the floor.")
-
             mud.send_message_wrap(id, '<f230>', room_description.strip())
             playershere = []
 
