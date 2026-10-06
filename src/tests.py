@@ -769,9 +769,42 @@ def _test_weapons() -> None:
             assert item.get('type')
 
 
+def _test_armour() -> None:
+    """ Check that armour has the expected properties
+    """
+    Config = configparser.ConfigParser()
+    Config.read('config.ini')
+    items_dict = {}
+    with open(str(Config.get('Items', 'Definition')), "r",
+              encoding='utf-8') as read_file:
+        items_dict = json.loads(read_file.read())
+
+    for item_id, item in items_dict.items():
+        name = item['name'].lower()
+        if 'shields' in name:
+            continue
+        if 'shield' in name or \
+           'chainmail' in name or \
+           'ringmail' in name or \
+           'greaves' in name or \
+           'breastplate' in name or \
+           'gorget' in name or \
+           ' armor' in name:
+            if item['armorClass'] == 0:
+                print(item_id + ' has no armorClass value')
+            assert item['armorClass'] > 0
+            if item['weight'] == 0:
+                print(item_id + ' has no weight value')
+            assert item['weight'] > 0
+            if not item.get('cost'):
+                print(item_id + ' has no cost value')
+            assert item.get('cost')
+
+
 def run_all_tests():
     print('Running tests...')
     _test_weapons()
+    _test_armour()
     _test_language_path2()
     _test_functions()
     _test_duplicate_exits()
