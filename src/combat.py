@@ -487,6 +487,7 @@ def _combat_damage_from_weapon(id: str, players: {},
     damage_roll_best = '1d3'
     max_damage = 1
     max_modifier = 0
+    updated = False
 
     for wpn in weapon_locations:
         item_id = int(players[id][wpn])
@@ -530,6 +531,12 @@ def _combat_damage_from_weapon(id: str, players: {},
             max_damage = score
             damage_roll_best = damage_roll
             max_modifier = modifier
+            updated = True
+
+    if not updated:
+        # without any weapons
+        max_damage = randint(1, 4)
+
     return max_damage, damage_roll_best, max_modifier
 
 
