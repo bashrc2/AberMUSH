@@ -3445,10 +3445,9 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                                             "plate is visible on " +
                                             "the floor.")
 
-            mud.send_message_wrap(id, '<f230>',
-                                  "****CLEAR****<f230>")
-            mud.send_message_wrap(id, title_str)
-            mud.send_message_wrap(id, room_description.strip())
+            mud.send_message_wrap(id, '<f230>', "****CLEAR****")
+            mud.send_message_wrap(id, '<f230>', title_str)
+            mud.send_message_wrap(id, '<f230>', room_description.strip())
             playershere = []
 
             itemshere = []
