@@ -4660,14 +4660,15 @@ def _players_move_together(id: int, rm, mud,
         if plyr['room'] == players[id]['room'] and pid != id:
             plyr['room'] = rm
 
-            desc = 'You row to <f106>{}'.format(rooms[rm]['name'])
-            mud.send_message(pid, desc + "\n\n")
+            title_str = \
+                'You row to <f106>{}'.format(rooms[rm]['name']) + "\n\n"
 
             _look('', mud, players_db, players, rooms, npcs_db, npcs,
                   items_db, items, env_db, env, event_db, event_schedule,
                   pid, fights, corpses, blocklist, map_area,
                   character_class_db, spells_db, sentiment_db, guilds_db,
-                  clouds, races_db, item_history, markets, cultures_db)
+                  clouds, races_db, item_history, markets, cultures_db,
+                  title_str)
 
             if rooms[rm]['eventOnEnter'] != "":
                 ev_id = int(rooms[rm]['eventOnEnter'])
@@ -5071,10 +5072,7 @@ def _climb_base(params, mud, players_db: {}, players: {}, rooms: {},
         # update the player's current room to the one the exit leads to
         players[id]['room'] = target_room
         # climbing message
-        desc = \
-            random_desc(items_db[item_id]['climbThrough'])
-        mud.send_message_wrap(id, '<f230>', desc + "\n\n")
-        time.sleep(3)
+        title_str = random_desc(items_db[item_id]['climbThrough']) + "\n\n"
         # trigger new room eventOnEnter for the player
         if rooms[players[id]['room']]['eventOnEnter'] != "":
             ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
@@ -5091,7 +5089,7 @@ def _climb_base(params, mud, players_db: {}, players: {}, rooms: {},
               id, fights, corpses, blocklist,
               map_area, character_class_db, spells_db,
               sentiment_db, guilds_db, clouds, races_db,
-              item_history, markets, cultures_db)
+              item_history, markets, cultures_db, title_str)
         return
     if fail_msg:
         fail_msg_str = random_desc(fail_msg)
@@ -5197,8 +5195,7 @@ def _heave(params, mud, players_db: {}, players: {}, rooms: {},
         # update the player's current room to the one the exit leads to
         players[id]['room'] = target_room
         # heave message
-        desc = random_desc(items_db[item_id]['heave'])
-        mud.send_message_wrap(id, '<f220>', desc + "\n\n")
+        title_str = random_desc(items_db[item_id]['heave']) + "\n\n"
         # trigger new room eventOnEnter for the player
         if rooms[players[id]['room']]['eventOnEnter'] != "":
             ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
@@ -5216,7 +5213,7 @@ def _heave(params, mud, players_db: {}, players: {}, rooms: {},
               fights, corpses, blocklist,
               map_area, character_class_db, spells_db,
               sentiment_db, guilds_db, clouds, races_db,
-              item_history, markets, cultures_db)
+              item_history, markets, cultures_db, title_str)
         return
     mud.send_message(id, "Nothing happens.\n\n")
 
@@ -5296,9 +5293,7 @@ def _jump(params, mud, players_db: {}, players: {}, rooms: {},
         # update the player's current room to the one the exit leads to
         players[id]['room'] = target_room
         # climbing message
-        desc = random_desc(items_db[item_id]['jumpTo'])
-        mud.send_message_wrap(id, '<f230>', desc + "\n\n")
-        time.sleep(3)
+        title_str = random_desc(items_db[item_id]['jumpTo']) + "\n\n"
         # trigger new room eventOnEnter for the player
         if rooms[players[id]['room']]['eventOnEnter'] != "":
             ev_enter = int(rooms[players[id]['room']]['eventOnEnter'])
@@ -5315,7 +5310,7 @@ def _jump(params, mud, players_db: {}, players: {}, rooms: {},
               id, fights, corpses, blocklist,
               map_area, character_class_db, spells_db,
               sentiment_db, guilds_db, clouds, races_db,
-              item_history, markets, cultures_db)
+              item_history, markets, cultures_db, title_str)
         return
     desc = (
         "You jump, expecting something to happen. But it doesn't.",
