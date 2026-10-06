@@ -105,7 +105,7 @@ def _pose_prone(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, random_desc(
@@ -134,7 +134,7 @@ def _stand(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, random_desc(
@@ -160,7 +160,7 @@ def _shove(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, random_desc(
@@ -205,7 +205,7 @@ def _trip(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, random_desc(
@@ -252,7 +252,7 @@ def _dodge(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     if players[id]['frozenStart'] != 0:
         mud.send_message(
             id, random_desc(
@@ -545,7 +545,7 @@ def _freeze(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             event_schedule, id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-            item_history: {}, markets: {}, cultures_db: {}):
+            item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch can freeze a player
     """
     if players[id]['permissionLevel'] != 0:
@@ -649,7 +649,7 @@ def _show_blocklist(params, mud, players_db: {}, players: {}, rooms: {},
                     id: int, fights: {}, corpses: {}, blocklist,
                     map_area: [], character_class_db: {}, spells_db: {},
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                    item_history: {}, markets: {}, cultures_db: {}):
+                    item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show the blocklist
     """
     if not _is_witch(id, players):
@@ -671,7 +671,7 @@ def _block(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch blocks a player
     """
     if not _is_witch(id, players):
@@ -711,7 +711,7 @@ def _unblock(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes a block on a player
     """
     if not _is_witch(id, players):
@@ -752,7 +752,7 @@ def _kick_out(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes a player
     """
     if not _is_witch(id, players):
@@ -782,7 +782,7 @@ def _kick(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes a player
     """
     kickout = False
@@ -824,7 +824,7 @@ def _shutdown(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch shuts down the server
     """
     if not _is_witch(id, players):
@@ -851,7 +851,7 @@ def _reset_universe(params, mud, players_db: {}, players: {}, rooms: {},
                     id: int, fights: {}, corpses: {}, blocklist,
                     map_area: [], character_class_db: {}, spells_db,
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                    item_history: {}, markets: {}, cultures_db: {}):
+                    item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     if not _is_witch(id, players):
         mud.send_message(id, "You don't have enough power to do that.\n\n")
         return
@@ -872,7 +872,7 @@ def _quit(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player disconnects
     """
     print('quit command from ' + str(id))
@@ -885,7 +885,7 @@ def _who(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db,
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch lists players on the system
     """
     counter = 1
@@ -925,7 +925,7 @@ def _tell(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """say something to a player or npc
     """
     told = False
@@ -1030,7 +1030,7 @@ def _whisper(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """whisper to another player or npc in the same room
     """
     target = params.partition(' ')[0]
@@ -1118,7 +1118,7 @@ def _help(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db,
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help
     """
     if params.lower().startswith('card'):
@@ -1355,7 +1355,7 @@ def _help_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help for spells
     """
     mud.send_message(id, '\n')
@@ -1397,7 +1397,7 @@ def _help_emote(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help for emotes
     """
     mud.send_message(id, '\n')
@@ -1428,7 +1428,7 @@ def _help_witch(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help for witch commands
     """
     mud.send_message(id, '\n')
@@ -1544,7 +1544,7 @@ def _help_morris(params, mud, players_db: {}, players: {}, rooms,
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help for playing morris board
     """
     mud.send_message(id, '\n')
@@ -1577,7 +1577,7 @@ def _help_chess(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help for playing chess
     """
     mud.send_message(id, '\n')
@@ -1606,7 +1606,7 @@ def _help_cards(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show help for playing cards
     """
     mud.send_message(id, '\n')
@@ -1745,7 +1745,7 @@ def _cast_spell_undirected(params, mud, players_db: {}, players: {}, rooms: {},
                            map_area: [], character_class_db: {}, spells_db: {},
                            sentiment_db: {}, spell_name: {}, spell_details: {},
                            clouds: {}, races_db: {}, guilds_db: {},
-                           item_history: {}, markets: {}, cultures_db: {}):
+                           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """cast an undirected spell
     """
     spell_action = spell_details['action']
@@ -1793,7 +1793,7 @@ def _cast_spell(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """cast a spell or cast a fishing rod
     """
     # cast fishing rod
@@ -1896,7 +1896,7 @@ def _player_affinity(params, mud, players_db: {}, players: {}, rooms: {},
                      id: int, fights: {}, corpses: {}, blocklist,
                      map_area: [], character_class_db: {}, spells_db: {},
                      sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                     item_history: {}, markets: {}, cultures_db: {}):
+                     item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """How much affinity with a player or npc
     """
     other_player = params.lower().strip()
@@ -1925,7 +1925,7 @@ def _clear_spells(params, mud, players_db: {}, players: {}, rooms: {},
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                  item_history: {}, markets: {}, cultures_db: {}):
+                  item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """clears any prepared spells
     """
     if len(players[id]['preparedSpells']) > 0:
@@ -1943,7 +1943,7 @@ def _spells_list(params, mud, players_db: {}, players: {}, rooms: {},
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """list the spares available
     """
     if len(players[id]['preparedSpells']) > 0:
@@ -2076,7 +2076,7 @@ def _prepare_spell(params, mud, players_db: {}, players: {}, rooms: {},
                    id: int, fights: {}, corpses: {}, blocklist,
                    map_area: [], character_class_db: {}, spells_db: {},
                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                   item_history: {}, markets: {}, cultures_db: {}):
+                   item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """prepares a spell
     """
     spell_name = params.lower().strip()
@@ -2176,7 +2176,7 @@ def _speak(params, mud, players_db: {}, players: {}, rooms: {},
            fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """speak in a particular language
     """
     lang = params.lower().strip()
@@ -2193,7 +2193,7 @@ def _taunt(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """taunt a player or npc
     """
     if not params:
@@ -2304,7 +2304,7 @@ def _say(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """say something to a player or npc
     """
     if players[id]['canSay'] == 1:
@@ -2405,7 +2405,7 @@ def _laugh(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player laughs
     """
     _emote(params, mud, players_db, players, rooms, id, 'laughs')
@@ -2417,7 +2417,7 @@ def _thinking(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player thinks
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2430,7 +2430,7 @@ def _grimace(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player grimaces
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2443,7 +2443,7 @@ def _applaud(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player applauds
     """
     _emote(params, mud, players_db, players, rooms, id, 'applauds')
@@ -2455,7 +2455,7 @@ def _nod(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player nods
     """
     _emote(params, mud, players_db, players, rooms, id, 'nods')
@@ -2467,7 +2467,7 @@ def _wave(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player waves
     """
     _emote(params, mud, players_db, players, rooms, id, 'waves')
@@ -2479,7 +2479,7 @@ def _astonished(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player is astonished
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2492,7 +2492,7 @@ def _confused(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player is confused
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2505,7 +2505,7 @@ def _bow(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player bows
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2518,7 +2518,7 @@ def _calm(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player is calm
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2531,7 +2531,7 @@ def _cheer(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player cheers
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2544,7 +2544,7 @@ def _curious(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player is curious
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2557,7 +2557,7 @@ def _curtsey(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player curtseys
     """
     _emote(params, mud, players_db, players, rooms, id, 'curtseys')
@@ -2569,7 +2569,7 @@ def _frown(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player frowns
     """
     _emote(params, mud, players_db, players, rooms, id, 'frowns')
@@ -2581,7 +2581,7 @@ def _eyebrow(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player raises eyebrows
     """
     _emote(params, mud, players_db, players, rooms,
@@ -2594,7 +2594,7 @@ def _giggle(params, mud, players_db: {}, players: {}, rooms: {},
             id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-            item_history: {}, markets: {}, cultures_db: {}):
+            item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player giggles
     """
     _emote(params, mud, players_db, players, rooms, id, 'giggles')
@@ -2606,7 +2606,7 @@ def _grin(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player grins
     """
     _emote(params, mud, players_db, players, rooms, id, 'grins')
@@ -2618,7 +2618,7 @@ def _yawn(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player yawns
     """
     _emote(params, mud, players_db, players, rooms, id, 'yawns')
@@ -2630,7 +2630,7 @@ def _smug(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player looks smug
     """
     _emote(params, mud, players_db, players, rooms, id, 'looks smug')
@@ -2642,7 +2642,7 @@ def _relieved(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player looks relieved
     """
     _emote(params, mud, players_db, players, rooms, id, 'looks relieved')
@@ -2654,7 +2654,7 @@ def _stick(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """in a game of cards, players says "stick"
     """
     _say('stick', mud, players_db, players, rooms,
@@ -3792,7 +3792,7 @@ def _escape_trap(params, mud, players_db: {}, players: {}, rooms: {},
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player escapes from a trap
     """
     if not player_is_trapped(id, players, rooms):
@@ -3818,7 +3818,7 @@ def _begin_attack(params, mud, players_db: {}, players: {}, rooms: {},
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {},
                   races_db: {}, item_history: {}, markets: {},
-                  cultures_db: {}):
+                  cultures_db: {}, title_str: str):
     """player attacks
     """
     thrown = False
@@ -3884,7 +3884,7 @@ def _begin_throw_attack(params, mud, players_db: {}, players: {}, rooms: {},
                         map_area: [], character_class_db: {}, spells_db: {},
                         sentiment_db: {}, guilds_db: {}, clouds: {},
                         races_db: {}, item_history: {}, markets: {},
-                        cultures_db: {}):
+                        cultures_db: {}, title_str: str):
     """Throw a weapon
     """
     if not params:
@@ -3948,7 +3948,7 @@ def _describe_thing(params, mud, players_db: {}, players: {}, rooms: {},
                     id: int, fights: {}, corpses: {}, blocklist,
                     map_area: [], character_class_db: {}, spells_db: {},
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                    item_history: {}, markets: {}, cultures_db: {}):
+                    item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch adds a room description
     """
     if not _is_witch(id, players):
@@ -4089,7 +4089,7 @@ def _check_inventory(params, mud, players_db: {}, players: {}, rooms: {},
                      id: int, fights: {}, corpses: {}, blocklist,
                      map_area: [], character_class_db: {}, spells_db: {},
                      sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                     item_history: {}, markets: {}, cultures_db: {}):
+                     item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """shows inventory of a player
     """
     mud.send_message(id, '****CLEAR****You check your inventory.')
@@ -4216,7 +4216,7 @@ def _change_setting(params, mud, players_db: {}, players: {}, rooms: {},
                     id: int, fights: {}, corpses: {}, blocklist,
                     map_area: [], character_class_db: {}, spells_db: {},
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                    item_history: {}, markets: {}, cultures_db: {}):
+                    item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player changes their password
     """
     new_password = ''
@@ -4241,7 +4241,7 @@ def _write_on_item(params, mud, players_db: {}, players: {}, rooms: {},
                    id: int, fights: {}, corpses: {}, blocklist,
                    map_area: [], character_class_db: {}, spells_db: {},
                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                   item_history: {}, markets: {}, cultures_db: {}):
+                   item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player writes on an object
     """
     if ' on ' not in params:
@@ -4269,7 +4269,7 @@ def _check(params, mud, players_db: {}, players: {}, rooms: {},
            id: str, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player checks their inventory or stats
     """
     if params.lower() == 'inventory' or \
@@ -4293,7 +4293,7 @@ def _wear(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player wears an item of clothing
     """
     if players[id]['frozenStart'] != 0:
@@ -4345,7 +4345,7 @@ def _wield(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist: {},
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player wields a weapon
     """
     if players[id]['frozenStart'] != 0:
@@ -4477,7 +4477,7 @@ def _stow(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player stows any held weapons
     """
     if len(list(players[id]['inv'])) == 0:
@@ -4519,7 +4519,7 @@ def _punch(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player punches another player or npc
     """
     # stow any held weapons
@@ -4628,7 +4628,7 @@ def _unwear(params, mud, players_db: {}, players: {}, rooms: {},
             id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-            item_history: {}, markets: {}, cultures_db: {}):
+            item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player takes off an item of clothing
     """
     if len(list(players[id]['inv'])) == 0:
@@ -4832,7 +4832,7 @@ def _health(params, mud, players_db: {}, players: {}, rooms: {},
             id: int, fights: {}, corpses: {}, blocklist,
             map_area: [], character_class_db: {}, spells_db: {},
             sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-            item_history: {}, markets: {}, cultures_db: {}):
+            item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show player health status
     """
     mud.send_message(id, '<r>\n')
@@ -4846,7 +4846,7 @@ def _bio(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """show player bio
     """
     if len(params) == 0:
@@ -4891,7 +4891,7 @@ def _eat(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player eats an item
     """
     food = params.lower()
@@ -4949,7 +4949,7 @@ def _step_over(params, mud, players_db: {}, players: {}, rooms: {},
                id: int, fights: {}, corpses: {}, blocklist,
                map_area: [], character_class_db: {}, spells_db: {},
                sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-               item_history: {}, markets: {}, cultures_db: {}):
+               item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player steps over something
     """
     room_id = players[id]['room']
@@ -4986,7 +4986,7 @@ def _climb_base(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                sit: bool, item_history: {}, markets: {}, cultures_db: {}):
+                sit: bool, item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Climbing through or into an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -5102,7 +5102,7 @@ def _climb(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player climbs onto something
     """
     _climb_base(params, mud, players_db, players, rooms,
@@ -5120,7 +5120,7 @@ def _sit(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player sits on an item
     """
     _climb_base(params, mud, players_db, players, rooms,
@@ -5138,7 +5138,7 @@ def _heave(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Roll/heave an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -5222,7 +5222,7 @@ def _jump(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Jumping onto an item takes the player to a different room
     """
     if players[id]['canGo'] != 1:
@@ -5355,7 +5355,7 @@ def _deal(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Deal cards to other players
     """
     params_lower = params.lower()
@@ -5368,7 +5368,7 @@ def _hand_of_cards(params, mud, players_db: {}, players: {}, rooms: {},
                    id: int, fights: {}, corpses: {}, blocklist,
                    map_area: [], character_class_db: {}, spells_db: {},
                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                   item_history: {}, markets: {}, cultures_db: {}):
+                   item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Show hand of cards
     """
     hand_of_cards_show(players, id, mud, rooms, items, items_db)
@@ -5380,7 +5380,7 @@ def _swap_a_card(params, mud, players_db: {}, players: {}, rooms: {},
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Swap a playing card for another from the deck
     """
     swap_card(params, players, id, mud, rooms, items, items_db)
@@ -5392,7 +5392,7 @@ def _shuffle(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Shuffle a deck of cards
     """
     shuffle_cards(players, id, mud, rooms, items, items_db)
@@ -5404,7 +5404,7 @@ def _call_card_game(params, mud, players_db: {}, players: {}, rooms: {},
                     id: int, fights: {}, corpses: {}, blocklist,
                     map_area: [], character_class_db: {}, spells_db: {},
                     sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                    item_history: {}, markets: {}, cultures_db: {}):
+                    item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Players show their cards
     """
     call_cards(players, id, mud, rooms, items, items_db)
@@ -5416,7 +5416,7 @@ def _morris_game(params, mud, players_db: {}, players: {}, rooms: {},
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Show the nine men's morris board
     """
     params = params.lower()
@@ -5450,7 +5450,7 @@ def _chess(params, mud, players_db: {}, players: {}, rooms: {},
            id: int, fights: {}, corpses: {}, blocklist,
            map_area: [], character_class_db: {}, spells_db: {},
            sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-           item_history: {}, markets: {}, cultures_db: {}):
+           item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Jumping onto an item takes the player to a different room
     """
     # check if board exists in room
@@ -5591,7 +5591,7 @@ def _graphics(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: [], character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Turn graphical output on or off
     """
     graphics_state = params.lower().strip()
@@ -5635,7 +5635,7 @@ def _buy(params, mud, players_db: {}, players: {}, rooms: {},
          id: int, fights: {}, corpses: {}, blocklist,
          map_area: [], character_class_db: {}, spells_db: {},
          sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-         item_history: {}, markets: {}, cultures_db: {}):
+         item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Buy from a market
     """
     if players[id]['frozenStart'] != 0:
@@ -5731,7 +5731,7 @@ def _start_fishing(params, mud, players_db: {}, players: {}, rooms: {},
                    id: int, fights: {}, corpses: {}, blocklist,
                    map_area: [], character_class_db: {}, spells_db: {},
                    sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                   item_history: {}, markets: {}, cultures_db: {}):
+                   item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Go fishing
     """
     if players[id]['frozenStart'] != 0:
@@ -5795,7 +5795,7 @@ def _item_sell(params, mud, players_db: {}, players: {}, rooms: {},
                id: int, fights: {}, corpses: {}, blocklist,
                map_area: [], character_class_db: {}, spells_db: {},
                sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-               item_history: {}, markets: {}, cultures_db: {}):
+               item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """Sell in a market
     """
     if players[id]['frozenStart'] != 0:
@@ -5875,7 +5875,7 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
         id: int, fights: {}, corpses: {}, blocklist,
         map_area: [], character_class_db: {}, spells_db: {},
         sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-        item_history: {}, markets: {}, cultures_db: {}):
+        item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player moves in a direction NSEW
     """
     if players[id]['frozenStart'] != 0:
@@ -6196,7 +6196,7 @@ def _conjure_room(params, mud, players_db: {}, players: {}, rooms: {},
                   id: int, fights: {}, corpses: {}, blocklist: {},
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                  item_history: {}, markets: {}, cultures_db: {}):
+                  item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch creates a new room
     """
     params = params.replace('room ', '')
@@ -6274,7 +6274,7 @@ def _conjure_item(params, mud, players_db: {}, players: {}, rooms: {},
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                  item_history: {}, markets: {}, cultures_db: {}):
+                  item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch creates a new item
     """
     item_name = params.lower()
@@ -6351,7 +6351,7 @@ def _conjure_npc(params, mud, players_db: {}, players: {}, rooms: {},
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch creates a new npc
     """
     if not params.startswith('npc '):
@@ -6579,7 +6579,7 @@ def _dismiss(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player dismisses a familiar
     """
     if not params.lower().startswith('familiar'):
@@ -6613,7 +6613,7 @@ def _conjure(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch creates an item, room or npc
     """
     if not _is_witch(id, players):
@@ -6660,7 +6660,7 @@ def _destroy_item(params, mud, players_db: {}, players: {}, rooms: {},
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                  item_history: {}, markets: {}, cultures_db: {}):
+                  item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes an item from a room
     """
     item_name = params.lower()
@@ -6699,7 +6699,7 @@ def _destroy_npc(params, mud, players_db: {}, players: {}, rooms: {},
                  id: int, fights: {}, corpses: {}, blocklist,
                  map_area: [], character_class_db: {}, spells_db: {},
                  sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                 item_history: {}, markets: {}, cultures_db: {}):
+                 item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes an npc from a room
     """
     npc_name = params.lower().replace('npc ', '').strip().replace('"', '')
@@ -6737,7 +6737,7 @@ def _destroy_room(params, mud, players_db: {}, players: {}, rooms: {},
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                  item_history: {}, markets: {}, cultures_db: {}):
+                  item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes a room
     """
     params = params.replace('room ', '')
@@ -6793,7 +6793,7 @@ def _destroy(params, mud, players_db: {}, players: {}, rooms: {},
              id: int, fights: {}, corpses: {}, blocklist,
              map_area: [], character_class_db: {}, spells_db: {},
              sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-             item_history: {}, markets: {}, cultures_db: {}):
+             item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """witch removes an item, room or npc
     """
     if not _is_witch(id, players):
@@ -6830,7 +6830,7 @@ def _item_give(params, mud, players_db: {}, players: {}, rooms: {},
                id: int, fights: {}, corpses: {}, blocklist,
                map_area: [], character_class_db: {}, spells_db: {},
                sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-               item_history: {}, markets: {}, cultures_db: {}):
+               item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player gives an item to another player or npc
     """
     if ' to ' not in params:
@@ -6945,7 +6945,7 @@ def _drop(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player drops an item
     """
     # Check if inventory is empty
@@ -7332,7 +7332,7 @@ def _open_item(params, mud, players_db: {}, players: {}, rooms: {},
                id: int, fights: {}, corpses: {}, blocklist,
                map_area: [], character_class_db: {}, spells_db: {},
                sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-               item_history: {}, markets: {}, cultures_db: {}):
+               item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player opens an item
     """
     target = params.lower()
@@ -7375,7 +7375,7 @@ def _pull_lever(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist: {},
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player pulls a lever
     """
     target = params.lower()
@@ -7406,7 +7406,7 @@ def _push_lever(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player pushes a lever
     """
     target = params.lower()
@@ -7445,7 +7445,7 @@ def _wind_lever(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player winds a lever/crank
     """
     target = params.lower()
@@ -7477,7 +7477,7 @@ def _unwind_lever(params, mud, players_db: {}, players: {}, rooms: {},
                   id: int, fights: {}, corpses: {}, blocklist,
                   map_area: [], character_class_db: {}, spells_db: {},
                   sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                  item_history: {}, markets: {}, cultures_db: {}):
+                  item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player unwinds a lever/crank
     """
     target = params.lower()
@@ -7590,7 +7590,7 @@ def _close_item(params, mud, players_db: {}, players: {}, rooms: {},
                 id: int, fights: {}, corpses: {}, blocklist,
                 map_area: [], character_class_db: {}, spells_db: {},
                 sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-                item_history: {}, markets: {}, cultures_db: {}):
+                item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player closes an item
     """
     target = params.lower()
@@ -7633,7 +7633,7 @@ def _put_item(params, mud, players_db: {}, players: {}, rooms: {},
               id: int, fights: {}, corpses: {}, blocklist,
               map_area: {}, character_class_db: {}, spells_db: {},
               sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-              item_history: {}, markets: {}, cultures_db: {}):
+              item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player puts an item onto/into some other item
     """
     if ' in ' not in params:
@@ -7779,7 +7779,7 @@ def _take(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {}, title_str: str):
     """player takes an item
     """
     if players[id]['frozenStart'] != 0:
@@ -8231,7 +8231,7 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
                           event_schedule, id, fights, corpses, blocklist,
                           map_area, character_class_db, spells_db,
                           sentiment_db, guilds_db, clouds, races_db,
-                          item_history, markets, cultures_db)
+                          item_history, markets, cultures_db, '')
     except Exception as ex:
         switcher["sendCommandError"](str(ex),
                                      mud, players_db, players, rooms,
@@ -8240,4 +8240,4 @@ def run_command(command, params, mud, players_db: {}, players: {}, rooms: {},
                                      id, fights, corpses, blocklist,
                                      map_area, character_class_db, spells_db,
                                      sentiment_db, guilds_db, clouds, races_db,
-                                     item_history, markets, cultures_db)
+                                     item_history, markets, cultures_db, '')
