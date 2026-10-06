@@ -3410,7 +3410,7 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             _show_room_image(mud, id, player_room_id,
                              rooms, players, items,
                              items_db, clouds, map_area)
-            mud.send_message_wrap(id, '<f230>', title_str)
+            mud.send_message_wrap(id, '<f106>', title_str)
             room_description = \
                 _conditional_room_desc(rm_item['description'],
                                        rm_item['tideOutDescription'],
