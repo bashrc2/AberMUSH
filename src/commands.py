@@ -389,8 +389,7 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                     continue
                 if is_attacking(players, id, fights):
                     stop_attack(players, id, npcs, fights)
-                mud.send_message(
-                    id, "You teleport to " + room['name'] + "\n\n")
+                title_str = "You teleport to " + room['name'] + "\n\n"
                 pname = players[id]['name']
                 desc = '<f32>{}<r> suddenly vanishes.'.format(pname)
                 message_to_room_players(mud, players, id, desc + "\n\n")
@@ -404,7 +403,7 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                       id, fights, corpses, blocklist, map_area,
                       character_class_db, spells_db, sentiment_db,
                       guilds_db, clouds, races_db, item_history, markets,
-                      cultures_db)
+                      cultures_db, title_str)
                 return
 
             # try adding or removing "the"
@@ -418,8 +417,7 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             desc2 = '<f32>{}<r> suddenly appears.'.format(pname)
             for room_id, room in rooms.items():
                 if room['name'].strip().lower() == target_location:
-                    mud.send_message(
-                        id, "You teleport to " + room['name'] + "\n\n")
+                    title_str = "You teleport to " + room['name'] + "\n\n"
                     message_to_room_players(mud, players, id,
                                             desc1 + "\n\n")
                     players[id]['room'] = room_id
@@ -431,7 +429,7 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                           id, fights, corpses, blocklist, map_area,
                           character_class_db, spells_db, sentiment_db,
                           guilds_db, clouds, races_db, item_history, markets,
-                          cultures_db)
+                          cultures_db, title_str)
                     return
 
             mud.send_message(
@@ -3369,7 +3367,8 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
           id: int, fights: {}, corpses: {}, blocklist,
           map_area: [], character_class_db: {}, spells_db: {},
           sentiment_db: {}, guilds_db: {}, clouds: {}, races_db: {},
-          item_history: {}, markets: {}, cultures_db: {}):
+          item_history: {}, markets: {}, cultures_db: {},
+          title_str: str):
     if players[id]['canLook'] == 1:
         if len(params) < 1:
             # If no arguments are given, then look around and describe
@@ -3425,6 +3424,7 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
 
             mud.send_message_wrap(id, '<f230>',
                                   "****CLEAR****<f230>" +
+                                  title_str +
                                   room_description.strip())
             playershere = []
 
@@ -3780,6 +3780,7 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             if not message_sent:
                 mud.send_message(id, "Look at what?<r>\n")
     else:
+        mud.send_message(id, title_str)
         mud.send_message(
             id,
             '****CLEAR****' +
@@ -6039,22 +6040,22 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
                                             players[id]['name'] + '<r> ' +
                                             desc + "\n\n")
                     # send the player a message telling them where they are now
-                    desc = \
+                    title_str = \
                         '****TITLE****You arrive at ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
                 else:
                     # send the player a message telling them where they are now
-                    desc = \
+                    title_str = \
                         '****TITLE****You row to ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
-                mud.send_message(id, desc + "<r>\n\n")
+                # mud.send_message(id, desc + "<r>\n\n")
 
                 _look('', mud, players_db, players, rooms, npcs_db, npcs,
                       items_db, items, env_db, env, event_db, event_schedule,
                       id, fights, corpses, blocklist, map_area,
                       character_class_db, spells_db, sentiment_db,
                       guilds_db, clouds, races_db, item_history, markets,
-                      cultures_db)
+                      cultures_db, title_str)
                 # report any followers
                 if len(followers_msg) > 0:
                     message_to_room_players(mud, players, id, followers_msg)
