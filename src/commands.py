@@ -3400,7 +3400,9 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             mud.send_message_wrap(id, '<f230>', '****CLEAR****')
 
             player_room_id = players[id]['room']
+            title_format = '<f230>'
             if not title_str:
+                title_format = '<f106>'
                 title_str = rooms[player_room_id]['name']
 
             # store the player's current room
@@ -3410,7 +3412,7 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             _show_room_image(mud, id, player_room_id,
                              rooms, players, items,
                              items_db, clouds, map_area)
-            mud.send_message_wrap(id, '<f106>', title_str)
+            mud.send_message_wrap(id, title_format, title_str)
             room_description = \
                 _conditional_room_desc(rm_item['description'],
                                        rm_item['tideOutDescription'],
