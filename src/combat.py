@@ -1579,8 +1579,8 @@ def _run_fights_between_player_and_npc(mud, players: {}, npcs: {},
                 npc1['name'] + '<r>',
                 'You widely miss <f220>' + npc1['name'] + '<r>',
                 'You miss <f220>' + npc1['name'] + '<r> by miles!',
-                'You miss <f220>' + npc1['name'] +
-                '<r> by a wide margin'
+                'You miss <f220>' + npc1['name'] + '<r> by a wide margin',
+                'You miss <f220>' + npc1['name'] + '<r> by a enormous margin'
             ]
             descr = random_desc(desc)
             mud.send_message(s1id, descr + '\n')
@@ -1783,7 +1783,8 @@ def _run_fights_between_npc_and_player(mud, players: {}, npcs: {},
             '<f220>' + npc1_name + '<r> completely failed to hit you',
             '<f220>' + npc1_name + '<r> misses you widely',
             '<f220>' + npc1_name + '<r> missed you by miles!',
-            '<f220>' + npc1_name + '<r> missed you by a wide margin'
+            '<f220>' + npc1_name + '<r> missed you by a wide margin',
+            '<f220>' + npc1_name + '<r> missed you by an enormous margin'
         ]
         descr = random_desc(desc)
         mud.send_message(s2id, descr + '\n')
