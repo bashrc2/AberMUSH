@@ -8021,14 +8021,14 @@
     "1125": {
         "inDescription": "waddles in",
         "outDescription": "waddles out",
-        "lookDescription": "eyes you curiously",
+        "lookDescription": "Eyes you curiously|Indignantly glares at you|Looks very annoyed by your presence",
         "name": "the goose",
         "inv" : [],
         "speakLanguage": "common",
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"The goose glares at you, then continues pecking the ground|The goose flaps its wings|The goose pecks at the ground|The goose looks at you quizzically|The goose honks at an annoyingly loud volume"]
+            [["a","e","i"],"# The goose glares at you, then continues pecking the ground|# The goose flaps its wings|# The goose pecks at the ground|# The goose looks at you quizzically|# The goose honks at an annoyingly loud volume"]
         ],
         "path" : ["$rid=234$","$rid=236$","$rid=239$"],
         "bodyType": "",
