@@ -6099,7 +6099,7 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
                       id, fights, corpses, blocklist, map_area,
                       character_class_db, spells_db, sentiment_db,
                       guilds_db, clouds, races_db, item_history, markets,
-                      cultures_db, title_str)
+                      cultures_db, title_str + '<r>\n\n')
                 # report any followers
                 if len(followers_msg) > 0:
                     message_to_room_players(mud, players, id, followers_msg)
