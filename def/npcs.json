@@ -2516,7 +2516,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+            [["a","e","i"],"# pricks up its ears|# remains motionless|# hops away from you|# hops towards you"]
         ],
         "path" : [],
         "bodyType": "",
@@ -2630,7 +2630,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+            [["a","e","i"],"# pricks up its ears|# remains motionless|# hops away from you|# hops towards you"]
         ],
         "path" : [],
         "bodyType": "",
@@ -2744,7 +2744,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Pricks up its ears|# Remains motionless|# Hops away from you"]
+            [["a","e","i"],"# pricks up its ears|# remains motionless|# hops away from you|# hops towards you"]
         ],
         "path" : [],
         "bodyType": "",
@@ -3120,7 +3120,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Withdraws its eye stalks"]
+            [["a","e","i"],"# withdraws its eye stalks|# moves very slowly"]
         ],
         "path" : [],
         "bodyType": "",
@@ -3348,7 +3348,7 @@
         "language": ["common"],
         "culture": "ratfolk",
         "conv" : [
-            [["e","i","u","o"],"Eeeeeek!|# Twitches its whiskers|# Looks at you suspiciously|# Lets forth a bloodcurdling shriek|# Cleans its whiskers|# Glares at you"]
+            [["e","i","u","o"],"Eeeeeek!|EEEK! EEEK!|# twitches its whiskers|# looks at you suspiciously|# lets forth a bloodcurdling shriek|# cleans its whiskers|# glares at you"]
         ],
         "path" : [],
         "bodyType": "",
@@ -3694,7 +3694,7 @@
         "language": ["elvish"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"],"To be sure!|# Frowns"]
+            [["a","e","i","u"],"To be sure!|# frowns"]
         ],
         "path" : ["$rid=986$","$rid=982$","$rid=978$","$rid=985$"],
         "bodyType": "",
@@ -3923,7 +3923,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"], "# Remains silent|# Does not respond|# Nods"]
+            [["a","e","i","u"], "# remains silent|# does not respond|# nods"]
         ],
         "path" : [],
         "bodyType": "",
@@ -4034,7 +4034,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"], "# Remains silent|# Continues praying|# Does not respond|# Moves slightly but continues to pray|# Nods"]
+            [["a","e","i","u"], "# remains silent|# continues praying|# does not respond|# moves slightly but continues to pray|# nods"]
         ],
         "path" : ["$rid=821$"],
         "bodyType": "",
@@ -4148,7 +4148,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"], "# Remains silent|# Continues meditating|# Does not respond|# Rocks slowly as they meditate|# Looks serene"]
+            [["a","e","i","u"], "# remains silent|# continues meditating|# does not respond|# rocks slowly as they meditate|# looks serene"]
         ],
         "path" : ["$rid=821$"],
         "bodyType": "",
@@ -4262,7 +4262,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Says nothing"]
+            [["a","e","i"],"# says nothing"]
         ],
         "path" : [],
         "bodyType": "",
@@ -4490,7 +4490,7 @@
         "language": ["elvish"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"],"# Looks angry|# Roars, and the walls vibrate|# Roars, and the walls tremble"]
+            [["a","e","i","u"],"# looks angry|# roars, and the walls vibrate|# roars, and the walls tremble"]
         ],
         "path" : ["$rid=1062$","$rid=1061$","$rid=1060$","$rid=1059$"],
         "bodyType": "",
@@ -4607,7 +4607,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Looks in your direction|# Sniffs the air|# Glances curiously at you|# Turns to look at you"]
+            [["a","e","i"],"# looks in your direction|# sniffs the air|# glances curiously at you|# turns to look at you"]
         ],
         "path" : ["$rid=889$","$rid=890$","$rid=886$","$rid=1147$","$rid=1148$"],
         "bodyType": "",
@@ -4721,7 +4721,7 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Looks annoyed|# Looks irritated"]
+            [["a","e","i"],"# looks annoyed|# looks irritated"]
         ],
         "path" : [],
         "bodyType": "",
@@ -4835,7 +4835,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Continues chewing"]
+            [["a","e","i"],"# continues chewing"]
         ],
         "path" : [],
         "bodyType": "",
@@ -4949,7 +4949,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Continues chewing"]
+            [["a","e","i"],"# continues chewing"]
         ],
         "path" : [],
         "bodyType": "",
@@ -5063,7 +5063,7 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"Are you sure?|# Looks skeptical|# Shakes their head"]
+            [["a","e","i"],"Are you sure?|# looks skeptical|# shakes their head"]
         ],
         "path" : [],
         "bodyType": "",
@@ -5177,7 +5177,7 @@
         "language": ["dwarvish"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# Glares at you|# Looks angry"]
+            [["a","e","i"],"# glares at you|# looks angry"]
         ],
         "path" : [],
         "bodyType": "",
@@ -5415,7 +5415,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"],"# Remains motionless"]
+            [["a","e","i","u"],"# remains motionless"]
         ],
         "path" : [],
         "bodyType": "",
@@ -5773,7 +5773,7 @@
         "culture": "",
         "conv" : [
             [["e"],"Cluck-cluck!"],
-            [["a"],"# The chicken pauses to look at you for a moment, then continues pecking the ground."]
+            [["a"],"# pauses to look at you for a moment, then continues pecking the ground."]
         ],
         "path" : ["$rid=1393$","$rid=1387$","$rid=1389$","$rid=1390$"],
         "bodyType": "",
@@ -7914,7 +7914,7 @@
         "language": ["common","druidic"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"], "# Remains silent|# Does not respond|# The priest turns slowly to look at you but his face is obscured in shadow. Then he turns away again"]
+            [["a","e","i","u"], "# remains silent|# does not respond|# the priest turns slowly to look at you but his face is obscured in shadow. Then he turns away again"]
         ],
         "path" : ["$rid=1130$"],
         "bodyType": "",
@@ -8028,7 +8028,7 @@
         "language": ["common"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"# The goose glares at you, then continues pecking the ground|# The goose flaps its wings|# The goose pecks at the ground|# The goose looks at you quizzically|# The goose honks at an annoyingly loud volume"]
+            [["a","e","i"],"# glares at you, then continues pecking the ground|# flaps its wings|# pecks at the ground|# looks at you quizzically|# honks at an annoyingly loud volume"]
         ],
         "path" : ["$rid=234$","$rid=236$","$rid=239$"],
         "bodyType": "",
@@ -8483,7 +8483,7 @@
         "language": [],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"],"# The seal notices you and then goes back to sleep|# The seal is sleeping and ignores you"]
+            [["a","e","i","u"],"# notices you and then goes back to sleep|# is sleeping and ignores you"]
         ],
         "path" : ["$rid=1403$","$rid=1402$","$rid=588$"],
         "bodyType": "",
@@ -8724,7 +8724,7 @@
         "language": ["common","dwarvish","elvish","draconic","druidic"],
         "culture": "",
         "conv" : [
-            [["e","a","i","o","u"],"# Hops between branches|# Pecks at the bark of a tree"]
+            [["e","a","i","o","u"],"# hops between branches|# pecks at the bark of a tree"]
         ],
         "path" : ["$rid=652$","$rid=651$","$rid=1032$","$rid=1113$","$rid=1116$","$rid=1137$","$rid=1144$","$rid=1147$","$rid=1148$","$rid=1314$","$rid=1315$","$rid=1319$","$rid=1365$"],
         "bodyType": "",
@@ -8838,7 +8838,7 @@
         "language": ["common","dwarvish","elvish","draconic","druidic"],
         "culture": "",
         "conv" : [
-            [["e","a","i","o","u"],"# Flies swiftly between branches|# Pecks at a leaf|# Hops along a branch"]
+            [["e","a","i","o","u"],"# flies swiftly between branches|# pecks at a leaf|# Hops along a branch"]
         ],
         "path" : ["$rid=15$","$rid=239$","$rid=1401$","$rid=652$","$rid=651$","$rid=1032$","$rid=1113$","$rid=1116$","$rid=1137$","$rid=1144$","$rid=1147$","$rid=1148$","$rid=1314$","$rid=1315$","$rid=1319$","$rid=1365$"],
         "bodyType": "",
@@ -9536,7 +9536,7 @@
         "language": ["druidic"],
         "culture": "",
         "conv" : [
-            [["a","e","i"],"Rummages around and ignores you|Looks up"]
+            [["a","e","i"],"# rummages around and ignores you|# looks up|# sniffs"]
         ],
         "path" : ["$rid=357$","$rid=384$","$rid=301$","$rid=349$"],
         "bodyType": "",
@@ -10332,7 +10332,7 @@
         "language": ["draconic"],
         "culture": "",
         "conv" : [
-            [["a","e","i","u"],"# Tastes the air with its forked tongue"]
+            [["a","e","i","u"],"# tastes the air with its forked tongue"]
         ],
         "path" : ["$rid=923$","$rid=920$","$rid=1421$","$rid=1422$","$rid=1423$"],
         "bodyType": "",
