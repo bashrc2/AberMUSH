@@ -391,7 +391,7 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
                     continue
                 if is_attacking(players, id, fights):
                     stop_attack(players, id, npcs, fights)
-                title_str = "You teleport to " + room['name'] + "\n\n"
+                title_str = "You teleport to " + room['name'] + "<r>\n\n"
                 pname = players[id]['name']
                 desc = '<f32>{}<r> suddenly vanishes.'.format(pname)
                 message_to_room_players(mud, players, id, desc + "\n\n")
@@ -419,7 +419,7 @@ def _teleport(params, mud, players_db: {}, players: {}, rooms: {}, npcs_db: {},
             desc2 = '<f32>{}<r> suddenly appears.'.format(pname)
             for room_id, room in rooms.items():
                 if room['name'].strip().lower() == target_location:
-                    title_str = "You teleport to " + room['name'] + "\n\n"
+                    title_str = "You teleport to " + room['name'] + "<r>\n\n"
                     message_to_room_players(mud, players, id,
                                             desc1 + "\n\n")
                     players[id]['room'] = room_id
@@ -3446,9 +3446,9 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                                             "the floor.")
 
             mud.send_message_wrap(id, '<f230>',
-                                  "****CLEAR****<f230>" +
-                                  title_str +
-                                  room_description.strip())
+                                  "****CLEAR****<f230>")
+            mud.send_message_wrap(id, title_str)
+            mud.send_message_wrap(id, room_description.strip())
             playershere = []
 
             itemshere = []
