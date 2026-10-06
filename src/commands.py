@@ -3446,8 +3446,8 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
                                             "the floor.")
 
             if title_str:
-                mud.send_message_wrap(id, '<f230>****CLEAR****<f230>',
-                                      title_str)
+                mud.send_message_wrap(id, '<f230>',
+                                      '****CLEAR****<f230>' + title_str)
             else:
                 mud.send_message_wrap(id, '<f230>', '****CLEAR****')
             mud.send_message_wrap(id, '<f230>', room_description.strip())
