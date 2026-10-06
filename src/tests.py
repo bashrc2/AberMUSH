@@ -724,8 +724,54 @@ def _test_language_path2() -> None:
     assert new_filename == filename
 
 
+def _test_weapons() -> None:
+    """ Check that weapons have the expected properties
+    """
+    Config = configparser.ConfigParser()
+    Config.read('config.ini')
+    items_dict = {}
+    with open(str(Config.get('Items', 'Definition')), "r",
+              encoding='utf-8') as read_file:
+        items_dict = json.loads(read_file.read())
+
+    for item_id, item in items_dict.items():
+        name = item['name'].lower()
+        if 'spear' in name or \
+           'falchion' in name or \
+           'javelin' in name or \
+           'ballista' in name or \
+           'knuckle' in name or \
+           name.endswith('book') or \
+           name.endswith(' mace') or \
+           name.endswith('staff') or \
+           name.endswith('poker') or \
+           name.endswith('hatchet') or \
+           name.endswith('athame') or \
+           name.endswith('candelabrum') or \
+           name.endswith('pitchfork') or \
+           name.endswith('trident') or \
+           name.endswith('pike') or \
+           name.endswith('dagger') or \
+           name.endswith('brick') or \
+           'sword' in name or \
+           name.endswith('flail') or \
+           name.endswith('halberd') or \
+           name.endswith('bow') or \
+           name.endswith('axe'):
+            if not item.get('damage'):
+                print(item_id + ' has no damage value')
+            assert item.get('damage')
+            if not item.get('cost'):
+                print(item_id + ' has no cost value')
+            assert item.get('cost')
+            if not item.get('type'):
+                print(item_id + ' has no type value')
+            assert item.get('type')
+
+
 def run_all_tests():
     print('Running tests...')
+    _test_weapons()
     _test_language_path2()
     _test_functions()
     _test_duplicate_exits()
