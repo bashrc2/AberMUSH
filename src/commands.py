@@ -3780,10 +3780,8 @@ def _look(params, mud, players_db: {}, players: {}, rooms: {},
             if not message_sent:
                 mud.send_message(id, "Look at what?<r>\n")
     else:
-        mud.send_message(id, title_str)
         mud.send_message(
-            id,
-            '****CLEAR****' +
+            id, title_str + '****CLEAR****' +
             'You somehow cannot muster enough perceptive powers ' +
             'to perceive and describe your immediate surroundings...<r>\n')
 
@@ -6043,7 +6041,6 @@ def _go(params, mud, players_db: {}, players: {}, rooms: {},
                     title_str = \
                         '****TITLE****You row to ' + \
                         '<f106>{}'.format(rooms[players[id]['room']]['name'])
-                # mud.send_message(id, desc + "<r>\n\n")
 
                 _look('', mud, players_db, players, rooms, npcs_db, npcs,
                       items_db, items, env_db, env, event_db, event_schedule,
