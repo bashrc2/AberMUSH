@@ -144,7 +144,7 @@ def _test_functions() -> None:
         print('Module: ' + mod_name + ' ✓')
         for name, properties in function_props.items():
             line_ctr = 0
-            for line in modules[mod_name]['lines']:
+            for line in mod_properties['lines']:
                 line_str = line.strip()
                 if line_str.startswith('def '):
                     line_ctr += 1
@@ -153,8 +153,7 @@ def _test_functions() -> None:
                     line_ctr += 1
                     continue
                 if name + '(' in line:
-                    mod_list = \
-                        function_props[name]['calledInModule']
+                    mod_list = properties['calledInModule']
                     if mod_name not in mod_list:
                         mod_list.append(mod_name)
                     if mod_name in exclude_func_args:
@@ -165,15 +164,15 @@ def _test_functions() -> None:
                         continue
                     call_args = \
                         get_func_call_args(name,
-                                           modules[mod_name]['lines'],
+                                           mod_properties['lines'],
                                            line_ctr)
                     if not function_args_match(call_args,
-                                               function_props[name]['args']):
+                                               properties['args']):
                         print('Call to function ' + name +
                               ' does not match its arguments')
                         print('def args: ' +
-                              str(len(function_props[name]['args'])) +
-                              '\n' + str(function_props[name]['args']))
+                              str(len(properties['args'])) +
+                              '\n' + str(properties['args']))
                         print('Call args: ' + str(len(call_args)) + '\n' +
                               str(call_args))
                         print('module ' + mod_name + ' line ' + str(line_ctr))
@@ -519,7 +518,7 @@ def _test_functions() -> None:
     color_ctr = 0
     for mod_name, mod_properties in modules.items():
         line_ctr = 0
-        modules[mod_name]['color'] = module_colors[color_ctr]
+        mod_properties['color'] = module_colors[color_ctr]
         color_ctr += 1
         if color_ctr >= len(module_colors):
             color_ctr = 0
@@ -677,9 +676,9 @@ def _test_duplicate_exits():
 
 def _test_purchase_with_money() -> None:
     print("testMoneyPurchase")
-    id = "me"
+    pid = "me"
     players = {
-        id: {
+        pid: {
             "cp": 0,
             "sp": 0,
             "ep": 0,
@@ -687,16 +686,16 @@ def _test_purchase_with_money() -> None:
             "pp": 0
         }
     }
-    assert money_purchase(id, players, "0gp")
-    players[id]["gp"] = 100
-    assert money_purchase(id, players, "0gp")
-    assert not money_purchase(id, players, "101gp")
-    assert money_purchase(id, players, "40gp")
-    if players[id]["gp"] != 60:
-        print('gp ' + str(players[id]["gp"]))
-    assert players[id]["gp"] == 60
+    assert money_purchase(pid, players, "0gp")
+    players[pid]["gp"] = 100
+    assert money_purchase(pid, players, "0gp")
+    assert not money_purchase(pid, players, "101gp")
+    assert money_purchase(pid, players, "40gp")
+    if players[pid]["gp"] != 60:
+        print('gp ' + str(players[pid]["gp"]))
+    assert players[pid]["gp"] == 60
     players = {
-        id: {
+        pid: {
             "cp": 0,
             "sp": 30,
             "ep": 0,
@@ -704,8 +703,8 @@ def _test_purchase_with_money() -> None:
             "pp": 0
         }
     }
-    assert money_purchase(id, players, "2gp")
-    assert players[id]["sp"] == 10
+    assert money_purchase(pid, players, "2gp")
+    assert players[pid]["sp"] == 10
 
 
 def _test_language_path2() -> None:
